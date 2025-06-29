@@ -8,4 +8,14 @@ class RootRoutes {
     builder: (context, state) => MainScreen(),
     routes: [MainRoutes.createRecipe],
   );
+  static GoRoute groceriesRoute = GoRoute(
+    path: "/groceries",
+    builder: (context, state) => MainScreen(),
+    routes: [],
+  );
+  static GoRoute shoppingRoute = GoRoute(
+    path: "/shopping",
+    builder: (context, state) => MainScreen(),
+    routes: [],
+  );
 }

@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$IngredientsData {
 
- String get id; double get amount; GroceryData get grocery;
+ String get id; double get amount; String get groceryId;
 /// Create a copy of IngredientsData
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,16 +29,16 @@ $IngredientsDataCopyWith<IngredientsData> get copyWith => _$IngredientsDataCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is IngredientsData&&(identical(other.id, id) || other.id == id)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.grocery, grocery) || other.grocery == grocery));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is IngredientsData&&(identical(other.id, id) || other.id == id)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.groceryId, groceryId) || other.groceryId == groceryId));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,amount,grocery);
+int get hashCode => Object.hash(runtimeType,id,amount,groceryId);
 
 @override
 String toString() {
-  return 'IngredientsData(id: $id, amount: $amount, grocery: $grocery)';
+  return 'IngredientsData(id: $id, amount: $amount, groceryId: $groceryId)';
 }
 
 
@@ -49,11 +49,11 @@ abstract mixin class $IngredientsDataCopyWith<$Res>  {
   factory $IngredientsDataCopyWith(IngredientsData value, $Res Function(IngredientsData) _then) = _$IngredientsDataCopyWithImpl;
 @useResult
 $Res call({
- String id, double amount, GroceryData grocery
+ String id, double amount, String groceryId
 });
 
 
-$GroceryDataCopyWith<$Res> get grocery;
+
 
 }
 /// @nodoc
@@ -66,24 +66,15 @@ class _$IngredientsDataCopyWithImpl<$Res>
 
 /// Create a copy of IngredientsData
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? amount = null,Object? grocery = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? amount = null,Object? groceryId = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
-as double,grocery: null == grocery ? _self.grocery : grocery // ignore: cast_nullable_to_non_nullable
-as GroceryData,
+as double,groceryId: null == groceryId ? _self.groceryId : groceryId // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
-/// Create a copy of IngredientsData
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$GroceryDataCopyWith<$Res> get grocery {
-  
-  return $GroceryDataCopyWith<$Res>(_self.grocery, (value) {
-    return _then(_self.copyWith(grocery: value));
-  });
-}
+
 }
 
 
@@ -91,12 +82,12 @@ $GroceryDataCopyWith<$Res> get grocery {
 @JsonSerializable()
 
 class _IngredientsData implements IngredientsData {
-  const _IngredientsData({required this.id, required this.amount, required this.grocery});
+  const _IngredientsData({required this.id, required this.amount, required this.groceryId});
   factory _IngredientsData.fromJson(Map<String, dynamic> json) => _$IngredientsDataFromJson(json);
 
 @override final  String id;
 @override final  double amount;
-@override final  GroceryData grocery;
+@override final  String groceryId;
 
 /// Create a copy of IngredientsData
 /// with the given fields replaced by the non-null parameter values.
@@ -111,16 +102,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _IngredientsData&&(identical(other.id, id) || other.id == id)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.grocery, grocery) || other.grocery == grocery));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _IngredientsData&&(identical(other.id, id) || other.id == id)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.groceryId, groceryId) || other.groceryId == groceryId));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,amount,grocery);
+int get hashCode => Object.hash(runtimeType,id,amount,groceryId);
 
 @override
 String toString() {
-  return 'IngredientsData(id: $id, amount: $amount, grocery: $grocery)';
+  return 'IngredientsData(id: $id, amount: $amount, groceryId: $groceryId)';
 }
 
 
@@ -131,11 +122,11 @@ abstract mixin class _$IngredientsDataCopyWith<$Res> implements $IngredientsData
   factory _$IngredientsDataCopyWith(_IngredientsData value, $Res Function(_IngredientsData) _then) = __$IngredientsDataCopyWithImpl;
 @override @useResult
 $Res call({
- String id, double amount, GroceryData grocery
+ String id, double amount, String groceryId
 });
 
 
-@override $GroceryDataCopyWith<$Res> get grocery;
+
 
 }
 /// @nodoc
@@ -148,25 +139,16 @@ class __$IngredientsDataCopyWithImpl<$Res>
 
 /// Create a copy of IngredientsData
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? amount = null,Object? grocery = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? amount = null,Object? groceryId = null,}) {
   return _then(_IngredientsData(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
-as double,grocery: null == grocery ? _self.grocery : grocery // ignore: cast_nullable_to_non_nullable
-as GroceryData,
+as double,groceryId: null == groceryId ? _self.groceryId : groceryId // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 
-/// Create a copy of IngredientsData
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$GroceryDataCopyWith<$Res> get grocery {
-  
-  return $GroceryDataCopyWith<$Res>(_self.grocery, (value) {
-    return _then(_self.copyWith(grocery: value));
-  });
-}
+
 }
 
 // dart format on

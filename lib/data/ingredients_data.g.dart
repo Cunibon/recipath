@@ -10,12 +10,12 @@ _IngredientsData _$IngredientsDataFromJson(Map<String, dynamic> json) =>
     _IngredientsData(
       id: json['id'] as String,
       amount: (json['amount'] as num).toDouble(),
-      grocery: GroceryData.fromJson(json['grocery'] as Map<String, dynamic>),
+      groceryId: json['groceryId'] as String,
     );
 
 Map<String, dynamic> _$IngredientsDataToJson(_IngredientsData instance) =>
     <String, dynamic>{
       'id': instance.id,
       'amount': instance.amount,
-      'grocery': instance.grocery,
+      'groceryId': instance.groceryId,
     };

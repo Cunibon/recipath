@@ -1,29 +1,29 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'recipe_provider.dart';
+part of 'recipe_notifier.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$recipeProviderHash() => r'18bd7127ad1405c4c8cd288c8a4035e1f4f760df';
+String _$recipeNotifierHash() => r'c5c633c5dd8df7adb55284d7da218eabe7cc8713';
 
-/// See also [RecipeProvider].
-@ProviderFor(RecipeProvider)
-final recipeProviderProvider =
+/// See also [RecipeNotifier].
+@ProviderFor(RecipeNotifier)
+final recipeNotifierProvider =
     AutoDisposeNotifierProvider<
-      RecipeProvider,
+      RecipeNotifier,
       Map<String, RecipeData>
     >.internal(
-      RecipeProvider.new,
-      name: r'recipeProviderProvider',
+      RecipeNotifier.new,
+      name: r'recipeNotifierProvider',
       debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
           ? null
-          : _$recipeProviderHash,
+          : _$recipeNotifierHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );
 
-typedef _$RecipeProvider = AutoDisposeNotifier<Map<String, RecipeData>>;
+typedef _$RecipeNotifier = AutoDisposeNotifier<Map<String, RecipeData>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

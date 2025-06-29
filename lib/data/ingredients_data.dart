@@ -9,7 +9,7 @@ abstract class IngredientsData with _$IngredientsData {
   const factory IngredientsData({
     required String id,
     required double amount,
-    required GroceryData grocery,
+    required String groceryId,
   }) = _IngredientsData;
 
   factory IngredientsData.fromJson(Map<String, Object?> json) =>
