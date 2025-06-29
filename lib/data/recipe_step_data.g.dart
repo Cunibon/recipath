@@ -10,8 +10,8 @@ _RecipeStepData _$RecipeStepDataFromJson(Map<String, dynamic> json) =>
     _RecipeStepData(
       id: json['id'] as String,
       description: json['description'] as String,
-      ingredientIds: (json['ingredientIds'] as List<dynamic>)
-          .map((e) => e as String)
+      ingredients: (json['ingredients'] as List<dynamic>)
+          .map((e) => IngredientsData.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
@@ -19,5 +19,5 @@ Map<String, dynamic> _$RecipeStepDataToJson(_RecipeStepData instance) =>
     <String, dynamic>{
       'id': instance.id,
       'description': instance.description,
-      'ingredientIds': instance.ingredientIds,
+      'ingredients': instance.ingredients,
     };

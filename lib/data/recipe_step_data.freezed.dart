@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$RecipeStepData {
 
- String get id; String get description; List<String> get ingredientIds;
+ String get id; String get description; List<IngredientsData> get ingredients;
 /// Create a copy of RecipeStepData
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,16 +29,16 @@ $RecipeStepDataCopyWith<RecipeStepData> get copyWith => _$RecipeStepDataCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RecipeStepData&&(identical(other.id, id) || other.id == id)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other.ingredientIds, ingredientIds));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RecipeStepData&&(identical(other.id, id) || other.id == id)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other.ingredients, ingredients));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,description,const DeepCollectionEquality().hash(ingredientIds));
+int get hashCode => Object.hash(runtimeType,id,description,const DeepCollectionEquality().hash(ingredients));
 
 @override
 String toString() {
-  return 'RecipeStepData(id: $id, description: $description, ingredientIds: $ingredientIds)';
+  return 'RecipeStepData(id: $id, description: $description, ingredients: $ingredients)';
 }
 
 
@@ -49,7 +49,7 @@ abstract mixin class $RecipeStepDataCopyWith<$Res>  {
   factory $RecipeStepDataCopyWith(RecipeStepData value, $Res Function(RecipeStepData) _then) = _$RecipeStepDataCopyWithImpl;
 @useResult
 $Res call({
- String id, String description, List<String> ingredientIds
+ String id, String description, List<IngredientsData> ingredients
 });
 
 
@@ -66,12 +66,12 @@ class _$RecipeStepDataCopyWithImpl<$Res>
 
 /// Create a copy of RecipeStepData
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? description = null,Object? ingredientIds = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? description = null,Object? ingredients = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
-as String,ingredientIds: null == ingredientIds ? _self.ingredientIds : ingredientIds // ignore: cast_nullable_to_non_nullable
-as List<String>,
+as String,ingredients: null == ingredients ? _self.ingredients : ingredients // ignore: cast_nullable_to_non_nullable
+as List<IngredientsData>,
   ));
 }
 
@@ -82,16 +82,16 @@ as List<String>,
 @JsonSerializable()
 
 class _RecipeStepData implements RecipeStepData {
-  const _RecipeStepData({required this.id, required this.description, required final  List<String> ingredientIds}): _ingredientIds = ingredientIds;
+  const _RecipeStepData({required this.id, required this.description, required final  List<IngredientsData> ingredients}): _ingredients = ingredients;
   factory _RecipeStepData.fromJson(Map<String, dynamic> json) => _$RecipeStepDataFromJson(json);
 
 @override final  String id;
 @override final  String description;
- final  List<String> _ingredientIds;
-@override List<String> get ingredientIds {
-  if (_ingredientIds is EqualUnmodifiableListView) return _ingredientIds;
+ final  List<IngredientsData> _ingredients;
+@override List<IngredientsData> get ingredients {
+  if (_ingredients is EqualUnmodifiableListView) return _ingredients;
   // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_ingredientIds);
+  return EqualUnmodifiableListView(_ingredients);
 }
 
 
@@ -108,16 +108,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RecipeStepData&&(identical(other.id, id) || other.id == id)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other._ingredientIds, _ingredientIds));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RecipeStepData&&(identical(other.id, id) || other.id == id)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other._ingredients, _ingredients));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,description,const DeepCollectionEquality().hash(_ingredientIds));
+int get hashCode => Object.hash(runtimeType,id,description,const DeepCollectionEquality().hash(_ingredients));
 
 @override
 String toString() {
-  return 'RecipeStepData(id: $id, description: $description, ingredientIds: $ingredientIds)';
+  return 'RecipeStepData(id: $id, description: $description, ingredients: $ingredients)';
 }
 
 
@@ -128,7 +128,7 @@ abstract mixin class _$RecipeStepDataCopyWith<$Res> implements $RecipeStepDataCo
   factory _$RecipeStepDataCopyWith(_RecipeStepData value, $Res Function(_RecipeStepData) _then) = __$RecipeStepDataCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String description, List<String> ingredientIds
+ String id, String description, List<IngredientsData> ingredients
 });
 
 
@@ -145,12 +145,12 @@ class __$RecipeStepDataCopyWithImpl<$Res>
 
 /// Create a copy of RecipeStepData
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? description = null,Object? ingredientIds = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? description = null,Object? ingredients = null,}) {
   return _then(_RecipeStepData(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
-as String,ingredientIds: null == ingredientIds ? _self._ingredientIds : ingredientIds // ignore: cast_nullable_to_non_nullable
-as List<String>,
+as String,ingredients: null == ingredients ? _self._ingredients : ingredients // ignore: cast_nullable_to_non_nullable
+as List<IngredientsData>,
   ));
 }
 
