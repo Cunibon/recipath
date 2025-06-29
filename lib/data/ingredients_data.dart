@@ -17,5 +17,6 @@ abstract class IngredientsData with _$IngredientsData {
 }
 
 extension IngredientsDataFunctions on IngredientsData {
-  String toReadable() => "$amount${grocery.unit.name} ${grocery.name}";
+  String toReadable(Map<String, GroceryData> groceryMap) =>
+      "$amount${groceryMap[groceryId]!.unit.name} ${groceryMap[groceryId]!.name}";
 }

@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:random_string/random_string.dart';
-import 'package:recipe_list/data/grocery_data.dart';
 import 'package:recipe_list/data/ingredients_data.dart';
 import 'package:recipe_list/data/recipe_step_data.dart';
 
@@ -22,18 +21,18 @@ abstract class RecipeData with _$RecipeData {
 
 extension RecipeDataFunctions on RecipeData {
   List<IngredientsData> getIngredients() {
-    final Map<GroceryData, IngredientsData> ingredients = {};
+    final Map<String, IngredientsData> ingredients = {};
     for (final step in steps) {
       for (final ingredient in step.ingredients) {
         final data = ingredients.putIfAbsent(
-          ingredient.grocery,
+          ingredient.groceryId,
           () => IngredientsData(
             id: randomAlphaNumeric(16),
             amount: 0,
-            grocery: ingredient.grocery,
+            groceryId: ingredient.groceryId,
           ),
         );
-        ingredients[ingredient.grocery] = data.copyWith(
+        ingredients[ingredient.groceryId] = data.copyWith(
           amount: data.amount + ingredient.amount,
         );
       }

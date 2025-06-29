@@ -1,1 +1,2 @@
-const String dataKey = "data";
+const String recipeDataKey = "recipeData";
+const String groceryDataKey = "groceryData";
