@@ -47,8 +47,9 @@ class RecipeStepItem extends ConsumerWidget {
                   builder: (context) => SearchableList(
                     type: "Groceries",
                     items: groceries,
+                    sort: (a, b) => a.name.compareTo(b.name),
                     toSearchable: (item) => item.toReadable(),
-                    toRepresentation: (item) => GestureDetector(
+                    toWidget: (item) => GestureDetector(
                       onTap: () => context.pop(item.id),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),

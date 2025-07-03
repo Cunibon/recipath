@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:random_string/random_string.dart';
+import 'package:recipe_list/data/grocery_data.dart';
 import 'package:recipe_list/data/ingredient_data.dart';
 import 'package:recipe_list/data/recipe_step_data.dart';
 
@@ -20,6 +21,20 @@ abstract class RecipeData with _$RecipeData {
 }
 
 extension RecipeDataFunctions on RecipeData {
+  String toReadable(Map<String, GroceryData> groceries) {
+    final stringBuffer = StringBuffer();
+
+    stringBuffer.writeln(title);
+
+    getIngredients().forEach(
+      (ingredient) => stringBuffer.writeln(
+        ingredient.toReadable(groceries[ingredient.groceryId]!),
+      ),
+    );
+
+    return stringBuffer.toString();
+  }
+
   List<IngredientData> getIngredients() {
     final Map<String, IngredientData> ingredients = {};
     for (final step in steps) {
