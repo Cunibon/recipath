@@ -18,4 +18,9 @@ class RootRoutes {
     builder: (context, state) => MainScreen(),
     routes: [],
   );
+  static GoRoute storageRoute = GoRoute(
+    path: "/storage",
+    builder: (context, state) => MainScreen(),
+    routes: [],
+  );
 }

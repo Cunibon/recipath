@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:recipe_list/data/ingredients_data.dart';
+import 'package:recipe_list/data/ingredient_data.dart';
 import 'package:recipe_list/data/recipe_data.dart';
 import 'package:recipe_list/widgets/grocery_screen/providers/grocery_notifier.dart';
 import 'package:recipe_list/widgets/main_screen/local_image.dart';

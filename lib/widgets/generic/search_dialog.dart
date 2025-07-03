@@ -15,31 +15,43 @@ class SearchDialog<T> extends StatefulWidget {
   final Widget Function(T item) toRepresentation;
 
   @override
-  State<SearchDialog> createState() => _SearchDialogState<T>();
+  State<SearchDialog<T>> createState() => _SearchDialogState();
 }
 
-class _SearchDialogState<T> extends State<SearchDialog> {
+class _SearchDialogState<T> extends State<SearchDialog<T>> {
   late List<({T item, String search})> searchable;
   late String search = "";
 
   @override
   void initState() {
     super.initState();
-    searchable = widget.items
-        .map<({T item, String search})>(
-          (e) => (item: e, search: widget.toSearchable(e)),
-        )
-        .toList();
+    searchable =
+        widget.items
+            .map<({T item, String search})>(
+              (e) => (item: e, search: widget.toSearchable(e)),
+            )
+            .toList()
+          ..sort((a, b) => a.search.compareTo(b.search));
   }
 
   @override
   Widget build(BuildContext context) {
+    late Iterable<Widget> itemWidgets;
+
+    if (search == "") {
+      itemWidgets = searchable.map((e) => widget.toRepresentation(e.item));
+    } else {
+      final filtered = searchable.where((e) => e.search.contains(search));
+      itemWidgets = filtered.map((e) => widget.toRepresentation(e.item));
+    }
+
     return Column(
       children: [
         TextField(
           decoration: InputDecoration(labelText: "Search for ${widget.type}"),
           onChanged: (value) => setState(() => search = value),
         ),
+        ...itemWidgets,
       ],
     );
   }

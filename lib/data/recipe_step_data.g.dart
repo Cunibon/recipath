@@ -11,7 +11,7 @@ _RecipeStepData _$RecipeStepDataFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String,
       description: json['description'] as String,
       ingredients: (json['ingredients'] as List<dynamic>)
-          .map((e) => IngredientsData.fromJson(e as Map<String, dynamic>))
+          .map((e) => IngredientData.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

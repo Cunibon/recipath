@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$RecipeStepData {
 
- String get id; String get description; List<IngredientsData> get ingredients;
+ String get id; String get description; List<IngredientData> get ingredients;
 /// Create a copy of RecipeStepData
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -49,7 +49,7 @@ abstract mixin class $RecipeStepDataCopyWith<$Res>  {
   factory $RecipeStepDataCopyWith(RecipeStepData value, $Res Function(RecipeStepData) _then) = _$RecipeStepDataCopyWithImpl;
 @useResult
 $Res call({
- String id, String description, List<IngredientsData> ingredients
+ String id, String description, List<IngredientData> ingredients
 });
 
 
@@ -71,7 +71,7 @@ class _$RecipeStepDataCopyWithImpl<$Res>
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,ingredients: null == ingredients ? _self.ingredients : ingredients // ignore: cast_nullable_to_non_nullable
-as List<IngredientsData>,
+as List<IngredientData>,
   ));
 }
 
@@ -82,13 +82,13 @@ as List<IngredientsData>,
 @JsonSerializable()
 
 class _RecipeStepData implements RecipeStepData {
-  const _RecipeStepData({required this.id, required this.description, required final  List<IngredientsData> ingredients}): _ingredients = ingredients;
+  const _RecipeStepData({required this.id, required this.description, required final  List<IngredientData> ingredients}): _ingredients = ingredients;
   factory _RecipeStepData.fromJson(Map<String, dynamic> json) => _$RecipeStepDataFromJson(json);
 
 @override final  String id;
 @override final  String description;
- final  List<IngredientsData> _ingredients;
-@override List<IngredientsData> get ingredients {
+ final  List<IngredientData> _ingredients;
+@override List<IngredientData> get ingredients {
   if (_ingredients is EqualUnmodifiableListView) return _ingredients;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_ingredients);
@@ -128,7 +128,7 @@ abstract mixin class _$RecipeStepDataCopyWith<$Res> implements $RecipeStepDataCo
   factory _$RecipeStepDataCopyWith(_RecipeStepData value, $Res Function(_RecipeStepData) _then) = __$RecipeStepDataCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String description, List<IngredientsData> ingredients
+ String id, String description, List<IngredientData> ingredients
 });
 
 
@@ -150,7 +150,7 @@ class __$RecipeStepDataCopyWithImpl<$Res>
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,ingredients: null == ingredients ? _self._ingredients : ingredients // ignore: cast_nullable_to_non_nullable
-as List<IngredientsData>,
+as List<IngredientData>,
   ));
 }
 

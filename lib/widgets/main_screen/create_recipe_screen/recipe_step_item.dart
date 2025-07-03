@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:random_string/random_string.dart';
-import 'package:recipe_list/data/ingredients_data.dart';
+import 'package:recipe_list/data/grocery_data.dart';
+import 'package:recipe_list/data/ingredient_data.dart';
 import 'package:recipe_list/data/recipe_step_data.dart';
+import 'package:recipe_list/widgets/generic/search_dialog.dart';
+import 'package:recipe_list/widgets/grocery_screen/providers/grocery_notifier.dart';
 
-class RecipeStepItem extends StatelessWidget {
+class RecipeStepItem extends ConsumerWidget {
   const RecipeStepItem({
     required this.index,
     required this.data,
@@ -16,7 +21,7 @@ class RecipeStepItem extends StatelessWidget {
   final void Function(RecipeStepData newStep) onChanged;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -31,9 +36,29 @@ class RecipeStepItem extends StatelessWidget {
             ),
             ElevatedButton.icon(
               onPressed: () async {
+                final groceries = ref
+                    .read(groceryNotifierProvider)
+                    .values
+                    .toList();
                 final groceryId = await showDialog<String?>(
                   context: context,
-                  builder: builder,
+                  builder: (context) => SearchDialog(
+                    type: "Groceries",
+                    items: groceries,
+                    toSearchable: (item) => item.toReadable(),
+                    toRepresentation: (item) => GestureDetector(
+                      onTap: () => context.pop(item.id),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(item.toReadable()),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 );
 
                 if (groceryId != null) {
@@ -41,7 +66,7 @@ class RecipeStepItem extends StatelessWidget {
                     data.copyWith(
                       ingredients: List.from(data.ingredients)
                         ..add(
-                          IngredientsData(
+                          IngredientData(
                             id: randomAlphaNumeric(16),
                             amount: 0,
                             groceryId: groceryId,
@@ -52,13 +77,16 @@ class RecipeStepItem extends StatelessWidget {
                 }
               },
               icon: Icon(Icons.add),
-              label: Text("Add step"),
+              label: Text("Add grocery"),
             ),
           ],
         ),
         ReorderableDragStartListener(
           index: index,
-          child: Icon(Icons.drag_handle),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Icon(Icons.drag_handle),
+          ),
         ),
       ],
     );

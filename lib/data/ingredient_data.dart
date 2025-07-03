@@ -1,22 +1,22 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:recipe_list/data/grocery_data.dart';
 
-part 'ingredients_data.freezed.dart';
-part 'ingredients_data.g.dart';
+part 'ingredient_data.freezed.dart';
+part 'ingredient_data.g.dart';
 
 @freezed
-abstract class IngredientsData with _$IngredientsData {
-  const factory IngredientsData({
+abstract class IngredientData with _$IngredientData {
+  const factory IngredientData({
     required String id,
     required double amount,
     required String groceryId,
-  }) = _IngredientsData;
+  }) = _IngredientData;
 
-  factory IngredientsData.fromJson(Map<String, Object?> json) =>
-      _$IngredientsDataFromJson(json);
+  factory IngredientData.fromJson(Map<String, Object?> json) =>
+      _$IngredientDataFromJson(json);
 }
 
-extension IngredientsDataFunctions on IngredientsData {
+extension IngredientDataFunctions on IngredientData {
   String toReadable(Map<String, GroceryData> groceryMap) =>
       "$amount${groceryMap[groceryId]!.unit.name} ${groceryMap[groceryId]!.name}";
 }

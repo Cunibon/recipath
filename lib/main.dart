@@ -9,7 +9,12 @@ void main() async {
   await initLocalStorage();
 
   final goRouter = GoRouter(
-    routes: [RootRoutes.mainRoute],
+    routes: [
+      RootRoutes.mainRoute,
+      RootRoutes.groceriesRoute,
+      RootRoutes.shoppingRoute,
+      RootRoutes.storageRoute,
+    ],
     initialLocation: RootRoutes.mainRoute.path,
   );
   runApp(ProviderScope(child: MyApp(router: goRouter)));
