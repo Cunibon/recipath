@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:random_string/random_string.dart';
 import 'package:recipe_list/data/grocery_data.dart';
 import 'package:recipe_list/data/unit_enum.dart';
+import 'package:recipe_list/widgets/generic/delete_confirmation_dialog.dart';
 import 'package:recipe_list/widgets/grocery_screen/providers/grocery_notifier.dart';
 
 class CreateGroceryScreen extends ConsumerStatefulWidget {
@@ -35,13 +37,33 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          if (formKey.currentState?.validate() == true) {
-            ref.read(groceryNotifierProvider.notifier).addGrocery(data);
-          }
-        },
-        child: Icon(Icons.save),
+      floatingActionButton: Column(
+        children: [
+          ElevatedButton.icon(
+            onPressed: () {
+              if (formKey.currentState?.validate() == true) {
+                ref.read(groceryNotifierProvider.notifier).addGrocery(data);
+                context.pop();
+              }
+            },
+            icon: Icon(Icons.save),
+            label: Text("Save"),
+          ),
+          ElevatedButton.icon(
+            onPressed: () async {
+              final result = await showDialog(
+                context: context,
+                builder: (context) => DeleteConfirmationDialog(),
+              );
+
+              if (result) {
+                ref.read(groceryNotifierProvider.notifier).deleteGrocery(data);
+              }
+            },
+            icon: Icon(Icons.delete),
+            label: Text("Delete"),
+          ),
+        ],
       ),
       body: Form(
         key: formKey,

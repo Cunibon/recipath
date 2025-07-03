@@ -6,6 +6,7 @@ import 'package:recipe_list/data/grocery_data.dart';
 import 'package:recipe_list/data/ingredient_data.dart';
 import 'package:recipe_list/data/recipe_step_data.dart';
 import 'package:recipe_list/widgets/generic/searchable_list.dart';
+import 'package:recipe_list/widgets/grocery_screen/grocery_routes.dart';
 import 'package:recipe_list/widgets/grocery_screen/providers/grocery_notifier.dart';
 
 class RecipeStepItem extends ConsumerWidget {
@@ -44,23 +45,33 @@ class RecipeStepItem extends ConsumerWidget {
                     .toList();
                 final groceryId = await showDialog<String?>(
                   context: context,
-                  builder: (context) => SearchableList(
-                    type: "Groceries",
-                    items: groceries,
-                    sort: (a, b) => a.name.compareTo(b.name),
-                    toSearchable: (item) => item.toReadable(),
-                    toWidget: (item) => GestureDetector(
-                      onTap: () => context.pop(item.id),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Card(
+                  builder: (context) => Stack(
+                    children: [
+                      ElevatedButton.icon(
+                        onPressed: () =>
+                            context.go("./${GroceryRoutes.createGrocery.path}"),
+                        icon: Icon(Icons.add),
+                        label: Text("Add new"),
+                      ),
+                      SearchableList(
+                        type: "Groceries",
+                        items: groceries,
+                        sort: (a, b) => a.name.compareTo(b.name),
+                        toSearchable: (item) => item.toReadable(),
+                        toWidget: (item) => GestureDetector(
+                          onTap: () => context.pop(item.id),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Text(item.toReadable()),
+                            child: Card(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(item.toReadable()),
+                              ),
+                            ),
                           ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
                 );
 

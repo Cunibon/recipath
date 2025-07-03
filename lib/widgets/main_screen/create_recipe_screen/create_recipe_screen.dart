@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:random_string/random_string.dart';
 import 'package:recipe_list/data/recipe_data.dart';
 import 'package:recipe_list/data/recipe_step_data.dart';
+import 'package:recipe_list/widgets/generic/delete_confirmation_dialog.dart';
 import 'package:recipe_list/widgets/main_screen/create_recipe_screen/add_image_widget.dart';
 import 'package:recipe_list/widgets/main_screen/create_recipe_screen/recipe_step_view.dart';
 import 'package:recipe_list/widgets/main_screen/providers/recipe_notifier.dart';
@@ -36,13 +38,33 @@ class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          if (formKey.currentState?.validate() == true) {
-            ref.read(recipeNotifierProvider.notifier).addRecipe(data);
-          }
-        },
-        child: Icon(Icons.save),
+      floatingActionButton: Column(
+        children: [
+          ElevatedButton.icon(
+            onPressed: () {
+              if (formKey.currentState?.validate() == true) {
+                ref.read(recipeNotifierProvider.notifier).addRecipe(data);
+                context.pop();
+              }
+            },
+            icon: Icon(Icons.save),
+            label: Text("Save"),
+          ),
+          ElevatedButton.icon(
+            onPressed: () async {
+              final result = await showDialog(
+                context: context,
+                builder: (context) => DeleteConfirmationDialog(),
+              );
+
+              if (result) {
+                ref.read(recipeNotifierProvider.notifier).deleteRecipe(data);
+              }
+            },
+            icon: Icon(Icons.delete),
+            label: Text("Delete"),
+          ),
+        ],
       ),
       body: Form(
         key: formKey,
