@@ -11,12 +11,14 @@ part 'shopping_notifier.g.dart';
 class ShoppingNotifier extends _$ShoppingNotifier {
   @override
   Map<String, ShoppingData> build() {
-    final data = localStorage.getItem(recipeDataKey);
+    final data = localStorage.getItem(shoppingDataKey);
 
     if (data == null) return {};
 
     final decodedData = jsonDecode(data) as Map<String, dynamic>;
-    return decodedData.cast<String, ShoppingData>();
+    return decodedData.map(
+      (key, value) => MapEntry(key, ShoppingData.fromJson(value)),
+    );
   }
 
   void addShoppingItem(ShoppingData newData) {
@@ -30,7 +32,7 @@ class ShoppingNotifier extends _$ShoppingNotifier {
   }
 
   void updateState() {
-    localStorage.setItem(recipeDataKey, jsonEncode(state));
+    localStorage.setItem(shoppingDataKey, jsonEncode(state));
     ref.invalidateSelf();
   }
 }

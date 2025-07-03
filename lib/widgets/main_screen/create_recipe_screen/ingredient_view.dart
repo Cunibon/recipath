@@ -6,11 +6,14 @@ class IngredientView extends StatelessWidget {
   const IngredientView({
     required this.ingredients,
     required this.onChanged,
+    this.controller,
     super.key,
   });
 
   final List<IngredientData> ingredients;
-  final void Function(List<IngredientData> newSteps) onChanged;
+  final void Function(List<IngredientData> newIngredients) onChanged;
+
+  final ScrollController? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +37,7 @@ class IngredientView extends StatelessWidget {
     }
 
     return ReorderableListView(
+      scrollController: controller,
       children: items,
       onReorder: (int oldIndex, int newIndex) {
         if (oldIndex < newIndex) {

@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
 
 Color getRandomColorBasedOnString(String string) {
   // A simple hash function to convert the string to a hash code
@@ -15,3 +16,5 @@ Color getRandomColorBasedOnString(String string) {
 
   return Color.fromARGB(255, r, g, b);
 }
+
+final doubleNumberFormat = NumberFormat()..maximumFractionDigits = 10;

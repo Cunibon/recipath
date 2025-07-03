@@ -16,6 +16,7 @@ class NavigationDrawerScaffold extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final currentRoute = GoRouterState.of(context).uri.toString();
     final destinations = ref.watch(drawerDestinationsProvider);
 
     return Scaffold(
@@ -33,6 +34,9 @@ class NavigationDrawerScaffold extends ConsumerWidget {
       ),
       floatingActionButton: floatingActionButton,
       drawer: NavigationDrawer(
+        selectedIndex: destinations.indexWhere(
+          (element) => currentRoute.startsWith(element.route),
+        ),
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -50,9 +54,9 @@ class NavigationDrawerScaffold extends ConsumerWidget {
           }),
           Padding(padding: const EdgeInsets.all(8.0), child: Divider()),
         ],
-        onDestinationSelected: (value) => context.go(destinations[value].route),
+        onDestinationSelected: (index) => context.go(destinations[index].route),
       ),
-      body: body,
+      body: Padding(padding: const EdgeInsets.all(8.0), child: body),
     );
   }
 }

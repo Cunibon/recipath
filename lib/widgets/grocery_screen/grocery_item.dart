@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:recipe_list/application_constants.dart';
 import 'package:recipe_list/data/grocery_data.dart';
+import 'package:recipe_list/root_routes/root_routes.dart';
 import 'package:recipe_list/widgets/grocery_screen/grocery_routes.dart';
 
 class GroceryItem extends StatelessWidget {
@@ -21,7 +22,8 @@ class GroceryItem extends StatelessWidget {
               child: IconButton(
                 onPressed: () => context.go(
                   Uri(
-                    path: './${GroceryRoutes.createGrocery.path}',
+                    path:
+                        '${RootRoutes.groceriesRoute.path}/${GroceryRoutes.createGrocery.path}',
                     queryParameters: {idParameter: data.id},
                   ).toString(),
                 ),

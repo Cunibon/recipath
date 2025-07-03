@@ -16,7 +16,9 @@ class RecipeNotifier extends _$RecipeNotifier {
     if (data == null) return {};
 
     final decodedData = jsonDecode(data) as Map<String, dynamic>;
-    return decodedData.cast<String, RecipeData>();
+    return decodedData.map(
+      (key, value) => MapEntry(key, RecipeData.fromJson(value)),
+    );
   }
 
   void addRecipe(RecipeData newData) {

@@ -16,7 +16,9 @@ class GroceryNotifier extends _$GroceryNotifier {
     if (data == null) return {};
 
     final decodedData = jsonDecode(data) as Map<String, dynamic>;
-    return decodedData.cast<String, GroceryData>();
+    return decodedData.map(
+      (key, value) => MapEntry(key, GroceryData.fromJson(value)),
+    );
   }
 
   void addGrocery(GroceryData newData) {
@@ -30,7 +32,7 @@ class GroceryNotifier extends _$GroceryNotifier {
   }
 
   void updateState() {
-    localStorage.setItem(recipeDataKey, jsonEncode(state));
+    localStorage.setItem(groceryDataKey, jsonEncode(state));
     ref.invalidateSelf();
   }
 }

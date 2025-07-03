@@ -10,8 +10,9 @@ class RecipeStep extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(step.description),
+        Text(step.description, style: Theme.of(context).textTheme.bodyLarge),
         IngredientsList(ingredients: step.ingredients),
       ],
     );

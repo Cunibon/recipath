@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:random_string/random_string.dart';
+import 'package:recipe_list/common.dart';
 import 'package:recipe_list/data/grocery_data.dart';
 import 'package:recipe_list/data/unit_enum.dart';
 import 'package:recipe_list/widgets/generic/delete_confirmation_dialog.dart';
@@ -38,6 +39,8 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
     return Scaffold(
       appBar: AppBar(),
       floatingActionButton: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisSize: MainAxisSize.min,
         children: [
           ElevatedButton.icon(
             onPressed: () {
@@ -67,56 +70,70 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
       ),
       body: Form(
         key: formKey,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              TextFormField(
-                decoration: InputDecoration(labelText: "Name"),
-                initialValue: data.name,
-                validator: (value) =>
-                    value == null || value.isEmpty ? "Add name" : null,
-                onChanged: (value) =>
-                    setState(() => data = data.copyWith(name: value)),
-              ),
-              Row(
-                children: [
-                  TextFormField(
-                    decoration: InputDecoration(labelText: "Normal amount"),
-                    keyboardType: TextInputType.numberWithOptions(
-                      decimal: true,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                TextFormField(
+                  decoration: InputDecoration(labelText: "Name"),
+                  initialValue: data.name,
+                  validator: (value) =>
+                      value == null || value.isEmpty ? "Add name" : null,
+                  onChanged: (value) =>
+                      setState(() => data = data.copyWith(name: value)),
+                ),
+                SizedBox(height: 8),
+                Row(
+                  children: [
+                    Flexible(
+                      flex: 4,
+                      child: TextFormField(
+                        decoration: InputDecoration(labelText: "Normal amount"),
+                        keyboardType: TextInputType.numberWithOptions(
+                          decimal: true,
+                        ),
+                        initialValue: doubleNumberFormat.format(
+                          data.normalAmount,
+                        ),
+                        validator: (value) => value == null || value.isEmpty
+                            ? "Add normal amount"
+                            : null,
+                        onChanged: (value) {
+                          final parsed = double.tryParse(value);
+                          if (parsed != null) {
+                            setState(
+                              () => data = data.copyWith(normalAmount: parsed),
+                            );
+                          }
+                        },
+                      ),
                     ),
-                    initialValue: data.normalAmount.toString(),
-                    validator: (value) => value == null || value.isEmpty
-                        ? "Add normal amount"
-                        : null,
-                    onChanged: (value) {
-                      final parsed = double.tryParse(value);
-                      if (parsed != null) {
-                        setState(
-                          () => data = data.copyWith(normalAmount: parsed),
-                        );
-                      }
-                    },
-                  ),
-                  DropdownButtonFormField(
-                    decoration: InputDecoration(labelText: "Unit"),
-                    value: data.unit,
-                    validator: (value) => value == null ? "Add unit" : null,
-                    items: UnitEnum.values
-                        .map(
-                          (e) =>
-                              DropdownMenuItem(value: e, child: Text(e.name)),
-                        )
-                        .toList(),
-                    onChanged: (value) {
-                      if (value != null) {
-                        setState(() => data = data.copyWith(unit: value));
-                      }
-                    },
-                  ),
-                ],
-              ),
-            ],
+                    Flexible(
+                      flex: 1,
+                      child: DropdownButtonFormField(
+                        decoration: InputDecoration(labelText: "Unit"),
+                        value: data.unit,
+                        validator: (value) => value == null ? "Add unit" : null,
+                        items: UnitEnum.values
+                            .map(
+                              (e) => DropdownMenuItem(
+                                value: e,
+                                child: Text(e.name),
+                              ),
+                            )
+                            .toList(),
+                        onChanged: (value) {
+                          if (value != null) {
+                            setState(() => data = data.copyWith(unit: value));
+                          }
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

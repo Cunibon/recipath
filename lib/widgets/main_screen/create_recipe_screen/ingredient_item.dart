@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:recipe_list/common.dart';
 import 'package:recipe_list/data/ingredient_data.dart';
+import 'package:recipe_list/data/unit_enum.dart';
 import 'package:recipe_list/widgets/grocery_screen/providers/grocery_notifier.dart';
 
 class IngredientItem extends ConsumerWidget {
@@ -22,6 +24,7 @@ class IngredientItem extends ConsumerWidget {
     )!;
 
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         ReorderableDragStartListener(
           index: index,
@@ -30,19 +33,44 @@ class IngredientItem extends ConsumerWidget {
             child: Icon(Icons.drag_handle),
           ),
         ),
-        TextFormField(
-          decoration: InputDecoration(labelText: "Amount"),
-          initialValue: data.amount.toString(),
-          validator: (value) =>
-              value == null || value.isEmpty ? "Add amount" : null,
-          onChanged: (value) {
-            final parsed = double.tryParse(value);
-            if (parsed != null) {
-              onChanged(data.copyWith(amount: parsed));
-            }
-          },
+        Flexible(
+          flex: 3,
+          child: TextFormField(
+            decoration: InputDecoration(labelText: "Amount"),
+            initialValue: doubleNumberFormat.format(data.amount),
+            validator: (value) =>
+                value == null || value.isEmpty ? "Add amount" : null,
+            onChanged: (value) {
+              final parsed = double.tryParse(value);
+              if (parsed != null) {
+                onChanged(data.copyWith(amount: parsed));
+              }
+            },
+          ),
         ),
-        Text("${grocery.unit} ${grocery.name}"),
+        Flexible(
+          flex: 3,
+          child: DropdownButtonFormField(
+            decoration: InputDecoration(labelText: "Unit"),
+            value: data.unit,
+            validator: (value) => value == null ? "Add unit" : null,
+            items: UnitEnum.values
+                .map((e) => DropdownMenuItem(value: e, child: Text(e.name)))
+                .toList(),
+            onChanged: (value) {
+              if (value != null) {
+                onChanged(data.copyWith(unit: value));
+              }
+            },
+          ),
+        ),
+        Flexible(
+          flex: 5,
+          child: Text(
+            grocery.name,
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
+        ),
       ],
     );
   }

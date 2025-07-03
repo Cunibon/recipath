@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:recipe_list/common.dart';
 import 'package:recipe_list/data/unit_enum.dart';
 
 part 'grocery_data.freezed.dart';
@@ -18,5 +19,6 @@ abstract class GroceryData with _$GroceryData {
 }
 
 extension GroceryDataFunctions on GroceryData {
-  String toReadable() => "$normalAmount${unit.name} $name";
+  String toReadable() =>
+      "${doubleNumberFormat.format(normalAmount)}${unit.name} $name";
 }

@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:recipe_list/common.dart';
 import 'package:recipe_list/data/grocery_data.dart';
 import 'package:recipe_list/data/ingredient_data.dart';
 
@@ -19,5 +20,5 @@ abstract class ShoppingData with _$ShoppingData {
 
 extension ShoppingDataFunctions on ShoppingData {
   String toReadable(GroceryData grocery) =>
-      "${ingredient.amount}${grocery.unit.name} ${grocery.name}";
+      "${doubleNumberFormat.format(ingredient.amount)}${grocery.unit.name} ${grocery.name}";
 }

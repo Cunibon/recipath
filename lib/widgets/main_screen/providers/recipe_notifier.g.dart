@@ -6,7 +6,7 @@ part of 'recipe_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$recipeNotifierHash() => r'ee955c2e850491ddb64334b3616be2fae3ea4f33';
+String _$recipeNotifierHash() => r'42a066424fe73cad8fe1d8e4927aec8f4641ec41';
 
 /// See also [RecipeNotifier].
 @ProviderFor(RecipeNotifier)

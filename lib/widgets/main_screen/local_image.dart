@@ -19,7 +19,10 @@ class LocalImage extends ConsumerWidget {
 
     switch (asyncValue) {
       case AsyncData(:final value):
-        return Image.file(value, width: width, height: height);
+        return ClipRRect(
+          borderRadius: BorderRadiusGeometry.circular(8),
+          child: Image.file(value, width: width, height: height),
+        );
       case AsyncError():
         return const Text('Oops, something unexpected happened');
       default:

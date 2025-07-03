@@ -14,7 +14,7 @@ class ShoppingItem extends ConsumerWidget {
     final groceries = ref.watch(groceryNotifierProvider);
 
     return Card(
-      color: data.done ? CardTheme.of(context).color!.withAlpha(128) : null,
+      color: data.done ? Theme.of(context).cardColor : null,
       child: Padding(
         padding: EdgeInsetsGeometry.all(8),
         child: Row(

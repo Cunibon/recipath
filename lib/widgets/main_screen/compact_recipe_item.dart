@@ -6,6 +6,7 @@ import 'package:recipe_list/application_constants.dart';
 import 'package:recipe_list/data/ingredient_data.dart';
 import 'package:recipe_list/data/recipe_data.dart';
 import 'package:recipe_list/data/shopping_data.dart';
+import 'package:recipe_list/root_routes/root_routes.dart';
 import 'package:recipe_list/widgets/grocery_screen/providers/grocery_notifier.dart';
 import 'package:recipe_list/widgets/main_screen/local_image.dart';
 import 'package:recipe_list/widgets/main_screen/main_routes.dart';
@@ -19,70 +20,84 @@ class CompactRecipeItem extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final groceryMap = ref.watch(groceryNotifierProvider);
 
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Stack(
-          children: [
-            Positioned(
-              right: 0,
-              top: 0,
-              child: Row(
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      for (final ingredient in data.getIngredients()) {
-                        ref
-                            .read(shoppingNotifierProvider.notifier)
-                            .addShoppingItem(
-                              ShoppingData(
-                                id: randomAlphaNumeric(16),
-                                done: false,
-                                ingredient: ingredient,
-                              ),
-                            );
-                      }
-                    },
-                    icon: Icon(Icons.shopping_cart),
-                  ),
-                  IconButton(
-                    onPressed: () => context.go(
-                      Uri(
-                        path: './${MainRoutes.createRecipe.path}',
-                        queryParameters: {idParameter: data.id},
-                      ).toString(),
-                    ),
-                    icon: Icon(Icons.edit),
-                  ),
-                ],
-              ),
-            ),
-            Row(
-              children: [
-                if (data.imageName != null)
-                  LocalImage(fileName: data.imageName!),
-                Expanded(
-                  child: Column(
-                    children: [
-                      Text(data.title),
-                      Wrap(
-                        spacing: 8.0,
-                        runSpacing: 4.0,
-                        children: data
-                            .getIngredients()
-                            .map(
-                              (e) => Text(
-                                "● ${e.toReadable(groceryMap[e.groceryId]!)}",
-                              ),
-                            )
-                            .toList(),
-                      ),
-                    ],
-                  ),
+    return GestureDetector(
+      onTap: () => context.go('${RootRoutes.mainRoute.path}/recipe/${data.id}'),
+      child: Card(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (data.imageName != null)
+                SizedBox(
+                  width: 100,
+                  child: LocalImage(fileName: data.imageName!),
                 ),
-              ],
-            ),
-          ],
+              SizedBox(width: 8),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Flexible(
+                          child: Text(
+                            data.title,
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            IconButton(
+                              onPressed: () {
+                                for (final ingredient in data.getIngredients(
+                                  groceryMap,
+                                )) {
+                                  ref
+                                      .read(shoppingNotifierProvider.notifier)
+                                      .addShoppingItem(
+                                        ShoppingData(
+                                          id: randomAlphaNumeric(16),
+                                          done: false,
+                                          ingredient: ingredient,
+                                        ),
+                                      );
+                                }
+                              },
+                              icon: Icon(Icons.shopping_cart),
+                            ),
+                            IconButton(
+                              onPressed: () => context.go(
+                                Uri(
+                                  path:
+                                      '${RootRoutes.mainRoute.path}/${MainRoutes.createRecipe.path}',
+                                  queryParameters: {idParameter: data.id},
+                                ).toString(),
+                              ),
+                              icon: Icon(Icons.edit),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Wrap(
+                      spacing: 8.0,
+                      runSpacing: 4.0,
+                      children: data
+                          .getIngredients(groceryMap)
+                          .map(
+                            (e) => Text(
+                              "● ${e.toReadable(groceryMap[e.groceryId]!)}",
+                            ),
+                          )
+                          .toList(),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

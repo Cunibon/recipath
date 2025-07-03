@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class SearchableList<T> extends StatefulWidget {
@@ -27,13 +28,26 @@ class _SearchableListState<T> extends State<SearchableList<T>> {
   @override
   void initState() {
     super.initState();
-    searchable =
-        widget.items
-            .map<({T item, String search})>(
-              (e) => (item: e, search: widget.toSearchable(e)),
-            )
-            .toList()
-          ..sort((a, b) => widget.sort?.call(a.item, b.item) ?? 0);
+    searchable = createSearchable(widget.items);
+  }
+
+  @override
+  void didUpdateWidget(covariant SearchableList<T> oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (!listEquals(widget.items, oldWidget.items)) {
+      setState(() {
+        searchable = createSearchable(widget.items);
+      });
+    }
+  }
+
+  List<({T item, String search})> createSearchable(List<T> items) {
+    return items
+        .map<({T item, String search})>(
+          (e) => (item: e, search: widget.toSearchable(e)),
+        )
+        .toList()
+      ..sort((a, b) => widget.sort?.call(a.item, b.item) ?? 0);
   }
 
   @override
@@ -43,7 +57,9 @@ class _SearchableListState<T> extends State<SearchableList<T>> {
     if (search == "") {
       items = searchable.map((e) => e.item).toList();
     } else {
-      final filtered = searchable.where((e) => e.search.contains(search));
+      final filtered = searchable.where(
+        (e) => e.search.toLowerCase().contains(search.toLowerCase()),
+      );
       items = filtered.map((e) => e.item).toList();
     }
 
@@ -53,10 +69,11 @@ class _SearchableListState<T> extends State<SearchableList<T>> {
           decoration: InputDecoration(labelText: "Search for ${widget.type}"),
           onChanged: (value) => setState(() => search = value),
         ),
-        Divider(),
-        ListView.builder(
-          itemCount: items.length,
-          itemBuilder: (context, index) => widget.toWidget(items[index]),
+        Expanded(
+          child: ListView.builder(
+            itemCount: items.length,
+            itemBuilder: (context, index) => widget.toWidget(items[index]),
+          ),
         ),
       ],
     );

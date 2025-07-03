@@ -6,11 +6,14 @@ class RecipeStepView extends StatelessWidget {
   const RecipeStepView({
     required this.steps,
     required this.onChanged,
+    this.controller,
     super.key,
   });
 
   final List<RecipeStepData> steps;
   final void Function(List<RecipeStepData> newSteps) onChanged;
+
+  final ScrollController? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +27,11 @@ class RecipeStepView extends StatelessWidget {
           key: Key(step.id),
           index: i,
           data: step,
+          controller: controller,
+          delete: () {
+            listCopy.removeAt(i);
+            onChanged(listCopy);
+          },
           onChanged: (newStep) {
             listCopy.removeAt(i);
             listCopy.insert(i, newStep);
@@ -34,6 +42,7 @@ class RecipeStepView extends StatelessWidget {
     }
 
     return ReorderableListView(
+      scrollController: controller,
       children: items,
       onReorder: (int oldIndex, int newIndex) {
         if (oldIndex < newIndex) {

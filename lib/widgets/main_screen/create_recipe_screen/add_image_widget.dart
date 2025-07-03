@@ -9,27 +9,31 @@ import 'package:recipe_list/providers/application_path_provider.dart';
 import 'package:recipe_list/widgets/main_screen/local_image.dart';
 
 class AddImageWidget extends ConsumerWidget {
-  const AddImageWidget({this.fileName, required this.onChange, super.key});
+  const AddImageWidget({this.fileName, required this.onChanged, super.key});
   final String? fileName;
-  final void Function(String? fileName) onChange;
+  final void Function(String? fileName) onChanged;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     if (fileName != null) {
-      return Stack(
-        children: [
-          LocalImage(fileName: fileName!),
-          Align(
-            alignment: Alignment.topRight,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: IconButton(
-                onPressed: () => onChange(null),
-                icon: Icon(Icons.close),
+      return IntrinsicWidth(
+        child: Stack(
+          children: [
+            LocalImage(fileName: fileName!),
+            Align(
+              alignment: Alignment.topRight,
+              child: GestureDetector(
+                onTap: () => onChanged(null),
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(Icons.close),
+                  ),
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       );
     } else {
       return GestureDetector(
@@ -37,23 +41,32 @@ class AddImageWidget extends ConsumerWidget {
           final ImagePicker picker = ImagePicker();
           final xFile = await showDialog<XFile?>(
             context: context,
-            builder: (context) => Column(
-              children: [
-                ListTile(
-                  leading: Icon(Icons.camera_alt),
-                  title: Text("Take a picture"),
-                  onTap: () async => context.pop(
-                    await picker.pickImage(source: ImageSource.camera),
+            builder: (context) => Dialog(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ListTile(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadiusGeometry.circular(32),
+                    ),
+                    leading: Icon(Icons.camera_alt),
+                    title: Text("Take a picture"),
+                    onTap: () async => context.pop(
+                      await picker.pickImage(source: ImageSource.camera),
+                    ),
                   ),
-                ),
-                ListTile(
-                  leading: Icon(Icons.image),
-                  title: Text("Add a picture from gallery"),
-                  onTap: () async => context.pop(
-                    await picker.pickImage(source: ImageSource.gallery),
+                  ListTile(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadiusGeometry.circular(32),
+                    ),
+                    leading: Icon(Icons.image),
+                    title: Text("Add a picture from gallery"),
+                    onTap: () async => context.pop(
+                      await picker.pickImage(source: ImageSource.gallery),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           );
 
@@ -66,7 +79,7 @@ class AddImageWidget extends ConsumerWidget {
             final file = File("${appDirectory.path}/$newFileName");
 
             await file.writeAsBytes(bytes);
-            onChange(newFileName);
+            onChanged(newFileName);
           }
         },
         child: Container(

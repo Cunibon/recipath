@@ -26,7 +26,7 @@ extension RecipeDataFunctions on RecipeData {
 
     stringBuffer.writeln(title);
 
-    getIngredients().forEach(
+    getIngredients(groceries).forEach(
       (ingredient) => stringBuffer.writeln(
         ingredient.toReadable(groceries[ingredient.groceryId]!),
       ),
@@ -35,7 +35,7 @@ extension RecipeDataFunctions on RecipeData {
     return stringBuffer.toString();
   }
 
-  List<IngredientData> getIngredients() {
+  List<IngredientData> getIngredients(Map<String, GroceryData> groceries) {
     final Map<String, IngredientData> ingredients = {};
     for (final step in steps) {
       for (final ingredient in step.ingredients) {
@@ -44,6 +44,7 @@ extension RecipeDataFunctions on RecipeData {
           () => IngredientData(
             id: randomAlphaNumeric(16),
             amount: 0,
+            unit: groceries[ingredient.groceryId]!.unit,
             groceryId: ingredient.groceryId,
           ),
         );
