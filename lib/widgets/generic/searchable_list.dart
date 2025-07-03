@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class SearchDialog<T> extends StatefulWidget {
-  const SearchDialog({
+class SearchableList<T> extends StatefulWidget {
+  const SearchableList({
     required this.type,
     required this.items,
     required this.toSearchable,
@@ -15,10 +15,10 @@ class SearchDialog<T> extends StatefulWidget {
   final Widget Function(T item) toRepresentation;
 
   @override
-  State<SearchDialog<T>> createState() => _SearchDialogState();
+  State<SearchableList<T>> createState() => _SearchableListState();
 }
 
-class _SearchDialogState<T> extends State<SearchDialog<T>> {
+class _SearchableListState<T> extends State<SearchableList<T>> {
   late List<({T item, String search})> searchable;
   late String search = "";
 
@@ -51,6 +51,7 @@ class _SearchDialogState<T> extends State<SearchDialog<T>> {
           decoration: InputDecoration(labelText: "Search for ${widget.type}"),
           onChanged: (value) => setState(() => search = value),
         ),
+        Divider(),
         ...itemWidgets,
       ],
     );

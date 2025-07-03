@@ -5,7 +5,7 @@ import 'package:random_string/random_string.dart';
 import 'package:recipe_list/data/grocery_data.dart';
 import 'package:recipe_list/data/ingredient_data.dart';
 import 'package:recipe_list/data/recipe_step_data.dart';
-import 'package:recipe_list/widgets/generic/search_dialog.dart';
+import 'package:recipe_list/widgets/generic/searchable_list.dart';
 import 'package:recipe_list/widgets/grocery_screen/providers/grocery_notifier.dart';
 
 class RecipeStepItem extends ConsumerWidget {
@@ -44,7 +44,7 @@ class RecipeStepItem extends ConsumerWidget {
                     .toList();
                 final groceryId = await showDialog<String?>(
                   context: context,
-                  builder: (context) => SearchDialog(
+                  builder: (context) => SearchableList(
                     type: "Groceries",
                     items: groceries,
                     toSearchable: (item) => item.toReadable(),
