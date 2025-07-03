@@ -51,6 +51,8 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
               TextFormField(
                 decoration: InputDecoration(labelText: "Name"),
                 initialValue: data.name,
+                validator: (value) =>
+                    value == null || value.isEmpty ? "Add name" : null,
                 onChanged: (value) =>
                     setState(() => data = data.copyWith(name: value)),
               ),
@@ -62,6 +64,9 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
                       decimal: true,
                     ),
                     initialValue: data.normalAmount.toString(),
+                    validator: (value) => value == null || value.isEmpty
+                        ? "Add normal amount"
+                        : null,
                     onChanged: (value) {
                       final parsed = double.tryParse(value);
                       if (parsed != null) {
@@ -74,6 +79,7 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
                   DropdownButtonFormField(
                     decoration: InputDecoration(labelText: "Unit"),
                     value: data.unit,
+                    validator: (value) => value == null ? "Add unit" : null,
                     items: UnitEnum.values
                         .map(
                           (e) =>

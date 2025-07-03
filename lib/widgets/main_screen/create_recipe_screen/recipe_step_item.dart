@@ -31,6 +31,8 @@ class RecipeStepItem extends ConsumerWidget {
               maxLines: null,
               decoration: InputDecoration(labelText: "Description"),
               initialValue: data.description,
+              validator: (value) =>
+                  value == null || value.isEmpty ? "Add decription" : null,
               onChanged: (value) =>
                   onChanged(data.copyWith(description: value)),
             ),

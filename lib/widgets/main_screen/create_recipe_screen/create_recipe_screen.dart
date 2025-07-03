@@ -59,6 +59,8 @@ class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
               TextFormField(
                 decoration: InputDecoration(labelText: "Title"),
                 initialValue: data.title,
+                validator: (value) =>
+                    value == null || value.isEmpty ? "Add title" : null,
                 onChanged: (value) =>
                     setState(() => data = data.copyWith(title: value)),
               ),

@@ -31,8 +31,10 @@ class IngredientItem extends ConsumerWidget {
           ),
         ),
         TextFormField(
-          decoration: InputDecoration(labelText: "Description"),
+          decoration: InputDecoration(labelText: "Amount"),
           initialValue: data.amount.toString(),
+          validator: (value) =>
+              value == null || value.isEmpty ? "Add amount" : null,
           onChanged: (value) {
             final parsed = double.tryParse(value);
             if (parsed != null) {
