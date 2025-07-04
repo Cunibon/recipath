@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ShoppingData {
 
- String get id; bool get done; IngredientData get ingredient;
+ String get id; bool get done; int get count; IngredientData get ingredient;
 /// Create a copy of ShoppingData
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,16 +29,16 @@ $ShoppingDataCopyWith<ShoppingData> get copyWith => _$ShoppingDataCopyWithImpl<S
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ShoppingData&&(identical(other.id, id) || other.id == id)&&(identical(other.done, done) || other.done == done)&&(identical(other.ingredient, ingredient) || other.ingredient == ingredient));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ShoppingData&&(identical(other.id, id) || other.id == id)&&(identical(other.done, done) || other.done == done)&&(identical(other.count, count) || other.count == count)&&(identical(other.ingredient, ingredient) || other.ingredient == ingredient));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,done,ingredient);
+int get hashCode => Object.hash(runtimeType,id,done,count,ingredient);
 
 @override
 String toString() {
-  return 'ShoppingData(id: $id, done: $done, ingredient: $ingredient)';
+  return 'ShoppingData(id: $id, done: $done, count: $count, ingredient: $ingredient)';
 }
 
 
@@ -49,7 +49,7 @@ abstract mixin class $ShoppingDataCopyWith<$Res>  {
   factory $ShoppingDataCopyWith(ShoppingData value, $Res Function(ShoppingData) _then) = _$ShoppingDataCopyWithImpl;
 @useResult
 $Res call({
- String id, bool done, IngredientData ingredient
+ String id, bool done, int count, IngredientData ingredient
 });
 
 
@@ -66,11 +66,12 @@ class _$ShoppingDataCopyWithImpl<$Res>
 
 /// Create a copy of ShoppingData
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? done = null,Object? ingredient = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? done = null,Object? count = null,Object? ingredient = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,done: null == done ? _self.done : done // ignore: cast_nullable_to_non_nullable
-as bool,ingredient: null == ingredient ? _self.ingredient : ingredient // ignore: cast_nullable_to_non_nullable
+as bool,count: null == count ? _self.count : count // ignore: cast_nullable_to_non_nullable
+as int,ingredient: null == ingredient ? _self.ingredient : ingredient // ignore: cast_nullable_to_non_nullable
 as IngredientData,
   ));
 }
@@ -91,11 +92,12 @@ $IngredientDataCopyWith<$Res> get ingredient {
 @JsonSerializable()
 
 class _ShoppingData implements ShoppingData {
-  const _ShoppingData({required this.id, required this.done, required this.ingredient});
+  const _ShoppingData({required this.id, required this.done, required this.count, required this.ingredient});
   factory _ShoppingData.fromJson(Map<String, dynamic> json) => _$ShoppingDataFromJson(json);
 
 @override final  String id;
 @override final  bool done;
+@override final  int count;
 @override final  IngredientData ingredient;
 
 /// Create a copy of ShoppingData
@@ -111,16 +113,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ShoppingData&&(identical(other.id, id) || other.id == id)&&(identical(other.done, done) || other.done == done)&&(identical(other.ingredient, ingredient) || other.ingredient == ingredient));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ShoppingData&&(identical(other.id, id) || other.id == id)&&(identical(other.done, done) || other.done == done)&&(identical(other.count, count) || other.count == count)&&(identical(other.ingredient, ingredient) || other.ingredient == ingredient));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,done,ingredient);
+int get hashCode => Object.hash(runtimeType,id,done,count,ingredient);
 
 @override
 String toString() {
-  return 'ShoppingData(id: $id, done: $done, ingredient: $ingredient)';
+  return 'ShoppingData(id: $id, done: $done, count: $count, ingredient: $ingredient)';
 }
 
 
@@ -131,7 +133,7 @@ abstract mixin class _$ShoppingDataCopyWith<$Res> implements $ShoppingDataCopyWi
   factory _$ShoppingDataCopyWith(_ShoppingData value, $Res Function(_ShoppingData) _then) = __$ShoppingDataCopyWithImpl;
 @override @useResult
 $Res call({
- String id, bool done, IngredientData ingredient
+ String id, bool done, int count, IngredientData ingredient
 });
 
 
@@ -148,11 +150,12 @@ class __$ShoppingDataCopyWithImpl<$Res>
 
 /// Create a copy of ShoppingData
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? done = null,Object? ingredient = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? done = null,Object? count = null,Object? ingredient = null,}) {
   return _then(_ShoppingData(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,done: null == done ? _self.done : done // ignore: cast_nullable_to_non_nullable
-as bool,ingredient: null == ingredient ? _self.ingredient : ingredient // ignore: cast_nullable_to_non_nullable
+as bool,count: null == count ? _self.count : count // ignore: cast_nullable_to_non_nullable
+as int,ingredient: null == ingredient ? _self.ingredient : ingredient // ignore: cast_nullable_to_non_nullable
 as IngredientData,
   ));
 }

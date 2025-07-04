@@ -11,6 +11,7 @@ import 'package:recipe_list/widgets/generic/delete_confirmation_dialog.dart';
 import 'package:recipe_list/widgets/generic/unsaved_changes_scope.dart';
 import 'package:recipe_list/widgets/grocery_screen/providers/grocery_notifier.dart';
 import 'package:recipe_list/widgets/main_screen/providers/recipe_notifier.dart';
+import 'package:recipe_list/widgets/shopping_screen/providers/shopping_notifier.dart';
 
 class CreateGroceryScreen extends ConsumerStatefulWidget {
   const CreateGroceryScreen({this.groceryId, super.key});
@@ -78,20 +79,27 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
               ElevatedButton.icon(
                 onPressed: () async {
                   final groceries = ref.read(groceryNotifierProvider);
-                  final recipes = ref.read(recipeNotifierProvider).values;
 
-                  final using = recipes.where(
+                  final recipes = ref.read(recipeNotifierProvider).values;
+                  final recipesUsing = recipes.where(
                     (e) => e
                         .getIngredients(groceries)
                         .any((e) => e.groceryId == data.id),
                   );
 
-                  if (using.isNotEmpty) {
+                  final shoppingItems = ref
+                      .read(shoppingNotifierProvider)
+                      .values;
+                  final shoppingUsing = shoppingItems.where(
+                    (e) => e.ingredient.groceryId == data.id,
+                  );
+
+                  if (recipesUsing.isNotEmpty || shoppingUsing.isNotEmpty) {
                     showDialog(
                       context: context,
                       builder: (context) => ConfirmationDialog(
                         message:
-                            "There are ${using.length} recipes using this ingredient.\nIt cannot be deleted.",
+                            "There are ${recipesUsing.length} recipes and ${shoppingUsing.length} shopping items using this ingredient.\nIt cannot be deleted.",
                       ),
                     );
                     return;
@@ -146,9 +154,18 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
                           onChanged: (value) {
                             final parsed = double.tryParse(value);
                             if (parsed != null) {
+                              final conversion =
+                                  data.conversionAmount /
+                                  data.normalAmount *
+                                  parsed;
+                              conversionController.text = doubleNumberFormat
+                                  .format(conversion);
+
                               setState(
-                                () =>
-                                    data = data.copyWith(normalAmount: parsed),
+                                () => data = data.copyWith(
+                                  normalAmount: parsed,
+                                  conversionAmount: conversion,
+                                ),
                               );
                             }
                           },
@@ -232,7 +249,7 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
                               if (parsed != null) {
                                 setState(
                                   () => data = data.copyWith(
-                                    normalAmount: parsed,
+                                    conversionAmount: parsed,
                                   ),
                                 );
                               }

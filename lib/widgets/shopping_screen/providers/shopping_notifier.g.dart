@@ -6,7 +6,7 @@ part of 'shopping_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$shoppingNotifierHash() => r'db8c01bab868d26135abcccafa9bad3c89ff858b';
+String _$shoppingNotifierHash() => r'a5a7ee904b1a1c964fd601c6d242039243b4f504';
 
 /// See also [ShoppingNotifier].
 @ProviderFor(ShoppingNotifier)

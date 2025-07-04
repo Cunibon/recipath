@@ -23,9 +23,9 @@ List<DrawerDestination> drawerDestinations(Ref ref) => [
     route: RootRoutes.shoppingRoute.path,
     icon: Icons.shopping_basket,
   ),
-  DrawerDestination(
-    label: "Storage",
-    route: RootRoutes.storageRoute.path,
-    icon: Icons.category,
-  ),
+  // DrawerDestination(
+  //   label: "Storage",
+  //   route: RootRoutes.storageRoute.path,
+  //   icon: Icons.category,
+  // ),
 ];

@@ -14,9 +14,13 @@ class ShoppingItem extends ConsumerWidget {
     final groceries = ref.watch(groceryNotifierProvider);
 
     void switchState() {
-      ref
-          .read(shoppingNotifierProvider.notifier)
-          .addItem(data.copyWith(done: !data.done));
+      final notifier = ref.read(shoppingNotifierProvider.notifier);
+      if (data.done) {
+        notifier.addItems([data.ingredient], groceries);
+        notifier.deleteItem(data);
+      } else {
+        notifier.updateItem(data.copyWith(done: true));
+      }
     }
 
     return GestureDetector(

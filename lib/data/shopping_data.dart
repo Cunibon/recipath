@@ -11,6 +11,7 @@ abstract class ShoppingData with _$ShoppingData {
   const factory ShoppingData({
     required String id,
     required bool done,
+    required int count,
     required IngredientData ingredient,
   }) = _ShoppingData;
 
@@ -20,5 +21,5 @@ abstract class ShoppingData with _$ShoppingData {
 
 extension ShoppingDataFunctions on ShoppingData {
   String toReadable(GroceryData grocery) =>
-      "${doubleNumberFormat.format(ingredient.amount)}${grocery.unit.name} ${grocery.name}";
+      "$count ${grocery.name} (${doubleNumberFormat.format(ingredient.amount)}${grocery.unit.name})";
 }
