@@ -66,7 +66,10 @@ class UnitConversion {
   static double convert(double value, UnitEnum from, UnitEnum to) {
     final fromType = unitType(from);
     final toType = unitType(to);
-    if (fromType != toType) return value;
+    if (fromType != toType ||
+        fromType == UnitType.misc && toType == UnitType.misc) {
+      return value;
+    }
     if (fromType == UnitType.volume) {
       return _convertVolume(value, from, to);
     } else {

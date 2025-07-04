@@ -148,16 +148,24 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
                           keyboardType: TextInputType.numberWithOptions(
                             decimal: true,
                           ),
-                          validator: (value) => value == null || value.isEmpty
+                          validator: (value) =>
+                              value == null ||
+                                  value.isEmpty ||
+                                  double.tryParse(value) == 0
                               ? "Add normal amount"
                               : null,
                           onChanged: (value) {
                             final parsed = double.tryParse(value);
                             if (parsed != null) {
-                              final conversion =
+                              double conversion =
                                   data.conversionAmount /
                                   data.normalAmount *
                                   parsed;
+
+                              if (conversion.isNaN || conversion.isInfinite) {
+                                conversion = 0;
+                              }
+
                               conversionController.text = doubleNumberFormat
                                   .format(conversion);
 

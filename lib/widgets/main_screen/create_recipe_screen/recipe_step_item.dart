@@ -79,16 +79,23 @@ class RecipeStepItem extends ConsumerWidget {
                           );
 
                           if (groceries != null) {
+                            final existing = {
+                              for (final ingredient in data.ingredients)
+                                ingredient.groceryId: ingredient,
+                            };
+
                             onChanged(
                               data.copyWith(
                                 ingredients: groceries
                                     .map(
-                                      (grocery) => IngredientData(
-                                        id: randomAlphaNumeric(16),
-                                        amount: grocery.normalAmount,
-                                        unit: grocery.unit,
-                                        groceryId: grocery.id,
-                                      ),
+                                      (grocery) =>
+                                          existing[grocery.id] ??
+                                          IngredientData(
+                                            id: randomAlphaNumeric(16),
+                                            amount: grocery.normalAmount,
+                                            unit: grocery.unit,
+                                            groceryId: grocery.id,
+                                          ),
                                     )
                                     .toList(),
                               ),

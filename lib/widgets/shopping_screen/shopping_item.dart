@@ -26,7 +26,9 @@ class ShoppingItem extends ConsumerWidget {
     return GestureDetector(
       onTap: switchState,
       child: Card(
-        color: data.done ? Theme.of(context).cardColor : null,
+        color: data.done
+            ? Theme.of(context).colorScheme.surfaceContainerLowest
+            : null,
         child: Padding(
           padding: EdgeInsetsGeometry.all(8),
           child: Row(

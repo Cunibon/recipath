@@ -54,7 +54,9 @@ class _IngredientItemState extends ConsumerState<IngredientItem> {
             controller: amountController,
             decoration: InputDecoration(labelText: "Amount"),
             validator: (value) =>
-                value == null || value.isEmpty ? "Add amount" : null,
+                value == null || value.isEmpty || double.tryParse(value) == 0
+                ? "Add amount"
+                : null,
             onChanged: (value) {
               final parsed = double.tryParse(value);
               if (parsed != null) {
@@ -77,11 +79,16 @@ class _IngredientItemState extends ConsumerState<IngredientItem> {
                   decoration: InputDecoration(labelText: "Unit"),
                   value: widget.data.unit,
                   validator: (value) => value == null ? "Add unit" : null,
-                  items: UnitEnum.values
-                      .map(
-                        (e) => DropdownMenuItem(value: e, child: Text(e.name)),
-                      )
-                      .toList(),
+                  items:
+                      [
+                            ...UnitConversion.volumeToMl.keys,
+                            ...UnitConversion.weightToGram.keys,
+                          ]
+                          .map(
+                            (e) =>
+                                DropdownMenuItem(value: e, child: Text(e.name)),
+                          )
+                          .toList(),
                   onChanged: (value) {
                     if (value != null) {
                       final newAmount = UnitConversion.convert(
