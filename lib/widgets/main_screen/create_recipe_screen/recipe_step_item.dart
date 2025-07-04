@@ -78,10 +78,10 @@ class RecipeStepItem extends ConsumerWidget {
                             ),
                           );
 
-                          if (groceries?.isNotEmpty == true) {
+                          if (groceries != null) {
                             onChanged(
                               data.copyWith(
-                                ingredients: groceries!
+                                ingredients: groceries
                                     .map(
                                       (grocery) => IngredientData(
                                         id: randomAlphaNumeric(16),
@@ -96,7 +96,7 @@ class RecipeStepItem extends ConsumerWidget {
                           }
                         },
                         icon: Icon(Icons.add),
-                        label: Text("Add ingredient"),
+                        label: Text("Change ingredients"),
                       ),
                     ],
                   ),

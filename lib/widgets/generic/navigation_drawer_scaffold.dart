@@ -8,11 +8,13 @@ class NavigationDrawerScaffold extends ConsumerWidget {
   const NavigationDrawerScaffold({
     this.floatingActionButton,
     this.body,
+    this.actions,
     super.key,
   });
 
   final Widget? floatingActionButton;
   final Widget? body;
+  final List<Widget>? actions;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -39,6 +41,7 @@ class NavigationDrawerScaffold extends ConsumerWidget {
           destinations[selectedIndex].label,
           style: Theme.of(context).textTheme.titleLarge,
         ),
+        actions: actions,
       ),
       floatingActionButton: floatingActionButton,
       drawer: NavigationDrawer(

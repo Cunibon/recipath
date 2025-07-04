@@ -13,34 +13,43 @@ class ShoppingItem extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final groceries = ref.watch(groceryNotifierProvider);
 
-    return Card(
-      color: data.done ? Theme.of(context).cardColor : null,
-      child: Padding(
-        padding: EdgeInsetsGeometry.all(8),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
+    void switchState() {
+      ref
+          .read(shoppingNotifierProvider.notifier)
+          .addItem(data.copyWith(done: !data.done));
+    }
+
+    return GestureDetector(
+      onTap: switchState,
+      child: Card(
+        color: data.done ? Theme.of(context).cardColor : null,
+        child: Padding(
+          padding: EdgeInsetsGeometry.all(8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  IconButton(
+                    onPressed: switchState,
+                    icon: Icon(
+                      data.done
+                          ? Icons.check_box
+                          : Icons.check_box_outline_blank,
+                    ),
+                  ),
+                  Text(data.toReadable(groceries[data.ingredient.groceryId]!)),
+                ],
+              ),
+              if (data.done)
                 IconButton(
                   onPressed: () => ref
                       .read(shoppingNotifierProvider.notifier)
-                      .addShoppingItem(data.copyWith(done: !data.done)),
-                  icon: Icon(
-                    data.done ? Icons.check_box : Icons.check_box_outline_blank,
-                  ),
+                      .deleteItem(data),
+                  icon: Icon(Icons.delete),
                 ),
-                Text(data.toReadable(groceries[data.ingredient.groceryId]!)),
-              ],
-            ),
-            if (data.done)
-              IconButton(
-                onPressed: () => ref
-                    .read(shoppingNotifierProvider.notifier)
-                    .deleteShoppingItem(data),
-                icon: Icon(Icons.delete),
-              ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -16,6 +16,12 @@ class ShoppingScreen extends ConsumerWidget {
     final groceries = ref.watch(groceryNotifierProvider);
 
     return NavigationDrawerScaffold(
+      actions: [
+        TextButton(
+          onPressed: ref.read(shoppingNotifierProvider.notifier).clear,
+          child: Text("Clear"),
+        ),
+      ],
       body: SearchableList(
         type: "Items",
         items: items,

@@ -24,7 +24,7 @@ enum UnitEnum {
   @JsonValue("Pound")
   lb,
 
-  //Special
+  //Miscellaneous
   @JsonValue("Pinch")
   pinch,
   @JsonValue("Clove")
@@ -35,8 +35,10 @@ enum UnitEnum {
   piece,
 }
 
+enum UnitType { volume, weight, misc }
+
 class UnitConversion {
-  static final Map<UnitEnum, double> _volumeToMl = {
+  static final Map<UnitEnum, double> volumeToMl = {
     UnitEnum.ml: 1.0,
     UnitEnum.l: 1000.0,
     UnitEnum.tsp: 5.0,
@@ -44,34 +46,41 @@ class UnitConversion {
     UnitEnum.cup: 240.0,
   };
 
-  static final Map<UnitEnum, double> _weightToGram = {
+  static final Map<UnitEnum, double> weightToGram = {
     UnitEnum.g: 1.0,
     UnitEnum.kg: 1000.0,
     UnitEnum.oz: 28.3495,
     UnitEnum.lb: 453.592,
   };
 
-  static double convert(double value, UnitEnum from, UnitEnum to) {
-    if (_volumeToMl.containsKey(from)) {
-      return convertVolume(value, from, to);
+  static unitType(UnitEnum value) {
+    if (volumeToMl.keys.contains(value)) {
+      return UnitType.volume;
+    } else if (weightToGram.keys.contains(value)) {
+      return UnitType.weight;
     } else {
-      return convertWeight(value, from, to);
+      return UnitType.misc;
     }
   }
 
-  static double convertVolume(double value, UnitEnum from, UnitEnum to) {
-    if (!_volumeToMl.containsKey(from) || !_volumeToMl.containsKey(to)) {
-      return value;
+  static double convert(double value, UnitEnum from, UnitEnum to) {
+    final fromType = unitType(from);
+    final toType = unitType(to);
+    if (fromType != toType) return value;
+    if (fromType == UnitType.volume) {
+      return _convertVolume(value, from, to);
+    } else {
+      return _convertWeight(value, from, to);
     }
-    double inMl = value * _volumeToMl[from]!;
-    return inMl / _volumeToMl[to]!;
   }
 
-  static double convertWeight(double value, UnitEnum from, UnitEnum to) {
-    if (!_weightToGram.containsKey(from) || !_weightToGram.containsKey(to)) {
-      return value;
-    }
-    double inGrams = value * _weightToGram[from]!;
-    return inGrams / _weightToGram[to]!;
+  static double _convertVolume(double value, UnitEnum from, UnitEnum to) {
+    double inMl = value * volumeToMl[from]!;
+    return inMl / volumeToMl[to]!;
+  }
+
+  static double _convertWeight(double value, UnitEnum from, UnitEnum to) {
+    double inGrams = value * weightToGram[from]!;
+    return inGrams / weightToGram[to]!;
   }
 }

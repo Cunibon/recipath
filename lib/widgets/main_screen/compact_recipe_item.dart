@@ -29,9 +29,12 @@ class CompactRecipeItem extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if (data.imageName != null)
-                SizedBox(
-                  width: 100,
-                  child: LocalImage(fileName: data.imageName!),
+                Padding(
+                  padding: const EdgeInsets.only(top: 12),
+                  child: SizedBox(
+                    width: 100,
+                    child: LocalImage(fileName: data.imageName!),
+                  ),
                 ),
               SizedBox(width: 8),
               Expanded(
@@ -56,7 +59,7 @@ class CompactRecipeItem extends ConsumerWidget {
                                 )) {
                                   ref
                                       .read(shoppingNotifierProvider.notifier)
-                                      .addShoppingItem(
+                                      .addItem(
                                         ShoppingData(
                                           id: randomAlphaNumeric(16),
                                           done: false,
@@ -64,6 +67,13 @@ class CompactRecipeItem extends ConsumerWidget {
                                         ),
                                       );
                                 }
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      "Added items to shopping list!",
+                                    ),
+                                  ),
+                                );
                               },
                               icon: Icon(Icons.shopping_cart),
                             ),

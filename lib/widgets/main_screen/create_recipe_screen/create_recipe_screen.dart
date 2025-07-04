@@ -57,27 +57,29 @@ class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
             ElevatedButton.icon(
               onPressed: () {
                 if (formKey.currentState?.validate() == true) {
-                  ref.read(recipeNotifierProvider.notifier).addRecipe(data);
+                  ref.read(recipeNotifierProvider.notifier).add(data);
                   context.pop();
                 }
               },
               icon: Icon(Icons.save),
               label: Text("Save"),
             ),
-            ElevatedButton.icon(
-              onPressed: () async {
-                final result = await showDialog(
-                  context: context,
-                  builder: (context) => DeleteConfirmationDialog(),
-                );
+            if (widget.recipeId != null)
+              ElevatedButton.icon(
+                onPressed: () async {
+                  final result = await showDialog(
+                    context: context,
+                    builder: (context) => DeleteConfirmationDialog(),
+                  );
 
-                if (result) {
-                  ref.read(recipeNotifierProvider.notifier).deleteRecipe(data);
-                }
-              },
-              icon: Icon(Icons.delete),
-              label: Text("Delete"),
-            ),
+                  if (context.mounted && result) {
+                    ref.read(recipeNotifierProvider.notifier).delete(data);
+                    context.pop();
+                  }
+                },
+                icon: Icon(Icons.delete),
+                label: Text("Delete"),
+              ),
           ],
         ),
         body: Form(

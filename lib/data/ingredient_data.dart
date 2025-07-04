@@ -38,11 +38,7 @@ abstract class IngredientData with _$IngredientData {
       ingredientsMap[ingredient.groceryId] = data.copyWith(
         amount:
             data.amount +
-            UnitConversion.convert(
-              ingredient.amount,
-              ingredient.unit,
-              grocery.unit,
-            ),
+            grocery.convertToNorm(ingredient.amount, ingredient.unit),
       );
     }
     return ingredientsMap.values.toList();

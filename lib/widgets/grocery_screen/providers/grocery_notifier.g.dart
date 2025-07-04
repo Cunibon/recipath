@@ -6,7 +6,7 @@ part of 'grocery_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$groceryNotifierHash() => r'4e7386dc885be16b09ae4664789f724d60809579';
+String _$groceryNotifierHash() => r'65d044598040af01584981954e7e7a5abb649fc5';
 
 /// See also [GroceryNotifier].
 @ProviderFor(GroceryNotifier)

@@ -21,12 +21,12 @@ class RecipeNotifier extends _$RecipeNotifier {
     );
   }
 
-  void addRecipe(RecipeData newData) {
+  void add(RecipeData newData) {
     state[newData.id] = newData;
     updateState();
   }
 
-  void deleteRecipe(RecipeData toDelete) {
+  void delete(RecipeData toDelete) {
     state.remove(toDelete.id);
     updateState();
   }

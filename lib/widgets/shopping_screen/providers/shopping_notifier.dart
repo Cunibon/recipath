@@ -21,13 +21,18 @@ class ShoppingNotifier extends _$ShoppingNotifier {
     );
   }
 
-  void addShoppingItem(ShoppingData newData) {
+  void addItem(ShoppingData newData) {
     state[newData.id] = newData;
     updateState();
   }
 
-  void deleteShoppingItem(ShoppingData toDelete) {
+  void deleteItem(ShoppingData toDelete) {
     state.remove(toDelete.id);
+    updateState();
+  }
+
+  void clear() {
+    state.clear();
     updateState();
   }
 

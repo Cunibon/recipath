@@ -23,11 +23,13 @@ class IngredientItem extends ConsumerStatefulWidget {
 
 class _IngredientItemState extends ConsumerState<IngredientItem> {
   final amountController = TextEditingController();
+  late bool isMisc;
 
   @override
   void initState() {
     super.initState();
     amountController.text = doubleNumberFormat.format(widget.data.amount);
+    isMisc = UnitConversion.unitType(widget.data.unit) == UnitType.misc;
   }
 
   @override
@@ -63,27 +65,39 @@ class _IngredientItemState extends ConsumerState<IngredientItem> {
         ),
         Flexible(
           flex: 3,
-          child: DropdownButtonFormField(
-            decoration: InputDecoration(labelText: "Unit"),
-            value: widget.data.unit,
-            validator: (value) => value == null ? "Add unit" : null,
-            items: UnitEnum.values
-                .map((e) => DropdownMenuItem(value: e, child: Text(e.name)))
-                .toList(),
-            onChanged: (value) {
-              if (value != null) {
-                final newAmount = UnitConversion.convert(
-                  widget.data.amount,
-                  widget.data.unit,
-                  value,
-                );
-                amountController.text = doubleNumberFormat.format(newAmount);
-                widget.onChanged(
-                  widget.data.copyWith(unit: value, amount: newAmount),
-                );
-              }
-            },
-          ),
+          child: isMisc
+              ? SizedBox(
+                  width: double.infinity,
+                  child: Text(
+                    widget.data.unit.name,
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
+                )
+              : DropdownButtonFormField(
+                  decoration: InputDecoration(labelText: "Unit"),
+                  value: widget.data.unit,
+                  validator: (value) => value == null ? "Add unit" : null,
+                  items: UnitEnum.values
+                      .map(
+                        (e) => DropdownMenuItem(value: e, child: Text(e.name)),
+                      )
+                      .toList(),
+                  onChanged: (value) {
+                    if (value != null) {
+                      final newAmount = UnitConversion.convert(
+                        widget.data.amount,
+                        widget.data.unit,
+                        value,
+                      );
+                      amountController.text = doubleNumberFormat.format(
+                        newAmount,
+                      );
+                      widget.onChanged(
+                        widget.data.copyWith(unit: value, amount: newAmount),
+                      );
+                    }
+                  },
+                ),
         ),
         Flexible(
           flex: 5,

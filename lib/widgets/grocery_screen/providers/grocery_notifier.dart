@@ -21,12 +21,12 @@ class GroceryNotifier extends _$GroceryNotifier {
     );
   }
 
-  void addGrocery(GroceryData newData) {
+  void add(GroceryData newData) {
     state[newData.id] = newData;
     updateState();
   }
 
-  void deleteGrocery(GroceryData toDelete) {
+  void delete(GroceryData toDelete) {
     state.remove(toDelete.id);
     updateState();
   }

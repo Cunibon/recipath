@@ -17,4 +17,4 @@ Color getRandomColorBasedOnString(String string) {
   return Color.fromARGB(255, r, g, b);
 }
 
-final doubleNumberFormat = NumberFormat()..maximumFractionDigits = 10;
+final doubleNumberFormat = NumberFormat()..maximumFractionDigits = 2;

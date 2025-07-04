@@ -4,10 +4,13 @@ import 'package:go_router/go_router.dart';
 import 'package:random_string/random_string.dart';
 import 'package:recipe_list/common.dart';
 import 'package:recipe_list/data/grocery_data.dart';
+import 'package:recipe_list/data/recipe_data.dart';
 import 'package:recipe_list/data/unit_enum.dart';
+import 'package:recipe_list/widgets/generic/confirmation_dialog.dart';
 import 'package:recipe_list/widgets/generic/delete_confirmation_dialog.dart';
 import 'package:recipe_list/widgets/generic/unsaved_changes_scope.dart';
 import 'package:recipe_list/widgets/grocery_screen/providers/grocery_notifier.dart';
+import 'package:recipe_list/widgets/main_screen/providers/recipe_notifier.dart';
 
 class CreateGroceryScreen extends ConsumerStatefulWidget {
   const CreateGroceryScreen({this.groceryId, super.key});
@@ -21,6 +24,7 @@ class CreateGroceryScreen extends ConsumerStatefulWidget {
 class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
   final GlobalKey<FormState> formKey = GlobalKey();
   final amountController = TextEditingController();
+  final conversionController = TextEditingController();
   late GroceryData initialData;
   late GroceryData data;
 
@@ -34,10 +38,15 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
           name: "",
           normalAmount: 0,
           unit: UnitEnum.g,
+          conversionAmount: 0,
+          conversionUnit: UnitEnum.ml,
         );
     data = initialData;
 
     amountController.text = doubleNumberFormat.format(data.normalAmount);
+    conversionController.text = doubleNumberFormat.format(
+      data.conversionAmount,
+    );
   }
 
   @override
@@ -58,29 +67,49 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
             ElevatedButton.icon(
               onPressed: () {
                 if (formKey.currentState?.validate() == true) {
-                  ref.read(groceryNotifierProvider.notifier).addGrocery(data);
+                  ref.read(groceryNotifierProvider.notifier).add(data);
                   context.pop();
                 }
               },
               icon: Icon(Icons.save),
               label: Text("Save"),
             ),
-            ElevatedButton.icon(
-              onPressed: () async {
-                final result = await showDialog(
-                  context: context,
-                  builder: (context) => DeleteConfirmationDialog(),
-                );
+            if (widget.groceryId != null)
+              ElevatedButton.icon(
+                onPressed: () async {
+                  final groceries = ref.read(groceryNotifierProvider);
+                  final recipes = ref.read(recipeNotifierProvider).values;
 
-                if (result) {
-                  ref
-                      .read(groceryNotifierProvider.notifier)
-                      .deleteGrocery(data);
-                }
-              },
-              icon: Icon(Icons.delete),
-              label: Text("Delete"),
-            ),
+                  final using = recipes.where(
+                    (e) => e
+                        .getIngredients(groceries)
+                        .any((e) => e.groceryId == data.id),
+                  );
+
+                  if (using.isNotEmpty) {
+                    showDialog(
+                      context: context,
+                      builder: (context) => ConfirmationDialog(
+                        message:
+                            "There are ${using.length} recipes using this ingredient.\nIt cannot be deleted.",
+                      ),
+                    );
+                    return;
+                  }
+
+                  final result = await showDialog(
+                    context: context,
+                    builder: (context) => DeleteConfirmationDialog(),
+                  );
+
+                  if (context.mounted && result) {
+                    ref.read(groceryNotifierProvider.notifier).delete(data);
+                    context.pop();
+                  }
+                },
+                icon: Icon(Icons.delete),
+                label: Text("Delete"),
+              ),
           ],
         ),
         body: Form(
@@ -102,7 +131,7 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
                   Row(
                     children: [
                       Flexible(
-                        flex: 4,
+                        flex: 3,
                         child: TextFormField(
                           controller: amountController,
                           decoration: InputDecoration(
@@ -126,7 +155,7 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
                         ),
                       ),
                       Flexible(
-                        flex: 1,
+                        flex: 2,
                         child: DropdownButtonFormField(
                           decoration: InputDecoration(labelText: "Unit"),
                           value: data.unit,
@@ -150,16 +179,105 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
                               amountController.text = doubleNumberFormat.format(
                                 newAmount,
                               );
+
+                              final unitType = UnitConversion.unitType(value);
+                              late UnitEnum conversion;
+
+                              switch (unitType) {
+                                case UnitType.volume:
+                                  conversion = UnitEnum.g;
+                                  break;
+                                case UnitType.weight:
+                                  conversion = UnitEnum.ml;
+                                  break;
+                                default:
+                                  conversion = value;
+                              }
+
                               setState(
                                 () => data = data.copyWith(
                                   unit: value,
                                   normalAmount: newAmount,
+                                  conversionUnit: conversion,
+                                  conversionAmount: newAmount,
                                 ),
                               );
                             }
                           },
                         ),
                       ),
+                      if (UnitConversion.unitType(data.unit) !=
+                          UnitType.misc) ...[
+                        SizedBox(width: 8),
+                        Text(
+                          "=",
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                        SizedBox(width: 8),
+                        Flexible(
+                          flex: 3,
+                          child: TextFormField(
+                            controller: conversionController,
+                            decoration: InputDecoration(
+                              labelText: "Conversion amount",
+                            ),
+                            keyboardType: TextInputType.numberWithOptions(
+                              decimal: true,
+                            ),
+                            validator: (value) => value == null || value.isEmpty
+                                ? "Add conversion"
+                                : null,
+                            onChanged: (value) {
+                              final parsed = double.tryParse(value);
+                              if (parsed != null) {
+                                setState(
+                                  () => data = data.copyWith(
+                                    normalAmount: parsed,
+                                  ),
+                                );
+                              }
+                            },
+                          ),
+                        ),
+                        Flexible(
+                          flex: 2,
+                          child: DropdownButtonFormField(
+                            decoration: InputDecoration(labelText: "Unit"),
+                            value: data.conversionUnit,
+                            validator: (value) =>
+                                value == null ? "Add unit" : null,
+                            items:
+                                (UnitConversion.unitType(data.unit) ==
+                                            UnitType.volume
+                                        ? UnitConversion.weightToGram.keys
+                                        : UnitConversion.volumeToMl.keys)
+                                    .map(
+                                      (e) => DropdownMenuItem(
+                                        value: e,
+                                        child: Text(e.name),
+                                      ),
+                                    )
+                                    .toList(),
+                            onChanged: (value) {
+                              if (value != null) {
+                                final newAmount = UnitConversion.convert(
+                                  data.conversionAmount,
+                                  data.conversionUnit,
+                                  value,
+                                );
+                                conversionController.text = doubleNumberFormat
+                                    .format(newAmount);
+                                setState(
+                                  () => data = data.copyWith(
+                                    conversionUnit: value,
+                                    conversionAmount: newAmount,
+                                  ),
+                                );
+                              }
+                            },
+                          ),
+                        ),
+                      ],
                     ],
                   ),
                 ],

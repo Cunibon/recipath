@@ -20,6 +20,6 @@ class IngredientsList extends ConsumerWidget {
       );
     }
 
-    return Text(ingredientBuffer.toString());
+    return Text(ingredientBuffer.toString().trimRight());
   }
 }

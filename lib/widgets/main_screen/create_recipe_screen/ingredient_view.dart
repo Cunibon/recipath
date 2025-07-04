@@ -56,12 +56,15 @@ class _IngredientViewState extends State<IngredientView> {
               children: [
                 Text(
                   expanded ? "Collapse" : "Expand",
-                  style: Theme.of(context).textTheme.bodyLarge,
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
                 ),
                 Icon(
                   expanded
                       ? Icons.keyboard_arrow_down
                       : Icons.keyboard_arrow_right,
+                  color: Theme.of(context).colorScheme.primary,
                 ),
               ],
             ),
