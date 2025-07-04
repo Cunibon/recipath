@@ -23,6 +23,16 @@ enum UnitEnum {
   oz,
   @JsonValue("Pound")
   lb,
+
+  //Special
+  @JsonValue("Pinch")
+  pinch,
+  @JsonValue("Clove")
+  clove,
+  @JsonValue("Can")
+  can,
+  @JsonValue("Piece")
+  piece,
 }
 
 class UnitConversion {
@@ -41,9 +51,17 @@ class UnitConversion {
     UnitEnum.lb: 453.592,
   };
 
+  static double convert(double value, UnitEnum from, UnitEnum to) {
+    if (_volumeToMl.containsKey(from)) {
+      return convertVolume(value, from, to);
+    } else {
+      return convertWeight(value, from, to);
+    }
+  }
+
   static double convertVolume(double value, UnitEnum from, UnitEnum to) {
     if (!_volumeToMl.containsKey(from) || !_volumeToMl.containsKey(to)) {
-      throw ArgumentError("Invalid volume units");
+      return value;
     }
     double inMl = value * _volumeToMl[from]!;
     return inMl / _volumeToMl[to]!;
@@ -51,7 +69,7 @@ class UnitConversion {
 
   static double convertWeight(double value, UnitEnum from, UnitEnum to) {
     if (!_weightToGram.containsKey(from) || !_weightToGram.containsKey(to)) {
-      throw ArgumentError("Invalid weight units");
+      return value;
     }
     double inGrams = value * _weightToGram[from]!;
     return inGrams / _weightToGram[to]!;

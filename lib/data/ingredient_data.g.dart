@@ -32,4 +32,8 @@ const _$UnitEnumEnumMap = {
   UnitEnum.kg: 'Kilogram',
   UnitEnum.oz: 'Ounce',
   UnitEnum.lb: 'Pound',
+  UnitEnum.pinch: 'Pinch',
+  UnitEnum.clove: 'Clove',
+  UnitEnum.can: 'Can',
+  UnitEnum.piece: 'Piece',
 };

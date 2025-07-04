@@ -87,7 +87,10 @@ class AddImageWidget extends ConsumerWidget {
             border: Border.all(),
             borderRadius: BorderRadius.circular(8),
           ),
-          child: Icon(Icons.camera_alt),
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Icon(Icons.camera_alt),
+          ),
         ),
       );
     }

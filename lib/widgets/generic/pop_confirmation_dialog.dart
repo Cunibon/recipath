@@ -1,29 +1,30 @@
 import 'package:flutter/material.dart';
 
-class DeleteConfirmationDialog extends StatelessWidget {
-  const DeleteConfirmationDialog({super.key});
+class PopConfirmationDialog extends StatelessWidget {
+  const PopConfirmationDialog({super.key});
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      content: Text("Do you really want to delete?"),
+      title: const Text('Are you want to leave this page?'),
+      content: const Text('All unsaved changes will be lost!'),
       actions: [
         TextButton(
           style: TextButton.styleFrom(
             textStyle: Theme.of(context).textTheme.labelLarge,
           ),
-          child: const Text('Yes'),
+          child: const Text('Nevermind'),
           onPressed: () {
-            Navigator.of(context).pop(true);
+            Navigator.pop(context, false);
           },
         ),
         TextButton(
           style: TextButton.styleFrom(
             textStyle: Theme.of(context).textTheme.labelLarge,
           ),
-          child: const Text('No'),
+          child: const Text('Leave'),
           onPressed: () {
-            Navigator.of(context).pop(false);
+            Navigator.pop(context, true);
           },
         ),
       ],

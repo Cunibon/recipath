@@ -19,6 +19,10 @@ class NavigationDrawerScaffold extends ConsumerWidget {
     final currentRoute = GoRouterState.of(context).uri.toString();
     final destinations = ref.watch(drawerDestinationsProvider);
 
+    final selectedIndex = destinations.indexWhere(
+      (element) => currentRoute.startsWith(element.route),
+    );
+
     return Scaffold(
       appBar: AppBar(
         leading: Builder(
@@ -31,12 +35,14 @@ class NavigationDrawerScaffold extends ConsumerWidget {
             );
           },
         ),
+        title: Text(
+          destinations[selectedIndex].label,
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
       ),
       floatingActionButton: floatingActionButton,
       drawer: NavigationDrawer(
-        selectedIndex: destinations.indexWhere(
-          (element) => currentRoute.startsWith(element.route),
-        ),
+        selectedIndex: selectedIndex,
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -49,14 +55,19 @@ class NavigationDrawerScaffold extends ConsumerWidget {
             return NavigationDrawerDestination(
               label: Text(destination.label),
               icon: Icon(destination.icon),
-              selectedIcon: Icon(destination.icon, fill: 0),
             );
           }),
           Padding(padding: const EdgeInsets.all(8.0), child: Divider()),
         ],
         onDestinationSelected: (index) => context.go(destinations[index].route),
       ),
-      body: Padding(padding: const EdgeInsets.all(8.0), child: body),
+      body: PopScope(
+        canPop: false,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: body,
+        ),
+      ),
     );
   }
 }

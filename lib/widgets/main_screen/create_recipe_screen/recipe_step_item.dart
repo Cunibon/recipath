@@ -60,14 +60,11 @@ class RecipeStepItem extends ConsumerWidget {
                             onChanged(data.copyWith(description: value)),
                       ),
                       if (data.ingredients.isNotEmpty)
-                        ConstrainedBox(
-                          constraints: BoxConstraints(maxHeight: 200),
-                          child: IngredientView(
-                            controller: controller,
-                            ingredients: data.ingredients,
-                            onChanged: (newIngredients) => onChanged(
-                              data.copyWith(ingredients: newIngredients),
-                            ),
+                        IngredientView(
+                          controller: controller,
+                          ingredients: data.ingredients,
+                          onChanged: (newIngredients) => onChanged(
+                            data.copyWith(ingredients: newIngredients),
                           ),
                         ),
                       ElevatedButton.icon(
@@ -99,7 +96,7 @@ class RecipeStepItem extends ConsumerWidget {
                           }
                         },
                         icon: Icon(Icons.add),
-                        label: Text("Add grocery"),
+                        label: Text("Add ingredient"),
                       ),
                     ],
                   ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:recipe_list/application_constants.dart';
+import 'package:recipe_list/common.dart';
 import 'package:recipe_list/data/grocery_data.dart';
 import 'package:recipe_list/root_routes/root_routes.dart';
 import 'package:recipe_list/widgets/grocery_screen/grocery_routes.dart';
@@ -31,9 +32,12 @@ class GroceryItem extends StatelessWidget {
               ),
             ),
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(data.name, style: Theme.of(context).textTheme.titleMedium),
-                Text("${data.normalAmount} ${data.unit.name}"),
+                Text(
+                  "${doubleNumberFormat.format(data.normalAmount)}${data.unit.name}",
+                ),
               ],
             ),
           ],

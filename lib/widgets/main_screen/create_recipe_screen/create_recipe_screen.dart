@@ -5,6 +5,7 @@ import 'package:random_string/random_string.dart';
 import 'package:recipe_list/data/recipe_data.dart';
 import 'package:recipe_list/data/recipe_step_data.dart';
 import 'package:recipe_list/widgets/generic/delete_confirmation_dialog.dart';
+import 'package:recipe_list/widgets/generic/unsaved_changes_scope.dart';
 import 'package:recipe_list/widgets/main_screen/create_recipe_screen/add_image_widget.dart';
 import 'package:recipe_list/widgets/main_screen/create_recipe_screen/recipe_step_view.dart';
 import 'package:recipe_list/widgets/main_screen/providers/recipe_notifier.dart';
@@ -20,12 +21,13 @@ class CreateRecipeScreen extends ConsumerStatefulWidget {
 class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
   final GlobalKey<FormState> formKey = GlobalKey();
   final controller = ScrollController();
+  late RecipeData initalData;
   late RecipeData data;
 
   @override
   void initState() {
     super.initState();
-    data =
+    initalData =
         ref.read(recipeNotifierProvider)[widget.recipeId] ??
         RecipeData(
           id: randomAlphaNumeric(16),
@@ -33,108 +35,105 @@ class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
           imageName: null,
           steps: [],
         );
+
+    data = initalData;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(left: 32),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return UnsavedChangesScope(
+      canPop: data == initalData,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            "Create recipe",
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+        ),
+        floatingActionButton: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
+          mainAxisSize: MainAxisSize.min,
           children: [
             ElevatedButton.icon(
-              onPressed: () => setState(
-                () => data = data.copyWith(
-                  steps: List.from(data.steps)
-                    ..add(
-                      RecipeStepData(
-                        id: randomAlphaNumeric(16),
-                        description: "",
-                        ingredients: [],
-                      ),
-                    ),
-                ),
-              ),
-              icon: Icon(Icons.add),
-              label: Text("Add step"),
+              onPressed: () {
+                if (formKey.currentState?.validate() == true) {
+                  ref.read(recipeNotifierProvider.notifier).addRecipe(data);
+                  context.pop();
+                }
+              },
+              icon: Icon(Icons.save),
+              label: Text("Save"),
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                ElevatedButton.icon(
-                  onPressed: () {
-                    if (formKey.currentState?.validate() == true) {
-                      ref.read(recipeNotifierProvider.notifier).addRecipe(data);
-                      context.pop();
-                    }
-                  },
-                  icon: Icon(Icons.save),
-                  label: Text("Save"),
-                ),
-                ElevatedButton.icon(
-                  onPressed: () async {
-                    final result = await showDialog(
-                      context: context,
-                      builder: (context) => DeleteConfirmationDialog(),
-                    );
+            ElevatedButton.icon(
+              onPressed: () async {
+                final result = await showDialog(
+                  context: context,
+                  builder: (context) => DeleteConfirmationDialog(),
+                );
 
-                    if (result) {
-                      ref
-                          .read(recipeNotifierProvider.notifier)
-                          .deleteRecipe(data);
-                    }
-                  },
-                  icon: Icon(Icons.delete),
-                  label: Text("Delete"),
-                ),
-              ],
+                if (result) {
+                  ref.read(recipeNotifierProvider.notifier).deleteRecipe(data);
+                }
+              },
+              icon: Icon(Icons.delete),
+              label: Text("Delete"),
             ),
           ],
         ),
-      ),
-      body: Form(
-        key: formKey,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SingleChildScrollView(
-            controller: controller,
-            child: Column(
-              children: [
-                ConstrainedBox(
-                  constraints: BoxConstraints(maxHeight: 200),
-                  child: AddImageWidget(
-                    fileName: data.imageName,
-                    onChanged: (newFileName) => setState(
-                      () => data = data.copyWith(imageName: newFileName),
+        body: Form(
+          key: formKey,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: SingleChildScrollView(
+              controller: controller,
+              child: Column(
+                children: [
+                  ConstrainedBox(
+                    constraints: BoxConstraints(maxHeight: 200),
+                    child: AddImageWidget(
+                      fileName: data.imageName,
+                      onChanged: (newFileName) => setState(
+                        () => data = data.copyWith(imageName: newFileName),
+                      ),
                     ),
                   ),
-                ),
-                Divider(),
-                TextFormField(
-                  decoration: InputDecoration(labelText: "Title"),
-                  initialValue: data.title,
-                  validator: (value) =>
-                      value == null || value.isEmpty ? "Add title" : null,
-                  onChanged: (value) =>
-                      setState(() => data = data.copyWith(title: value)),
-                ),
-                SizedBox(height: 8),
-                ConstrainedBox(
-                  constraints: BoxConstraints(
-                    maxHeight: MediaQuery.sizeOf(context).height,
+                  Divider(),
+                  TextFormField(
+                    decoration: InputDecoration(labelText: "Title"),
+                    initialValue: data.title,
+                    validator: (value) =>
+                        value == null || value.isEmpty ? "Add title" : null,
+                    onChanged: (value) =>
+                        setState(() => data = data.copyWith(title: value)),
                   ),
-                  child: RecipeStepView(
+                  SizedBox(height: 8),
+                  RecipeStepView(
                     controller: controller,
                     steps: data.steps,
                     onChanged: (newSteps) =>
                         setState(() => data = data.copyWith(steps: newSteps)),
                   ),
-                ),
-              ],
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: ElevatedButton.icon(
+                      onPressed: () => setState(
+                        () => data = data.copyWith(
+                          steps: List.from(data.steps)
+                            ..add(
+                              RecipeStepData(
+                                id: randomAlphaNumeric(16),
+                                description: "",
+                                ingredients: [],
+                              ),
+                            ),
+                        ),
+                      ),
+                      icon: Icon(Icons.add),
+                      label: Text("Add step"),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

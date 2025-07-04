@@ -13,7 +13,10 @@ class RecipeStep extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(step.description, style: Theme.of(context).textTheme.bodyLarge),
-        IngredientsList(ingredients: step.ingredients),
+        if (step.ingredients.isNotEmpty) ...[
+          Divider(),
+          IngredientsList(ingredients: step.ingredients),
+        ],
       ],
     );
   }

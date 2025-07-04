@@ -3,11 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:random_string/random_string.dart';
 import 'package:recipe_list/application_constants.dart';
-import 'package:recipe_list/data/ingredient_data.dart';
 import 'package:recipe_list/data/recipe_data.dart';
 import 'package:recipe_list/data/shopping_data.dart';
 import 'package:recipe_list/root_routes/root_routes.dart';
 import 'package:recipe_list/widgets/grocery_screen/providers/grocery_notifier.dart';
+import 'package:recipe_list/widgets/main_screen/create_recipe_screen/compact_ingredient_view.dart';
 import 'package:recipe_list/widgets/main_screen/local_image.dart';
 import 'package:recipe_list/widgets/main_screen/main_routes.dart';
 import 'package:recipe_list/widgets/shopping_screen/providers/shopping_notifier.dart';
@@ -81,17 +81,8 @@ class CompactRecipeItem extends ConsumerWidget {
                         ),
                       ],
                     ),
-                    Wrap(
-                      spacing: 8.0,
-                      runSpacing: 4.0,
-                      children: data
-                          .getIngredients(groceryMap)
-                          .map(
-                            (e) => Text(
-                              "● ${e.toReadable(groceryMap[e.groceryId]!)}",
-                            ),
-                          )
-                          .toList(),
+                    CompactIngredientView(
+                      ingredients: data.getIngredients(groceryMap),
                     ),
                   ],
                 ),

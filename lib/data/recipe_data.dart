@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:random_string/random_string.dart';
 import 'package:recipe_list/data/grocery_data.dart';
 import 'package:recipe_list/data/ingredient_data.dart';
 import 'package:recipe_list/data/recipe_step_data.dart';
@@ -35,24 +34,9 @@ extension RecipeDataFunctions on RecipeData {
     return stringBuffer.toString();
   }
 
-  List<IngredientData> getIngredients(Map<String, GroceryData> groceries) {
-    final Map<String, IngredientData> ingredients = {};
-    for (final step in steps) {
-      for (final ingredient in step.ingredients) {
-        final data = ingredients.putIfAbsent(
-          ingredient.groceryId,
-          () => IngredientData(
-            id: randomAlphaNumeric(16),
-            amount: 0,
-            unit: groceries[ingredient.groceryId]!.unit,
-            groceryId: ingredient.groceryId,
-          ),
-        );
-        ingredients[ingredient.groceryId] = data.copyWith(
-          amount: data.amount + ingredient.amount,
-        );
-      }
-    }
-    return ingredients.values.toList();
-  }
+  List<IngredientData> getIngredients(Map<String, GroceryData> groceries) =>
+      IngredientData.aggregateIngredients(
+        groceries,
+        steps.expand((e) => e.ingredients),
+      );
 }

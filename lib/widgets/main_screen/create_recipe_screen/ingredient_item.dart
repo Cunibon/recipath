@@ -5,7 +5,7 @@ import 'package:recipe_list/data/ingredient_data.dart';
 import 'package:recipe_list/data/unit_enum.dart';
 import 'package:recipe_list/widgets/grocery_screen/providers/grocery_notifier.dart';
 
-class IngredientItem extends ConsumerWidget {
+class IngredientItem extends ConsumerStatefulWidget {
   const IngredientItem({
     required this.index,
     required this.data,
@@ -18,16 +18,29 @@ class IngredientItem extends ConsumerWidget {
   final void Function(IngredientData newIngredient) onChanged;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<IngredientItem> createState() => _IngredientItemState();
+}
+
+class _IngredientItemState extends ConsumerState<IngredientItem> {
+  final amountController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    amountController.text = doubleNumberFormat.format(widget.data.amount);
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final grocery = ref.watch(
-      groceryNotifierProvider.select((value) => value[data.groceryId]),
+      groceryNotifierProvider.select((value) => value[widget.data.groceryId]),
     )!;
 
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         ReorderableDragStartListener(
-          index: index,
+          index: widget.index,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Icon(Icons.drag_handle),
@@ -36,14 +49,14 @@ class IngredientItem extends ConsumerWidget {
         Flexible(
           flex: 3,
           child: TextFormField(
+            controller: amountController,
             decoration: InputDecoration(labelText: "Amount"),
-            initialValue: doubleNumberFormat.format(data.amount),
             validator: (value) =>
                 value == null || value.isEmpty ? "Add amount" : null,
             onChanged: (value) {
               final parsed = double.tryParse(value);
               if (parsed != null) {
-                onChanged(data.copyWith(amount: parsed));
+                widget.onChanged(widget.data.copyWith(amount: parsed));
               }
             },
           ),
@@ -52,14 +65,22 @@ class IngredientItem extends ConsumerWidget {
           flex: 3,
           child: DropdownButtonFormField(
             decoration: InputDecoration(labelText: "Unit"),
-            value: data.unit,
+            value: widget.data.unit,
             validator: (value) => value == null ? "Add unit" : null,
             items: UnitEnum.values
                 .map((e) => DropdownMenuItem(value: e, child: Text(e.name)))
                 .toList(),
             onChanged: (value) {
               if (value != null) {
-                onChanged(data.copyWith(unit: value));
+                final newAmount = UnitConversion.convert(
+                  widget.data.amount,
+                  widget.data.unit,
+                  value,
+                );
+                amountController.text = doubleNumberFormat.format(newAmount);
+                widget.onChanged(
+                  widget.data.copyWith(unit: value, amount: newAmount),
+                );
               }
             },
           ),

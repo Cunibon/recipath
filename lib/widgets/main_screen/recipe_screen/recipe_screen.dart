@@ -20,9 +20,14 @@ class RecipeScreen extends ConsumerWidget {
     final groceries = ref.watch(groceryNotifierProvider);
 
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text(
+          recipe.title,
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
+      ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -31,12 +36,14 @@ class RecipeScreen extends ConsumerWidget {
                 LocalImage(fileName: recipe.imageName!),
                 Divider(),
               ],
-              Text(recipe.title, style: Theme.of(context).textTheme.titleLarge),
               IngredientsList(ingredients: recipe.getIngredients(groceries)),
-              for (final step in recipe.steps) ...[
-                Divider(),
-                RecipeStep(step: step),
-              ],
+              for (final step in recipe.steps)
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: RecipeStep(step: step),
+                  ),
+                ),
             ],
           ),
         ),

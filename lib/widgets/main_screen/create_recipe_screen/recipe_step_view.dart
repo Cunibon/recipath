@@ -43,6 +43,7 @@ class RecipeStepView extends StatelessWidget {
 
     return ReorderableListView(
       scrollController: controller,
+      shrinkWrap: true,
       children: items,
       onReorder: (int oldIndex, int newIndex) {
         if (oldIndex < newIndex) {
