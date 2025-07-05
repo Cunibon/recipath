@@ -68,7 +68,7 @@ class RecipeStepItem extends ConsumerWidget {
                         ),
                       ElevatedButton.icon(
                         onPressed: () async {
-                          final groceries = await showDialog<List<GroceryData>>(
+                          final groceries = await showDialog<Set<GroceryData>>(
                             context: context,
                             builder: (context) => AddGroceriesDialog(
                               selected: data.ingredients.map(

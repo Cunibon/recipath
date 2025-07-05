@@ -9,16 +9,21 @@ import 'package:recipe_list/widgets/grocery_screen/providers/grocery_notifier.da
 import 'package:recipe_list/widgets/main_screen/main_routes.dart';
 
 class AddGroceriesDialog extends ConsumerStatefulWidget {
-  const AddGroceriesDialog({this.selected = const [], super.key});
+  const AddGroceriesDialog({
+    this.selected = const [],
+    this.allowSelectedRemoval = true,
+    super.key,
+  });
 
   final Iterable<String> selected;
+  final bool allowSelectedRemoval;
 
   @override
   ConsumerState<AddGroceriesDialog> createState() => _AddGroceriesDialogState();
 }
 
 class _AddGroceriesDialogState extends ConsumerState<AddGroceriesDialog> {
-  final List<String> selected = [];
+  final Set<String> selected = {};
 
   @override
   void initState() {
@@ -26,11 +31,17 @@ class _AddGroceriesDialogState extends ConsumerState<AddGroceriesDialog> {
     selected.addAll(widget.selected);
   }
 
-  void updateSelected(GroceryData item) => setState(
-    () => selected.contains(item.id)
-        ? selected.remove(item.id)
-        : selected.add(item.id),
-  );
+  void updateSelected(GroceryData item) {
+    if (!widget.allowSelectedRemoval && widget.selected.contains(item.id)) {
+      return;
+    }
+
+    setState(
+      () => selected.contains(item.id)
+          ? selected.remove(item.id)
+          : selected.add(item.id),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +72,11 @@ class _AddGroceriesDialogState extends ConsumerState<AddGroceriesDialog> {
                           children: [
                             Checkbox(
                               value: selected.contains(item.id),
-                              onChanged: (_) => updateSelected(item),
+                              onChanged:
+                                  widget.allowSelectedRemoval ||
+                                      !widget.selected.contains(item.id)
+                                  ? (_) => updateSelected(item)
+                                  : null,
                             ),
                             Text(item.name),
                           ],
@@ -87,7 +102,7 @@ class _AddGroceriesDialogState extends ConsumerState<AddGroceriesDialog> {
                     ),
                     ElevatedButton.icon(
                       onPressed: () => context.pop(
-                        selected.map((e) => groceries[e]!).toList(),
+                        selected.map((e) => groceries[e]!).toSet(),
                       ),
                       icon: Icon(Icons.done),
                       label: Text("Done"),
