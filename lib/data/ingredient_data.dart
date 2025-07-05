@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:random_string/random_string.dart';
 import 'package:recipe_list/common.dart';
 import 'package:recipe_list/data/grocery_data.dart';
 import 'package:recipe_list/data/unit_enum.dart';
@@ -10,7 +9,6 @@ part 'ingredient_data.g.dart';
 @freezed
 abstract class IngredientData with _$IngredientData {
   const factory IngredientData({
-    required String id,
     required double amount,
     required UnitEnum unit,
     required String groceryId,
@@ -29,7 +27,6 @@ abstract class IngredientData with _$IngredientData {
       final data = ingredientsMap.putIfAbsent(
         ingredient.groceryId,
         () => IngredientData(
-          id: randomAlphaNumeric(16),
           amount: 0,
           unit: grocery.unit,
           groceryId: ingredient.groceryId,

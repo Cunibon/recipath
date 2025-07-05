@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:random_string/random_string.dart';
 import 'package:recipe_list/data/grocery_data.dart';
 import 'package:recipe_list/data/ingredient_data.dart';
 import 'package:recipe_list/data/recipe_step_data.dart';
@@ -91,7 +90,6 @@ class RecipeStepItem extends ConsumerWidget {
                                       (grocery) =>
                                           existing[grocery.id] ??
                                           IngredientData(
-                                            id: randomAlphaNumeric(16),
                                             amount: grocery.normalAmount,
                                             unit: grocery.unit,
                                             groceryId: grocery.id,

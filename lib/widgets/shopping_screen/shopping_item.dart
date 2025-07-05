@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:recipe_list/data/ingredient_data.dart';
 import 'package:recipe_list/data/shopping_data.dart';
 import 'package:recipe_list/widgets/grocery_screen/providers/grocery_notifier.dart';
 import 'package:recipe_list/widgets/shopping_screen/providers/shopping_notifier.dart';
+import 'package:recipe_list/widgets/storage_screen/providers/storage_notifier.dart';
 
 class ShoppingItem extends ConsumerWidget {
   const ShoppingItem({required this.data, super.key});
@@ -15,11 +17,21 @@ class ShoppingItem extends ConsumerWidget {
 
     void switchState() {
       final notifier = ref.read(shoppingNotifierProvider.notifier);
+      final storageNotifier = ref.read(storageNotifierProvider.notifier);
+
+      final ingredientRep = IngredientData(
+        amount: data.count * groceries[data.ingredient.groceryId]!.normalAmount,
+        unit: data.ingredient.unit,
+        groceryId: data.ingredient.groceryId,
+      );
+
       if (data.done) {
         notifier.addItems([data.ingredient], groceries);
         notifier.deleteItem(data);
+        storageNotifier.subtractItem(ingredientRep);
       } else {
         notifier.updateItem(data.copyWith(done: true));
+        storageNotifier.addItem(ingredientRep);
       }
     }
 

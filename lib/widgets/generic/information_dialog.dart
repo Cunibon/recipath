@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ConfirmationDialog extends StatelessWidget {
-  const ConfirmationDialog({required this.message, super.key});
+class InformationDialog extends StatelessWidget {
+  const InformationDialog({required this.message, super.key});
 
   final String message;
 
