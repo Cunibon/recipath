@@ -50,7 +50,9 @@ class RecipeStepItem extends ConsumerWidget {
                     children: [
                       TextFormField(
                         maxLines: null,
-                        decoration: InputDecoration(labelText: "Description"),
+                        decoration: InputDecoration(
+                          labelText: "Step ${index + 1} description",
+                        ),
                         initialValue: data.description,
                         validator: (value) => value == null || value.isEmpty
                             ? "Add decription"

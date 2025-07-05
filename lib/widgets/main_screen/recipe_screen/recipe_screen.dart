@@ -52,11 +52,11 @@ class RecipeScreen extends ConsumerWidget {
                 Divider(),
               ],
               IngredientsList(ingredients: ingredients),
-              for (final step in recipe.steps)
+              for (int i = 0; i < recipe.steps.length; i++)
                 Card(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: RecipeStep(step: step),
+                    child: RecipeStep(index: i, step: recipe.steps[i]),
                   ),
                 ),
               SizedBox(height: 78),
