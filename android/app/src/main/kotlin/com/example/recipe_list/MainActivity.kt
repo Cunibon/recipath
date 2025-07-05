@@ -1,4 +1,4 @@
-package com.example.recipe_list
+package com.cunibongames.recipe_list
 
 import io.flutter.embedding.android.FlutterActivity
 

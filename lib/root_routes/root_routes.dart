@@ -3,6 +3,7 @@ import 'package:recipe_list/widgets/grocery_screen/grocery_routes.dart';
 import 'package:recipe_list/widgets/grocery_screen/grocery_screen.dart';
 import 'package:recipe_list/widgets/main_screen/main_routes.dart';
 import 'package:recipe_list/widgets/main_screen/main_screen.dart';
+import 'package:recipe_list/widgets/settings_screen/settings_screen.dart';
 import 'package:recipe_list/widgets/shopping_screen/shopping_screen.dart';
 import 'package:recipe_list/widgets/storage_screen/storage_screen.dart';
 
@@ -25,6 +26,11 @@ class RootRoutes {
   static GoRoute storageRoute = GoRoute(
     path: "/storage",
     builder: (context, state) => StorageScreen(),
+    routes: [],
+  );
+  static GoRoute settingsRoute = GoRoute(
+    path: "/settings",
+    builder: (context, state) => SettingsScreen(),
     routes: [],
   );
 }

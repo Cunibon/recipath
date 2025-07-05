@@ -28,4 +28,10 @@ List<DrawerDestination> drawerDestinations(Ref ref) => [
     route: RootRoutes.storageRoute.path,
     icon: Icons.category,
   ),
+  DrawerDestination(
+    label: "Settings",
+    route: RootRoutes.settingsRoute.path,
+    icon: Icons.settings,
+    secondary: true,
+  ),
 ];

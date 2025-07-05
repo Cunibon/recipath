@@ -25,6 +25,17 @@ class NavigationDrawerScaffold extends ConsumerWidget {
       (element) => currentRoute.startsWith(element.route),
     );
 
+    final primary = <DrawerDestination>[];
+    final secondary = <DrawerDestination>[];
+
+    for (final destination in destinations) {
+      if (destination.secondary) {
+        secondary.add(destination);
+      } else {
+        primary.add(destination);
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         leading: Builder(
@@ -54,13 +65,19 @@ class NavigationDrawerScaffold extends ConsumerWidget {
               style: Theme.of(context).textTheme.titleMedium,
             ),
           ),
-          ...destinations.map((DrawerDestination destination) {
+          ...primary.map((DrawerDestination destination) {
             return NavigationDrawerDestination(
               label: Text(destination.label),
               icon: Icon(destination.icon),
             );
           }),
           Padding(padding: const EdgeInsets.all(8.0), child: Divider()),
+          ...secondary.map((DrawerDestination destination) {
+            return NavigationDrawerDestination(
+              label: Text(destination.label),
+              icon: Icon(destination.icon),
+            );
+          }),
         ],
         onDestinationSelected: (index) => context.go(destinations[index].route),
       ),
