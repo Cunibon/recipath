@@ -26,7 +26,7 @@ class RootRoutes {
   static GoRoute storageRoute = GoRoute(
     path: "/storage",
     builder: (context, state) => StorageScreen(),
-    routes: [],
+    routes: [GroceryRoutes.createGrocery],
   );
   static GoRoute settingsRoute = GoRoute(
     path: "/settings",

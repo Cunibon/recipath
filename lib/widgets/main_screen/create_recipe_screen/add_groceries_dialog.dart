@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:recipe_list/data/grocery_data.dart';
-import 'package:recipe_list/root_routes/root_routes.dart';
 import 'package:recipe_list/widgets/generic/searchable_list.dart';
 import 'package:recipe_list/widgets/grocery_screen/grocery_routes.dart';
 import 'package:recipe_list/widgets/grocery_screen/providers/grocery_notifier.dart';
-import 'package:recipe_list/widgets/main_screen/main_routes.dart';
 
 class AddGroceriesDialog extends ConsumerStatefulWidget {
   const AddGroceriesDialog({
@@ -94,9 +92,8 @@ class _AddGroceriesDialogState extends ConsumerState<AddGroceriesDialog> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     ElevatedButton.icon(
-                      onPressed: () => context.go(
-                        "${RootRoutes.mainRoute.path}/${MainRoutes.createRecipe.path}/${GroceryRoutes.createGrocery.path}",
-                      ),
+                      onPressed: () =>
+                          context.go("./${GroceryRoutes.createGrocery.path}"),
                       icon: Icon(Icons.add),
                       label: Text("Add new"),
                     ),
