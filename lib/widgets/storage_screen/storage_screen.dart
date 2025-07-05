@@ -68,6 +68,7 @@ class StorageScreen extends ConsumerWidget {
         sort: (a, b) => groceries[a.groceryId]!.name.compareTo(
           groceries[b.groceryId]!.name,
         ),
+        bottomPadding: 78,
       ),
     );
   }

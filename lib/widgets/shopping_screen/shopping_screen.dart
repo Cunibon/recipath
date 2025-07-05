@@ -64,6 +64,7 @@ class ShoppingScreen extends ConsumerWidget {
             return a.done ? 1 : -1;
           }
         },
+        bottomPadding: 78,
       ),
     );
   }
