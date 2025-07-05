@@ -30,7 +30,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       routerConfig: router,
       title: 'Recipe List',
-      theme: ThemeData.dark(),
+      theme: ThemeData.dark().copyWith(
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.purple[900],
+            foregroundColor: Colors.white,
+          ),
+        ),
+      ),
     );
   }
 }
