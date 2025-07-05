@@ -32,7 +32,7 @@ class _IngredientViewState extends State<IngredientView> {
       final ingredient = widget.ingredients[i];
       items.add(
         IngredientItem(
-          key: Key(ingredient.hashCode.toString()),
+          key: Key(ingredient.groceryId),
           index: i,
           data: ingredient,
           onChanged: (newIngredient) {

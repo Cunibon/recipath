@@ -79,6 +79,9 @@ class _AddShoppingDialogState extends ConsumerState<AddShoppingDialog> {
                           child: TextFormField(
                             controller: amountController,
                             decoration: InputDecoration(labelText: "Amount"),
+                            keyboardType: TextInputType.numberWithOptions(
+                              decimal: true,
+                            ),
                             validator: (value) =>
                                 value == null ||
                                     value.isEmpty ||

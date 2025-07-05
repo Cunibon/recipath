@@ -29,6 +29,9 @@ class StorageItem extends ConsumerWidget {
                   child: TextFormField(
                     initialValue: doubleNumberFormat.format(data.amount),
                     decoration: InputDecoration(labelText: "Amount"),
+                    keyboardType: TextInputType.numberWithOptions(
+                      decimal: true,
+                    ),
                     validator: (value) =>
                         value == null ||
                             value.isEmpty ||
