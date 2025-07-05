@@ -68,7 +68,7 @@ class _AddShoppingDialogState extends ConsumerState<AddShoppingDialog> {
                     ),
                   ),
                 ),
-                if (selected != null)
+                if (selected != null) ...[
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: Row(
@@ -94,24 +94,25 @@ class _AddShoppingDialogState extends ConsumerState<AddShoppingDialog> {
                       ],
                     ),
                   ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: ElevatedButton.icon(
-                    onPressed: () {
-                      if (formKey.currentState?.validate() == true) {
-                        context.pop(
-                          IngredientData(
-                            amount: double.parse(amountController.text),
-                            unit: selected!.unit,
-                            groceryId: selected!.id,
-                          ),
-                        );
-                      }
-                    },
-                    icon: Icon(Icons.done),
-                    label: Text("Done"),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: ElevatedButton.icon(
+                      onPressed: () {
+                        if (formKey.currentState?.validate() == true) {
+                          context.pop(
+                            IngredientData(
+                              amount: double.parse(amountController.text),
+                              unit: selected!.unit,
+                              groceryId: selected!.id,
+                            ),
+                          );
+                        }
+                      },
+                      icon: Icon(Icons.done),
+                      label: Text("Done"),
+                    ),
                   ),
-                ),
+                ],
               ],
             ),
           ),
