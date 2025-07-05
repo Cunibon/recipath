@@ -83,6 +83,7 @@ class CompactRecipeItem extends ConsumerWidget {
                       ],
                     ),
                     CompactIngredientView(
+                      checkStorage: true,
                       ingredients: data.getIngredients(groceryMap),
                     ),
                   ],

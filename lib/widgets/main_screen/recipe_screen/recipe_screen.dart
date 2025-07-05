@@ -6,6 +6,7 @@ import 'package:recipe_list/widgets/main_screen/local_image.dart';
 import 'package:recipe_list/widgets/main_screen/providers/recipe_notifier.dart';
 import 'package:recipe_list/widgets/main_screen/recipe_screen/ingredients_list.dart';
 import 'package:recipe_list/widgets/main_screen/recipe_screen/recipe_step.dart';
+import 'package:recipe_list/widgets/storage_screen/providers/storage_notifier.dart';
 
 class RecipeScreen extends ConsumerWidget {
   const RecipeScreen({required this.recipeId, super.key});
@@ -19,12 +20,26 @@ class RecipeScreen extends ConsumerWidget {
     )!;
     final groceries = ref.watch(groceryNotifierProvider);
 
+    final ingredients = recipe.getIngredients(groceries);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
           recipe.title,
           style: Theme.of(context).textTheme.titleLarge,
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          for (final ingredient in ingredients) {
+            ref.read(storageNotifierProvider.notifier).subtractItem(ingredient);
+          }
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("Removed ingredients from storage!")),
+          );
+        },
+        child: Icon(Icons.check),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -36,7 +51,7 @@ class RecipeScreen extends ConsumerWidget {
                 LocalImage(fileName: recipe.imageName!),
                 Divider(),
               ],
-              IngredientsList(ingredients: recipe.getIngredients(groceries)),
+              IngredientsList(ingredients: ingredients),
               for (final step in recipe.steps)
                 Card(
                   child: Padding(
@@ -44,6 +59,7 @@ class RecipeScreen extends ConsumerWidget {
                     child: RecipeStep(step: step),
                   ),
                 ),
+              SizedBox(height: 78),
             ],
           ),
         ),

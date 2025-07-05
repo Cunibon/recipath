@@ -31,6 +31,7 @@ class MainScreen extends ConsumerWidget {
         toSearchable: (item) => item.toReadable(groceries),
         toWidget: (item) => CompactRecipeItem(data: item),
         sort: (a, b) => a.title.compareTo(b.title),
+        bottomPadding: 78,
       ),
     );
   }

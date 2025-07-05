@@ -70,6 +70,7 @@ class _AddGroceriesDialogState extends ConsumerState<AddGroceriesDialog> {
                     ),
                   ),
                 ),
+                bottomPadding: 100,
               ),
               Align(
                 alignment: Alignment.bottomRight,

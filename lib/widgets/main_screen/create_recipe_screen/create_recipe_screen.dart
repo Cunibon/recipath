@@ -67,12 +67,12 @@ class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
             if (widget.recipeId != null)
               ElevatedButton.icon(
                 onPressed: () async {
-                  final result = await showDialog(
+                  final result = await showDialog<bool>(
                     context: context,
                     builder: (context) => DeleteConfirmationDialog(),
                   );
 
-                  if (context.mounted && result) {
+                  if (context.mounted && result == true) {
                     ref.read(recipeNotifierProvider.notifier).delete(data);
                     context.pop();
                   }
@@ -134,6 +134,7 @@ class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
                       label: Text("Add step"),
                     ),
                   ),
+                  SizedBox(height: 60),
                 ],
               ),
             ),

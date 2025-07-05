@@ -8,6 +8,7 @@ class SearchableList<T> extends StatefulWidget {
     required this.toSearchable,
     required this.toWidget,
     this.sort,
+    this.bottomPadding,
     super.key,
   });
 
@@ -16,6 +17,8 @@ class SearchableList<T> extends StatefulWidget {
   final String Function(T item) toSearchable;
   final Widget Function(T item) toWidget;
   final int Function(T a, T b)? sort;
+
+  final double? bottomPadding;
 
   @override
   State<SearchableList<T>> createState() => _SearchableListState();
@@ -73,6 +76,9 @@ class _SearchableListState<T> extends State<SearchableList<T>> {
           child: ListView.builder(
             itemCount: items.length,
             itemBuilder: (context, index) => widget.toWidget(items[index]),
+            padding: widget.bottomPadding != null
+                ? EdgeInsets.only(bottom: widget.bottomPadding!)
+                : null,
           ),
         ),
       ],

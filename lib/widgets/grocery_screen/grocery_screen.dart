@@ -29,6 +29,7 @@ class GroceryScreen extends ConsumerWidget {
         toSearchable: (item) => item.toReadable(),
         toWidget: (item) => GroceryItem(data: item),
         sort: (a, b) => a.name.compareTo(b.name),
+        bottomPadding: 78,
       ),
     );
   }
