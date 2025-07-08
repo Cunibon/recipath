@@ -55,13 +55,17 @@ class _IngredientItemState extends ConsumerState<IngredientItem> {
             decoration: InputDecoration(labelText: "Amount"),
             keyboardType: TextInputType.numberWithOptions(decimal: true),
             validator: (value) =>
-                value == null || value.isEmpty || double.tryParse(value) == 0
+                value == null ||
+                    value.isEmpty ||
+                    doubleNumberFormat.tryParse(value) == 0
                 ? "Add amount"
                 : null,
             onChanged: (value) {
-              final parsed = double.tryParse(value);
+              final parsed = doubleNumberFormat.tryParse(value);
               if (parsed != null) {
-                widget.onChanged(widget.data.copyWith(amount: parsed));
+                widget.onChanged(
+                  widget.data.copyWith(amount: parsed.toDouble()),
+                );
               }
             },
           ),

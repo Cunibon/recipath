@@ -35,15 +35,17 @@ class StorageItem extends ConsumerWidget {
                     validator: (value) =>
                         value == null ||
                             value.isEmpty ||
-                            double.tryParse(value) == 0
+                            doubleNumberFormat.tryParse(value) == 0
                         ? "Add amount"
                         : null,
                     onChanged: (value) {
-                      final parsed = double.tryParse(value);
+                      final parsed = doubleNumberFormat.tryParse(value);
                       if (parsed != null) {
                         ref
                             .read(storageNotifierProvider.notifier)
-                            .updateItem(data.copyWith(amount: parsed));
+                            .updateItem(
+                              data.copyWith(amount: parsed.toDouble()),
+                            );
                       }
                     },
                   ),

@@ -85,7 +85,7 @@ class _AddShoppingDialogState extends ConsumerState<AddShoppingDialog> {
                             validator: (value) =>
                                 value == null ||
                                     value.isEmpty ||
-                                    double.tryParse(value) == 0
+                                    doubleNumberFormat.tryParse(value) == 0
                                 ? "Add amount"
                                 : null,
                           ),
@@ -104,7 +104,9 @@ class _AddShoppingDialogState extends ConsumerState<AddShoppingDialog> {
                         if (formKey.currentState?.validate() == true) {
                           context.pop(
                             IngredientData(
-                              amount: double.parse(amountController.text),
+                              amount: doubleNumberFormat
+                                  .parse(amountController.text)
+                                  .toDouble(),
                               unit: selected!.unit,
                               groceryId: selected!.id,
                             ),

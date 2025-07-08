@@ -151,11 +151,11 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
                           validator: (value) =>
                               value == null ||
                                   value.isEmpty ||
-                                  double.tryParse(value) == 0
+                                  doubleNumberFormat.tryParse(value) == 0
                               ? "Add normal amount"
                               : null,
                           onChanged: (value) {
-                            final parsed = double.tryParse(value);
+                            final parsed = doubleNumberFormat.tryParse(value);
                             if (parsed != null) {
                               double conversion =
                                   data.conversionAmount /
@@ -171,7 +171,7 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
 
                               setState(
                                 () => data = data.copyWith(
-                                  normalAmount: parsed,
+                                  normalAmount: parsed.toDouble(),
                                   conversionAmount: conversion,
                                 ),
                               );
@@ -253,11 +253,11 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
                                 ? "Add conversion"
                                 : null,
                             onChanged: (value) {
-                              final parsed = double.tryParse(value);
+                              final parsed = doubleNumberFormat.tryParse(value);
                               if (parsed != null) {
                                 setState(
                                   () => data = data.copyWith(
-                                    conversionAmount: parsed,
+                                    conversionAmount: parsed.toDouble(),
                                   ),
                                 );
                               }

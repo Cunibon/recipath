@@ -16,5 +16,6 @@ class MainRoutes {
     path: "recipe/:recipeId",
     builder: (context, state) =>
         RecipeScreen(recipeId: state.pathParameters["recipeId"]!),
+    routes: [createRecipe],
   );
 }

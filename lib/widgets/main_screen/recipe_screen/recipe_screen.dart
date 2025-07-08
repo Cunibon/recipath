@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:recipe_list/application_constants.dart';
 import 'package:recipe_list/data/recipe_data.dart';
+import 'package:recipe_list/root_routes/root_routes.dart';
 import 'package:recipe_list/widgets/grocery_screen/providers/grocery_notifier.dart';
 import 'package:recipe_list/widgets/main_screen/local_image.dart';
+import 'package:recipe_list/widgets/main_screen/main_routes.dart';
 import 'package:recipe_list/widgets/main_screen/providers/recipe_notifier.dart';
 import 'package:recipe_list/widgets/main_screen/recipe_screen/ingredients_list.dart';
 import 'package:recipe_list/widgets/main_screen/recipe_screen/recipe_step.dart';
@@ -28,6 +32,18 @@ class RecipeScreen extends ConsumerWidget {
           recipe.title,
           style: Theme.of(context).textTheme.titleLarge,
         ),
+        actions: [
+          IconButton(
+            onPressed: () => context.go(
+              Uri(
+                path:
+                    '${RootRoutes.mainRoute.path}/recipe/$recipeId/${MainRoutes.createRecipe.path}',
+                queryParameters: {idParameter: recipeId},
+              ).toString(),
+            ),
+            icon: Icon(Icons.edit),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

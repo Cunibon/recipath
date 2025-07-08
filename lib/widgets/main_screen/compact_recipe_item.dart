@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:recipe_list/application_constants.dart';
 import 'package:recipe_list/data/recipe_data.dart';
 import 'package:recipe_list/root_routes/root_routes.dart';
 import 'package:recipe_list/widgets/grocery_screen/providers/grocery_notifier.dart';
 import 'package:recipe_list/widgets/main_screen/create_recipe_screen/compact_ingredient_view.dart';
 import 'package:recipe_list/widgets/main_screen/local_image.dart';
-import 'package:recipe_list/widgets/main_screen/main_routes.dart';
 import 'package:recipe_list/widgets/shopping_screen/providers/shopping_notifier.dart';
 
 class CompactRecipeItem extends ConsumerWidget {
@@ -48,37 +46,21 @@ class CompactRecipeItem extends ConsumerWidget {
                             style: Theme.of(context).textTheme.titleMedium,
                           ),
                         ),
-                        Row(
-                          children: [
-                            IconButton(
-                              onPressed: () {
-                                ref
-                                    .read(shoppingNotifierProvider.notifier)
-                                    .addItems(
-                                      data.getIngredients(groceryMap),
-                                      groceryMap,
-                                    );
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                      "Added items to shopping list!",
-                                    ),
-                                  ),
+                        IconButton(
+                          onPressed: () {
+                            ref
+                                .read(shoppingNotifierProvider.notifier)
+                                .addItems(
+                                  data.getIngredients(groceryMap),
+                                  groceryMap,
                                 );
-                              },
-                              icon: Icon(Icons.shopping_cart),
-                            ),
-                            IconButton(
-                              onPressed: () => context.go(
-                                Uri(
-                                  path:
-                                      '${RootRoutes.mainRoute.path}/${MainRoutes.createRecipe.path}',
-                                  queryParameters: {idParameter: data.id},
-                                ).toString(),
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text("Added items to shopping list!"),
                               ),
-                              icon: Icon(Icons.edit),
-                            ),
-                          ],
+                            );
+                          },
+                          icon: Icon(Icons.shopping_cart),
                         ),
                       ],
                     ),
