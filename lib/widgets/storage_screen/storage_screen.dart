@@ -36,13 +36,15 @@ class StorageScreen extends ConsumerWidget {
       ],
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          final groceries = await showDialog<Set<GroceryData>>(
+          final storageMap = ref.read(storageNotifierProvider);
+
+          final groceries = (await showDialog<Set<GroceryData>>(
             context: context,
             builder: (context) => AddGroceriesDialog(
               selected: items.map((e) => e.groceryId),
               allowSelectedRemoval: false,
             ),
-          );
+          ))?.where((e) => !storageMap.containsKey(e.id));
 
           if (groceries != null) {
             for (final gorcery in groceries) {
