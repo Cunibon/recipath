@@ -20,6 +20,6 @@ abstract class ShoppingData with _$ShoppingData {
 }
 
 extension ShoppingDataFunctions on ShoppingData {
-  String toReadable(GroceryData grocery) =>
-      "$count ${grocery.name} (${doubleNumberFormat.format(ingredient.amount)}${grocery.unit.name})";
+  String toReadable(GroceryData grocery, double storageData) =>
+      "${count}x ${grocery.toReadable()} (${doubleNumberFormat.format(ingredient.amount)}${grocery.unit.name}/${doubleNumberFormat.format(storageData)}${grocery.unit.name})";
 }

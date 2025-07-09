@@ -14,11 +14,6 @@ List<DrawerDestination> drawerDestinations(Ref ref) => [
     icon: Icons.receipt,
   ),
   DrawerDestination(
-    label: "Groceries",
-    route: RootRoutes.groceriesRoute.path,
-    icon: Icons.kitchen,
-  ),
-  DrawerDestination(
     label: "Shopping list",
     route: RootRoutes.shoppingRoute.path,
     icon: Icons.shopping_basket,
@@ -27,6 +22,11 @@ List<DrawerDestination> drawerDestinations(Ref ref) => [
     label: "Storage",
     route: RootRoutes.storageRoute.path,
     icon: Icons.category,
+  ),
+  DrawerDestination(
+    label: "Groceries",
+    route: RootRoutes.groceriesRoute.path,
+    icon: Icons.kitchen,
   ),
   DrawerDestination(
     label: "Settings",

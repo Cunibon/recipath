@@ -8,9 +8,14 @@ import 'package:recipe_list/widgets/shopping_screen/providers/shopping_notifier.
 import 'package:recipe_list/widgets/storage_screen/providers/storage_notifier.dart';
 
 class ShoppingItem extends ConsumerWidget {
-  const ShoppingItem({required this.data, super.key});
+  const ShoppingItem({
+    required this.data,
+    required this.ingredientData,
+    super.key,
+  });
 
   final ShoppingData data;
+  final IngredientData? ingredientData;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -45,20 +50,23 @@ class ShoppingItem extends ConsumerWidget {
         child: Padding(
           padding: EdgeInsetsGeometry.all(8),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                children: [
-                  IconButton(
-                    onPressed: switchState,
-                    icon: Icon(
-                      data.done
-                          ? Icons.check_box
-                          : Icons.check_box_outline_blank,
-                    ),
+              IconButton(
+                onPressed: switchState,
+                icon: Icon(
+                  data.done ? Icons.check_box : Icons.check_box_outline_blank,
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  data.toReadable(
+                    groceries[data.ingredient.groceryId]!,
+                    ingredientData?.amount ?? 0,
                   ),
-                  Text(data.toReadable(groceries[data.ingredient.groceryId]!)),
-                ],
+                  style: (ingredientData?.amount ?? 0) >= data.ingredient.amount
+                      ? TextStyle(color: Colors.green)
+                      : null,
+                ),
               ),
               IconButton(
                 onPressed: () async {

@@ -7,7 +7,7 @@ part of 'drawer_destination_notifier.dart';
 // **************************************************************************
 
 String _$drawerDestinationsHash() =>
-    r'66c1a91c0dd1019a157bd91c9b4607d89540ba76';
+    r'354a07e3d4a832a3710a596abe061fa27043a23d';
 
 /// See also [drawerDestinations].
 @ProviderFor(drawerDestinations)

@@ -9,6 +9,7 @@ import 'package:recipe_list/widgets/grocery_screen/providers/grocery_notifier.da
 import 'package:recipe_list/widgets/shopping_screen/add_shopping_dialog.dart';
 import 'package:recipe_list/widgets/shopping_screen/providers/shopping_notifier.dart';
 import 'package:recipe_list/widgets/shopping_screen/shopping_item.dart';
+import 'package:recipe_list/widgets/storage_screen/providers/storage_notifier.dart';
 
 class ShoppingScreen extends ConsumerWidget {
   const ShoppingScreen({super.key});
@@ -17,6 +18,8 @@ class ShoppingScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final items = ref.watch(shoppingNotifierProvider).values.toList();
     final groceryMap = ref.watch(groceryNotifierProvider);
+
+    final storage = ref.watch(storageNotifierProvider);
 
     return NavigationDrawerScaffold(
       actions: [
@@ -52,9 +55,14 @@ class ShoppingScreen extends ConsumerWidget {
       body: SearchableList(
         type: "Items",
         items: items,
-        toSearchable: (item) =>
-            item.toReadable(groceryMap[item.ingredient.groceryId]!),
-        toWidget: (item) => ShoppingItem(data: item),
+        toSearchable: (item) => item.toReadable(
+          groceryMap[item.ingredient.groceryId]!,
+          storage[item.ingredient.groceryId]?.amount ?? 0,
+        ),
+        toWidget: (item) => ShoppingItem(
+          data: item,
+          ingredientData: storage[item.ingredient.groceryId],
+        ),
         sort: (a, b) {
           if (a.done == b.done) {
             return groceryMap[a.ingredient.groceryId]!.name.compareTo(
