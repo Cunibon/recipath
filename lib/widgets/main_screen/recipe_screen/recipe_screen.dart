@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:recipe_list/application_constants.dart';
+import 'package:recipe_list/data/ingredient_data.dart';
 import 'package:recipe_list/data/recipe_data.dart';
 import 'package:recipe_list/root_routes/root_routes.dart';
 import 'package:recipe_list/widgets/grocery_screen/providers/grocery_notifier.dart';
@@ -47,12 +48,14 @@ class RecipeScreen extends ConsumerWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          final itemsInStorage = ref.read(storageNotifierProvider);
-          final availableItems = ingredients
-              .where((e) => itemsInStorage.keys.contains(e.groceryId))
-              .toList();
+          final ingredientsInStorage = Map<String, IngredientData>.from(
+            ref.read(storageNotifierProvider),
+          );
+          final availableIngredients = ingredients.where(
+            (e) => ingredientsInStorage.keys.contains(e.groceryId),
+          );
 
-          for (final ingredient in availableItems) {
+          for (final ingredient in availableIngredients) {
             ref.read(storageNotifierProvider.notifier).subtractItem(ingredient);
           }
 
@@ -64,10 +67,12 @@ class RecipeScreen extends ConsumerWidget {
                   Expanded(child: Text("Removed ingredients from storage!")),
                   TextButton(
                     onPressed: () {
-                      for (final ingredient in availableItems) {
+                      for (final ingredient in availableIngredients) {
                         ref
                             .read(storageNotifierProvider.notifier)
-                            .addItem(ingredient);
+                            .updateItem(
+                              ingredientsInStorage[ingredient.groceryId]!,
+                            );
                       }
                       ScaffoldMessenger.of(
                         context,
