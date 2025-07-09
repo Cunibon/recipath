@@ -155,7 +155,9 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
                               ? "Add normal amount"
                               : null,
                           onChanged: (value) {
-                            final parsed = doubleNumberFormat.tryParse(value);
+                            final parsed = doubleNumberFormat
+                                .tryParse(value)
+                                ?.toDouble();
                             if (parsed != null) {
                               double conversion =
                                   data.conversionAmount /
@@ -163,7 +165,11 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
                                   parsed;
 
                               if (conversion.isNaN || conversion.isInfinite) {
-                                conversion = 0;
+                                conversion = data.conversionAmount;
+                              }
+
+                              if (conversion == 0) {
+                                conversion = parsed;
                               }
 
                               conversionController.text = doubleNumberFormat
@@ -171,7 +177,7 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
 
                               setState(
                                 () => data = data.copyWith(
-                                  normalAmount: parsed.toDouble(),
+                                  normalAmount: parsed,
                                   conversionAmount: conversion,
                                 ),
                               );
