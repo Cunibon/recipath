@@ -70,8 +70,8 @@ class _IngredientItemState extends ConsumerState<IngredientItem> {
             },
           ),
         ),
-        Flexible(
-          flex: 3,
+        SizedBox(
+          width: 57,
           child: isMisc
               ? SizedBox(
                   width: double.infinity,

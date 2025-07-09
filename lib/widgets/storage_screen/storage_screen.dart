@@ -50,7 +50,7 @@ class StorageScreen extends ConsumerWidget {
                   .read(storageNotifierProvider.notifier)
                   .addItem(
                     IngredientData(
-                      amount: 0,
+                      amount: gorcery.normalAmount,
                       unit: gorcery.unit,
                       groceryId: gorcery.id,
                     ),

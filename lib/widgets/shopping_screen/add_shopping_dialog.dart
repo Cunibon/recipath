@@ -5,6 +5,7 @@ import 'package:recipe_list/common.dart';
 import 'package:recipe_list/data/grocery_data.dart';
 import 'package:recipe_list/data/ingredient_data.dart';
 import 'package:recipe_list/widgets/generic/searchable_list.dart';
+import 'package:recipe_list/widgets/grocery_screen/grocery_routes.dart';
 import 'package:recipe_list/widgets/grocery_screen/providers/grocery_notifier.dart';
 
 class AddShoppingDialog extends ConsumerStatefulWidget {
@@ -40,32 +41,48 @@ class _AddShoppingDialogState extends ConsumerState<AddShoppingDialog> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
-                  child: SearchableList(
-                    type: "Groceries",
-                    items: groceryList,
-                    sort: (a, b) =>
-                        a.name.toLowerCase().compareTo(b.name.toLowerCase()),
-                    toSearchable: (item) => item.name,
-                    toWidget: (item) => GestureDetector(
-                      onTap: () => updateSelected(item),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 4),
-                        child: Card(
+                  child: Stack(
+                    children: [
+                      SearchableList(
+                        type: "Groceries",
+                        items: groceryList,
+                        bottomPadding: 33,
+                        sort: (a, b) => a.name.toLowerCase().compareTo(
+                          b.name.toLowerCase(),
+                        ),
+                        toSearchable: (item) => item.name,
+                        toWidget: (item) => GestureDetector(
+                          onTap: () => updateSelected(item),
                           child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [
-                                Checkbox(
-                                  value: selected == item,
-                                  onChanged: (_) => updateSelected(item),
+                            padding: const EdgeInsets.symmetric(vertical: 4),
+                            child: Card(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  children: [
+                                    Checkbox(
+                                      value: selected == item,
+                                      onChanged: (_) => updateSelected(item),
+                                    ),
+                                    Text(item.name),
+                                  ],
                                 ),
-                                Text(item.name),
-                              ],
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: ElevatedButton.icon(
+                          onPressed: () => context.go(
+                            "./${GroceryRoutes.createGrocery.path}",
+                          ),
+                          icon: Icon(Icons.add),
+                          label: Text("Add new"),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 if (selected != null) ...[

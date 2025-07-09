@@ -179,8 +179,8 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
                           },
                         ),
                       ),
-                      Flexible(
-                        flex: 2,
+                      SizedBox(
+                        width: 65,
                         child: DropdownButtonFormField(
                           decoration: InputDecoration(labelText: "Unit"),
                           value: data.unit,
@@ -264,8 +264,8 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
                             },
                           ),
                         ),
-                        Flexible(
-                          flex: 2,
+                        SizedBox(
+                          width: 65,
                           child: DropdownButtonFormField(
                             decoration: InputDecoration(labelText: "Unit"),
                             value: data.conversionUnit,

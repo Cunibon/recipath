@@ -27,6 +27,7 @@ class StorageItem extends ConsumerWidget {
                 SizedBox(
                   width: 100,
                   child: TextFormField(
+                    key: Key(data.groceryId),
                     initialValue: doubleNumberFormat.format(data.amount),
                     decoration: InputDecoration(labelText: "Amount"),
                     keyboardType: TextInputType.numberWithOptions(
