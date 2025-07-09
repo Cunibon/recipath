@@ -52,7 +52,31 @@ class RecipeScreen extends ConsumerWidget {
           }
 
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text("Removed ingredients from storage!")),
+            SnackBar(
+              duration: Duration(seconds: 5),
+              content: Row(
+                children: [
+                  Expanded(child: Text("Removed ingredients from storage!")),
+                  TextButton(
+                    onPressed: () {
+                      for (final ingredient in ingredients) {
+                        ref
+                            .read(storageNotifierProvider.notifier)
+                            .addItem(ingredient);
+                      }
+                      ScaffoldMessenger.of(
+                        context,
+                      ).showSnackBar(SnackBar(content: Text("Undid removal!")));
+                      ScaffoldMessenger.of(context).removeCurrentSnackBar();
+                    },
+                    child: Text(
+                      "Undo",
+                      style: TextStyle(color: Colors.purple[900]),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           );
         },
         child: Icon(Icons.check),
