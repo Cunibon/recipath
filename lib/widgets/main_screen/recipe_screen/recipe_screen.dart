@@ -47,7 +47,12 @@ class RecipeScreen extends ConsumerWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          for (final ingredient in ingredients) {
+          final itemsInStorage = ref.read(storageNotifierProvider);
+          final availableItems = ingredients
+              .where((e) => itemsInStorage.keys.contains(e.groceryId))
+              .toList();
+
+          for (final ingredient in availableItems) {
             ref.read(storageNotifierProvider.notifier).subtractItem(ingredient);
           }
 
@@ -59,7 +64,7 @@ class RecipeScreen extends ConsumerWidget {
                   Expanded(child: Text("Removed ingredients from storage!")),
                   TextButton(
                     onPressed: () {
-                      for (final ingredient in ingredients) {
+                      for (final ingredient in availableItems) {
                         ref
                             .read(storageNotifierProvider.notifier)
                             .addItem(ingredient);
