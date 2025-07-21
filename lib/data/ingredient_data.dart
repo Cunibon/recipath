@@ -2,6 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:recipe_list/common.dart';
 import 'package:recipe_list/data/grocery_data.dart';
 import 'package:recipe_list/data/unit_enum.dart';
+import 'package:recipe_list/drift/database.dart';
 
 part 'ingredient_data.freezed.dart';
 part 'ingredient_data.g.dart';
@@ -17,6 +18,13 @@ abstract class IngredientData with _$IngredientData {
 
   factory IngredientData.fromJson(Map<String, Object?> json) =>
       _$IngredientDataFromJson(json);
+
+  factory IngredientData.fromRow(IngredientTableData data) => IngredientData(
+    id: data.id,
+    amount: data.amount,
+    unit: $enumDecode(_$UnitEnumEnumMap, data.unit),
+    groceryId: data.groceryId,
+  );
 
   static List<IngredientData> aggregateIngredients(
     Map<String, GroceryData> groceries,

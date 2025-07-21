@@ -7,12 +7,16 @@ import 'package:drift_flutter/drift_flutter.dart';
 import 'package:flutter/services.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
+import 'package:recipe_list/drift/tables/grocery_table.dart';
+import 'package:recipe_list/drift/tables/ingredient_table.dart';
 import 'package:recipe_list/drift/tables/recipe_step_table.dart';
 import 'package:recipe_list/drift/tables/recipe_table.dart';
 
 part 'database.g.dart';
 
-@DriftDatabase(tables: [RecipeTable, RecipeStepTable])
+@DriftDatabase(
+  tables: [RecipeTable, RecipeStepTable, IngredientTable, GroceryTable],
+)
 class AppDatabase extends _$AppDatabase {
   AppDatabase([QueryExecutor? executor]) : super(executor ?? _openConnection());
 

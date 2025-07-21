@@ -10,16 +10,7 @@ part 'grocery_notifier.g.dart';
 @riverpod
 class GroceryNotifier extends _$GroceryNotifier {
   @override
-  Map<String, GroceryData> build() {
-    final data = localStorage.getItem(groceryDataKey);
-
-    if (data == null) return {};
-
-    final decodedData = jsonDecode(data) as Map<String, dynamic>;
-    return decodedData.map(
-      (key, value) => MapEntry(key, GroceryData.fromJson(value)),
-    );
-  }
+  Future<Map<String, GroceryData>> build() async {}
 
   void add(GroceryData newData) {
     state[newData.id] = newData;

@@ -2,6 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:recipe_list/data/grocery_data.dart';
 import 'package:recipe_list/data/ingredient_data.dart';
 import 'package:recipe_list/data/recipe_step_data.dart';
+import 'package:recipe_list/drift/database.dart';
 
 part 'recipe_data.freezed.dart';
 part 'recipe_data.g.dart';
@@ -17,6 +18,13 @@ abstract class RecipeData with _$RecipeData {
 
   factory RecipeData.fromJson(Map<String, Object?> json) =>
       _$RecipeDataFromJson(json);
+
+  factory RecipeData.fromRow(RecipeTableData data) => RecipeData(
+    id: data.id,
+    title: data.title,
+    imageName: data.imageName,
+    steps: [],
+  );
 }
 
 extension RecipeDataFunctions on RecipeData {

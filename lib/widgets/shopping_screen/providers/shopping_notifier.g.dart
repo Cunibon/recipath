@@ -6,12 +6,12 @@ part of 'shopping_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$shoppingNotifierHash() => r'a5a7ee904b1a1c964fd601c6d242039243b4f504';
+String _$shoppingNotifierHash() => r'd04d067fcaaaa21e37f7576aaadcb1c0944ec2c6';
 
 /// See also [ShoppingNotifier].
 @ProviderFor(ShoppingNotifier)
 final shoppingNotifierProvider =
-    AutoDisposeNotifierProvider<
+    AutoDisposeAsyncNotifierProvider<
       ShoppingNotifier,
       Map<String, ShoppingData>
     >.internal(
@@ -24,6 +24,7 @@ final shoppingNotifierProvider =
       allTransitiveDependencies: null,
     );
 
-typedef _$ShoppingNotifier = AutoDisposeNotifier<Map<String, ShoppingData>>;
+typedef _$ShoppingNotifier =
+    AutoDisposeAsyncNotifier<Map<String, ShoppingData>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -12,5 +12,8 @@ class IngredientTable extends Table {
   TextColumn get unit => text()();
   TextColumn get groceryId => text().references(GroceryTable, #id)();
 
-  TextColumn get recipeStepId => text().references(RecipeStepTable, #id)();
+  TextColumn get recipeStepId => text()
+      .references(RecipeStepTable, #id, onDelete: KeyAction.cascade)
+      .nullable()();
+  IntColumn get index => integer().nullable()();
 }

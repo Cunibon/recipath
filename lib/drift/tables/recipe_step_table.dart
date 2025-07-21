@@ -7,7 +7,9 @@ class RecipeStepTable extends Table {
   Set<Column<Object>> get primaryKey => {id};
 
   TextColumn get id => text()();
-  TextColumn get title => text()();
+  TextColumn get description => text()();
+  IntColumn get index => integer()();
 
-  TextColumn get recipeId => text().references(RecipeTable, #id)();
+  TextColumn get recipeId =>
+      text().references(RecipeTable, #id, onDelete: KeyAction.cascade)();
 }

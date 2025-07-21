@@ -11,16 +11,7 @@ part 'storage_notifier.g.dart';
 @riverpod
 class StorageNotifier extends _$StorageNotifier {
   @override
-  Map<String, IngredientData> build() {
-    final data = localStorage.getItem(storageDataKey);
-
-    if (data == null) return {};
-
-    final decodedData = jsonDecode(data) as Map<String, dynamic>;
-    return decodedData.map(
-      (key, value) => MapEntry(key, IngredientData.fromJson(value)),
-    );
-  }
+  Future<Map<String, IngredientData>> build() async {}
 
   void addItem(IngredientData newData) {
     final item = state.putIfAbsent(

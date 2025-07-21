@@ -13,14 +13,20 @@ part 'shopping_notifier.g.dart';
 @riverpod
 class ShoppingNotifier extends _$ShoppingNotifier {
   @override
-  Map<String, ShoppingData> build() {
+  Future<Map<String, ShoppingData>> build() async {
     final data = localStorage.getItem(shoppingDataKey);
 
     if (data == null) return {};
 
     final decodedData = jsonDecode(data) as Map<String, dynamic>;
-    return decodedData.map(
-      (key, value) => MapEntry(key, ShoppingData.fromJson(value)),
+    for (final shopping in decodedData.entries) {
+      final ingredient = shopping.value["ingredient"];
+      if (ingredient["id"] == null) {
+        ingredient["id"] = randomAlphaNumeric(16);
+      }
+    }
+    final entries = decodedData.values.map(
+      (value) => ShoppingData.fromJson(value),
     );
   }
 
