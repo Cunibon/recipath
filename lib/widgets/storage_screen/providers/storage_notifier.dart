@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:localstorage/localstorage.dart';
+import 'package:random_string/random_string.dart';
 import 'package:recipe_list/application_constants.dart';
 import 'package:recipe_list/data/ingredient_data.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -25,6 +26,7 @@ class StorageNotifier extends _$StorageNotifier {
     final item = state.putIfAbsent(
       newData.groceryId,
       () => IngredientData(
+        id: randomAlphaNumeric(16),
         amount: 0,
         unit: newData.unit,
         groceryId: newData.groceryId,

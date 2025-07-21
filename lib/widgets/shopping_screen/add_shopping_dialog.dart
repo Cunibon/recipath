@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:random_string/random_string.dart';
 import 'package:recipe_list/common.dart';
 import 'package:recipe_list/data/grocery_data.dart';
 import 'package:recipe_list/data/ingredient_data.dart';
@@ -121,6 +122,7 @@ class _AddShoppingDialogState extends ConsumerState<AddShoppingDialog> {
                         if (formKey.currentState?.validate() == true) {
                           context.pop(
                             IngredientData(
+                              id: randomAlphaNumeric(16),
                               amount: doubleNumberFormat
                                   .parse(amountController.text)
                                   .toDouble(),

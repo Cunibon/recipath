@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:random_string/random_string.dart';
 import 'package:recipe_list/data/ingredient_data.dart';
 import 'package:recipe_list/data/shopping_data.dart';
 import 'package:recipe_list/widgets/generic/delete_confirmation_dialog.dart';
@@ -26,6 +27,7 @@ class ShoppingItem extends ConsumerWidget {
       final storageNotifier = ref.read(storageNotifierProvider.notifier);
 
       final ingredientRep = IngredientData(
+        id: randomAlphaNumeric(16),
         amount: data.count * groceries[data.ingredient.groceryId]!.normalAmount,
         unit: data.ingredient.unit,
         groceryId: data.ingredient.groceryId,

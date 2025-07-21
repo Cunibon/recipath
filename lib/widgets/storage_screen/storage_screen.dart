@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:random_string/random_string.dart';
 import 'package:recipe_list/data/grocery_data.dart';
 import 'package:recipe_list/data/ingredient_data.dart';
 import 'package:recipe_list/widgets/generic/clear_confirmation_dialog.dart';
@@ -52,6 +53,7 @@ class StorageScreen extends ConsumerWidget {
                   .read(storageNotifierProvider.notifier)
                   .addItem(
                     IngredientData(
+                      id: randomAlphaNumeric(16),
                       amount: gorcery.normalAmount,
                       unit: gorcery.unit,
                       groceryId: gorcery.id,

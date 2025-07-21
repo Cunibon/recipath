@@ -9,6 +9,7 @@ part 'ingredient_data.g.dart';
 @freezed
 abstract class IngredientData with _$IngredientData {
   const factory IngredientData({
+    required String id,
     required double amount,
     required UnitEnum unit,
     required String groceryId,
@@ -27,6 +28,7 @@ abstract class IngredientData with _$IngredientData {
       final data = ingredientsMap.putIfAbsent(
         ingredient.groceryId,
         () => IngredientData(
+          id: "",
           amount: 0,
           unit: grocery.unit,
           groceryId: ingredient.groceryId,

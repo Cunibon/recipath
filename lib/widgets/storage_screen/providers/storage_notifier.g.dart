@@ -6,7 +6,7 @@ part of 'storage_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$storageNotifierHash() => r'41a7d9b577a5e20b30d167c7f7d6d8e2b1c3bb60';
+String _$storageNotifierHash() => r'e1307e8688881f316ccd3fdf30ee84cfef68e7e7';
 
 /// See also [StorageNotifier].
 @ProviderFor(StorageNotifier)
