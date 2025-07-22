@@ -11,7 +11,7 @@ part 'recipe_notifier.g.dart';
 @riverpod
 class RecipeNotifier extends _$RecipeNotifier {
   @override
-  Future<Stream<Map<String, RecipeData>>> build() async {
+  Stream<Map<String, RecipeData>> build() async {
     final db = await ref.watch(databaseNotifierProvider.future);
 
     final query = db.select(db.recipeTable).join([
