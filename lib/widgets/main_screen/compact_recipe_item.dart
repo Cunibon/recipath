@@ -14,7 +14,7 @@ class CompactRecipeItem extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final groceryMap = ref.watch(groceryNotifierProvider);
+    final groceryMap = ref.watch(groceryNotifierProvider).value!;
 
     return GestureDetector(
       onTap: () => context.go('${RootRoutes.mainRoute.path}/recipe/${data.id}'),

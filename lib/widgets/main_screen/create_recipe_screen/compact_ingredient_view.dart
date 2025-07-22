@@ -16,9 +16,9 @@ class CompactIngredientView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final groceryMap = ref.watch(groceryNotifierProvider);
+    final groceryMap = ref.watch(groceryNotifierProvider).value!;
     final storage = checkStorage
-        ? ref.watch(storageNotifierProvider)
+        ? ref.watch(storageNotifierProvider).value!
         : <String, IngredientData>{};
 
     return Wrap(

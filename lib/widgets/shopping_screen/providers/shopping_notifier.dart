@@ -7,7 +7,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'shopping_notifier.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class ShoppingNotifier extends _$ShoppingNotifier {
   @override
   Stream<Map<String, ShoppingData>> build() {

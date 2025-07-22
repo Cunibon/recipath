@@ -10,7 +10,7 @@ class IngredientsList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final groceryMap = ref.watch(groceryNotifierProvider);
+    final groceryMap = ref.watch(groceryNotifierProvider).value!;
 
     final ingredientBuffer = StringBuffer();
 

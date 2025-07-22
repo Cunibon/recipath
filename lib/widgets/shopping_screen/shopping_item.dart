@@ -20,7 +20,7 @@ class ShoppingItem extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final groceries = ref.watch(groceryNotifierProvider);
+    final groceries = ref.watch(groceryNotifierProvider).value!;
 
     void switchState() {
       final notifier = ref.read(shoppingNotifierProvider.notifier);

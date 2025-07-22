@@ -13,7 +13,7 @@ class StorageItem extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final grocery = ref.watch(
-      groceryNotifierProvider.select((value) => value[data.groceryId]),
+      groceryNotifierProvider.select((value) => value.value![data.groceryId]),
     )!;
 
     return Card(

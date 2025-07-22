@@ -28,7 +28,7 @@ class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
   void initState() {
     super.initState();
     initalData =
-        ref.read(recipeNotifierProvider)[widget.recipeId] ??
+        ref.read(recipeNotifierProvider).value![widget.recipeId] ??
         RecipeData(
           id: randomAlphaNumeric(16),
           title: "",

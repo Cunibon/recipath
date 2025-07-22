@@ -35,7 +35,9 @@ class _IngredientItemState extends ConsumerState<IngredientItem> {
   @override
   Widget build(BuildContext context) {
     final grocery = ref.watch(
-      groceryNotifierProvider.select((value) => value[widget.data.groceryId]),
+      groceryNotifierProvider.select(
+        (value) => value.value![widget.data.groceryId],
+      ),
     )!;
 
     return Row(

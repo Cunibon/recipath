@@ -16,10 +16,10 @@ class ShoppingScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final items = ref.watch(shoppingNotifierProvider).values.toList();
-    final groceryMap = ref.watch(groceryNotifierProvider);
+    final items = ref.watch(shoppingNotifierProvider).value!.values.toList();
+    final groceryMap = ref.watch(groceryNotifierProvider).value!;
 
-    final storage = ref.watch(storageNotifierProvider);
+    final storage = ref.watch(storageNotifierProvider).value!;
 
     return NavigationDrawerScaffold(
       actions: [

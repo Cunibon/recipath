@@ -5,7 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'storage_notifier.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class StorageNotifier extends _$StorageNotifier {
   @override
   Stream<Map<String, IngredientData>> build() {

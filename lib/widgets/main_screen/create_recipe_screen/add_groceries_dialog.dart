@@ -43,7 +43,7 @@ class _AddGroceriesDialogState extends ConsumerState<AddGroceriesDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final groceries = ref.watch(groceryNotifierProvider);
+    final groceries = ref.watch(groceryNotifierProvider).value!;
     final groceryList = groceries.values.toList();
 
     return Dialog(

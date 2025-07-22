@@ -14,7 +14,7 @@ class GroceryScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final data = ref.watch(groceryNotifierProvider).values.toList();
+    final data = ref.watch(groceryNotifierProvider).value!.values.toList();
 
     return NavigationDrawerScaffold(
       floatingActionButton: FloatingActionButton(

@@ -16,8 +16,8 @@ class StorageScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final items = ref.watch(storageNotifierProvider).values.toList();
-    final groceries = ref.watch(groceryNotifierProvider);
+    final items = ref.watch(storageNotifierProvider).value!.values.toList();
+    final groceries = ref.watch(groceryNotifierProvider).value!;
 
     return NavigationDrawerScaffold(
       actions: [
@@ -37,7 +37,7 @@ class StorageScreen extends ConsumerWidget {
       ],
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          final storageMap = ref.read(storageNotifierProvider);
+          final storageMap = ref.read(storageNotifierProvider).value!;
 
           final groceries = (await showDialog<Set<GroceryData>>(
             context: context,

@@ -21,9 +21,9 @@ class RecipeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final recipe = ref.watch(
-      recipeNotifierProvider.select((value) => value[recipeId]),
+      recipeNotifierProvider.select((value) => value.value![recipeId]),
     )!;
-    final groceries = ref.watch(groceryNotifierProvider);
+    final groceries = ref.watch(groceryNotifierProvider).value!;
 
     final ingredients = recipe.getIngredients(groceries);
 
@@ -49,7 +49,7 @@ class RecipeScreen extends ConsumerWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           final ingredientsInStorage = Map<String, IngredientData>.from(
-            ref.read(storageNotifierProvider),
+            ref.read(storageNotifierProvider).value!,
           );
           final availableIngredients = ingredients.where(
             (e) => ingredientsInStorage.keys.contains(e.groceryId),

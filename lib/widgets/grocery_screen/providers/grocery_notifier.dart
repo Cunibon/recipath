@@ -4,7 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'grocery_notifier.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class GroceryNotifier extends _$GroceryNotifier {
   @override
   Stream<Map<String, GroceryData>> build() {

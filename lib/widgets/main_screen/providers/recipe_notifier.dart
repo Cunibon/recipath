@@ -4,7 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'recipe_notifier.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class RecipeNotifier extends _$RecipeNotifier {
   @override
   Stream<Map<String, RecipeData>> build() {
@@ -18,8 +18,8 @@ class RecipeNotifier extends _$RecipeNotifier {
     repo.add(newData);
   }
 
-  Future<void> delete(String id) async {
+  Future<void> delete(RecipeData toDelete) async {
     final repo = ref.read(recipeRepoNotifierProvider);
-    repo.delete(id);
+    repo.delete(toDelete.id);
   }
 }

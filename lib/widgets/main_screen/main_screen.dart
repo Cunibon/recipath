@@ -15,8 +15,25 @@ class MainScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final data = ref.watch(recipeNotifierProvider).values.toList();
-    final groceries = ref.watch(groceryNotifierProvider);
+    final asyncRecipe = ref.watch(recipeNotifierProvider);
+    final asyncGrocery = ref.watch(groceryNotifierProvider);
+
+    late Widget body;
+
+    if (asyncRecipe.isLoading || asyncGrocery.isLoading) {
+      body = Center(child: CircularProgressIndicator());
+    } else if (asyncRecipe.hasError || asyncGrocery.hasError) {
+      body = Center(child: Text('Oops, something unexpected happened'));
+    } else {
+      body = SearchableList(
+        type: "Recipe",
+        items: asyncRecipe.value!.values.toList(),
+        toSearchable: (item) => item.toReadable(asyncGrocery.value!),
+        toWidget: (item) => CompactRecipeItem(data: item),
+        sort: (a, b) => a.title.compareTo(b.title),
+        bottomPadding: 78,
+      );
+    }
 
     return NavigationDrawerScaffold(
       floatingActionButton: FloatingActionButton(
@@ -25,14 +42,7 @@ class MainScreen extends ConsumerWidget {
         ),
         child: Icon(Icons.add),
       ),
-      body: SearchableList(
-        type: "Recipe",
-        items: data,
-        toSearchable: (item) => item.toReadable(groceries),
-        toWidget: (item) => CompactRecipeItem(data: item),
-        sort: (a, b) => a.title.compareTo(b.title),
-        bottomPadding: 78,
-      ),
+      body: body,
     );
   }
 }

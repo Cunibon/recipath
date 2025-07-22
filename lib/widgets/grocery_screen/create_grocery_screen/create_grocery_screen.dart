@@ -33,7 +33,7 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
   void initState() {
     super.initState();
     initialData =
-        ref.read(groceryNotifierProvider)[widget.groceryId] ??
+        ref.read(groceryNotifierProvider).value![widget.groceryId] ??
         GroceryData(
           id: randomAlphaNumeric(16),
           name: "",
@@ -78,9 +78,12 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
             if (widget.groceryId != null)
               ElevatedButton.icon(
                 onPressed: () async {
-                  final groceries = ref.read(groceryNotifierProvider);
+                  final groceries = ref.read(groceryNotifierProvider).value!;
 
-                  final recipes = ref.read(recipeNotifierProvider).values;
+                  final recipes = ref
+                      .read(recipeNotifierProvider)
+                      .value!
+                      .values;
                   final recipesUsing = recipes.where(
                     (e) => e
                         .getIngredients(groceries)
@@ -89,6 +92,7 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
 
                   final shoppingItems = ref
                       .read(shoppingNotifierProvider)
+                      .value!
                       .values;
                   final shoppingUsing = shoppingItems.where(
                     (e) => e.ingredient.groceryId == data.id,
