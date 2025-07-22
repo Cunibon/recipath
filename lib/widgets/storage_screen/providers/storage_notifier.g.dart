@@ -6,12 +6,12 @@ part of 'storage_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$storageNotifierHash() => r'b2c73f58cc3d31741479c327b6046d9b8ea5f045';
+String _$storageNotifierHash() => r'86b1abbd65427c293b57b9cb8b50218536fa13ff';
 
 /// See also [StorageNotifier].
 @ProviderFor(StorageNotifier)
 final storageNotifierProvider =
-    AutoDisposeAsyncNotifierProvider<
+    AutoDisposeStreamNotifierProvider<
       StorageNotifier,
       Map<String, IngredientData>
     >.internal(
@@ -25,6 +25,6 @@ final storageNotifierProvider =
     );
 
 typedef _$StorageNotifier =
-    AutoDisposeAsyncNotifier<Map<String, IngredientData>>;
+    AutoDisposeStreamNotifier<Map<String, IngredientData>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -1,8 +1,5 @@
-import 'dart:convert';
-
-import 'package:localstorage/localstorage.dart';
-import 'package:recipe_list/application_constants.dart';
 import 'package:recipe_list/data/grocery_data.dart';
+import 'package:recipe_list/repos/grocery/grocery_repo_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'grocery_notifier.g.dart';
@@ -10,20 +7,18 @@ part 'grocery_notifier.g.dart';
 @riverpod
 class GroceryNotifier extends _$GroceryNotifier {
   @override
-  Future<Map<String, GroceryData>> build() async {}
-
-  void add(GroceryData newData) {
-    state[newData.id] = newData;
-    updateState();
+  Stream<Map<String, GroceryData>> build() {
+    final repo = ref.watch(groceryRepoNotifierProvider);
+    return repo.stream();
   }
 
-  void delete(GroceryData toDelete) {
-    state.remove(toDelete.id);
-    updateState();
+  Future<void> add(GroceryData newData) async {
+    final repo = ref.read(groceryRepoNotifierProvider);
+    await repo.add(newData);
   }
 
-  void updateState() {
-    localStorage.setItem(groceryDataKey, jsonEncode(state));
-    ref.invalidateSelf();
+  Future<void> delete(GroceryData toDelete) async {
+    final repo = ref.read(groceryRepoNotifierProvider);
+    await repo.delete(toDelete.id);
   }
 }

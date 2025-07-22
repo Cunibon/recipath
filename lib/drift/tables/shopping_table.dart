@@ -9,5 +9,6 @@ class ShoppingTable extends Table {
   TextColumn get id => text()();
   BoolColumn get done => boolean()();
   IntColumn get count => integer()();
-  TextColumn get ingredientId => text().references(IngredientTable, #id)();
+  TextColumn get ingredientId =>
+      text().references(IngredientTable, #id, onDelete: KeyAction.cascade)();
 }

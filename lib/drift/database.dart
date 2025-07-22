@@ -9,13 +9,22 @@ import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:recipe_list/drift/tables/grocery_table.dart';
 import 'package:recipe_list/drift/tables/ingredient_table.dart';
+import 'package:recipe_list/drift/tables/recipe_step_ingredient_table.dart';
 import 'package:recipe_list/drift/tables/recipe_step_table.dart';
 import 'package:recipe_list/drift/tables/recipe_table.dart';
+import 'package:recipe_list/drift/tables/shopping_table.dart';
 
 part 'database.g.dart';
 
 @DriftDatabase(
-  tables: [RecipeTable, RecipeStepTable, IngredientTable, GroceryTable],
+  tables: [
+    RecipeTable,
+    RecipeStepTable,
+    RecipeStepIngredientTable,
+    IngredientTable,
+    GroceryTable,
+    ShoppingTable,
+  ],
 )
 class AppDatabase extends _$AppDatabase {
   AppDatabase([QueryExecutor? executor]) : super(executor ?? _openConnection());
@@ -28,9 +37,9 @@ class AppDatabase extends _$AppDatabase {
     onCreate: (Migrator m) async {
       await m.createAll();
     },
-    beforeOpen: (details) async {
-      await customStatement('PRAGMA foreign_keys = ON;');
-    },
+    // beforeOpen: (details) async {
+    //   await customStatement('PRAGMA foreign_keys = ON;');
+    // },
   );
 
   static QueryExecutor _openConnection() {

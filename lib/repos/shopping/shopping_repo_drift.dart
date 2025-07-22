@@ -1,0 +1,76 @@
+import 'package:drift/drift.dart';
+import 'package:recipe_list/data/ingredient_data.dart';
+import 'package:recipe_list/data/shopping_data.dart';
+import 'package:recipe_list/drift/database.dart';
+import 'package:recipe_list/repos/repo.dart';
+
+class ShoppingRepoDrift extends Repo<ShoppingData> {
+  ShoppingRepoDrift(super.db);
+
+  @override
+  $ShoppingTableTable get table => db.shoppingTable;
+
+  @override
+  Stream<Map<String, ShoppingData>> stream() {
+    final query = db.select(table).join([
+      leftOuterJoin(
+        db.ingredientTable,
+        table.ingredientId.equalsExp(db.ingredientTable.id),
+      ),
+    ]);
+
+    return query.watch().map((rows) {
+      final Map<String, ShoppingData> shoppingById = {};
+
+      for (final row in rows) {
+        final shoppingRow = row.readTable(table);
+        final ingredientRow = row.readTable(db.ingredientTable);
+
+        shoppingById[shoppingRow.id] = ShoppingData(
+          id: shoppingRow.id,
+          done: shoppingRow.done,
+          count: shoppingRow.count,
+          ingredient: IngredientData.fromRow(ingredientRow),
+        );
+      }
+      return shoppingById;
+    });
+  }
+
+  @override
+  Future<void> add(ShoppingData newData) async {
+    await db.transaction(() async {
+      await db
+          .into(db.ingredientTable)
+          .insert(
+            IngredientTableCompanion.insert(
+              id: newData.ingredient.id,
+              amount: newData.ingredient.amount,
+              unit: newData.ingredient.unit.name,
+              groceryId: newData.ingredient.groceryId,
+            ),
+          );
+
+      await db
+          .into(table)
+          .insert(
+            ShoppingTableCompanion.insert(
+              id: newData.id,
+              done: newData.done,
+              count: newData.count,
+              ingredientId: newData.ingredient.id,
+            ),
+          );
+    });
+  }
+
+  @override
+  Future<void> delete(String id) async {
+    await (db.delete(table)..where((t) => t.id.equals(id))).go();
+  }
+
+  @override
+  Future<void> clear() async {
+    await db.delete(table).go();
+  }
+}

@@ -1,11 +1,8 @@
-import 'dart:convert';
-
-import 'package:localstorage/localstorage.dart';
 import 'package:random_string/random_string.dart';
-import 'package:recipe_list/application_constants.dart';
 import 'package:recipe_list/data/grocery_data.dart';
 import 'package:recipe_list/data/ingredient_data.dart';
 import 'package:recipe_list/data/shopping_data.dart';
+import 'package:recipe_list/repos/shopping/shopping_repo_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'shopping_notifier.g.dart';
@@ -13,33 +10,25 @@ part 'shopping_notifier.g.dart';
 @riverpod
 class ShoppingNotifier extends _$ShoppingNotifier {
   @override
-  Future<Map<String, ShoppingData>> build() async {
-    final data = localStorage.getItem(shoppingDataKey);
-
-    if (data == null) return {};
-
-    final decodedData = jsonDecode(data) as Map<String, dynamic>;
-    for (final shopping in decodedData.entries) {
-      final ingredient = shopping.value["ingredient"];
-      if (ingredient["id"] == null) {
-        ingredient["id"] = randomAlphaNumeric(16);
-      }
-    }
-    final entries = decodedData.values.map(
-      (value) => ShoppingData.fromJson(value),
-    );
+  Stream<Map<String, ShoppingData>> build() {
+    final repo = ref.watch(shoppingRepoNotifierProvider);
+    return repo.stream();
   }
 
-  void addItems(
+  Future<void> addItems(
     Iterable<IngredientData> newData,
     Map<String, GroceryData> groceryMap,
-  ) {
-    final Map<String, ShoppingData> newState = {};
+  ) async {
+    final value = state.value;
+
+    if (value == null) return;
+
+    final List<ShoppingData> newShoppingData = [];
     final List<IngredientData> notDone = [];
 
-    for (final entry in state.entries) {
+    for (final entry in value.entries) {
       if (entry.value.done) {
-        newState[entry.key] = entry.value;
+        newShoppingData.add(entry.value);
       } else {
         notDone.add(entry.value.ingredient);
       }
@@ -58,30 +47,27 @@ class ShoppingNotifier extends _$ShoppingNotifier {
         count: (ingredient.amount / grocery.normalAmount).ceil(),
         ingredient: ingredient,
       );
-      newState[shoppingData.id] = shoppingData;
+      newShoppingData.add(shoppingData);
     }
 
-    state = newState;
-    updateState();
+    //TODO could be optimized
+    for (final data in newShoppingData) {
+      await updateItem(data);
+    }
   }
 
-  void updateItem(ShoppingData updated) {
-    state[updated.id] = updated;
-    updateState();
+  Future<void> updateItem(ShoppingData updated) async {
+    final repo = ref.read(shoppingRepoNotifierProvider);
+    await repo.add(updated);
   }
 
-  void deleteItem(ShoppingData toDelete) {
-    state.remove(toDelete.id);
-    updateState();
+  Future<void> deleteItem(ShoppingData toDelete) async {
+    final repo = ref.read(shoppingRepoNotifierProvider);
+    await repo.delete(toDelete.id);
   }
 
-  void clear() {
-    state.clear();
-    updateState();
-  }
-
-  void updateState() {
-    localStorage.setItem(shoppingDataKey, jsonEncode(state));
-    ref.invalidateSelf();
+  Future<void> clear() async {
+    final repo = ref.read(shoppingRepoNotifierProvider);
+    await repo.clear();
   }
 }

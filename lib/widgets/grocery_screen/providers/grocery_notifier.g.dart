@@ -6,12 +6,12 @@ part of 'grocery_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$groceryNotifierHash() => r'6c853a49f4daebde8ae8dda36b67983303f1baab';
+String _$groceryNotifierHash() => r'fdfe5051771c2533f5d9a26df62e358ad3311b43';
 
 /// See also [GroceryNotifier].
 @ProviderFor(GroceryNotifier)
 final groceryNotifierProvider =
-    AutoDisposeAsyncNotifierProvider<
+    AutoDisposeStreamNotifierProvider<
       GroceryNotifier,
       Map<String, GroceryData>
     >.internal(
@@ -24,6 +24,6 @@ final groceryNotifierProvider =
       allTransitiveDependencies: null,
     );
 
-typedef _$GroceryNotifier = AutoDisposeAsyncNotifier<Map<String, GroceryData>>;
+typedef _$GroceryNotifier = AutoDisposeStreamNotifier<Map<String, GroceryData>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

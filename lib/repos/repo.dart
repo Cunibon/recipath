@@ -1,0 +1,14 @@
+import 'package:drift/drift.dart';
+import 'package:recipe_list/drift/database.dart';
+
+abstract class Repo<T> {
+  Repo(this.db);
+  final AppDatabase db;
+
+  ResultSetImplementation get table;
+
+  Stream<Map<String, T>> stream();
+  Future<void> add(T newData);
+  Future<void> delete(String id);
+  Future<void> clear();
+}

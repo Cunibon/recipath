@@ -1,29 +1,29 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'recipe_notifier.dart';
+part of 'storage_repo_notifier.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$recipeNotifierHash() => r'5aced4c9c2eb8e14baf15cca27bfec08e492c891';
+String _$storageRepoNotifierHash() =>
+    r'b8867ba0a605513d3ec90d88959b63f04a0cc379';
 
-/// See also [RecipeNotifier].
-@ProviderFor(RecipeNotifier)
-final recipeNotifierProvider =
-    AutoDisposeStreamNotifierProvider<
-      RecipeNotifier,
-      Map<String, RecipeData>
-    >.internal(
-      RecipeNotifier.new,
-      name: r'recipeNotifierProvider',
+/// See also [storageRepoNotifier].
+@ProviderFor(storageRepoNotifier)
+final storageRepoNotifierProvider =
+    AutoDisposeProvider<Repo<IngredientData>>.internal(
+      storageRepoNotifier,
+      name: r'storageRepoNotifierProvider',
       debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
           ? null
-          : _$recipeNotifierHash,
+          : _$storageRepoNotifierHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );
 
-typedef _$RecipeNotifier = AutoDisposeStreamNotifier<Map<String, RecipeData>>;
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef StorageRepoNotifierRef = AutoDisposeProviderRef<Repo<IngredientData>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
