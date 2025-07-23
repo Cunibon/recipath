@@ -6,16 +6,13 @@ part of 'storage_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$storageNotifierHash() => r'7f3b890cdbb4d27c15d3e5171f6fa226c650475c';
+String _$storageNotifierHash() => r'748b8c9b809cf273326db3fdae7067d59b98edd5';
 
-/// See also [StorageNotifier].
-@ProviderFor(StorageNotifier)
+/// See also [storageNotifier].
+@ProviderFor(storageNotifier)
 final storageNotifierProvider =
-    StreamNotifierProvider<
-      StorageNotifier,
-      Map<String, IngredientData>
-    >.internal(
-      StorageNotifier.new,
+    AutoDisposeStreamProvider<Map<String, IngredientData>>.internal(
+      storageNotifier,
       name: r'storageNotifierProvider',
       debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
           ? null
@@ -24,6 +21,9 @@ final storageNotifierProvider =
       allTransitiveDependencies: null,
     );
 
-typedef _$StorageNotifier = StreamNotifier<Map<String, IngredientData>>;
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef StorageNotifierRef =
+    AutoDisposeStreamProviderRef<Map<String, IngredientData>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -1,25 +1,10 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_list/data/recipe_data.dart';
 import 'package:recipe_list/repos/recipe/recipe_repo_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'recipe_notifier.g.dart';
 
-@Riverpod(keepAlive: true)
-class RecipeNotifier extends _$RecipeNotifier {
-  @override
-  Stream<Map<String, RecipeData>> build() {
-    final repo = ref.watch(recipeRepoNotifierProvider);
-
-    return repo.stream();
-  }
-
-  Future<void> add(RecipeData newData) async {
-    final repo = ref.read(recipeRepoNotifierProvider);
-    repo.add(newData);
-  }
-
-  Future<void> delete(RecipeData toDelete) async {
-    final repo = ref.read(recipeRepoNotifierProvider);
-    repo.delete(toDelete.id);
-  }
-}
+@riverpod
+Stream<Map<String, RecipeData>> recipeNotifier(Ref ref) =>
+    ref.watch(recipeRepoNotifierProvider).stream();
