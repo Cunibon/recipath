@@ -12,7 +12,7 @@ class RecipeRepoDrift extends Repo<RecipeData> {
   $RecipeTableTable get table => db.recipeTable;
 
   @override
-  Stream<Map<String, RecipeData>> stream() {
+  JoinedSelectStatement get query {
     final query = db.select(table).join([
       leftOuterJoin(
         db.recipeStepTable,
@@ -35,38 +35,50 @@ class RecipeRepoDrift extends Repo<RecipeData> {
       OrderingTerm.asc(db.recipeStepTable.index),
       OrderingTerm.asc(db.recipeStepIngredientTable.index),
     ]);
+    return query;
+  }
 
-    return query.watch().map((rows) {
-      final Map<String, RecipeData> recipesById = {};
+  Map<String, RecipeData> mapResult(List<TypedResult> rows) {
+    final Map<String, RecipeData> recipesById = {};
 
-      for (final row in rows) {
-        final recipeRow = row.readTable(table);
-        final stepRow = row.readTableOrNull(db.recipeStepTable);
+    for (final row in rows) {
+      final recipeRow = row.readTable(table);
+      final stepRow = row.readTableOrNull(db.recipeStepTable);
 
-        final recipe = recipesById.putIfAbsent(recipeRow.id, () {
-          return RecipeData.fromRow(recipeRow);
-        });
+      final recipe = recipesById.putIfAbsent(recipeRow.id, () {
+        return RecipeData.fromRow(recipeRow);
+      });
 
-        if (stepRow != null) {
-          late RecipeStepData recipeStep;
+      if (stepRow != null) {
+        late RecipeStepData recipeStep;
 
-          if (recipe.steps.lastOrNull?.id != stepRow.id) {
-            recipeStep = RecipeStepData.fromRow(stepRow);
-            recipe.steps.add(recipeStep);
-          } else {
-            recipeStep = recipe.steps.last;
-          }
+        if (recipe.steps.lastOrNull?.id != stepRow.id) {
+          recipeStep = RecipeStepData.fromRow(stepRow);
+          recipe.steps.add(recipeStep);
+        } else {
+          recipeStep = recipe.steps.last;
+        }
 
-          final ingredientRow = row.readTableOrNull(db.ingredientTable);
+        final ingredientRow = row.readTableOrNull(db.ingredientTable);
 
-          if (ingredientRow != null) {
-            recipeStep.ingredients.add(IngredientData.fromRow(ingredientRow));
-          }
+        if (ingredientRow != null) {
+          recipeStep.ingredients.add(IngredientData.fromRow(ingredientRow));
         }
       }
+    }
 
-      return recipesById;
-    });
+    return recipesById;
+  }
+
+  @override
+  Future<Map<String, RecipeData>> get() async {
+    final rows = await query.get();
+    return mapResult(rows);
+  }
+
+  @override
+  Stream<Map<String, RecipeData>> stream() {
+    return query.watch().map(mapResult);
   }
 
   @override

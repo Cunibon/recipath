@@ -8,11 +8,18 @@ class StorageRepoDrift extends Repo<IngredientData> {
 
   @override
   $IngredientTableTable get table => db.ingredientTable;
+  @override
+  SimpleSelectStatement<$IngredientTableTable, IngredientTableData> get query =>
+      db.select(table);
+
+  @override
+  Future<Map<String, IngredientData>> get() async {
+    final rows = await query.get();
+    return {for (final row in rows) row.id: IngredientData.fromRow(row)};
+  }
 
   @override
   Stream<Map<String, IngredientData>> stream() {
-    final query = db.select(table);
-
     return query.watch().map((rows) {
       return {
         for (final row in rows) row.groceryId: IngredientData.fromRow(row),

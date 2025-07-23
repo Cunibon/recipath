@@ -8,11 +8,18 @@ class GroceryRepoDrift extends Repo<GroceryData> {
 
   @override
   $GroceryTableTable get table => db.groceryTable;
+  @override
+  SimpleSelectStatement<$GroceryTableTable, GroceryTableData> get query =>
+      db.select(table);
+
+  @override
+  Future<Map<String, GroceryData>> get() async {
+    final rows = await query.get();
+    return {for (final row in rows) row.id: GroceryData.fromRow(row)};
+  }
 
   @override
   Stream<Map<String, GroceryData>> stream() {
-    final query = db.select(table);
-
     return query.watch().map((rows) {
       return {for (final row in rows) row.id: GroceryData.fromRow(row)};
     });

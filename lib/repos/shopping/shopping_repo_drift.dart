@@ -9,32 +9,40 @@ class ShoppingRepoDrift extends Repo<ShoppingData> {
 
   @override
   $ShoppingTableTable get table => db.shoppingTable;
+  @override
+  JoinedSelectStatement get query => db.select(table).join([
+    leftOuterJoin(
+      db.ingredientTable,
+      table.ingredientId.equalsExp(db.ingredientTable.id),
+    ),
+  ]);
+
+  Map<String, ShoppingData> mapResult(List<TypedResult> rows) {
+    final Map<String, ShoppingData> shoppingById = {};
+
+    for (final row in rows) {
+      final shoppingRow = row.readTable(table);
+      final ingredientRow = row.readTable(db.ingredientTable);
+
+      shoppingById[shoppingRow.id] = ShoppingData(
+        id: shoppingRow.id,
+        done: shoppingRow.done,
+        count: shoppingRow.count,
+        ingredient: IngredientData.fromRow(ingredientRow),
+      );
+    }
+    return shoppingById;
+  }
+
+  @override
+  Future<Map<String, ShoppingData>> get() async {
+    final rows = await query.get();
+    return mapResult(rows);
+  }
 
   @override
   Stream<Map<String, ShoppingData>> stream() {
-    final query = db.select(table).join([
-      leftOuterJoin(
-        db.ingredientTable,
-        table.ingredientId.equalsExp(db.ingredientTable.id),
-      ),
-    ]);
-
-    return query.watch().map((rows) {
-      final Map<String, ShoppingData> shoppingById = {};
-
-      for (final row in rows) {
-        final shoppingRow = row.readTable(table);
-        final ingredientRow = row.readTable(db.ingredientTable);
-
-        shoppingById[shoppingRow.id] = ShoppingData(
-          id: shoppingRow.id,
-          done: shoppingRow.done,
-          count: shoppingRow.count,
-          ingredient: IngredientData.fromRow(ingredientRow),
-        );
-      }
-      return shoppingById;
-    });
+    return query.watch().map(mapResult);
   }
 
   @override
