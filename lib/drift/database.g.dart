@@ -1926,6 +1926,184 @@ class ShoppingTableCompanion extends UpdateCompanion<ShoppingTableData> {
   }
 }
 
+class $StorageTableTable extends StorageTable
+    with TableInfo<$StorageTableTable, StorageTableData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $StorageTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _ingredientIdMeta = const VerificationMeta(
+    'ingredientId',
+  );
+  @override
+  late final GeneratedColumn<String> ingredientId = GeneratedColumn<String>(
+    'ingredient_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES ingredient_table (id)',
+    ),
+  );
+  @override
+  List<GeneratedColumn> get $columns => [ingredientId];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'storage_table';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<StorageTableData> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('ingredient_id')) {
+      context.handle(
+        _ingredientIdMeta,
+        ingredientId.isAcceptableOrUnknown(
+          data['ingredient_id']!,
+          _ingredientIdMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_ingredientIdMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {ingredientId};
+  @override
+  StorageTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return StorageTableData(
+      ingredientId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}ingredient_id'],
+      )!,
+    );
+  }
+
+  @override
+  $StorageTableTable createAlias(String alias) {
+    return $StorageTableTable(attachedDatabase, alias);
+  }
+}
+
+class StorageTableData extends DataClass
+    implements Insertable<StorageTableData> {
+  final String ingredientId;
+  const StorageTableData({required this.ingredientId});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['ingredient_id'] = Variable<String>(ingredientId);
+    return map;
+  }
+
+  StorageTableCompanion toCompanion(bool nullToAbsent) {
+    return StorageTableCompanion(ingredientId: Value(ingredientId));
+  }
+
+  factory StorageTableData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return StorageTableData(
+      ingredientId: serializer.fromJson<String>(json['ingredientId']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'ingredientId': serializer.toJson<String>(ingredientId),
+    };
+  }
+
+  StorageTableData copyWith({String? ingredientId}) =>
+      StorageTableData(ingredientId: ingredientId ?? this.ingredientId);
+  StorageTableData copyWithCompanion(StorageTableCompanion data) {
+    return StorageTableData(
+      ingredientId: data.ingredientId.present
+          ? data.ingredientId.value
+          : this.ingredientId,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('StorageTableData(')
+          ..write('ingredientId: $ingredientId')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => ingredientId.hashCode;
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is StorageTableData && other.ingredientId == this.ingredientId);
+}
+
+class StorageTableCompanion extends UpdateCompanion<StorageTableData> {
+  final Value<String> ingredientId;
+  final Value<int> rowid;
+  const StorageTableCompanion({
+    this.ingredientId = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  StorageTableCompanion.insert({
+    required String ingredientId,
+    this.rowid = const Value.absent(),
+  }) : ingredientId = Value(ingredientId);
+  static Insertable<StorageTableData> custom({
+    Expression<String>? ingredientId,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (ingredientId != null) 'ingredient_id': ingredientId,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  StorageTableCompanion copyWith({
+    Value<String>? ingredientId,
+    Value<int>? rowid,
+  }) {
+    return StorageTableCompanion(
+      ingredientId: ingredientId ?? this.ingredientId,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (ingredientId.present) {
+      map['ingredient_id'] = Variable<String>(ingredientId.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('StorageTableCompanion(')
+          ..write('ingredientId: $ingredientId, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -1940,6 +2118,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $RecipeStepIngredientTableTable recipeStepIngredientTable =
       $RecipeStepIngredientTableTable(this);
   late final $ShoppingTableTable shoppingTable = $ShoppingTableTable(this);
+  late final $StorageTableTable storageTable = $StorageTableTable(this);
   late final Index recipeStepRecipeId = Index(
     'recipe_step_recipeId',
     'CREATE INDEX recipe_step_recipeId ON recipe_step_table (recipe_id)',
@@ -1959,6 +2138,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     ingredientTable,
     recipeStepIngredientTable,
     shoppingTable,
+    storageTable,
     recipeStepRecipeId,
     shoppingIngredientId,
   ];
@@ -3120,6 +3300,27 @@ final class $$IngredientTableTableReferences
       manager.$state.copyWith(prefetchedData: cache),
     );
   }
+
+  static MultiTypedResultKey<$StorageTableTable, List<StorageTableData>>
+  _storageTableRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.storageTable,
+    aliasName: $_aliasNameGenerator(
+      db.ingredientTable.id,
+      db.storageTable.ingredientId,
+    ),
+  );
+
+  $$StorageTableTableProcessedTableManager get storageTableRefs {
+    final manager = $$StorageTableTableTableManager(
+      $_db,
+      $_db.storageTable,
+    ).filter((f) => f.ingredientId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_storageTableRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
 }
 
 class $$IngredientTableTableFilterComposer
@@ -3212,6 +3413,31 @@ class $$IngredientTableTableFilterComposer
           }) => $$ShoppingTableTableFilterComposer(
             $db: $db,
             $table: $db.shoppingTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> storageTableRefs(
+    Expression<bool> Function($$StorageTableTableFilterComposer f) f,
+  ) {
+    final $$StorageTableTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.storageTable,
+      getReferencedColumn: (t) => t.ingredientId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$StorageTableTableFilterComposer(
+            $db: $db,
+            $table: $db.storageTable,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
             $removeJoinBuilderFromRootComposer:
@@ -3362,6 +3588,31 @@ class $$IngredientTableTableAnnotationComposer
     );
     return f(composer);
   }
+
+  Expression<T> storageTableRefs<T extends Object>(
+    Expression<T> Function($$StorageTableTableAnnotationComposer a) f,
+  ) {
+    final $$StorageTableTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.storageTable,
+      getReferencedColumn: (t) => t.ingredientId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$StorageTableTableAnnotationComposer(
+            $db: $db,
+            $table: $db.storageTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$IngredientTableTableTableManager
@@ -3381,6 +3632,7 @@ class $$IngredientTableTableTableManager
             bool groceryId,
             bool recipeStepIngredientTableRefs,
             bool shoppingTableRefs,
+            bool storageTableRefs,
           })
         > {
   $$IngredientTableTableTableManager(
@@ -3437,6 +3689,7 @@ class $$IngredientTableTableTableManager
                 groceryId = false,
                 recipeStepIngredientTableRefs = false,
                 shoppingTableRefs = false,
+                storageTableRefs = false,
               }) {
                 return PrefetchHooks(
                   db: db,
@@ -3444,6 +3697,7 @@ class $$IngredientTableTableTableManager
                     if (recipeStepIngredientTableRefs)
                       db.recipeStepIngredientTable,
                     if (shoppingTableRefs) db.shoppingTable,
+                    if (storageTableRefs) db.storageTable,
                   ],
                   addJoins:
                       <
@@ -3523,6 +3777,27 @@ class $$IngredientTableTableTableManager
                               ),
                           typedResults: items,
                         ),
+                      if (storageTableRefs)
+                        await $_getPrefetchedData<
+                          IngredientTableData,
+                          $IngredientTableTable,
+                          StorageTableData
+                        >(
+                          currentTable: table,
+                          referencedTable: $$IngredientTableTableReferences
+                              ._storageTableRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$IngredientTableTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).storageTableRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.ingredientId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
                     ];
                   },
                 );
@@ -3547,6 +3822,7 @@ typedef $$IngredientTableTableProcessedTableManager =
         bool groceryId,
         bool recipeStepIngredientTableRefs,
         bool shoppingTableRefs,
+        bool storageTableRefs,
       })
     >;
 typedef $$RecipeStepIngredientTableTableCreateCompanionBuilder =
@@ -4262,6 +4538,253 @@ typedef $$ShoppingTableTableProcessedTableManager =
       ShoppingTableData,
       PrefetchHooks Function({bool ingredientId})
     >;
+typedef $$StorageTableTableCreateCompanionBuilder =
+    StorageTableCompanion Function({
+      required String ingredientId,
+      Value<int> rowid,
+    });
+typedef $$StorageTableTableUpdateCompanionBuilder =
+    StorageTableCompanion Function({
+      Value<String> ingredientId,
+      Value<int> rowid,
+    });
+
+final class $$StorageTableTableReferences
+    extends
+        BaseReferences<_$AppDatabase, $StorageTableTable, StorageTableData> {
+  $$StorageTableTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $IngredientTableTable _ingredientIdTable(_$AppDatabase db) =>
+      db.ingredientTable.createAlias(
+        $_aliasNameGenerator(
+          db.storageTable.ingredientId,
+          db.ingredientTable.id,
+        ),
+      );
+
+  $$IngredientTableTableProcessedTableManager get ingredientId {
+    final $_column = $_itemColumn<String>('ingredient_id')!;
+
+    final manager = $$IngredientTableTableTableManager(
+      $_db,
+      $_db.ingredientTable,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_ingredientIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$StorageTableTableFilterComposer
+    extends Composer<_$AppDatabase, $StorageTableTable> {
+  $$StorageTableTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  $$IngredientTableTableFilterComposer get ingredientId {
+    final $$IngredientTableTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.ingredientId,
+      referencedTable: $db.ingredientTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$IngredientTableTableFilterComposer(
+            $db: $db,
+            $table: $db.ingredientTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$StorageTableTableOrderingComposer
+    extends Composer<_$AppDatabase, $StorageTableTable> {
+  $$StorageTableTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  $$IngredientTableTableOrderingComposer get ingredientId {
+    final $$IngredientTableTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.ingredientId,
+      referencedTable: $db.ingredientTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$IngredientTableTableOrderingComposer(
+            $db: $db,
+            $table: $db.ingredientTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$StorageTableTableAnnotationComposer
+    extends Composer<_$AppDatabase, $StorageTableTable> {
+  $$StorageTableTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  $$IngredientTableTableAnnotationComposer get ingredientId {
+    final $$IngredientTableTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.ingredientId,
+      referencedTable: $db.ingredientTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$IngredientTableTableAnnotationComposer(
+            $db: $db,
+            $table: $db.ingredientTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$StorageTableTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $StorageTableTable,
+          StorageTableData,
+          $$StorageTableTableFilterComposer,
+          $$StorageTableTableOrderingComposer,
+          $$StorageTableTableAnnotationComposer,
+          $$StorageTableTableCreateCompanionBuilder,
+          $$StorageTableTableUpdateCompanionBuilder,
+          (StorageTableData, $$StorageTableTableReferences),
+          StorageTableData,
+          PrefetchHooks Function({bool ingredientId})
+        > {
+  $$StorageTableTableTableManager(_$AppDatabase db, $StorageTableTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$StorageTableTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$StorageTableTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$StorageTableTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> ingredientId = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => StorageTableCompanion(
+                ingredientId: ingredientId,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String ingredientId,
+                Value<int> rowid = const Value.absent(),
+              }) => StorageTableCompanion.insert(
+                ingredientId: ingredientId,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$StorageTableTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({ingredientId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (ingredientId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.ingredientId,
+                                referencedTable: $$StorageTableTableReferences
+                                    ._ingredientIdTable(db),
+                                referencedColumn: $$StorageTableTableReferences
+                                    ._ingredientIdTable(db)
+                                    .id,
+                              )
+                              as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$StorageTableTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $StorageTableTable,
+      StorageTableData,
+      $$StorageTableTableFilterComposer,
+      $$StorageTableTableOrderingComposer,
+      $$StorageTableTableAnnotationComposer,
+      $$StorageTableTableCreateCompanionBuilder,
+      $$StorageTableTableUpdateCompanionBuilder,
+      (StorageTableData, $$StorageTableTableReferences),
+      StorageTableData,
+      PrefetchHooks Function({bool ingredientId})
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -4281,4 +4804,6 @@ class $AppDatabaseManager {
       );
   $$ShoppingTableTableTableManager get shoppingTable =>
       $$ShoppingTableTableTableManager(_db, _db.shoppingTable);
+  $$StorageTableTableTableManager get storageTable =>
+      $$StorageTableTableTableManager(_db, _db.storageTable);
 }

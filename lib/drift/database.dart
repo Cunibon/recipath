@@ -13,6 +13,7 @@ import 'package:recipe_list/drift/tables/recipe_step_ingredient_table.dart';
 import 'package:recipe_list/drift/tables/recipe_step_table.dart';
 import 'package:recipe_list/drift/tables/recipe_table.dart';
 import 'package:recipe_list/drift/tables/shopping_table.dart';
+import 'package:recipe_list/drift/tables/storage_table.dart';
 
 part 'database.g.dart';
 
@@ -24,6 +25,7 @@ part 'database.g.dart';
     IngredientTable,
     GroceryTable,
     ShoppingTable,
+    StorageTable,
   ],
 )
 class AppDatabase extends _$AppDatabase {

@@ -7,36 +7,58 @@ class StorageRepoDrift extends Repo<IngredientData> {
   StorageRepoDrift(super.db);
 
   @override
-  $IngredientTableTable get table => db.ingredientTable;
+  $StorageTableTable get table => db.storageTable;
   @override
-  SimpleSelectStatement<$IngredientTableTable, IngredientTableData> get query =>
-      db.select(table);
+  JoinedSelectStatement get query => db.select(table).join([
+    leftOuterJoin(
+      db.ingredientTable,
+      table.ingredientId.equalsExp(db.ingredientTable.id),
+    ),
+  ]);
+
+  Map<String, IngredientData> mapResult(List<TypedResult> rows) {
+    final Map<String, IngredientData> ingredientById = {};
+
+    for (final row in rows) {
+      final ingredientRow = row.readTable(db.ingredientTable);
+
+      ingredientById[ingredientRow.groceryId] = IngredientData.fromRow(
+        ingredientRow,
+      );
+    }
+    return ingredientById;
+  }
 
   @override
   Future<Map<String, IngredientData>> get() async {
     final rows = await query.get();
-    return {for (final row in rows) row.id: IngredientData.fromRow(row)};
+    return mapResult(rows);
   }
 
   @override
   Stream<Map<String, IngredientData>> stream() {
-    return query.watch().map((rows) {
-      return {
-        for (final row in rows) row.groceryId: IngredientData.fromRow(row),
-      };
-    });
+    return query.watch().map(mapResult);
   }
 
   @override
   Future<void> add(IngredientData newData) async {
-    await db
-        .into(table)
-        .insert(newData.toTableCompanion(), mode: InsertMode.insertOrReplace);
+    await db.transaction(() async {
+      await db
+          .into(db.ingredientTable)
+          .insert(newData.toTableCompanion(), mode: InsertMode.insertOrReplace);
+
+      await db
+          .into(table)
+          .insert(
+            StorageTableCompanion.insert(ingredientId: newData.id),
+            mode: InsertMode.insertOrReplace,
+          );
+    });
   }
 
   @override
   Future<void> delete(String id) async {
-    await (db.delete(table)..where((t) => t.id.equals(id))).go();
+    await (db.delete(table)..where((t) => t.ingredientId.equals(id))).go();
   }
 
   @override
