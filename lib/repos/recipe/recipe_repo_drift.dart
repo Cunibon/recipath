@@ -102,12 +102,7 @@ class RecipeRepoDrift extends Repo<RecipeData> {
           await db
               .into(db.ingredientTable)
               .insert(
-                IngredientTableCompanion.insert(
-                  id: ingredient.id,
-                  amount: ingredient.amount,
-                  unit: ingredient.unit.name,
-                  groceryId: ingredient.groceryId,
-                ),
+                ingredient.toTableCompanion(),
                 mode: InsertMode.insertOrReplace,
               );
 

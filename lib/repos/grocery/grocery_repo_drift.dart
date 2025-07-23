@@ -22,17 +22,7 @@ class GroceryRepoDrift extends Repo<GroceryData> {
   Future<void> add(GroceryData newData) async {
     await db
         .into(table)
-        .insert(
-          GroceryTableCompanion.insert(
-            id: newData.id,
-            normalAmount: newData.normalAmount,
-            unit: newData.unit.name,
-            conversionAmount: newData.conversionAmount,
-            conversionUnit: newData.conversionUnit.name,
-            name: newData.name,
-          ),
-          mode: InsertMode.insertOrReplace,
-        );
+        .insert(newData.toTableCompanion(), mode: InsertMode.insertOrReplace);
   }
 
   @override

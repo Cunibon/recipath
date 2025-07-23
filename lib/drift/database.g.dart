@@ -1944,10 +1944,6 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     'recipe_step_recipeId',
     'CREATE INDEX recipe_step_recipeId ON recipe_step_table (recipe_id)',
   );
-  late final Index ingredientsRecipeStepId = Index(
-    'ingredients_recipeStepId',
-    'CREATE INDEX ingredients_recipeStepId ON ingredient_table ()',
-  );
   late final Index shoppingIngredientId = Index(
     'shopping_ingredientId',
     'CREATE INDEX shopping_ingredientId ON shopping_table (ingredient_id)',
@@ -1964,7 +1960,6 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     recipeStepIngredientTable,
     shoppingTable,
     recipeStepRecipeId,
-    ingredientsRecipeStepId,
     shoppingIngredientId,
   ];
   @override

@@ -43,24 +43,13 @@ class ShoppingRepoDrift extends Repo<ShoppingData> {
       await db
           .into(db.ingredientTable)
           .insert(
-            IngredientTableCompanion.insert(
-              id: newData.ingredient.id,
-              amount: newData.ingredient.amount,
-              unit: newData.ingredient.unit.name,
-              groceryId: newData.ingredient.groceryId,
-            ),
+            newData.ingredient.toTableCompanion(),
+            mode: InsertMode.insertOrReplace,
           );
 
       await db
           .into(table)
-          .insert(
-            ShoppingTableCompanion.insert(
-              id: newData.id,
-              done: newData.done,
-              count: newData.count,
-              ingredientId: newData.ingredient.id,
-            ),
-          );
+          .insert(newData.toTableCompanion(), mode: InsertMode.insertOrReplace);
     });
   }
 

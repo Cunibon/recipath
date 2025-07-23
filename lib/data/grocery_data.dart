@@ -49,4 +49,13 @@ extension GroceryDataFunctions on GroceryData {
           (normalAmount / conversionAmount);
     }
   }
+
+  GroceryTableCompanion toTableCompanion() => GroceryTableCompanion.insert(
+    id: id,
+    normalAmount: normalAmount,
+    unit: _$UnitEnumEnumMap[unit]!,
+    conversionAmount: conversionAmount,
+    conversionUnit: _$UnitEnumEnumMap[conversionUnit]!,
+    name: name,
+  );
 }

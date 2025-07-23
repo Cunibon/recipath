@@ -24,15 +24,7 @@ class StorageRepoDrift extends Repo<IngredientData> {
   Future<void> add(IngredientData newData) async {
     await db
         .into(table)
-        .insert(
-          IngredientTableCompanion.insert(
-            id: newData.id,
-            amount: newData.amount,
-            unit: newData.unit.name,
-            groceryId: newData.groceryId,
-          ),
-          mode: InsertMode.insertOrReplace,
-        );
+        .insert(newData.toTableCompanion(), mode: InsertMode.insertOrReplace);
   }
 
   @override

@@ -2,6 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:recipe_list/common.dart';
 import 'package:recipe_list/data/grocery_data.dart';
 import 'package:recipe_list/data/ingredient_data.dart';
+import 'package:recipe_list/drift/database.dart';
 
 part 'shopping_data.freezed.dart';
 part 'shopping_data.g.dart';
@@ -22,4 +23,11 @@ abstract class ShoppingData with _$ShoppingData {
 extension ShoppingDataFunctions on ShoppingData {
   String toReadable(GroceryData grocery, double storageData) =>
       "${count}x ${grocery.toReadable()} (${doubleNumberFormat.format(ingredient.amount)}${grocery.unit.name}/${doubleNumberFormat.format(storageData)}${grocery.unit.name})";
+
+  ShoppingTableCompanion toTableCompanion() => ShoppingTableCompanion.insert(
+    id: id,
+    done: done,
+    count: count,
+    ingredientId: ingredient.id,
+  );
 }

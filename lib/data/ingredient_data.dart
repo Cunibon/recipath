@@ -55,4 +55,12 @@ abstract class IngredientData with _$IngredientData {
 extension IngredientDataFunctions on IngredientData {
   String toReadable(GroceryData grocery) =>
       "${doubleNumberFormat.format(amount)}${unit.name} ${grocery.name}";
+
+  IngredientTableCompanion toTableCompanion() =>
+      IngredientTableCompanion.insert(
+        id: id,
+        amount: amount,
+        unit: _$UnitEnumEnumMap[unit]!,
+        groceryId: groceryId,
+      );
 }

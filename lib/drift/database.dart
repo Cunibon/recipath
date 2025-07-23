@@ -52,7 +52,7 @@ class AppDatabase extends _$AppDatabase {
       BackgroundIsolateBinaryMessenger.ensureInitialized(token);
 
       return LazyDatabase(() async {
-        final dbFolder = await getApplicationDocumentsDirectory();
+        final dbFolder = await getApplicationSupportDirectory();
         final path = p.join(dbFolder.path, 'app.db');
 
         return NativeDatabase(File(path));
