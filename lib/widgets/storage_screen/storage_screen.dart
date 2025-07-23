@@ -6,6 +6,7 @@ import 'package:recipe_list/data/grocery_data.dart';
 import 'package:recipe_list/data/ingredient_data.dart';
 import 'package:recipe_list/widgets/generic/clear_confirmation_dialog.dart';
 import 'package:recipe_list/widgets/generic/navigation_drawer_scaffold.dart';
+import 'package:recipe_list/widgets/generic/notifier_future_builder.dart';
 import 'package:recipe_list/widgets/generic/searchable_list.dart';
 import 'package:recipe_list/widgets/grocery_screen/providers/grocery_notifier.dart';
 import 'package:recipe_list/widgets/recipe_screen/create_recipe_screen/add_groceries_dialog.dart';
@@ -17,8 +18,8 @@ class StorageScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final items = ref.watch(storageNotifierProvider).value!.values.toList();
-    final groceries = ref.watch(groceryNotifierProvider).value!;
+    final asyncItems = ref.watch(storageNotifierProvider);
+    final asyncGroceries = ref.watch(groceryNotifierProvider);
 
     return NavigationDrawerScaffold(
       actions: [
@@ -43,7 +44,9 @@ class StorageScreen extends ConsumerWidget {
           final groceries = (await showDialog<Set<GroceryData>>(
             context: context,
             builder: (context) => AddGroceriesDialog(
-              selected: items.map((e) => e.groceryId),
+              selected: asyncItems.value!.values.toList().map(
+                (e) => e.groceryId,
+              ),
               allowSelectedRemoval: false,
             ),
           ))?.where((e) => !storageMap.containsKey(e.id));
@@ -65,15 +68,19 @@ class StorageScreen extends ConsumerWidget {
         },
         child: Icon(Icons.add),
       ),
-      body: SearchableList(
-        type: "Items",
-        items: items,
-        toSearchable: (item) => item.toReadable(groceries[item.groceryId]!),
-        toWidget: (item) => StorageItem(data: item),
-        sort: (a, b) => groceries[a.groceryId]!.name.compareTo(
-          groceries[b.groceryId]!.name,
+      body: NotifierFutureBuilder(
+        futures: [asyncItems, asyncGroceries],
+        childBuilder: () => SearchableList(
+          type: "Items",
+          items: asyncItems.value!.values.toList(),
+          toSearchable: (item) =>
+              item.toReadable(asyncGroceries.value![item.groceryId]!),
+          toWidget: (item) => StorageItem(data: item),
+          sort: (a, b) => asyncGroceries.value![a.groceryId]!.name.compareTo(
+            asyncGroceries.value![b.groceryId]!.name,
+          ),
+          bottomPadding: 78,
         ),
-        bottomPadding: 78,
       ),
     );
   }

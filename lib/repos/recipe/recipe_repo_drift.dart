@@ -54,7 +54,9 @@ class RecipeRepoDrift extends Repo<RecipeData> {
 
         if (recipe.steps.lastOrNull?.id != stepRow.id) {
           recipeStep = RecipeStepData.fromRow(stepRow);
-          recipe.steps.add(recipeStep);
+          recipesById[recipe.id] = recipesById[recipe.id]!.copyWith(
+            steps: [...recipesById[recipe.id]!.steps, recipeStep],
+          );
         } else {
           recipeStep = recipe.steps.last;
         }
@@ -62,7 +64,18 @@ class RecipeRepoDrift extends Repo<RecipeData> {
         final ingredientRow = row.readTableOrNull(db.ingredientTable);
 
         if (ingredientRow != null) {
-          recipeStep.ingredients.add(IngredientData.fromRow(ingredientRow));
+          recipesById[recipe.id] = recipesById[recipe.id]!.copyWith(
+            steps: List.from(recipesById[recipe.id]!.steps)
+              ..removeLast()
+              ..add(
+                recipeStep.copyWith(
+                  ingredients: [
+                    ...recipeStep.ingredients,
+                    IngredientData.fromRow(ingredientRow),
+                  ],
+                ),
+              ),
+          );
         }
       }
     }
