@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:random_string/random_string.dart';
 import 'package:recipe_list/providers/application_path_provider.dart';
-import 'package:recipe_list/widgets/main_screen/local_image.dart';
+import 'package:recipe_list/widgets/recipe_screen/local_image.dart';
 
 class AddImageWidget extends ConsumerWidget {
   const AddImageWidget({this.fileName, required this.onChanged, super.key});

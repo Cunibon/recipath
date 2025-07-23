@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:recipe_list/widgets/main_screen/providers/file_notifier.dart';
+import 'package:recipe_list/widgets/recipe_screen/providers/file_notifier.dart';
 
 class LocalImage extends ConsumerWidget {
   const LocalImage({

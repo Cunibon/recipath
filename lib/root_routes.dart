@@ -1,8 +1,8 @@
 import 'package:go_router/go_router.dart';
 import 'package:recipe_list/widgets/grocery_screen/grocery_routes.dart';
 import 'package:recipe_list/widgets/grocery_screen/grocery_screen.dart';
-import 'package:recipe_list/widgets/main_screen/main_routes.dart';
-import 'package:recipe_list/widgets/main_screen/main_screen.dart';
+import 'package:recipe_list/widgets/recipe_screen/main_routes.dart';
+import 'package:recipe_list/widgets/recipe_screen/recipe_screen.dart';
 import 'package:recipe_list/widgets/settings_screen/settings_screen.dart';
 import 'package:recipe_list/widgets/shopping_screen/shopping_screen.dart';
 import 'package:recipe_list/widgets/storage_screen/storage_screen.dart';
@@ -10,7 +10,7 @@ import 'package:recipe_list/widgets/storage_screen/storage_screen.dart';
 class RootRoutes {
   static GoRoute mainRoute = GoRoute(
     path: "/recipes",
-    builder: (context, state) => MainScreen(),
+    builder: (context, state) => RecipeScreen(),
     routes: [MainRoutes.createRecipe, MainRoutes.recipe],
   );
   static GoRoute groceriesRoute = GoRoute(

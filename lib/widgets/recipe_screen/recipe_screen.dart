@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:recipe_list/data/recipe_data.dart';
-import 'package:recipe_list/root_routes/root_routes.dart';
+import 'package:recipe_list/root_routes.dart';
 import 'package:recipe_list/widgets/generic/navigation_drawer_scaffold.dart';
 import 'package:recipe_list/widgets/generic/searchable_list.dart';
 import 'package:recipe_list/widgets/grocery_screen/providers/grocery_notifier.dart';
-import 'package:recipe_list/widgets/main_screen/compact_recipe_item.dart';
-import 'package:recipe_list/widgets/main_screen/main_routes.dart';
-import 'package:recipe_list/widgets/main_screen/providers/recipe_notifier.dart';
+import 'package:recipe_list/widgets/recipe_screen/compact_recipe_item.dart';
+import 'package:recipe_list/widgets/recipe_screen/main_routes.dart';
+import 'package:recipe_list/widgets/recipe_screen/providers/recipe_notifier.dart';
 
-class MainScreen extends ConsumerWidget {
-  const MainScreen({super.key});
+class RecipeScreen extends ConsumerWidget {
+  const RecipeScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

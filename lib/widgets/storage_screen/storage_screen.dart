@@ -7,7 +7,7 @@ import 'package:recipe_list/widgets/generic/clear_confirmation_dialog.dart';
 import 'package:recipe_list/widgets/generic/navigation_drawer_scaffold.dart';
 import 'package:recipe_list/widgets/generic/searchable_list.dart';
 import 'package:recipe_list/widgets/grocery_screen/providers/grocery_notifier.dart';
-import 'package:recipe_list/widgets/main_screen/create_recipe_screen/add_groceries_dialog.dart';
+import 'package:recipe_list/widgets/recipe_screen/create_recipe_screen/add_groceries_dialog.dart';
 import 'package:recipe_list/widgets/storage_screen/providers/storage_notifier.dart';
 import 'package:recipe_list/widgets/storage_screen/storage_item.dart';
 

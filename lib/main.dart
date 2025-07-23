@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:recipe_list/drift/database.dart';
 import 'package:recipe_list/drift/database_notifier.dart';
-import 'package:recipe_list/root_routes/root_routes.dart';
+import 'package:recipe_list/root_routes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

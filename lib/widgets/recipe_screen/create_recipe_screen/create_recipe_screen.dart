@@ -6,9 +6,9 @@ import 'package:recipe_list/data/recipe_data.dart';
 import 'package:recipe_list/data/recipe_step_data.dart';
 import 'package:recipe_list/widgets/generic/delete_confirmation_dialog.dart';
 import 'package:recipe_list/widgets/generic/unsaved_changes_scope.dart';
-import 'package:recipe_list/widgets/main_screen/create_recipe_screen/add_image_widget.dart';
-import 'package:recipe_list/widgets/main_screen/create_recipe_screen/recipe_step_view.dart';
-import 'package:recipe_list/widgets/main_screen/providers/recipe_notifier.dart';
+import 'package:recipe_list/widgets/recipe_screen/create_recipe_screen/add_image_widget.dart';
+import 'package:recipe_list/widgets/recipe_screen/create_recipe_screen/recipe_step_view.dart';
+import 'package:recipe_list/widgets/recipe_screen/providers/recipe_notifier.dart';
 
 class CreateRecipeScreen extends ConsumerStatefulWidget {
   const CreateRecipeScreen({this.recipeId, super.key});

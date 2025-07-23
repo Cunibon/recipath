@@ -10,7 +10,7 @@ import 'package:recipe_list/widgets/generic/delete_confirmation_dialog.dart';
 import 'package:recipe_list/widgets/generic/information_dialog.dart';
 import 'package:recipe_list/widgets/generic/unsaved_changes_scope.dart';
 import 'package:recipe_list/widgets/grocery_screen/providers/grocery_notifier.dart';
-import 'package:recipe_list/widgets/main_screen/providers/recipe_notifier.dart';
+import 'package:recipe_list/widgets/recipe_screen/providers/recipe_notifier.dart';
 import 'package:recipe_list/widgets/shopping_screen/providers/shopping_notifier.dart';
 
 class CreateGroceryScreen extends ConsumerStatefulWidget {
