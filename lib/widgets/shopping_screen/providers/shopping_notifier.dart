@@ -6,5 +6,5 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'shopping_notifier.g.dart';
 
 @riverpod
-Stream<Map<String, ShoppingData>> recipeNotifier(Ref ref) =>
+Stream<Map<String, ShoppingData>> shoppingNotifier(Ref ref) =>
     ref.watch(shoppingRepoNotifierProvider).stream();

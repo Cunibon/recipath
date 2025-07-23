@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:random_string/random_string.dart';
+import 'package:recipe_list/application/storage_modifier/storage_modifier_notifier.dart';
 import 'package:recipe_list/data/grocery_data.dart';
 import 'package:recipe_list/data/ingredient_data.dart';
 import 'package:recipe_list/widgets/generic/clear_confirmation_dialog.dart';
@@ -29,7 +30,7 @@ class StorageScreen extends ConsumerWidget {
             );
 
             if (result == true) {
-              ref.read(storageNotifierProvider.notifier).clear();
+              ref.read(storageModifierNotifierProvider).clear();
             }
           },
           child: Text("Clear"),
@@ -50,7 +51,7 @@ class StorageScreen extends ConsumerWidget {
           if (groceries != null) {
             for (final gorcery in groceries) {
               ref
-                  .read(storageNotifierProvider.notifier)
+                  .read(storageModifierNotifierProvider)
                   .addItem(
                     IngredientData(
                       id: randomAlphaNumeric(16),

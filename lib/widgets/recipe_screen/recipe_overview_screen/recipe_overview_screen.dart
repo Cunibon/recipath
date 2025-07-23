@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:recipe_list/application/storage_modifier/storage_modifier_notifier.dart';
 import 'package:recipe_list/application_constants.dart';
 import 'package:recipe_list/data/ingredient_data.dart';
 import 'package:recipe_list/data/recipe_data.dart';
@@ -56,7 +57,7 @@ class RecipeScreen extends ConsumerWidget {
           );
 
           for (final ingredient in availableIngredients) {
-            ref.read(storageNotifierProvider.notifier).subtractItem(ingredient);
+            ref.read(storageModifierNotifierProvider).subtractItem(ingredient);
           }
 
           ScaffoldMessenger.of(context).showSnackBar(
@@ -69,7 +70,7 @@ class RecipeScreen extends ConsumerWidget {
                     onPressed: () {
                       for (final ingredient in availableIngredients) {
                         ref
-                            .read(storageNotifierProvider.notifier)
+                            .read(storageModifierNotifierProvider)
                             .updateItem(
                               ingredientsInStorage[ingredient.groceryId]!,
                             );

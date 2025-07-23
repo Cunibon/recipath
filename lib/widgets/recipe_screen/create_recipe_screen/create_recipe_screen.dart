@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:random_string/random_string.dart';
+import 'package:recipe_list/application/recipe_modifier/recipe_modifier_notifier.dart';
 import 'package:recipe_list/data/recipe_data.dart';
 import 'package:recipe_list/data/recipe_step_data.dart';
 import 'package:recipe_list/widgets/generic/delete_confirmation_dialog.dart';
@@ -57,7 +58,7 @@ class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
             ElevatedButton.icon(
               onPressed: () {
                 if (formKey.currentState?.validate() == true) {
-                  ref.read(recipeNotifierProvider.notifier).add(data);
+                  ref.read(recipeModifierNotifierProvider).add(data);
                   context.pop();
                 }
               },
@@ -73,7 +74,7 @@ class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
                   );
 
                   if (context.mounted && result == true) {
-                    ref.read(recipeNotifierProvider.notifier).delete(data);
+                    ref.read(recipeModifierNotifierProvider).delete(data);
                     context.pop();
                   }
                 },

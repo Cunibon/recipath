@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:recipe_list/application/shopping_modifier/shopping_modifier_notifier.dart';
 import 'package:recipe_list/data/ingredient_data.dart';
 import 'package:recipe_list/data/shopping_data.dart';
 import 'package:recipe_list/widgets/generic/clear_confirmation_dialog.dart';
@@ -31,7 +32,7 @@ class ShoppingScreen extends ConsumerWidget {
             );
 
             if (result == true) {
-              ref.read(shoppingNotifierProvider.notifier).clear();
+              ref.read(shoppingModifierNotifierProvider).clear();
             }
           },
           child: Text("Clear"),
@@ -45,7 +46,7 @@ class ShoppingScreen extends ConsumerWidget {
           );
 
           if (result != null) {
-            ref.read(shoppingNotifierProvider.notifier).addItems([
+            ref.read(shoppingModifierNotifierProvider).addItems([
               result,
             ], groceryMap);
           }

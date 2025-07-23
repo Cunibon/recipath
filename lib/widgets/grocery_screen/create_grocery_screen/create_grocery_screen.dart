@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:random_string/random_string.dart';
+import 'package:recipe_list/application/grocery_modifier/grocery_modifier_notifier.dart';
 import 'package:recipe_list/common.dart';
 import 'package:recipe_list/data/grocery_data.dart';
 import 'package:recipe_list/data/recipe_data.dart';
@@ -68,7 +69,7 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
             ElevatedButton.icon(
               onPressed: () {
                 if (formKey.currentState?.validate() == true) {
-                  ref.read(groceryNotifierProvider.notifier).add(data);
+                  ref.read(groceryModifierNotifierProvider).add(data);
                   context.pop();
                 }
               },
@@ -115,7 +116,7 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
                   );
 
                   if (context.mounted && result) {
-                    ref.read(groceryNotifierProvider.notifier).delete(data);
+                    ref.read(groceryModifierNotifierProvider).delete(data);
                     context.pop();
                   }
                 },
