@@ -14,31 +14,36 @@ class ShoppingModifier {
   ) async {
     final value = await repo.get();
 
-    final List<ShoppingData> newShoppingData = [];
-    final List<IngredientData> notDone = [];
-
-    for (final entry in value.entries) {
-      if (entry.value.done) {
-        newShoppingData.add(entry.value);
-      } else {
-        notDone.add(entry.value.ingredient);
-      }
-    }
-
-    final ingredients = IngredientData.aggregateIngredients(
-      groceryMap,
-      notDone..addAll(newData),
+    final groceryLookup = value.map(
+      (key, value) => MapEntry(value.ingredient.groceryId, value),
     );
 
-    for (final ingredient in ingredients) {
+    final List<ShoppingData> newShoppingData = [];
+
+    for (final ingredient in newData) {
+      final shoppingData = groceryLookup[ingredient.groceryId];
       final grocery = groceryMap[ingredient.groceryId]!;
-      final shoppingData = ShoppingData(
-        id: randomAlphaNumeric(16),
-        done: false,
-        count: (ingredient.amount / grocery.normalAmount).ceil(),
-        ingredient: ingredient,
-      );
-      newShoppingData.add(shoppingData);
+
+      if (shoppingData == null || shoppingData.done) {
+        newShoppingData.add(
+          ShoppingData(
+            id: randomAlphaNumeric(16),
+            done: false,
+            count: (ingredient.amount / grocery.normalAmount).ceil(),
+            ingredient: ingredient.copyWith(id: randomAlphaNumeric(16)),
+          ),
+        );
+      } else {
+        final updatedIngredient = shoppingData.ingredient.copyWith(
+          amount: shoppingData.ingredient.amount + ingredient.amount,
+        );
+        newShoppingData.add(
+          shoppingData.copyWith(
+            count: (updatedIngredient.amount / grocery.normalAmount).ceil(),
+            ingredient: updatedIngredient,
+          ),
+        );
+      }
     }
 
     //TODO could be optimized

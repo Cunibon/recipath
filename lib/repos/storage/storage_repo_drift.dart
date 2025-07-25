@@ -58,11 +58,18 @@ class StorageRepoDrift extends Repo<IngredientData> {
 
   @override
   Future<void> delete(String id) async {
+    await db.customStatement(
+      'DELETE FROM ${db.ingredientTable.actualTableName} WHERE id = (SELECT ${table.ingredientId.name} FROM ${table.actualTableName} WHERE id = ?)',
+      [id],
+    );
     await (db.delete(table)..where((t) => t.ingredientId.equals(id))).go();
   }
 
   @override
   Future<void> clear() async {
+    await db.customStatement(
+      'DELETE FROM ${db.ingredientTable.actualTableName} WHERE id IN (SELECT ${table.ingredientId.name} FROM ${table.actualTableName})',
+    );
     await db.delete(table).go();
   }
 }
