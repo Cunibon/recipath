@@ -148,11 +148,35 @@ class RecipeRepoDrift extends Repo<RecipeData> {
 
   @override
   Future<void> delete(String id) async {
+    await db.customStatement(
+      '''
+      DELETE FROM ${db.ingredientTable.actualTableName} 
+      WHERE id IN 
+      (SELECT rsi.${db.recipeStepIngredientTable.ingredientId.name} 
+      FROM ${table.actualTableName} AS r
+      LEFT JOIN ${db.recipeStepTable.actualTableName} AS rs
+      ON r.${table.id.name} = rs.${db.recipeStepTable.recipeId.name}
+      LEFT JOIN ${db.recipeStepIngredientTable.actualTableName} AS rsi
+      ON rs.${db.recipeStepTable.id.name} = rsi.${db.recipeStepIngredientTable.stepId.name}
+      WHERE r.id = ?
+      )''',
+      [id],
+    );
     await (db.delete(table)..where((t) => t.id.equals(id))).go();
   }
 
   @override
   Future<void> clear() async {
+    await db.customStatement('''
+      DELETE FROM ${db.ingredientTable.actualTableName} 
+      WHERE id IN 
+      (SELECT rsi.${db.recipeStepIngredientTable.ingredientId.name} 
+      FROM ${table.actualTableName} AS r
+      LEFT JOIN ${db.recipeStepTable.actualTableName} AS rs
+      ON r.${table.id.name} = rs.${db.recipeStepTable.recipeId.name}
+      LEFT JOIN ${db.recipeStepIngredientTable.actualTableName} AS rsi
+      ON rs.${db.recipeStepTable.id.name} = rsi.${db.recipeStepIngredientTable.stepId.name}
+      )''');
     await db.delete(table).go();
   }
 }
