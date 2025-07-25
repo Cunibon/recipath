@@ -10,7 +10,7 @@ part 'drawer_destination_notifier.g.dart';
 List<DrawerDestination> drawerDestinations(Ref ref) => [
   DrawerDestination(
     label: "Recipes",
-    route: RootRoutes.mainRoute.path,
+    route: RootRoutes.recipeRoute.path,
     icon: Icons.receipt,
   ),
   DrawerDestination(

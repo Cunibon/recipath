@@ -17,7 +17,9 @@ class CompactRecipeItem extends ConsumerWidget {
     final groceryMap = ref.watch(groceryNotifierProvider).value!;
 
     return GestureDetector(
-      onTap: () => context.go('${RootRoutes.mainRoute.path}/recipe/${data.id}'),
+      onTap: () => context.go(
+        '${RootRoutes.recipeRoute.path}/recipeOverview/${data.id}',
+      ),
       child: Card(
         child: Padding(
           padding: const EdgeInsets.all(8.0),

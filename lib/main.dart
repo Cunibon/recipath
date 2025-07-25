@@ -15,13 +15,13 @@ void main() async {
 
   final goRouter = GoRouter(
     routes: [
-      RootRoutes.mainRoute,
+      RootRoutes.recipeRoute,
       RootRoutes.groceriesRoute,
       RootRoutes.shoppingRoute,
       RootRoutes.storageRoute,
       RootRoutes.settingsRoute,
     ],
-    initialLocation: RootRoutes.mainRoute.path,
+    initialLocation: RootRoutes.recipeRoute.path,
   );
 
   runApp(

@@ -8,10 +8,10 @@ import 'package:recipe_list/data/recipe_data.dart';
 import 'package:recipe_list/root_routes.dart';
 import 'package:recipe_list/widgets/grocery_screen/providers/grocery_notifier.dart';
 import 'package:recipe_list/widgets/recipe_screen/local_image.dart';
-import 'package:recipe_list/widgets/recipe_screen/main_routes.dart';
 import 'package:recipe_list/widgets/recipe_screen/providers/recipe_notifier.dart';
 import 'package:recipe_list/widgets/recipe_screen/recipe_overview_screen/ingredients_list.dart';
 import 'package:recipe_list/widgets/recipe_screen/recipe_overview_screen/recipe_step.dart';
+import 'package:recipe_list/widgets/recipe_screen/recipe_routes.dart';
 import 'package:recipe_list/widgets/storage_screen/providers/storage_notifier.dart';
 
 class RecipeScreen extends ConsumerWidget {
@@ -22,8 +22,13 @@ class RecipeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final recipe = ref.watch(
-      recipeNotifierProvider.select((value) => value.value![recipeId]),
-    )!;
+      recipeNotifierProvider.select((value) => value.value?[recipeId]),
+    );
+
+    if (recipe == null) {
+      return Center(child: Text("Something went wrong :("));
+    }
+
     final groceries = ref.watch(groceryNotifierProvider).value!;
 
     final ingredients = recipe.getIngredients(groceries);
@@ -39,7 +44,7 @@ class RecipeScreen extends ConsumerWidget {
             onPressed: () => context.go(
               Uri(
                 path:
-                    '${RootRoutes.mainRoute.path}/recipe/$recipeId/${MainRoutes.createRecipe.path}',
+                    '${RootRoutes.recipeRoute.path}/recipeOverview/$recipeId/${MainRoutes.createRecipe.path}',
                 queryParameters: {idParameter: recipeId},
               ).toString(),
             ),

@@ -12,8 +12,8 @@ class MainRoutes {
     routes: [GroceryRoutes.createGrocery],
   );
 
-  static GoRoute recipe = GoRoute(
-    path: "recipe/:recipeId",
+  static GoRoute recipeOverview = GoRoute(
+    path: "recipeOverview/:recipeId",
     builder: (context, state) =>
         RecipeScreen(recipeId: state.pathParameters["recipeId"]!),
     routes: [createRecipe],

@@ -5,6 +5,7 @@ import 'package:random_string/random_string.dart';
 import 'package:recipe_list/application/recipe_modifier/recipe_modifier_notifier.dart';
 import 'package:recipe_list/data/recipe_data.dart';
 import 'package:recipe_list/data/recipe_step_data.dart';
+import 'package:recipe_list/root_routes.dart';
 import 'package:recipe_list/widgets/generic/delete_confirmation_dialog.dart';
 import 'package:recipe_list/widgets/generic/unsaved_changes_scope.dart';
 import 'package:recipe_list/widgets/recipe_screen/create_recipe_screen/add_image_widget.dart';
@@ -75,7 +76,7 @@ class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
 
                   if (context.mounted && result == true) {
                     ref.read(recipeModifierNotifierProvider).delete(data);
-                    context.pop();
+                    context.go(RootRoutes.recipeRoute.path);
                   }
                 },
                 icon: Icon(Icons.delete),
