@@ -39,9 +39,9 @@ class AppDatabase extends _$AppDatabase {
     onCreate: (Migrator m) async {
       await m.createAll();
     },
-    // beforeOpen: (details) async {
-    //   await customStatement('PRAGMA foreign_keys = ON;');
-    // },
+    beforeOpen: (details) async {
+      await customStatement('PRAGMA foreign_keys = ON;');
+    },
   );
 
   static QueryExecutor _openConnection() {
