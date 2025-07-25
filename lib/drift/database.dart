@@ -9,6 +9,7 @@ import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:recipe_list/drift/tables/grocery_table.dart';
 import 'package:recipe_list/drift/tables/ingredient_table.dart';
+import 'package:recipe_list/drift/tables/recipe_statistic_table.dart';
 import 'package:recipe_list/drift/tables/recipe_step_ingredient_table.dart';
 import 'package:recipe_list/drift/tables/recipe_step_table.dart';
 import 'package:recipe_list/drift/tables/recipe_table.dart';
@@ -26,6 +27,7 @@ part 'database.g.dart';
     GroceryTable,
     ShoppingTable,
     StorageTable,
+    RecipeStatisticTable,
   ],
 )
 class AppDatabase extends _$AppDatabase {
