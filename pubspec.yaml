@@ -27,6 +27,9 @@ dependencies:
   intl: ^0.20.2
   file_picker: ^10.2.0
   share_plus: ^11.0.0
+  drift: ^2.28.0
+  drift_flutter: ^0.2.5
+  path: ^1.9.1
 
 dev_dependencies:
   flutter_test:
@@ -34,10 +37,11 @@ dev_dependencies:
 
   flutter_lints: ^5.0.0
   riverpod_generator: ^2.6.5
-  build_runner: ^2.4.15
+  build_runner: ^2.5.4
   custom_lint: ^0.7.5
   riverpod_lint: ^2.6.5
   json_serializable: ^6.9.5
+  drift_dev: ^2.28.0
 
 flutter:
 

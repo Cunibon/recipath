@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:recipe_list/common.dart';
 import 'package:recipe_list/data/unit_enum.dart';
+import 'package:recipe_list/drift/database.dart';
 
 part 'grocery_data.freezed.dart';
 part 'grocery_data.g.dart';
@@ -18,6 +19,15 @@ abstract class GroceryData with _$GroceryData {
 
   factory GroceryData.fromJson(Map<String, Object?> json) =>
       _$GroceryDataFromJson(json);
+
+  factory GroceryData.fromRow(GroceryTableData data) => GroceryData(
+    id: data.id,
+    normalAmount: data.normalAmount,
+    unit: $enumDecode(_$UnitEnumEnumMap, data.unit),
+    conversionAmount: data.conversionAmount,
+    conversionUnit: $enumDecode(_$UnitEnumEnumMap, data.conversionUnit),
+    name: data.name,
+  );
 }
 
 extension GroceryDataFunctions on GroceryData {
@@ -39,4 +49,13 @@ extension GroceryDataFunctions on GroceryData {
           (normalAmount / conversionAmount);
     }
   }
+
+  GroceryTableCompanion toTableCompanion() => GroceryTableCompanion.insert(
+    id: id,
+    normalAmount: normalAmount,
+    unit: _$UnitEnumEnumMap[unit]!,
+    conversionAmount: conversionAmount,
+    conversionUnit: _$UnitEnumEnumMap[conversionUnit]!,
+    name: name,
+  );
 }

@@ -6,16 +6,13 @@ part of 'shopping_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$shoppingNotifierHash() => r'a5a7ee904b1a1c964fd601c6d242039243b4f504';
+String _$shoppingNotifierHash() => r'5a69e2c827fa399d087bcea4ebb8f7293ddb1e4a';
 
-/// See also [ShoppingNotifier].
-@ProviderFor(ShoppingNotifier)
+/// See also [shoppingNotifier].
+@ProviderFor(shoppingNotifier)
 final shoppingNotifierProvider =
-    AutoDisposeNotifierProvider<
-      ShoppingNotifier,
-      Map<String, ShoppingData>
-    >.internal(
-      ShoppingNotifier.new,
+    AutoDisposeStreamProvider<Map<String, ShoppingData>>.internal(
+      shoppingNotifier,
       name: r'shoppingNotifierProvider',
       debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
           ? null
@@ -24,6 +21,9 @@ final shoppingNotifierProvider =
       allTransitiveDependencies: null,
     );
 
-typedef _$ShoppingNotifier = AutoDisposeNotifier<Map<String, ShoppingData>>;
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef ShoppingNotifierRef =
+    AutoDisposeStreamProviderRef<Map<String, ShoppingData>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:recipe_list/application/shopping_modifier/shopping_modifier_notifier.dart';
 import 'package:recipe_list/data/ingredient_data.dart';
 import 'package:recipe_list/data/shopping_data.dart';
 import 'package:recipe_list/widgets/generic/clear_confirmation_dialog.dart';
 import 'package:recipe_list/widgets/generic/navigation_drawer_scaffold.dart';
+import 'package:recipe_list/widgets/generic/notifier_future_builder.dart';
 import 'package:recipe_list/widgets/generic/searchable_list.dart';
 import 'package:recipe_list/widgets/grocery_screen/providers/grocery_notifier.dart';
 import 'package:recipe_list/widgets/shopping_screen/add_shopping_dialog.dart';
@@ -16,10 +18,10 @@ class ShoppingScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final items = ref.watch(shoppingNotifierProvider).values.toList();
-    final groceryMap = ref.watch(groceryNotifierProvider);
+    final asyncItems = ref.watch(shoppingNotifierProvider);
+    final asyncGroceryMap = ref.watch(groceryNotifierProvider);
 
-    final storage = ref.watch(storageNotifierProvider);
+    final asyncStorage = ref.watch(storageNotifierProvider);
 
     return NavigationDrawerScaffold(
       actions: [
@@ -31,7 +33,7 @@ class ShoppingScreen extends ConsumerWidget {
             );
 
             if (result == true) {
-              ref.read(shoppingNotifierProvider.notifier).clear();
+              ref.read(shoppingModifierNotifierProvider).clear();
             }
           },
           child: Text("Clear"),
@@ -45,34 +47,38 @@ class ShoppingScreen extends ConsumerWidget {
           );
 
           if (result != null) {
-            ref.read(shoppingNotifierProvider.notifier).addItems([
+            ref.read(shoppingModifierNotifierProvider).addItems([
               result,
-            ], groceryMap);
+            ], asyncGroceryMap.value!);
           }
         },
         child: Icon(Icons.add),
       ),
-      body: SearchableList(
-        type: "Items",
-        items: items,
-        toSearchable: (item) => item.toReadable(
-          groceryMap[item.ingredient.groceryId]!,
-          storage[item.ingredient.groceryId]?.amount ?? 0,
+      body: NotifierFutureBuilder(
+        futures: [asyncItems, asyncGroceryMap, asyncStorage],
+        childBuilder: () => SearchableList(
+          type: "Items",
+          items: asyncItems.value!.values.toList(),
+          toSearchable: (item) => item.toReadable(
+            asyncGroceryMap.value![item.ingredient.groceryId]!,
+            asyncStorage.value![item.ingredient.groceryId]?.amount ?? 0,
+          ),
+          toWidget: (item) => ShoppingItem(
+            data: item,
+            ingredientData: asyncStorage.value![item.ingredient.groceryId],
+          ),
+          sort: (a, b) {
+            if (a.done == b.done) {
+              return asyncGroceryMap.value![a.ingredient.groceryId]!.name
+                  .compareTo(
+                    asyncGroceryMap.value![b.ingredient.groceryId]!.name,
+                  );
+            } else {
+              return a.done ? 1 : -1;
+            }
+          },
+          bottomPadding: 78,
         ),
-        toWidget: (item) => ShoppingItem(
-          data: item,
-          ingredientData: storage[item.ingredient.groceryId],
-        ),
-        sort: (a, b) {
-          if (a.done == b.done) {
-            return groceryMap[a.ingredient.groceryId]!.name.compareTo(
-              groceryMap[b.ingredient.groceryId]!.name,
-            );
-          } else {
-            return a.done ? 1 : -1;
-          }
-        },
-        bottomPadding: 78,
       ),
     );
   }

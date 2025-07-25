@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:recipe_list/application/storage_modifier/storage_modifier_notifier.dart';
 import 'package:recipe_list/common.dart';
 import 'package:recipe_list/data/ingredient_data.dart';
 import 'package:recipe_list/widgets/grocery_screen/providers/grocery_notifier.dart';
-import 'package:recipe_list/widgets/storage_screen/providers/storage_notifier.dart';
 
 class StorageItem extends ConsumerWidget {
   const StorageItem({required this.data, super.key});
@@ -13,7 +13,7 @@ class StorageItem extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final grocery = ref.watch(
-      groceryNotifierProvider.select((value) => value[data.groceryId]),
+      groceryNotifierProvider.select((value) => value.value![data.groceryId]),
     )!;
 
     return Card(
@@ -43,7 +43,7 @@ class StorageItem extends ConsumerWidget {
                       final parsed = doubleNumberFormat.tryParse(value);
                       if (parsed != null) {
                         ref
-                            .read(storageNotifierProvider.notifier)
+                            .read(storageModifierNotifierProvider)
                             .updateItem(
                               data.copyWith(amount: parsed.toDouble()),
                             );
@@ -59,7 +59,7 @@ class StorageItem extends ConsumerWidget {
             ),
             IconButton(
               onPressed: () =>
-                  ref.read(storageNotifierProvider.notifier).deleteItem(data),
+                  ref.read(storageModifierNotifierProvider).deleteItem(data),
               icon: Icon(Icons.delete),
             ),
           ],

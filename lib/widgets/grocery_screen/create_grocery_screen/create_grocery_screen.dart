@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:random_string/random_string.dart';
+import 'package:recipe_list/application/grocery_modifier/grocery_modifier_notifier.dart';
 import 'package:recipe_list/common.dart';
 import 'package:recipe_list/data/grocery_data.dart';
 import 'package:recipe_list/data/recipe_data.dart';
@@ -10,7 +11,7 @@ import 'package:recipe_list/widgets/generic/delete_confirmation_dialog.dart';
 import 'package:recipe_list/widgets/generic/information_dialog.dart';
 import 'package:recipe_list/widgets/generic/unsaved_changes_scope.dart';
 import 'package:recipe_list/widgets/grocery_screen/providers/grocery_notifier.dart';
-import 'package:recipe_list/widgets/main_screen/providers/recipe_notifier.dart';
+import 'package:recipe_list/widgets/recipe_screen/providers/recipe_notifier.dart';
 import 'package:recipe_list/widgets/shopping_screen/providers/shopping_notifier.dart';
 
 class CreateGroceryScreen extends ConsumerStatefulWidget {
@@ -33,7 +34,7 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
   void initState() {
     super.initState();
     initialData =
-        ref.read(groceryNotifierProvider)[widget.groceryId] ??
+        ref.read(groceryNotifierProvider).value![widget.groceryId] ??
         GroceryData(
           id: randomAlphaNumeric(16),
           name: "",
@@ -68,7 +69,7 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
             ElevatedButton.icon(
               onPressed: () {
                 if (formKey.currentState?.validate() == true) {
-                  ref.read(groceryNotifierProvider.notifier).add(data);
+                  ref.read(groceryModifierNotifierProvider).add(data);
                   context.pop();
                 }
               },
@@ -78,9 +79,12 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
             if (widget.groceryId != null)
               ElevatedButton.icon(
                 onPressed: () async {
-                  final groceries = ref.read(groceryNotifierProvider);
+                  final groceries = ref.read(groceryNotifierProvider).value!;
 
-                  final recipes = ref.read(recipeNotifierProvider).values;
+                  final recipes = ref
+                      .read(recipeNotifierProvider)
+                      .value!
+                      .values;
                   final recipesUsing = recipes.where(
                     (e) => e
                         .getIngredients(groceries)
@@ -89,6 +93,7 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
 
                   final shoppingItems = ref
                       .read(shoppingNotifierProvider)
+                      .value!
                       .values;
                   final shoppingUsing = shoppingItems.where(
                     (e) => e.ingredient.groceryId == data.id,
@@ -111,7 +116,7 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
                   );
 
                   if (context.mounted && result) {
-                    ref.read(groceryNotifierProvider.notifier).delete(data);
+                    ref.read(groceryModifierNotifierProvider).delete(data);
                     context.pop();
                   }
                 },
