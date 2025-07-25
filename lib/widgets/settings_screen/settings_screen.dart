@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:recipe_list/application_constants.dart';
+import 'package:recipe_list/domain_service/data_import_service_notifier.dart';
 import 'package:recipe_list/providers/application_path_provider.dart';
 import 'package:recipe_list/widgets/generic/navigation_drawer_scaffold.dart';
 import 'package:share_plus/share_plus.dart';
@@ -52,10 +53,8 @@ class SettingsScreen extends ConsumerWidget {
 
                 final data = jsonDecode(await file.readAsString());
 
-                if (data is Map) {
-                  for (final key in dataKeys) {
-                    localStorage.setItem(key, data[key]);
-                  }
+                if (data is Map<String, dynamic>) {
+                  ref.read(dataImportServiceNotifierProvider).import(data);
                 }
               }
             },
