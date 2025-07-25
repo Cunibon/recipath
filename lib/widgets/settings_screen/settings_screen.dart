@@ -4,10 +4,13 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:localstorage/localstorage.dart';
 import 'package:recipe_list/application_constants.dart';
 import 'package:recipe_list/domain_service/data_import_service_notifier.dart';
 import 'package:recipe_list/providers/application_path_provider.dart';
+import 'package:recipe_list/repos/grocery/grocery_repo_notifier.dart';
+import 'package:recipe_list/repos/recipe/recipe_repo_notifier.dart';
+import 'package:recipe_list/repos/shopping/shopping_repo_notifier.dart';
+import 'package:recipe_list/repos/storage/storage_repo_notifier.dart';
 import 'package:recipe_list/widgets/generic/navigation_drawer_scaffold.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -25,7 +28,16 @@ class SettingsScreen extends ConsumerWidget {
               final dir = await ref.read(applicationPathProvider.future);
 
               final allData = {
-                for (final key in dataKeys) key: localStorage.getItem(key),
+                recipeDataKey: await ref.read(recipeRepoNotifierProvider).get(),
+                shoppingDataKey: await ref
+                    .read(shoppingRepoNotifierProvider)
+                    .get(),
+                storageDataKey: await ref
+                    .read(storageRepoNotifierProvider)
+                    .get(),
+                groceryDataKey: await ref
+                    .read(groceryRepoNotifierProvider)
+                    .get(),
               };
 
               final filePath = "${dir.path}/recipe_list.json";
