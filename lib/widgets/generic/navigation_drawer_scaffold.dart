@@ -19,22 +19,12 @@ class NavigationDrawerScaffold extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentRoute = GoRouterState.of(context).uri.toString();
-    final destinations = ref.watch(drawerDestinationsProvider);
+    final nestedDestinations = ref.watch(drawerDestinationsProvider);
+    final destiantions = nestedDestinations.expand((e) => e).toList();
 
-    final selectedIndex = destinations.indexWhere(
+    final selectedIndex = destiantions.indexWhere(
       (element) => currentRoute.startsWith(element.route),
     );
-
-    final primary = <DrawerDestination>[];
-    final secondary = <DrawerDestination>[];
-
-    for (final destination in destinations) {
-      if (destination.secondary) {
-        secondary.add(destination);
-      } else {
-        primary.add(destination);
-      }
-    }
 
     return Scaffold(
       appBar: AppBar(
@@ -49,7 +39,7 @@ class NavigationDrawerScaffold extends ConsumerWidget {
           },
         ),
         title: Text(
-          destinations[selectedIndex].label,
+          destiantions[selectedIndex].label,
           style: Theme.of(context).textTheme.titleLarge,
         ),
         actions: actions,
@@ -65,21 +55,17 @@ class NavigationDrawerScaffold extends ConsumerWidget {
               style: Theme.of(context).textTheme.titleMedium,
             ),
           ),
-          ...primary.map((DrawerDestination destination) {
-            return NavigationDrawerDestination(
-              label: Text(destination.label),
-              icon: Icon(destination.icon),
-            );
-          }),
-          Padding(padding: const EdgeInsets.all(8.0), child: Divider()),
-          ...secondary.map((DrawerDestination destination) {
-            return NavigationDrawerDestination(
-              label: Text(destination.label),
-              icon: Icon(destination.icon),
-            );
-          }),
+          for (final destinations in nestedDestinations) ...[
+            ...destinations.map((DrawerDestination destination) {
+              return NavigationDrawerDestination(
+                label: Text(destination.label),
+                icon: Icon(destination.icon),
+              );
+            }),
+            Padding(padding: const EdgeInsets.all(8.0), child: Divider()),
+          ],
         ],
-        onDestinationSelected: (index) => context.go(destinations[index].route),
+        onDestinationSelected: (index) => context.go(destiantions[index].route),
       ),
       body: PopScope(
         canPop: false,

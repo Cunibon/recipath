@@ -1,6 +1,12 @@
 import 'package:duration_picker/duration_picker.dart';
 import 'package:flutter/material.dart';
 
+class DurationPickerResponse {
+  DurationPickerResponse({this.duration});
+
+  final Duration? duration;
+}
+
 class DurationPickerDialog extends StatefulWidget {
   const DurationPickerDialog({required this.startDuration, super.key});
 
@@ -37,9 +43,20 @@ class _DurationPickerDialogState extends State<DurationPickerDialog> {
           style: TextButton.styleFrom(
             textStyle: Theme.of(context).textTheme.labelLarge,
           ),
+          child: const Text('Cancle timer'),
+          onPressed: () {
+            Navigator.of(context).pop(DurationPickerResponse());
+          },
+        ),
+        TextButton(
+          style: TextButton.styleFrom(
+            textStyle: Theme.of(context).textTheme.labelLarge,
+          ),
           child: const Text('Done'),
           onPressed: () {
-            Navigator.of(context).pop(duration);
+            Navigator.of(
+              context,
+            ).pop(DurationPickerResponse(duration: duration));
           },
         ),
       ],

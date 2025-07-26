@@ -28,15 +28,17 @@ class FinishRecipeButton extends ConsumerWidget {
           end: DateTime.now(),
         );
 
-        final duration = await showDialog<Duration>(
+        final durationResponse = await showDialog<DurationPickerResponse>(
           context: context,
           builder: (context) =>
               DurationPickerDialog(startDuration: recipeDateRange.duration),
         );
 
-        if (duration == null) return;
+        if (durationResponse == null) return;
 
         ref.read(timerNotifierProvider.notifier).stop(recipeId);
+
+        if (durationResponse.duration == null) return;
 
         final recipe = ref.read(
           recipeNotifierProvider.select((value) => value.value?[recipeId]),
@@ -50,7 +52,7 @@ class FinishRecipeButton extends ConsumerWidget {
               RecipeStatisticData(
                 id: randomAlphaNumeric(16),
                 startDate: recipeDateRange.start,
-                endDate: recipeDateRange.start.add(duration),
+                endDate: recipeDateRange.start.add(durationResponse.duration!),
                 recipeData: recipe,
               ),
             );

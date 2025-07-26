@@ -58,7 +58,7 @@ class RecipeStatisticsRepoDrift extends RecipeStatisticsRepo {
   }
 
   @override
-  Future<Map<String, int>> getGroceryAmountBetween({
+  Future<Map<String, double>> getGroceryAmountBetween({
     required DateTime startDate,
     required DateTime endDate,
   }) async {
@@ -91,11 +91,10 @@ class RecipeStatisticsRepoDrift extends RecipeStatisticsRepo {
         )
         .get();
 
-    final Map<String, int> result = {};
+    final Map<String, double> result = {};
     for (final row in rows) {
       final groceryId = row.data['groceryId'] as String;
-      final totalAmount = row.data['totalAmount'];
-      result[groceryId] = (totalAmount ?? 0) as int;
+      result[groceryId] = (row.data['totalAmount'] ?? 0);
     }
     return result;
   }
