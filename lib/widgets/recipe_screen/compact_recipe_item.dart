@@ -8,6 +8,7 @@ import 'package:recipe_list/root_routes.dart';
 import 'package:recipe_list/widgets/grocery_screen/providers/grocery_notifier.dart';
 import 'package:recipe_list/widgets/recipe_screen/create_recipe_screen/compact_ingredient_view.dart';
 import 'package:recipe_list/widgets/recipe_screen/local_image.dart';
+import 'package:recipe_list/widgets/recipe_screen/providers/timer_notifier.dart';
 
 class CompactRecipeItem extends ConsumerWidget {
   const CompactRecipeItem({required this.data, super.key});
@@ -16,6 +17,7 @@ class CompactRecipeItem extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final groceryMap = ref.watch(groceryNotifierProvider).value!;
+    final timer = ref.watch(timerNotifierProvider)[data.id];
 
     return GestureDetector(
       onTap: () => context.go(
@@ -47,8 +49,10 @@ class CompactRecipeItem extends ConsumerWidget {
                           children: [
                             Text(
                               data.title.trim(),
-                              style: Theme.of(context).textTheme.titleMedium,
+                              style: Theme.of(context).textTheme.titleMedium!,
                             ),
+                            if (timer != null)
+                              Icon(Icons.timer, color: Colors.amber),
                             FutureBuilder(
                               future: ref
                                   .read(recipeStatisticsRepoNotifierProvider)

@@ -28,6 +28,9 @@ abstract class GroceryData with _$GroceryData {
     conversionUnit: $enumDecode(_$UnitEnumEnumMap, data.conversionUnit),
     name: data.name,
   );
+
+  static UnitEnum jsonStringToEnum(String enumString) =>
+      $enumDecode(_$UnitEnumEnumMap, enumString);
 }
 
 extension GroceryDataFunctions on GroceryData {

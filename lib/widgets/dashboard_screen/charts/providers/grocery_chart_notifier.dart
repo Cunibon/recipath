@@ -1,6 +1,8 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:recipe_list/common.dart';
+import 'package:recipe_list/data/grocery_data.dart';
 import 'package:recipe_list/repos/recipe_statistics/recipe_statistics_repo_notifier.dart';
 import 'package:recipe_list/widgets/dashboard_screen/charts/chart_entry.dart';
 import 'package:recipe_list/widgets/grocery_screen/providers/grocery_notifier.dart';
@@ -19,11 +21,28 @@ Future<ChartState> groceryChartNotifier(
         startDate: dateRange.start,
         endDate: dateRange.end,
       );
-  final groceryHistoryList = groceryHistoyData.entries.toList();
-
-  groceryHistoryList.sort((a, b) => -a.value.compareTo(b.value));
-
   final groceryMap = await ref.watch(groceryNotifierProvider.future);
+
+  final Map<GroceryData, double> normalizedData = {};
+
+  groceryHistoyData.forEach((key, value) {
+    final grocery = groceryMap[key];
+
+    if (grocery != null) {
+      double aggregated = 0;
+
+      value.forEach((key, value) {
+        aggregated += grocery.convertToNorm(
+          value,
+          GroceryData.jsonStringToEnum(key),
+        );
+      });
+      normalizedData[grocery] = aggregated;
+    }
+  });
+
+  final groceryHistoryList = normalizedData.entries.toList();
+  groceryHistoryList.sort((a, b) => -a.value.compareTo(b.value));
 
   final chartEntries = <ChartEntry>[];
   double maxY = 0;
@@ -47,13 +66,12 @@ Future<ChartState> groceryChartNotifier(
       ],
     );
 
-    final grocery = groceryMap[entry.key]!;
-
     chartEntries.add(
       ChartEntry(
         groupData: groupData,
-        title: grocery.name,
-        tooltip: "${entry.value}${grocery.unit.name}",
+        title: entry.key.name,
+        tooltip:
+            "${doubleNumberFormat.format(entry.value)}${entry.key.unit.name}",
       ),
     );
 

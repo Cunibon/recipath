@@ -58,14 +58,14 @@ class RecipeStatisticsRepoDrift extends RecipeStatisticsRepo {
   }
 
   @override
-  Future<Map<String, double>> getGroceryAmountBetween({
+  Future<Map<String, Map<String, double>>> getGroceryAmountBetween({
     required DateTime startDate,
     required DateTime endDate,
   }) async {
     final rows = await db
         .customSelect(
           '''
-    SELECT i.${db.ingredientTable.groceryId.name} AS groceryId,
+    SELECT i.${db.ingredientTable.groceryId.name} AS groceryId,i.${db.ingredientTable.unit.name} AS ingredientUnit,
            SUM(i.${db.ingredientTable.amount.name}) AS totalAmount
     FROM ${db.recipeStatisticTable.actualTableName} rs
     JOIN ${db.recipeStepTable.actualTableName} steps
@@ -76,7 +76,7 @@ class RecipeStatisticsRepoDrift extends RecipeStatisticsRepo {
       ON i.${db.ingredientTable.id.name} = rsi.${db.recipeStepIngredientTable.ingredientId.name}
     WHERE rs.${db.recipeStatisticTable.startDate.name} >= ?
       AND rs.${db.recipeStatisticTable.startDate.name} <= ?
-    GROUP BY i.${db.ingredientTable.groceryId.name}
+    GROUP BY i.${db.ingredientTable.groceryId.name}, i.${db.ingredientTable.unit.name}
     ''',
           variables: [
             Variable(startDate.millisecondsSinceEpoch),
@@ -91,10 +91,15 @@ class RecipeStatisticsRepoDrift extends RecipeStatisticsRepo {
         )
         .get();
 
-    final Map<String, double> result = {};
+    final Map<String, Map<String, double>> result = {};
     for (final row in rows) {
       final groceryId = row.data['groceryId'] as String;
-      result[groceryId] = (row.data['totalAmount'] ?? 0);
+      final ingredientMap = result.putIfAbsent(
+        groceryId,
+        () => <String, double>{},
+      );
+      ingredientMap[row.data['ingredientUnit']] =
+          (row.data['totalAmount'] ?? 0);
     }
     return result;
   }
