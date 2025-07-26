@@ -15,8 +15,8 @@ class GroceryChart extends ConsumerWidget {
     return switch (state) {
       AsyncData(:final value) => BaseChart(
         state: value,
-        horizontalInterval: 50,
-        horizontalTitleInterval: 100,
+        horizontalInterval: 100,
+        horizontalTitleInterval: 500,
       ),
       AsyncError() => Center(
         child: const Text('Oops, something unexpected happened'),

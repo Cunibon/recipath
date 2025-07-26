@@ -27,6 +27,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return NavigationDrawerScaffold(
+      titleBuilder: (title) => Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Text(title, style: Theme.of(context).textTheme.titleLarge),
+          SizedBox(width: 10),
+          Text(
+            "${dateFormat.format(dateRange.start)} - ${dateFormat.format(dateRange.end)}",
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           final newDateRange = await showDateRangePicker(
@@ -50,17 +61,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
         child: Icon(Icons.calendar_month),
       ),
       body: SingleChildScrollView(
+        padding: EdgeInsets.only(bottom: 78),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "Recipe usage from ${dateFormat.format(dateRange.start)} - ${dateFormat.format(dateRange.end)}",
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
+            Text("Recipe usage", style: Theme.of(context).textTheme.titleLarge),
             Divider(),
             RecipeChart(dateRange: dateRange),
             Text(
-              "Grocery usage from ${dateFormat.format(dateRange.start)} - ${dateFormat.format(dateRange.end)}",
+              "Grocery usage",
               style: Theme.of(context).textTheme.titleLarge,
             ),
             Divider(),

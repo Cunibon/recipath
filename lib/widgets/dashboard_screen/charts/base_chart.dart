@@ -9,7 +9,7 @@ class BaseChart extends StatelessWidget {
     required this.state,
     required this.horizontalInterval,
     required this.horizontalTitleInterval,
-    this.axisSpace = 100,
+    this.axisSpace = 75,
     super.key,
   });
 
@@ -28,7 +28,7 @@ class BaseChart extends StatelessWidget {
           padding: EdgeInsetsGeometry.only(top: 8),
           child: SizedBox(
             width: max(constrained.maxWidth, state.entries.length * axisSpace),
-            height: 550,
+            height: 350,
             child: BarChart(
               BarChartData(
                 groupsSpace: axisSpace,
@@ -113,7 +113,7 @@ class BaseChart extends StatelessWidget {
     );
     return SideTitleWidget(
       meta: meta,
-      angle: 0.3,
+      angle: 0.45,
       child: Text(state.entries[index].title, style: style),
     );
   }

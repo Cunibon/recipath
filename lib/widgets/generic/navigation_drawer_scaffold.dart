@@ -9,12 +9,14 @@ class NavigationDrawerScaffold extends ConsumerWidget {
     this.floatingActionButton,
     this.body,
     this.actions,
+    this.titleBuilder,
     super.key,
   });
 
   final Widget? floatingActionButton;
   final Widget? body;
   final List<Widget>? actions;
+  final Widget Function(String title)? titleBuilder;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -38,10 +40,12 @@ class NavigationDrawerScaffold extends ConsumerWidget {
             );
           },
         ),
-        title: Text(
-          destiantions[selectedIndex].label,
-          style: Theme.of(context).textTheme.titleLarge,
-        ),
+        title: titleBuilder == null
+            ? Text(
+                destiantions[selectedIndex].label,
+                style: Theme.of(context).textTheme.titleLarge,
+              )
+            : titleBuilder!(destiantions[selectedIndex].label),
         actions: actions,
       ),
       floatingActionButton: floatingActionButton,
