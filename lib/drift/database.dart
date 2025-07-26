@@ -9,6 +9,7 @@ import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:recipe_list/drift/tables/grocery_table.dart';
 import 'package:recipe_list/drift/tables/ingredient_table.dart';
+import 'package:recipe_list/drift/tables/recipe_statistic_table.dart';
 import 'package:recipe_list/drift/tables/recipe_step_ingredient_table.dart';
 import 'package:recipe_list/drift/tables/recipe_step_table.dart';
 import 'package:recipe_list/drift/tables/recipe_table.dart';
@@ -26,13 +27,14 @@ part 'database.g.dart';
     GroceryTable,
     ShoppingTable,
     StorageTable,
+    RecipeStatisticTable,
   ],
 )
 class AppDatabase extends _$AppDatabase {
   AppDatabase([QueryExecutor? executor]) : super(executor ?? _openConnection());
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -41,6 +43,12 @@ class AppDatabase extends _$AppDatabase {
     },
     beforeOpen: (details) async {
       await customStatement('PRAGMA foreign_keys = ON;');
+    },
+    onUpgrade: (m, from, to) async {
+      if (from == 1) {
+        await m.addColumn(recipeTable, recipeTable.archived);
+        await m.createTable(recipeStatisticTable);
+      }
     },
   );
 

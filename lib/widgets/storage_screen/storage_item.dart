@@ -22,40 +22,34 @@ class StorageItem extends ConsumerWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              children: [
-                SizedBox(
-                  width: 100,
-                  child: TextFormField(
-                    key: Key(data.groceryId),
-                    initialValue: doubleNumberFormat.format(data.amount),
-                    decoration: InputDecoration(labelText: "Amount"),
-                    keyboardType: TextInputType.numberWithOptions(
-                      decimal: true,
-                    ),
-                    validator: (value) =>
-                        value == null ||
-                            value.isEmpty ||
-                            doubleNumberFormat.tryParse(value) == 0
-                        ? "Add amount"
-                        : null,
-                    onChanged: (value) {
-                      final parsed = doubleNumberFormat.tryParse(value);
-                      if (parsed != null) {
-                        ref
-                            .read(storageModifierNotifierProvider)
-                            .updateItem(
-                              data.copyWith(amount: parsed.toDouble()),
-                            );
-                      }
-                    },
-                  ),
-                ),
-                Text(
-                  "${data.unit.name} ${grocery.name}",
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ),
-              ],
+            SizedBox(
+              width: 100,
+              child: TextFormField(
+                key: Key(data.groceryId),
+                initialValue: doubleNumberFormat.format(data.amount),
+                decoration: InputDecoration(labelText: "Amount"),
+                keyboardType: TextInputType.numberWithOptions(decimal: true),
+                validator: (value) =>
+                    value == null ||
+                        value.isEmpty ||
+                        doubleNumberFormat.tryParse(value) == 0
+                    ? "Add amount"
+                    : null,
+                onChanged: (value) {
+                  final parsed = doubleNumberFormat.tryParse(value);
+                  if (parsed != null) {
+                    ref
+                        .read(storageModifierNotifierProvider)
+                        .updateItem(data.copyWith(amount: parsed.toDouble()));
+                  }
+                },
+              ),
+            ),
+            Expanded(
+              child: Text(
+                "${data.unit.name} ${grocery.name}",
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
             ),
             IconButton(
               onPressed: () =>

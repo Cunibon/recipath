@@ -10,6 +10,7 @@ _RecipeData _$RecipeDataFromJson(Map<String, dynamic> json) => _RecipeData(
   id: json['id'] as String,
   title: json['title'] as String,
   imageName: json['imageName'] as String?,
+  archived: json['archived'] as bool? ?? false,
   steps: (json['steps'] as List<dynamic>)
       .map((e) => RecipeStepData.fromJson(e as Map<String, dynamic>))
       .toList(),
@@ -20,5 +21,6 @@ Map<String, dynamic> _$RecipeDataToJson(_RecipeData instance) =>
       'id': instance.id,
       'title': instance.title,
       'imageName': instance.imageName,
+      'archived': instance.archived,
       'steps': instance.steps,
     };

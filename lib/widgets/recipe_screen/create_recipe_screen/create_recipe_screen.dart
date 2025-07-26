@@ -11,6 +11,7 @@ import 'package:recipe_list/widgets/generic/unsaved_changes_scope.dart';
 import 'package:recipe_list/widgets/recipe_screen/create_recipe_screen/add_image_widget.dart';
 import 'package:recipe_list/widgets/recipe_screen/create_recipe_screen/recipe_step_view.dart';
 import 'package:recipe_list/widgets/recipe_screen/providers/recipe_notifier.dart';
+import 'package:recipe_list/widgets/recipe_screen/providers/timer_notifier.dart';
 
 class CreateRecipeScreen extends ConsumerStatefulWidget {
   const CreateRecipeScreen({this.recipeId, super.key});
@@ -57,10 +58,27 @@ class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             ElevatedButton.icon(
-              onPressed: () {
+              onPressed: () async {
                 if (formKey.currentState?.validate() == true) {
-                  ref.read(recipeModifierNotifierProvider).add(data);
-                  context.pop();
+                  final goRouter = GoRouter.of(context);
+                  if (widget.recipeId == null) {
+                    await ref.read(recipeModifierNotifierProvider).add(data);
+                    goRouter.pop();
+                  } else if (data != initalData) {
+                    final newData = data.copyWithNewId();
+
+                    await ref
+                        .read(recipeModifierNotifierProvider)
+                        .replace(newData: newData, oldData: initalData);
+
+                    ref
+                        .read(timerNotifierProvider.notifier)
+                        .moveTimer(newData: newData, oldData: initalData);
+
+                    goRouter.go(
+                      '${RootRoutes.recipeRoute.path}/recipeOverview/${newData.id}',
+                    );
+                  }
                 }
               },
               icon: Icon(Icons.save),

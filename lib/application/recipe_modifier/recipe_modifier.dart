@@ -7,5 +7,14 @@ class RecipeModifier {
 
   Future<void> add(RecipeData newData) => repo.add(newData);
 
-  Future<void> delete(RecipeData toDelete) => repo.delete(toDelete.id);
+  Future<void> replace({
+    required RecipeData newData,
+    required RecipeData oldData,
+  }) async {
+    await repo.add(newData);
+    await delete(oldData);
+  }
+
+  Future<void> delete(RecipeData toDelete) =>
+      repo.add(toDelete.copyWith(archived: true));
 }
