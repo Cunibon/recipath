@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:recipe_list/application/storage_modifier/storage_modifier_notifier.dart';
 import 'package:recipe_list/application_constants.dart';
-import 'package:recipe_list/data/ingredient_data.dart';
 import 'package:recipe_list/data/recipe_data.dart';
 import 'package:recipe_list/root_routes.dart';
 import 'package:recipe_list/widgets/grocery_screen/providers/grocery_notifier.dart';
 import 'package:recipe_list/widgets/recipe_screen/local_image.dart';
 import 'package:recipe_list/widgets/recipe_screen/providers/recipe_notifier.dart';
 import 'package:recipe_list/widgets/recipe_screen/recipe_overview_screen/ingredients_list.dart';
+import 'package:recipe_list/widgets/recipe_screen/recipe_overview_screen/recipe_button/track_recipe_button.dart';
 import 'package:recipe_list/widgets/recipe_screen/recipe_overview_screen/recipe_step.dart';
 import 'package:recipe_list/widgets/recipe_screen/recipe_routes.dart';
-import 'package:recipe_list/widgets/storage_screen/providers/storage_notifier.dart';
 
 class RecipeScreen extends ConsumerWidget {
   const RecipeScreen({required this.recipeId, super.key});
@@ -30,7 +28,6 @@ class RecipeScreen extends ConsumerWidget {
     }
 
     final groceries = ref.watch(groceryNotifierProvider).value!;
-
     final ingredients = recipe.getIngredients(groceries);
 
     return Scaffold(
@@ -52,51 +49,7 @@ class RecipeScreen extends ConsumerWidget {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          final ingredientsInStorage = Map<String, IngredientData>.from(
-            ref.read(storageNotifierProvider).value!,
-          );
-          final availableIngredients = ingredients.where(
-            (e) => ingredientsInStorage.keys.contains(e.groceryId),
-          );
-
-          for (final ingredient in availableIngredients) {
-            ref.read(storageModifierNotifierProvider).subtractItem(ingredient);
-          }
-
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              duration: Duration(seconds: 5),
-              content: Row(
-                children: [
-                  Expanded(child: Text("Removed ingredients from storage!")),
-                  TextButton(
-                    onPressed: () {
-                      for (final ingredient in availableIngredients) {
-                        ref
-                            .read(storageModifierNotifierProvider)
-                            .updateItem(
-                              ingredientsInStorage[ingredient.groceryId]!,
-                            );
-                      }
-                      ScaffoldMessenger.of(
-                        context,
-                      ).showSnackBar(SnackBar(content: Text("Undid removal!")));
-                      ScaffoldMessenger.of(context).removeCurrentSnackBar();
-                    },
-                    child: Text(
-                      "Undo",
-                      style: TextStyle(color: Colors.purple[900]),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        },
-        child: Icon(Icons.check),
-      ),
+      floatingActionButton: TrackRecipeButton(recipeId: recipeId),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: SingleChildScrollView(
@@ -107,7 +60,10 @@ class RecipeScreen extends ConsumerWidget {
                 LocalImage(fileName: recipe.imageName!),
                 Divider(),
               ],
-              IngredientsList(ingredients: ingredients),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: IngredientsList(ingredients: ingredients),
+              ),
               for (int i = 0; i < recipe.steps.length; i++)
                 Card(
                   child: Padding(

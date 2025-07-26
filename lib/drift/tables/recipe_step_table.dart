@@ -1,7 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:recipe_list/drift/tables/recipe_table.dart';
 
-@TableIndex(name: 'recipe_step_recipeId', columns: {#recipeId})
+@TableIndex(name: 'recipeStep_recipeId', columns: {#recipeId})
 class RecipeStepTable extends Table {
   @override
   Set<Column<Object>> get primaryKey => {id};

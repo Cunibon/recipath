@@ -30,8 +30,10 @@ class RecipeRepoDrift extends Repo<RecipeData> {
       ),
     ]);
 
+    query.where(table.archived.equals(false));
+
     query.orderBy([
-      OrderingTerm.asc(db.recipeStepTable.id),
+      OrderingTerm.asc(db.recipeTable.id),
       OrderingTerm.asc(db.recipeStepTable.index),
       OrderingTerm.asc(db.recipeStepIngredientTable.index),
     ]);
@@ -100,10 +102,11 @@ class RecipeRepoDrift extends Repo<RecipeData> {
       await db
           .into(table)
           .insert(
-            RecipeTableCompanion(
-              id: Value(newData.id),
-              title: Value(newData.title),
+            RecipeTableCompanion.insert(
+              id: newData.id,
+              title: newData.title,
               imageName: Value(newData.imageName),
+              archived: Value(newData.archived),
             ),
             mode: InsertMode.insertOrReplace,
           );

@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:random_string/random_string.dart';
 import 'package:recipe_list/data/grocery_data.dart';
 import 'package:recipe_list/data/ingredient_data.dart';
 import 'package:recipe_list/data/recipe_step_data.dart';
@@ -13,6 +14,7 @@ abstract class RecipeData with _$RecipeData {
     required String id,
     required String title,
     String? imageName,
+    @Default(false) bool archived,
     required List<RecipeStepData> steps,
   }) = _RecipeData;
 
@@ -23,6 +25,7 @@ abstract class RecipeData with _$RecipeData {
     id: data.id,
     title: data.title,
     imageName: data.imageName,
+    archived: data.archived,
     steps: [],
   );
 }
@@ -40,6 +43,25 @@ extension RecipeDataFunctions on RecipeData {
     );
 
     return stringBuffer.toString();
+  }
+
+  RecipeData copyWithNewId() {
+    return copyWith(
+      id: randomAlphaNumeric(16),
+      steps: steps
+          .map(
+            (step) => step.copyWith(
+              id: randomAlphaNumeric(16),
+              ingredients: step.ingredients
+                  .map(
+                    (ingredient) =>
+                        ingredient.copyWith(id: randomAlphaNumeric(16)),
+                  )
+                  .toList(),
+            ),
+          )
+          .toList(),
+    );
   }
 
   List<IngredientData> getIngredients(Map<String, GroceryData> groceries) =>

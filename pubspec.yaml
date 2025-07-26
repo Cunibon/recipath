@@ -30,6 +30,7 @@ dependencies:
   drift: ^2.28.0
   drift_flutter: ^0.2.5
   path: ^1.9.1
+  duration_picker: ^1.2.0
 
 dev_dependencies:
   flutter_test:
