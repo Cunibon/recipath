@@ -15,7 +15,8 @@ abstract class RecipeStatisticsRepo {
     required DateTime endDate,
   });
 
-  Future<Map<String, Map<String, double>>> getGroceryAmountBetween({
+  Future<Map<String, Map<String, Map<String, double>>>>
+  getGroceryAmountBetween({
     required DateTime startDate,
     required DateTime endDate,
   });

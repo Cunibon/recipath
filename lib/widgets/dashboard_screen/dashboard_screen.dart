@@ -14,6 +14,7 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   late DateTimeRange dateRange;
+  String? recipeId;
 
   @override
   void initState() {
@@ -67,13 +68,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
           children: [
             Text("Recipe usage", style: Theme.of(context).textTheme.titleLarge),
             Divider(),
-            RecipeChart(dateRange: dateRange),
+            RecipeChart(
+              dateRange: dateRange,
+              onTap: (recipeId) => setState(() {
+                this.recipeId = recipeId;
+              }),
+            ),
             Text(
               "Grocery usage",
               style: Theme.of(context).textTheme.titleLarge,
             ),
             Divider(),
-            GroceryChart(dateRange: dateRange),
+            GroceryChart(dateRange: dateRange, recipeId: recipeId),
           ],
         ),
       ),

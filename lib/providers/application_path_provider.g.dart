@@ -6,7 +6,7 @@ part of 'application_path_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$applicationPathHash() => r'340c873e5812941b445df9dbb88742b6253b0532';
+String _$applicationPathHash() => r'5ab5dd99ba88a0866121a64f87830792966d3e25';
 
 /// See also [applicationPath].
 @ProviderFor(applicationPath)
@@ -16,8 +16,8 @@ final applicationPathProvider = AutoDisposeFutureProvider<Directory>.internal(
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
       : _$applicationPathHash,
-  dependencies: const <ProviderOrFamily>[],
-  allTransitiveDependencies: const <ProviderOrFamily>{},
+  dependencies: null,
+  allTransitiveDependencies: null,
 );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')

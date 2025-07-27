@@ -58,15 +58,19 @@ class RecipeStatisticsRepoDrift extends RecipeStatisticsRepo {
   }
 
   @override
-  Future<Map<String, Map<String, double>>> getGroceryAmountBetween({
+  Future<Map<String, Map<String, Map<String, double>>>>
+  getGroceryAmountBetween({
     required DateTime startDate,
     required DateTime endDate,
   }) async {
     final rows = await db
         .customSelect(
           '''
-    SELECT i.${db.ingredientTable.groceryId.name} AS groceryId,i.${db.ingredientTable.unit.name} AS ingredientUnit,
-           SUM(i.${db.ingredientTable.amount.name}) AS totalAmount
+    SELECT 
+      rs.${db.recipeStatisticTable.recipeId.name} AS recipeId, 
+      i.${db.ingredientTable.groceryId.name} AS groceryId, 
+      i.${db.ingredientTable.unit.name} AS ingredientUnit,
+      SUM(i.${db.ingredientTable.amount.name}) AS totalAmount
     FROM ${db.recipeStatisticTable.actualTableName} rs
     JOIN ${db.recipeStepTable.actualTableName} steps
       ON steps.${db.recipeStepTable.recipeId.name} = rs.${db.recipeStatisticTable.recipeId.name}
@@ -76,7 +80,7 @@ class RecipeStatisticsRepoDrift extends RecipeStatisticsRepo {
       ON i.${db.ingredientTable.id.name} = rsi.${db.recipeStepIngredientTable.ingredientId.name}
     WHERE rs.${db.recipeStatisticTable.startDate.name} >= ?
       AND rs.${db.recipeStatisticTable.startDate.name} <= ?
-    GROUP BY i.${db.ingredientTable.groceryId.name}, i.${db.ingredientTable.unit.name}
+    GROUP BY rs.${db.recipeStatisticTable.recipeId.name}, i.${db.ingredientTable.groceryId.name}, i.${db.ingredientTable.unit.name}
     ''',
           variables: [
             Variable(startDate.millisecondsSinceEpoch),
@@ -91,10 +95,16 @@ class RecipeStatisticsRepoDrift extends RecipeStatisticsRepo {
         )
         .get();
 
-    final Map<String, Map<String, double>> result = {};
+    final Map<String, Map<String, Map<String, double>>> result = {};
     for (final row in rows) {
+      final recipeId = row.data['recipeId'] as String;
+      final groceryMap = result.putIfAbsent(
+        recipeId,
+        () => <String, Map<String, double>>{},
+      );
+
       final groceryId = row.data['groceryId'] as String;
-      final ingredientMap = result.putIfAbsent(
+      final ingredientMap = groceryMap.putIfAbsent(
         groceryId,
         () => <String, double>{},
       );

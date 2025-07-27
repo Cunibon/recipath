@@ -6,7 +6,7 @@ part of 'file_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$localFileHash() => r'beabd491bcc4a5c132854fad90f841b8c0802a19';
+String _$localFileHash() => r'128d6152ce3a3f8546a5de2951bfb9e565d7dac2';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -48,18 +48,12 @@ class LocalFileFamily extends Family<AsyncValue<File>> {
     return call(provider.file);
   }
 
-  static final Iterable<ProviderOrFamily> _dependencies = <ProviderOrFamily>[
-    applicationPathProvider,
-  ];
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
 
   @override
   Iterable<ProviderOrFamily>? get dependencies => _dependencies;
 
-  static final Iterable<ProviderOrFamily> _allTransitiveDependencies =
-      <ProviderOrFamily>{
-        applicationPathProvider,
-        ...?applicationPathProvider.allTransitiveDependencies,
-      };
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
 
   @override
   Iterable<ProviderOrFamily>? get allTransitiveDependencies =>

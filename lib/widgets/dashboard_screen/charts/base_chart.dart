@@ -9,6 +9,7 @@ class BaseChart extends StatelessWidget {
     required this.state,
     required this.horizontalInterval,
     required this.horizontalTitleInterval,
+    this.onTap,
     this.axisSpace = 75,
     super.key,
   });
@@ -18,6 +19,14 @@ class BaseChart extends StatelessWidget {
   final double horizontalTitleInterval;
 
   final double axisSpace;
+
+  final void Function(int? index)? onTap;
+
+  final titlesStyle = const TextStyle(
+    color: Colors.blueAccent,
+    fontWeight: FontWeight.bold,
+    fontSize: 14,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +67,15 @@ class BaseChart extends StatelessWidget {
   }
 
   BarTouchData barTouchData() => BarTouchData(
-    enabled: false,
+    enabled: onTap != null,
+    touchCallback: onTap != null
+        ? (FlTouchEvent event, barTouchResponse) {
+            if (event is FlTapUpEvent) {
+              final spot = barTouchResponse?.spot;
+              onTap!(spot?.touchedBarGroup.x);
+            }
+          }
+        : null,
     touchTooltipData: BarTouchTooltipData(
       getTooltipColor: (group) => Colors.transparent,
       tooltipPadding: EdgeInsets.zero,
@@ -106,15 +123,10 @@ class BaseChart extends StatelessWidget {
       return const SizedBox.shrink();
     }
 
-    final style = TextStyle(
-      color: Colors.blueAccent,
-      fontWeight: FontWeight.bold,
-      fontSize: 14,
-    );
     return SideTitleWidget(
       meta: meta,
       angle: 0.45,
-      child: Text(state.entries[index].title, style: style),
+      child: Text(state.entries[index].title, style: titlesStyle),
     );
   }
 }

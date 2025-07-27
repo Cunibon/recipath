@@ -6,7 +6,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'file_notifier.g.dart';
 
-@Riverpod(dependencies: [applicationPath])
+@riverpod
 Future<File> localFile(Ref ref, String file) async {
   final applicationPath = await ref.watch(applicationPathProvider.future);
   return File("${applicationPath.path}/$file");

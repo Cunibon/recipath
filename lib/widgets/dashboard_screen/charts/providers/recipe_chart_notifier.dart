@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:recipe_list/common.dart';
 import 'package:recipe_list/repos/recipe_statistics/recipe_statistics_repo_notifier.dart';
 import 'package:recipe_list/widgets/dashboard_screen/charts/chart_entry.dart';
 import 'package:recipe_list/widgets/recipe_screen/providers/recipe_notifier.dart';
@@ -35,11 +36,7 @@ Future<ChartState> recipeChartNotifier(Ref ref, DateTimeRange dateRange) async {
         BarChartRodData(
           width: 30,
           toY: entry.value.toDouble(),
-          gradient: LinearGradient(
-            colors: [Colors.purple[900]!, Colors.purple[400]!],
-            begin: Alignment.bottomCenter,
-            end: Alignment.topCenter,
-          ),
+          color: getRandomColorBasedOnString(entry.key),
         ),
       ],
     );
@@ -48,6 +45,7 @@ Future<ChartState> recipeChartNotifier(Ref ref, DateTimeRange dateRange) async {
 
     chartEntries.add(
       ChartEntry(
+        identifier: entry.key,
         groupData: groupData,
         title: recipe.title,
         tooltip: entry.value.toString(),

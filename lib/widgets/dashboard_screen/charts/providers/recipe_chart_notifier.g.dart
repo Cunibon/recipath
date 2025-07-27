@@ -7,7 +7,7 @@ part of 'recipe_chart_notifier.dart';
 // **************************************************************************
 
 String _$recipeChartNotifierHash() =>
-    r'e0f98366fb06f812b878821e8e6fff2e481f0f5e';
+    r'bd19320bf8c58d2d6e18205a7b410e56e1faf2ec';
 
 /// Copied from Dart SDK
 class _SystemHash {

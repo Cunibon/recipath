@@ -4,13 +4,18 @@ import 'package:recipe_list/widgets/dashboard_screen/charts/base_chart.dart';
 import 'package:recipe_list/widgets/dashboard_screen/charts/providers/grocery_chart_notifier.dart';
 
 class GroceryChart extends ConsumerWidget {
-  const GroceryChart({required this.dateRange, super.key});
+  const GroceryChart({
+    required this.dateRange,
+    required this.recipeId,
+    super.key,
+  });
 
   final DateTimeRange dateRange;
+  final String? recipeId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(groceryChartNotifierProvider(dateRange));
+    final state = ref.watch(groceryChartNotifierProvider(dateRange, recipeId));
 
     return switch (state) {
       AsyncData(:final value) => BaseChart(
