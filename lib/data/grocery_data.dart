@@ -1,3 +1,4 @@
+import 'package:drift/drift.dart' as drift;
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:recipe_list/common.dart';
 import 'package:recipe_list/data/unit_enum.dart';
@@ -15,6 +16,7 @@ abstract class GroceryData with _$GroceryData {
     required UnitEnum unit,
     required double conversionAmount,
     required UnitEnum conversionUnit,
+    double? kcal,
   }) = _GroceryData;
 
   factory GroceryData.fromJson(Map<String, Object?> json) =>
@@ -27,6 +29,7 @@ abstract class GroceryData with _$GroceryData {
     unit: $enumDecode(_$UnitEnumEnumMap, data.unit),
     conversionAmount: data.conversionAmount,
     conversionUnit: $enumDecode(_$UnitEnumEnumMap, data.conversionUnit),
+    kcal: data.kcal,
   );
 
   static UnitEnum jsonStringToEnum(String enumString) =>
@@ -60,5 +63,6 @@ extension GroceryDataFunctions on GroceryData {
     unit: _$UnitEnumEnumMap[unit]!,
     conversionAmount: conversionAmount,
     conversionUnit: _$UnitEnumEnumMap[conversionUnit]!,
+    kcal: drift.Value(kcal),
   );
 }

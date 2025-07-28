@@ -645,6 +645,15 @@ class $GroceryTableTable extends GroceryTable
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+    'name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
   static const VerificationMeta _normalAmountMeta = const VerificationMeta(
     'normalAmount',
   );
@@ -687,23 +696,24 @@ class $GroceryTableTable extends GroceryTable
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
-  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  static const VerificationMeta _kcalMeta = const VerificationMeta('kcal');
   @override
-  late final GeneratedColumn<String> name = GeneratedColumn<String>(
-    'name',
+  late final GeneratedColumn<double> kcal = GeneratedColumn<double>(
+    'kcal',
     aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
+    true,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
   );
   @override
   List<GeneratedColumn> get $columns => [
     id,
+    name,
     normalAmount,
     unit,
     conversionAmount,
     conversionUnit,
-    name,
+    kcal,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -721,6 +731,14 @@ class $GroceryTableTable extends GroceryTable
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     } else if (isInserting) {
       context.missing(_idMeta);
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+        _nameMeta,
+        name.isAcceptableOrUnknown(data['name']!, _nameMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_nameMeta);
     }
     if (data.containsKey('normal_amount')) {
       context.handle(
@@ -763,13 +781,11 @@ class $GroceryTableTable extends GroceryTable
     } else if (isInserting) {
       context.missing(_conversionUnitMeta);
     }
-    if (data.containsKey('name')) {
+    if (data.containsKey('kcal')) {
       context.handle(
-        _nameMeta,
-        name.isAcceptableOrUnknown(data['name']!, _nameMeta),
+        _kcalMeta,
+        kcal.isAcceptableOrUnknown(data['kcal']!, _kcalMeta),
       );
-    } else if (isInserting) {
-      context.missing(_nameMeta);
     }
     return context;
   }
@@ -783,6 +799,10 @@ class $GroceryTableTable extends GroceryTable
       id: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}id'],
+      )!,
+      name: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}name'],
       )!,
       normalAmount: attachedDatabase.typeMapping.read(
         DriftSqlType.double,
@@ -800,10 +820,10 @@ class $GroceryTableTable extends GroceryTable
         DriftSqlType.string,
         data['${effectivePrefix}conversion_unit'],
       )!,
-      name: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}name'],
-      )!,
+      kcal: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}kcal'],
+      ),
     );
   }
 
@@ -816,39 +836,45 @@ class $GroceryTableTable extends GroceryTable
 class GroceryTableData extends DataClass
     implements Insertable<GroceryTableData> {
   final String id;
+  final String name;
   final double normalAmount;
   final String unit;
   final double conversionAmount;
   final String conversionUnit;
-  final String name;
+  final double? kcal;
   const GroceryTableData({
     required this.id,
+    required this.name,
     required this.normalAmount,
     required this.unit,
     required this.conversionAmount,
     required this.conversionUnit,
-    required this.name,
+    this.kcal,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<String>(id);
+    map['name'] = Variable<String>(name);
     map['normal_amount'] = Variable<double>(normalAmount);
     map['unit'] = Variable<String>(unit);
     map['conversion_amount'] = Variable<double>(conversionAmount);
     map['conversion_unit'] = Variable<String>(conversionUnit);
-    map['name'] = Variable<String>(name);
+    if (!nullToAbsent || kcal != null) {
+      map['kcal'] = Variable<double>(kcal);
+    }
     return map;
   }
 
   GroceryTableCompanion toCompanion(bool nullToAbsent) {
     return GroceryTableCompanion(
       id: Value(id),
+      name: Value(name),
       normalAmount: Value(normalAmount),
       unit: Value(unit),
       conversionAmount: Value(conversionAmount),
       conversionUnit: Value(conversionUnit),
-      name: Value(name),
+      kcal: kcal == null && nullToAbsent ? const Value.absent() : Value(kcal),
     );
   }
 
@@ -859,11 +885,12 @@ class GroceryTableData extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return GroceryTableData(
       id: serializer.fromJson<String>(json['id']),
+      name: serializer.fromJson<String>(json['name']),
       normalAmount: serializer.fromJson<double>(json['normalAmount']),
       unit: serializer.fromJson<String>(json['unit']),
       conversionAmount: serializer.fromJson<double>(json['conversionAmount']),
       conversionUnit: serializer.fromJson<String>(json['conversionUnit']),
-      name: serializer.fromJson<String>(json['name']),
+      kcal: serializer.fromJson<double?>(json['kcal']),
     );
   }
   @override
@@ -871,32 +898,36 @@ class GroceryTableData extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<String>(id),
+      'name': serializer.toJson<String>(name),
       'normalAmount': serializer.toJson<double>(normalAmount),
       'unit': serializer.toJson<String>(unit),
       'conversionAmount': serializer.toJson<double>(conversionAmount),
       'conversionUnit': serializer.toJson<String>(conversionUnit),
-      'name': serializer.toJson<String>(name),
+      'kcal': serializer.toJson<double?>(kcal),
     };
   }
 
   GroceryTableData copyWith({
     String? id,
+    String? name,
     double? normalAmount,
     String? unit,
     double? conversionAmount,
     String? conversionUnit,
-    String? name,
+    Value<double?> kcal = const Value.absent(),
   }) => GroceryTableData(
     id: id ?? this.id,
+    name: name ?? this.name,
     normalAmount: normalAmount ?? this.normalAmount,
     unit: unit ?? this.unit,
     conversionAmount: conversionAmount ?? this.conversionAmount,
     conversionUnit: conversionUnit ?? this.conversionUnit,
-    name: name ?? this.name,
+    kcal: kcal.present ? kcal.value : this.kcal,
   );
   GroceryTableData copyWithCompanion(GroceryTableCompanion data) {
     return GroceryTableData(
       id: data.id.present ? data.id.value : this.id,
+      name: data.name.present ? data.name.value : this.name,
       normalAmount: data.normalAmount.present
           ? data.normalAmount.value
           : this.normalAmount,
@@ -907,7 +938,7 @@ class GroceryTableData extends DataClass
       conversionUnit: data.conversionUnit.present
           ? data.conversionUnit.value
           : this.conversionUnit,
-      name: data.name.present ? data.name.value : this.name,
+      kcal: data.kcal.present ? data.kcal.value : this.kcal,
     );
   }
 
@@ -915,11 +946,12 @@ class GroceryTableData extends DataClass
   String toString() {
     return (StringBuffer('GroceryTableData(')
           ..write('id: $id, ')
+          ..write('name: $name, ')
           ..write('normalAmount: $normalAmount, ')
           ..write('unit: $unit, ')
           ..write('conversionAmount: $conversionAmount, ')
           ..write('conversionUnit: $conversionUnit, ')
-          ..write('name: $name')
+          ..write('kcal: $kcal')
           ..write(')'))
         .toString();
   }
@@ -927,91 +959,100 @@ class GroceryTableData extends DataClass
   @override
   int get hashCode => Object.hash(
     id,
+    name,
     normalAmount,
     unit,
     conversionAmount,
     conversionUnit,
-    name,
+    kcal,
   );
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is GroceryTableData &&
           other.id == this.id &&
+          other.name == this.name &&
           other.normalAmount == this.normalAmount &&
           other.unit == this.unit &&
           other.conversionAmount == this.conversionAmount &&
           other.conversionUnit == this.conversionUnit &&
-          other.name == this.name);
+          other.kcal == this.kcal);
 }
 
 class GroceryTableCompanion extends UpdateCompanion<GroceryTableData> {
   final Value<String> id;
+  final Value<String> name;
   final Value<double> normalAmount;
   final Value<String> unit;
   final Value<double> conversionAmount;
   final Value<String> conversionUnit;
-  final Value<String> name;
+  final Value<double?> kcal;
   final Value<int> rowid;
   const GroceryTableCompanion({
     this.id = const Value.absent(),
+    this.name = const Value.absent(),
     this.normalAmount = const Value.absent(),
     this.unit = const Value.absent(),
     this.conversionAmount = const Value.absent(),
     this.conversionUnit = const Value.absent(),
-    this.name = const Value.absent(),
+    this.kcal = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   GroceryTableCompanion.insert({
     required String id,
+    required String name,
     required double normalAmount,
     required String unit,
     required double conversionAmount,
     required String conversionUnit,
-    required String name,
+    this.kcal = const Value.absent(),
     this.rowid = const Value.absent(),
   }) : id = Value(id),
+       name = Value(name),
        normalAmount = Value(normalAmount),
        unit = Value(unit),
        conversionAmount = Value(conversionAmount),
-       conversionUnit = Value(conversionUnit),
-       name = Value(name);
+       conversionUnit = Value(conversionUnit);
   static Insertable<GroceryTableData> custom({
     Expression<String>? id,
+    Expression<String>? name,
     Expression<double>? normalAmount,
     Expression<String>? unit,
     Expression<double>? conversionAmount,
     Expression<String>? conversionUnit,
-    Expression<String>? name,
+    Expression<double>? kcal,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
+      if (name != null) 'name': name,
       if (normalAmount != null) 'normal_amount': normalAmount,
       if (unit != null) 'unit': unit,
       if (conversionAmount != null) 'conversion_amount': conversionAmount,
       if (conversionUnit != null) 'conversion_unit': conversionUnit,
-      if (name != null) 'name': name,
+      if (kcal != null) 'kcal': kcal,
       if (rowid != null) 'rowid': rowid,
     });
   }
 
   GroceryTableCompanion copyWith({
     Value<String>? id,
+    Value<String>? name,
     Value<double>? normalAmount,
     Value<String>? unit,
     Value<double>? conversionAmount,
     Value<String>? conversionUnit,
-    Value<String>? name,
+    Value<double?>? kcal,
     Value<int>? rowid,
   }) {
     return GroceryTableCompanion(
       id: id ?? this.id,
+      name: name ?? this.name,
       normalAmount: normalAmount ?? this.normalAmount,
       unit: unit ?? this.unit,
       conversionAmount: conversionAmount ?? this.conversionAmount,
       conversionUnit: conversionUnit ?? this.conversionUnit,
-      name: name ?? this.name,
+      kcal: kcal ?? this.kcal,
       rowid: rowid ?? this.rowid,
     );
   }
@@ -1021,6 +1062,9 @@ class GroceryTableCompanion extends UpdateCompanion<GroceryTableData> {
     final map = <String, Expression>{};
     if (id.present) {
       map['id'] = Variable<String>(id.value);
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
     }
     if (normalAmount.present) {
       map['normal_amount'] = Variable<double>(normalAmount.value);
@@ -1034,8 +1078,8 @@ class GroceryTableCompanion extends UpdateCompanion<GroceryTableData> {
     if (conversionUnit.present) {
       map['conversion_unit'] = Variable<String>(conversionUnit.value);
     }
-    if (name.present) {
-      map['name'] = Variable<String>(name.value);
+    if (kcal.present) {
+      map['kcal'] = Variable<double>(kcal.value);
     }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
@@ -1047,11 +1091,12 @@ class GroceryTableCompanion extends UpdateCompanion<GroceryTableData> {
   String toString() {
     return (StringBuffer('GroceryTableCompanion(')
           ..write('id: $id, ')
+          ..write('name: $name, ')
           ..write('normalAmount: $normalAmount, ')
           ..write('unit: $unit, ')
           ..write('conversionAmount: $conversionAmount, ')
           ..write('conversionUnit: $conversionUnit, ')
-          ..write('name: $name, ')
+          ..write('kcal: $kcal, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -3391,21 +3436,23 @@ typedef $$RecipeStepTableTableProcessedTableManager =
 typedef $$GroceryTableTableCreateCompanionBuilder =
     GroceryTableCompanion Function({
       required String id,
+      required String name,
       required double normalAmount,
       required String unit,
       required double conversionAmount,
       required String conversionUnit,
-      required String name,
+      Value<double?> kcal,
       Value<int> rowid,
     });
 typedef $$GroceryTableTableUpdateCompanionBuilder =
     GroceryTableCompanion Function({
       Value<String> id,
+      Value<String> name,
       Value<double> normalAmount,
       Value<String> unit,
       Value<double> conversionAmount,
       Value<String> conversionUnit,
-      Value<String> name,
+      Value<double?> kcal,
       Value<int> rowid,
     });
 
@@ -3452,6 +3499,11 @@ class $$GroceryTableTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
+  ColumnFilters<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnFilters(column),
+  );
+
   ColumnFilters<double> get normalAmount => $composableBuilder(
     column: $table.normalAmount,
     builder: (column) => ColumnFilters(column),
@@ -3472,8 +3524,8 @@ class $$GroceryTableTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<String> get name => $composableBuilder(
-    column: $table.name,
+  ColumnFilters<double> get kcal => $composableBuilder(
+    column: $table.kcal,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -3517,6 +3569,11 @@ class $$GroceryTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<double> get normalAmount => $composableBuilder(
     column: $table.normalAmount,
     builder: (column) => ColumnOrderings(column),
@@ -3537,8 +3594,8 @@ class $$GroceryTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<String> get name => $composableBuilder(
-    column: $table.name,
+  ColumnOrderings<double> get kcal => $composableBuilder(
+    column: $table.kcal,
     builder: (column) => ColumnOrderings(column),
   );
 }
@@ -3554,6 +3611,9 @@ class $$GroceryTableTableAnnotationComposer
   });
   GeneratedColumn<String> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get name =>
+      $composableBuilder(column: $table.name, builder: (column) => column);
 
   GeneratedColumn<double> get normalAmount => $composableBuilder(
     column: $table.normalAmount,
@@ -3573,8 +3633,8 @@ class $$GroceryTableTableAnnotationComposer
     builder: (column) => column,
   );
 
-  GeneratedColumn<String> get name =>
-      $composableBuilder(column: $table.name, builder: (column) => column);
+  GeneratedColumn<double> get kcal =>
+      $composableBuilder(column: $table.kcal, builder: (column) => column);
 
   Expression<T> ingredientTableRefs<T extends Object>(
     Expression<T> Function($$IngredientTableTableAnnotationComposer a) f,
@@ -3631,37 +3691,41 @@ class $$GroceryTableTableTableManager
           updateCompanionCallback:
               ({
                 Value<String> id = const Value.absent(),
+                Value<String> name = const Value.absent(),
                 Value<double> normalAmount = const Value.absent(),
                 Value<String> unit = const Value.absent(),
                 Value<double> conversionAmount = const Value.absent(),
                 Value<String> conversionUnit = const Value.absent(),
-                Value<String> name = const Value.absent(),
+                Value<double?> kcal = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => GroceryTableCompanion(
                 id: id,
+                name: name,
                 normalAmount: normalAmount,
                 unit: unit,
                 conversionAmount: conversionAmount,
                 conversionUnit: conversionUnit,
-                name: name,
+                kcal: kcal,
                 rowid: rowid,
               ),
           createCompanionCallback:
               ({
                 required String id,
+                required String name,
                 required double normalAmount,
                 required String unit,
                 required double conversionAmount,
                 required String conversionUnit,
-                required String name,
+                Value<double?> kcal = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => GroceryTableCompanion.insert(
                 id: id,
+                name: name,
                 normalAmount: normalAmount,
                 unit: unit,
                 conversionAmount: conversionAmount,
                 conversionUnit: conversionUnit,
-                name: name,
+                kcal: kcal,
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0

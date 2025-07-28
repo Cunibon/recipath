@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$GroceryData {
 
- String get id; String get name; double get normalAmount; UnitEnum get unit; double get conversionAmount; UnitEnum get conversionUnit;
+ String get id; String get name; double get normalAmount; UnitEnum get unit; double get conversionAmount; UnitEnum get conversionUnit; double? get kcal;
 /// Create a copy of GroceryData
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,16 +29,16 @@ $GroceryDataCopyWith<GroceryData> get copyWith => _$GroceryDataCopyWithImpl<Groc
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GroceryData&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.normalAmount, normalAmount) || other.normalAmount == normalAmount)&&(identical(other.unit, unit) || other.unit == unit)&&(identical(other.conversionAmount, conversionAmount) || other.conversionAmount == conversionAmount)&&(identical(other.conversionUnit, conversionUnit) || other.conversionUnit == conversionUnit));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is GroceryData&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.normalAmount, normalAmount) || other.normalAmount == normalAmount)&&(identical(other.unit, unit) || other.unit == unit)&&(identical(other.conversionAmount, conversionAmount) || other.conversionAmount == conversionAmount)&&(identical(other.conversionUnit, conversionUnit) || other.conversionUnit == conversionUnit)&&(identical(other.kcal, kcal) || other.kcal == kcal));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,normalAmount,unit,conversionAmount,conversionUnit);
+int get hashCode => Object.hash(runtimeType,id,name,normalAmount,unit,conversionAmount,conversionUnit,kcal);
 
 @override
 String toString() {
-  return 'GroceryData(id: $id, name: $name, normalAmount: $normalAmount, unit: $unit, conversionAmount: $conversionAmount, conversionUnit: $conversionUnit)';
+  return 'GroceryData(id: $id, name: $name, normalAmount: $normalAmount, unit: $unit, conversionAmount: $conversionAmount, conversionUnit: $conversionUnit, kcal: $kcal)';
 }
 
 
@@ -49,7 +49,7 @@ abstract mixin class $GroceryDataCopyWith<$Res>  {
   factory $GroceryDataCopyWith(GroceryData value, $Res Function(GroceryData) _then) = _$GroceryDataCopyWithImpl;
 @useResult
 $Res call({
- String id, String name, double normalAmount, UnitEnum unit, double conversionAmount, UnitEnum conversionUnit
+ String id, String name, double normalAmount, UnitEnum unit, double conversionAmount, UnitEnum conversionUnit, double? kcal
 });
 
 
@@ -66,7 +66,7 @@ class _$GroceryDataCopyWithImpl<$Res>
 
 /// Create a copy of GroceryData
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? normalAmount = null,Object? unit = null,Object? conversionAmount = null,Object? conversionUnit = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? normalAmount = null,Object? unit = null,Object? conversionAmount = null,Object? conversionUnit = null,Object? kcal = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -74,7 +74,8 @@ as String,normalAmount: null == normalAmount ? _self.normalAmount : normalAmount
 as double,unit: null == unit ? _self.unit : unit // ignore: cast_nullable_to_non_nullable
 as UnitEnum,conversionAmount: null == conversionAmount ? _self.conversionAmount : conversionAmount // ignore: cast_nullable_to_non_nullable
 as double,conversionUnit: null == conversionUnit ? _self.conversionUnit : conversionUnit // ignore: cast_nullable_to_non_nullable
-as UnitEnum,
+as UnitEnum,kcal: freezed == kcal ? _self.kcal : kcal // ignore: cast_nullable_to_non_nullable
+as double?,
   ));
 }
 
@@ -85,7 +86,7 @@ as UnitEnum,
 @JsonSerializable()
 
 class _GroceryData implements GroceryData {
-  const _GroceryData({required this.id, required this.name, required this.normalAmount, required this.unit, required this.conversionAmount, required this.conversionUnit});
+  const _GroceryData({required this.id, required this.name, required this.normalAmount, required this.unit, required this.conversionAmount, required this.conversionUnit, this.kcal});
   factory _GroceryData.fromJson(Map<String, dynamic> json) => _$GroceryDataFromJson(json);
 
 @override final  String id;
@@ -94,6 +95,7 @@ class _GroceryData implements GroceryData {
 @override final  UnitEnum unit;
 @override final  double conversionAmount;
 @override final  UnitEnum conversionUnit;
+@override final  double? kcal;
 
 /// Create a copy of GroceryData
 /// with the given fields replaced by the non-null parameter values.
@@ -108,16 +110,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _GroceryData&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.normalAmount, normalAmount) || other.normalAmount == normalAmount)&&(identical(other.unit, unit) || other.unit == unit)&&(identical(other.conversionAmount, conversionAmount) || other.conversionAmount == conversionAmount)&&(identical(other.conversionUnit, conversionUnit) || other.conversionUnit == conversionUnit));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _GroceryData&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.normalAmount, normalAmount) || other.normalAmount == normalAmount)&&(identical(other.unit, unit) || other.unit == unit)&&(identical(other.conversionAmount, conversionAmount) || other.conversionAmount == conversionAmount)&&(identical(other.conversionUnit, conversionUnit) || other.conversionUnit == conversionUnit)&&(identical(other.kcal, kcal) || other.kcal == kcal));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,normalAmount,unit,conversionAmount,conversionUnit);
+int get hashCode => Object.hash(runtimeType,id,name,normalAmount,unit,conversionAmount,conversionUnit,kcal);
 
 @override
 String toString() {
-  return 'GroceryData(id: $id, name: $name, normalAmount: $normalAmount, unit: $unit, conversionAmount: $conversionAmount, conversionUnit: $conversionUnit)';
+  return 'GroceryData(id: $id, name: $name, normalAmount: $normalAmount, unit: $unit, conversionAmount: $conversionAmount, conversionUnit: $conversionUnit, kcal: $kcal)';
 }
 
 
@@ -128,7 +130,7 @@ abstract mixin class _$GroceryDataCopyWith<$Res> implements $GroceryDataCopyWith
   factory _$GroceryDataCopyWith(_GroceryData value, $Res Function(_GroceryData) _then) = __$GroceryDataCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String name, double normalAmount, UnitEnum unit, double conversionAmount, UnitEnum conversionUnit
+ String id, String name, double normalAmount, UnitEnum unit, double conversionAmount, UnitEnum conversionUnit, double? kcal
 });
 
 
@@ -145,7 +147,7 @@ class __$GroceryDataCopyWithImpl<$Res>
 
 /// Create a copy of GroceryData
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? normalAmount = null,Object? unit = null,Object? conversionAmount = null,Object? conversionUnit = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? normalAmount = null,Object? unit = null,Object? conversionAmount = null,Object? conversionUnit = null,Object? kcal = freezed,}) {
   return _then(_GroceryData(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -153,7 +155,8 @@ as String,normalAmount: null == normalAmount ? _self.normalAmount : normalAmount
 as double,unit: null == unit ? _self.unit : unit // ignore: cast_nullable_to_non_nullable
 as UnitEnum,conversionAmount: null == conversionAmount ? _self.conversionAmount : conversionAmount // ignore: cast_nullable_to_non_nullable
 as double,conversionUnit: null == conversionUnit ? _self.conversionUnit : conversionUnit // ignore: cast_nullable_to_non_nullable
-as UnitEnum,
+as UnitEnum,kcal: freezed == kcal ? _self.kcal : kcal // ignore: cast_nullable_to_non_nullable
+as double?,
   ));
 }
 

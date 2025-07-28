@@ -32,6 +32,7 @@ dependencies:
   path: ^1.9.1
   duration_picker: ^1.2.0
   fl_chart: ^1.0.0
+  mobile_scanner: ^7.0.1
 
 dev_dependencies:
   flutter_test:

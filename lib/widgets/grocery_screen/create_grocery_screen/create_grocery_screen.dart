@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:random_string/random_string.dart';
 import 'package:recipe_list/application/grocery_modifier/grocery_modifier_notifier.dart';
 import 'package:recipe_list/common.dart';
@@ -27,6 +28,7 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
   final GlobalKey<FormState> formKey = GlobalKey();
   final amountController = TextEditingController();
   final conversionController = TextEditingController();
+  final kcalController = TextEditingController();
   late GroceryData initialData;
   late GroceryData data;
 
@@ -49,6 +51,9 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
     conversionController.text = doubleNumberFormat.format(
       data.conversionAmount,
     );
+    kcalController.text = data.kcal == null
+        ? ""
+        : doubleNumberFormat.format(data.kcal);
   }
 
   @override
@@ -315,6 +320,31 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
                         ),
                       ],
                     ],
+                  ),
+                  TextFormField(
+                    controller: kcalController,
+                    decoration: InputDecoration(labelText: "kcal/100g"),
+                    keyboardType: TextInputType.numberWithOptions(
+                      decimal: true,
+                    ),
+                    validator: (value) => value?.isEmpty == false
+                        ? doubleNumberFormat.tryParse(value!) == null
+                              ? "Add normal amount"
+                              : null
+                        : null,
+                    onChanged: (value) {
+                      final parsed = doubleNumberFormat
+                          .tryParse(value)
+                          ?.toDouble();
+                      if (parsed != null) {
+                        setState(() => data = data.copyWith(kcal: parsed));
+                      }
+                    },
+                  ),
+                  MobileScanner(
+                    onDetect: (result) {
+                      print(result.barcodes.first.rawValue);
+                    },
                   ),
                 ],
               ),
