@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'grocery_statistics_notifier.dart';
+part of 'recipe_statistics_notifier.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$groceryChartStatisticsNotifierHash() =>
-    r'7ce195a7b57d7f07e7f74b2b75b50a185cb56046';
+String _$recipeChartStatisticsNotifierHash() =>
+    r'44f6a8eaeccefe2d677fb97b8e07daafcd0ec05f';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -30,27 +30,27 @@ class _SystemHash {
   }
 }
 
-/// See also [groceryChartStatisticsNotifier].
-@ProviderFor(groceryChartStatisticsNotifier)
-const groceryChartStatisticsNotifierProvider =
-    GroceryChartStatisticsNotifierFamily();
+/// See also [recipeChartStatisticsNotifier].
+@ProviderFor(recipeChartStatisticsNotifier)
+const recipeChartStatisticsNotifierProvider =
+    RecipeChartStatisticsNotifierFamily();
 
-/// See also [groceryChartStatisticsNotifier].
-class GroceryChartStatisticsNotifierFamily
-    extends Family<AsyncValue<Map<String, Map<String, Map<String, double>>>>> {
-  /// See also [groceryChartStatisticsNotifier].
-  const GroceryChartStatisticsNotifierFamily();
+/// See also [recipeChartStatisticsNotifier].
+class RecipeChartStatisticsNotifierFamily
+    extends Family<AsyncValue<Map<String, int>>> {
+  /// See also [recipeChartStatisticsNotifier].
+  const RecipeChartStatisticsNotifierFamily();
 
-  /// See also [groceryChartStatisticsNotifier].
-  GroceryChartStatisticsNotifierProvider call(
+  /// See also [recipeChartStatisticsNotifier].
+  RecipeChartStatisticsNotifierProvider call(
     DateTimeRange<DateTime> dateRange,
   ) {
-    return GroceryChartStatisticsNotifierProvider(dateRange);
+    return RecipeChartStatisticsNotifierProvider(dateRange);
   }
 
   @override
-  GroceryChartStatisticsNotifierProvider getProviderOverride(
-    covariant GroceryChartStatisticsNotifierProvider provider,
+  RecipeChartStatisticsNotifierProvider getProviderOverride(
+    covariant RecipeChartStatisticsNotifierProvider provider,
   ) {
     return call(provider.dateRange);
   }
@@ -67,34 +67,31 @@ class GroceryChartStatisticsNotifierFamily
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'groceryChartStatisticsNotifierProvider';
+  String? get name => r'recipeChartStatisticsNotifierProvider';
 }
 
-/// See also [groceryChartStatisticsNotifier].
-class GroceryChartStatisticsNotifierProvider
-    extends
-        AutoDisposeFutureProvider<
-          Map<String, Map<String, Map<String, double>>>
-        > {
-  /// See also [groceryChartStatisticsNotifier].
-  GroceryChartStatisticsNotifierProvider(DateTimeRange<DateTime> dateRange)
+/// See also [recipeChartStatisticsNotifier].
+class RecipeChartStatisticsNotifierProvider
+    extends AutoDisposeFutureProvider<Map<String, int>> {
+  /// See also [recipeChartStatisticsNotifier].
+  RecipeChartStatisticsNotifierProvider(DateTimeRange<DateTime> dateRange)
     : this._internal(
-        (ref) => groceryChartStatisticsNotifier(
-          ref as GroceryChartStatisticsNotifierRef,
+        (ref) => recipeChartStatisticsNotifier(
+          ref as RecipeChartStatisticsNotifierRef,
           dateRange,
         ),
-        from: groceryChartStatisticsNotifierProvider,
-        name: r'groceryChartStatisticsNotifierProvider',
+        from: recipeChartStatisticsNotifierProvider,
+        name: r'recipeChartStatisticsNotifierProvider',
         debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
             ? null
-            : _$groceryChartStatisticsNotifierHash,
-        dependencies: GroceryChartStatisticsNotifierFamily._dependencies,
+            : _$recipeChartStatisticsNotifierHash,
+        dependencies: RecipeChartStatisticsNotifierFamily._dependencies,
         allTransitiveDependencies:
-            GroceryChartStatisticsNotifierFamily._allTransitiveDependencies,
+            RecipeChartStatisticsNotifierFamily._allTransitiveDependencies,
         dateRange: dateRange,
       );
 
-  GroceryChartStatisticsNotifierProvider._internal(
+  RecipeChartStatisticsNotifierProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -108,15 +105,15 @@ class GroceryChartStatisticsNotifierProvider
 
   @override
   Override overrideWith(
-    FutureOr<Map<String, Map<String, Map<String, double>>>> Function(
-      GroceryChartStatisticsNotifierRef provider,
+    FutureOr<Map<String, int>> Function(
+      RecipeChartStatisticsNotifierRef provider,
     )
     create,
   ) {
     return ProviderOverride(
       origin: this,
-      override: GroceryChartStatisticsNotifierProvider._internal(
-        (ref) => create(ref as GroceryChartStatisticsNotifierRef),
+      override: RecipeChartStatisticsNotifierProvider._internal(
+        (ref) => create(ref as RecipeChartStatisticsNotifierRef),
         from: from,
         name: null,
         dependencies: null,
@@ -128,16 +125,13 @@ class GroceryChartStatisticsNotifierProvider
   }
 
   @override
-  AutoDisposeFutureProviderElement<
-    Map<String, Map<String, Map<String, double>>>
-  >
-  createElement() {
-    return _GroceryChartStatisticsNotifierProviderElement(this);
+  AutoDisposeFutureProviderElement<Map<String, int>> createElement() {
+    return _RecipeChartStatisticsNotifierProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is GroceryChartStatisticsNotifierProvider &&
+    return other is RecipeChartStatisticsNotifierProvider &&
         other.dateRange == dateRange;
   }
 
@@ -152,26 +146,20 @@ class GroceryChartStatisticsNotifierProvider
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-mixin GroceryChartStatisticsNotifierRef
-    on
-        AutoDisposeFutureProviderRef<
-          Map<String, Map<String, Map<String, double>>>
-        > {
+mixin RecipeChartStatisticsNotifierRef
+    on AutoDisposeFutureProviderRef<Map<String, int>> {
   /// The parameter `dateRange` of this provider.
   DateTimeRange<DateTime> get dateRange;
 }
 
-class _GroceryChartStatisticsNotifierProviderElement
-    extends
-        AutoDisposeFutureProviderElement<
-          Map<String, Map<String, Map<String, double>>>
-        >
-    with GroceryChartStatisticsNotifierRef {
-  _GroceryChartStatisticsNotifierProviderElement(super.provider);
+class _RecipeChartStatisticsNotifierProviderElement
+    extends AutoDisposeFutureProviderElement<Map<String, int>>
+    with RecipeChartStatisticsNotifierRef {
+  _RecipeChartStatisticsNotifierProviderElement(super.provider);
 
   @override
   DateTimeRange<DateTime> get dateRange =>
-      (origin as GroceryChartStatisticsNotifierProvider).dateRange;
+      (origin as RecipeChartStatisticsNotifierProvider).dateRange;
 }
 
 // ignore_for_file: type=lint

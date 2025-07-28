@@ -70,6 +70,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             Divider(),
             RecipeChart(
               dateRange: dateRange,
+              recipeId: recipeId,
               onTap: (recipeId) => setState(() {
                 this.recipeId = recipeId;
               }),

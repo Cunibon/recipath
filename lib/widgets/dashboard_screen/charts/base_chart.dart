@@ -87,10 +87,14 @@ class BaseChart extends StatelessWidget {
             BarChartRodData rod,
             int rodIndex,
           ) {
-            return BarTooltipItem(
-              state.entries[groupIndex].tooltip,
-              TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-            );
+            final toolTip = state.entries.elementAtOrNull(groupIndex);
+            if (toolTip != null) {
+              return BarTooltipItem(
+                state.entries[groupIndex].tooltip,
+                TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              );
+            }
+            return null;
           },
     ),
   );

@@ -18,7 +18,7 @@ Future<ChartState> groceryChartNotifier(
 ) async {
   final groceryMap = await ref.watch(groceryNotifierProvider.future);
   final groceryStatisticsData = await ref.watch(
-    groceryStatisticsNotifierProviderProvider(dateRange).future,
+    groceryChartStatisticsNotifierProvider(dateRange).future,
   );
 
   final aggregatedData = <GroceryData, double>{};

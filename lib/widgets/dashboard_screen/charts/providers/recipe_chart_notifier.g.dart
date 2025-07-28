@@ -7,7 +7,7 @@ part of 'recipe_chart_notifier.dart';
 // **************************************************************************
 
 String _$recipeChartNotifierHash() =>
-    r'bd19320bf8c58d2d6e18205a7b410e56e1faf2ec';
+    r'1068526449a7afd134aa3484360710806659ab5b';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -40,15 +40,18 @@ class RecipeChartNotifierFamily extends Family<AsyncValue<ChartState>> {
   const RecipeChartNotifierFamily();
 
   /// See also [recipeChartNotifier].
-  RecipeChartNotifierProvider call(DateTimeRange<DateTime> dateRange) {
-    return RecipeChartNotifierProvider(dateRange);
+  RecipeChartNotifierProvider call(
+    DateTimeRange<DateTime> dateRange,
+    String? recipeId,
+  ) {
+    return RecipeChartNotifierProvider(dateRange, recipeId);
   }
 
   @override
   RecipeChartNotifierProvider getProviderOverride(
     covariant RecipeChartNotifierProvider provider,
   ) {
-    return call(provider.dateRange);
+    return call(provider.dateRange, provider.recipeId);
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -70,9 +73,15 @@ class RecipeChartNotifierFamily extends Family<AsyncValue<ChartState>> {
 class RecipeChartNotifierProvider
     extends AutoDisposeFutureProvider<ChartState> {
   /// See also [recipeChartNotifier].
-  RecipeChartNotifierProvider(DateTimeRange<DateTime> dateRange)
-    : this._internal(
-        (ref) => recipeChartNotifier(ref as RecipeChartNotifierRef, dateRange),
+  RecipeChartNotifierProvider(
+    DateTimeRange<DateTime> dateRange,
+    String? recipeId,
+  ) : this._internal(
+        (ref) => recipeChartNotifier(
+          ref as RecipeChartNotifierRef,
+          dateRange,
+          recipeId,
+        ),
         from: recipeChartNotifierProvider,
         name: r'recipeChartNotifierProvider',
         debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -82,6 +91,7 @@ class RecipeChartNotifierProvider
         allTransitiveDependencies:
             RecipeChartNotifierFamily._allTransitiveDependencies,
         dateRange: dateRange,
+        recipeId: recipeId,
       );
 
   RecipeChartNotifierProvider._internal(
@@ -92,9 +102,11 @@ class RecipeChartNotifierProvider
     required super.debugGetCreateSourceHash,
     required super.from,
     required this.dateRange,
+    required this.recipeId,
   }) : super.internal();
 
   final DateTimeRange<DateTime> dateRange;
+  final String? recipeId;
 
   @override
   Override overrideWith(
@@ -110,6 +122,7 @@ class RecipeChartNotifierProvider
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
         dateRange: dateRange,
+        recipeId: recipeId,
       ),
     );
   }
@@ -121,13 +134,16 @@ class RecipeChartNotifierProvider
 
   @override
   bool operator ==(Object other) {
-    return other is RecipeChartNotifierProvider && other.dateRange == dateRange;
+    return other is RecipeChartNotifierProvider &&
+        other.dateRange == dateRange &&
+        other.recipeId == recipeId;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, dateRange.hashCode);
+    hash = _SystemHash.combine(hash, recipeId.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -138,6 +154,9 @@ class RecipeChartNotifierProvider
 mixin RecipeChartNotifierRef on AutoDisposeFutureProviderRef<ChartState> {
   /// The parameter `dateRange` of this provider.
   DateTimeRange<DateTime> get dateRange;
+
+  /// The parameter `recipeId` of this provider.
+  String? get recipeId;
 }
 
 class _RecipeChartNotifierProviderElement
@@ -148,6 +167,8 @@ class _RecipeChartNotifierProviderElement
   @override
   DateTimeRange<DateTime> get dateRange =>
       (origin as RecipeChartNotifierProvider).dateRange;
+  @override
+  String? get recipeId => (origin as RecipeChartNotifierProvider).recipeId;
 }
 
 // ignore_for_file: type=lint
