@@ -8,21 +8,21 @@ part of 'grocery_data.dart';
 
 _GroceryData _$GroceryDataFromJson(Map<String, dynamic> json) => _GroceryData(
   id: json['id'] as String,
+  name: json['name'] as String,
   normalAmount: (json['normalAmount'] as num).toDouble(),
   unit: $enumDecode(_$UnitEnumEnumMap, json['unit']),
   conversionAmount: (json['conversionAmount'] as num).toDouble(),
   conversionUnit: $enumDecode(_$UnitEnumEnumMap, json['conversionUnit']),
-  name: json['name'] as String,
 );
 
 Map<String, dynamic> _$GroceryDataToJson(_GroceryData instance) =>
     <String, dynamic>{
       'id': instance.id,
+      'name': instance.name,
       'normalAmount': instance.normalAmount,
       'unit': _$UnitEnumEnumMap[instance.unit]!,
       'conversionAmount': instance.conversionAmount,
       'conversionUnit': _$UnitEnumEnumMap[instance.conversionUnit]!,
-      'name': instance.name,
     };
 
 const _$UnitEnumEnumMap = {

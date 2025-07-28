@@ -10,11 +10,11 @@ part 'grocery_data.g.dart';
 abstract class GroceryData with _$GroceryData {
   const factory GroceryData({
     required String id,
+    required String name,
     required double normalAmount,
     required UnitEnum unit,
     required double conversionAmount,
     required UnitEnum conversionUnit,
-    required String name,
   }) = _GroceryData;
 
   factory GroceryData.fromJson(Map<String, Object?> json) =>
@@ -22,11 +22,11 @@ abstract class GroceryData with _$GroceryData {
 
   factory GroceryData.fromRow(GroceryTableData data) => GroceryData(
     id: data.id,
+    name: data.name,
     normalAmount: data.normalAmount,
     unit: $enumDecode(_$UnitEnumEnumMap, data.unit),
     conversionAmount: data.conversionAmount,
     conversionUnit: $enumDecode(_$UnitEnumEnumMap, data.conversionUnit),
-    name: data.name,
   );
 
   static UnitEnum jsonStringToEnum(String enumString) =>
@@ -55,10 +55,10 @@ extension GroceryDataFunctions on GroceryData {
 
   GroceryTableCompanion toTableCompanion() => GroceryTableCompanion.insert(
     id: id,
+    name: name,
     normalAmount: normalAmount,
     unit: _$UnitEnumEnumMap[unit]!,
     conversionAmount: conversionAmount,
     conversionUnit: _$UnitEnumEnumMap[conversionUnit]!,
-    name: name,
   );
 }
