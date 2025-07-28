@@ -10,6 +10,30 @@ class RecipeStatisticsRepoDrift extends RecipeStatisticsRepo {
   $RecipeStatisticTableTable get table => db.recipeStatisticTable;
 
   @override
+  SimpleSelectStatement<$RecipeStatisticTableTable, RecipeStatisticTableData>
+  get baseQuery {
+    final query = db.select(table);
+
+    query.orderBy([
+      (u) => OrderingTerm(expression: u.startDate, mode: OrderingMode.desc),
+    ]);
+    return query;
+  }
+
+  @override
+  Future<Map<String, RecipeStatisticData>> get() async {
+    final rows = await baseQuery.get();
+    return {for (final row in rows) row.id: RecipeStatisticData.fromRow(row)};
+  }
+
+  @override
+  Stream<Map<String, RecipeStatisticData>> stream() {
+    return baseQuery.watch().map((rows) {
+      return {for (final row in rows) row.id: RecipeStatisticData.fromRow(row)};
+    });
+  }
+
+  @override
   Future<Duration?> getAverageTimeForRecipe(String recipeId) async {
     final result = await db
         .customSelect(

@@ -53,7 +53,7 @@ class FinishRecipeButton extends ConsumerWidget {
                 id: randomAlphaNumeric(16),
                 startDate: recipeDateRange.start,
                 endDate: recipeDateRange.start.add(durationResponse.duration!),
-                recipeData: recipe,
+                recipeId: recipe.id,
               ),
             );
 

@@ -9,7 +9,7 @@ class StorageRepoDrift extends Repo<IngredientData> {
   @override
   $StorageTableTable get table => db.storageTable;
   @override
-  JoinedSelectStatement get query => db.select(table).join([
+  JoinedSelectStatement get baseQuery => db.select(table).join([
     leftOuterJoin(
       db.ingredientTable,
       table.ingredientId.equalsExp(db.ingredientTable.id),
@@ -31,13 +31,13 @@ class StorageRepoDrift extends Repo<IngredientData> {
 
   @override
   Future<Map<String, IngredientData>> get() async {
-    final rows = await query.get();
+    final rows = await baseQuery.get();
     return mapResult(rows);
   }
 
   @override
   Stream<Map<String, IngredientData>> stream() {
-    return query.watch().map(mapResult);
+    return baseQuery.watch().map(mapResult);
   }
 
   @override

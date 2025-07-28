@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:recipe_list/widgets/dashboard_screen/dashboard_screen.dart';
 import 'package:recipe_list/widgets/grocery_screen/grocery_routes.dart';
 import 'package:recipe_list/widgets/grocery_screen/grocery_screen.dart';
+import 'package:recipe_list/widgets/recipe_history_scren/recipe_history_screen.dart';
 import 'package:recipe_list/widgets/recipe_screen/recipe_routes.dart';
 import 'package:recipe_list/widgets/recipe_screen/recipe_screen.dart';
 import 'package:recipe_list/widgets/settings_screen/settings_screen.dart';
@@ -32,6 +33,11 @@ class RootRoutes {
   static GoRoute dashboardRoute = GoRoute(
     path: "/dashboard",
     builder: (context, state) => DashboardScreen(),
+    routes: [],
+  );
+  static GoRoute recipeHistoryRoute = GoRoute(
+    path: "/recipeHistory",
+    builder: (context, state) => RecipeHistoryScreen(),
     routes: [],
   );
   static GoRoute settingsRoute = GoRoute(

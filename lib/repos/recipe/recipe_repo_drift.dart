@@ -6,13 +6,14 @@ import 'package:recipe_list/drift/database.dart';
 import 'package:recipe_list/repos/repo.dart';
 
 class RecipeRepoDrift extends Repo<RecipeData> {
-  RecipeRepoDrift(super.db);
+  RecipeRepoDrift(super.db, {this.incluedArchived = false});
+  final bool incluedArchived;
 
   @override
   $RecipeTableTable get table => db.recipeTable;
 
   @override
-  JoinedSelectStatement get query {
+  JoinedSelectStatement get baseQuery {
     final query = db.select(table).join([
       leftOuterJoin(
         db.recipeStepTable,
@@ -30,7 +31,9 @@ class RecipeRepoDrift extends Repo<RecipeData> {
       ),
     ]);
 
-    query.where(table.archived.equals(false));
+    if (!incluedArchived) {
+      query.where(table.archived.equals(false));
+    }
 
     query.orderBy([
       OrderingTerm.asc(db.recipeTable.id),
@@ -87,13 +90,13 @@ class RecipeRepoDrift extends Repo<RecipeData> {
 
   @override
   Future<Map<String, RecipeData>> get() async {
-    final rows = await query.get();
+    final rows = await baseQuery.get();
     return mapResult(rows);
   }
 
   @override
   Stream<Map<String, RecipeData>> stream() {
-    return query.watch().map(mapResult);
+    return baseQuery.watch().map(mapResult);
   }
 
   @override

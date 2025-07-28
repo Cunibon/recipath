@@ -1,12 +1,8 @@
-import 'package:drift/drift.dart';
 import 'package:recipe_list/data/recipe_statistic_data.dart';
-import 'package:recipe_list/drift/database.dart';
+import 'package:recipe_list/repos/repo.dart';
 
-abstract class RecipeStatisticsRepo {
-  RecipeStatisticsRepo(this.db);
-  final AppDatabase db;
-
-  ResultSetImplementation get table;
+abstract class RecipeStatisticsRepo extends Repo<RecipeStatisticData> {
+  RecipeStatisticsRepo(super.db);
 
   Future<Duration?> getAverageTimeForRecipe(String recipeId);
 
@@ -20,8 +16,4 @@ abstract class RecipeStatisticsRepo {
     required DateTime startDate,
     required DateTime endDate,
   });
-
-  Future<void> add(RecipeStatisticData newData);
-  Future<void> delete(String id);
-  Future<void> clear();
 }

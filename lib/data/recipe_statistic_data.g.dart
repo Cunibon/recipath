@@ -11,9 +11,7 @@ _RecipeStatisticData _$RecipeStatisticDataFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String,
       startDate: DateTime.parse(json['startDate'] as String),
       endDate: DateTime.parse(json['endDate'] as String),
-      recipeData: RecipeData.fromJson(
-        json['recipeData'] as Map<String, dynamic>,
-      ),
+      recipeId: json['recipeId'] as String,
     );
 
 Map<String, dynamic> _$RecipeStatisticDataToJson(
@@ -22,5 +20,5 @@ Map<String, dynamic> _$RecipeStatisticDataToJson(
   'id': instance.id,
   'startDate': instance.startDate.toIso8601String(),
   'endDate': instance.endDate.toIso8601String(),
-  'recipeData': instance.recipeData,
+  'recipeId': instance.recipeId,
 };

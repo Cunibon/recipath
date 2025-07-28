@@ -6,7 +6,7 @@ abstract class Repo<T> {
   final AppDatabase db;
 
   ResultSetImplementation get table;
-  Query get query;
+  Query get baseQuery;
 
   Future<Map<String, T>> get();
   Stream<Map<String, T>> stream();

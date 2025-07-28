@@ -10,7 +10,7 @@ class ShoppingRepoDrift extends Repo<ShoppingData> {
   @override
   $ShoppingTableTable get table => db.shoppingTable;
   @override
-  JoinedSelectStatement get query => db.select(table).join([
+  JoinedSelectStatement get baseQuery => db.select(table).join([
     leftOuterJoin(
       db.ingredientTable,
       table.ingredientId.equalsExp(db.ingredientTable.id),
@@ -36,13 +36,13 @@ class ShoppingRepoDrift extends Repo<ShoppingData> {
 
   @override
   Future<Map<String, ShoppingData>> get() async {
-    final rows = await query.get();
+    final rows = await baseQuery.get();
     return mapResult(rows);
   }
 
   @override
   Stream<Map<String, ShoppingData>> stream() {
-    return query.watch().map(mapResult);
+    return baseQuery.watch().map(mapResult);
   }
 
   @override

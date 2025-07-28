@@ -36,6 +36,11 @@ List<List<DrawerDestination>> drawerDestinations(Ref ref) => [
       route: RootRoutes.dashboardRoute.path,
       icon: Icons.dashboard,
     ),
+    DrawerDestination(
+      label: "Cooking history",
+      route: RootRoutes.recipeHistoryRoute.path,
+      icon: Icons.cookie,
+    ),
   ],
   [
     DrawerDestination(

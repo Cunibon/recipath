@@ -20,6 +20,7 @@ void main() async {
       RootRoutes.shoppingRoute,
       RootRoutes.storageRoute,
       RootRoutes.dashboardRoute,
+      RootRoutes.recipeHistoryRoute,
       RootRoutes.settingsRoute,
     ],
     initialLocation: RootRoutes.recipeRoute.path,
