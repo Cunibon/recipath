@@ -26,6 +26,13 @@ class _ScannerScreenState extends State<ScannerScreen> {
           "Scan grocery",
           style: Theme.of(context).textTheme.titleLarge,
         ),
+        actions: [
+          TextButton(
+            onPressed: () =>
+                launchUrl(Uri.parse("https://world.openfoodfacts.org/")),
+            child: Text("Product data provided\nby OpenFoodFacts.org"),
+          ),
+        ],
       ),
       body: Stack(
         children: [
@@ -66,14 +73,6 @@ class _ScannerScreenState extends State<ScannerScreen> {
                 }
               }
             },
-          ),
-          Align(
-            alignment: Alignment.bottomRight,
-            child: TextButton(
-              onPressed: () =>
-                  launchUrl(Uri.parse("https://world.openfoodfacts.org/")),
-              child: Text("Product data provided by OpenFoodFacts.org"),
-            ),
           ),
           if (isLoading)
             ColoredBox(
