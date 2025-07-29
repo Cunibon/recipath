@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_list/widgets/dashboard_screen/charts/async_chart.dart';
-import 'package:recipe_list/widgets/dashboard_screen/charts/providers/grocery_chart_notifier.dart';
+import 'package:recipe_list/widgets/dashboard_screen/charts/grocery_chart/providers/grocery_chart_notifier.dart';
 
 class GroceryChart extends ConsumerWidget {
   const GroceryChart({

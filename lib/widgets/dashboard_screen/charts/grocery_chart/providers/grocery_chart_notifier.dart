@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_list/common.dart';
 import 'package:recipe_list/data/grocery_data.dart';
 import 'package:recipe_list/widgets/dashboard_screen/charts/chart_entry.dart';
-import 'package:recipe_list/widgets/dashboard_screen/charts/providers/grocery_statistics_notifier.dart';
+import 'package:recipe_list/widgets/dashboard_screen/charts/grocery_chart/providers/grocery_statistics_notifier.dart';
 import 'package:recipe_list/widgets/grocery_screen/providers/grocery_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

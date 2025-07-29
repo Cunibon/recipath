@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_list/common.dart';
 import 'package:recipe_list/widgets/dashboard_screen/charts/chart_entry.dart';
-import 'package:recipe_list/widgets/dashboard_screen/charts/providers/recipe_statistics_notifier.dart';
+import 'package:recipe_list/widgets/dashboard_screen/charts/recipe_chart/providers/recipe_statistics_notifier.dart';
 import 'package:recipe_list/widgets/recipe_screen/providers/recipe_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
