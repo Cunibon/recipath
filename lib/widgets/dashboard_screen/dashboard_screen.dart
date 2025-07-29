@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_list/common.dart';
 import 'package:recipe_list/helper/date_time_extension.dart';
-import 'package:recipe_list/widgets/dashboard_screen/charts/grocery_chart.dart';
-import 'package:recipe_list/widgets/dashboard_screen/charts/recipe_chart.dart';
+import 'package:recipe_list/widgets/dashboard_screen/charts/grocery_chart/grocery_chart.dart';
+import 'package:recipe_list/widgets/dashboard_screen/charts/recipe_chart/recipe_chart.dart';
 import 'package:recipe_list/widgets/generic/navigation_drawer_scaffold.dart';
 
 class DashboardScreen extends StatefulWidget {
