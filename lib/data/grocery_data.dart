@@ -56,6 +56,35 @@ extension GroceryDataFunctions on GroceryData {
     }
   }
 
+  double convertToGram(double value, UnitEnum otherUnit) {
+    final unitType = UnitConversion.unitType(unit); // this.unit
+    final otherUnitType = UnitConversion.unitType(otherUnit);
+
+    if (unitType == UnitType.misc || otherUnitType == UnitType.misc) {
+      return value;
+    }
+
+    if (otherUnitType == UnitType.volume) {
+      if (unitType == UnitType.volume) {
+        return UnitConversion.convert(
+          UnitConversion.convert(value, otherUnit, unit) *
+              (conversionAmount / normalAmount),
+          unit,
+          UnitEnum.g,
+        );
+      } else {
+        return UnitConversion.convert(
+          UnitConversion.convert(value, otherUnit, conversionUnit) *
+              (normalAmount / conversionAmount),
+          conversionUnit,
+          UnitEnum.g,
+        );
+      }
+    } else {
+      return UnitConversion.convert(value, otherUnit, UnitEnum.g);
+    }
+  }
+
   GroceryTableCompanion toTableCompanion() => GroceryTableCompanion.insert(
     id: id,
     name: name,

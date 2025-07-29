@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_list/common.dart';
 import 'package:recipe_list/data/grocery_data.dart';
+import 'package:recipe_list/data/unit_enum.dart';
 import 'package:recipe_list/widgets/dashboard_screen/charts/chart_entry.dart';
 import 'package:recipe_list/widgets/dashboard_screen/charts/grocery_chart/providers/grocery_statistics_notifier.dart';
 import 'package:recipe_list/widgets/grocery_screen/providers/grocery_notifier.dart';
@@ -32,14 +33,19 @@ Future<ChartState> kcalChartNotifier(
       final grocery = groceryMap[entry.key];
       if (grocery == null || grocery.kcal == null) continue;
 
+      final unitType = UnitConversion.unitType(grocery.unit);
+
       final total = entry.value.entries.fold<double>(0, (sum, e) {
-        return sum +
-            (grocery.convertToNorm(
-                      e.value,
-                      GroceryData.jsonStringToEnum(e.key),
-                    ) /
-                    100) *
-                grocery.kcal!;
+        final gramValue = grocery.convertToGram(
+          e.value,
+          GroceryData.jsonStringToEnum(e.key),
+        );
+
+        final additiveValue = unitType == UnitType.misc
+            ? gramValue
+            : gramValue / 100;
+
+        return sum + additiveValue * grocery.kcal!;
       });
 
       aggregatedData[grocery] = (aggregatedData[grocery] ?? 0) + total;
@@ -92,8 +98,7 @@ Future<ChartState> kcalChartNotifier(
           ],
         ),
         title: entry.key.name,
-        tooltip:
-            "${doubleNumberFormat.format(entry.value)}${entry.key.unit.name}",
+        tooltip: doubleNumberFormat.format(entry.value),
       ),
     );
 

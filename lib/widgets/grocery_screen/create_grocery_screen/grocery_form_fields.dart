@@ -25,6 +25,8 @@ class GroceryFormFields extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final unitType = UnitConversion.unitType(data.unit);
+
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -195,7 +197,9 @@ class GroceryFormFields extends StatelessWidget {
           ),
           TextFormField(
             controller: kcalController,
-            decoration: InputDecoration(labelText: "kcal/100g"),
+            decoration: InputDecoration(
+              labelText: unitType == UnitType.misc ? "kcal/unit" : "kcal/100g",
+            ),
             keyboardType: TextInputType.numberWithOptions(decimal: true),
             validator: (value) => value?.isEmpty == false
                 ? doubleNumberFormat.tryParse(value!) == null

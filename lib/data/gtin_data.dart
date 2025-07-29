@@ -28,9 +28,9 @@ abstract class GTINData with _$GTINData {
     final match = quantitiyRegEx.firstMatch(quantity);
 
     if (match != null) {
-      final amountStr = match.group(1)!;
+      final amountString = match.group(1)!;
       final unitString = match.group(2)!;
-      final amount = double.tryParse(amountStr.replaceAll(',', '.'));
+      final amount = double.tryParse(amountString.replaceAll(',', '.'));
 
       final unit = UnitEnum.values.firstWhere(
         (element) => element.name == unitString,

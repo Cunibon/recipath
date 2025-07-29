@@ -6,7 +6,7 @@ part of 'kcal_chart_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$kcalChartNotifierHash() => r'1cd25133905dbb3202e9c477bfa3ce029a1fb45f';
+String _$kcalChartNotifierHash() => r'7d6e578d18059015b9124c34c56c869710af920e';
 
 /// Copied from Dart SDK
 class _SystemHash {
