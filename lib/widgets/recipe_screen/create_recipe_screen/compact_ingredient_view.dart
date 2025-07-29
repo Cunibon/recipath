@@ -32,7 +32,9 @@ class CompactIngredientView extends ConsumerWidget {
 
           return Text(
             "● ${e.toReadable(groceryMap.value![e.groceryId]!)}",
-            style: inStorage ? TextStyle(color: Colors.green) : null,
+            style: inStorage && checkStorage
+                ? TextStyle(color: Colors.green)
+                : null,
           );
         }).toList(),
       ),

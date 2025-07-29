@@ -34,7 +34,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase([QueryExecutor? executor]) : super(executor ?? _openConnection());
 
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 3;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -45,9 +45,12 @@ class AppDatabase extends _$AppDatabase {
       await customStatement('PRAGMA foreign_keys = ON;');
     },
     onUpgrade: (m, from, to) async {
-      if (from == 1) {
+      if (from < 2) {
         await m.addColumn(recipeTable, recipeTable.archived);
         await m.createTable(recipeStatisticTable);
+      }
+      if (from < 3) {
+        await m.addColumn(groceryTable, groceryTable.kcal);
       }
     },
   );

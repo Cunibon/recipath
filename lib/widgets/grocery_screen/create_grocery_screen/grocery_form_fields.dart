@@ -6,6 +6,7 @@ import 'package:recipe_list/data/unit_enum.dart';
 class GroceryFormFields extends StatelessWidget {
   const GroceryFormFields({
     required this.updateData,
+    required this.nameController,
     required this.amountController,
     required this.conversionController,
     required this.kcalController,
@@ -15,6 +16,7 @@ class GroceryFormFields extends StatelessWidget {
 
   final void Function(GroceryData data) updateData;
 
+  final TextEditingController nameController;
   final TextEditingController amountController;
   final TextEditingController conversionController;
   final TextEditingController kcalController;
@@ -27,7 +29,7 @@ class GroceryFormFields extends StatelessWidget {
       child: Column(
         children: [
           TextFormField(
-            initialValue: data.name,
+            controller: nameController,
             decoration: InputDecoration(labelText: "Name"),
             validator: (value) =>
                 value == null || value.isEmpty ? "Add name" : null,

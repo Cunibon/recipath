@@ -45,7 +45,6 @@ class HistoryRecipeItem extends ConsumerWidget {
                     ],
                   ),
                   CompactIngredientView(
-                    checkStorage: true,
                     ingredients: data.recipe.getIngredients(groceryMap),
                   ),
                 ],
