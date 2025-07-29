@@ -20,3 +20,4 @@ Color getRandomColorBasedOnString(String string) {
 final doubleNumberFormat = NumberFormat()..maximumFractionDigits = 2;
 
 final dateFormat = DateFormat("dd.MM.yy");
+final dateTimeFormat = DateFormat("dd.MM.yy HH:mm");

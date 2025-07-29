@@ -45,30 +45,36 @@ class CompactRecipeItem extends ConsumerWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          children: [
-                            Text(
-                              data.title.trim(),
-                              style: Theme.of(context).textTheme.titleMedium!,
-                            ),
-                            if (timer != null)
-                              Icon(Icons.timer, color: Colors.amber),
-                            FutureBuilder(
-                              future: ref
-                                  .read(recipeStatisticsRepoNotifierProvider)
-                                  .getAverageTimeForRecipe(data.id),
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState ==
-                                        ConnectionState.done &&
-                                    snapshot.data != null) {
-                                  return Text(
-                                    " (Ø ${snapshot.data!.inMinutes.toString()}min)",
-                                  );
-                                }
-                                return SizedBox.shrink();
-                              },
-                            ),
-                          ],
+                        Expanded(
+                          child: Row(
+                            children: [
+                              Flexible(
+                                child: Text(
+                                  data.title.trim(),
+                                  style: Theme.of(
+                                    context,
+                                  ).textTheme.titleMedium!,
+                                ),
+                              ),
+                              if (timer != null)
+                                Icon(Icons.timer, color: Colors.amber),
+                              FutureBuilder(
+                                future: ref
+                                    .read(recipeStatisticsRepoNotifierProvider)
+                                    .getAverageTimeForRecipe(data.id),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                          ConnectionState.done &&
+                                      snapshot.data != null) {
+                                    return Text(
+                                      " (Ø ${snapshot.data!.inMinutes.toString()}min)",
+                                    );
+                                  }
+                                  return SizedBox.shrink();
+                                },
+                              ),
+                            ],
+                          ),
                         ),
                         IconButton(
                           onPressed: () {

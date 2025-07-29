@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_list/widgets/dashboard_screen/charts/async_chart.dart';
-import 'package:recipe_list/widgets/dashboard_screen/charts/providers/recipe_chart_notifier.dart';
+import 'package:recipe_list/widgets/dashboard_screen/charts/base_chart.dart';
+import 'package:recipe_list/widgets/dashboard_screen/charts/recipe_chart/providers/recipe_chart_notifier.dart';
 
 class RecipeChart extends ConsumerWidget {
   const RecipeChart({
@@ -22,10 +23,14 @@ class RecipeChart extends ConsumerWidget {
 
     return AsyncChart(
       asyncState: state,
-      horizontalInterval: 1,
-      horizontalTitleInterval: 10,
-      onTap: (index) =>
-          onTap(index != null ? state.value!.entries[index].identifier : null),
+      builder: (data) => BaseChart(
+        state: data,
+        horizontalInterval: 1,
+        horizontalTitleInterval: 10,
+        onTap: (index) => onTap(
+          index != null ? state.value!.entries[index].identifier : null,
+        ),
+      ),
     );
   }
 }

@@ -37,11 +37,13 @@ class HistoryRecipeItem extends ConsumerWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        data.recipe.title.trim(),
-                        style: Theme.of(context).textTheme.titleMedium!,
+                      Flexible(
+                        child: Text(
+                          data.recipe.title.trim(),
+                          style: Theme.of(context).textTheme.titleMedium!,
+                        ),
                       ),
-                      Text(dateFormat.format(data.statistics.startDate)),
+                      Text(dateTimeFormat.format(data.statistics.startDate)),
                     ],
                   ),
                   CompactIngredientView(
