@@ -9,17 +9,23 @@ import 'package:recipe_list/data/recipe_statistic_data.dart';
 import 'package:recipe_list/widgets/grocery_screen/providers/grocery_notifier.dart';
 import 'package:recipe_list/widgets/recipe_screen/providers/recipe_notifier.dart';
 import 'package:recipe_list/widgets/recipe_screen/providers/timer_notifier.dart';
+import 'package:recipe_list/widgets/recipe_screen/recipe_overview_screen/recipe_button/count_up_timer.dart';
 import 'package:recipe_list/widgets/recipe_screen/recipe_overview_screen/recipe_button/duration_picker_dialog.dart';
 import 'package:recipe_list/widgets/storage_screen/providers/storage_notifier.dart';
 
 class FinishRecipeButton extends ConsumerWidget {
-  const FinishRecipeButton({required this.recipeId, super.key});
+  const FinishRecipeButton({
+    required this.timerStartTime,
+    required this.recipeId,
+    super.key,
+  });
 
+  final DateTime timerStartTime;
   final String recipeId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return FloatingActionButton(
+    return FloatingActionButton.extended(
       onPressed: () async {
         final scaffoldMessenger = ScaffoldMessenger.of(context);
 
@@ -75,7 +81,13 @@ class FinishRecipeButton extends ConsumerWidget {
           ),
         );
       },
-      child: Icon(Icons.check),
+      label: Row(
+        children: [
+          CountUpTimer(startTime: timerStartTime),
+          SizedBox(width: 20),
+          Icon(Icons.check),
+        ],
+      ),
     );
   }
 }

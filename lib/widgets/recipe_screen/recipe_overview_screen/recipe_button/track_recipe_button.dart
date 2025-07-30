@@ -15,6 +15,6 @@ class TrackRecipeButton extends ConsumerWidget {
 
     return timer == null
         ? StartRecipeButton(recipeId: recipeId)
-        : FinishRecipeButton(recipeId: recipeId);
+        : FinishRecipeButton(timerStartTime: timer, recipeId: recipeId);
   }
 }
