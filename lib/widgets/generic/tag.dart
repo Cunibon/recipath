@@ -7,6 +7,15 @@ class Tag extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(color: getRandomColorBasedOnString(text), child: Text(text));
+    return Container(
+      decoration: BoxDecoration(
+        color: getRandomColorBasedOnString(text),
+        borderRadius: BorderRadius.circular(25),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text(text, style: Theme.of(context).textTheme.titleMedium),
+      ),
+    );
   }
 }

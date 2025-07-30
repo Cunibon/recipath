@@ -21,16 +21,24 @@ class RecipeChart extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(recipeChartNotifierProvider(dateRange, recipeId));
 
-    return AsyncChart(
-      asyncState: state,
-      builder: (data) => BaseChart(
-        state: data,
-        horizontalInterval: 1,
-        horizontalTitleInterval: 10,
-        onTap: (index) => onTap(
-          index != null ? state.value!.entries[index].identifier : null,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text("Recipe usage", style: Theme.of(context).textTheme.titleLarge),
+        Divider(),
+        AsyncChart(
+          asyncState: state,
+          builder: (data) => BaseChart(
+            state: data,
+            horizontalInterval: 1,
+            horizontalTitleInterval: 10,
+            onTap: (index) => onTap(
+              index != null ? state.value!.entries[index].identifier : null,
+            ),
+          ),
         ),
-      ),
+      ],
     );
   }
 }

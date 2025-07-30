@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:recipe_list/common.dart';
 import 'package:recipe_list/data/grocery_data.dart';
 import 'package:recipe_list/data/unit_enum.dart';
+import 'package:recipe_list/widgets/grocery_screen/create_grocery_screen/double_input_field.dart';
 
 class GroceryFormFields extends StatelessWidget {
   const GroceryFormFields({
@@ -10,6 +11,10 @@ class GroceryFormFields extends StatelessWidget {
     required this.amountController,
     required this.conversionController,
     required this.kcalController,
+    required this.fatController,
+    required this.carbsController,
+    required this.proteinController,
+    required this.fiberController,
     required this.data,
     super.key,
   });
@@ -20,6 +25,10 @@ class GroceryFormFields extends StatelessWidget {
   final TextEditingController amountController;
   final TextEditingController conversionController;
   final TextEditingController kcalController;
+  final TextEditingController fatController;
+  final TextEditingController carbsController;
+  final TextEditingController proteinController;
+  final TextEditingController fiberController;
 
   final GroceryData data;
 
@@ -195,21 +204,55 @@ class GroceryFormFields extends StatelessWidget {
               ],
             ],
           ),
-          TextFormField(
+          DoubleInputField(
             controller: kcalController,
-            decoration: InputDecoration(
-              labelText: unitType == UnitType.misc ? "kcal/unit" : "kcal/100g",
-            ),
-            keyboardType: TextInputType.numberWithOptions(decimal: true),
-            validator: (value) => value?.isEmpty == false
-                ? doubleNumberFormat.tryParse(value!) == null
-                      ? "Add kcal amount"
-                      : null
-                : null,
-            onChanged: (value) {
-              final parsed = doubleNumberFormat.tryParse(value)?.toDouble();
+            labelText: unitType == UnitType.misc ? "kcal/unit" : "kcal/100g",
+            validatorText: "Add kcal amount",
+            onChanged: (parsed) {
               if (parsed != null) {
                 updateData(data.copyWith(kcal: parsed));
+              }
+            },
+          ),
+          DoubleInputField(
+            controller: fatController,
+            labelText: unitType == UnitType.misc ? "fat/unit" : "fat/100g",
+            validatorText: "Add fat amount",
+            onChanged: (parsed) {
+              if (parsed != null) {
+                updateData(data.copyWith(fat: parsed));
+              }
+            },
+          ),
+          DoubleInputField(
+            controller: carbsController,
+            labelText: unitType == UnitType.misc ? "carbs/unit" : "carbs/100g",
+            validatorText: "Add carbs amount",
+            onChanged: (parsed) {
+              if (parsed != null) {
+                updateData(data.copyWith(carbs: parsed));
+              }
+            },
+          ),
+          DoubleInputField(
+            controller: proteinController,
+            labelText: unitType == UnitType.misc
+                ? "protein/unit"
+                : "protein/100g",
+            validatorText: "Add protein amount",
+            onChanged: (parsed) {
+              if (parsed != null) {
+                updateData(data.copyWith(protein: parsed));
+              }
+            },
+          ),
+          DoubleInputField(
+            controller: fiberController,
+            labelText: unitType == UnitType.misc ? "fiber/unit" : "fiber/100g",
+            validatorText: "Add fiber amount",
+            onChanged: (parsed) {
+              if (parsed != null) {
+                updateData(data.copyWith(fiber: parsed));
               }
             },
           ),

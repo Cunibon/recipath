@@ -1,12 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'kcal_chart_notifier.dart';
+part of 'nutrition_chart_notifier.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$kcalChartNotifierHash() => r'7d6e578d18059015b9124c34c56c869710af920e';
+String _$nutritionChartNotifierHash() =>
+    r'0d3cf9e89bdfee4df21ff4d20cd1e66298c26124';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,26 +30,26 @@ class _SystemHash {
   }
 }
 
-/// See also [kcalChartNotifier].
-@ProviderFor(kcalChartNotifier)
-const kcalChartNotifierProvider = KcalChartNotifierFamily();
+/// See also [nutritionChartNotifier].
+@ProviderFor(nutritionChartNotifier)
+const nutritionChartNotifierProvider = NutritionChartNotifierFamily();
 
-/// See also [kcalChartNotifier].
-class KcalChartNotifierFamily extends Family<AsyncValue<ChartState>> {
-  /// See also [kcalChartNotifier].
-  const KcalChartNotifierFamily();
+/// See also [nutritionChartNotifier].
+class NutritionChartNotifierFamily extends Family<AsyncValue<ChartState>> {
+  /// See also [nutritionChartNotifier].
+  const NutritionChartNotifierFamily();
 
-  /// See also [kcalChartNotifier].
-  KcalChartNotifierProvider call(
+  /// See also [nutritionChartNotifier].
+  NutritionChartNotifierProvider call(
     DateTimeRange<DateTime> dateRange,
     String? recipeId,
   ) {
-    return KcalChartNotifierProvider(dateRange, recipeId);
+    return NutritionChartNotifierProvider(dateRange, recipeId);
   }
 
   @override
-  KcalChartNotifierProvider getProviderOverride(
-    covariant KcalChartNotifierProvider provider,
+  NutritionChartNotifierProvider getProviderOverride(
+    covariant NutritionChartNotifierProvider provider,
   ) {
     return call(provider.dateRange, provider.recipeId);
   }
@@ -65,29 +66,35 @@ class KcalChartNotifierFamily extends Family<AsyncValue<ChartState>> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'kcalChartNotifierProvider';
+  String? get name => r'nutritionChartNotifierProvider';
 }
 
-/// See also [kcalChartNotifier].
-class KcalChartNotifierProvider extends AutoDisposeFutureProvider<ChartState> {
-  /// See also [kcalChartNotifier].
-  KcalChartNotifierProvider(DateTimeRange<DateTime> dateRange, String? recipeId)
-    : this._internal(
-        (ref) =>
-            kcalChartNotifier(ref as KcalChartNotifierRef, dateRange, recipeId),
-        from: kcalChartNotifierProvider,
-        name: r'kcalChartNotifierProvider',
+/// See also [nutritionChartNotifier].
+class NutritionChartNotifierProvider
+    extends AutoDisposeFutureProvider<ChartState> {
+  /// See also [nutritionChartNotifier].
+  NutritionChartNotifierProvider(
+    DateTimeRange<DateTime> dateRange,
+    String? recipeId,
+  ) : this._internal(
+        (ref) => nutritionChartNotifier(
+          ref as NutritionChartNotifierRef,
+          dateRange,
+          recipeId,
+        ),
+        from: nutritionChartNotifierProvider,
+        name: r'nutritionChartNotifierProvider',
         debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
             ? null
-            : _$kcalChartNotifierHash,
-        dependencies: KcalChartNotifierFamily._dependencies,
+            : _$nutritionChartNotifierHash,
+        dependencies: NutritionChartNotifierFamily._dependencies,
         allTransitiveDependencies:
-            KcalChartNotifierFamily._allTransitiveDependencies,
+            NutritionChartNotifierFamily._allTransitiveDependencies,
         dateRange: dateRange,
         recipeId: recipeId,
       );
 
-  KcalChartNotifierProvider._internal(
+  NutritionChartNotifierProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -103,12 +110,12 @@ class KcalChartNotifierProvider extends AutoDisposeFutureProvider<ChartState> {
 
   @override
   Override overrideWith(
-    FutureOr<ChartState> Function(KcalChartNotifierRef provider) create,
+    FutureOr<ChartState> Function(NutritionChartNotifierRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
-      override: KcalChartNotifierProvider._internal(
-        (ref) => create(ref as KcalChartNotifierRef),
+      override: NutritionChartNotifierProvider._internal(
+        (ref) => create(ref as NutritionChartNotifierRef),
         from: from,
         name: null,
         dependencies: null,
@@ -122,12 +129,12 @@ class KcalChartNotifierProvider extends AutoDisposeFutureProvider<ChartState> {
 
   @override
   AutoDisposeFutureProviderElement<ChartState> createElement() {
-    return _KcalChartNotifierProviderElement(this);
+    return _NutritionChartNotifierProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is KcalChartNotifierProvider &&
+    return other is NutritionChartNotifierProvider &&
         other.dateRange == dateRange &&
         other.recipeId == recipeId;
   }
@@ -144,7 +151,7 @@ class KcalChartNotifierProvider extends AutoDisposeFutureProvider<ChartState> {
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-mixin KcalChartNotifierRef on AutoDisposeFutureProviderRef<ChartState> {
+mixin NutritionChartNotifierRef on AutoDisposeFutureProviderRef<ChartState> {
   /// The parameter `dateRange` of this provider.
   DateTimeRange<DateTime> get dateRange;
 
@@ -152,16 +159,16 @@ mixin KcalChartNotifierRef on AutoDisposeFutureProviderRef<ChartState> {
   String? get recipeId;
 }
 
-class _KcalChartNotifierProviderElement
+class _NutritionChartNotifierProviderElement
     extends AutoDisposeFutureProviderElement<ChartState>
-    with KcalChartNotifierRef {
-  _KcalChartNotifierProviderElement(super.provider);
+    with NutritionChartNotifierRef {
+  _NutritionChartNotifierProviderElement(super.provider);
 
   @override
   DateTimeRange<DateTime> get dateRange =>
-      (origin as KcalChartNotifierProvider).dateRange;
+      (origin as NutritionChartNotifierProvider).dateRange;
   @override
-  String? get recipeId => (origin as KcalChartNotifierProvider).recipeId;
+  String? get recipeId => (origin as NutritionChartNotifierProvider).recipeId;
 }
 
 // ignore_for_file: type=lint

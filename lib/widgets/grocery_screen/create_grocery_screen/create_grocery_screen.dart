@@ -32,6 +32,10 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
   final amountController = TextEditingController();
   final conversionController = TextEditingController();
   final kcalController = TextEditingController();
+  final fatController = TextEditingController();
+  final carbsController = TextEditingController();
+  final proteinController = TextEditingController();
+  final fiberController = TextEditingController();
   late GroceryData initialData;
   late GroceryData data;
 
@@ -58,6 +62,18 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
     kcalController.text = data.kcal == null
         ? ""
         : doubleNumberFormat.format(data.kcal);
+    fatController.text = data.fat == null
+        ? ""
+        : doubleNumberFormat.format(data.fat);
+    carbsController.text = data.carbs == null
+        ? ""
+        : doubleNumberFormat.format(data.carbs);
+    proteinController.text = data.protein == null
+        ? ""
+        : doubleNumberFormat.format(data.protein);
+    fiberController.text = data.fiber == null
+        ? ""
+        : doubleNumberFormat.format(data.fiber);
   }
 
   @override
@@ -106,6 +122,10 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
                         : data.conversionAmount,
                     conversionUnit: conversion,
                     kcal: gtin.kcal,
+                    fat: gtin.fat,
+                    carbs: gtin.carbs,
+                    protein: gtin.protein,
+                    fiber: gtin.fiber,
                   );
 
                   nameController.text = newData.name;
@@ -118,6 +138,24 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
                   if (newData.kcal != null) {
                     kcalController.text = doubleNumberFormat.format(
                       newData.kcal,
+                    );
+                  }
+                  if (newData.fat != null) {
+                    fatController.text = doubleNumberFormat.format(newData.fat);
+                  }
+                  if (newData.carbs != null) {
+                    carbsController.text = doubleNumberFormat.format(
+                      newData.carbs,
+                    );
+                  }
+                  if (newData.protein != null) {
+                    proteinController.text = doubleNumberFormat.format(
+                      newData.protein,
+                    );
+                  }
+                  if (newData.fiber != null) {
+                    fiberController.text = doubleNumberFormat.format(
+                      newData.fiber,
                     );
                   }
                   setState(() {
@@ -204,6 +242,10 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
               amountController: amountController,
               conversionController: conversionController,
               kcalController: kcalController,
+              fatController: fatController,
+              carbsController: carbsController,
+              proteinController: proteinController,
+              fiberController: fiberController,
               data: data,
             ),
           ),

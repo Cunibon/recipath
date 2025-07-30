@@ -17,6 +17,10 @@ abstract class GroceryData with _$GroceryData {
     required double conversionAmount,
     required UnitEnum conversionUnit,
     double? kcal,
+    double? fat,
+    double? carbs,
+    double? protein,
+    double? fiber,
   }) = _GroceryData;
 
   factory GroceryData.fromJson(Map<String, Object?> json) =>
@@ -30,6 +34,10 @@ abstract class GroceryData with _$GroceryData {
     conversionAmount: data.conversionAmount,
     conversionUnit: $enumDecode(_$UnitEnumEnumMap, data.conversionUnit),
     kcal: data.kcal,
+    fat: data.fat,
+    carbs: data.carbs,
+    protein: data.protein,
+    fiber: data.fiber,
   );
 
   static UnitEnum jsonStringToEnum(String enumString) =>
@@ -93,5 +101,9 @@ extension GroceryDataFunctions on GroceryData {
     conversionAmount: conversionAmount,
     conversionUnit: _$UnitEnumEnumMap[conversionUnit]!,
     kcal: drift.Value(kcal),
+    fat: drift.Value(fat),
+    carbs: drift.Value(carbs),
+    protein: drift.Value(protein),
+    fiber: drift.Value(fiber),
   );
 }

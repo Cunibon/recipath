@@ -14,6 +14,10 @@ _GroceryData _$GroceryDataFromJson(Map<String, dynamic> json) => _GroceryData(
   conversionAmount: (json['conversionAmount'] as num).toDouble(),
   conversionUnit: $enumDecode(_$UnitEnumEnumMap, json['conversionUnit']),
   kcal: (json['kcal'] as num?)?.toDouble(),
+  fat: (json['fat'] as num?)?.toDouble(),
+  carbs: (json['carbs'] as num?)?.toDouble(),
+  protein: (json['protein'] as num?)?.toDouble(),
+  fiber: (json['fiber'] as num?)?.toDouble(),
 );
 
 Map<String, dynamic> _$GroceryDataToJson(_GroceryData instance) =>
@@ -25,6 +29,10 @@ Map<String, dynamic> _$GroceryDataToJson(_GroceryData instance) =>
       'conversionAmount': instance.conversionAmount,
       'conversionUnit': _$UnitEnumEnumMap[instance.conversionUnit]!,
       'kcal': instance.kcal,
+      'fat': instance.fat,
+      'carbs': instance.carbs,
+      'protein': instance.protein,
+      'fiber': instance.fiber,
     };
 
 const _$UnitEnumEnumMap = {

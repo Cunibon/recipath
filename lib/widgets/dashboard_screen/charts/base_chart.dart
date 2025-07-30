@@ -9,8 +9,9 @@ class BaseChart extends StatelessWidget {
     required this.state,
     required this.horizontalInterval,
     required this.horizontalTitleInterval,
-    this.onTap,
     this.axisSpace = 75,
+    this.onTap,
+    this.touchTooltipData,
     super.key,
   });
 
@@ -21,6 +22,7 @@ class BaseChart extends StatelessWidget {
   final double axisSpace;
 
   final void Function(int? index)? onTap;
+  final BarTouchTooltipData? touchTooltipData;
 
   final titlesStyle = const TextStyle(
     color: Colors.blueAccent,
@@ -76,27 +78,29 @@ class BaseChart extends StatelessWidget {
             }
           }
         : null,
-    touchTooltipData: BarTouchTooltipData(
-      getTooltipColor: (group) => Colors.transparent,
-      tooltipPadding: EdgeInsets.zero,
-      tooltipMargin: 8,
-      getTooltipItem:
-          (
-            BarChartGroupData group,
-            int groupIndex,
-            BarChartRodData rod,
-            int rodIndex,
-          ) {
-            final toolTip = state.entries.elementAtOrNull(groupIndex);
-            if (toolTip != null) {
-              return BarTooltipItem(
-                state.entries[groupIndex].tooltip,
-                TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-              );
-            }
-            return null;
-          },
-    ),
+    touchTooltipData:
+        touchTooltipData ??
+        BarTouchTooltipData(
+          getTooltipColor: (group) => Colors.transparent,
+          tooltipPadding: EdgeInsets.zero,
+          tooltipMargin: 8,
+          getTooltipItem:
+              (
+                BarChartGroupData group,
+                int groupIndex,
+                BarChartRodData rod,
+                int rodIndex,
+              ) {
+                final toolTip = state.entries.elementAtOrNull(groupIndex);
+                if (toolTip != null) {
+                  return BarTooltipItem(
+                    state.entries[groupIndex].tooltip,
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                  );
+                }
+                return null;
+              },
+        ),
   );
 
   FlTitlesData titlesData() => FlTitlesData(

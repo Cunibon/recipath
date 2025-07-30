@@ -18,13 +18,21 @@ class GroceryChart extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(groceryChartNotifierProvider(dateRange, recipeId));
 
-    return AsyncChart(
-      asyncState: state,
-      builder: (data) => BaseChart(
-        state: data,
-        horizontalInterval: 100,
-        horizontalTitleInterval: 500,
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text("Grocery usage", style: Theme.of(context).textTheme.titleLarge),
+        Divider(),
+        AsyncChart(
+          asyncState: state,
+          builder: (data) => BaseChart(
+            state: data,
+            horizontalInterval: 100,
+            horizontalTitleInterval: 500,
+          ),
+        ),
+      ],
     );
   }
 }

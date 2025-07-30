@@ -6,7 +6,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'drawer_destination_notifier.g.dart';
 
-@Riverpod(dependencies: [])
+@riverpod
 List<List<DrawerDestination>> drawerDestinations(Ref ref) => [
   [
     DrawerDestination(

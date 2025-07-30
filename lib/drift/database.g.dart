@@ -705,6 +705,44 @@ class $GroceryTableTable extends GroceryTable
     type: DriftSqlType.double,
     requiredDuringInsert: false,
   );
+  static const VerificationMeta _fatMeta = const VerificationMeta('fat');
+  @override
+  late final GeneratedColumn<double> fat = GeneratedColumn<double>(
+    'fat',
+    aliasedName,
+    true,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _carbsMeta = const VerificationMeta('carbs');
+  @override
+  late final GeneratedColumn<double> carbs = GeneratedColumn<double>(
+    'carbs',
+    aliasedName,
+    true,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _proteinMeta = const VerificationMeta(
+    'protein',
+  );
+  @override
+  late final GeneratedColumn<double> protein = GeneratedColumn<double>(
+    'protein',
+    aliasedName,
+    true,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _fiberMeta = const VerificationMeta('fiber');
+  @override
+  late final GeneratedColumn<double> fiber = GeneratedColumn<double>(
+    'fiber',
+    aliasedName,
+    true,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+  );
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -714,6 +752,10 @@ class $GroceryTableTable extends GroceryTable
     conversionAmount,
     conversionUnit,
     kcal,
+    fat,
+    carbs,
+    protein,
+    fiber,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -787,6 +829,30 @@ class $GroceryTableTable extends GroceryTable
         kcal.isAcceptableOrUnknown(data['kcal']!, _kcalMeta),
       );
     }
+    if (data.containsKey('fat')) {
+      context.handle(
+        _fatMeta,
+        fat.isAcceptableOrUnknown(data['fat']!, _fatMeta),
+      );
+    }
+    if (data.containsKey('carbs')) {
+      context.handle(
+        _carbsMeta,
+        carbs.isAcceptableOrUnknown(data['carbs']!, _carbsMeta),
+      );
+    }
+    if (data.containsKey('protein')) {
+      context.handle(
+        _proteinMeta,
+        protein.isAcceptableOrUnknown(data['protein']!, _proteinMeta),
+      );
+    }
+    if (data.containsKey('fiber')) {
+      context.handle(
+        _fiberMeta,
+        fiber.isAcceptableOrUnknown(data['fiber']!, _fiberMeta),
+      );
+    }
     return context;
   }
 
@@ -824,6 +890,22 @@ class $GroceryTableTable extends GroceryTable
         DriftSqlType.double,
         data['${effectivePrefix}kcal'],
       ),
+      fat: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}fat'],
+      ),
+      carbs: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}carbs'],
+      ),
+      protein: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}protein'],
+      ),
+      fiber: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}fiber'],
+      ),
     );
   }
 
@@ -842,6 +924,10 @@ class GroceryTableData extends DataClass
   final double conversionAmount;
   final String conversionUnit;
   final double? kcal;
+  final double? fat;
+  final double? carbs;
+  final double? protein;
+  final double? fiber;
   const GroceryTableData({
     required this.id,
     required this.name,
@@ -850,6 +936,10 @@ class GroceryTableData extends DataClass
     required this.conversionAmount,
     required this.conversionUnit,
     this.kcal,
+    this.fat,
+    this.carbs,
+    this.protein,
+    this.fiber,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -863,6 +953,18 @@ class GroceryTableData extends DataClass
     if (!nullToAbsent || kcal != null) {
       map['kcal'] = Variable<double>(kcal);
     }
+    if (!nullToAbsent || fat != null) {
+      map['fat'] = Variable<double>(fat);
+    }
+    if (!nullToAbsent || carbs != null) {
+      map['carbs'] = Variable<double>(carbs);
+    }
+    if (!nullToAbsent || protein != null) {
+      map['protein'] = Variable<double>(protein);
+    }
+    if (!nullToAbsent || fiber != null) {
+      map['fiber'] = Variable<double>(fiber);
+    }
     return map;
   }
 
@@ -875,6 +977,16 @@ class GroceryTableData extends DataClass
       conversionAmount: Value(conversionAmount),
       conversionUnit: Value(conversionUnit),
       kcal: kcal == null && nullToAbsent ? const Value.absent() : Value(kcal),
+      fat: fat == null && nullToAbsent ? const Value.absent() : Value(fat),
+      carbs: carbs == null && nullToAbsent
+          ? const Value.absent()
+          : Value(carbs),
+      protein: protein == null && nullToAbsent
+          ? const Value.absent()
+          : Value(protein),
+      fiber: fiber == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fiber),
     );
   }
 
@@ -891,6 +1003,10 @@ class GroceryTableData extends DataClass
       conversionAmount: serializer.fromJson<double>(json['conversionAmount']),
       conversionUnit: serializer.fromJson<String>(json['conversionUnit']),
       kcal: serializer.fromJson<double?>(json['kcal']),
+      fat: serializer.fromJson<double?>(json['fat']),
+      carbs: serializer.fromJson<double?>(json['carbs']),
+      protein: serializer.fromJson<double?>(json['protein']),
+      fiber: serializer.fromJson<double?>(json['fiber']),
     );
   }
   @override
@@ -904,6 +1020,10 @@ class GroceryTableData extends DataClass
       'conversionAmount': serializer.toJson<double>(conversionAmount),
       'conversionUnit': serializer.toJson<String>(conversionUnit),
       'kcal': serializer.toJson<double?>(kcal),
+      'fat': serializer.toJson<double?>(fat),
+      'carbs': serializer.toJson<double?>(carbs),
+      'protein': serializer.toJson<double?>(protein),
+      'fiber': serializer.toJson<double?>(fiber),
     };
   }
 
@@ -915,6 +1035,10 @@ class GroceryTableData extends DataClass
     double? conversionAmount,
     String? conversionUnit,
     Value<double?> kcal = const Value.absent(),
+    Value<double?> fat = const Value.absent(),
+    Value<double?> carbs = const Value.absent(),
+    Value<double?> protein = const Value.absent(),
+    Value<double?> fiber = const Value.absent(),
   }) => GroceryTableData(
     id: id ?? this.id,
     name: name ?? this.name,
@@ -923,6 +1047,10 @@ class GroceryTableData extends DataClass
     conversionAmount: conversionAmount ?? this.conversionAmount,
     conversionUnit: conversionUnit ?? this.conversionUnit,
     kcal: kcal.present ? kcal.value : this.kcal,
+    fat: fat.present ? fat.value : this.fat,
+    carbs: carbs.present ? carbs.value : this.carbs,
+    protein: protein.present ? protein.value : this.protein,
+    fiber: fiber.present ? fiber.value : this.fiber,
   );
   GroceryTableData copyWithCompanion(GroceryTableCompanion data) {
     return GroceryTableData(
@@ -939,6 +1067,10 @@ class GroceryTableData extends DataClass
           ? data.conversionUnit.value
           : this.conversionUnit,
       kcal: data.kcal.present ? data.kcal.value : this.kcal,
+      fat: data.fat.present ? data.fat.value : this.fat,
+      carbs: data.carbs.present ? data.carbs.value : this.carbs,
+      protein: data.protein.present ? data.protein.value : this.protein,
+      fiber: data.fiber.present ? data.fiber.value : this.fiber,
     );
   }
 
@@ -951,7 +1083,11 @@ class GroceryTableData extends DataClass
           ..write('unit: $unit, ')
           ..write('conversionAmount: $conversionAmount, ')
           ..write('conversionUnit: $conversionUnit, ')
-          ..write('kcal: $kcal')
+          ..write('kcal: $kcal, ')
+          ..write('fat: $fat, ')
+          ..write('carbs: $carbs, ')
+          ..write('protein: $protein, ')
+          ..write('fiber: $fiber')
           ..write(')'))
         .toString();
   }
@@ -965,6 +1101,10 @@ class GroceryTableData extends DataClass
     conversionAmount,
     conversionUnit,
     kcal,
+    fat,
+    carbs,
+    protein,
+    fiber,
   );
   @override
   bool operator ==(Object other) =>
@@ -976,7 +1116,11 @@ class GroceryTableData extends DataClass
           other.unit == this.unit &&
           other.conversionAmount == this.conversionAmount &&
           other.conversionUnit == this.conversionUnit &&
-          other.kcal == this.kcal);
+          other.kcal == this.kcal &&
+          other.fat == this.fat &&
+          other.carbs == this.carbs &&
+          other.protein == this.protein &&
+          other.fiber == this.fiber);
 }
 
 class GroceryTableCompanion extends UpdateCompanion<GroceryTableData> {
@@ -987,6 +1131,10 @@ class GroceryTableCompanion extends UpdateCompanion<GroceryTableData> {
   final Value<double> conversionAmount;
   final Value<String> conversionUnit;
   final Value<double?> kcal;
+  final Value<double?> fat;
+  final Value<double?> carbs;
+  final Value<double?> protein;
+  final Value<double?> fiber;
   final Value<int> rowid;
   const GroceryTableCompanion({
     this.id = const Value.absent(),
@@ -996,6 +1144,10 @@ class GroceryTableCompanion extends UpdateCompanion<GroceryTableData> {
     this.conversionAmount = const Value.absent(),
     this.conversionUnit = const Value.absent(),
     this.kcal = const Value.absent(),
+    this.fat = const Value.absent(),
+    this.carbs = const Value.absent(),
+    this.protein = const Value.absent(),
+    this.fiber = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   GroceryTableCompanion.insert({
@@ -1006,6 +1158,10 @@ class GroceryTableCompanion extends UpdateCompanion<GroceryTableData> {
     required double conversionAmount,
     required String conversionUnit,
     this.kcal = const Value.absent(),
+    this.fat = const Value.absent(),
+    this.carbs = const Value.absent(),
+    this.protein = const Value.absent(),
+    this.fiber = const Value.absent(),
     this.rowid = const Value.absent(),
   }) : id = Value(id),
        name = Value(name),
@@ -1021,6 +1177,10 @@ class GroceryTableCompanion extends UpdateCompanion<GroceryTableData> {
     Expression<double>? conversionAmount,
     Expression<String>? conversionUnit,
     Expression<double>? kcal,
+    Expression<double>? fat,
+    Expression<double>? carbs,
+    Expression<double>? protein,
+    Expression<double>? fiber,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
@@ -1031,6 +1191,10 @@ class GroceryTableCompanion extends UpdateCompanion<GroceryTableData> {
       if (conversionAmount != null) 'conversion_amount': conversionAmount,
       if (conversionUnit != null) 'conversion_unit': conversionUnit,
       if (kcal != null) 'kcal': kcal,
+      if (fat != null) 'fat': fat,
+      if (carbs != null) 'carbs': carbs,
+      if (protein != null) 'protein': protein,
+      if (fiber != null) 'fiber': fiber,
       if (rowid != null) 'rowid': rowid,
     });
   }
@@ -1043,6 +1207,10 @@ class GroceryTableCompanion extends UpdateCompanion<GroceryTableData> {
     Value<double>? conversionAmount,
     Value<String>? conversionUnit,
     Value<double?>? kcal,
+    Value<double?>? fat,
+    Value<double?>? carbs,
+    Value<double?>? protein,
+    Value<double?>? fiber,
     Value<int>? rowid,
   }) {
     return GroceryTableCompanion(
@@ -1053,6 +1221,10 @@ class GroceryTableCompanion extends UpdateCompanion<GroceryTableData> {
       conversionAmount: conversionAmount ?? this.conversionAmount,
       conversionUnit: conversionUnit ?? this.conversionUnit,
       kcal: kcal ?? this.kcal,
+      fat: fat ?? this.fat,
+      carbs: carbs ?? this.carbs,
+      protein: protein ?? this.protein,
+      fiber: fiber ?? this.fiber,
       rowid: rowid ?? this.rowid,
     );
   }
@@ -1081,6 +1253,18 @@ class GroceryTableCompanion extends UpdateCompanion<GroceryTableData> {
     if (kcal.present) {
       map['kcal'] = Variable<double>(kcal.value);
     }
+    if (fat.present) {
+      map['fat'] = Variable<double>(fat.value);
+    }
+    if (carbs.present) {
+      map['carbs'] = Variable<double>(carbs.value);
+    }
+    if (protein.present) {
+      map['protein'] = Variable<double>(protein.value);
+    }
+    if (fiber.present) {
+      map['fiber'] = Variable<double>(fiber.value);
+    }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
     }
@@ -1097,6 +1281,10 @@ class GroceryTableCompanion extends UpdateCompanion<GroceryTableData> {
           ..write('conversionAmount: $conversionAmount, ')
           ..write('conversionUnit: $conversionUnit, ')
           ..write('kcal: $kcal, ')
+          ..write('fat: $fat, ')
+          ..write('carbs: $carbs, ')
+          ..write('protein: $protein, ')
+          ..write('fiber: $fiber, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -3442,6 +3630,10 @@ typedef $$GroceryTableTableCreateCompanionBuilder =
       required double conversionAmount,
       required String conversionUnit,
       Value<double?> kcal,
+      Value<double?> fat,
+      Value<double?> carbs,
+      Value<double?> protein,
+      Value<double?> fiber,
       Value<int> rowid,
     });
 typedef $$GroceryTableTableUpdateCompanionBuilder =
@@ -3453,6 +3645,10 @@ typedef $$GroceryTableTableUpdateCompanionBuilder =
       Value<double> conversionAmount,
       Value<String> conversionUnit,
       Value<double?> kcal,
+      Value<double?> fat,
+      Value<double?> carbs,
+      Value<double?> protein,
+      Value<double?> fiber,
       Value<int> rowid,
     });
 
@@ -3529,6 +3725,26 @@ class $$GroceryTableTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
+  ColumnFilters<double> get fat => $composableBuilder(
+    column: $table.fat,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get carbs => $composableBuilder(
+    column: $table.carbs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get protein => $composableBuilder(
+    column: $table.protein,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get fiber => $composableBuilder(
+    column: $table.fiber,
+    builder: (column) => ColumnFilters(column),
+  );
+
   Expression<bool> ingredientTableRefs(
     Expression<bool> Function($$IngredientTableTableFilterComposer f) f,
   ) {
@@ -3598,6 +3814,26 @@ class $$GroceryTableTableOrderingComposer
     column: $table.kcal,
     builder: (column) => ColumnOrderings(column),
   );
+
+  ColumnOrderings<double> get fat => $composableBuilder(
+    column: $table.fat,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get carbs => $composableBuilder(
+    column: $table.carbs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get protein => $composableBuilder(
+    column: $table.protein,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get fiber => $composableBuilder(
+    column: $table.fiber,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$GroceryTableTableAnnotationComposer
@@ -3635,6 +3871,18 @@ class $$GroceryTableTableAnnotationComposer
 
   GeneratedColumn<double> get kcal =>
       $composableBuilder(column: $table.kcal, builder: (column) => column);
+
+  GeneratedColumn<double> get fat =>
+      $composableBuilder(column: $table.fat, builder: (column) => column);
+
+  GeneratedColumn<double> get carbs =>
+      $composableBuilder(column: $table.carbs, builder: (column) => column);
+
+  GeneratedColumn<double> get protein =>
+      $composableBuilder(column: $table.protein, builder: (column) => column);
+
+  GeneratedColumn<double> get fiber =>
+      $composableBuilder(column: $table.fiber, builder: (column) => column);
 
   Expression<T> ingredientTableRefs<T extends Object>(
     Expression<T> Function($$IngredientTableTableAnnotationComposer a) f,
@@ -3697,6 +3945,10 @@ class $$GroceryTableTableTableManager
                 Value<double> conversionAmount = const Value.absent(),
                 Value<String> conversionUnit = const Value.absent(),
                 Value<double?> kcal = const Value.absent(),
+                Value<double?> fat = const Value.absent(),
+                Value<double?> carbs = const Value.absent(),
+                Value<double?> protein = const Value.absent(),
+                Value<double?> fiber = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => GroceryTableCompanion(
                 id: id,
@@ -3706,6 +3958,10 @@ class $$GroceryTableTableTableManager
                 conversionAmount: conversionAmount,
                 conversionUnit: conversionUnit,
                 kcal: kcal,
+                fat: fat,
+                carbs: carbs,
+                protein: protein,
+                fiber: fiber,
                 rowid: rowid,
               ),
           createCompanionCallback:
@@ -3717,6 +3973,10 @@ class $$GroceryTableTableTableManager
                 required double conversionAmount,
                 required String conversionUnit,
                 Value<double?> kcal = const Value.absent(),
+                Value<double?> fat = const Value.absent(),
+                Value<double?> carbs = const Value.absent(),
+                Value<double?> protein = const Value.absent(),
+                Value<double?> fiber = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => GroceryTableCompanion.insert(
                 id: id,
@@ -3726,6 +3986,10 @@ class $$GroceryTableTableTableManager
                 conversionAmount: conversionAmount,
                 conversionUnit: conversionUnit,
                 kcal: kcal,
+                fat: fat,
+                carbs: carbs,
+                protein: protein,
+                fiber: fiber,
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0

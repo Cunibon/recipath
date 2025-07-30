@@ -11,6 +11,10 @@ _GTINData _$GTINDataFromJson(Map<String, dynamic> json) => _GTINData(
   amount: (json['amount'] as num).toDouble(),
   unit: $enumDecode(_$UnitEnumEnumMap, json['unit']),
   kcal: (json['kcal'] as num?)?.toDouble(),
+  fat: (json['fat'] as num?)?.toDouble(),
+  carbs: (json['carbs'] as num?)?.toDouble(),
+  protein: (json['protein'] as num?)?.toDouble(),
+  fiber: (json['fiber'] as num?)?.toDouble(),
 );
 
 Map<String, dynamic> _$GTINDataToJson(_GTINData instance) => <String, dynamic>{
@@ -18,6 +22,10 @@ Map<String, dynamic> _$GTINDataToJson(_GTINData instance) => <String, dynamic>{
   'amount': instance.amount,
   'unit': _$UnitEnumEnumMap[instance.unit]!,
   'kcal': instance.kcal,
+  'fat': instance.fat,
+  'carbs': instance.carbs,
+  'protein': instance.protein,
+  'fiber': instance.fiber,
 };
 
 const _$UnitEnumEnumMap = {

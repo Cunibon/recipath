@@ -11,6 +11,10 @@ abstract class GTINData with _$GTINData {
     required double amount,
     required UnitEnum unit,
     double? kcal,
+    double? fat,
+    double? carbs,
+    double? protein,
+    double? fiber,
   }) = _GTINData;
 
   static RegExp quantitiyRegEx = RegExp(r'^(\d+(?:[.,]\d+)?)([a-zA-Z]+)$');
@@ -23,9 +27,15 @@ abstract class GTINData with _$GTINData {
 
     final name = product['product_name'] ?? product["generic_name"];
     final quantity = product['quantity'];
-    final kcalPer100g = product['nutriments']?['energy-kcal_100g'] as num?;
+    final nutriments = product['nutriments'];
 
-    final match = quantitiyRegEx.firstMatch(quantity);
+    final kcal = nutriments?['energy-kcal_100g'] as num?;
+    final fat = nutriments?['fat_100g'] as num?;
+    final carbs = nutriments?['carbohydrates_100g'] as num?;
+    final protein = nutriments?['proteins_100g'] as num?;
+    final fiber = nutriments?['fiber_100g'] as num?;
+
+    final match = quantity == null ? null : quantitiyRegEx.firstMatch(quantity);
 
     if (match != null) {
       final amountString = match.group(1)!;
@@ -41,7 +51,11 @@ abstract class GTINData with _$GTINData {
         name: name,
         amount: amount ?? 0,
         unit: unit,
-        kcal: kcalPer100g?.toDouble(),
+        kcal: kcal?.toDouble(),
+        fat: fat?.toDouble(),
+        carbs: carbs?.toDouble(),
+        protein: protein?.toDouble(),
+        fiber: fiber?.toDouble(),
       );
     }
     return null;
