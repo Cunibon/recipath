@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 class SearchableList<T> extends StatefulWidget {
   const SearchableList({
+    this.searchController,
     required this.type,
     required this.items,
     required this.toSearchable,
@@ -11,6 +12,8 @@ class SearchableList<T> extends StatefulWidget {
     this.bottomPadding,
     super.key,
   });
+
+  final TextEditingController? searchController;
 
   final String type;
   final List<T> items;
@@ -26,11 +29,12 @@ class SearchableList<T> extends StatefulWidget {
 
 class _SearchableListState<T> extends State<SearchableList<T>> {
   late List<({T item, String search})> searchable;
-  late String search = "";
+  late String search;
 
   @override
   void initState() {
     super.initState();
+    search = widget.searchController?.text ?? "";
     searchable = createSearchable(widget.items);
   }
 
@@ -69,6 +73,7 @@ class _SearchableListState<T> extends State<SearchableList<T>> {
     return Column(
       children: [
         TextField(
+          controller: widget.searchController,
           decoration: InputDecoration(labelText: "Search for ${widget.type}"),
           onChanged: (value) => setState(() => search = value),
         ),

@@ -9,19 +9,34 @@ import 'package:recipe_list/widgets/generic/searchable_list.dart';
 import 'package:recipe_list/widgets/grocery_screen/grocery_routes.dart';
 import 'package:recipe_list/widgets/grocery_screen/providers/grocery_notifier.dart';
 
-class AddShoppingDialog extends ConsumerStatefulWidget {
-  const AddShoppingDialog({super.key});
+class AddIngredientDialog extends ConsumerStatefulWidget {
+  const AddIngredientDialog({
+    this.searchController,
+    this.selected = const [],
+    this.allowSelectedRemoval = true,
+    super.key,
+  });
+
+  final TextEditingController? searchController;
+
+  final Iterable<String> selected;
+  final bool allowSelectedRemoval;
 
   @override
-  ConsumerState<AddShoppingDialog> createState() => _AddShoppingDialogState();
+  ConsumerState<AddIngredientDialog> createState() =>
+      _AddIngredientDialogState();
 }
 
-class _AddShoppingDialogState extends ConsumerState<AddShoppingDialog> {
+class _AddIngredientDialogState extends ConsumerState<AddIngredientDialog> {
   GroceryData? selected;
   final amountController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
   void updateSelected(GroceryData item) {
+    if (!widget.allowSelectedRemoval && widget.selected.contains(item.id)) {
+      return;
+    }
+
     amountController.text = doubleNumberFormat.format(item.normalAmount);
     setState(() => selected = item);
   }
@@ -45,6 +60,7 @@ class _AddShoppingDialogState extends ConsumerState<AddShoppingDialog> {
                   child: Stack(
                     children: [
                       SearchableList(
+                        searchController: widget.searchController,
                         type: "Groceries",
                         items: groceryList,
                         bottomPadding: 33,
@@ -62,8 +78,14 @@ class _AddShoppingDialogState extends ConsumerState<AddShoppingDialog> {
                                 child: Row(
                                   children: [
                                     Checkbox(
-                                      value: selected == item,
-                                      onChanged: (_) => updateSelected(item),
+                                      value:
+                                          selected == item ||
+                                          widget.selected.contains(item.id),
+                                      onChanged:
+                                          widget.allowSelectedRemoval ||
+                                              !widget.selected.contains(item.id)
+                                          ? (_) => updateSelected(item)
+                                          : null,
                                     ),
                                     Text(item.name),
                                   ],

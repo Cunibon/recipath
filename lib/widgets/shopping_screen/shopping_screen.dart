@@ -8,16 +8,23 @@ import 'package:recipe_list/widgets/generic/navigation_drawer_scaffold.dart';
 import 'package:recipe_list/widgets/generic/notifier_future_builder.dart';
 import 'package:recipe_list/widgets/generic/searchable_list.dart';
 import 'package:recipe_list/widgets/grocery_screen/providers/grocery_notifier.dart';
-import 'package:recipe_list/widgets/shopping_screen/add_shopping_dialog.dart';
+import 'package:recipe_list/widgets/shopping_screen/add_ingredient_dialog.dart';
 import 'package:recipe_list/widgets/shopping_screen/providers/shopping_notifier.dart';
 import 'package:recipe_list/widgets/shopping_screen/shopping_item.dart';
 import 'package:recipe_list/widgets/storage_screen/providers/storage_notifier.dart';
 
-class ShoppingScreen extends ConsumerWidget {
+class ShoppingScreen extends ConsumerStatefulWidget {
   const ShoppingScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ShoppingScreen> createState() => _ShoppingScreenState();
+}
+
+class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
+  final searchController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
     final asyncItems = ref.watch(shoppingNotifierProvider);
     final asyncGroceryMap = ref.watch(groceryNotifierProvider);
 
@@ -43,7 +50,8 @@ class ShoppingScreen extends ConsumerWidget {
         onPressed: () async {
           final result = await showDialog<IngredientData>(
             context: context,
-            builder: (context) => AddShoppingDialog(),
+            builder: (context) =>
+                AddIngredientDialog(searchController: searchController),
           );
 
           if (result != null) {
@@ -57,6 +65,7 @@ class ShoppingScreen extends ConsumerWidget {
       body: NotifierFutureBuilder(
         futures: [asyncItems, asyncGroceryMap, asyncStorage],
         childBuilder: () => SearchableList(
+          searchController: searchController,
           type: "Items",
           items: asyncItems.value!.values.toList(),
           toSearchable: (item) => item.toReadable(
