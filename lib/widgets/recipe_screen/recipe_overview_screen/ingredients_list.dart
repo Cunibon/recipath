@@ -14,6 +14,8 @@ class IngredientsList extends ConsumerWidget {
 
     final ingredientBuffer = StringBuffer();
 
+    ingredientBuffer.writeln("Ingredients:\n");
+
     for (final ingredient in ingredients) {
       ingredientBuffer.writeln(
         "● ${ingredient.toReadable(groceryMap[ingredient.groceryId]!)}",

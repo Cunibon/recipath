@@ -93,6 +93,14 @@ extension GroceryDataFunctions on GroceryData {
     }
   }
 
+  Map<String, double?> getNutrients() => {
+    'kcal': kcal,
+    'fat': fat,
+    'carbs': carbs,
+    'protein': protein,
+    'fiber': fiber,
+  };
+
   GroceryTableCompanion toTableCompanion() => GroceryTableCompanion.insert(
     id: id,
     name: name,

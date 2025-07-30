@@ -22,15 +22,7 @@ Future<ChartState> nutritionChartNotifier(
     groceryChartStatisticsNotifierProvider(dateRange).future,
   );
 
-  final nutrients = <String, double? Function(GroceryData)>{
-    'kcal': (g) => g.kcal,
-    'fat': (g) => g.fat,
-    'carbs': (g) => g.carbs,
-    'protein': (g) => g.protein,
-    'fiber': (g) => g.fiber,
-  };
-
-  final nutrimentsMap = ref.watch(nutrimentColorNotifierProvider);
+  final nutrimentsColorMap = ref.watch(nutrimentColorNotifierProvider);
 
   final aggregated = <GroceryData, Map<String, double>>{};
 
@@ -44,9 +36,10 @@ Future<ChartState> nutritionChartNotifier(
 
       final unitType = UnitConversion.unitType(grocery.unit);
 
-      for (final nutrient in nutrients.entries) {
-        final nutrientValue = nutrient.value(grocery);
-        if (nutrientValue == null) continue;
+      final groceryNutrients = grocery.getNutrients();
+
+      for (final nutrient in groceryNutrients.entries) {
+        if (nutrient.value == null) continue;
 
         final total = entry.value.entries.fold<double>(0, (sum, e) {
           final gramValue = grocery.convertToGram(
@@ -58,7 +51,7 @@ Future<ChartState> nutritionChartNotifier(
               ? gramValue
               : gramValue / 100;
 
-          return sum + additiveValue * nutrientValue;
+          return sum + additiveValue * nutrient.value!;
         });
 
         aggregated.putIfAbsent(grocery, () => {});
@@ -95,7 +88,7 @@ Future<ChartState> nutritionChartNotifier(
 
     final barRods = <BarChartRodData>[];
 
-    for (final nutrientKey in nutrients.keys) {
+    for (final nutrientKey in nutrimentsColorMap.keys) {
       final value = nutrientMap[nutrientKey];
       if (value == null || value == 0) {
         continue;
@@ -105,8 +98,7 @@ Future<ChartState> nutritionChartNotifier(
         BarChartRodData(
           toY: value,
           width: 20,
-          color: nutrimentsMap[nutrientKey],
-          borderRadius: BorderRadius.zero,
+          color: nutrimentsColorMap[nutrientKey],
         ),
       );
 

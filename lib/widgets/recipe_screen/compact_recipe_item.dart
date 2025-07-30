@@ -43,36 +43,50 @@ class CompactRecipeItem extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Expanded(
-                          child: Row(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Flexible(
-                                child: Text(
-                                  data.title.trim(),
-                                  style: Theme.of(
-                                    context,
-                                  ).textTheme.titleMedium!,
-                                ),
+                              Row(
+                                children: [
+                                  Flexible(
+                                    child: Text(
+                                      data.title.trim(),
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.titleMedium,
+                                    ),
+                                  ),
+                                  FutureBuilder(
+                                    future: ref
+                                        .read(
+                                          recipeStatisticsRepoNotifierProvider,
+                                        )
+                                        .getAverageTimeForRecipe(data.id),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.connectionState ==
+                                              ConnectionState.done &&
+                                          snapshot.data != null) {
+                                        return Text(
+                                          " (Ø ${snapshot.data!.inMinutes.toString()}min)",
+                                        );
+                                      }
+                                      return SizedBox.shrink();
+                                    },
+                                  ),
+                                  if (timer != null)
+                                    Icon(
+                                      Icons.timer,
+                                      color: Colors.amber,
+                                      size: 20,
+                                    ),
+                                ],
                               ),
-                              if (timer != null)
-                                Icon(Icons.timer, color: Colors.amber),
-                              FutureBuilder(
-                                future: ref
-                                    .read(recipeStatisticsRepoNotifierProvider)
-                                    .getAverageTimeForRecipe(data.id),
-                                builder: (context, snapshot) {
-                                  if (snapshot.connectionState ==
-                                          ConnectionState.done &&
-                                      snapshot.data != null) {
-                                    return Text(
-                                      " (Ø ${snapshot.data!.inMinutes.toString()}min)",
-                                    );
-                                  }
-                                  return SizedBox.shrink();
-                                },
-                              ),
+                              if (data.servings != null)
+                                Text("Servings: ${data.servings}"),
                             ],
                           ),
                         ),

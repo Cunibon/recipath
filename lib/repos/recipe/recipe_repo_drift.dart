@@ -108,6 +108,7 @@ class RecipeRepoDrift extends Repo<RecipeData> {
             RecipeTableCompanion.insert(
               id: newData.id,
               title: newData.title,
+              servings: Value(newData.servings),
               imageName: Value(newData.imageName),
               archived: Value(newData.archived),
             ),

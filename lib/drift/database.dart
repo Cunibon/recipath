@@ -34,7 +34,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase([QueryExecutor? executor]) : super(executor ?? _openConnection());
 
   @override
-  int get schemaVersion => 4;
+  int get schemaVersion => 5;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -57,6 +57,9 @@ class AppDatabase extends _$AppDatabase {
         await m.addColumn(groceryTable, groceryTable.carbs);
         await m.addColumn(groceryTable, groceryTable.protein);
         await m.addColumn(groceryTable, groceryTable.fiber);
+      }
+      if (from < 5) {
+        await m.addColumn(recipeTable, recipeTable.servings);
       }
     },
   );

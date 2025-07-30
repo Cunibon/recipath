@@ -79,6 +79,7 @@ class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
                       '${RootRoutes.recipeRoute.path}/recipeOverview/${newData.id}',
                     );
                   }
+                  goRouter.pop();
                 }
               },
               icon: Icon(Icons.save),
@@ -120,13 +121,41 @@ class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
                     ),
                   ),
                   Divider(),
-                  TextFormField(
-                    decoration: InputDecoration(labelText: "Title"),
-                    initialValue: data.title,
-                    validator: (value) =>
-                        value == null || value.isEmpty ? "Add title" : null,
-                    onChanged: (value) =>
-                        setState(() => data = data.copyWith(title: value)),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextFormField(
+                          decoration: InputDecoration(labelText: "Title"),
+                          initialValue: data.title,
+                          validator: (value) => value == null || value.isEmpty
+                              ? "Add title"
+                              : null,
+                          onChanged: (value) => setState(
+                            () => data = data.copyWith(title: value),
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 8),
+                      SizedBox(
+                        width: 100,
+                        child: TextFormField(
+                          initialValue: data.servings?.toString() ?? "",
+                          decoration: InputDecoration(labelText: "Servings"),
+                          keyboardType: TextInputType.number,
+                          validator: (value) => value?.isEmpty == false
+                              ? int.tryParse(value!) == null
+                                    ? "Add valid servings"
+                                    : null
+                              : null,
+                          onChanged: (value) {
+                            final parsed = int.tryParse(value);
+                            setState(
+                              () => data = data.copyWith(servings: parsed),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
                   ),
                   SizedBox(height: 8),
                   RecipeStepView(

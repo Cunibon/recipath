@@ -27,6 +27,17 @@ class $RecipeTableTable extends RecipeTable
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
+  static const VerificationMeta _servingsMeta = const VerificationMeta(
+    'servings',
+  );
+  @override
+  late final GeneratedColumn<int> servings = GeneratedColumn<int>(
+    'servings',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _imageNameMeta = const VerificationMeta(
     'imageName',
   );
@@ -54,7 +65,13 @@ class $RecipeTableTable extends RecipeTable
     defaultValue: const Constant(false),
   );
   @override
-  List<GeneratedColumn> get $columns => [id, title, imageName, archived];
+  List<GeneratedColumn> get $columns => [
+    id,
+    title,
+    servings,
+    imageName,
+    archived,
+  ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -79,6 +96,12 @@ class $RecipeTableTable extends RecipeTable
       );
     } else if (isInserting) {
       context.missing(_titleMeta);
+    }
+    if (data.containsKey('servings')) {
+      context.handle(
+        _servingsMeta,
+        servings.isAcceptableOrUnknown(data['servings']!, _servingsMeta),
+      );
     }
     if (data.containsKey('image_name')) {
       context.handle(
@@ -109,6 +132,10 @@ class $RecipeTableTable extends RecipeTable
         DriftSqlType.string,
         data['${effectivePrefix}title'],
       )!,
+      servings: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}servings'],
+      ),
       imageName: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}image_name'],
@@ -129,11 +156,13 @@ class $RecipeTableTable extends RecipeTable
 class RecipeTableData extends DataClass implements Insertable<RecipeTableData> {
   final String id;
   final String title;
+  final int? servings;
   final String? imageName;
   final bool archived;
   const RecipeTableData({
     required this.id,
     required this.title,
+    this.servings,
     this.imageName,
     required this.archived,
   });
@@ -142,6 +171,9 @@ class RecipeTableData extends DataClass implements Insertable<RecipeTableData> {
     final map = <String, Expression>{};
     map['id'] = Variable<String>(id);
     map['title'] = Variable<String>(title);
+    if (!nullToAbsent || servings != null) {
+      map['servings'] = Variable<int>(servings);
+    }
     if (!nullToAbsent || imageName != null) {
       map['image_name'] = Variable<String>(imageName);
     }
@@ -153,6 +185,9 @@ class RecipeTableData extends DataClass implements Insertable<RecipeTableData> {
     return RecipeTableCompanion(
       id: Value(id),
       title: Value(title),
+      servings: servings == null && nullToAbsent
+          ? const Value.absent()
+          : Value(servings),
       imageName: imageName == null && nullToAbsent
           ? const Value.absent()
           : Value(imageName),
@@ -168,6 +203,7 @@ class RecipeTableData extends DataClass implements Insertable<RecipeTableData> {
     return RecipeTableData(
       id: serializer.fromJson<String>(json['id']),
       title: serializer.fromJson<String>(json['title']),
+      servings: serializer.fromJson<int?>(json['servings']),
       imageName: serializer.fromJson<String?>(json['imageName']),
       archived: serializer.fromJson<bool>(json['archived']),
     );
@@ -178,6 +214,7 @@ class RecipeTableData extends DataClass implements Insertable<RecipeTableData> {
     return <String, dynamic>{
       'id': serializer.toJson<String>(id),
       'title': serializer.toJson<String>(title),
+      'servings': serializer.toJson<int?>(servings),
       'imageName': serializer.toJson<String?>(imageName),
       'archived': serializer.toJson<bool>(archived),
     };
@@ -186,11 +223,13 @@ class RecipeTableData extends DataClass implements Insertable<RecipeTableData> {
   RecipeTableData copyWith({
     String? id,
     String? title,
+    Value<int?> servings = const Value.absent(),
     Value<String?> imageName = const Value.absent(),
     bool? archived,
   }) => RecipeTableData(
     id: id ?? this.id,
     title: title ?? this.title,
+    servings: servings.present ? servings.value : this.servings,
     imageName: imageName.present ? imageName.value : this.imageName,
     archived: archived ?? this.archived,
   );
@@ -198,6 +237,7 @@ class RecipeTableData extends DataClass implements Insertable<RecipeTableData> {
     return RecipeTableData(
       id: data.id.present ? data.id.value : this.id,
       title: data.title.present ? data.title.value : this.title,
+      servings: data.servings.present ? data.servings.value : this.servings,
       imageName: data.imageName.present ? data.imageName.value : this.imageName,
       archived: data.archived.present ? data.archived.value : this.archived,
     );
@@ -208,6 +248,7 @@ class RecipeTableData extends DataClass implements Insertable<RecipeTableData> {
     return (StringBuffer('RecipeTableData(')
           ..write('id: $id, ')
           ..write('title: $title, ')
+          ..write('servings: $servings, ')
           ..write('imageName: $imageName, ')
           ..write('archived: $archived')
           ..write(')'))
@@ -215,13 +256,14 @@ class RecipeTableData extends DataClass implements Insertable<RecipeTableData> {
   }
 
   @override
-  int get hashCode => Object.hash(id, title, imageName, archived);
+  int get hashCode => Object.hash(id, title, servings, imageName, archived);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is RecipeTableData &&
           other.id == this.id &&
           other.title == this.title &&
+          other.servings == this.servings &&
           other.imageName == this.imageName &&
           other.archived == this.archived);
 }
@@ -229,12 +271,14 @@ class RecipeTableData extends DataClass implements Insertable<RecipeTableData> {
 class RecipeTableCompanion extends UpdateCompanion<RecipeTableData> {
   final Value<String> id;
   final Value<String> title;
+  final Value<int?> servings;
   final Value<String?> imageName;
   final Value<bool> archived;
   final Value<int> rowid;
   const RecipeTableCompanion({
     this.id = const Value.absent(),
     this.title = const Value.absent(),
+    this.servings = const Value.absent(),
     this.imageName = const Value.absent(),
     this.archived = const Value.absent(),
     this.rowid = const Value.absent(),
@@ -242,6 +286,7 @@ class RecipeTableCompanion extends UpdateCompanion<RecipeTableData> {
   RecipeTableCompanion.insert({
     required String id,
     required String title,
+    this.servings = const Value.absent(),
     this.imageName = const Value.absent(),
     this.archived = const Value.absent(),
     this.rowid = const Value.absent(),
@@ -250,6 +295,7 @@ class RecipeTableCompanion extends UpdateCompanion<RecipeTableData> {
   static Insertable<RecipeTableData> custom({
     Expression<String>? id,
     Expression<String>? title,
+    Expression<int>? servings,
     Expression<String>? imageName,
     Expression<bool>? archived,
     Expression<int>? rowid,
@@ -257,6 +303,7 @@ class RecipeTableCompanion extends UpdateCompanion<RecipeTableData> {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (title != null) 'title': title,
+      if (servings != null) 'servings': servings,
       if (imageName != null) 'image_name': imageName,
       if (archived != null) 'archived': archived,
       if (rowid != null) 'rowid': rowid,
@@ -266,6 +313,7 @@ class RecipeTableCompanion extends UpdateCompanion<RecipeTableData> {
   RecipeTableCompanion copyWith({
     Value<String>? id,
     Value<String>? title,
+    Value<int?>? servings,
     Value<String?>? imageName,
     Value<bool>? archived,
     Value<int>? rowid,
@@ -273,6 +321,7 @@ class RecipeTableCompanion extends UpdateCompanion<RecipeTableData> {
     return RecipeTableCompanion(
       id: id ?? this.id,
       title: title ?? this.title,
+      servings: servings ?? this.servings,
       imageName: imageName ?? this.imageName,
       archived: archived ?? this.archived,
       rowid: rowid ?? this.rowid,
@@ -287,6 +336,9 @@ class RecipeTableCompanion extends UpdateCompanion<RecipeTableData> {
     }
     if (title.present) {
       map['title'] = Variable<String>(title.value);
+    }
+    if (servings.present) {
+      map['servings'] = Variable<int>(servings.value);
     }
     if (imageName.present) {
       map['image_name'] = Variable<String>(imageName.value);
@@ -305,6 +357,7 @@ class RecipeTableCompanion extends UpdateCompanion<RecipeTableData> {
     return (StringBuffer('RecipeTableCompanion(')
           ..write('id: $id, ')
           ..write('title: $title, ')
+          ..write('servings: $servings, ')
           ..write('imageName: $imageName, ')
           ..write('archived: $archived, ')
           ..write('rowid: $rowid')
@@ -2794,6 +2847,7 @@ typedef $$RecipeTableTableCreateCompanionBuilder =
     RecipeTableCompanion Function({
       required String id,
       required String title,
+      Value<int?> servings,
       Value<String?> imageName,
       Value<bool> archived,
       Value<int> rowid,
@@ -2802,6 +2856,7 @@ typedef $$RecipeTableTableUpdateCompanionBuilder =
     RecipeTableCompanion Function({
       Value<String> id,
       Value<String> title,
+      Value<int?> servings,
       Value<String?> imageName,
       Value<bool> archived,
       Value<int> rowid,
@@ -2879,6 +2934,11 @@ class $$RecipeTableTableFilterComposer
 
   ColumnFilters<String> get title => $composableBuilder(
     column: $table.title,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get servings => $composableBuilder(
+    column: $table.servings,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -2962,6 +3022,11 @@ class $$RecipeTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<int> get servings => $composableBuilder(
+    column: $table.servings,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<String> get imageName => $composableBuilder(
     column: $table.imageName,
     builder: (column) => ColumnOrderings(column),
@@ -2987,6 +3052,9 @@ class $$RecipeTableTableAnnotationComposer
 
   GeneratedColumn<String> get title =>
       $composableBuilder(column: $table.title, builder: (column) => column);
+
+  GeneratedColumn<int> get servings =>
+      $composableBuilder(column: $table.servings, builder: (column) => column);
 
   GeneratedColumn<String> get imageName =>
       $composableBuilder(column: $table.imageName, builder: (column) => column);
@@ -3079,12 +3147,14 @@ class $$RecipeTableTableTableManager
               ({
                 Value<String> id = const Value.absent(),
                 Value<String> title = const Value.absent(),
+                Value<int?> servings = const Value.absent(),
                 Value<String?> imageName = const Value.absent(),
                 Value<bool> archived = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => RecipeTableCompanion(
                 id: id,
                 title: title,
+                servings: servings,
                 imageName: imageName,
                 archived: archived,
                 rowid: rowid,
@@ -3093,12 +3163,14 @@ class $$RecipeTableTableTableManager
               ({
                 required String id,
                 required String title,
+                Value<int?> servings = const Value.absent(),
                 Value<String?> imageName = const Value.absent(),
                 Value<bool> archived = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => RecipeTableCompanion.insert(
                 id: id,
                 title: title,
+                servings: servings,
                 imageName: imageName,
                 archived: archived,
                 rowid: rowid,

@@ -8,6 +8,7 @@ import 'package:recipe_list/widgets/grocery_screen/providers/grocery_notifier.da
 import 'package:recipe_list/widgets/recipe_screen/local_image.dart';
 import 'package:recipe_list/widgets/recipe_screen/providers/recipe_notifier.dart';
 import 'package:recipe_list/widgets/recipe_screen/recipe_overview_screen/ingredients_list.dart';
+import 'package:recipe_list/widgets/recipe_screen/recipe_overview_screen/nutriments_list.dart';
 import 'package:recipe_list/widgets/recipe_screen/recipe_overview_screen/recipe_button/track_recipe_button.dart';
 import 'package:recipe_list/widgets/recipe_screen/recipe_overview_screen/recipe_step.dart';
 import 'package:recipe_list/widgets/recipe_screen/recipe_routes.dart';
@@ -60,9 +61,42 @@ class RecipeScreen extends ConsumerWidget {
                 LocalImage(fileName: recipe.imageName!),
                 Divider(),
               ],
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: IngredientsList(ingredients: ingredients),
+              if (recipe.servings != null)
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Text(
+                    "Servings: ${recipe.servings}",
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ),
+              IntrinsicHeight(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                            height: double.infinity,
+                            child: IngredientsList(ingredients: ingredients),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                            height: double.infinity,
+                            child: NutrimentsList(ingredients: ingredients),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
               for (int i = 0; i < recipe.steps.length; i++)
                 Card(

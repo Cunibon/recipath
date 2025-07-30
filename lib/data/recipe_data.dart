@@ -13,6 +13,7 @@ abstract class RecipeData with _$RecipeData {
   const factory RecipeData({
     required String id,
     required String title,
+    int? servings,
     String? imageName,
     @Default(false) bool archived,
     required List<RecipeStepData> steps,
@@ -24,6 +25,7 @@ abstract class RecipeData with _$RecipeData {
   factory RecipeData.fromRow(RecipeTableData data) => RecipeData(
     id: data.id,
     title: data.title,
+    servings: data.servings,
     imageName: data.imageName,
     archived: data.archived,
     steps: [],

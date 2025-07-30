@@ -4,13 +4,13 @@ import 'package:recipe_list/common.dart';
 class DoubleInputField extends StatelessWidget {
   const DoubleInputField({
     super.key,
-    required this.controller,
+    this.controller,
     required this.labelText,
     required this.validatorText,
     required this.onChanged,
   });
 
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final String labelText;
 
   final String validatorText;
