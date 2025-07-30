@@ -47,7 +47,7 @@ class _StorageScreenState extends ConsumerState<StorageScreen> {
           final ingredient = (await showDialog<IngredientData>(
             context: context,
             builder: (context) => AddIngredientDialog(
-              searchController: searchController,
+              initialSearch: searchController.text,
               selected: asyncItems.value!.values.toList().map(
                 (e) => e.groceryId,
               ),

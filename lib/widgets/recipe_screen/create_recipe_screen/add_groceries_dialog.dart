@@ -8,13 +8,13 @@ import 'package:recipe_list/widgets/grocery_screen/providers/grocery_notifier.da
 
 class AddGroceriesDialog extends ConsumerStatefulWidget {
   const AddGroceriesDialog({
-    this.searchController,
+    this.initialSearch,
     this.selected = const [],
     this.allowSelectedRemoval = true,
     super.key,
   });
 
-  final TextEditingController? searchController;
+  final String? initialSearch;
 
   final Iterable<String> selected;
   final bool allowSelectedRemoval;
@@ -57,7 +57,7 @@ class _AddGroceriesDialogState extends ConsumerState<AddGroceriesDialog> {
           child: Stack(
             children: [
               SearchableList(
-                searchController: widget.searchController,
+                initialSearch: widget.initialSearch,
                 type: "Groceries",
                 items: groceryList,
                 sort: (a, b) =>

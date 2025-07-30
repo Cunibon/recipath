@@ -51,7 +51,7 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
           final result = await showDialog<IngredientData>(
             context: context,
             builder: (context) =>
-                AddIngredientDialog(searchController: searchController),
+                AddIngredientDialog(initialSearch: searchController.text),
           );
 
           if (result != null) {

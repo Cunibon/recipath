@@ -7,9 +7,10 @@ import 'package:recipe_list/data/unit_enum.dart';
 import 'package:recipe_list/widgets/grocery_screen/providers/grocery_notifier.dart';
 
 class NutrimentsList extends ConsumerWidget {
-  const NutrimentsList({required this.ingredients, super.key});
+  const NutrimentsList({required this.ingredients, this.servings, super.key});
 
   final List<IngredientData> ingredients;
+  final int? servings;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -48,12 +49,22 @@ class NutrimentsList extends ConsumerWidget {
 
     final nutrimentBuffer = StringBuffer();
 
-    nutrimentBuffer.writeln("Nutriments:\n");
+    nutrimentBuffer.writeln("Nutriments:");
 
     for (final entry in aggregatedNutriments.entries) {
       nutrimentBuffer.writeln(
         "● ${entry.key}: ${doubleNumberFormat.format(entry.value)}",
       );
+    }
+
+    if (servings != null) {
+      nutrimentBuffer.writeln("\nPer Serving:");
+
+      for (final entry in aggregatedNutriments.entries) {
+        nutrimentBuffer.writeln(
+          "● ${entry.key}: ${doubleNumberFormat.format(entry.value / servings!)}",
+        );
+      }
     }
 
     return Text(nutrimentBuffer.toString().trimRight());

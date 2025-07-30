@@ -90,7 +90,10 @@ class RecipeScreen extends ConsumerWidget {
                           padding: const EdgeInsets.all(8.0),
                           child: SizedBox(
                             height: double.infinity,
-                            child: NutrimentsList(ingredients: ingredients),
+                            child: NutrimentsList(
+                              ingredients: ingredients,
+                              servings: recipe.servings,
+                            ),
                           ),
                         ),
                       ),

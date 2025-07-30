@@ -14,7 +14,7 @@ class IngredientsList extends ConsumerWidget {
 
     final ingredientBuffer = StringBuffer();
 
-    ingredientBuffer.writeln("Ingredients:\n");
+    ingredientBuffer.writeln("Ingredients:");
 
     for (final ingredient in ingredients) {
       ingredientBuffer.writeln(
