@@ -30,10 +30,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     return NavigationDrawerScaffold(
       titleBuilder: (title) => Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Text(title, style: Theme.of(context).textTheme.titleLarge),
-          SizedBox(width: 10),
           Text(
             "${dateFormat.format(dateRange.start)} - ${dateFormat.format(dateRange.end)}",
             style: Theme.of(context).textTheme.titleMedium,
@@ -73,9 +73,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 this.recipeId = recipeId;
               }),
             ),
-
             GroceryChart(dateRange: dateRange, recipeId: recipeId),
-
             NutritionChart(dateRange: dateRange, recipeId: recipeId),
           ],
         ),

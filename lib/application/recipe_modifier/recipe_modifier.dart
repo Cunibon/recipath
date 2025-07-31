@@ -1,4 +1,6 @@
+import 'package:drift/drift.dart';
 import 'package:recipe_list/data/recipe_data.dart';
+import 'package:recipe_list/drift/database.dart';
 import 'package:recipe_list/repos/repo.dart';
 
 class RecipeModifier {
@@ -16,5 +18,7 @@ class RecipeModifier {
   }
 
   Future<void> delete(RecipeData toDelete) =>
-      repo.add(toDelete.copyWith(archived: true));
+      (repo.db.update(repo.db.recipeTable)
+            ..where((tbl) => tbl.id.equals(toDelete.id)))
+          .write(RecipeTableCompanion(archived: Value(true)));
 }

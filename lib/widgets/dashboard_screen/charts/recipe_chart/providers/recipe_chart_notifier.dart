@@ -2,9 +2,9 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_list/common.dart';
+import 'package:recipe_list/repos/recipe/full_recipe_repo_notifier.dart';
 import 'package:recipe_list/widgets/dashboard_screen/charts/chart_entry.dart';
 import 'package:recipe_list/widgets/dashboard_screen/charts/recipe_chart/providers/recipe_statistics_notifier.dart';
-import 'package:recipe_list/widgets/recipe_screen/providers/recipe_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'recipe_chart_notifier.g.dart';
@@ -22,7 +22,7 @@ Future<ChartState> recipeChartNotifier(
 
   recipeHistoryList.sort((a, b) => -a.value.compareTo(b.value));
 
-  final recipeMap = await ref.watch(recipeNotifierProvider.future);
+  final recipeMap = await ref.watch(fullRecipeRepoNotifierProvider).get();
 
   final chartEntries = <ChartEntry>[];
   int maxY = 0;
