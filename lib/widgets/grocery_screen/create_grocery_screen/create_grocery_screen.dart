@@ -108,19 +108,24 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
                       conversion = gtin.unit;
                   }
 
+                  final updateAmount =
+                      data.conversionAmount == 0 ||
+                      conversionController.text.isEmpty;
+
                   final newData = data.copyWith(
                     name: data.name.isEmpty ? gtin.name : data.name,
-                    normalAmount:
-                        data.normalAmount == 0 || amountController.text.isEmpty
+                    normalAmount: updateAmount
                         ? gtin.amount
                         : data.normalAmount,
-                    unit: gtin.unit,
+                    unit: updateAmount ? gtin.unit : data.unit,
                     conversionAmount:
                         data.conversionAmount == 0 ||
                             conversionController.text.isEmpty
                         ? gtin.amount
                         : data.conversionAmount,
-                    conversionUnit: conversion,
+                    conversionUnit: updateAmount
+                        ? conversion
+                        : data.conversionUnit,
                     kcal: gtin.kcal,
                     fat: gtin.fat,
                     carbs: gtin.carbs,

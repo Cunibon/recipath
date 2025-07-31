@@ -139,74 +139,80 @@ class GroceryFormFields extends StatelessWidget {
                   },
                 ),
               ),
-              if (UnitConversion.unitType(data.unit) != UnitType.misc) ...[
-                SizedBox(width: 8),
-                Text("=", style: Theme.of(context).textTheme.titleLarge),
-                SizedBox(width: 8),
-                Flexible(
-                  flex: 3,
-                  child: TextFormField(
-                    controller: conversionController,
-                    decoration: InputDecoration(labelText: "Conversion amount"),
-                    keyboardType: TextInputType.numberWithOptions(
-                      decimal: true,
-                    ),
-                    validator: (value) => value == null || value.isEmpty
-                        ? "Add conversion"
-                        : null,
-                    onChanged: (value) {
-                      final parsed = doubleNumberFormat.tryParse(value);
-                      if (parsed != null) {
-                        updateData(
-                          data.copyWith(conversionAmount: parsed.toDouble()),
-                        );
-                      }
-                    },
-                  ),
+              SizedBox(width: 8),
+              Text("=", style: Theme.of(context).textTheme.titleLarge),
+              SizedBox(width: 8),
+              Flexible(
+                flex: 3,
+                child: TextFormField(
+                  controller: conversionController,
+                  decoration: InputDecoration(labelText: "Conversion amount"),
+                  keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  validator: (value) =>
+                      value == null || value.isEmpty ? "Add conversion" : null,
+                  onChanged: (value) {
+                    final parsed = doubleNumberFormat.tryParse(value);
+                    if (parsed != null) {
+                      updateData(
+                        data.copyWith(conversionAmount: parsed.toDouble()),
+                      );
+                    }
+                  },
                 ),
-                SizedBox(
-                  width: 65,
-                  child: DropdownButtonFormField(
-                    decoration: InputDecoration(labelText: "Unit"),
-                    value: data.conversionUnit,
-                    validator: (value) => value == null ? "Add unit" : null,
-                    items:
-                        (UnitConversion.unitType(data.unit) == UnitType.volume
-                                ? UnitConversion.weightToGram.keys
-                                : UnitConversion.volumeToMl.keys)
-                            .map(
-                              (e) => DropdownMenuItem(
-                                value: e,
-                                child: Text(e.name),
+              ),
+
+              SizedBox(
+                width: 65,
+                child: unitType == UnitType.misc
+                    ? Text(
+                        "g",
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    : DropdownButtonFormField(
+                        decoration: InputDecoration(labelText: "Unit"),
+                        value: data.conversionUnit,
+                        validator: (value) => value == null ? "Add unit" : null,
+                        items:
+                            (switch (unitType) {
+                                  UnitType.volume =>
+                                    UnitConversion.weightToGram.keys,
+                                  UnitType.weight =>
+                                    UnitConversion.volumeToMl.keys,
+                                  UnitType.misc => [UnitEnum.g],
+                                })
+                                .map(
+                                  (e) => DropdownMenuItem(
+                                    value: e,
+                                    child: Text(e.name),
+                                  ),
+                                )
+                                .toList(),
+                        onChanged: (value) {
+                          if (value != null) {
+                            final newAmount = UnitConversion.convert(
+                              data.conversionAmount,
+                              data.conversionUnit,
+                              value,
+                            );
+                            conversionController.text = doubleNumberFormat
+                                .format(newAmount);
+                            updateData(
+                              data.copyWith(
+                                conversionUnit: value,
+                                conversionAmount: newAmount,
                               ),
-                            )
-                            .toList(),
-                    onChanged: (value) {
-                      if (value != null) {
-                        final newAmount = UnitConversion.convert(
-                          data.conversionAmount,
-                          data.conversionUnit,
-                          value,
-                        );
-                        conversionController.text = doubleNumberFormat.format(
-                          newAmount,
-                        );
-                        updateData(
-                          data.copyWith(
-                            conversionUnit: value,
-                            conversionAmount: newAmount,
-                          ),
-                        );
-                      }
-                    },
-                  ),
-                ),
-              ],
+                            );
+                          }
+                        },
+                      ),
+              ),
             ],
           ),
           DoubleInputField(
             controller: kcalController,
-            labelText: unitType == UnitType.misc ? "kcal/unit" : "kcal/100g",
+            labelText: "kcal/100g",
             validatorText: "Add kcal amount",
             onChanged: (parsed) {
               if (parsed != null) {
@@ -216,7 +222,7 @@ class GroceryFormFields extends StatelessWidget {
           ),
           DoubleInputField(
             controller: fatController,
-            labelText: unitType == UnitType.misc ? "fat/unit" : "fat/100g",
+            labelText: "fat/100g",
             validatorText: "Add fat amount",
             onChanged: (parsed) {
               if (parsed != null) {
@@ -226,7 +232,7 @@ class GroceryFormFields extends StatelessWidget {
           ),
           DoubleInputField(
             controller: carbsController,
-            labelText: unitType == UnitType.misc ? "carbs/unit" : "carbs/100g",
+            labelText: "carbs/100g",
             validatorText: "Add carbs amount",
             onChanged: (parsed) {
               if (parsed != null) {
@@ -236,9 +242,7 @@ class GroceryFormFields extends StatelessWidget {
           ),
           DoubleInputField(
             controller: proteinController,
-            labelText: unitType == UnitType.misc
-                ? "protein/unit"
-                : "protein/100g",
+            labelText: "protein/100g",
             validatorText: "Add protein amount",
             onChanged: (parsed) {
               if (parsed != null) {
@@ -248,7 +252,7 @@ class GroceryFormFields extends StatelessWidget {
           ),
           DoubleInputField(
             controller: fiberController,
-            labelText: unitType == UnitType.misc ? "fiber/unit" : "fiber/100g",
+            labelText: "fiber/100g",
             validatorText: "Add fiber amount",
             onChanged: (parsed) {
               if (parsed != null) {

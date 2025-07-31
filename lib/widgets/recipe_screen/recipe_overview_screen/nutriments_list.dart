@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_list/common.dart';
 import 'package:recipe_list/data/grocery_data.dart';
 import 'package:recipe_list/data/ingredient_data.dart';
-import 'package:recipe_list/data/unit_enum.dart';
 import 'package:recipe_list/widgets/grocery_screen/providers/grocery_notifier.dart';
 
 class NutrimentsList extends ConsumerWidget {
@@ -21,16 +20,12 @@ class NutrimentsList extends ConsumerWidget {
     for (final ingredient in ingredients) {
       final grocery = groceryMap[ingredient.groceryId]!;
 
-      final unitType = UnitConversion.unitType(grocery.unit);
-
       final gramValue = grocery.convertToGram(
         ingredient.amount,
         ingredient.unit,
       );
 
-      final additiveValue = unitType == UnitType.misc
-          ? gramValue
-          : gramValue / 100;
+      final additiveValue = gramValue / 100;
 
       final nutrients = grocery.getNutrients();
 

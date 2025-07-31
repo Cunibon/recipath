@@ -68,11 +68,9 @@ extension GroceryDataFunctions on GroceryData {
     final unitType = UnitConversion.unitType(unit); // this.unit
     final otherUnitType = UnitConversion.unitType(otherUnit);
 
-    if (unitType == UnitType.misc || otherUnitType == UnitType.misc) {
-      return value;
-    }
-
-    if (otherUnitType == UnitType.volume) {
+    if (otherUnitType == UnitType.misc) {
+      return (value / normalAmount) * conversionAmount;
+    } else if (otherUnitType == UnitType.volume) {
       if (unitType == UnitType.volume) {
         return UnitConversion.convert(
           UnitConversion.convert(value, otherUnit, unit) *

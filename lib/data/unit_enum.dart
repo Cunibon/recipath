@@ -53,7 +53,7 @@ class UnitConversion {
     UnitEnum.lb: 453.592,
   };
 
-  static unitType(UnitEnum value) {
+  static UnitType unitType(UnitEnum value) {
     if (volumeToMl.keys.contains(value)) {
       return UnitType.volume;
     } else if (weightToGram.keys.contains(value)) {

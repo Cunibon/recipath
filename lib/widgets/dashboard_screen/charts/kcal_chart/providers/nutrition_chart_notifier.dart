@@ -2,7 +2,6 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_list/data/grocery_data.dart';
-import 'package:recipe_list/data/unit_enum.dart';
 import 'package:recipe_list/widgets/dashboard_screen/charts/chart_entry.dart';
 import 'package:recipe_list/widgets/dashboard_screen/charts/grocery_chart/providers/grocery_statistics_notifier.dart';
 import 'package:recipe_list/widgets/dashboard_screen/charts/kcal_chart/providers/nutrient_color_notifier.dart';
@@ -34,8 +33,6 @@ Future<ChartState> nutritionChartNotifier(
       final grocery = groceryMap[entry.key];
       if (grocery == null) continue;
 
-      final unitType = UnitConversion.unitType(grocery.unit);
-
       final groceryNutrients = grocery.getNutrients();
 
       for (final nutrient in groceryNutrients.entries) {
@@ -47,9 +44,7 @@ Future<ChartState> nutritionChartNotifier(
             GroceryData.jsonStringToEnum(e.key),
           );
 
-          final additiveValue = unitType == UnitType.misc
-              ? gramValue
-              : gramValue / 100;
+          final additiveValue = gramValue / 100;
 
           return sum + additiveValue * nutrient.value!;
         });

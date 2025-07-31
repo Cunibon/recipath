@@ -79,7 +79,9 @@ class _IngredientItemState extends ConsumerState<IngredientItem> {
                   width: double.infinity,
                   child: Text(
                     widget.data.unit.name,
-                    style: Theme.of(context).textTheme.bodyLarge,
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 )
               : DropdownButtonFormField(
