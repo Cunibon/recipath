@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:recipe_list/application/recipe_shopping_modifier/recipe_shopping_modifier_notifier.dart';
-import 'package:recipe_list/application/shopping_modifier/shopping_modifier_notifier.dart';
 import 'package:recipe_list/data/recipe_data.dart';
 import 'package:recipe_list/root_routes.dart';
 import 'package:recipe_list/widgets/generic/cached_async_value_wrapper.dart';
@@ -10,6 +8,7 @@ import 'package:recipe_list/widgets/grocery_screen/providers/grocery_notifier.da
 import 'package:recipe_list/widgets/recipe_screen/create_recipe_screen/compact_ingredient_view.dart';
 import 'package:recipe_list/widgets/recipe_screen/local_image.dart';
 import 'package:recipe_list/widgets/recipe_screen/providers/average_recipe_time_notifier.dart';
+import 'package:recipe_list/widgets/recipe_screen/providers/shopping_planning_notifier.dart';
 import 'package:recipe_list/widgets/recipe_screen/providers/timer_notifier.dart';
 
 class CompactRecipeItem extends ConsumerWidget {
@@ -20,6 +19,9 @@ class CompactRecipeItem extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final groceryMap = ref.watch(groceryNotifierProvider).value!;
     final timer = ref.watch(timerNotifierProvider)[data.id];
+    final planningCount = ref.watch(
+      shoppingPlanningNotifierProvider.select((value) => value[data]),
+    );
 
     return GestureDetector(
       onTap: () => context.go(
@@ -88,26 +90,14 @@ class CompactRecipeItem extends ConsumerWidget {
                             ],
                           ),
                         ),
-                        IconButton(
-                          onPressed: () {
-                            ref
-                                .read(shoppingModifierNotifierProvider)
-                                .addItems(
-                                  data.getIngredients(groceryMap),
-                                  groceryMap,
-                                );
-
-                            ref
-                                .read(recipeShoppingModifierNotifierProvider)
-                                .addRecipe(data);
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text("Added items to shopping list!"),
-                              ),
-                            );
-                          },
-                          icon: Icon(Icons.shopping_cart),
-                        ),
+                        if (planningCount != null) ...[
+                          Text(
+                            planningCount.toString(),
+                            style: Theme.of(context).textTheme.bodyLarge!
+                                .copyWith(fontWeight: FontWeight.bold),
+                          ),
+                          Icon(Icons.shopping_cart),
+                        ],
                       ],
                     ),
                     CompactIngredientView(

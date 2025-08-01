@@ -5,7 +5,7 @@ import 'package:recipe_list/application/shopping_modifier/shopping_modifier_noti
 import 'package:recipe_list/application/storage_modifier/storage_modifier_notifier.dart';
 import 'package:recipe_list/data/ingredient_data.dart';
 import 'package:recipe_list/data/shopping_data.dart';
-import 'package:recipe_list/widgets/generic/delete_confirmation_dialog.dart';
+import 'package:recipe_list/widgets/generic/dialogs/delete_confirmation_dialog.dart';
 import 'package:recipe_list/widgets/grocery_screen/providers/grocery_notifier.dart';
 
 class ShoppingItem extends ConsumerWidget {

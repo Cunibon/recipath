@@ -6,7 +6,7 @@ import 'package:recipe_list/application/recipe_modifier/recipe_modifier_notifier
 import 'package:recipe_list/data/recipe_data.dart';
 import 'package:recipe_list/data/recipe_step_data.dart';
 import 'package:recipe_list/root_routes.dart';
-import 'package:recipe_list/widgets/generic/delete_confirmation_dialog.dart';
+import 'package:recipe_list/widgets/generic/dialogs/delete_confirmation_dialog.dart';
 import 'package:recipe_list/widgets/generic/unsaved_changes_scope.dart';
 import 'package:recipe_list/widgets/recipe_screen/create_recipe_screen/add_image_widget.dart';
 import 'package:recipe_list/widgets/recipe_screen/create_recipe_screen/recipe_step_view.dart';

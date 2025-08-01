@@ -10,7 +10,7 @@ import 'package:recipe_list/data/recipe_data.dart';
 import 'package:recipe_list/data/unit_enum.dart';
 import 'package:recipe_list/repos/recipe/recipe_repo_notifier.dart';
 import 'package:recipe_list/repos/shopping/shopping_repo_notifier.dart';
-import 'package:recipe_list/widgets/generic/delete_confirmation_dialog.dart';
+import 'package:recipe_list/widgets/generic/dialogs/delete_confirmation_dialog.dart';
 import 'package:recipe_list/widgets/generic/information_dialog.dart';
 import 'package:recipe_list/widgets/generic/unsaved_changes_scope.dart';
 import 'package:recipe_list/widgets/grocery_screen/create_grocery_screen/grocery_form_fields.dart';

@@ -12,42 +12,39 @@ class ShoppingModifier {
     Iterable<IngredientData> newData,
     Map<String, GroceryData> groceryMap,
   ) async {
-    final value = await repo.get();
+    final currentShoppingData = await repo.get();
 
-    final groceryLookup = value.map(
+    final groceryLookup = currentShoppingData.map(
       (key, value) => MapEntry(value.ingredient.groceryId, value),
     );
 
-    final List<ShoppingData> newShoppingData = [];
+    final Map<String, ShoppingData> newShoppingData = {};
 
     for (final ingredient in newData) {
-      final shoppingData = groceryLookup[ingredient.groceryId];
+      final shoppingData =
+          groceryLookup[ingredient.groceryId] ??
+          newShoppingData[ingredient.groceryId];
       final grocery = groceryMap[ingredient.groceryId]!;
 
       if (shoppingData == null || shoppingData.done) {
-        newShoppingData.add(
-          ShoppingData(
-            id: randomAlphaNumeric(16),
-            done: false,
-            count: (ingredient.amount / grocery.normalAmount).ceil(),
-            ingredient: ingredient.copyWith(id: randomAlphaNumeric(16)),
-          ),
+        newShoppingData[grocery.id] = ShoppingData(
+          id: randomAlphaNumeric(16),
+          done: false,
+          count: (ingredient.amount / grocery.normalAmount).ceil(),
+          ingredient: ingredient.copyWith(id: randomAlphaNumeric(16)),
         );
       } else {
         final updatedIngredient = shoppingData.ingredient.copyWith(
           amount: shoppingData.ingredient.amount + ingredient.amount,
         );
-        newShoppingData.add(
-          shoppingData.copyWith(
-            count: (updatedIngredient.amount / grocery.normalAmount).ceil(),
-            ingredient: updatedIngredient,
-          ),
+        newShoppingData[grocery.id] = shoppingData.copyWith(
+          count: (updatedIngredient.amount / grocery.normalAmount).ceil(),
+          ingredient: updatedIngredient,
         );
       }
     }
 
-    //TODO could be optimized
-    for (final data in newShoppingData) {
+    for (final data in newShoppingData.values) {
       await updateItem(data);
     }
   }
