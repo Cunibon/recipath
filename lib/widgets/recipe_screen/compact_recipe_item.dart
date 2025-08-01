@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:recipe_list/application/recipe_shopping_modifier/recipe_shopping_modifier_notifier.dart';
 import 'package:recipe_list/application/shopping_modifier/shopping_modifier_notifier.dart';
 import 'package:recipe_list/data/recipe_data.dart';
 import 'package:recipe_list/repos/recipe_statistics/recipe_statistics_repo_notifier.dart';
@@ -98,6 +99,10 @@ class CompactRecipeItem extends ConsumerWidget {
                                   data.getIngredients(groceryMap),
                                   groceryMap,
                                 );
+
+                            ref
+                                .read(recipeShoppingModifierNotifierProvider)
+                                .addRecipe(data);
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text("Added items to shopping list!"),

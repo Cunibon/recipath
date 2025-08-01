@@ -1,30 +1,30 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'drawer_destination_notifier.dart';
+part of 'recipe_shopping_modifier_notifier.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$drawerDestinationsHash() =>
-    r'74c248dff3308e0e589297faf3062de413e56fc4';
+String _$recipeShoppingModifierNotifierHash() =>
+    r'd548ab758ea8fc3f1da5f9371b23f611dfb0b006';
 
-/// See also [drawerDestinations].
-@ProviderFor(drawerDestinations)
-final drawerDestinationsProvider =
-    AutoDisposeProvider<List<List<DrawerDestination>>>.internal(
-      drawerDestinations,
-      name: r'drawerDestinationsProvider',
+/// See also [recipeShoppingModifierNotifier].
+@ProviderFor(recipeShoppingModifierNotifier)
+final recipeShoppingModifierNotifierProvider =
+    AutoDisposeProvider<RecipeShoppingModifier>.internal(
+      recipeShoppingModifierNotifier,
+      name: r'recipeShoppingModifierNotifierProvider',
       debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
           ? null
-          : _$drawerDestinationsHash,
+          : _$recipeShoppingModifierNotifierHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef DrawerDestinationsRef =
-    AutoDisposeProviderRef<List<List<DrawerDestination>>>;
+typedef RecipeShoppingModifierNotifierRef =
+    AutoDisposeProviderRef<RecipeShoppingModifier>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

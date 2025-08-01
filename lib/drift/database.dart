@@ -9,6 +9,7 @@ import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:recipe_list/drift/tables/grocery_table.dart';
 import 'package:recipe_list/drift/tables/ingredient_table.dart';
+import 'package:recipe_list/drift/tables/recipe_shopping_table.dart';
 import 'package:recipe_list/drift/tables/recipe_statistic_table.dart';
 import 'package:recipe_list/drift/tables/recipe_step_ingredient_table.dart';
 import 'package:recipe_list/drift/tables/recipe_step_table.dart';
@@ -28,13 +29,14 @@ part 'database.g.dart';
     ShoppingTable,
     StorageTable,
     RecipeStatisticTable,
+    RecipeShoppingTable,
   ],
 )
 class AppDatabase extends _$AppDatabase {
   AppDatabase([QueryExecutor? executor]) : super(executor ?? _openConnection());
 
   @override
-  int get schemaVersion => 5;
+  int get schemaVersion => 6;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -60,6 +62,9 @@ class AppDatabase extends _$AppDatabase {
       }
       if (from < 5) {
         await m.addColumn(recipeTable, recipeTable.servings);
+      }
+      if (from < 6) {
+        await m.createTable(recipeShoppingTable);
       }
     },
   );
