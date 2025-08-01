@@ -34,8 +34,8 @@ class RecipeStatisticsRepoDrift extends RecipeStatisticsRepo {
   }
 
   @override
-  Future<Duration?> getAverageTimeForRecipe(String recipeId) async {
-    final result = await db
+  Stream<Duration?> getAverageTimeForRecipe(String recipeId) {
+    final stream = db
         .customSelect(
           '''
           SELECT AVG(${table.endDate.name} - ${table.startDate.name}) as averageduration
@@ -45,10 +45,14 @@ class RecipeStatisticsRepoDrift extends RecipeStatisticsRepo {
           variables: [Variable(recipeId)],
           readsFrom: {table},
         )
-        .getSingle();
+        .watchSingle();
 
-    final avgMillis = result.data['averageduration'] as double?;
-    return avgMillis != null ? Duration(milliseconds: avgMillis.round()) : null;
+    return stream.map((event) {
+      final avgMillis = event.data['averageduration'] as double?;
+      return avgMillis != null
+          ? Duration(milliseconds: avgMillis.round())
+          : null;
+    });
   }
 
   @override

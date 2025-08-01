@@ -5,6 +5,8 @@ class CachedAsyncValueWrapper<T> extends StatefulWidget {
   const CachedAsyncValueWrapper({
     required this.asyncState,
     required this.builder,
+    this.loadingBuilder,
+    this.errorBuilder,
     this.width,
     this.height,
     super.key,
@@ -12,6 +14,9 @@ class CachedAsyncValueWrapper<T> extends StatefulWidget {
 
   final AsyncValue<T> asyncState;
   final Widget Function(T data) builder;
+
+  final Widget Function()? loadingBuilder;
+  final Widget Function(Object? error)? errorBuilder;
 
   final double? width;
   final double? height;
@@ -34,17 +39,23 @@ class _CachedAsyncValueWrapperState<T>
     if (lastState != null) {
       return widget.builder(lastState as T);
     } else if (widget.asyncState.hasError) {
-      return SizedBox(
-        width: widget.width,
-        height: widget.height,
-        child: Center(child: const Text('Oops, something unexpected happened')),
-      );
+      return widget.errorBuilder?.call(widget.asyncState.error) ??
+          SizedBox(
+            width: widget.width,
+            height: widget.height,
+            child: Center(
+              child: const Text('Oops, something unexpected happened'),
+            ),
+          );
+    } else if (widget.asyncState.isLoading) {
+      return widget.loadingBuilder?.call() ??
+          SizedBox(
+            width: widget.width,
+            height: widget.height,
+            child: Center(child: const CircularProgressIndicator()),
+          );
     } else {
-      return SizedBox(
-        width: widget.width,
-        height: widget.height,
-        child: Center(child: const CircularProgressIndicator()),
-      );
+      return SizedBox.shrink();
     }
   }
 }

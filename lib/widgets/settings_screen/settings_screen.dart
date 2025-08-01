@@ -5,7 +5,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_list/application_constants.dart';
-import 'package:recipe_list/domain_service/data_import_service_notifier.dart';
+import 'package:recipe_list/domain_service/import_service/data_import_service_notifier.dart';
 import 'package:recipe_list/providers/application_path_provider.dart';
 import 'package:recipe_list/repos/grocery/grocery_repo_notifier.dart';
 import 'package:recipe_list/repos/recipe/recipe_repo_notifier.dart';

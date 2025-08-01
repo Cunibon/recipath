@@ -4,7 +4,7 @@ import 'package:recipe_list/repos/repo.dart';
 abstract class RecipeStatisticsRepo extends Repo<RecipeStatisticData> {
   RecipeStatisticsRepo(super.db);
 
-  Future<Duration?> getAverageTimeForRecipe(String recipeId);
+  Stream<Duration?> getAverageTimeForRecipe(String recipeId);
 
   Future<Map<String, int>> getRecipeCountBetween({
     required DateTime startDate,

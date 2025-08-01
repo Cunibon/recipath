@@ -4,11 +4,12 @@ import 'package:go_router/go_router.dart';
 import 'package:recipe_list/application/recipe_shopping_modifier/recipe_shopping_modifier_notifier.dart';
 import 'package:recipe_list/application/shopping_modifier/shopping_modifier_notifier.dart';
 import 'package:recipe_list/data/recipe_data.dart';
-import 'package:recipe_list/repos/recipe_statistics/recipe_statistics_repo_notifier.dart';
 import 'package:recipe_list/root_routes.dart';
+import 'package:recipe_list/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipe_list/widgets/grocery_screen/providers/grocery_notifier.dart';
 import 'package:recipe_list/widgets/recipe_screen/create_recipe_screen/compact_ingredient_view.dart';
 import 'package:recipe_list/widgets/recipe_screen/local_image.dart';
+import 'package:recipe_list/widgets/recipe_screen/providers/average_recipe_time_notifier.dart';
 import 'package:recipe_list/widgets/recipe_screen/providers/timer_notifier.dart';
 
 class CompactRecipeItem extends ConsumerWidget {
@@ -61,22 +62,18 @@ class CompactRecipeItem extends ConsumerWidget {
                                       ).textTheme.titleMedium,
                                     ),
                                   ),
-                                  FutureBuilder(
-                                    future: ref
-                                        .read(
-                                          recipeStatisticsRepoNotifierProvider,
-                                        )
-                                        .getAverageTimeForRecipe(data.id),
-                                    builder: (context, snapshot) {
-                                      if (snapshot.connectionState ==
-                                              ConnectionState.done &&
-                                          snapshot.data != null) {
-                                        return Text(
-                                          " (Ø ${snapshot.data!.inMinutes.toString()}min)",
-                                        );
-                                      }
-                                      return SizedBox.shrink();
-                                    },
+                                  CachedAsyncValueWrapper(
+                                    asyncState: ref.watch(
+                                      averageRecipeTimeNotifierProvider(
+                                        data.id,
+                                      ),
+                                    ),
+                                    builder: (data) => data == null
+                                        ? SizedBox.shrink()
+                                        : Text(
+                                            " (Ø ${data.inMinutes.toString()}min)",
+                                          ),
+                                    loadingBuilder: () => SizedBox.shrink(),
                                   ),
                                   if (timer != null)
                                     Icon(
