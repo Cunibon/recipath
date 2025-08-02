@@ -84,10 +84,7 @@ Future<ChartState> nutritionChartNotifier(
     final barRods = <BarChartRodData>[];
 
     for (final nutrientKey in nutrimentsColorMap.keys) {
-      final value = nutrientMap[nutrientKey];
-      if (value == null || value == 0) {
-        continue;
-      }
+      final value = nutrientMap[nutrientKey] ?? 0;
 
       barRods.add(
         BarChartRodData(

@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_list/common.dart';
 import 'package:recipe_list/widgets/dashboard_screen/charts/async_chart.dart';
 import 'package:recipe_list/widgets/dashboard_screen/charts/base_chart.dart';
-import 'package:recipe_list/widgets/dashboard_screen/charts/kcal_chart/providers/nutrient_color_notifier.dart';
+import 'package:recipe_list/widgets/dashboard_screen/charts/kcal_chart/nutrition_legend.dart';
 import 'package:recipe_list/widgets/dashboard_screen/charts/kcal_chart/providers/nutrition_chart_notifier.dart';
 
 class NutritionChart extends ConsumerWidget {
@@ -23,8 +23,6 @@ class NutritionChart extends ConsumerWidget {
       nutritionChartNotifierProvider(dateRange, recipeId),
     );
 
-    final nutrimentsMap = ref.watch(nutrimentColorNotifierProvider);
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -33,47 +31,33 @@ class NutritionChart extends ConsumerWidget {
         Divider(),
         AsyncChart(
           asyncState: state,
-          builder: (data) => BaseChart(
-            state: data,
-            horizontalInterval: 500,
-            horizontalTitleInterval: 1000,
-            touchTooltipData: BarTouchTooltipData(
-              getTooltipColor: (group) => Colors.black.withAlpha(128),
-              tooltipPadding: EdgeInsets.symmetric(horizontal: 2),
-              tooltipMargin: 8,
-              getTooltipItem: (group, groupIndex, rod, rodIndex) {
-                final value = rod.toY;
-                return BarTooltipItem(
-                  doubleNumberFormat.format(value),
-                  const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                );
-              },
-            ),
-          ),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            for (final entry in nutrimentsMap.entries)
-              Row(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      color: entry.value,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    width: 20,
-                    height: 20,
-                  ),
-                  SizedBox(width: 5),
-                  Text(entry.key),
-                  SizedBox(width: 10),
-                ],
+          builder: (data) => Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              BaseChart(
+                axisSpace: 150,
+                state: data,
+                horizontalInterval: 500,
+                horizontalTitleInterval: 1000,
+                touchTooltipData: BarTouchTooltipData(
+                  getTooltipColor: (group) => Colors.black.withAlpha(128),
+                  tooltipPadding: EdgeInsets.symmetric(horizontal: 2),
+                  tooltipMargin: 8,
+                  getTooltipItem: (group, groupIndex, rod, rodIndex) {
+                    final value = rod.toY;
+                    return BarTooltipItem(
+                      doubleNumberFormat.format(value),
+                      const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    );
+                  },
+                ),
               ),
-          ],
+              NutritionLegend(data: data),
+            ],
+          ),
         ),
       ],
     );
