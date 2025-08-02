@@ -19,14 +19,18 @@ class CompactRecipeItem extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final groceryMap = ref.watch(groceryNotifierProvider).value!;
     final timer = ref.watch(timerNotifierProvider)[data.id];
-    final planningCount = ref.watch(
-      shoppingPlanningNotifierProvider.select((value) => value[data]),
-    );
+    final shoppingPlan = ref.watch(shoppingPlanningNotifierProvider);
 
     return GestureDetector(
-      onTap: () => context.go(
-        '${RootRoutes.recipeRoute.path}/recipeOverview/${data.id}',
-      ),
+      onTap: () {
+        if (shoppingPlan == null) {
+          context.go(
+            '${RootRoutes.recipeRoute.path}/recipeOverview/${data.id}',
+          );
+        } else {
+          ref.read(shoppingPlanningNotifierProvider.notifier).addRecipe(data);
+        }
+      },
       child: Card(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -90,9 +94,9 @@ class CompactRecipeItem extends ConsumerWidget {
                             ],
                           ),
                         ),
-                        if (planningCount != null) ...[
+                        if (shoppingPlan != null) ...[
                           Text(
-                            planningCount.toString(),
+                            (shoppingPlan[data] ?? 0).toString(),
                             style: Theme.of(context).textTheme.bodyLarge!
                                 .copyWith(fontWeight: FontWeight.bold),
                           ),

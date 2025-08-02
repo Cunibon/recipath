@@ -6,10 +6,12 @@ part 'shopping_planning_notifier.g.dart';
 @riverpod
 class ShoppingPlanningNotifier extends _$ShoppingPlanningNotifier {
   @override
-  Map<RecipeData, int> build() => {};
+  Map<RecipeData, int>? build() => null;
+
+  void start() => state = {};
 
   void addRecipe(RecipeData data) {
-    final stateCopy = Map<RecipeData, int>.from(state);
+    final stateCopy = Map<RecipeData, int>.from(state ?? {});
     final currentCount = stateCopy.putIfAbsent(data, () => 0);
     stateCopy[data] = currentCount + 1;
 
@@ -17,7 +19,7 @@ class ShoppingPlanningNotifier extends _$ShoppingPlanningNotifier {
   }
 
   void removeRecipe(RecipeData data) {
-    final stateCopy = Map<RecipeData, int>.from(state);
+    final stateCopy = Map<RecipeData, int>.from(state ?? {});
     final currentCount = stateCopy[data];
     if (currentCount != null) {
       if (currentCount <= 1) {
@@ -26,11 +28,15 @@ class ShoppingPlanningNotifier extends _$ShoppingPlanningNotifier {
         stateCopy[data] = currentCount - 1;
       }
 
-      state = stateCopy;
+      if (stateCopy.isEmpty) {
+        state = null;
+      } else {
+        state = stateCopy;
+      }
     }
   }
 
   void clear() {
-    state = {};
+    state = null;
   }
 }

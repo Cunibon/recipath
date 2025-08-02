@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:random_string/random_string.dart';
 import 'package:recipe_list/data/recipe_data.dart';
 import 'package:recipe_list/drift/database.dart';
 
@@ -23,8 +24,11 @@ abstract class RecipeShoppingData with _$RecipeShoppingData {
         recipeId: data.recipeId,
       );
 
-  factory RecipeShoppingData.fromRecipe(RecipeData data) =>
-      RecipeShoppingData(id: data.id, date: DateTime.now(), recipeId: data.id);
+  factory RecipeShoppingData.fromRecipe(RecipeData data) => RecipeShoppingData(
+    id: randomAlphaNumeric(16),
+    date: DateTime.now(),
+    recipeId: data.id,
+  );
 }
 
 extension RecipeShoppingDataFunctions on RecipeShoppingData {

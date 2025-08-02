@@ -17,26 +17,21 @@ import 'package:recipe_list/widgets/recipe_screen/providers/recipe_notifier.dart
 import 'package:recipe_list/widgets/recipe_screen/providers/shopping_planning_notifier.dart';
 import 'package:recipe_list/widgets/recipe_screen/recipe_routes.dart';
 
-class RecipeScreen extends ConsumerStatefulWidget {
+class RecipeScreen extends ConsumerWidget {
   const RecipeScreen({super.key});
 
   @override
-  ConsumerState<RecipeScreen> createState() => _RecipeScreenState();
-}
-
-class _RecipeScreenState extends ConsumerState<RecipeScreen> {
-  late bool shoppingMode = false;
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final asyncRecipe = ref.watch(recipeNotifierProvider);
     final asyncGrocery = ref.watch(groceryNotifierProvider);
+    final shoppingPlan = ref.watch(shoppingPlanningNotifierProvider);
 
     return NavigationDrawerScaffold(
       actions: [
-        if (!shoppingMode)
+        if (shoppingPlan == null)
           IconButton(
-            onPressed: () => setState(() => shoppingMode = true),
+            onPressed: () =>
+                ref.read(shoppingPlanningNotifierProvider.notifier).start(),
             icon: Icon(Icons.shopping_cart),
           )
         else ...[
@@ -49,7 +44,6 @@ class _RecipeScreenState extends ConsumerState<RecipeScreen> {
 
               if (clear == true) {
                 ref.read(shoppingPlanningNotifierProvider.notifier).clear();
-                setState(() => shoppingMode = false);
               }
             },
             icon: Icon(Icons.clear),
@@ -65,6 +59,9 @@ class _RecipeScreenState extends ConsumerState<RecipeScreen> {
               if (finish != true) return;
 
               final shoppingPlan = ref.read(shoppingPlanningNotifierProvider);
+
+              if (shoppingPlan == null || shoppingPlan.isEmpty) return;
+
               final shoppingModifier = ref.read(
                 shoppingModifierNotifierProvider,
               );
@@ -95,7 +92,6 @@ class _RecipeScreenState extends ConsumerState<RecipeScreen> {
               }
 
               ref.read(shoppingPlanningNotifierProvider.notifier).clear();
-              setState(() => shoppingMode = false);
             },
             icon: Icon(Icons.done),
           ),
@@ -117,10 +113,6 @@ class _RecipeScreenState extends ConsumerState<RecipeScreen> {
             key: Key(item.id),
             child: CompactRecipeItem(data: item),
             confirmDismiss: (direction) async {
-              if (!shoppingMode) {
-                setState(() => shoppingMode = true);
-              }
-
               if (direction == DismissDirection.startToEnd) {
                 ref
                     .read(shoppingPlanningNotifierProvider.notifier)
