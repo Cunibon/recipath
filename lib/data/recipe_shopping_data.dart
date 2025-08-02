@@ -17,7 +17,7 @@ abstract class RecipeShoppingData with _$RecipeShoppingData {
   factory RecipeShoppingData.fromJson(Map<String, Object?> json) =>
       _$RecipeShoppingDataFromJson(json);
 
-  factory RecipeShoppingData.fromRow(RecipeShoppingTableData data) =>
+  factory RecipeShoppingData.fromTableData(RecipeShoppingTableData data) =>
       RecipeShoppingData(
         id: data.id,
         date: DateTime.fromMillisecondsSinceEpoch(data.date),

@@ -51,14 +51,14 @@ class RecipeRepoDrift extends Repo<RecipeData> {
       final stepRow = row.readTableOrNull(db.recipeStepTable);
 
       final recipe = recipesById.putIfAbsent(recipeRow.id, () {
-        return RecipeData.fromRow(recipeRow);
+        return RecipeData.fromTableData(recipeRow);
       });
 
       if (stepRow != null) {
         late RecipeStepData recipeStep;
 
         if (recipe.steps.lastOrNull?.id != stepRow.id) {
-          recipeStep = RecipeStepData.fromRow(stepRow);
+          recipeStep = RecipeStepData.fromTable(stepRow);
           recipesById[recipe.id] = recipesById[recipe.id]!.copyWith(
             steps: [...recipesById[recipe.id]!.steps, recipeStep],
           );
@@ -76,7 +76,7 @@ class RecipeRepoDrift extends Repo<RecipeData> {
                 recipeStep.copyWith(
                   ingredients: [
                     ...recipeStep.ingredients,
-                    IngredientData.fromRow(ingredientRow),
+                    IngredientData.fromTableData(ingredientRow),
                   ],
                 ),
               ),

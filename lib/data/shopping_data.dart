@@ -18,6 +18,16 @@ abstract class ShoppingData with _$ShoppingData {
 
   factory ShoppingData.fromJson(Map<String, Object?> json) =>
       _$ShoppingDataFromJson(json);
+
+  factory ShoppingData.fromSupabase(
+    Map<String, dynamic> data,
+    IngredientData ingredient,
+  ) => ShoppingData(
+    id: data["id"],
+    done: data["done"],
+    count: data["count"],
+    ingredient: ingredient,
+  );
 }
 
 extension ShoppingDataFunctions on ShoppingData {

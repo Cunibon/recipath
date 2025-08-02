@@ -14,17 +14,29 @@ abstract class IngredientData with _$IngredientData {
     required double amount,
     required UnitEnum unit,
     required String groceryId,
+    required bool uploaded,
   }) = _IngredientData;
 
   factory IngredientData.fromJson(Map<String, Object?> json) =>
       _$IngredientDataFromJson(json);
 
-  factory IngredientData.fromRow(IngredientTableData data) => IngredientData(
-    id: data.id,
-    amount: data.amount,
-    unit: $enumDecode(_$UnitEnumEnumMap, data.unit),
-    groceryId: data.groceryId,
-  );
+  factory IngredientData.fromTableData(IngredientTableData data) =>
+      IngredientData(
+        id: data.id,
+        amount: data.amount,
+        unit: $enumDecode(_$UnitEnumEnumMap, data.unit),
+        groceryId: data.groceryId,
+        uploaded: data.uploaded,
+      );
+
+  factory IngredientData.fromSupabase(Map<String, dynamic> data) =>
+      IngredientData(
+        id: data["id"],
+        amount: data["amount"],
+        unit: $enumDecode(_$UnitEnumEnumMap, data["unit"]),
+        groceryId: data["grocery_id"],
+        uploaded: true,
+      );
 
   static List<IngredientData> aggregateIngredients(
     Map<String, GroceryData> groceries,
@@ -40,6 +52,7 @@ abstract class IngredientData with _$IngredientData {
           amount: 0,
           unit: grocery.unit,
           groceryId: ingredient.groceryId,
+          uploaded: false,
         ),
       );
       ingredientsMap[ingredient.groceryId] = data.copyWith(

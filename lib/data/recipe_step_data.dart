@@ -16,9 +16,18 @@ abstract class RecipeStepData with _$RecipeStepData {
   factory RecipeStepData.fromJson(Map<String, Object?> json) =>
       _$RecipeStepDataFromJson(json);
 
-  factory RecipeStepData.fromRow(RecipeStepTableData data) => RecipeStepData(
+  factory RecipeStepData.fromTable(RecipeStepTableData data) => RecipeStepData(
     id: data.id,
     description: data.description,
     ingredients: [],
+  );
+
+  factory RecipeStepData.fromSupabase(
+    Map<String, dynamic> data,
+    List<IngredientData> ingredients,
+  ) => RecipeStepData(
+    id: data["id"],
+    description: data["description"],
+    ingredients: ingredients,
   );
 }

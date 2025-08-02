@@ -2,6 +2,7 @@ import 'package:drift/drift.dart';
 import 'package:recipe_list/drift/tables/grocery_table.dart';
 
 @TableIndex(name: 'ingredient_groceryId', columns: {#groceryId})
+@TableIndex(name: 'ingredient_uploaded', columns: {#uploaded})
 class IngredientTable extends Table {
   @override
   Set<Column<Object>> get primaryKey => {id};
@@ -10,4 +11,6 @@ class IngredientTable extends Table {
   RealColumn get amount => real()();
   TextColumn get unit => text()();
   TextColumn get groceryId => text().references(GroceryTable, #id)();
+
+  BoolColumn get uploaded => boolean().withDefault(Constant(false))();
 }

@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$IngredientData {
 
- String get id; double get amount; UnitEnum get unit; String get groceryId;
+ String get id; double get amount; UnitEnum get unit; String get groceryId; bool get uploaded;
 /// Create a copy of IngredientData
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,16 +29,16 @@ $IngredientDataCopyWith<IngredientData> get copyWith => _$IngredientDataCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is IngredientData&&(identical(other.id, id) || other.id == id)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.unit, unit) || other.unit == unit)&&(identical(other.groceryId, groceryId) || other.groceryId == groceryId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is IngredientData&&(identical(other.id, id) || other.id == id)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.unit, unit) || other.unit == unit)&&(identical(other.groceryId, groceryId) || other.groceryId == groceryId)&&(identical(other.uploaded, uploaded) || other.uploaded == uploaded));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,amount,unit,groceryId);
+int get hashCode => Object.hash(runtimeType,id,amount,unit,groceryId,uploaded);
 
 @override
 String toString() {
-  return 'IngredientData(id: $id, amount: $amount, unit: $unit, groceryId: $groceryId)';
+  return 'IngredientData(id: $id, amount: $amount, unit: $unit, groceryId: $groceryId, uploaded: $uploaded)';
 }
 
 
@@ -49,7 +49,7 @@ abstract mixin class $IngredientDataCopyWith<$Res>  {
   factory $IngredientDataCopyWith(IngredientData value, $Res Function(IngredientData) _then) = _$IngredientDataCopyWithImpl;
 @useResult
 $Res call({
- String id, double amount, UnitEnum unit, String groceryId
+ String id, double amount, UnitEnum unit, String groceryId, bool uploaded
 });
 
 
@@ -66,13 +66,14 @@ class _$IngredientDataCopyWithImpl<$Res>
 
 /// Create a copy of IngredientData
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? amount = null,Object? unit = null,Object? groceryId = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? amount = null,Object? unit = null,Object? groceryId = null,Object? uploaded = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
 as double,unit: null == unit ? _self.unit : unit // ignore: cast_nullable_to_non_nullable
 as UnitEnum,groceryId: null == groceryId ? _self.groceryId : groceryId // ignore: cast_nullable_to_non_nullable
-as String,
+as String,uploaded: null == uploaded ? _self.uploaded : uploaded // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 
@@ -83,13 +84,14 @@ as String,
 @JsonSerializable()
 
 class _IngredientData implements IngredientData {
-  const _IngredientData({required this.id, required this.amount, required this.unit, required this.groceryId});
+  const _IngredientData({required this.id, required this.amount, required this.unit, required this.groceryId, required this.uploaded});
   factory _IngredientData.fromJson(Map<String, dynamic> json) => _$IngredientDataFromJson(json);
 
 @override final  String id;
 @override final  double amount;
 @override final  UnitEnum unit;
 @override final  String groceryId;
+@override final  bool uploaded;
 
 /// Create a copy of IngredientData
 /// with the given fields replaced by the non-null parameter values.
@@ -104,16 +106,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _IngredientData&&(identical(other.id, id) || other.id == id)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.unit, unit) || other.unit == unit)&&(identical(other.groceryId, groceryId) || other.groceryId == groceryId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _IngredientData&&(identical(other.id, id) || other.id == id)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.unit, unit) || other.unit == unit)&&(identical(other.groceryId, groceryId) || other.groceryId == groceryId)&&(identical(other.uploaded, uploaded) || other.uploaded == uploaded));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,amount,unit,groceryId);
+int get hashCode => Object.hash(runtimeType,id,amount,unit,groceryId,uploaded);
 
 @override
 String toString() {
-  return 'IngredientData(id: $id, amount: $amount, unit: $unit, groceryId: $groceryId)';
+  return 'IngredientData(id: $id, amount: $amount, unit: $unit, groceryId: $groceryId, uploaded: $uploaded)';
 }
 
 
@@ -124,7 +126,7 @@ abstract mixin class _$IngredientDataCopyWith<$Res> implements $IngredientDataCo
   factory _$IngredientDataCopyWith(_IngredientData value, $Res Function(_IngredientData) _then) = __$IngredientDataCopyWithImpl;
 @override @useResult
 $Res call({
- String id, double amount, UnitEnum unit, String groceryId
+ String id, double amount, UnitEnum unit, String groceryId, bool uploaded
 });
 
 
@@ -141,13 +143,14 @@ class __$IngredientDataCopyWithImpl<$Res>
 
 /// Create a copy of IngredientData
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? amount = null,Object? unit = null,Object? groceryId = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? amount = null,Object? unit = null,Object? groceryId = null,Object? uploaded = null,}) {
   return _then(_IngredientData(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
 as double,unit: null == unit ? _self.unit : unit // ignore: cast_nullable_to_non_nullable
 as UnitEnum,groceryId: null == groceryId ? _self.groceryId : groceryId // ignore: cast_nullable_to_non_nullable
-as String,
+as String,uploaded: null == uploaded ? _self.uploaded : uploaded // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 

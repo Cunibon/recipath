@@ -15,13 +15,13 @@ class GroceryRepoDrift extends Repo<GroceryData> {
   @override
   Future<Map<String, GroceryData>> get() async {
     final rows = await baseQuery.get();
-    return {for (final row in rows) row.id: GroceryData.fromRow(row)};
+    return {for (final row in rows) row.id: GroceryData.fromTableData(row)};
   }
 
   @override
   Stream<Map<String, GroceryData>> stream() {
     return baseQuery.watch().map((rows) {
-      return {for (final row in rows) row.id: GroceryData.fromRow(row)};
+      return {for (final row in rows) row.id: GroceryData.fromTableData(row)};
     });
   }
 

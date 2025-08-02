@@ -16,6 +16,7 @@ class StorageModifier {
           amount: 0,
           unit: newData.unit,
           groceryId: newData.groceryId,
+          uploaded: false,
         );
 
     final aggregated = item.copyWith(amount: item.amount + newData.amount);

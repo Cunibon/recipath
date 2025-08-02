@@ -28,7 +28,7 @@ class ShoppingRepoDrift extends Repo<ShoppingData> {
         id: shoppingRow.id,
         done: shoppingRow.done,
         count: shoppingRow.count,
-        ingredient: IngredientData.fromRow(ingredientRow),
+        ingredient: IngredientData.fromTableData(ingredientRow),
       );
     }
     return shoppingById;

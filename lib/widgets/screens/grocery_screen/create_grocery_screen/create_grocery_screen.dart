@@ -51,6 +51,7 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
           unit: UnitEnum.g,
           conversionAmount: 0,
           conversionUnit: UnitEnum.ml,
+          uploaded: false,
         );
     data = initialData;
 

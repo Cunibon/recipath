@@ -21,12 +21,13 @@ abstract class GroceryData with _$GroceryData {
     double? carbs,
     double? protein,
     double? fiber,
+    required bool uploaded,
   }) = _GroceryData;
 
   factory GroceryData.fromJson(Map<String, Object?> json) =>
       _$GroceryDataFromJson(json);
 
-  factory GroceryData.fromRow(GroceryTableData data) => GroceryData(
+  factory GroceryData.fromTableData(GroceryTableData data) => GroceryData(
     id: data.id,
     name: data.name,
     normalAmount: data.normalAmount,
@@ -38,6 +39,22 @@ abstract class GroceryData with _$GroceryData {
     carbs: data.carbs,
     protein: data.protein,
     fiber: data.fiber,
+    uploaded: data.uploaded,
+  );
+
+  factory GroceryData.fromSupabase(Map<String, dynamic> data) => GroceryData(
+    id: data["id"],
+    name: data["name"],
+    normalAmount: data["normal_amount"],
+    unit: $enumDecode(_$UnitEnumEnumMap, data["unit"]),
+    conversionAmount: data["conversion_amount"],
+    conversionUnit: $enumDecode(_$UnitEnumEnumMap, data["conversion_unit"]),
+    kcal: data["kcal"],
+    fat: data["fat"],
+    carbs: data["carbs"],
+    protein: data["protein"],
+    fiber: data["fiber"],
+    uploaded: true,
   );
 
   static UnitEnum jsonStringToEnum(String enumString) =>

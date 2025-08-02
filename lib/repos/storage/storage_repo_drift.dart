@@ -22,7 +22,7 @@ class StorageRepoDrift extends Repo<IngredientData> {
     for (final row in rows) {
       final ingredientRow = row.readTable(db.ingredientTable);
 
-      ingredientById[ingredientRow.groceryId] = IngredientData.fromRow(
+      ingredientById[ingredientRow.groceryId] = IngredientData.fromTableData(
         ingredientRow,
       );
     }

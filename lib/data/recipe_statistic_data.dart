@@ -16,7 +16,7 @@ abstract class RecipeStatisticData with _$RecipeStatisticData {
   factory RecipeStatisticData.fromJson(Map<String, Object?> json) =>
       _$RecipeStatisticDataFromJson(json);
 
-  factory RecipeStatisticData.fromRow(RecipeStatisticTableData data) =>
+  factory RecipeStatisticData.fromTableData(RecipeStatisticTableData data) =>
       RecipeStatisticData(
         id: data.id,
         startDate: DateTime.fromMillisecondsSinceEpoch(data.startDate),

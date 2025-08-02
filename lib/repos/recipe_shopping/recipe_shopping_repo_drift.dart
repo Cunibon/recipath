@@ -23,13 +23,17 @@ class RecipeShoppingRepoDrift extends Repo<RecipeShoppingData> {
   @override
   Future<Map<String, RecipeShoppingData>> get() async {
     final rows = await baseQuery.get();
-    return {for (final row in rows) row.id: RecipeShoppingData.fromRow(row)};
+    return {
+      for (final row in rows) row.id: RecipeShoppingData.fromTableData(row),
+    };
   }
 
   @override
   Stream<Map<String, RecipeShoppingData>> stream() {
     return baseQuery.watch().map((rows) {
-      return {for (final row in rows) row.id: RecipeShoppingData.fromRow(row)};
+      return {
+        for (final row in rows) row.id: RecipeShoppingData.fromTableData(row),
+      };
     });
   }
 

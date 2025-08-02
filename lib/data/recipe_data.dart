@@ -22,13 +22,25 @@ abstract class RecipeData with _$RecipeData {
   factory RecipeData.fromJson(Map<String, Object?> json) =>
       _$RecipeDataFromJson(json);
 
-  factory RecipeData.fromRow(RecipeTableData data) => RecipeData(
+  factory RecipeData.fromTableData(RecipeTableData data) => RecipeData(
     id: data.id,
     title: data.title,
     servings: data.servings,
     imageName: data.imageName,
     archived: data.archived,
     steps: [],
+  );
+
+  factory RecipeData.fromSupabase(
+    Map<String, dynamic> data,
+    List<RecipeStepData> steps,
+  ) => RecipeData(
+    id: data["id"],
+    title: data["title"],
+    servings: data["servings"],
+    imageName: data["image_name"],
+    archived: data["archived"],
+    steps: steps,
   );
 }
 
