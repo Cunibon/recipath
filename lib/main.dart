@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:localstorage/localstorage.dart';
+import 'package:recipe_list/application_constants.dart';
 import 'package:recipe_list/drift/database.dart';
 import 'package:recipe_list/drift/database_notifier.dart';
 import 'package:recipe_list/root_routes.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,6 +14,8 @@ void main() async {
 
   final isolateDb = await AppDatabase.createIsolate();
   final db = AppDatabase(await isolateDb.connect());
+
+  await Supabase.initialize(url: supabaseUrl, anonKey: supabaseKey);
 
   final goRouter = GoRouter(
     routes: [
