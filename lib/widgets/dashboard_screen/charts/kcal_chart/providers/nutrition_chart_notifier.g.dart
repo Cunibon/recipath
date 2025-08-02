@@ -7,7 +7,7 @@ part of 'nutrition_chart_notifier.dart';
 // **************************************************************************
 
 String _$nutritionChartNotifierHash() =>
-    r'dfab2117926112c041ca8a6fe9bdb1400cdfdac6';
+    r'7aeeea05a68f729500dcf8bc23314e5e756b2f31';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -42,16 +42,16 @@ class NutritionChartNotifierFamily extends Family<AsyncValue<ChartState>> {
   /// See also [nutritionChartNotifier].
   NutritionChartNotifierProvider call(
     DateTimeRange<DateTime> dateRange,
-    String? recipeId,
+    List<String> selectedRecipes,
   ) {
-    return NutritionChartNotifierProvider(dateRange, recipeId);
+    return NutritionChartNotifierProvider(dateRange, selectedRecipes);
   }
 
   @override
   NutritionChartNotifierProvider getProviderOverride(
     covariant NutritionChartNotifierProvider provider,
   ) {
-    return call(provider.dateRange, provider.recipeId);
+    return call(provider.dateRange, provider.selectedRecipes);
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -75,12 +75,12 @@ class NutritionChartNotifierProvider
   /// See also [nutritionChartNotifier].
   NutritionChartNotifierProvider(
     DateTimeRange<DateTime> dateRange,
-    String? recipeId,
+    List<String> selectedRecipes,
   ) : this._internal(
         (ref) => nutritionChartNotifier(
           ref as NutritionChartNotifierRef,
           dateRange,
-          recipeId,
+          selectedRecipes,
         ),
         from: nutritionChartNotifierProvider,
         name: r'nutritionChartNotifierProvider',
@@ -91,7 +91,7 @@ class NutritionChartNotifierProvider
         allTransitiveDependencies:
             NutritionChartNotifierFamily._allTransitiveDependencies,
         dateRange: dateRange,
-        recipeId: recipeId,
+        selectedRecipes: selectedRecipes,
       );
 
   NutritionChartNotifierProvider._internal(
@@ -102,11 +102,11 @@ class NutritionChartNotifierProvider
     required super.debugGetCreateSourceHash,
     required super.from,
     required this.dateRange,
-    required this.recipeId,
+    required this.selectedRecipes,
   }) : super.internal();
 
   final DateTimeRange<DateTime> dateRange;
-  final String? recipeId;
+  final List<String> selectedRecipes;
 
   @override
   Override overrideWith(
@@ -122,7 +122,7 @@ class NutritionChartNotifierProvider
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
         dateRange: dateRange,
-        recipeId: recipeId,
+        selectedRecipes: selectedRecipes,
       ),
     );
   }
@@ -136,14 +136,14 @@ class NutritionChartNotifierProvider
   bool operator ==(Object other) {
     return other is NutritionChartNotifierProvider &&
         other.dateRange == dateRange &&
-        other.recipeId == recipeId;
+        other.selectedRecipes == selectedRecipes;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, dateRange.hashCode);
-    hash = _SystemHash.combine(hash, recipeId.hashCode);
+    hash = _SystemHash.combine(hash, selectedRecipes.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -155,8 +155,8 @@ mixin NutritionChartNotifierRef on AutoDisposeFutureProviderRef<ChartState> {
   /// The parameter `dateRange` of this provider.
   DateTimeRange<DateTime> get dateRange;
 
-  /// The parameter `recipeId` of this provider.
-  String? get recipeId;
+  /// The parameter `selectedRecipes` of this provider.
+  List<String> get selectedRecipes;
 }
 
 class _NutritionChartNotifierProviderElement
@@ -168,7 +168,8 @@ class _NutritionChartNotifierProviderElement
   DateTimeRange<DateTime> get dateRange =>
       (origin as NutritionChartNotifierProvider).dateRange;
   @override
-  String? get recipeId => (origin as NutritionChartNotifierProvider).recipeId;
+  List<String> get selectedRecipes =>
+      (origin as NutritionChartNotifierProvider).selectedRecipes;
 }
 
 // ignore_for_file: type=lint

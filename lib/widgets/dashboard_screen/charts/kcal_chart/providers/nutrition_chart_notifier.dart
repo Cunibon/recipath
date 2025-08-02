@@ -14,7 +14,7 @@ part 'nutrition_chart_notifier.g.dart';
 Future<ChartState> nutritionChartNotifier(
   Ref ref,
   DateTimeRange dateRange,
-  String? recipeId,
+  List<String> selectedRecipes,
 ) async {
   final groceryMap = await ref.watch(groceryNotifierProvider.future);
   final groceryStatisticsData = await ref.watch(
@@ -56,14 +56,16 @@ Future<ChartState> nutritionChartNotifier(
     }
   }
 
-  if (recipeId == null) {
+  if (selectedRecipes.isEmpty) {
     groceryStatisticsData.forEach(
       (recipeKey, recipeData) => aggregateForRecipe(recipeKey, recipeData),
     );
   } else {
-    final data = groceryStatisticsData[recipeId];
-    if (data != null) {
-      aggregateForRecipe(recipeId, data);
+    for (final recipeId in selectedRecipes) {
+      final data = groceryStatisticsData[recipeId];
+      if (data != null) {
+        aggregateForRecipe(recipeId, data);
+      }
     }
   }
 

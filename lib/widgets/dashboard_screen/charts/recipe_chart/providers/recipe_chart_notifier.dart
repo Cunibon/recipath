@@ -13,7 +13,7 @@ part 'recipe_chart_notifier.g.dart';
 Future<ChartState> recipeChartNotifier(
   Ref ref,
   DateTimeRange dateRange,
-  String? recipeId,
+  List<String> selectedRecipes,
 ) async {
   final recipeHistoyData = await ref.watch(
     recipeChartStatisticsNotifierProvider(dateRange).future,
@@ -32,7 +32,7 @@ Future<ChartState> recipeChartNotifier(
 
     Color color = getRandomColorBasedOnString(entry.key);
 
-    if (recipeId != null && entry.key != recipeId) {
+    if (selectedRecipes.isNotEmpty && !selectedRecipes.contains(entry.key)) {
       color = color.withAlpha(128);
     }
 

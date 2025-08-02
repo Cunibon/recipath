@@ -7,7 +7,7 @@ part of 'grocery_chart_notifier.dart';
 // **************************************************************************
 
 String _$groceryChartNotifierHash() =>
-    r'8961321cf2186b6f0a46597bd216d62e778f23bd';
+    r'e2a950188e7038ca7194d718e4658d80dd7bedd8';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -42,16 +42,16 @@ class GroceryChartNotifierFamily extends Family<AsyncValue<ChartState>> {
   /// See also [groceryChartNotifier].
   GroceryChartNotifierProvider call(
     DateTimeRange<DateTime> dateRange,
-    String? recipeId,
+    List<String> selectedRecipes,
   ) {
-    return GroceryChartNotifierProvider(dateRange, recipeId);
+    return GroceryChartNotifierProvider(dateRange, selectedRecipes);
   }
 
   @override
   GroceryChartNotifierProvider getProviderOverride(
     covariant GroceryChartNotifierProvider provider,
   ) {
-    return call(provider.dateRange, provider.recipeId);
+    return call(provider.dateRange, provider.selectedRecipes);
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -75,12 +75,12 @@ class GroceryChartNotifierProvider
   /// See also [groceryChartNotifier].
   GroceryChartNotifierProvider(
     DateTimeRange<DateTime> dateRange,
-    String? recipeId,
+    List<String> selectedRecipes,
   ) : this._internal(
         (ref) => groceryChartNotifier(
           ref as GroceryChartNotifierRef,
           dateRange,
-          recipeId,
+          selectedRecipes,
         ),
         from: groceryChartNotifierProvider,
         name: r'groceryChartNotifierProvider',
@@ -91,7 +91,7 @@ class GroceryChartNotifierProvider
         allTransitiveDependencies:
             GroceryChartNotifierFamily._allTransitiveDependencies,
         dateRange: dateRange,
-        recipeId: recipeId,
+        selectedRecipes: selectedRecipes,
       );
 
   GroceryChartNotifierProvider._internal(
@@ -102,11 +102,11 @@ class GroceryChartNotifierProvider
     required super.debugGetCreateSourceHash,
     required super.from,
     required this.dateRange,
-    required this.recipeId,
+    required this.selectedRecipes,
   }) : super.internal();
 
   final DateTimeRange<DateTime> dateRange;
-  final String? recipeId;
+  final List<String> selectedRecipes;
 
   @override
   Override overrideWith(
@@ -122,7 +122,7 @@ class GroceryChartNotifierProvider
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
         dateRange: dateRange,
-        recipeId: recipeId,
+        selectedRecipes: selectedRecipes,
       ),
     );
   }
@@ -136,14 +136,14 @@ class GroceryChartNotifierProvider
   bool operator ==(Object other) {
     return other is GroceryChartNotifierProvider &&
         other.dateRange == dateRange &&
-        other.recipeId == recipeId;
+        other.selectedRecipes == selectedRecipes;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, dateRange.hashCode);
-    hash = _SystemHash.combine(hash, recipeId.hashCode);
+    hash = _SystemHash.combine(hash, selectedRecipes.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -155,8 +155,8 @@ mixin GroceryChartNotifierRef on AutoDisposeFutureProviderRef<ChartState> {
   /// The parameter `dateRange` of this provider.
   DateTimeRange<DateTime> get dateRange;
 
-  /// The parameter `recipeId` of this provider.
-  String? get recipeId;
+  /// The parameter `selectedRecipes` of this provider.
+  List<String> get selectedRecipes;
 }
 
 class _GroceryChartNotifierProviderElement
@@ -168,7 +168,8 @@ class _GroceryChartNotifierProviderElement
   DateTimeRange<DateTime> get dateRange =>
       (origin as GroceryChartNotifierProvider).dateRange;
   @override
-  String? get recipeId => (origin as GroceryChartNotifierProvider).recipeId;
+  List<String> get selectedRecipes =>
+      (origin as GroceryChartNotifierProvider).selectedRecipes;
 }
 
 // ignore_for_file: type=lint

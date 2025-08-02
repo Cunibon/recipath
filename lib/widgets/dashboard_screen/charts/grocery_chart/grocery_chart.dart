@@ -7,16 +7,18 @@ import 'package:recipe_list/widgets/dashboard_screen/charts/grocery_chart/provid
 class GroceryChart extends ConsumerWidget {
   const GroceryChart({
     required this.dateRange,
-    required this.recipeId,
+    required this.selectedRecipes,
     super.key,
   });
 
   final DateTimeRange dateRange;
-  final String? recipeId;
+  final List<String> selectedRecipes;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(groceryChartNotifierProvider(dateRange, recipeId));
+    final state = ref.watch(
+      groceryChartNotifierProvider(dateRange, selectedRecipes),
+    );
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

@@ -10,17 +10,17 @@ import 'package:recipe_list/widgets/dashboard_screen/charts/kcal_chart/providers
 class NutritionChart extends ConsumerWidget {
   const NutritionChart({
     required this.dateRange,
-    required this.recipeId,
+    required this.selectedRecipes,
     super.key,
   });
 
   final DateTimeRange dateRange;
-  final String? recipeId;
+  final List<String> selectedRecipes;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(
-      nutritionChartNotifierProvider(dateRange, recipeId),
+      nutritionChartNotifierProvider(dateRange, selectedRecipes),
     );
 
     return Column(

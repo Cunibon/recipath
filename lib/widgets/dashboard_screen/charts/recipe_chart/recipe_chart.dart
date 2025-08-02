@@ -7,19 +7,21 @@ import 'package:recipe_list/widgets/dashboard_screen/charts/recipe_chart/provide
 class RecipeChart extends ConsumerWidget {
   const RecipeChart({
     required this.dateRange,
-    required this.recipeId,
+    required this.selectedRecipes,
     required this.onTap,
     super.key,
   });
 
   final DateTimeRange dateRange;
-  final String? recipeId;
+  final List<String> selectedRecipes;
 
   final void Function(String? recipeId) onTap;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(recipeChartNotifierProvider(dateRange, recipeId));
+    final state = ref.watch(
+      recipeChartNotifierProvider(dateRange, selectedRecipes),
+    );
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
