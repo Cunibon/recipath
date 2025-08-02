@@ -6,15 +6,17 @@ import 'package:recipe_list/data/ingredient_data.dart';
 import 'package:recipe_list/data/recipe_data.dart';
 import 'package:recipe_list/data/shopping_data.dart';
 import 'package:recipe_list/domain_service/syncing_service/download_data_extension.dart';
+import 'package:recipe_list/domain_service/syncing_service/upload_data_extension.dart';
 import 'package:recipe_list/repos/repo.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SyncingService {
   SyncingService({
+    required this.groceryRepo,
     required this.recipeRepo,
     required this.shoppingRepo,
     required this.storageRepo,
-    required this.groceryRepo,
+
     required this.supabaseClient,
   });
   final Repo<GroceryData> groceryRepo;
@@ -57,6 +59,7 @@ class SyncingService {
     DateTime? latestDate;
 
     try {
+      await upload();
       latestDate = await download();
     } finally {
       if (latestDate != null) {

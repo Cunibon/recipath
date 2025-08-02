@@ -13,6 +13,13 @@ class IngredientRepoDrift extends Repo<IngredientData> {
   get baseQuery => db.select(table);
 
   @override
+  Future<Map<String, IngredientData>> getNotUploaded() async {
+    final rows = await (baseQuery..where((tbl) => tbl.uploaded.equals(false)))
+        .get();
+    return {for (final row in rows) row.id: IngredientData.fromTableData(row)};
+  }
+
+  @override
   Future<Map<String, IngredientData>> get() async {
     final rows = await baseQuery.get();
     return {for (final row in rows) row.id: IngredientData.fromTableData(row)};

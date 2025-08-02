@@ -89,6 +89,12 @@ class RecipeRepoDrift extends Repo<RecipeData> {
   }
 
   @override
+  Future<Map<String, RecipeData>> getNotUploaded() async {
+    final rows = await (baseQuery..where(table.uploaded.equals(false))).get();
+    return mapResult(rows);
+  }
+
+  @override
   Future<Map<String, RecipeData>> get() async {
     final rows = await baseQuery.get();
     return mapResult(rows);

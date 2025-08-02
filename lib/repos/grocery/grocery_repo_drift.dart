@@ -13,6 +13,13 @@ class GroceryRepoDrift extends Repo<GroceryData> {
       db.select(table);
 
   @override
+  Future<Map<String, GroceryData>> getNotUploaded() async {
+    final rows = await (baseQuery..where((tbl) => tbl.uploaded.equals(false)))
+        .get();
+    return {for (final row in rows) row.id: GroceryData.fromTableData(row)};
+  }
+
+  @override
   Future<Map<String, GroceryData>> get() async {
     final rows = await baseQuery.get();
     return {for (final row in rows) row.id: GroceryData.fromTableData(row)};

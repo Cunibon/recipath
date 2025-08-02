@@ -8,6 +8,8 @@ abstract class Repo<T> {
   ResultSetImplementation get table;
   Query get baseQuery;
 
+  Future<Map<String, T>> getNotUploaded();
+
   Future<Map<String, T>> get();
   Stream<Map<String, T>> stream();
   Future<void> add(T newData);

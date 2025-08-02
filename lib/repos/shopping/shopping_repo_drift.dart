@@ -35,6 +35,12 @@ class ShoppingRepoDrift extends Repo<ShoppingData> {
   }
 
   @override
+  Future<Map<String, ShoppingData>> getNotUploaded() async {
+    final rows = await (baseQuery..where(table.uploaded.equals(false))).get();
+    return mapResult(rows);
+  }
+
+  @override
   Future<Map<String, ShoppingData>> get() async {
     final rows = await baseQuery.get();
     return mapResult(rows);

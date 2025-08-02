@@ -129,4 +129,14 @@ extension GroceryDataFunctions on GroceryData {
     protein: drift.Value(protein),
     fiber: drift.Value(fiber),
   );
+
+  Map<String, dynamic> toSupabase() {
+    final json = toJson();
+
+    json["normal_amount"] = json.remove("normalAmount");
+    json["conversion_amount"] = json.remove("conversionAmount");
+    json["conversion_unit"] = json.remove("conversionUnit");
+
+    return json;
+  }
 }
