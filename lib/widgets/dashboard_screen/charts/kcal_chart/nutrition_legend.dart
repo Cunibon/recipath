@@ -28,13 +28,16 @@ class NutritionLegend extends ConsumerWidget {
       }
     }
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Wrap(
+      alignment: WrapAlignment.center,
+      spacing: 16,
+      runSpacing: 16,
       children: [
         for (final entry in nutrimentEntries) ...[
           Column(
             children: [
               Row(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Container(
                     decoration: BoxDecoration(
@@ -53,7 +56,6 @@ class NutritionLegend extends ConsumerWidget {
               ),
             ],
           ),
-          SizedBox(width: 16),
         ],
       ],
     );
