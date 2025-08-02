@@ -1,3 +1,6 @@
+const supabaseUrl = 'https://twcgtvzkwiizredjypka.supabase.co';
+const supabaseKey = String.fromEnvironment('SUPABASE_KEY');
+
 const List<String> dataKeys = [
   recipeDataKey,
   groceryDataKey,
