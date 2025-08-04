@@ -101,7 +101,8 @@ class CompactRecipeItem extends ConsumerWidget {
                                 .copyWith(fontWeight: FontWeight.bold),
                           ),
                           Icon(Icons.shopping_cart),
-                        ],
+                        ] else if (!data.uploaded)
+                          Icon(Icons.cloud_upload),
                       ],
                     ),
                     CompactIngredientView(

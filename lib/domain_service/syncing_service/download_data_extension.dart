@@ -121,8 +121,8 @@ extension DownloadDataExtension on SyncingService {
     }
 
     for (final rawRecipe in recipeData) {
-      final steps = recipeStepLookup[rawRecipe["id"]];
-      steps!.sort((a, b) => a.index.compareTo(b.index));
+      final steps = recipeStepLookup[rawRecipe["id"]] ?? [];
+      steps.sort((a, b) => a.index.compareTo(b.index));
 
       final recipe = RecipeData.fromSupabase(
         rawRecipe,
