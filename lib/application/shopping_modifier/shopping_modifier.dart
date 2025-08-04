@@ -41,6 +41,7 @@ class ShoppingModifier {
         newShoppingData[grocery.id] = shoppingData.copyWith(
           count: (updatedIngredient.amount / grocery.normalAmount).ceil(),
           ingredient: updatedIngredient,
+          uploaded: false,
         );
       }
     }
@@ -50,7 +51,8 @@ class ShoppingModifier {
     }
   }
 
-  Future<void> updateItem(ShoppingData updated) => repo.add(updated);
+  Future<void> updateItem(ShoppingData updated) =>
+      repo.add(updated.copyWith(uploaded: false));
 
   Future<void> deleteItem(ShoppingData toDelete) => repo.delete(toDelete.id);
 

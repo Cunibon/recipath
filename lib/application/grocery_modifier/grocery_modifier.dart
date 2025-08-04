@@ -5,7 +5,8 @@ class GroceryModifier {
   GroceryModifier(this.repo);
   final Repo<GroceryData> repo;
 
-  Future<void> add(GroceryData newData) => repo.add(newData);
+  Future<void> add(GroceryData newData) =>
+      repo.add(newData.copyWith(uploaded: false));
 
   Future<void> delete(GroceryData toDelete) => repo.delete(toDelete.id);
 }
