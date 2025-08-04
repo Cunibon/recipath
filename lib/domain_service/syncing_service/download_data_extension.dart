@@ -3,20 +3,21 @@ import 'package:recipe_list/data/ingredient_data.dart';
 import 'package:recipe_list/data/recipe_data.dart';
 import 'package:recipe_list/data/recipe_step_data.dart';
 import 'package:recipe_list/data/shopping_data.dart';
+import 'package:recipe_list/domain_service/syncing_service/supabase_tables.dart';
 import 'package:recipe_list/domain_service/syncing_service/syncing_service.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 extension DownloadDataExtension on SyncingService {
-  Future<DateTime?> download() async {
+  Future<({DateTime? downloadTime, int downloadCount})> download() async {
     final groceryData = await applyOrderAndFiltering(
-      supabaseClient.from('grocery'),
+      supabaseClient.from(SupabaseTables.grocery),
     );
     for (final grocery in groceryData) {
       await groceryRepo.add(GroceryData.fromSupabase(grocery));
     }
 
     final ingredientData = await applyOrderAndFiltering(
-      supabaseClient.from('ingredient'),
+      supabaseClient.from(SupabaseTables.ingredient),
     );
     final ingredientLookup = <String, IngredientData>{};
     for (final rawIngredient in ingredientData) {
@@ -25,15 +26,15 @@ extension DownloadDataExtension on SyncingService {
     }
 
     final recipeStepIngredientData = await applyOrderAndFiltering(
-      supabaseClient.from('recipe_step_ingredient'),
+      supabaseClient.from(SupabaseTables.recipeStepIngredient),
     );
 
     final recipeStepData = await applyOrderAndFiltering(
-      supabaseClient.from('recipe_step'),
+      supabaseClient.from(SupabaseTables.recipeStep),
     );
 
     final recipeData = await applyOrderAndFiltering(
-      supabaseClient.from('recipe'),
+      supabaseClient.from(SupabaseTables.recipe),
     );
 
     await reconstructRecipeData(
@@ -44,7 +45,7 @@ extension DownloadDataExtension on SyncingService {
     );
 
     final shoppingData = await applyOrderAndFiltering(
-      supabaseClient.from('shopping'),
+      supabaseClient.from(SupabaseTables.shopping),
     );
     for (final rawShoppingData in shoppingData) {
       await shoppingRepo.add(
@@ -56,22 +57,30 @@ extension DownloadDataExtension on SyncingService {
     }
 
     final storageData = await applyOrderAndFiltering(
-      supabaseClient.from('storage'),
+      supabaseClient.from(SupabaseTables.storage),
     );
-    for (final rawStorageData in shoppingData) {
+    for (final rawStorageData in storageData) {
       await storageRepo.add(ingredientLookup[rawStorageData["ingredient_id"]]!);
     }
 
-    return _findNewestDate(
-      [
-        groceryData.lastOrNull,
-        ingredientData.lastOrNull,
-        recipeStepIngredientData.lastOrNull,
-        recipeStepData.lastOrNull,
-        recipeData.lastOrNull,
-        shoppingData.lastOrNull,
-        storageData.lastOrNull,
-      ].nonNulls,
+    return (
+      downloadTime: _findNewestDate(
+        [
+          groceryData.lastOrNull,
+          ingredientData.lastOrNull,
+          recipeStepIngredientData.lastOrNull,
+          recipeStepData.lastOrNull,
+          recipeData.lastOrNull,
+          shoppingData.lastOrNull,
+          storageData.lastOrNull,
+        ].nonNulls,
+      ),
+      downloadCount:
+          groceryData.length +
+          ingredientData.length +
+          recipeData.length +
+          shoppingData.length +
+          storageData.length,
     );
   }
 
@@ -97,8 +106,8 @@ extension DownloadDataExtension on SyncingService {
     final Map<String, List<({RecipeStepData step, int index})>>
     recipeStepLookup = {};
     for (final rawRecipeStep in recipeStepData) {
-      final ingredients = recipeIngredientsLookup[rawRecipeStep["id"]];
-      ingredients!.sort((a, b) => a.index.compareTo(b.index));
+      final ingredients = recipeIngredientsLookup[rawRecipeStep["id"]] ?? [];
+      ingredients.sort((a, b) => a.index.compareTo(b.index));
 
       final recipeStep = RecipeStepData.fromSupabase(
         rawRecipeStep,
@@ -133,11 +142,11 @@ extension DownloadDataExtension on SyncingService {
         .order(SyncingService.updatedAtKey, ascending: true);
   }
 
-  DateTime _findNewestDate(Iterable<Map<String, dynamic>> entries) {
+  DateTime? _findNewestDate(Iterable<Map<String, dynamic>> entries) {
     final dates = entries
         .map((e) => DateTime.parse(e[SyncingService.updatedAtKey]))
         .toList();
     dates.sort((a, b) => a.compareTo(b));
-    return dates.last;
+    return dates.lastOrNull;
   }
 }

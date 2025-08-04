@@ -45,15 +45,15 @@ abstract class GroceryData with _$GroceryData {
   factory GroceryData.fromSupabase(Map<String, dynamic> data) => GroceryData(
     id: data["id"],
     name: data["name"],
-    normalAmount: data["normal_amount"],
+    normalAmount: (data["normal_amount"] as num).toDouble(),
     unit: $enumDecode(_$UnitEnumEnumMap, data["unit"]),
-    conversionAmount: data["conversion_amount"],
+    conversionAmount: (data["conversion_amount"] as num).toDouble(),
     conversionUnit: $enumDecode(_$UnitEnumEnumMap, data["conversion_unit"]),
-    kcal: data["kcal"],
-    fat: data["fat"],
-    carbs: data["carbs"],
-    protein: data["protein"],
-    fiber: data["fiber"],
+    kcal: (data["kcal"] as num?)?.toDouble(),
+    fat: (data["fat"] as num?)?.toDouble(),
+    carbs: (data["carbs"] as num?)?.toDouble(),
+    protein: (data["protein"] as num?)?.toDouble(),
+    fiber: (data["fiber"] as num?)?.toDouble(),
     uploaded: true,
   );
 
@@ -128,15 +128,20 @@ extension GroceryDataFunctions on GroceryData {
     carbs: drift.Value(carbs),
     protein: drift.Value(protein),
     fiber: drift.Value(fiber),
+    uploaded: drift.Value(uploaded),
   );
 
-  Map<String, dynamic> toSupabase() {
-    final json = toJson();
-
-    json["normal_amount"] = json.remove("normalAmount");
-    json["conversion_amount"] = json.remove("conversionAmount");
-    json["conversion_unit"] = json.remove("conversionUnit");
-
-    return json;
-  }
+  Map<String, dynamic> toSupabase() => {
+    "id": id,
+    "name": name,
+    "normal_amount": normalAmount,
+    "unit": _$UnitEnumEnumMap[unit]!,
+    "conversion_amount": conversionAmount,
+    "conversion_unit": _$UnitEnumEnumMap[conversionUnit]!,
+    "kcal": kcal,
+    "fat": fat,
+    "carbs": carbs,
+    "protein": protein,
+    "fiber": fiber,
+  };
 }

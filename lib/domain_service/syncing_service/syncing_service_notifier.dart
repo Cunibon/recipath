@@ -9,7 +9,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'syncing_service_notifier.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 SyncingService syncingServiceNotifier(Ref ref) {
   final groceryRepo = ref.watch(groceryRepoNotifierProvider);
   final recipeRepo = ref.watch(recipeRepoNotifierProvider);

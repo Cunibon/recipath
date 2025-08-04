@@ -1,3 +1,4 @@
+import 'package:drift/drift.dart' as drift;
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:recipe_list/common.dart';
 import 'package:recipe_list/data/grocery_data.dart';
@@ -14,6 +15,7 @@ abstract class ShoppingData with _$ShoppingData {
     required bool done,
     required int count,
     required IngredientData ingredient,
+    required bool uploaded,
   }) = _ShoppingData;
 
   factory ShoppingData.fromJson(Map<String, Object?> json) =>
@@ -27,6 +29,7 @@ abstract class ShoppingData with _$ShoppingData {
     done: data["done"],
     count: data["count"],
     ingredient: ingredient,
+    uploaded: true,
   );
 }
 
@@ -39,5 +42,13 @@ extension ShoppingDataFunctions on ShoppingData {
     done: done,
     count: count,
     ingredientId: ingredient.id,
+    uploaded: drift.Value(uploaded),
   );
+
+  Map<String, dynamic> toSupabase() => {
+    "id": id,
+    "done": done,
+    "count": count,
+    "ingredient_id": ingredient.id,
+  };
 }

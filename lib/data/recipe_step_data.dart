@@ -31,3 +31,12 @@ abstract class RecipeStepData with _$RecipeStepData {
     ingredients: ingredients,
   );
 }
+
+extension RecipeStepDataFunctions on RecipeStepData {
+  Map<String, dynamic> toSupabase(String recipeId, int index) => {
+    "id": id,
+    "description": description,
+    "index": index,
+    "recipe_id": recipeId,
+  };
+}

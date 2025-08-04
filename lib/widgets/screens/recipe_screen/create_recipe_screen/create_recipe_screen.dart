@@ -37,6 +37,7 @@ class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
           title: "",
           imageName: null,
           steps: [],
+          uploaded: false,
         );
 
     data = initalData;

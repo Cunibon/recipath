@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:localstorage/localstorage.dart';
+import 'package:logger/logger.dart';
 import 'package:recipe_list/data/grocery_data.dart';
 import 'package:recipe_list/data/ingredient_data.dart';
 import 'package:recipe_list/data/recipe_data.dart';
@@ -19,6 +20,8 @@ class SyncingService {
 
     required this.supabaseClient,
   });
+  final logger = Logger();
+
   final Repo<GroceryData> groceryRepo;
   final Repo<RecipeData> recipeRepo;
   final Repo<ShoppingData> shoppingRepo;
@@ -36,8 +39,6 @@ class SyncingService {
   DateTime get lastSync => _lastSync;
 
   Future<void> start() async {
-    await sync();
-
     final savedSync = localStorage.getItem(storageKey);
     if (savedSync != null) {
       _lastSync = DateTime.parse(savedSync);
@@ -46,6 +47,8 @@ class SyncingService {
     }
 
     _timer = Timer(Duration(minutes: 1), () => sync());
+
+    await sync();
   }
 
   Future<void> stop() async {
@@ -58,10 +61,24 @@ class SyncingService {
 
     DateTime? latestDate;
 
+    final stopwatch = Stopwatch()..start();
+
+    int? uploaded;
+    int? downloaded;
+
     try {
-      await upload();
-      latestDate = await download();
+      uploaded = await upload();
+      final downloadResult = await download();
+      downloaded = downloadResult.downloadCount;
+      latestDate = downloadResult.downloadTime;
+    } catch (e, s) {
+      logger.e("Sync failed", error: e, stackTrace: s);
     } finally {
+      stopwatch.stop();
+      logger.i(
+        "Sync took: ${stopwatch.elapsed}\nUploaded: $uploaded | Downloaded: $downloaded",
+      );
+
       if (latestDate != null) {
         localStorage.setItem(storageKey, latestDate.toIso8601String());
         _lastSync = latestDate;

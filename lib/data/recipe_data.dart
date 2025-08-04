@@ -17,6 +17,7 @@ abstract class RecipeData with _$RecipeData {
     String? imageName,
     @Default(false) bool archived,
     required List<RecipeStepData> steps,
+    required bool uploaded,
   }) = _RecipeData;
 
   factory RecipeData.fromJson(Map<String, Object?> json) =>
@@ -29,6 +30,7 @@ abstract class RecipeData with _$RecipeData {
     imageName: data.imageName,
     archived: data.archived,
     steps: [],
+    uploaded: data.uploaded,
   );
 
   factory RecipeData.fromSupabase(
@@ -41,6 +43,7 @@ abstract class RecipeData with _$RecipeData {
     imageName: data["image_name"],
     archived: data["archived"],
     steps: steps,
+    uploaded: true,
   );
 }
 
@@ -58,6 +61,14 @@ extension RecipeDataFunctions on RecipeData {
 
     return stringBuffer.toString();
   }
+
+  Map<String, dynamic> toSupabase() => {
+    "id": id,
+    "title": title,
+    "servings": servings,
+    "image_name": imageName,
+    "archived": archived,
+  };
 
   RecipeData copyWithNewId() {
     return copyWith(

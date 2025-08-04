@@ -31,7 +31,9 @@ class StorageRepoDrift extends Repo<IngredientData> {
 
   @override
   Future<Map<String, IngredientData>> getNotUploaded() async {
-    final rows = await (baseQuery..where(table.uploaded.equals(false))).get();
+    final rows =
+        await (baseQuery..where(db.ingredientTable.uploaded.equals(false)))
+            .get();
     return mapResult(rows);
   }
 

@@ -32,6 +32,7 @@ class ShoppingModifier {
           done: false,
           count: (ingredient.amount / grocery.normalAmount).ceil(),
           ingredient: ingredient.copyWith(id: randomAlphaNumeric(16)),
+          uploaded: false,
         );
       } else {
         final updatedIngredient = shoppingData.ingredient.copyWith(

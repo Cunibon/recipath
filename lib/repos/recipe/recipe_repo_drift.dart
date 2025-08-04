@@ -117,6 +117,7 @@ class RecipeRepoDrift extends Repo<RecipeData> {
               servings: Value(newData.servings),
               imageName: Value(newData.imageName),
               archived: Value(newData.archived),
+              uploaded: Value(newData.uploaded),
             ),
             mode: InsertMode.insertOrReplace,
           );
