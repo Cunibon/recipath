@@ -52,8 +52,20 @@ class SyncingService {
   }
 
   Future<void> stop() async {
+    final timer = _timer;
     _timer = null;
-    await syncRunning.future;
+
+    if (timer?.isActive == true) {
+      await sync();
+    } else {
+      await syncRunning.future;
+    }
+  }
+
+  Future<void> reset() async {
+    await stop();
+    localStorage.removeItem(storageKey);
+    await start();
   }
 
   Future<void> sync() async {
