@@ -21,6 +21,7 @@ abstract class GroceryData with _$GroceryData {
     double? carbs,
     double? protein,
     double? fiber,
+    @Default(false) bool archived,
     required bool uploaded,
   }) = _GroceryData;
 

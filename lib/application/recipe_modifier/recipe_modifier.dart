@@ -15,10 +15,10 @@ class RecipeModifier {
     required RecipeData oldData,
   }) async {
     await repo.add(newData.copyWith(uploaded: false));
-    await delete(oldData);
+    await archive(oldData);
   }
 
-  Future<void> delete(RecipeData toDelete) =>
+  Future<void> archive(RecipeData toDelete) =>
       (repo.db.update(
         repo.db.recipeTable,
       )..where((tbl) => tbl.id.equals(toDelete.id))).write(

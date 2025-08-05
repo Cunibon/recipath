@@ -4,13 +4,21 @@ import 'package:recipe_list/drift/database.dart';
 import 'package:recipe_list/repos/repo.dart';
 
 class GroceryRepoDrift extends Repo<GroceryData> {
-  GroceryRepoDrift(super.db);
+  GroceryRepoDrift(super.db, {this.incluedArchived = false});
+  final bool incluedArchived;
 
   @override
   $GroceryTableTable get table => db.groceryTable;
   @override
-  SimpleSelectStatement<$GroceryTableTable, GroceryTableData> get baseQuery =>
-      db.select(table);
+  SimpleSelectStatement<$GroceryTableTable, GroceryTableData> get baseQuery {
+    final query = db.select(table);
+
+    if (!incluedArchived) {
+      query.where((tbl) => tbl.archived.equals(false));
+    }
+
+    return query;
+  }
 
   @override
   Future<Map<String, GroceryData>> getNotUploaded() async {

@@ -18,6 +18,7 @@ _GroceryData _$GroceryDataFromJson(Map<String, dynamic> json) => _GroceryData(
   carbs: (json['carbs'] as num?)?.toDouble(),
   protein: (json['protein'] as num?)?.toDouble(),
   fiber: (json['fiber'] as num?)?.toDouble(),
+  archived: json['archived'] as bool? ?? false,
   uploaded: json['uploaded'] as bool,
 );
 
@@ -34,6 +35,7 @@ Map<String, dynamic> _$GroceryDataToJson(_GroceryData instance) =>
       'carbs': instance.carbs,
       'protein': instance.protein,
       'fiber': instance.fiber,
+      'archived': instance.archived,
       'uploaded': instance.uploaded,
     };
 

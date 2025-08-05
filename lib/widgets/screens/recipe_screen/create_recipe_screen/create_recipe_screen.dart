@@ -95,7 +95,7 @@ class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
                   );
 
                   if (context.mounted && result == true) {
-                    ref.read(recipeModifierNotifierProvider).delete(data);
+                    ref.read(recipeModifierNotifierProvider).archive(data);
                     context.go(RootRoutes.recipeRoute.path);
                   }
                 },

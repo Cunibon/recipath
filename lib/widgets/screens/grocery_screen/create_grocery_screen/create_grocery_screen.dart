@@ -10,6 +10,7 @@ import 'package:recipe_list/data/recipe_data/recipe_data.dart';
 import 'package:recipe_list/data/unit_enum.dart';
 import 'package:recipe_list/repos/recipe/recipe_repo_notifier.dart';
 import 'package:recipe_list/repos/shopping/shopping_repo_notifier.dart';
+import 'package:recipe_list/repos/storage/storage_repo_notifier.dart';
 import 'package:recipe_list/widgets/generic/dialogs/delete_confirmation_dialog.dart';
 import 'package:recipe_list/widgets/generic/information_dialog.dart';
 import 'package:recipe_list/widgets/generic/unsaved_changes_scope.dart';
@@ -208,13 +209,22 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
                     (e) => e.ingredient.groceryId == data.id,
                   );
 
-                  if (recipesUsing.isNotEmpty || shoppingUsing.isNotEmpty) {
+                  final storageItems = await ref
+                      .read(storageRepoNotifierProvider)
+                      .get();
+                  final storageUsing = storageItems.values.where(
+                    (e) => e.ingredient.groceryId == data.id,
+                  );
+
+                  if (recipesUsing.isNotEmpty ||
+                      shoppingUsing.isNotEmpty ||
+                      storageUsing.isNotEmpty) {
                     if (context.mounted) {
                       showDialog(
                         context: context,
                         builder: (context) => InformationDialog(
                           message:
-                              "There are ${recipesUsing.length} recipes and ${shoppingUsing.length} shopping items using this ingredient.\nIt cannot be deleted.",
+                              "There are ${recipesUsing.length} recipes, ${shoppingUsing.length} shopping items and ${storageUsing.length} storage items using this ingredient.\nIt cannot be deleted.",
                         ),
                       );
                     }
@@ -228,7 +238,7 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
                     );
 
                     if (context.mounted && result) {
-                      ref.read(groceryModifierNotifierProvider).delete(data);
+                      ref.read(groceryModifierNotifierProvider).archive(data);
                       context.pop();
                     }
                   }

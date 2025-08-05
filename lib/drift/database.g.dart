@@ -898,6 +898,21 @@ class $GroceryTableTable extends GroceryTable
     type: DriftSqlType.double,
     requiredDuringInsert: false,
   );
+  static const VerificationMeta _archivedMeta = const VerificationMeta(
+    'archived',
+  );
+  @override
+  late final GeneratedColumn<bool> archived = GeneratedColumn<bool>(
+    'archived',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("archived" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
   static const VerificationMeta _uploadedMeta = const VerificationMeta(
     'uploaded',
   );
@@ -926,6 +941,7 @@ class $GroceryTableTable extends GroceryTable
     carbs,
     protein,
     fiber,
+    archived,
     uploaded,
   ];
   @override
@@ -1024,6 +1040,12 @@ class $GroceryTableTable extends GroceryTable
         fiber.isAcceptableOrUnknown(data['fiber']!, _fiberMeta),
       );
     }
+    if (data.containsKey('archived')) {
+      context.handle(
+        _archivedMeta,
+        archived.isAcceptableOrUnknown(data['archived']!, _archivedMeta),
+      );
+    }
     if (data.containsKey('uploaded')) {
       context.handle(
         _uploadedMeta,
@@ -1083,6 +1105,10 @@ class $GroceryTableTable extends GroceryTable
         DriftSqlType.double,
         data['${effectivePrefix}fiber'],
       ),
+      archived: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}archived'],
+      )!,
       uploaded: attachedDatabase.typeMapping.read(
         DriftSqlType.bool,
         data['${effectivePrefix}uploaded'],
@@ -1109,6 +1135,7 @@ class GroceryTableData extends DataClass
   final double? carbs;
   final double? protein;
   final double? fiber;
+  final bool archived;
   final bool uploaded;
   const GroceryTableData({
     required this.id,
@@ -1122,6 +1149,7 @@ class GroceryTableData extends DataClass
     this.carbs,
     this.protein,
     this.fiber,
+    required this.archived,
     required this.uploaded,
   });
   @override
@@ -1148,6 +1176,7 @@ class GroceryTableData extends DataClass
     if (!nullToAbsent || fiber != null) {
       map['fiber'] = Variable<double>(fiber);
     }
+    map['archived'] = Variable<bool>(archived);
     map['uploaded'] = Variable<bool>(uploaded);
     return map;
   }
@@ -1171,6 +1200,7 @@ class GroceryTableData extends DataClass
       fiber: fiber == null && nullToAbsent
           ? const Value.absent()
           : Value(fiber),
+      archived: Value(archived),
       uploaded: Value(uploaded),
     );
   }
@@ -1192,6 +1222,7 @@ class GroceryTableData extends DataClass
       carbs: serializer.fromJson<double?>(json['carbs']),
       protein: serializer.fromJson<double?>(json['protein']),
       fiber: serializer.fromJson<double?>(json['fiber']),
+      archived: serializer.fromJson<bool>(json['archived']),
       uploaded: serializer.fromJson<bool>(json['uploaded']),
     );
   }
@@ -1210,6 +1241,7 @@ class GroceryTableData extends DataClass
       'carbs': serializer.toJson<double?>(carbs),
       'protein': serializer.toJson<double?>(protein),
       'fiber': serializer.toJson<double?>(fiber),
+      'archived': serializer.toJson<bool>(archived),
       'uploaded': serializer.toJson<bool>(uploaded),
     };
   }
@@ -1226,6 +1258,7 @@ class GroceryTableData extends DataClass
     Value<double?> carbs = const Value.absent(),
     Value<double?> protein = const Value.absent(),
     Value<double?> fiber = const Value.absent(),
+    bool? archived,
     bool? uploaded,
   }) => GroceryTableData(
     id: id ?? this.id,
@@ -1239,6 +1272,7 @@ class GroceryTableData extends DataClass
     carbs: carbs.present ? carbs.value : this.carbs,
     protein: protein.present ? protein.value : this.protein,
     fiber: fiber.present ? fiber.value : this.fiber,
+    archived: archived ?? this.archived,
     uploaded: uploaded ?? this.uploaded,
   );
   GroceryTableData copyWithCompanion(GroceryTableCompanion data) {
@@ -1260,6 +1294,7 @@ class GroceryTableData extends DataClass
       carbs: data.carbs.present ? data.carbs.value : this.carbs,
       protein: data.protein.present ? data.protein.value : this.protein,
       fiber: data.fiber.present ? data.fiber.value : this.fiber,
+      archived: data.archived.present ? data.archived.value : this.archived,
       uploaded: data.uploaded.present ? data.uploaded.value : this.uploaded,
     );
   }
@@ -1278,6 +1313,7 @@ class GroceryTableData extends DataClass
           ..write('carbs: $carbs, ')
           ..write('protein: $protein, ')
           ..write('fiber: $fiber, ')
+          ..write('archived: $archived, ')
           ..write('uploaded: $uploaded')
           ..write(')'))
         .toString();
@@ -1296,6 +1332,7 @@ class GroceryTableData extends DataClass
     carbs,
     protein,
     fiber,
+    archived,
     uploaded,
   );
   @override
@@ -1313,6 +1350,7 @@ class GroceryTableData extends DataClass
           other.carbs == this.carbs &&
           other.protein == this.protein &&
           other.fiber == this.fiber &&
+          other.archived == this.archived &&
           other.uploaded == this.uploaded);
 }
 
@@ -1328,6 +1366,7 @@ class GroceryTableCompanion extends UpdateCompanion<GroceryTableData> {
   final Value<double?> carbs;
   final Value<double?> protein;
   final Value<double?> fiber;
+  final Value<bool> archived;
   final Value<bool> uploaded;
   final Value<int> rowid;
   const GroceryTableCompanion({
@@ -1342,6 +1381,7 @@ class GroceryTableCompanion extends UpdateCompanion<GroceryTableData> {
     this.carbs = const Value.absent(),
     this.protein = const Value.absent(),
     this.fiber = const Value.absent(),
+    this.archived = const Value.absent(),
     this.uploaded = const Value.absent(),
     this.rowid = const Value.absent(),
   });
@@ -1357,6 +1397,7 @@ class GroceryTableCompanion extends UpdateCompanion<GroceryTableData> {
     this.carbs = const Value.absent(),
     this.protein = const Value.absent(),
     this.fiber = const Value.absent(),
+    this.archived = const Value.absent(),
     this.uploaded = const Value.absent(),
     this.rowid = const Value.absent(),
   }) : id = Value(id),
@@ -1377,6 +1418,7 @@ class GroceryTableCompanion extends UpdateCompanion<GroceryTableData> {
     Expression<double>? carbs,
     Expression<double>? protein,
     Expression<double>? fiber,
+    Expression<bool>? archived,
     Expression<bool>? uploaded,
     Expression<int>? rowid,
   }) {
@@ -1392,6 +1434,7 @@ class GroceryTableCompanion extends UpdateCompanion<GroceryTableData> {
       if (carbs != null) 'carbs': carbs,
       if (protein != null) 'protein': protein,
       if (fiber != null) 'fiber': fiber,
+      if (archived != null) 'archived': archived,
       if (uploaded != null) 'uploaded': uploaded,
       if (rowid != null) 'rowid': rowid,
     });
@@ -1409,6 +1452,7 @@ class GroceryTableCompanion extends UpdateCompanion<GroceryTableData> {
     Value<double?>? carbs,
     Value<double?>? protein,
     Value<double?>? fiber,
+    Value<bool>? archived,
     Value<bool>? uploaded,
     Value<int>? rowid,
   }) {
@@ -1424,6 +1468,7 @@ class GroceryTableCompanion extends UpdateCompanion<GroceryTableData> {
       carbs: carbs ?? this.carbs,
       protein: protein ?? this.protein,
       fiber: fiber ?? this.fiber,
+      archived: archived ?? this.archived,
       uploaded: uploaded ?? this.uploaded,
       rowid: rowid ?? this.rowid,
     );
@@ -1465,6 +1510,9 @@ class GroceryTableCompanion extends UpdateCompanion<GroceryTableData> {
     if (fiber.present) {
       map['fiber'] = Variable<double>(fiber.value);
     }
+    if (archived.present) {
+      map['archived'] = Variable<bool>(archived.value);
+    }
     if (uploaded.present) {
       map['uploaded'] = Variable<bool>(uploaded.value);
     }
@@ -1488,6 +1536,7 @@ class GroceryTableCompanion extends UpdateCompanion<GroceryTableData> {
           ..write('carbs: $carbs, ')
           ..write('protein: $protein, ')
           ..write('fiber: $fiber, ')
+          ..write('archived: $archived, ')
           ..write('uploaded: $uploaded, ')
           ..write('rowid: $rowid')
           ..write(')'))
@@ -4678,6 +4727,7 @@ typedef $$GroceryTableTableCreateCompanionBuilder =
       Value<double?> carbs,
       Value<double?> protein,
       Value<double?> fiber,
+      Value<bool> archived,
       Value<bool> uploaded,
       Value<int> rowid,
     });
@@ -4694,6 +4744,7 @@ typedef $$GroceryTableTableUpdateCompanionBuilder =
       Value<double?> carbs,
       Value<double?> protein,
       Value<double?> fiber,
+      Value<bool> archived,
       Value<bool> uploaded,
       Value<int> rowid,
     });
@@ -4788,6 +4839,11 @@ class $$GroceryTableTableFilterComposer
 
   ColumnFilters<double> get fiber => $composableBuilder(
     column: $table.fiber,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get archived => $composableBuilder(
+    column: $table.archived,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -4886,6 +4942,11 @@ class $$GroceryTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<bool> get archived => $composableBuilder(
+    column: $table.archived,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<bool> get uploaded => $composableBuilder(
     column: $table.uploaded,
     builder: (column) => ColumnOrderings(column),
@@ -4939,6 +5000,9 @@ class $$GroceryTableTableAnnotationComposer
 
   GeneratedColumn<double> get fiber =>
       $composableBuilder(column: $table.fiber, builder: (column) => column);
+
+  GeneratedColumn<bool> get archived =>
+      $composableBuilder(column: $table.archived, builder: (column) => column);
 
   GeneratedColumn<bool> get uploaded =>
       $composableBuilder(column: $table.uploaded, builder: (column) => column);
@@ -5008,6 +5072,7 @@ class $$GroceryTableTableTableManager
                 Value<double?> carbs = const Value.absent(),
                 Value<double?> protein = const Value.absent(),
                 Value<double?> fiber = const Value.absent(),
+                Value<bool> archived = const Value.absent(),
                 Value<bool> uploaded = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => GroceryTableCompanion(
@@ -5022,6 +5087,7 @@ class $$GroceryTableTableTableManager
                 carbs: carbs,
                 protein: protein,
                 fiber: fiber,
+                archived: archived,
                 uploaded: uploaded,
                 rowid: rowid,
               ),
@@ -5038,6 +5104,7 @@ class $$GroceryTableTableTableManager
                 Value<double?> carbs = const Value.absent(),
                 Value<double?> protein = const Value.absent(),
                 Value<double?> fiber = const Value.absent(),
+                Value<bool> archived = const Value.absent(),
                 Value<bool> uploaded = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => GroceryTableCompanion.insert(
@@ -5052,6 +5119,7 @@ class $$GroceryTableTableTableManager
                 carbs: carbs,
                 protein: protein,
                 fiber: fiber,
+                archived: archived,
                 uploaded: uploaded,
                 rowid: rowid,
               ),

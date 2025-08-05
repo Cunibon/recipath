@@ -16,6 +16,7 @@ class GroceryTable extends Table {
   RealColumn get carbs => real().nullable()();
   RealColumn get protein => real().nullable()();
   RealColumn get fiber => real().nullable()();
+  BoolColumn get archived => boolean().withDefault(const Constant(false))();
 
   BoolColumn get uploaded => boolean().withDefault(Constant(false))();
 }

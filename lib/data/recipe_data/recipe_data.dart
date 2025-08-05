@@ -15,8 +15,8 @@ abstract class RecipeData with _$RecipeData {
     required String title,
     int? servings,
     String? imageName,
-    @Default(false) bool archived,
     required List<RecipeStepData> steps,
+    @Default(false) bool archived,
     required bool uploaded,
   }) = _RecipeData;
 
