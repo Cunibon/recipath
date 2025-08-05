@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
-import 'package:recipe_list/data/ingredient_data.dart';
-import 'package:recipe_list/data/shopping_data.dart';
+import 'package:recipe_list/data/ingredient_data/ingredient_data.dart';
+import 'package:recipe_list/data/shopping_data/shopping_data.dart';
 import 'package:recipe_list/drift/database.dart';
 import 'package:recipe_list/repos/repo.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:recipe_list/data/grocery_data.dart';
+import 'package:recipe_list/data/grocery_data/grocery_data.dart';
 import 'package:recipe_list/root_routes.dart';
 import 'package:recipe_list/widgets/generic/navigation_drawer_scaffold.dart';
 import 'package:recipe_list/widgets/generic/notifier_future_builder.dart';

@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:localstorage/localstorage.dart';
 import 'package:logger/logger.dart';
-import 'package:recipe_list/data/grocery_data.dart';
-import 'package:recipe_list/data/ingredient_data.dart';
-import 'package:recipe_list/data/recipe_data.dart';
-import 'package:recipe_list/data/shopping_data.dart';
+import 'package:recipe_list/data/grocery_data/grocery_data.dart';
+import 'package:recipe_list/data/ingredient_data/ingredient_data.dart';
+import 'package:recipe_list/data/recipe_data/recipe_data.dart';
+import 'package:recipe_list/data/shopping_data/shopping_data.dart';
 import 'package:recipe_list/domain_service/syncing_service/download_data_extension.dart';
 import 'package:recipe_list/domain_service/syncing_service/upload_data_extension.dart';
 import 'package:recipe_list/repos/repo.dart';

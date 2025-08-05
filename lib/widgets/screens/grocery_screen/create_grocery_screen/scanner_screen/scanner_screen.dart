@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobile_scanner/mobile_scanner.dart';
-import 'package:recipe_list/data/gtin_data.dart';
+import 'package:recipe_list/data/gtin_data/gtin_data.dart';
 import 'package:recipe_list/widgets/generic/information_dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
 

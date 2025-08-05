@@ -1,8 +1,8 @@
 import 'package:drift/drift.dart' as drift;
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:recipe_list/common.dart';
-import 'package:recipe_list/data/grocery_data.dart';
-import 'package:recipe_list/data/ingredient_data.dart';
+import 'package:recipe_list/data/grocery_data/grocery_data.dart';
+import 'package:recipe_list/data/ingredient_data/ingredient_data.dart';
 import 'package:recipe_list/drift/database.dart';
 
 part 'shopping_data.freezed.dart';

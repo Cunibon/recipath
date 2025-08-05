@@ -1,4 +1,4 @@
-import 'package:recipe_list/data/recipe_statistic_data.dart';
+import 'package:recipe_list/data/recipe_statistic_data/recipe_statistic_data.dart';
 import 'package:recipe_list/repos/repo.dart';
 
 abstract class RecipeStatisticsRepo extends Repo<RecipeStatisticData> {

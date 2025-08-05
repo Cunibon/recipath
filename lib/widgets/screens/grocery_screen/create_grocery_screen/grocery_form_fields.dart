@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_list/common.dart';
-import 'package:recipe_list/data/grocery_data.dart';
+import 'package:recipe_list/data/grocery_data/grocery_data.dart';
 import 'package:recipe_list/data/unit_enum.dart';
 import 'package:recipe_list/widgets/screens/grocery_screen/create_grocery_screen/double_input_field.dart';
 

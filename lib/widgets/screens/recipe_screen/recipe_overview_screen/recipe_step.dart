@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_list/data/recipe_step_data.dart';
+import 'package:recipe_list/data/recipe_step_data/recipe_step_data.dart';
 import 'package:recipe_list/widgets/screens/recipe_screen/recipe_overview_screen/ingredients_list.dart';
 
 class RecipeStep extends StatelessWidget {

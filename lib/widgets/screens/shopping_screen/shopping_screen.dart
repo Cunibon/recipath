@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_list/application/shopping_modifier/shopping_modifier_notifier.dart';
-import 'package:recipe_list/data/ingredient_data.dart';
-import 'package:recipe_list/data/shopping_data.dart';
+import 'package:recipe_list/data/ingredient_data/ingredient_data.dart';
+import 'package:recipe_list/data/shopping_data/shopping_data.dart';
 import 'package:recipe_list/widgets/generic/dialogs/clear_confirmation_dialog.dart';
 import 'package:recipe_list/widgets/generic/navigation_drawer_scaffold.dart';
 import 'package:recipe_list/widgets/generic/notifier_future_builder.dart';

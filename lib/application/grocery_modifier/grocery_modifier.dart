@@ -1,4 +1,4 @@
-import 'package:recipe_list/data/grocery_data.dart';
+import 'package:recipe_list/data/grocery_data/grocery_data.dart';
 import 'package:recipe_list/repos/repo.dart';
 
 class GroceryModifier {

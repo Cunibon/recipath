@@ -1,5 +1,5 @@
 import 'package:drift/drift.dart';
-import 'package:recipe_list/data/recipe_data.dart';
+import 'package:recipe_list/data/recipe_data/recipe_data.dart';
 import 'package:recipe_list/drift/database.dart';
 import 'package:recipe_list/repos/repo.dart';
 

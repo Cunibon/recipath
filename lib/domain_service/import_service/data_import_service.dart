@@ -3,10 +3,10 @@ import 'package:recipe_list/application/recipe_modifier/recipe_modifier.dart';
 import 'package:recipe_list/application/shopping_modifier/shopping_modifier.dart';
 import 'package:recipe_list/application/storage_modifier/storage_modifier.dart';
 import 'package:recipe_list/application_constants.dart';
-import 'package:recipe_list/data/grocery_data.dart';
-import 'package:recipe_list/data/ingredient_data.dart';
-import 'package:recipe_list/data/recipe_data.dart';
-import 'package:recipe_list/data/shopping_data.dart';
+import 'package:recipe_list/data/grocery_data/grocery_data.dart';
+import 'package:recipe_list/data/ingredient_data/ingredient_data.dart';
+import 'package:recipe_list/data/recipe_data/recipe_data.dart';
+import 'package:recipe_list/data/shopping_data/shopping_data.dart';
 
 class DataImportService {
   DataImportService({

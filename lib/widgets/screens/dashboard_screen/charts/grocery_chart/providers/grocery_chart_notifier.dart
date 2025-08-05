@@ -2,7 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_list/common.dart';
-import 'package:recipe_list/data/grocery_data.dart';
+import 'package:recipe_list/data/grocery_data/grocery_data.dart';
 import 'package:recipe_list/widgets/screens/dashboard_screen/charts/chart_entry.dart';
 import 'package:recipe_list/widgets/screens/dashboard_screen/charts/grocery_chart/providers/grocery_statistics_notifier.dart';
 import 'package:recipe_list/widgets/screens/grocery_screen/providers/grocery_notifier.dart';

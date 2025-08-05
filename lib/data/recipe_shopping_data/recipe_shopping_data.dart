@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:random_string/random_string.dart';
-import 'package:recipe_list/data/recipe_data.dart';
+import 'package:recipe_list/data/recipe_data/recipe_data.dart';
 import 'package:recipe_list/drift/database.dart';
 
 part 'recipe_shopping_data.freezed.dart';

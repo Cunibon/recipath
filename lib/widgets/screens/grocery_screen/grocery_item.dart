@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:recipe_list/application_constants.dart';
 import 'package:recipe_list/common.dart';
-import 'package:recipe_list/data/grocery_data.dart';
+import 'package:recipe_list/data/grocery_data/grocery_data.dart';
 import 'package:recipe_list/root_routes.dart';
 import 'package:recipe_list/widgets/screens/grocery_screen/grocery_routes.dart';
 

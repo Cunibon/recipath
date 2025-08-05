@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:recipe_list/data/recipe_data.dart';
+import 'package:recipe_list/data/recipe_data/recipe_data.dart';
 import 'package:recipe_list/drift/database_notifier.dart';
 import 'package:recipe_list/repos/recipe/recipe_repo_drift.dart';
 import 'package:recipe_list/repos/repo.dart';

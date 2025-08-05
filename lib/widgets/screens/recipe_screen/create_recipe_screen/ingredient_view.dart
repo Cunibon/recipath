@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_list/data/ingredient_data.dart';
+import 'package:recipe_list/data/ingredient_data/ingredient_data.dart';
 import 'package:recipe_list/widgets/screens/recipe_screen/create_recipe_screen/compact_ingredient_view.dart';
 import 'package:recipe_list/widgets/screens/recipe_screen/create_recipe_screen/ingredient_item.dart';
 

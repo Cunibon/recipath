@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_list/application/storage_modifier/storage_modifier_notifier.dart';
-import 'package:recipe_list/data/ingredient_data.dart';
+import 'package:recipe_list/data/ingredient_data/ingredient_data.dart';
 import 'package:recipe_list/widgets/generic/dialogs/clear_confirmation_dialog.dart';
 import 'package:recipe_list/widgets/generic/navigation_drawer_scaffold.dart';
 import 'package:recipe_list/widgets/generic/notifier_future_builder.dart';

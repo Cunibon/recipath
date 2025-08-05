@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_list/common.dart';
-import 'package:recipe_list/data/recipe_data.dart';
-import 'package:recipe_list/data/recipe_shopping_data.dart';
+import 'package:recipe_list/data/recipe_data/recipe_data.dart';
+import 'package:recipe_list/data/recipe_shopping_data/recipe_shopping_data.dart';
 import 'package:recipe_list/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 import 'package:recipe_list/widgets/screens/recipe_screen/create_recipe_screen/compact_ingredient_view.dart';
 import 'package:recipe_list/widgets/screens/recipe_screen/local_image.dart';
