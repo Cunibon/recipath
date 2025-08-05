@@ -10,6 +10,8 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 extension DownloadDataExtension on SyncingService {
   Future<({DateTime? downloadTime, int downloadCount})> download() async {
+    final initalSync = lastSync == DateTime.fromMicrosecondsSinceEpoch(0);
+
     final groceryData = await applyOrderAndFiltering(
       supabaseClient.from(SupabaseTables.grocery),
     );
@@ -45,12 +47,19 @@ extension DownloadDataExtension on SyncingService {
       recipeData: recipeData,
     );
 
-    final shoppingData = await supabaseClient
+    var shoppingDataQuery = supabaseClient
         .from(SupabaseTables.shopping)
         .select()
-        .gt(SyncingService.updatedAtKey, lastSync.toIso8601String())
-        .eq("deleted", false)
-        .order(SyncingService.updatedAtKey, ascending: true);
+        .gt(SyncingService.updatedAtKey, lastSync.toIso8601String());
+
+    if (initalSync) {
+      shoppingDataQuery = shoppingDataQuery.eq("deleted", false);
+    }
+
+    final shoppingData = await shoppingDataQuery.order(
+      SyncingService.updatedAtKey,
+      ascending: true,
+    );
     for (final rawShoppingData in shoppingData) {
       final shoppingData = ShoppingData.fromSupabase(
         rawShoppingData,
@@ -64,12 +73,19 @@ extension DownloadDataExtension on SyncingService {
       }
     }
 
-    final storageData = await supabaseClient
+    var storageDataQuery = supabaseClient
         .from(SupabaseTables.storage)
         .select()
-        .gt(SyncingService.updatedAtKey, lastSync.toIso8601String())
-        .eq("deleted", false)
-        .order(SyncingService.updatedAtKey, ascending: true);
+        .gt(SyncingService.updatedAtKey, lastSync.toIso8601String());
+
+    if (initalSync) {
+      storageDataQuery = storageDataQuery.eq("deleted", false);
+    }
+
+    final storageData = await storageDataQuery.order(
+      SyncingService.updatedAtKey,
+      ascending: true,
+    );
     for (final rawStorageData in storageData) {
       final storageData = StorageData.fromSupabase(
         rawStorageData,

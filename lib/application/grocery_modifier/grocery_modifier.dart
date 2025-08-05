@@ -10,10 +10,10 @@ class GroceryModifier {
   Future<void> add(GroceryData newData) =>
       repo.add(newData.copyWith(uploaded: false));
 
-  Future<void> archive(GroceryData toDelete) =>
+  Future<void> archive(GroceryData toArchive) =>
       (repo.db.update(
         repo.db.groceryTable,
-      )..where((tbl) => tbl.id.equals(toDelete.id))).write(
+      )..where((tbl) => tbl.id.equals(toArchive.id))).write(
         GroceryTableCompanion(archived: Value(true), uploaded: Value(false)),
       );
 }

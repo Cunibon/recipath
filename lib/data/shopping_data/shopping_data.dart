@@ -22,6 +22,18 @@ abstract class ShoppingData with _$ShoppingData {
   factory ShoppingData.fromJson(Map<String, Object?> json) =>
       _$ShoppingDataFromJson(json);
 
+  factory ShoppingData.fromTableData(
+    ShoppingTableData data,
+    IngredientData ingredientData,
+  ) => ShoppingData(
+    id: data.id,
+    done: data.done,
+    count: data.count,
+    ingredient: ingredientData,
+    deleted: data.deleted,
+    uploaded: data.uploaded,
+  );
+
   factory ShoppingData.fromSupabase(
     Map<String, dynamic> data,
     IngredientData ingredient,
@@ -30,6 +42,7 @@ abstract class ShoppingData with _$ShoppingData {
     done: data["done"],
     count: data["count"],
     ingredient: ingredient,
+    deleted: data["deleted"],
     uploaded: true,
   );
 }
@@ -43,6 +56,7 @@ extension ShoppingDataFunctions on ShoppingData {
     done: done,
     count: count,
     ingredientId: ingredient.id,
+    deleted: drift.Value(deleted),
     uploaded: drift.Value(uploaded),
   );
 

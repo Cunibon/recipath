@@ -7,7 +7,7 @@ part of 'syncing_service_notifier.dart';
 // **************************************************************************
 
 String _$syncingServiceNotifierHash() =>
-    r'4f5173ee952d09f168d886a43c823b445debbf0b';
+    r'4878747bc6d364c0fd37cb0e8e483d74e6a853c3';
 
 /// See also [syncingServiceNotifier].
 @ProviderFor(syncingServiceNotifier)

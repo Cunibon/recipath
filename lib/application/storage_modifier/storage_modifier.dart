@@ -1,6 +1,8 @@
+import 'package:drift/drift.dart';
 import 'package:random_string/random_string.dart';
 import 'package:recipe_list/data/ingredient_data/ingredient_data.dart';
 import 'package:recipe_list/data/storage_data/storage_data.dart';
+import 'package:recipe_list/drift/database.dart';
 import 'package:recipe_list/repos/repo.dart';
 
 class StorageModifier {
@@ -63,7 +65,16 @@ class StorageModifier {
   Future<void> updateItem(StorageData updated) =>
       repo.add(updated.copyWith(uploaded: false));
 
-  Future<void> deleteItem(StorageData toDelete) => repo.delete(toDelete.id);
+  Future<void> deleteItem(StorageData toDelete) =>
+      (repo.db.update(
+        repo.db.storageTable,
+      )..where((tbl) => tbl.id.equals(toDelete.id))).write(
+        StorageTableCompanion(deleted: Value(true), uploaded: Value(false)),
+      );
 
-  Future<void> clear() => repo.clear();
+  Future<void> clear() => repo.db
+      .update(repo.db.storageTable)
+      .write(
+        StorageTableCompanion(deleted: Value(true), uploaded: Value(false)),
+      );
 }

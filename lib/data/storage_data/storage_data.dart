@@ -24,19 +24,26 @@ abstract class StorageData with _$StorageData {
   ) => StorageData(
     id: data.id,
     ingredient: ingredientData,
+    deleted: data.deleted,
     uploaded: data.uploaded,
   );
 
   factory StorageData.fromSupabase(
     Map<String, dynamic> data,
     IngredientData ingredient,
-  ) => StorageData(id: data["id"], ingredient: ingredient, uploaded: true);
+  ) => StorageData(
+    id: data["id"],
+    ingredient: ingredient,
+    deleted: data["deleted"],
+    uploaded: true,
+  );
 }
 
 extension StorageDataFunctions on StorageData {
   StorageTableCompanion toTableCompanion() => StorageTableCompanion.insert(
     id: id,
     ingredientId: ingredient.id,
+    deleted: drift.Value(deleted),
     uploaded: drift.Value(uploaded),
   );
 

@@ -5,17 +5,26 @@ import 'package:recipe_list/drift/database.dart';
 import 'package:recipe_list/repos/repo.dart';
 
 class StorageRepoDrift extends Repo<StorageData> {
-  StorageRepoDrift(super.db);
+  StorageRepoDrift(super.db, {this.incluedDeleted = false});
+  final bool incluedDeleted;
 
   @override
   $StorageTableTable get table => db.storageTable;
   @override
-  JoinedSelectStatement get baseQuery => db.select(table).join([
-    leftOuterJoin(
-      db.ingredientTable,
-      table.ingredientId.equalsExp(db.ingredientTable.id),
-    ),
-  ]);
+  JoinedSelectStatement get baseQuery {
+    final query = db.select(table).join([
+      leftOuterJoin(
+        db.ingredientTable,
+        table.ingredientId.equalsExp(db.ingredientTable.id),
+      ),
+    ]);
+
+    if (!incluedDeleted) {
+      query.where(table.deleted.equals(false));
+    }
+
+    return query;
+  }
 
   Map<String, StorageData> mapResult(List<TypedResult> rows) {
     final Map<String, StorageData> storageById = {};
@@ -36,9 +45,7 @@ class StorageRepoDrift extends Repo<StorageData> {
 
   @override
   Future<Map<String, StorageData>> getNotUploaded() async {
-    final rows =
-        await (baseQuery..where(db.ingredientTable.uploaded.equals(false)))
-            .get();
+    final rows = await (baseQuery..where(table.uploaded.equals(false))).get();
     return mapResult(rows);
   }
 

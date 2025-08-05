@@ -40,6 +40,7 @@ abstract class GroceryData with _$GroceryData {
     carbs: data.carbs,
     protein: data.protein,
     fiber: data.fiber,
+    archived: data.archived,
     uploaded: data.uploaded,
   );
 
@@ -55,6 +56,7 @@ abstract class GroceryData with _$GroceryData {
     carbs: (data["carbs"] as num?)?.toDouble(),
     protein: (data["protein"] as num?)?.toDouble(),
     fiber: (data["fiber"] as num?)?.toDouble(),
+    archived: data["archived"],
     uploaded: true,
   );
 
@@ -129,6 +131,7 @@ extension GroceryDataFunctions on GroceryData {
     carbs: drift.Value(carbs),
     protein: drift.Value(protein),
     fiber: drift.Value(fiber),
+    archived: drift.Value(archived),
     uploaded: drift.Value(uploaded),
   );
 

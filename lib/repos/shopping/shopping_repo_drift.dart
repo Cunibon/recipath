@@ -5,17 +5,26 @@ import 'package:recipe_list/drift/database.dart';
 import 'package:recipe_list/repos/repo.dart';
 
 class ShoppingRepoDrift extends Repo<ShoppingData> {
-  ShoppingRepoDrift(super.db);
+  ShoppingRepoDrift(super.db, {this.incluedDeleted = false});
+  final bool incluedDeleted;
 
   @override
   $ShoppingTableTable get table => db.shoppingTable;
   @override
-  JoinedSelectStatement get baseQuery => db.select(table).join([
-    leftOuterJoin(
-      db.ingredientTable,
-      table.ingredientId.equalsExp(db.ingredientTable.id),
-    ),
-  ]);
+  JoinedSelectStatement get baseQuery {
+    final query = db.select(table).join([
+      leftOuterJoin(
+        db.ingredientTable,
+        table.ingredientId.equalsExp(db.ingredientTable.id),
+      ),
+    ]);
+
+    if (!incluedDeleted) {
+      query.where(table.deleted.equals(false));
+    }
+
+    return query;
+  }
 
   Map<String, ShoppingData> mapResult(List<TypedResult> rows) {
     final Map<String, ShoppingData> shoppingById = {};
@@ -24,12 +33,9 @@ class ShoppingRepoDrift extends Repo<ShoppingData> {
       final shoppingRow = row.readTable(table);
       final ingredientRow = row.readTable(db.ingredientTable);
 
-      shoppingById[shoppingRow.id] = ShoppingData(
-        id: shoppingRow.id,
-        done: shoppingRow.done,
-        count: shoppingRow.count,
-        ingredient: IngredientData.fromTableData(ingredientRow),
-        uploaded: shoppingRow.uploaded,
+      shoppingById[shoppingRow.id] = ShoppingData.fromTableData(
+        shoppingRow,
+        IngredientData.fromTableData(ingredientRow),
       );
     }
     return shoppingById;
