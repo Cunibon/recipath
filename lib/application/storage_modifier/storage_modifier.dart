@@ -1,16 +1,19 @@
 import 'package:random_string/random_string.dart';
 import 'package:recipe_list/data/ingredient_data/ingredient_data.dart';
+import 'package:recipe_list/data/storage_data/storage_data.dart';
 import 'package:recipe_list/repos/repo.dart';
 
 class StorageModifier {
   StorageModifier(this.repo);
-  final Repo<IngredientData> repo;
+  final Repo<StorageData> repo;
 
   Future<void> addItem(IngredientData newData) async {
     final value = await repo.get();
 
-    final item =
-        value[newData.groceryId] ??
+    final item = value[newData.groceryId];
+
+    final ingredient =
+        item?.ingredient ??
         IngredientData(
           id: randomAlphaNumeric(16),
           amount: 0,
@@ -19,12 +22,22 @@ class StorageModifier {
           uploaded: false,
         );
 
-    final aggregated = item.copyWith(
-      amount: item.amount + newData.amount,
+    final aggregated = ingredient.copyWith(
+      amount: ingredient.amount + newData.amount,
       uploaded: false,
     );
 
-    repo.add(aggregated);
+    if (item == null) {
+      repo.add(
+        StorageData(
+          id: randomAlphaNumeric(16),
+          ingredient: ingredient,
+          uploaded: false,
+        ),
+      );
+    } else {
+      repo.add(item.copyWith(ingredient: aggregated, uploaded: false));
+    }
   }
 
   Future<void> subtractItem(IngredientData newData) async {
@@ -33,22 +46,24 @@ class StorageModifier {
     final item = value[newData.groceryId];
     if (item == null) return;
 
-    final newItem = item.copyWith(
-      amount: item.amount - newData.amount,
+    final ingredient = item.ingredient;
+
+    final newIngredient = ingredient.copyWith(
+      amount: ingredient.amount - newData.amount,
       uploaded: false,
     );
 
-    if (newItem.amount <= 0) {
-      await deleteItem(newItem);
+    if (newIngredient.amount <= 0) {
+      await deleteItem(item);
     } else {
-      await updateItem(item.copyWith(amount: item.amount - newData.amount));
+      await updateItem(item.copyWith(ingredient: newIngredient));
     }
   }
 
-  Future<void> updateItem(IngredientData updated) =>
+  Future<void> updateItem(StorageData updated) =>
       repo.add(updated.copyWith(uploaded: false));
 
-  Future<void> deleteItem(IngredientData toDelete) => repo.delete(toDelete.id);
+  Future<void> deleteItem(StorageData toDelete) => repo.delete(toDelete.id);
 
   Future<void> clear() => repo.clear();
 }

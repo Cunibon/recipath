@@ -6,6 +6,7 @@ class StorageTable extends Table {
   @override
   Set<Column<Object>> get primaryKey => {ingredientId};
 
+  TextColumn get id => text()();
   TextColumn get ingredientId =>
       text().references(IngredientTable, #id, onDelete: KeyAction.cascade)();
 

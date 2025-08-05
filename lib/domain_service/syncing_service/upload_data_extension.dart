@@ -3,6 +3,7 @@ import 'package:recipe_list/data/ingredient_data/ingredient_data.dart';
 import 'package:recipe_list/data/recipe_data/recipe_data.dart';
 import 'package:recipe_list/data/recipe_step_data/recipe_step_data.dart';
 import 'package:recipe_list/data/shopping_data/shopping_data.dart';
+import 'package:recipe_list/data/storage_data/storage_data.dart';
 import 'package:recipe_list/domain_service/syncing_service/supabase_tables.dart';
 import 'package:recipe_list/domain_service/syncing_service/syncing_service.dart';
 
@@ -55,8 +56,8 @@ extension UploadDataExtension on SyncingService {
 
     final storageData = await storageRepo.getNotUploaded();
     for (final storage in storageData.values) {
-      storageSupabase.add({"ingredient_id": storage.id});
-      ingredientsSupabase.add(storage.toSupabase());
+      storageSupabase.add(storage.toSupabase());
+      ingredientsSupabase.add(storage.ingredient.toSupabase());
     }
 
     await supabaseClient

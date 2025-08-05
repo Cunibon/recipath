@@ -60,7 +60,7 @@ class _MyAppState extends ConsumerState<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       routerConfig: widget.router,
-      title: 'Recipe List',
+      title: 'ReciPath',
       theme: ThemeData.dark().copyWith(
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(

@@ -1,0 +1,46 @@
+import 'package:drift/drift.dart' as drift;
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:recipe_list/data/ingredient_data/ingredient_data.dart';
+import 'package:recipe_list/drift/database.dart';
+
+part 'storage_data.freezed.dart';
+part 'storage_data.g.dart';
+
+@freezed
+abstract class StorageData with _$StorageData {
+  const factory StorageData({
+    required String id,
+    required IngredientData ingredient,
+    required bool uploaded,
+  }) = _StorageData;
+
+  factory StorageData.fromJson(Map<String, Object?> json) =>
+      _$StorageDataFromJson(json);
+
+  factory StorageData.fromTableData(
+    StorageTableData data,
+    IngredientData ingredientData,
+  ) => StorageData(
+    id: data.id,
+    ingredient: ingredientData,
+    uploaded: data.uploaded,
+  );
+
+  factory StorageData.fromSupabase(
+    Map<String, dynamic> data,
+    IngredientData ingredient,
+  ) => StorageData(id: data["id"], ingredient: ingredient, uploaded: true);
+}
+
+extension StorageDataFunctions on StorageData {
+  StorageTableCompanion toTableCompanion() => StorageTableCompanion.insert(
+    id: id,
+    ingredientId: ingredient.id,
+    uploaded: drift.Value(uploaded),
+  );
+
+  Map<String, dynamic> toSupabase() => {
+    "id": id,
+    "ingredient_id": ingredient.id,
+  };
+}

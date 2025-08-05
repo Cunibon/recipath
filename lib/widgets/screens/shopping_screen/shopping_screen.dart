@@ -70,11 +70,13 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
           items: asyncItems.value!.values.toList(),
           toSearchable: (item) => item.toReadable(
             asyncGroceryMap.value![item.ingredient.groceryId]!,
-            asyncStorage.value![item.ingredient.groceryId]?.amount ?? 0,
+            asyncStorage.value![item.ingredient.groceryId]?.ingredient.amount ??
+                0,
           ),
           toWidget: (item) => ShoppingItem(
             data: item,
-            ingredientData: asyncStorage.value![item.ingredient.groceryId],
+            ingredientData:
+                asyncStorage.value![item.ingredient.groceryId]?.ingredient,
           ),
           sort: (a, b) {
             if (a.done == b.done) {

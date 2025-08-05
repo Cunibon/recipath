@@ -49,7 +49,7 @@ class _StorageScreenState extends ConsumerState<StorageScreen> {
             builder: (context) => AddIngredientDialog(
               initialSearch: searchController.text,
               selected: asyncItems.value!.values.toList().map(
-                (e) => e.groceryId,
+                (e) => e.ingredient.groceryId,
               ),
               allowSelectedRemoval: false,
             ),
@@ -67,12 +67,12 @@ class _StorageScreenState extends ConsumerState<StorageScreen> {
           searchController: searchController,
           type: "Items",
           items: asyncItems.value!.values.toList(),
-          toSearchable: (item) =>
-              item.toReadable(asyncGroceries.value![item.groceryId]!),
-          toWidget: (item) => StorageItem(data: item),
-          sort: (a, b) => asyncGroceries.value![a.groceryId]!.name.compareTo(
-            asyncGroceries.value![b.groceryId]!.name,
+          toSearchable: (item) => item.ingredient.toReadable(
+            asyncGroceries.value![item.ingredient.groceryId]!,
           ),
+          toWidget: (item) => StorageItem(data: item),
+          sort: (a, b) => asyncGroceries.value![a.ingredient.groceryId]!.name
+              .compareTo(asyncGroceries.value![b.ingredient.groceryId]!.name),
           bottomPadding: 78,
         ),
       ),

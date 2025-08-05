@@ -2563,6 +2563,15 @@ class $StorageTableTable extends StorageTable
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $StorageTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
   static const VerificationMeta _ingredientIdMeta = const VerificationMeta(
     'ingredientId',
   );
@@ -2593,7 +2602,7 @@ class $StorageTableTable extends StorageTable
     defaultValue: Constant(false),
   );
   @override
-  List<GeneratedColumn> get $columns => [ingredientId, uploaded];
+  List<GeneratedColumn> get $columns => [id, ingredientId, uploaded];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -2606,6 +2615,11 @@ class $StorageTableTable extends StorageTable
   }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
     if (data.containsKey('ingredient_id')) {
       context.handle(
         _ingredientIdMeta,
@@ -2632,6 +2646,10 @@ class $StorageTableTable extends StorageTable
   StorageTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return StorageTableData(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
       ingredientId: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}ingredient_id'],
@@ -2651,12 +2669,18 @@ class $StorageTableTable extends StorageTable
 
 class StorageTableData extends DataClass
     implements Insertable<StorageTableData> {
+  final String id;
   final String ingredientId;
   final bool uploaded;
-  const StorageTableData({required this.ingredientId, required this.uploaded});
+  const StorageTableData({
+    required this.id,
+    required this.ingredientId,
+    required this.uploaded,
+  });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
     map['ingredient_id'] = Variable<String>(ingredientId);
     map['uploaded'] = Variable<bool>(uploaded);
     return map;
@@ -2664,6 +2688,7 @@ class StorageTableData extends DataClass
 
   StorageTableCompanion toCompanion(bool nullToAbsent) {
     return StorageTableCompanion(
+      id: Value(id),
       ingredientId: Value(ingredientId),
       uploaded: Value(uploaded),
     );
@@ -2675,6 +2700,7 @@ class StorageTableData extends DataClass
   }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return StorageTableData(
+      id: serializer.fromJson<String>(json['id']),
       ingredientId: serializer.fromJson<String>(json['ingredientId']),
       uploaded: serializer.fromJson<bool>(json['uploaded']),
     );
@@ -2683,18 +2709,24 @@ class StorageTableData extends DataClass
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
       'ingredientId': serializer.toJson<String>(ingredientId),
       'uploaded': serializer.toJson<bool>(uploaded),
     };
   }
 
-  StorageTableData copyWith({String? ingredientId, bool? uploaded}) =>
-      StorageTableData(
-        ingredientId: ingredientId ?? this.ingredientId,
-        uploaded: uploaded ?? this.uploaded,
-      );
+  StorageTableData copyWith({
+    String? id,
+    String? ingredientId,
+    bool? uploaded,
+  }) => StorageTableData(
+    id: id ?? this.id,
+    ingredientId: ingredientId ?? this.ingredientId,
+    uploaded: uploaded ?? this.uploaded,
+  );
   StorageTableData copyWithCompanion(StorageTableCompanion data) {
     return StorageTableData(
+      id: data.id.present ? data.id.value : this.id,
       ingredientId: data.ingredientId.present
           ? data.ingredientId.value
           : this.ingredientId,
@@ -2705,6 +2737,7 @@ class StorageTableData extends DataClass
   @override
   String toString() {
     return (StringBuffer('StorageTableData(')
+          ..write('id: $id, ')
           ..write('ingredientId: $ingredientId, ')
           ..write('uploaded: $uploaded')
           ..write(')'))
@@ -2712,35 +2745,42 @@ class StorageTableData extends DataClass
   }
 
   @override
-  int get hashCode => Object.hash(ingredientId, uploaded);
+  int get hashCode => Object.hash(id, ingredientId, uploaded);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is StorageTableData &&
+          other.id == this.id &&
           other.ingredientId == this.ingredientId &&
           other.uploaded == this.uploaded);
 }
 
 class StorageTableCompanion extends UpdateCompanion<StorageTableData> {
+  final Value<String> id;
   final Value<String> ingredientId;
   final Value<bool> uploaded;
   final Value<int> rowid;
   const StorageTableCompanion({
+    this.id = const Value.absent(),
     this.ingredientId = const Value.absent(),
     this.uploaded = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   StorageTableCompanion.insert({
+    required String id,
     required String ingredientId,
     this.uploaded = const Value.absent(),
     this.rowid = const Value.absent(),
-  }) : ingredientId = Value(ingredientId);
+  }) : id = Value(id),
+       ingredientId = Value(ingredientId);
   static Insertable<StorageTableData> custom({
+    Expression<String>? id,
     Expression<String>? ingredientId,
     Expression<bool>? uploaded,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
+      if (id != null) 'id': id,
       if (ingredientId != null) 'ingredient_id': ingredientId,
       if (uploaded != null) 'uploaded': uploaded,
       if (rowid != null) 'rowid': rowid,
@@ -2748,11 +2788,13 @@ class StorageTableCompanion extends UpdateCompanion<StorageTableData> {
   }
 
   StorageTableCompanion copyWith({
+    Value<String>? id,
     Value<String>? ingredientId,
     Value<bool>? uploaded,
     Value<int>? rowid,
   }) {
     return StorageTableCompanion(
+      id: id ?? this.id,
       ingredientId: ingredientId ?? this.ingredientId,
       uploaded: uploaded ?? this.uploaded,
       rowid: rowid ?? this.rowid,
@@ -2762,6 +2804,9 @@ class StorageTableCompanion extends UpdateCompanion<StorageTableData> {
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
     if (ingredientId.present) {
       map['ingredient_id'] = Variable<String>(ingredientId.value);
     }
@@ -2777,6 +2822,7 @@ class StorageTableCompanion extends UpdateCompanion<StorageTableData> {
   @override
   String toString() {
     return (StringBuffer('StorageTableCompanion(')
+          ..write('id: $id, ')
           ..write('ingredientId: $ingredientId, ')
           ..write('uploaded: $uploaded, ')
           ..write('rowid: $rowid')
@@ -6461,12 +6507,14 @@ typedef $$ShoppingTableTableProcessedTableManager =
     >;
 typedef $$StorageTableTableCreateCompanionBuilder =
     StorageTableCompanion Function({
+      required String id,
       required String ingredientId,
       Value<bool> uploaded,
       Value<int> rowid,
     });
 typedef $$StorageTableTableUpdateCompanionBuilder =
     StorageTableCompanion Function({
+      Value<String> id,
       Value<String> ingredientId,
       Value<bool> uploaded,
       Value<int> rowid,
@@ -6509,6 +6557,11 @@ class $$StorageTableTableFilterComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
   ColumnFilters<bool> get uploaded => $composableBuilder(
     column: $table.uploaded,
     builder: (column) => ColumnFilters(column),
@@ -6547,6 +6600,11 @@ class $$StorageTableTableOrderingComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<bool> get uploaded => $composableBuilder(
     column: $table.uploaded,
     builder: (column) => ColumnOrderings(column),
@@ -6585,6 +6643,9 @@ class $$StorageTableTableAnnotationComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
   GeneratedColumn<bool> get uploaded =>
       $composableBuilder(column: $table.uploaded, builder: (column) => column);
 
@@ -6640,20 +6701,24 @@ class $$StorageTableTableTableManager
               $$StorageTableTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
+                Value<String> id = const Value.absent(),
                 Value<String> ingredientId = const Value.absent(),
                 Value<bool> uploaded = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => StorageTableCompanion(
+                id: id,
                 ingredientId: ingredientId,
                 uploaded: uploaded,
                 rowid: rowid,
               ),
           createCompanionCallback:
               ({
+                required String id,
                 required String ingredientId,
                 Value<bool> uploaded = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => StorageTableCompanion.insert(
+                id: id,
                 ingredientId: ingredientId,
                 uploaded: uploaded,
                 rowid: rowid,

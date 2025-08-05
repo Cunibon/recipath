@@ -4,9 +4,9 @@ import 'package:recipe_list/application/shopping_modifier/shopping_modifier.dart
 import 'package:recipe_list/application/storage_modifier/storage_modifier.dart';
 import 'package:recipe_list/application_constants.dart';
 import 'package:recipe_list/data/grocery_data/grocery_data.dart';
-import 'package:recipe_list/data/ingredient_data/ingredient_data.dart';
 import 'package:recipe_list/data/recipe_data/recipe_data.dart';
 import 'package:recipe_list/data/shopping_data/shopping_data.dart';
+import 'package:recipe_list/data/storage_data/storage_data.dart';
 
 class DataImportService {
   DataImportService({
@@ -56,7 +56,7 @@ class DataImportService {
 
   Future<void> importStorage(Map<String, dynamic> storageData) async {
     for (final data in storageData.values) {
-      await storageModifier.updateItem(IngredientData.fromJson(data));
+      await storageModifier.updateItem(StorageData.fromJson(data));
     }
   }
 

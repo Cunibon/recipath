@@ -28,7 +28,7 @@ class CompactIngredientView extends ConsumerWidget {
         children: ingredients.map((e) {
           final storageItem = storage.value![e.groceryId];
           bool inStorage =
-              storageItem != null && e.amount <= storageItem.amount;
+              storageItem != null && e.amount <= storageItem.ingredient.amount;
 
           return Text(
             "● ${e.toReadable(groceryMap.value![e.groceryId]!)}",
