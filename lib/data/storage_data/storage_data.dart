@@ -11,6 +11,7 @@ abstract class StorageData with _$StorageData {
   const factory StorageData({
     required String id,
     required IngredientData ingredient,
+    @Default(false) bool deleted,
     required bool uploaded,
   }) = _StorageData;
 
@@ -42,5 +43,6 @@ extension StorageDataFunctions on StorageData {
   Map<String, dynamic> toSupabase() => {
     "id": id,
     "ingredient_id": ingredient.id,
+    "deleted": deleted,
   };
 }

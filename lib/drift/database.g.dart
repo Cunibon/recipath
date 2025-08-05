@@ -2285,6 +2285,21 @@ class $ShoppingTableTable extends ShoppingTable
       'REFERENCES ingredient_table (id) ON DELETE CASCADE',
     ),
   );
+  static const VerificationMeta _deletedMeta = const VerificationMeta(
+    'deleted',
+  );
+  @override
+  late final GeneratedColumn<bool> deleted = GeneratedColumn<bool>(
+    'deleted',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("deleted" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
   static const VerificationMeta _uploadedMeta = const VerificationMeta(
     'uploaded',
   );
@@ -2306,6 +2321,7 @@ class $ShoppingTableTable extends ShoppingTable
     done,
     count,
     ingredientId,
+    deleted,
     uploaded,
   ];
   @override
@@ -2352,6 +2368,12 @@ class $ShoppingTableTable extends ShoppingTable
     } else if (isInserting) {
       context.missing(_ingredientIdMeta);
     }
+    if (data.containsKey('deleted')) {
+      context.handle(
+        _deletedMeta,
+        deleted.isAcceptableOrUnknown(data['deleted']!, _deletedMeta),
+      );
+    }
     if (data.containsKey('uploaded')) {
       context.handle(
         _uploadedMeta,
@@ -2383,6 +2405,10 @@ class $ShoppingTableTable extends ShoppingTable
         DriftSqlType.string,
         data['${effectivePrefix}ingredient_id'],
       )!,
+      deleted: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}deleted'],
+      )!,
       uploaded: attachedDatabase.typeMapping.read(
         DriftSqlType.bool,
         data['${effectivePrefix}uploaded'],
@@ -2402,12 +2428,14 @@ class ShoppingTableData extends DataClass
   final bool done;
   final int count;
   final String ingredientId;
+  final bool deleted;
   final bool uploaded;
   const ShoppingTableData({
     required this.id,
     required this.done,
     required this.count,
     required this.ingredientId,
+    required this.deleted,
     required this.uploaded,
   });
   @override
@@ -2417,6 +2445,7 @@ class ShoppingTableData extends DataClass
     map['done'] = Variable<bool>(done);
     map['count'] = Variable<int>(count);
     map['ingredient_id'] = Variable<String>(ingredientId);
+    map['deleted'] = Variable<bool>(deleted);
     map['uploaded'] = Variable<bool>(uploaded);
     return map;
   }
@@ -2427,6 +2456,7 @@ class ShoppingTableData extends DataClass
       done: Value(done),
       count: Value(count),
       ingredientId: Value(ingredientId),
+      deleted: Value(deleted),
       uploaded: Value(uploaded),
     );
   }
@@ -2441,6 +2471,7 @@ class ShoppingTableData extends DataClass
       done: serializer.fromJson<bool>(json['done']),
       count: serializer.fromJson<int>(json['count']),
       ingredientId: serializer.fromJson<String>(json['ingredientId']),
+      deleted: serializer.fromJson<bool>(json['deleted']),
       uploaded: serializer.fromJson<bool>(json['uploaded']),
     );
   }
@@ -2452,6 +2483,7 @@ class ShoppingTableData extends DataClass
       'done': serializer.toJson<bool>(done),
       'count': serializer.toJson<int>(count),
       'ingredientId': serializer.toJson<String>(ingredientId),
+      'deleted': serializer.toJson<bool>(deleted),
       'uploaded': serializer.toJson<bool>(uploaded),
     };
   }
@@ -2461,12 +2493,14 @@ class ShoppingTableData extends DataClass
     bool? done,
     int? count,
     String? ingredientId,
+    bool? deleted,
     bool? uploaded,
   }) => ShoppingTableData(
     id: id ?? this.id,
     done: done ?? this.done,
     count: count ?? this.count,
     ingredientId: ingredientId ?? this.ingredientId,
+    deleted: deleted ?? this.deleted,
     uploaded: uploaded ?? this.uploaded,
   );
   ShoppingTableData copyWithCompanion(ShoppingTableCompanion data) {
@@ -2477,6 +2511,7 @@ class ShoppingTableData extends DataClass
       ingredientId: data.ingredientId.present
           ? data.ingredientId.value
           : this.ingredientId,
+      deleted: data.deleted.present ? data.deleted.value : this.deleted,
       uploaded: data.uploaded.present ? data.uploaded.value : this.uploaded,
     );
   }
@@ -2488,13 +2523,15 @@ class ShoppingTableData extends DataClass
           ..write('done: $done, ')
           ..write('count: $count, ')
           ..write('ingredientId: $ingredientId, ')
+          ..write('deleted: $deleted, ')
           ..write('uploaded: $uploaded')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, done, count, ingredientId, uploaded);
+  int get hashCode =>
+      Object.hash(id, done, count, ingredientId, deleted, uploaded);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -2503,6 +2540,7 @@ class ShoppingTableData extends DataClass
           other.done == this.done &&
           other.count == this.count &&
           other.ingredientId == this.ingredientId &&
+          other.deleted == this.deleted &&
           other.uploaded == this.uploaded);
 }
 
@@ -2511,6 +2549,7 @@ class ShoppingTableCompanion extends UpdateCompanion<ShoppingTableData> {
   final Value<bool> done;
   final Value<int> count;
   final Value<String> ingredientId;
+  final Value<bool> deleted;
   final Value<bool> uploaded;
   final Value<int> rowid;
   const ShoppingTableCompanion({
@@ -2518,6 +2557,7 @@ class ShoppingTableCompanion extends UpdateCompanion<ShoppingTableData> {
     this.done = const Value.absent(),
     this.count = const Value.absent(),
     this.ingredientId = const Value.absent(),
+    this.deleted = const Value.absent(),
     this.uploaded = const Value.absent(),
     this.rowid = const Value.absent(),
   });
@@ -2526,6 +2566,7 @@ class ShoppingTableCompanion extends UpdateCompanion<ShoppingTableData> {
     required bool done,
     required int count,
     required String ingredientId,
+    this.deleted = const Value.absent(),
     this.uploaded = const Value.absent(),
     this.rowid = const Value.absent(),
   }) : id = Value(id),
@@ -2537,6 +2578,7 @@ class ShoppingTableCompanion extends UpdateCompanion<ShoppingTableData> {
     Expression<bool>? done,
     Expression<int>? count,
     Expression<String>? ingredientId,
+    Expression<bool>? deleted,
     Expression<bool>? uploaded,
     Expression<int>? rowid,
   }) {
@@ -2545,6 +2587,7 @@ class ShoppingTableCompanion extends UpdateCompanion<ShoppingTableData> {
       if (done != null) 'done': done,
       if (count != null) 'count': count,
       if (ingredientId != null) 'ingredient_id': ingredientId,
+      if (deleted != null) 'deleted': deleted,
       if (uploaded != null) 'uploaded': uploaded,
       if (rowid != null) 'rowid': rowid,
     });
@@ -2555,6 +2598,7 @@ class ShoppingTableCompanion extends UpdateCompanion<ShoppingTableData> {
     Value<bool>? done,
     Value<int>? count,
     Value<String>? ingredientId,
+    Value<bool>? deleted,
     Value<bool>? uploaded,
     Value<int>? rowid,
   }) {
@@ -2563,6 +2607,7 @@ class ShoppingTableCompanion extends UpdateCompanion<ShoppingTableData> {
       done: done ?? this.done,
       count: count ?? this.count,
       ingredientId: ingredientId ?? this.ingredientId,
+      deleted: deleted ?? this.deleted,
       uploaded: uploaded ?? this.uploaded,
       rowid: rowid ?? this.rowid,
     );
@@ -2583,6 +2628,9 @@ class ShoppingTableCompanion extends UpdateCompanion<ShoppingTableData> {
     if (ingredientId.present) {
       map['ingredient_id'] = Variable<String>(ingredientId.value);
     }
+    if (deleted.present) {
+      map['deleted'] = Variable<bool>(deleted.value);
+    }
     if (uploaded.present) {
       map['uploaded'] = Variable<bool>(uploaded.value);
     }
@@ -2599,6 +2647,7 @@ class ShoppingTableCompanion extends UpdateCompanion<ShoppingTableData> {
           ..write('done: $done, ')
           ..write('count: $count, ')
           ..write('ingredientId: $ingredientId, ')
+          ..write('deleted: $deleted, ')
           ..write('uploaded: $uploaded, ')
           ..write('rowid: $rowid')
           ..write(')'))
@@ -2635,6 +2684,21 @@ class $StorageTableTable extends StorageTable
       'REFERENCES ingredient_table (id) ON DELETE CASCADE',
     ),
   );
+  static const VerificationMeta _deletedMeta = const VerificationMeta(
+    'deleted',
+  );
+  @override
+  late final GeneratedColumn<bool> deleted = GeneratedColumn<bool>(
+    'deleted',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("deleted" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
   static const VerificationMeta _uploadedMeta = const VerificationMeta(
     'uploaded',
   );
@@ -2651,7 +2715,7 @@ class $StorageTableTable extends StorageTable
     defaultValue: Constant(false),
   );
   @override
-  List<GeneratedColumn> get $columns => [id, ingredientId, uploaded];
+  List<GeneratedColumn> get $columns => [id, ingredientId, deleted, uploaded];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -2680,6 +2744,12 @@ class $StorageTableTable extends StorageTable
     } else if (isInserting) {
       context.missing(_ingredientIdMeta);
     }
+    if (data.containsKey('deleted')) {
+      context.handle(
+        _deletedMeta,
+        deleted.isAcceptableOrUnknown(data['deleted']!, _deletedMeta),
+      );
+    }
     if (data.containsKey('uploaded')) {
       context.handle(
         _uploadedMeta,
@@ -2703,6 +2773,10 @@ class $StorageTableTable extends StorageTable
         DriftSqlType.string,
         data['${effectivePrefix}ingredient_id'],
       )!,
+      deleted: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}deleted'],
+      )!,
       uploaded: attachedDatabase.typeMapping.read(
         DriftSqlType.bool,
         data['${effectivePrefix}uploaded'],
@@ -2720,10 +2794,12 @@ class StorageTableData extends DataClass
     implements Insertable<StorageTableData> {
   final String id;
   final String ingredientId;
+  final bool deleted;
   final bool uploaded;
   const StorageTableData({
     required this.id,
     required this.ingredientId,
+    required this.deleted,
     required this.uploaded,
   });
   @override
@@ -2731,6 +2807,7 @@ class StorageTableData extends DataClass
     final map = <String, Expression>{};
     map['id'] = Variable<String>(id);
     map['ingredient_id'] = Variable<String>(ingredientId);
+    map['deleted'] = Variable<bool>(deleted);
     map['uploaded'] = Variable<bool>(uploaded);
     return map;
   }
@@ -2739,6 +2816,7 @@ class StorageTableData extends DataClass
     return StorageTableCompanion(
       id: Value(id),
       ingredientId: Value(ingredientId),
+      deleted: Value(deleted),
       uploaded: Value(uploaded),
     );
   }
@@ -2751,6 +2829,7 @@ class StorageTableData extends DataClass
     return StorageTableData(
       id: serializer.fromJson<String>(json['id']),
       ingredientId: serializer.fromJson<String>(json['ingredientId']),
+      deleted: serializer.fromJson<bool>(json['deleted']),
       uploaded: serializer.fromJson<bool>(json['uploaded']),
     );
   }
@@ -2760,6 +2839,7 @@ class StorageTableData extends DataClass
     return <String, dynamic>{
       'id': serializer.toJson<String>(id),
       'ingredientId': serializer.toJson<String>(ingredientId),
+      'deleted': serializer.toJson<bool>(deleted),
       'uploaded': serializer.toJson<bool>(uploaded),
     };
   }
@@ -2767,10 +2847,12 @@ class StorageTableData extends DataClass
   StorageTableData copyWith({
     String? id,
     String? ingredientId,
+    bool? deleted,
     bool? uploaded,
   }) => StorageTableData(
     id: id ?? this.id,
     ingredientId: ingredientId ?? this.ingredientId,
+    deleted: deleted ?? this.deleted,
     uploaded: uploaded ?? this.uploaded,
   );
   StorageTableData copyWithCompanion(StorageTableCompanion data) {
@@ -2779,6 +2861,7 @@ class StorageTableData extends DataClass
       ingredientId: data.ingredientId.present
           ? data.ingredientId.value
           : this.ingredientId,
+      deleted: data.deleted.present ? data.deleted.value : this.deleted,
       uploaded: data.uploaded.present ? data.uploaded.value : this.uploaded,
     );
   }
@@ -2788,36 +2871,41 @@ class StorageTableData extends DataClass
     return (StringBuffer('StorageTableData(')
           ..write('id: $id, ')
           ..write('ingredientId: $ingredientId, ')
+          ..write('deleted: $deleted, ')
           ..write('uploaded: $uploaded')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, ingredientId, uploaded);
+  int get hashCode => Object.hash(id, ingredientId, deleted, uploaded);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is StorageTableData &&
           other.id == this.id &&
           other.ingredientId == this.ingredientId &&
+          other.deleted == this.deleted &&
           other.uploaded == this.uploaded);
 }
 
 class StorageTableCompanion extends UpdateCompanion<StorageTableData> {
   final Value<String> id;
   final Value<String> ingredientId;
+  final Value<bool> deleted;
   final Value<bool> uploaded;
   final Value<int> rowid;
   const StorageTableCompanion({
     this.id = const Value.absent(),
     this.ingredientId = const Value.absent(),
+    this.deleted = const Value.absent(),
     this.uploaded = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   StorageTableCompanion.insert({
     required String id,
     required String ingredientId,
+    this.deleted = const Value.absent(),
     this.uploaded = const Value.absent(),
     this.rowid = const Value.absent(),
   }) : id = Value(id),
@@ -2825,12 +2913,14 @@ class StorageTableCompanion extends UpdateCompanion<StorageTableData> {
   static Insertable<StorageTableData> custom({
     Expression<String>? id,
     Expression<String>? ingredientId,
+    Expression<bool>? deleted,
     Expression<bool>? uploaded,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (ingredientId != null) 'ingredient_id': ingredientId,
+      if (deleted != null) 'deleted': deleted,
       if (uploaded != null) 'uploaded': uploaded,
       if (rowid != null) 'rowid': rowid,
     });
@@ -2839,12 +2929,14 @@ class StorageTableCompanion extends UpdateCompanion<StorageTableData> {
   StorageTableCompanion copyWith({
     Value<String>? id,
     Value<String>? ingredientId,
+    Value<bool>? deleted,
     Value<bool>? uploaded,
     Value<int>? rowid,
   }) {
     return StorageTableCompanion(
       id: id ?? this.id,
       ingredientId: ingredientId ?? this.ingredientId,
+      deleted: deleted ?? this.deleted,
       uploaded: uploaded ?? this.uploaded,
       rowid: rowid ?? this.rowid,
     );
@@ -2858,6 +2950,9 @@ class StorageTableCompanion extends UpdateCompanion<StorageTableData> {
     }
     if (ingredientId.present) {
       map['ingredient_id'] = Variable<String>(ingredientId.value);
+    }
+    if (deleted.present) {
+      map['deleted'] = Variable<bool>(deleted.value);
     }
     if (uploaded.present) {
       map['uploaded'] = Variable<bool>(uploaded.value);
@@ -2873,6 +2968,7 @@ class StorageTableCompanion extends UpdateCompanion<StorageTableData> {
     return (StringBuffer('StorageTableCompanion(')
           ..write('id: $id, ')
           ..write('ingredientId: $ingredientId, ')
+          ..write('deleted: $deleted, ')
           ..write('uploaded: $uploaded, ')
           ..write('rowid: $rowid')
           ..write(')'))
@@ -6252,6 +6348,7 @@ typedef $$ShoppingTableTableCreateCompanionBuilder =
       required bool done,
       required int count,
       required String ingredientId,
+      Value<bool> deleted,
       Value<bool> uploaded,
       Value<int> rowid,
     });
@@ -6261,6 +6358,7 @@ typedef $$ShoppingTableTableUpdateCompanionBuilder =
       Value<bool> done,
       Value<int> count,
       Value<String> ingredientId,
+      Value<bool> deleted,
       Value<bool> uploaded,
       Value<int> rowid,
     });
@@ -6321,6 +6419,11 @@ class $$ShoppingTableTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
+  ColumnFilters<bool> get deleted => $composableBuilder(
+    column: $table.deleted,
+    builder: (column) => ColumnFilters(column),
+  );
+
   ColumnFilters<bool> get uploaded => $composableBuilder(
     column: $table.uploaded,
     builder: (column) => ColumnFilters(column),
@@ -6374,6 +6477,11 @@ class $$ShoppingTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<bool> get deleted => $composableBuilder(
+    column: $table.deleted,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<bool> get uploaded => $composableBuilder(
     column: $table.uploaded,
     builder: (column) => ColumnOrderings(column),
@@ -6420,6 +6528,9 @@ class $$ShoppingTableTableAnnotationComposer
 
   GeneratedColumn<int> get count =>
       $composableBuilder(column: $table.count, builder: (column) => column);
+
+  GeneratedColumn<bool> get deleted =>
+      $composableBuilder(column: $table.deleted, builder: (column) => column);
 
   GeneratedColumn<bool> get uploaded =>
       $composableBuilder(column: $table.uploaded, builder: (column) => column);
@@ -6480,6 +6591,7 @@ class $$ShoppingTableTableTableManager
                 Value<bool> done = const Value.absent(),
                 Value<int> count = const Value.absent(),
                 Value<String> ingredientId = const Value.absent(),
+                Value<bool> deleted = const Value.absent(),
                 Value<bool> uploaded = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => ShoppingTableCompanion(
@@ -6487,6 +6599,7 @@ class $$ShoppingTableTableTableManager
                 done: done,
                 count: count,
                 ingredientId: ingredientId,
+                deleted: deleted,
                 uploaded: uploaded,
                 rowid: rowid,
               ),
@@ -6496,6 +6609,7 @@ class $$ShoppingTableTableTableManager
                 required bool done,
                 required int count,
                 required String ingredientId,
+                Value<bool> deleted = const Value.absent(),
                 Value<bool> uploaded = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => ShoppingTableCompanion.insert(
@@ -6503,6 +6617,7 @@ class $$ShoppingTableTableTableManager
                 done: done,
                 count: count,
                 ingredientId: ingredientId,
+                deleted: deleted,
                 uploaded: uploaded,
                 rowid: rowid,
               ),
@@ -6577,6 +6692,7 @@ typedef $$StorageTableTableCreateCompanionBuilder =
     StorageTableCompanion Function({
       required String id,
       required String ingredientId,
+      Value<bool> deleted,
       Value<bool> uploaded,
       Value<int> rowid,
     });
@@ -6584,6 +6700,7 @@ typedef $$StorageTableTableUpdateCompanionBuilder =
     StorageTableCompanion Function({
       Value<String> id,
       Value<String> ingredientId,
+      Value<bool> deleted,
       Value<bool> uploaded,
       Value<int> rowid,
     });
@@ -6630,6 +6747,11 @@ class $$StorageTableTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
+  ColumnFilters<bool> get deleted => $composableBuilder(
+    column: $table.deleted,
+    builder: (column) => ColumnFilters(column),
+  );
+
   ColumnFilters<bool> get uploaded => $composableBuilder(
     column: $table.uploaded,
     builder: (column) => ColumnFilters(column),
@@ -6673,6 +6795,11 @@ class $$StorageTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<bool> get deleted => $composableBuilder(
+    column: $table.deleted,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<bool> get uploaded => $composableBuilder(
     column: $table.uploaded,
     builder: (column) => ColumnOrderings(column),
@@ -6713,6 +6840,9 @@ class $$StorageTableTableAnnotationComposer
   });
   GeneratedColumn<String> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<bool> get deleted =>
+      $composableBuilder(column: $table.deleted, builder: (column) => column);
 
   GeneratedColumn<bool> get uploaded =>
       $composableBuilder(column: $table.uploaded, builder: (column) => column);
@@ -6771,11 +6901,13 @@ class $$StorageTableTableTableManager
               ({
                 Value<String> id = const Value.absent(),
                 Value<String> ingredientId = const Value.absent(),
+                Value<bool> deleted = const Value.absent(),
                 Value<bool> uploaded = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => StorageTableCompanion(
                 id: id,
                 ingredientId: ingredientId,
+                deleted: deleted,
                 uploaded: uploaded,
                 rowid: rowid,
               ),
@@ -6783,11 +6915,13 @@ class $$StorageTableTableTableManager
               ({
                 required String id,
                 required String ingredientId,
+                Value<bool> deleted = const Value.absent(),
                 Value<bool> uploaded = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => StorageTableCompanion.insert(
                 id: id,
                 ingredientId: ingredientId,
+                deleted: deleted,
                 uploaded: uploaded,
                 rowid: rowid,
               ),

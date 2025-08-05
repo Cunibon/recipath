@@ -15,6 +15,7 @@ abstract class ShoppingData with _$ShoppingData {
     required bool done,
     required int count,
     required IngredientData ingredient,
+    @Default(false) bool deleted,
     required bool uploaded,
   }) = _ShoppingData;
 
@@ -50,5 +51,6 @@ extension ShoppingDataFunctions on ShoppingData {
     "done": done,
     "count": count,
     "ingredient_id": ingredient.id,
+    "deleted": deleted,
   };
 }

@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$StorageData {
 
- String get id; IngredientData get ingredient; bool get uploaded;
+ String get id; IngredientData get ingredient; bool get deleted; bool get uploaded;
 /// Create a copy of StorageData
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,16 +29,16 @@ $StorageDataCopyWith<StorageData> get copyWith => _$StorageDataCopyWithImpl<Stor
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StorageData&&(identical(other.id, id) || other.id == id)&&(identical(other.ingredient, ingredient) || other.ingredient == ingredient)&&(identical(other.uploaded, uploaded) || other.uploaded == uploaded));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StorageData&&(identical(other.id, id) || other.id == id)&&(identical(other.ingredient, ingredient) || other.ingredient == ingredient)&&(identical(other.deleted, deleted) || other.deleted == deleted)&&(identical(other.uploaded, uploaded) || other.uploaded == uploaded));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,ingredient,uploaded);
+int get hashCode => Object.hash(runtimeType,id,ingredient,deleted,uploaded);
 
 @override
 String toString() {
-  return 'StorageData(id: $id, ingredient: $ingredient, uploaded: $uploaded)';
+  return 'StorageData(id: $id, ingredient: $ingredient, deleted: $deleted, uploaded: $uploaded)';
 }
 
 
@@ -49,7 +49,7 @@ abstract mixin class $StorageDataCopyWith<$Res>  {
   factory $StorageDataCopyWith(StorageData value, $Res Function(StorageData) _then) = _$StorageDataCopyWithImpl;
 @useResult
 $Res call({
- String id, IngredientData ingredient, bool uploaded
+ String id, IngredientData ingredient, bool deleted, bool uploaded
 });
 
 
@@ -66,11 +66,12 @@ class _$StorageDataCopyWithImpl<$Res>
 
 /// Create a copy of StorageData
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? ingredient = null,Object? uploaded = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? ingredient = null,Object? deleted = null,Object? uploaded = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,ingredient: null == ingredient ? _self.ingredient : ingredient // ignore: cast_nullable_to_non_nullable
-as IngredientData,uploaded: null == uploaded ? _self.uploaded : uploaded // ignore: cast_nullable_to_non_nullable
+as IngredientData,deleted: null == deleted ? _self.deleted : deleted // ignore: cast_nullable_to_non_nullable
+as bool,uploaded: null == uploaded ? _self.uploaded : uploaded // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }
@@ -91,11 +92,12 @@ $IngredientDataCopyWith<$Res> get ingredient {
 @JsonSerializable()
 
 class _StorageData implements StorageData {
-  const _StorageData({required this.id, required this.ingredient, required this.uploaded});
+  const _StorageData({required this.id, required this.ingredient, this.deleted = false, required this.uploaded});
   factory _StorageData.fromJson(Map<String, dynamic> json) => _$StorageDataFromJson(json);
 
 @override final  String id;
 @override final  IngredientData ingredient;
+@override@JsonKey() final  bool deleted;
 @override final  bool uploaded;
 
 /// Create a copy of StorageData
@@ -111,16 +113,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StorageData&&(identical(other.id, id) || other.id == id)&&(identical(other.ingredient, ingredient) || other.ingredient == ingredient)&&(identical(other.uploaded, uploaded) || other.uploaded == uploaded));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StorageData&&(identical(other.id, id) || other.id == id)&&(identical(other.ingredient, ingredient) || other.ingredient == ingredient)&&(identical(other.deleted, deleted) || other.deleted == deleted)&&(identical(other.uploaded, uploaded) || other.uploaded == uploaded));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,ingredient,uploaded);
+int get hashCode => Object.hash(runtimeType,id,ingredient,deleted,uploaded);
 
 @override
 String toString() {
-  return 'StorageData(id: $id, ingredient: $ingredient, uploaded: $uploaded)';
+  return 'StorageData(id: $id, ingredient: $ingredient, deleted: $deleted, uploaded: $uploaded)';
 }
 
 
@@ -131,7 +133,7 @@ abstract mixin class _$StorageDataCopyWith<$Res> implements $StorageDataCopyWith
   factory _$StorageDataCopyWith(_StorageData value, $Res Function(_StorageData) _then) = __$StorageDataCopyWithImpl;
 @override @useResult
 $Res call({
- String id, IngredientData ingredient, bool uploaded
+ String id, IngredientData ingredient, bool deleted, bool uploaded
 });
 
 
@@ -148,11 +150,12 @@ class __$StorageDataCopyWithImpl<$Res>
 
 /// Create a copy of StorageData
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? ingredient = null,Object? uploaded = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? ingredient = null,Object? deleted = null,Object? uploaded = null,}) {
   return _then(_StorageData(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,ingredient: null == ingredient ? _self.ingredient : ingredient // ignore: cast_nullable_to_non_nullable
-as IngredientData,uploaded: null == uploaded ? _self.uploaded : uploaded // ignore: cast_nullable_to_non_nullable
+as IngredientData,deleted: null == deleted ? _self.deleted : deleted // ignore: cast_nullable_to_non_nullable
+as bool,uploaded: null == uploaded ? _self.uploaded : uploaded // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }

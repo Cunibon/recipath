@@ -144,5 +144,6 @@ extension GroceryDataFunctions on GroceryData {
     "carbs": carbs,
     "protein": protein,
     "fiber": fiber,
+    "archived": archived,
   };
 }

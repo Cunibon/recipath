@@ -11,6 +11,7 @@ _StorageData _$StorageDataFromJson(Map<String, dynamic> json) => _StorageData(
   ingredient: IngredientData.fromJson(
     json['ingredient'] as Map<String, dynamic>,
   ),
+  deleted: json['deleted'] as bool? ?? false,
   uploaded: json['uploaded'] as bool,
 );
 
@@ -18,5 +19,6 @@ Map<String, dynamic> _$StorageDataToJson(_StorageData instance) =>
     <String, dynamic>{
       'id': instance.id,
       'ingredient': instance.ingredient,
+      'deleted': instance.deleted,
       'uploaded': instance.uploaded,
     };

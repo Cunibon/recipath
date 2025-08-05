@@ -9,6 +9,7 @@ class StorageTable extends Table {
   TextColumn get id => text()();
   TextColumn get ingredientId =>
       text().references(IngredientTable, #id, onDelete: KeyAction.cascade)();
+  BoolColumn get deleted => boolean().withDefault(const Constant(false))();
 
   BoolColumn get uploaded => boolean().withDefault(Constant(false))();
 }

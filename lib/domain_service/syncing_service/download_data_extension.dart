@@ -45,28 +45,42 @@ extension DownloadDataExtension on SyncingService {
       recipeData: recipeData,
     );
 
-    final shoppingData = await applyOrderAndFiltering(
-      supabaseClient.from(SupabaseTables.shopping),
-    );
+    final shoppingData = await supabaseClient
+        .from(SupabaseTables.shopping)
+        .select()
+        .gt(SyncingService.updatedAtKey, lastSync.toIso8601String())
+        .eq("deleted", false)
+        .order(SyncingService.updatedAtKey, ascending: true);
     for (final rawShoppingData in shoppingData) {
-      await shoppingRepo.add(
-        ShoppingData.fromSupabase(
-          rawShoppingData,
-          ingredientLookup[rawShoppingData["ingredient_id"]]!,
-        ),
+      final shoppingData = ShoppingData.fromSupabase(
+        rawShoppingData,
+        ingredientLookup[rawShoppingData["ingredient_id"]]!,
       );
+
+      if (shoppingData.deleted) {
+        await shoppingRepo.delete(shoppingData.id);
+      } else {
+        await shoppingRepo.add(shoppingData);
+      }
     }
 
-    final storageData = await applyOrderAndFiltering(
-      supabaseClient.from(SupabaseTables.storage),
-    );
+    final storageData = await supabaseClient
+        .from(SupabaseTables.storage)
+        .select()
+        .gt(SyncingService.updatedAtKey, lastSync.toIso8601String())
+        .eq("deleted", false)
+        .order(SyncingService.updatedAtKey, ascending: true);
     for (final rawStorageData in storageData) {
-      await storageRepo.add(
-        StorageData.fromSupabase(
-          rawStorageData,
-          ingredientLookup[rawStorageData["ingredient_id"]]!,
-        ),
+      final storageData = StorageData.fromSupabase(
+        rawStorageData,
+        ingredientLookup[rawStorageData["ingredient_id"]]!,
       );
+
+      if (storageData.deleted) {
+        await storageRepo.delete(storageData.id);
+      } else {
+        await storageRepo.add(storageData);
+      }
     }
 
     return (
