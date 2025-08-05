@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_list/application_constants.dart';
 import 'package:recipe_list/domain_service/import_service/data_import_service_notifier.dart';
+import 'package:recipe_list/drift/database_notifier.dart';
 import 'package:recipe_list/providers/application_path_provider.dart';
 import 'package:recipe_list/repos/grocery/grocery_repo_notifier.dart';
 import 'package:recipe_list/repos/recipe/recipe_repo_notifier.dart';
@@ -23,7 +24,6 @@ class SettingsScreen extends ConsumerWidget {
       body: Column(
         children: [
           TextButton.icon(
-            style: TextButton.styleFrom(alignment: Alignment.centerLeft),
             onPressed: () async {
               final dir = await ref.read(applicationPathProvider.future);
 
@@ -53,7 +53,6 @@ class SettingsScreen extends ConsumerWidget {
             label: Text("Export data"),
           ),
           TextButton.icon(
-            style: TextButton.styleFrom(alignment: Alignment.centerLeft),
             onPressed: () async {
               FilePickerResult? result = await FilePicker.platform.pickFiles(
                 type: FileType.custom,
@@ -72,6 +71,13 @@ class SettingsScreen extends ConsumerWidget {
             },
             icon: Icon(Icons.download),
             label: Text("Import data"),
+          ),
+          TextButton.icon(
+            onPressed: () async {
+              await ref.read(databaseNotifierProvider).clear();
+            },
+            icon: Icon(Icons.clear),
+            label: Text("Clear data"),
           ),
         ],
       ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:recipe_list/domain_service/syncing_service/syncing_service_notifier.dart';
+import 'package:recipe_list/drift/database_notifier.dart';
 import 'package:recipe_list/widgets/generic/auth_dialog.dart';
 import 'package:recipe_list/widgets/providers/drawer_destination_notifier.dart';
 import 'package:recipe_list/widgets/providers/supabase/supabase_client_notifier.dart';
@@ -94,6 +95,7 @@ class NavigationDrawerScaffold extends ConsumerWidget {
               onPressed: () async {
                 await ref.read(supabaseClientProvider).auth.signOut();
                 await ref.read(syncingServiceNotifierProvider).reset();
+                await ref.read(databaseNotifierProvider).clear();
               },
               label: Text("Logout"),
               icon: Icon(Icons.logout),

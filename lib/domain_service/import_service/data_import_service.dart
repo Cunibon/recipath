@@ -1,3 +1,4 @@
+import 'package:random_string/random_string.dart';
 import 'package:recipe_list/application/grocery_modifier/grocery_modifier.dart';
 import 'package:recipe_list/application/recipe_modifier/recipe_modifier.dart';
 import 'package:recipe_list/application/shopping_modifier/shopping_modifier.dart';
@@ -42,27 +43,44 @@ class DataImportService {
     }
   }
 
+  Future<void> importGrocery(Map<String, dynamic> groceryData) async {
+    for (final data in groceryData.values) {
+      data["uploaded"] = false;
+      await groceryModifier.add(GroceryData.fromJson(data));
+    }
+  }
+
   Future<void> importRecipe(Map<String, dynamic> recipeData) async {
     for (final data in recipeData.values) {
+      data["uploaded"] = false;
+
+      for (final step in data["steps"]) {
+        step["uploaded"] = false;
+        for (final ingredient in step["ingredients"]) {
+          ingredient["uploaded"] = false;
+        }
+      }
+
       await recipeModifier.add(RecipeData.fromJson(data));
     }
   }
 
   Future<void> importShopping(Map<String, dynamic> shoppingData) async {
     for (final data in shoppingData.values) {
+      data["uploaded"] = false;
+      data["ingredient"]["uploaded"] = false;
       await shoppingModifier.updateItem(ShoppingData.fromJson(data));
     }
   }
 
   Future<void> importStorage(Map<String, dynamic> storageData) async {
     for (final data in storageData.values) {
-      await storageModifier.updateItem(StorageData.fromJson(data));
-    }
-  }
-
-  Future<void> importGrocery(Map<String, dynamic> groceryData) async {
-    for (final data in groceryData.values) {
-      await groceryModifier.add(GroceryData.fromJson(data));
+      data["uploaded"] = false;
+      final storageMap = <String, dynamic>{};
+      storageMap["ingredient"] = data;
+      storageMap["id"] = randomAlphaNumeric(16);
+      storageMap["uploaded"] = false;
+      await storageModifier.updateItem(StorageData.fromJson(storageMap));
     }
   }
 }
