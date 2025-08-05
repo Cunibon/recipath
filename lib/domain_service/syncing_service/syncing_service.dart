@@ -29,6 +29,8 @@ class SyncingService {
 
   final SupabaseClient supabaseClient;
 
+  bool get _loggedIn => supabaseClient.auth.currentUser != null;
+
   static String storageKey = "lastSync";
   static String updatedAtKey = "updated_at";
 
@@ -79,10 +81,12 @@ class SyncingService {
     int? downloaded;
 
     try {
-      uploaded = await upload();
-      final downloadResult = await download();
-      downloaded = downloadResult.downloadCount;
-      latestDate = downloadResult.downloadTime;
+      if (_loggedIn) {
+        uploaded = await upload();
+        final downloadResult = await download();
+        downloaded = downloadResult.downloadCount;
+        latestDate = downloadResult.downloadTime;
+      }
     } catch (e, s) {
       logger.e("Sync failed", error: e, stackTrace: s);
     } finally {

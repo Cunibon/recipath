@@ -106,13 +106,13 @@ class AppDatabase extends _$AppDatabase {
     });
   }
 
-  Future<void> clear() {
-    return transaction(() async {
-      await customStatement('PRAGMA foreign_keys = OFF');
+  Future<void> clear() async {
+    await customStatement('PRAGMA foreign_keys = OFF');
+    await transaction(() async {
       for (final table in allTables) {
         await delete(table).go();
       }
-      await customStatement('PRAGMA foreign_keys = ON');
     });
+    await customStatement('PRAGMA foreign_keys = ON');
   }
 }
