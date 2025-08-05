@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.READ_MEDIA_DOCUMENTS" />
 
     <application
-        android:label="recipe_list"
+        android:label="ReciPath"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

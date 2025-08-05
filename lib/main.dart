@@ -59,8 +59,8 @@ class _MyAppState extends ConsumerState<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      routerConfig: widget.router,
       title: 'ReciPath',
+      routerConfig: widget.router,
       theme: ThemeData.dark().copyWith(
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
