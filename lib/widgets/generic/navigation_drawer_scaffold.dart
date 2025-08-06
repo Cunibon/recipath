@@ -59,9 +59,19 @@ class NavigationDrawerScaffold extends ConsumerWidget {
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text(
-              'Destinations',
-              style: Theme.of(context).textTheme.titleMedium,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Destinations',
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+                IconButton(
+                  onPressed: () =>
+                      ref.read(syncingServiceNotifierProvider).start(),
+                  icon: Icon(Icons.cloud_upload),
+                ),
+              ],
             ),
           ),
           for (final destinations in nestedDestinations) ...[

@@ -33,7 +33,7 @@ class StorageModifier {
       repo.add(
         StorageData(
           id: randomAlphaNumeric(16),
-          ingredient: ingredient,
+          ingredient: aggregated,
           uploaded: false,
         ),
       );

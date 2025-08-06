@@ -3,9 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:random_string/random_string.dart';
 import 'package:recipe_list/application/recipe_statistics_modifier%20copy/recipe_statistics_modifier_notifier.dart';
 import 'package:recipe_list/application/storage_modifier/storage_modifier_notifier.dart';
-import 'package:recipe_list/data/ingredient_data/ingredient_data.dart';
 import 'package:recipe_list/data/recipe_data/recipe_data.dart';
 import 'package:recipe_list/data/recipe_statistic_data/recipe_statistic_data.dart';
+import 'package:recipe_list/data/storage_data/storage_data.dart';
 import 'package:recipe_list/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 import 'package:recipe_list/widgets/screens/recipe_screen/providers/recipe_notifier.dart';
 import 'package:recipe_list/widgets/screens/recipe_screen/providers/timer_notifier.dart';
@@ -63,15 +63,15 @@ class FinishRecipeButton extends ConsumerWidget {
               ),
             );
 
-        final ingredientsInStorage = Map<String, IngredientData>.from(
+        final ingredientsInStorage = Map<String, StorageData>.from(
           ref.read(storageNotifierProvider).value!,
         );
         final availableIngredients = ingredients.where(
           (e) => ingredientsInStorage.keys.contains(e.groceryId),
         );
 
-        for (final ingredient in availableIngredients) {
-          ref.read(storageModifierNotifierProvider).subtractItem(ingredient);
+        for (final storageItem in availableIngredients) {
+          ref.read(storageModifierNotifierProvider).subtractItem(storageItem);
         }
 
         scaffoldMessenger.showSnackBar(
