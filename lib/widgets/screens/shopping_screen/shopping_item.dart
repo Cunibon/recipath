@@ -6,6 +6,7 @@ import 'package:recipe_list/application/storage_modifier/storage_modifier_notifi
 import 'package:recipe_list/data/ingredient_data/ingredient_data.dart';
 import 'package:recipe_list/data/shopping_data/shopping_data.dart';
 import 'package:recipe_list/widgets/generic/dialogs/delete_confirmation_dialog.dart';
+import 'package:recipe_list/widgets/generic/highlight_search/highlightable_text.dart';
 import 'package:recipe_list/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 
 class ShoppingItem extends ConsumerWidget {
@@ -61,7 +62,7 @@ class ShoppingItem extends ConsumerWidget {
                 ),
               ),
               Expanded(
-                child: Text(
+                child: HighlightableText(
                   data.toReadable(
                     groceries[data.ingredient.groceryId]!,
                     ingredientData?.amount ?? 0,

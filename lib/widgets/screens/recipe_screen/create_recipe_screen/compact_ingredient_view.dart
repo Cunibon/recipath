@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_list/data/ingredient_data/ingredient_data.dart';
+import 'package:recipe_list/widgets/generic/highlight_search/highlightable_text.dart';
 import 'package:recipe_list/widgets/generic/notifier_future_builder.dart';
 import 'package:recipe_list/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 import 'package:recipe_list/widgets/screens/storage_screen/providers/storage_notifier.dart';
@@ -30,7 +31,7 @@ class CompactIngredientView extends ConsumerWidget {
           bool inStorage =
               storageItem != null && e.amount <= storageItem.ingredient.amount;
 
-          return Text(
+          return HighlightableText(
             "● ${e.toReadable(groceryMap.value![e.groceryId]!)}",
             style: inStorage && checkStorage
                 ? TextStyle(color: Colors.green)

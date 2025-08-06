@@ -127,7 +127,6 @@ class RecipeScreen extends ConsumerWidget {
             },
           ),
           sort: (a, b) => a.title.compareTo(b.title),
-          bottomPadding: 78,
         ),
       ),
     );

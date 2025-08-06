@@ -87,7 +87,7 @@ class _AddGroceriesDialogState extends ConsumerState<AddGroceriesDialog> {
                     ),
                   ),
                 ),
-                bottomPadding: 100,
+                listViewPadding: EdgeInsets.only(bottom: 100),
               ),
               Align(
                 alignment: Alignment.bottomRight,

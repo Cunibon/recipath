@@ -88,7 +88,6 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
               return a.done ? 1 : -1;
             }
           },
-          bottomPadding: 78,
         ),
       ),
     );

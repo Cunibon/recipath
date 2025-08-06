@@ -73,7 +73,6 @@ class _StorageScreenState extends ConsumerState<StorageScreen> {
           toWidget: (item) => StorageItem(data: item),
           sort: (a, b) => asyncGroceries.value![a.ingredient.groceryId]!.name
               .compareTo(asyncGroceries.value![b.ingredient.groceryId]!.name),
-          bottomPadding: 78,
         ),
       ),
     );

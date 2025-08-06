@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:recipe_list/widgets/generic/highlight_search/highlight_scope.dart';
 
 class SearchableList<T> extends StatefulWidget {
   const SearchableList({
@@ -10,7 +11,7 @@ class SearchableList<T> extends StatefulWidget {
     required this.toSearchable,
     required this.toWidget,
     this.sort,
-    this.bottomPadding,
+    this.listViewPadding = const EdgeInsets.only(bottom: 78),
     super.key,
   }) : assert(initialSearch == null || searchController == null);
 
@@ -23,7 +24,7 @@ class SearchableList<T> extends StatefulWidget {
   final Widget Function(T item) toWidget;
   final int Function(T a, T b)? sort;
 
-  final double? bottomPadding;
+  final EdgeInsets listViewPadding;
 
   @override
   State<SearchableList<T>> createState() => _SearchableListState();
@@ -80,23 +81,24 @@ class _SearchableListState<T> extends State<SearchableList<T>> {
       items = filtered.map((e) => e.item).toList();
     }
 
-    return Column(
-      children: [
-        TextField(
-          controller: controller,
-          decoration: InputDecoration(labelText: "Search for ${widget.type}"),
-          onChanged: (value) => setState(() => search = value),
-        ),
-        Expanded(
-          child: ListView.builder(
-            itemCount: items.length,
-            itemBuilder: (context, index) => widget.toWidget(items[index]),
-            padding: widget.bottomPadding != null
-                ? EdgeInsets.only(bottom: widget.bottomPadding!)
-                : null,
+    return HighlightScope(
+      highlightTerm: search,
+      child: Column(
+        children: [
+          TextField(
+            controller: controller,
+            decoration: InputDecoration(labelText: "Search for ${widget.type}"),
+            onChanged: (value) => setState(() => search = value),
           ),
-        ),
-      ],
+          Expanded(
+            child: ListView.builder(
+              itemCount: items.length,
+              itemBuilder: (context, index) => widget.toWidget(items[index]),
+              padding: widget.listViewPadding,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
