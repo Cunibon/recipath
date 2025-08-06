@@ -94,7 +94,7 @@ $IngredientDataCopyWith<$Res> get ingredient {
 @JsonSerializable()
 
 class _ShoppingData implements ShoppingData {
-  const _ShoppingData({required this.id, required this.done, required this.count, required this.ingredient, this.deleted = false, required this.uploaded});
+  const _ShoppingData({required this.id, required this.done, required this.count, required this.ingredient, this.deleted = false, this.uploaded = false});
   factory _ShoppingData.fromJson(Map<String, dynamic> json) => _$ShoppingDataFromJson(json);
 
 @override final  String id;
@@ -102,7 +102,7 @@ class _ShoppingData implements ShoppingData {
 @override final  int count;
 @override final  IngredientData ingredient;
 @override@JsonKey() final  bool deleted;
-@override final  bool uploaded;
+@override@JsonKey() final  bool uploaded;
 
 /// Create a copy of ShoppingData
 /// with the given fields replaced by the non-null parameter values.

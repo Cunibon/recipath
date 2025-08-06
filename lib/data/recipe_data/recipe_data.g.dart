@@ -15,7 +15,7 @@ _RecipeData _$RecipeDataFromJson(Map<String, dynamic> json) => _RecipeData(
       .map((e) => RecipeStepData.fromJson(e as Map<String, dynamic>))
       .toList(),
   archived: json['archived'] as bool? ?? false,
-  uploaded: json['uploaded'] as bool,
+  uploaded: json['uploaded'] ?? false,
 );
 
 Map<String, dynamic> _$RecipeDataToJson(_RecipeData instance) =>

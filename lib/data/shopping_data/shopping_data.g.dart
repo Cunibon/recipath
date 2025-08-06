@@ -15,7 +15,7 @@ _ShoppingData _$ShoppingDataFromJson(Map<String, dynamic> json) =>
         json['ingredient'] as Map<String, dynamic>,
       ),
       deleted: json['deleted'] as bool? ?? false,
-      uploaded: json['uploaded'] as bool,
+      uploaded: json['uploaded'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$ShoppingDataToJson(_ShoppingData instance) =>

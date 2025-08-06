@@ -92,7 +92,7 @@ as bool,
 @JsonSerializable()
 
 class _GroceryData implements GroceryData {
-  const _GroceryData({required this.id, required this.name, required this.normalAmount, required this.unit, required this.conversionAmount, required this.conversionUnit, this.kcal, this.fat, this.carbs, this.protein, this.fiber, this.archived = false, required this.uploaded});
+  const _GroceryData({required this.id, required this.name, required this.normalAmount, required this.unit, required this.conversionAmount, required this.conversionUnit, this.kcal, this.fat, this.carbs, this.protein, this.fiber, this.archived = false, this.uploaded = false});
   factory _GroceryData.fromJson(Map<String, dynamic> json) => _$GroceryDataFromJson(json);
 
 @override final  String id;
@@ -107,7 +107,7 @@ class _GroceryData implements GroceryData {
 @override final  double? protein;
 @override final  double? fiber;
 @override@JsonKey() final  bool archived;
-@override final  bool uploaded;
+@override@JsonKey() final  bool uploaded;
 
 /// Create a copy of GroceryData
 /// with the given fields replaced by the non-null parameter values.

@@ -92,13 +92,13 @@ $IngredientDataCopyWith<$Res> get ingredient {
 @JsonSerializable()
 
 class _StorageData implements StorageData {
-  const _StorageData({required this.id, required this.ingredient, this.deleted = false, required this.uploaded});
+  const _StorageData({required this.id, required this.ingredient, this.deleted = false, this.uploaded = false});
   factory _StorageData.fromJson(Map<String, dynamic> json) => _$StorageDataFromJson(json);
 
 @override final  String id;
 @override final  IngredientData ingredient;
 @override@JsonKey() final  bool deleted;
-@override final  bool uploaded;
+@override@JsonKey() final  bool uploaded;
 
 /// Create a copy of StorageData
 /// with the given fields replaced by the non-null parameter values.

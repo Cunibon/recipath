@@ -28,13 +28,7 @@ class StorageModifier {
     );
 
     if (item == null) {
-      repo.add(
-        StorageData(
-          id: randomAlphaNumeric(16),
-          ingredient: aggregated,
-          uploaded: false,
-        ),
-      );
+      repo.add(StorageData(id: randomAlphaNumeric(16), ingredient: aggregated));
     } else {
       repo.add(item.copyWith(ingredient: aggregated, uploaded: false));
     }

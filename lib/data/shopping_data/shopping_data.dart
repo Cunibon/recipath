@@ -16,7 +16,7 @@ abstract class ShoppingData with _$ShoppingData {
     required int count,
     required IngredientData ingredient,
     @Default(false) bool deleted,
-    required bool uploaded,
+    @Default(false) bool uploaded,
   }) = _ShoppingData;
 
   factory ShoppingData.fromJson(Map<String, Object?> json) =>

@@ -19,7 +19,7 @@ _GroceryData _$GroceryDataFromJson(Map<String, dynamic> json) => _GroceryData(
   protein: (json['protein'] as num?)?.toDouble(),
   fiber: (json['fiber'] as num?)?.toDouble(),
   archived: json['archived'] as bool? ?? false,
-  uploaded: json['uploaded'] as bool,
+  uploaded: json['uploaded'] as bool? ?? false,
 );
 
 Map<String, dynamic> _$GroceryDataToJson(_GroceryData instance) =>

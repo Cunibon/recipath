@@ -12,7 +12,7 @@ abstract class StorageData with _$StorageData {
     required String id,
     required IngredientData ingredient,
     @Default(false) bool deleted,
-    required bool uploaded,
+    @Default(false) bool uploaded,
   }) = _StorageData;
 
   factory StorageData.fromJson(Map<String, Object?> json) =>

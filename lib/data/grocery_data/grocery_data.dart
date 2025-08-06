@@ -22,7 +22,7 @@ abstract class GroceryData with _$GroceryData {
     double? protein,
     double? fiber,
     @Default(false) bool archived,
-    required bool uploaded,
+    @Default(false) bool uploaded,
   }) = _GroceryData;
 
   factory GroceryData.fromJson(Map<String, Object?> json) =>

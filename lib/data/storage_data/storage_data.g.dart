@@ -12,7 +12,7 @@ _StorageData _$StorageDataFromJson(Map<String, dynamic> json) => _StorageData(
     json['ingredient'] as Map<String, dynamic>,
   ),
   deleted: json['deleted'] as bool? ?? false,
-  uploaded: json['uploaded'] as bool,
+  uploaded: json['uploaded'] as bool? ?? false,
 );
 
 Map<String, dynamic> _$StorageDataToJson(_StorageData instance) =>

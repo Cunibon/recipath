@@ -17,7 +17,7 @@ abstract class RecipeData with _$RecipeData {
     String? imageName,
     required List<RecipeStepData> steps,
     @Default(false) bool archived,
-    required bool uploaded,
+    @Default(false) uploaded,
   }) = _RecipeData;
 
   factory RecipeData.fromJson(Map<String, Object?> json) =>
