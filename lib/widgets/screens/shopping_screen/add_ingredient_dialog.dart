@@ -150,7 +150,6 @@ class _AddIngredientDialogState extends ConsumerState<AddIngredientDialog> {
                                   .toDouble(),
                               unit: selected!.unit,
                               groceryId: selected!.id,
-                              uploaded: false,
                             ),
                           );
                         }

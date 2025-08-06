@@ -32,7 +32,6 @@ class ShoppingItem extends ConsumerWidget {
         amount: data.count * groceries[data.ingredient.groceryId]!.normalAmount,
         unit: data.ingredient.unit,
         groceryId: data.ingredient.groceryId,
-        uploaded: false,
       );
 
       if (data.done) {

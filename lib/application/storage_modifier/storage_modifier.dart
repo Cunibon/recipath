@@ -21,12 +21,10 @@ class StorageModifier {
           amount: 0,
           unit: newData.unit,
           groceryId: newData.groceryId,
-          uploaded: false,
         );
 
     final aggregated = ingredient.copyWith(
       amount: ingredient.amount + newData.amount,
-      uploaded: false,
     );
 
     if (item == null) {
@@ -52,7 +50,6 @@ class StorageModifier {
 
     final newIngredient = ingredient.copyWith(
       amount: ingredient.amount - newData.amount,
-      uploaded: false,
     );
 
     if (newIngredient.amount <= 0) {

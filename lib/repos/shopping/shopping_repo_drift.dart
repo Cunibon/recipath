@@ -2,9 +2,9 @@ import 'package:drift/drift.dart';
 import 'package:recipe_list/data/ingredient_data/ingredient_data.dart';
 import 'package:recipe_list/data/shopping_data/shopping_data.dart';
 import 'package:recipe_list/drift/database.dart';
-import 'package:recipe_list/repos/repo.dart';
+import 'package:recipe_list/repos/sync_repo.dart';
 
-class ShoppingRepoDrift extends Repo<ShoppingData> {
+class ShoppingRepoDrift extends SyncRepo<ShoppingData> {
   ShoppingRepoDrift(super.db, {this.incluedDeleted = false});
   final bool incluedDeleted;
 

@@ -8,7 +8,7 @@ import 'package:recipe_list/data/shopping_data/shopping_data.dart';
 import 'package:recipe_list/data/storage_data/storage_data.dart';
 import 'package:recipe_list/domain_service/syncing_service/download_data_extension.dart';
 import 'package:recipe_list/domain_service/syncing_service/upload_data_extension.dart';
-import 'package:recipe_list/repos/repo.dart';
+import 'package:recipe_list/repos/sync_repo.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SyncingService {
@@ -22,10 +22,10 @@ class SyncingService {
   });
   final logger = Logger();
 
-  final Repo<GroceryData> groceryRepo;
-  final Repo<RecipeData> recipeRepo;
-  final Repo<ShoppingData> shoppingRepo;
-  final Repo<StorageData> storageRepo;
+  final SyncRepo<GroceryData> groceryRepo;
+  final SyncRepo<RecipeData> recipeRepo;
+  final SyncRepo<ShoppingData> shoppingRepo;
+  final SyncRepo<StorageData> storageRepo;
 
   final SupabaseClient supabaseClient;
 

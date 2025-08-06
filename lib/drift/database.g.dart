@@ -1591,23 +1591,8 @@ class $IngredientTableTable extends IngredientTable
       'REFERENCES grocery_table (id)',
     ),
   );
-  static const VerificationMeta _uploadedMeta = const VerificationMeta(
-    'uploaded',
-  );
   @override
-  late final GeneratedColumn<bool> uploaded = GeneratedColumn<bool>(
-    'uploaded',
-    aliasedName,
-    false,
-    type: DriftSqlType.bool,
-    requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'CHECK ("uploaded" IN (0, 1))',
-    ),
-    defaultValue: Constant(false),
-  );
-  @override
-  List<GeneratedColumn> get $columns => [id, amount, unit, groceryId, uploaded];
+  List<GeneratedColumn> get $columns => [id, amount, unit, groceryId];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -1649,12 +1634,6 @@ class $IngredientTableTable extends IngredientTable
     } else if (isInserting) {
       context.missing(_groceryIdMeta);
     }
-    if (data.containsKey('uploaded')) {
-      context.handle(
-        _uploadedMeta,
-        uploaded.isAcceptableOrUnknown(data['uploaded']!, _uploadedMeta),
-      );
-    }
     return context;
   }
 
@@ -1680,10 +1659,6 @@ class $IngredientTableTable extends IngredientTable
         DriftSqlType.string,
         data['${effectivePrefix}grocery_id'],
       )!,
-      uploaded: attachedDatabase.typeMapping.read(
-        DriftSqlType.bool,
-        data['${effectivePrefix}uploaded'],
-      )!,
     );
   }
 
@@ -1699,13 +1674,11 @@ class IngredientTableData extends DataClass
   final double amount;
   final String unit;
   final String groceryId;
-  final bool uploaded;
   const IngredientTableData({
     required this.id,
     required this.amount,
     required this.unit,
     required this.groceryId,
-    required this.uploaded,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -1714,7 +1687,6 @@ class IngredientTableData extends DataClass
     map['amount'] = Variable<double>(amount);
     map['unit'] = Variable<String>(unit);
     map['grocery_id'] = Variable<String>(groceryId);
-    map['uploaded'] = Variable<bool>(uploaded);
     return map;
   }
 
@@ -1724,7 +1696,6 @@ class IngredientTableData extends DataClass
       amount: Value(amount),
       unit: Value(unit),
       groceryId: Value(groceryId),
-      uploaded: Value(uploaded),
     );
   }
 
@@ -1738,7 +1709,6 @@ class IngredientTableData extends DataClass
       amount: serializer.fromJson<double>(json['amount']),
       unit: serializer.fromJson<String>(json['unit']),
       groceryId: serializer.fromJson<String>(json['groceryId']),
-      uploaded: serializer.fromJson<bool>(json['uploaded']),
     );
   }
   @override
@@ -1749,7 +1719,6 @@ class IngredientTableData extends DataClass
       'amount': serializer.toJson<double>(amount),
       'unit': serializer.toJson<String>(unit),
       'groceryId': serializer.toJson<String>(groceryId),
-      'uploaded': serializer.toJson<bool>(uploaded),
     };
   }
 
@@ -1758,13 +1727,11 @@ class IngredientTableData extends DataClass
     double? amount,
     String? unit,
     String? groceryId,
-    bool? uploaded,
   }) => IngredientTableData(
     id: id ?? this.id,
     amount: amount ?? this.amount,
     unit: unit ?? this.unit,
     groceryId: groceryId ?? this.groceryId,
-    uploaded: uploaded ?? this.uploaded,
   );
   IngredientTableData copyWithCompanion(IngredientTableCompanion data) {
     return IngredientTableData(
@@ -1772,7 +1739,6 @@ class IngredientTableData extends DataClass
       amount: data.amount.present ? data.amount.value : this.amount,
       unit: data.unit.present ? data.unit.value : this.unit,
       groceryId: data.groceryId.present ? data.groceryId.value : this.groceryId,
-      uploaded: data.uploaded.present ? data.uploaded.value : this.uploaded,
     );
   }
 
@@ -1782,14 +1748,13 @@ class IngredientTableData extends DataClass
           ..write('id: $id, ')
           ..write('amount: $amount, ')
           ..write('unit: $unit, ')
-          ..write('groceryId: $groceryId, ')
-          ..write('uploaded: $uploaded')
+          ..write('groceryId: $groceryId')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, amount, unit, groceryId, uploaded);
+  int get hashCode => Object.hash(id, amount, unit, groceryId);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -1797,8 +1762,7 @@ class IngredientTableData extends DataClass
           other.id == this.id &&
           other.amount == this.amount &&
           other.unit == this.unit &&
-          other.groceryId == this.groceryId &&
-          other.uploaded == this.uploaded);
+          other.groceryId == this.groceryId);
 }
 
 class IngredientTableCompanion extends UpdateCompanion<IngredientTableData> {
@@ -1806,14 +1770,12 @@ class IngredientTableCompanion extends UpdateCompanion<IngredientTableData> {
   final Value<double> amount;
   final Value<String> unit;
   final Value<String> groceryId;
-  final Value<bool> uploaded;
   final Value<int> rowid;
   const IngredientTableCompanion({
     this.id = const Value.absent(),
     this.amount = const Value.absent(),
     this.unit = const Value.absent(),
     this.groceryId = const Value.absent(),
-    this.uploaded = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   IngredientTableCompanion.insert({
@@ -1821,7 +1783,6 @@ class IngredientTableCompanion extends UpdateCompanion<IngredientTableData> {
     required double amount,
     required String unit,
     required String groceryId,
-    this.uploaded = const Value.absent(),
     this.rowid = const Value.absent(),
   }) : id = Value(id),
        amount = Value(amount),
@@ -1832,7 +1793,6 @@ class IngredientTableCompanion extends UpdateCompanion<IngredientTableData> {
     Expression<double>? amount,
     Expression<String>? unit,
     Expression<String>? groceryId,
-    Expression<bool>? uploaded,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
@@ -1840,7 +1800,6 @@ class IngredientTableCompanion extends UpdateCompanion<IngredientTableData> {
       if (amount != null) 'amount': amount,
       if (unit != null) 'unit': unit,
       if (groceryId != null) 'grocery_id': groceryId,
-      if (uploaded != null) 'uploaded': uploaded,
       if (rowid != null) 'rowid': rowid,
     });
   }
@@ -1850,7 +1809,6 @@ class IngredientTableCompanion extends UpdateCompanion<IngredientTableData> {
     Value<double>? amount,
     Value<String>? unit,
     Value<String>? groceryId,
-    Value<bool>? uploaded,
     Value<int>? rowid,
   }) {
     return IngredientTableCompanion(
@@ -1858,7 +1816,6 @@ class IngredientTableCompanion extends UpdateCompanion<IngredientTableData> {
       amount: amount ?? this.amount,
       unit: unit ?? this.unit,
       groceryId: groceryId ?? this.groceryId,
-      uploaded: uploaded ?? this.uploaded,
       rowid: rowid ?? this.rowid,
     );
   }
@@ -1878,9 +1835,6 @@ class IngredientTableCompanion extends UpdateCompanion<IngredientTableData> {
     if (groceryId.present) {
       map['grocery_id'] = Variable<String>(groceryId.value);
     }
-    if (uploaded.present) {
-      map['uploaded'] = Variable<bool>(uploaded.value);
-    }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
     }
@@ -1894,7 +1848,6 @@ class IngredientTableCompanion extends UpdateCompanion<IngredientTableData> {
           ..write('amount: $amount, ')
           ..write('unit: $unit, ')
           ..write('groceryId: $groceryId, ')
-          ..write('uploaded: $uploaded, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -3705,10 +3658,6 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     'ingredient_groceryId',
     'CREATE INDEX ingredient_groceryId ON ingredient_table (grocery_id)',
   );
-  late final Index ingredientUploaded = Index(
-    'ingredient_uploaded',
-    'CREATE INDEX ingredient_uploaded ON ingredient_table (uploaded)',
-  );
   late final Index groceryUploaded = Index(
     'grocery_uploaded',
     'CREATE INDEX grocery_uploaded ON grocery_table (uploaded)',
@@ -3760,7 +3709,6 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     recipeStepUploaded,
     recipeStepIngredientUploaded,
     ingredientGroceryId,
-    ingredientUploaded,
     groceryUploaded,
     shoppingIngredientId,
     shoppingUploaded,
@@ -5283,7 +5231,6 @@ typedef $$IngredientTableTableCreateCompanionBuilder =
       required double amount,
       required String unit,
       required String groceryId,
-      Value<bool> uploaded,
       Value<int> rowid,
     });
 typedef $$IngredientTableTableUpdateCompanionBuilder =
@@ -5292,7 +5239,6 @@ typedef $$IngredientTableTableUpdateCompanionBuilder =
       Value<double> amount,
       Value<String> unit,
       Value<String> groceryId,
-      Value<bool> uploaded,
       Value<int> rowid,
     });
 
@@ -5423,11 +5369,6 @@ class $$IngredientTableTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<bool> get uploaded => $composableBuilder(
-    column: $table.uploaded,
-    builder: (column) => ColumnFilters(column),
-  );
-
   $$GroceryTableTableFilterComposer get groceryId {
     final $$GroceryTableTableFilterComposer composer = $composerBuilder(
       composer: this,
@@ -5553,11 +5494,6 @@ class $$IngredientTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<bool> get uploaded => $composableBuilder(
-    column: $table.uploaded,
-    builder: (column) => ColumnOrderings(column),
-  );
-
   $$GroceryTableTableOrderingComposer get groceryId {
     final $$GroceryTableTableOrderingComposer composer = $composerBuilder(
       composer: this,
@@ -5599,9 +5535,6 @@ class $$IngredientTableTableAnnotationComposer
 
   GeneratedColumn<String> get unit =>
       $composableBuilder(column: $table.unit, builder: (column) => column);
-
-  GeneratedColumn<bool> get uploaded =>
-      $composableBuilder(column: $table.uploaded, builder: (column) => column);
 
   $$GroceryTableTableAnnotationComposer get groceryId {
     final $$GroceryTableTableAnnotationComposer composer = $composerBuilder(
@@ -5743,14 +5676,12 @@ class $$IngredientTableTableTableManager
                 Value<double> amount = const Value.absent(),
                 Value<String> unit = const Value.absent(),
                 Value<String> groceryId = const Value.absent(),
-                Value<bool> uploaded = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => IngredientTableCompanion(
                 id: id,
                 amount: amount,
                 unit: unit,
                 groceryId: groceryId,
-                uploaded: uploaded,
                 rowid: rowid,
               ),
           createCompanionCallback:
@@ -5759,14 +5690,12 @@ class $$IngredientTableTableTableManager
                 required double amount,
                 required String unit,
                 required String groceryId,
-                Value<bool> uploaded = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => IngredientTableCompanion.insert(
                 id: id,
                 amount: amount,
                 unit: unit,
                 groceryId: groceryId,
-                uploaded: uploaded,
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0

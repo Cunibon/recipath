@@ -97,7 +97,6 @@ class RecipeStepItem extends ConsumerWidget {
                                             amount: grocery.normalAmount,
                                             unit: grocery.unit,
                                             groceryId: grocery.id,
-                                            uploaded: false,
                                           ),
                                     )
                                     .toList(),

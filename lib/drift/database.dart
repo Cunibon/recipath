@@ -68,7 +68,6 @@ class AppDatabase extends _$AppDatabase {
       }
       if (from < 7) {
         await m.addColumn(groceryTable, groceryTable.uploaded);
-        await m.addColumn(ingredientTable, ingredientTable.uploaded);
         await m.addColumn(recipeShoppingTable, recipeShoppingTable.uploaded);
         await m.addColumn(recipeStatisticTable, recipeStatisticTable.uploaded);
         await m.addColumn(
