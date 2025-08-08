@@ -10,9 +10,11 @@ import 'package:recipe_list/domain_service/syncing_service/syncing_service.dart'
 extension UploadDataExtension on SyncingService {
   Future<int> upload() async {
     final groceryData = await groceryRepo.getNotUploaded();
-    await supabaseClient
-        .from(SupabaseTables.grocery)
-        .upsert(groceryData.values.map((e) => e.toSupabase()).toList());
+    if (groceryData.isNotEmpty) {
+      await supabaseClient
+          .from(SupabaseTables.grocery)
+          .upsert(groceryData.values.map((e) => e.toSupabase()).toList());
+    }
 
     final ingredientsSupabase = <Map<String, dynamic>>[];
     final recipeStepIngredientSupabase = <Map<String, dynamic>>[];
@@ -39,10 +41,15 @@ extension UploadDataExtension on SyncingService {
       }
     }
 
-    await supabaseClient.from(SupabaseTables.recipe).upsert(recipeSupabase);
-    await supabaseClient
-        .from(SupabaseTables.recipeStep)
-        .upsert(recipeStepsSupabase);
+    if (recipeSupabase.isNotEmpty) {
+      await supabaseClient.from(SupabaseTables.recipe).upsert(recipeSupabase);
+    }
+
+    if (recipeStepsSupabase.isNotEmpty) {
+      await supabaseClient
+          .from(SupabaseTables.recipeStep)
+          .upsert(recipeStepsSupabase);
+    }
 
     final shoppingSupabase = <Map<String, dynamic>>[];
 
@@ -60,15 +67,25 @@ extension UploadDataExtension on SyncingService {
       ingredientsSupabase.add(storage.ingredient.toSupabase());
     }
 
-    await supabaseClient
-        .from(SupabaseTables.ingredient)
-        .upsert(ingredientsSupabase);
+    if (ingredientsSupabase.isNotEmpty) {
+      await supabaseClient
+          .from(SupabaseTables.ingredient)
+          .upsert(ingredientsSupabase);
+    }
 
-    await supabaseClient
-        .from(SupabaseTables.recipeStepIngredient)
-        .upsert(recipeStepIngredientSupabase);
-    await supabaseClient.from(SupabaseTables.shopping).upsert(shoppingSupabase);
-    await supabaseClient.from(SupabaseTables.storage).upsert(storageSupabase);
+    if (recipeStepIngredientSupabase.isNotEmpty) {
+      await supabaseClient
+          .from(SupabaseTables.recipeStepIngredient)
+          .upsert(recipeStepIngredientSupabase);
+    }
+    if (shoppingSupabase.isNotEmpty) {
+      await supabaseClient
+          .from(SupabaseTables.shopping)
+          .upsert(shoppingSupabase);
+    }
+    if (storageSupabase.isNotEmpty) {
+      await supabaseClient.from(SupabaseTables.storage).upsert(storageSupabase);
+    }
 
     return groceryData.length +
         ingredientsSupabase.length +

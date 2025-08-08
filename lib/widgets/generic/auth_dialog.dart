@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:logger/logger.dart';
 import 'package:recipe_list/common.dart';
 import 'package:recipe_list/domain_service/syncing_service/syncing_service_notifier.dart';
 import 'package:recipe_list/widgets/providers/supabase/supabase_client_notifier.dart';
@@ -21,6 +22,8 @@ class _AuthDialogState extends ConsumerState<AuthDialog> {
   final passwordController = TextEditingController();
 
   late bool loading = false;
+
+  final logger = Logger();
 
   @override
   Widget build(BuildContext context) {
@@ -112,6 +115,7 @@ class _AuthDialogState extends ConsumerState<AuthDialog> {
                               password: passwordController.text,
                             );
                           }
+
                           if (response.session != null) {
                             await ref
                                 .read(syncingServiceNotifierProvider)
@@ -119,11 +123,23 @@ class _AuthDialogState extends ConsumerState<AuthDialog> {
                             if (context.mounted) {
                               context.pop();
                             }
+                          } else {
+                            if (context.mounted) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text("Could not authenticate user"),
+                                ),
+                              );
+                            }
                           }
+                        } catch (e) {
+                          logger.e(e);
                         } finally {
-                          setState(() {
-                            loading = false;
-                          });
+                          if (context.mounted) {
+                            setState(() {
+                              loading = false;
+                            });
+                          }
                         }
                       }
                     },

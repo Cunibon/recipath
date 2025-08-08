@@ -48,14 +48,9 @@ class SyncingService {
       _lastSync = DateTime.fromMicrosecondsSinceEpoch(0);
     }
 
-    final previousTimer = _timer;
     _timer = Timer(Duration(minutes: 1), () => sync());
 
-    if (previousTimer?.isActive == true) {
-      await sync();
-    } else {
-      await syncRunning.future;
-    }
+    await sync();
   }
 
   Future<void> stop() async {
@@ -63,7 +58,7 @@ class SyncingService {
     _timer = null;
 
     if (previousTimer?.isActive == true) {
-      await sync();
+      _timer?.cancel();
     } else {
       await syncRunning.future;
     }
