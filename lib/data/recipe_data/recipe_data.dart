@@ -70,7 +70,7 @@ extension RecipeDataFunctions on RecipeData {
     "archived": archived,
   };
 
-  RecipeData copyWithNewId() {
+  RecipeData copyWithNewId({Map<String, String> groceryLookup = const {}}) {
     return copyWith(
       id: randomAlphaNumeric(16),
       steps: steps
@@ -79,8 +79,12 @@ extension RecipeDataFunctions on RecipeData {
               id: randomAlphaNumeric(16),
               ingredients: step.ingredients
                   .map(
-                    (ingredient) =>
-                        ingredient.copyWith(id: randomAlphaNumeric(16)),
+                    (ingredient) => ingredient.copyWith(
+                      id: randomAlphaNumeric(16),
+                      groceryId:
+                          groceryLookup[ingredient.groceryId] ??
+                          ingredient.groceryId,
+                    ),
                   )
                   .toList(),
             ),

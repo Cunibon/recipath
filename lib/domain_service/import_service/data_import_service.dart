@@ -23,64 +23,67 @@ class DataImportService {
 
   Future<void> import(Map<String, dynamic> data) async {
     final groceryData = data[groceryDataKey];
-    if (groceryData is Map<String, dynamic>) {
-      await importGrocery(groceryData);
-    }
+    final groceryLookup = await importGrocery(groceryData);
 
     final recipeData = data[recipeDataKey];
-    if (recipeData is Map<String, dynamic>) {
-      await importRecipe(recipeData);
-    }
+    await importRecipe(recipeData, groceryLookup);
 
     final shoppingData = data[shoppingDataKey];
-    if (shoppingData is Map<String, dynamic>) {
-      await importShopping(shoppingData);
-    }
+    await importShopping(shoppingData, groceryLookup);
 
     final storageData = data[storageDataKey];
-    if (storageData is Map<String, dynamic>) {
-      await importStorage(storageData);
-    }
+    await importStorage(storageData, groceryLookup);
   }
 
-  Future<void> importGrocery(Map<String, dynamic> groceryData) async {
+  Future<Map<String, String>> importGrocery(
+    Map<String, dynamic> groceryData,
+  ) async {
+    final lookup = <String, String>{};
+
     for (final data in groceryData.values) {
       data["uploaded"] = false;
-      await groceryModifier.add(GroceryData.fromJson(data));
+      final parsed = GroceryData.fromJson(data);
+      final copy = parsed.copyWith(id: randomAlphaNumeric(16));
+      lookup[parsed.id] = copy.id;
+      await groceryModifier.add(copy);
     }
+
+    return lookup;
   }
 
-  Future<void> importRecipe(Map<String, dynamic> recipeData) async {
+  Future<void> importRecipe(
+    Map<String, dynamic> recipeData,
+    Map<String, String> groceryLookup,
+  ) async {
     for (final data in recipeData.values) {
       data["uploaded"] = false;
-
-      for (final step in data["steps"]) {
-        step["uploaded"] = false;
-        for (final ingredient in step["ingredients"]) {
-          ingredient["uploaded"] = false;
-        }
-      }
-
-      await recipeModifier.add(RecipeData.fromJson(data));
+      await recipeModifier.add(
+        RecipeData.fromJson(data).copyWithNewId(groceryLookup: groceryLookup),
+      );
     }
   }
 
-  Future<void> importShopping(Map<String, dynamic> shoppingData) async {
+  Future<void> importShopping(
+    Map<String, dynamic> shoppingData,
+    Map<String, String> groceryLookup,
+  ) async {
     for (final data in shoppingData.values) {
       data["uploaded"] = false;
-      data["ingredient"]["uploaded"] = false;
-      await shoppingModifier.updateItem(ShoppingData.fromJson(data));
+      await shoppingModifier.updateItem(
+        ShoppingData.fromJson(data).copyWithNewId(groceryLookup: groceryLookup),
+      );
     }
   }
 
-  Future<void> importStorage(Map<String, dynamic> storageData) async {
+  Future<void> importStorage(
+    Map<String, dynamic> storageData,
+    Map<String, String> groceryLookup,
+  ) async {
     for (final data in storageData.values) {
       data["uploaded"] = false;
-      final storageMap = <String, dynamic>{};
-      storageMap["ingredient"] = data;
-      storageMap["id"] = randomAlphaNumeric(16);
-      storageMap["uploaded"] = false;
-      await storageModifier.updateItem(StorageData.fromJson(storageMap));
+      await storageModifier.updateItem(
+        StorageData.fromJson(data).copyWithNewId(groceryLookup: groceryLookup),
+      );
     }
   }
 }

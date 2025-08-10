@@ -1,5 +1,6 @@
 import 'package:drift/drift.dart' as drift;
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:random_string/random_string.dart';
 import 'package:recipe_list/common.dart';
 import 'package:recipe_list/data/grocery_data/grocery_data.dart';
 import 'package:recipe_list/data/ingredient_data/ingredient_data.dart';
@@ -67,4 +68,14 @@ extension ShoppingDataFunctions on ShoppingData {
     "ingredient_id": ingredient.id,
     "deleted": deleted,
   };
+
+  ShoppingData copyWithNewId({Map<String, String> groceryLookup = const {}}) {
+    return copyWith(
+      id: randomAlphaNumeric(16),
+      ingredient: ingredient.copyWith(
+        id: randomAlphaNumeric(16),
+        groceryId: groceryLookup[ingredient.groceryId] ?? ingredient.groceryId,
+      ),
+    );
+  }
 }
