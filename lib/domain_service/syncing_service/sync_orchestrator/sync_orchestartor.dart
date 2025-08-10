@@ -9,14 +9,16 @@ typedef SyncContext = Map<String, List<Map<String, dynamic>>>;
 
 class SyncOrchestrator {
   SyncOrchestrator({
-    required this.downloadOrder,
+    required this.uploads,
     required this.uploadOrder,
+    required this.downloads,
     required this.assemblers,
     required this.supabaseClient,
   });
 
-  final List<DownloadInterface> downloadOrder;
-  final List<PrepareUploadInterface> uploadOrder;
+  final List<PrepareUploadInterface> uploads;
+  final List<String> uploadOrder;
+  final List<DownloadInterface> downloads;
   final List<SupabaseAssembler> assemblers;
 
   final SupabaseClient supabaseClient;
@@ -31,13 +33,13 @@ class SyncOrchestrator {
     int uploadCount = 0;
 
     try {
-      for (final repo in uploadOrder) {
+      for (final repo in uploads) {
         final count = await repo.prepareUpload(syncContext);
         uploadCount += count;
       }
 
-      for (final entry in syncContext.entries) {
-        await supabaseClient.from(entry.key).upsert(entry.value);
+      for (final table in uploadOrder) {
+        await supabaseClient.from(table).upsert(syncContext[table]!);
       }
     } catch (e, s) {
       logger.e("Error while uploading!", error: e, stackTrace: s);
@@ -54,7 +56,7 @@ class SyncOrchestrator {
     DateTime latestDate = lastSync;
 
     try {
-      for (final repo in downloadOrder) {
+      for (final repo in downloads) {
         final result = await repo.download(lastSync, syncContext);
 
         downloadCount += result.count;

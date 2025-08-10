@@ -27,7 +27,7 @@ class RecipeSyncRepo extends DataSyncRepo<RecipeData>
       SupabaseTables.recipeStep,
       () => [],
     );
-    final recipeSupabase = context.putIfAbsent(SupabaseTables.recipe, () => []);
+    final recipeSupabase = context.putIfAbsent(tableName, () => []);
 
     final recipeData = await repo.getNotUploaded();
 

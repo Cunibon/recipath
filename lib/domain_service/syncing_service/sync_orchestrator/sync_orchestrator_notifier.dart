@@ -12,6 +12,7 @@ import 'package:recipe_list/domain_service/syncing_service/repos/sync/grocery_sy
 import 'package:recipe_list/domain_service/syncing_service/repos/sync/recipe_sync_repo.dart';
 import 'package:recipe_list/domain_service/syncing_service/repos/sync/shopping_sync_repo.dart';
 import 'package:recipe_list/domain_service/syncing_service/repos/sync/storage_sync_repo.dart';
+import 'package:recipe_list/domain_service/syncing_service/supabase_tables.dart';
 import 'package:recipe_list/domain_service/syncing_service/sync_orchestrator/sync_orchestartor.dart';
 import 'package:recipe_list/repos/grocery/full_grocery_repo_notifier.dart';
 import 'package:recipe_list/repos/recipe/full_recipe_repo_notifier.dart';
@@ -39,7 +40,19 @@ SyncOrchestrator syncOrchestratorNotifier(Ref ref) {
   ];
 
   return SyncOrchestrator(
-    downloadOrder: [
+    uploads: syncRepos,
+    uploadOrder: [
+      SupabaseTables.grocery,
+      SupabaseTables.ingredient,
+
+      SupabaseTables.recipe,
+      SupabaseTables.recipeStep,
+      SupabaseTables.recipeStepIngredient,
+
+      SupabaseTables.shopping,
+      SupabaseTables.storage,
+    ],
+    downloads: [
       IngredientDownloadRepo(supabaseClient: supabaseClient),
       RecipeStepDownloadRepo(supabaseClient: supabaseClient),
       RecipeStepIngredientDownloadRepo(supabaseClient: supabaseClient),
@@ -52,7 +65,6 @@ SyncOrchestrator syncOrchestratorNotifier(Ref ref) {
       ShoppingAssembler(repo: shoppingRepo),
       StorageAssembler(repo: storageRepo),
     ],
-    uploadOrder: syncRepos,
     supabaseClient: supabaseClient,
   );
 }

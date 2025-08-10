@@ -10,7 +10,7 @@ class ShoppingSyncRepo extends DataSyncRepo<ShoppingData>
   ShoppingSyncRepo({required super.supabaseClient, required super.repo});
 
   @override
-  String get tableName => SupabaseTables.recipe;
+  String get tableName => SupabaseTables.shopping;
 
   @override
   Future<int> prepareUpload(SyncContext context) async {
@@ -18,10 +18,7 @@ class ShoppingSyncRepo extends DataSyncRepo<ShoppingData>
       SupabaseTables.ingredient,
       () => [],
     );
-    final shoppingSupabase = context.putIfAbsent(
-      SupabaseTables.recipeStepIngredient,
-      () => [],
-    );
+    final shoppingSupabase = context.putIfAbsent(tableName, () => []);
 
     final shoppingData = await repo.getNotUploaded();
     for (final shopping in shoppingData.values) {

@@ -63,7 +63,7 @@ class SyncingService {
     } finally {
       stopwatch.stop();
       logger.i(
-        "Sync took: ${stopwatch.elapsed}\nUploaded: $uploadedCount | Downloaded: ${downloadedResult?.lastDate}",
+        "Sync took: ${stopwatch.elapsed}\nUploaded: $uploadedCount | Downloaded: ${downloadedResult?.count}",
       );
 
       final lastDate = downloadedResult?.lastDate;

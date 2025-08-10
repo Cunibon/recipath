@@ -5,5 +5,5 @@ class IngredientDownloadRepo extends DataDownloadRepo {
   IngredientDownloadRepo({required super.supabaseClient});
 
   @override
-  String get tableName => SupabaseTables.recipeStep;
+  String get tableName => SupabaseTables.ingredient;
 }

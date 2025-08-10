@@ -10,7 +10,7 @@ class StorageSyncRepo extends DataSyncRepo<StorageData>
   StorageSyncRepo({required super.supabaseClient, required super.repo});
 
   @override
-  String get tableName => SupabaseTables.recipe;
+  String get tableName => SupabaseTables.storage;
 
   @override
   Future<int> prepareUpload(SyncContext context) async {
@@ -18,10 +18,7 @@ class StorageSyncRepo extends DataSyncRepo<StorageData>
       SupabaseTables.ingredient,
       () => [],
     );
-    final storageSupabase = context.putIfAbsent(
-      SupabaseTables.recipeStepIngredient,
-      () => [],
-    );
+    final storageSupabase = context.putIfAbsent(tableName, () => []);
 
     final storageData = await repo.getNotUploaded();
     for (final storage in storageData.values) {
