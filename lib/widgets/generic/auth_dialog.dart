@@ -127,13 +127,29 @@ class _AuthDialogState extends ConsumerState<AuthDialog> {
                             if (context.mounted) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
-                                  content: Text("Could not authenticate user"),
+                                  content: Text(
+                                    "Verifaction email has been sent",
+                                  ),
                                 ),
                               );
+                              context.pop();
                             }
                           }
                         } catch (e) {
                           logger.e(e);
+                          if (e is AuthApiException) {
+                            if (e.code == "invalid_credentials") {
+                              if (context.mounted) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      "Could not authenticate user",
+                                    ),
+                                  ),
+                                );
+                              }
+                            }
+                          }
                         } finally {
                           if (context.mounted) {
                             setState(() {
