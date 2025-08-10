@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 import 'package:recipe_list/common.dart';
-import 'package:recipe_list/domain_service/syncing_service/syncing_service_notifier.dart';
+import 'package:recipe_list/domain_service/syncing_service/syncing_service/syncing_service_notifier.dart';
 import 'package:recipe_list/widgets/providers/supabase/supabase_client_notifier.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 

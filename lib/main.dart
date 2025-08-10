@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:recipe_list/application_constants.dart';
-import 'package:recipe_list/domain_service/syncing_service/syncing_service_notifier.dart';
+import 'package:recipe_list/domain_service/syncing_service/syncing_service/syncing_service_notifier.dart';
 import 'package:recipe_list/drift/database.dart';
 import 'package:recipe_list/drift/database_notifier.dart';
 import 'package:recipe_list/root_routes.dart';
