@@ -28,7 +28,7 @@ class SettingsScreen extends ConsumerWidget {
         children: [
           TextButton.icon(
             onPressed: () async {
-              final dir = await ref.read(applicationPathProvider.future);
+              final dir = ref.read(applicationPathProvider);
 
               final allData = {
                 recipeDataKey: await ref.read(recipeRepoNotifierProvider).get(),

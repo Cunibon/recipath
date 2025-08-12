@@ -6,7 +6,7 @@ part of 'file_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$localFileHash() => r'128d6152ce3a3f8546a5de2951bfb9e565d7dac2';
+String _$localFileHash() => r'31ff5fb5d39edef5c4de59a744f98034436006be';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -39,13 +39,13 @@ class LocalFileFamily extends Family<AsyncValue<File>> {
   const LocalFileFamily();
 
   /// See also [localFile].
-  LocalFileProvider call(String file) {
-    return LocalFileProvider(file);
+  LocalFileProvider call({required String bucket, required String fileName}) {
+    return LocalFileProvider(bucket: bucket, fileName: fileName);
   }
 
   @override
   LocalFileProvider getProviderOverride(covariant LocalFileProvider provider) {
-    return call(provider.file);
+    return call(bucket: provider.bucket, fileName: provider.fileName);
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -66,9 +66,10 @@ class LocalFileFamily extends Family<AsyncValue<File>> {
 /// See also [localFile].
 class LocalFileProvider extends AutoDisposeFutureProvider<File> {
   /// See also [localFile].
-  LocalFileProvider(String file)
+  LocalFileProvider({required String bucket, required String fileName})
     : this._internal(
-        (ref) => localFile(ref as LocalFileRef, file),
+        (ref) =>
+            localFile(ref as LocalFileRef, bucket: bucket, fileName: fileName),
         from: localFileProvider,
         name: r'localFileProvider',
         debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -76,7 +77,8 @@ class LocalFileProvider extends AutoDisposeFutureProvider<File> {
             : _$localFileHash,
         dependencies: LocalFileFamily._dependencies,
         allTransitiveDependencies: LocalFileFamily._allTransitiveDependencies,
-        file: file,
+        bucket: bucket,
+        fileName: fileName,
       );
 
   LocalFileProvider._internal(
@@ -86,10 +88,12 @@ class LocalFileProvider extends AutoDisposeFutureProvider<File> {
     required super.allTransitiveDependencies,
     required super.debugGetCreateSourceHash,
     required super.from,
-    required this.file,
+    required this.bucket,
+    required this.fileName,
   }) : super.internal();
 
-  final String file;
+  final String bucket;
+  final String fileName;
 
   @override
   Override overrideWith(FutureOr<File> Function(LocalFileRef provider) create) {
@@ -102,7 +106,8 @@ class LocalFileProvider extends AutoDisposeFutureProvider<File> {
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
-        file: file,
+        bucket: bucket,
+        fileName: fileName,
       ),
     );
   }
@@ -114,13 +119,16 @@ class LocalFileProvider extends AutoDisposeFutureProvider<File> {
 
   @override
   bool operator ==(Object other) {
-    return other is LocalFileProvider && other.file == file;
+    return other is LocalFileProvider &&
+        other.bucket == bucket &&
+        other.fileName == fileName;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, file.hashCode);
+    hash = _SystemHash.combine(hash, bucket.hashCode);
+    hash = _SystemHash.combine(hash, fileName.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -129,8 +137,11 @@ class LocalFileProvider extends AutoDisposeFutureProvider<File> {
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 mixin LocalFileRef on AutoDisposeFutureProviderRef<File> {
-  /// The parameter `file` of this provider.
-  String get file;
+  /// The parameter `bucket` of this provider.
+  String get bucket;
+
+  /// The parameter `fileName` of this provider.
+  String get fileName;
 }
 
 class _LocalFileProviderElement extends AutoDisposeFutureProviderElement<File>
@@ -138,7 +149,9 @@ class _LocalFileProviderElement extends AutoDisposeFutureProviderElement<File>
   _LocalFileProviderElement(super.provider);
 
   @override
-  String get file => (origin as LocalFileProvider).file;
+  String get bucket => (origin as LocalFileProvider).bucket;
+  @override
+  String get fileName => (origin as LocalFileProvider).fileName;
 }
 
 // ignore_for_file: type=lint

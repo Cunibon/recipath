@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:recipe_list/domain_service/syncing_service/supabase_buckets.dart';
 import 'package:recipe_list/widgets/screens/recipe_screen/providers/file_notifier.dart';
 
 class LocalImage extends ConsumerWidget {
@@ -15,7 +16,12 @@ class LocalImage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final asyncValue = ref.watch(localFileProvider(fileName));
+    final asyncValue = ref.watch(
+      localFileProvider(
+        bucket: SupabaseBuckets.recipeImage,
+        fileName: fileName,
+      ),
+    );
 
     switch (asyncValue) {
       case AsyncData(:final value):

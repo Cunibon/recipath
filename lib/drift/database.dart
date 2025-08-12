@@ -7,6 +7,7 @@ import 'package:drift_flutter/drift_flutter.dart';
 import 'package:flutter/services.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
+import 'package:recipe_list/drift/tables/file_table.dart';
 import 'package:recipe_list/drift/tables/grocery_table.dart';
 import 'package:recipe_list/drift/tables/ingredient_table.dart';
 import 'package:recipe_list/drift/tables/recipe_shopping_table.dart';
@@ -30,13 +31,14 @@ part 'database.g.dart';
     StorageTable,
     RecipeStatisticTable,
     RecipeShoppingTable,
+    FileTable,
   ],
 )
 class AppDatabase extends _$AppDatabase {
   AppDatabase([QueryExecutor? executor]) : super(executor ?? _openConnection());
 
   @override
-  int get schemaVersion => 8;
+  int get schemaVersion => 9;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -83,6 +85,9 @@ class AppDatabase extends _$AppDatabase {
         await m.addColumn(groceryTable, groceryTable.archived);
         await m.addColumn(shoppingTable, shoppingTable.deleted);
         await m.addColumn(storageTable, storageTable.deleted);
+      }
+      if (from < 9) {
+        await m.createTable(fileTable);
       }
     },
   );

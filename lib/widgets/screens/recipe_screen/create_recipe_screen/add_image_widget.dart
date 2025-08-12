@@ -1,10 +1,12 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:random_string/random_string.dart';
+import 'package:recipe_list/application/file_modifier.dart/file_modifier_notifier.dart';
 import 'package:recipe_list/providers/application_path_provider.dart';
 import 'package:recipe_list/widgets/screens/recipe_screen/local_image.dart';
 
@@ -71,14 +73,20 @@ class AddImageWidget extends ConsumerWidget {
           );
 
           if (xFile != null) {
-            final appDirectory = await ref.watch(
-              applicationPathProvider.future,
-            );
+            final appDirectory = ref.watch(applicationPathProvider);
+            final fileModifier = ref.watch(fileModifierNotifierProvider);
             final bytes = await xFile.readAsBytes();
+
+            final compressed = await FlutterImageCompress.compressWithList(
+              bytes,
+            );
+
             final newFileName = randomAlphaNumeric(16);
             final file = File("${appDirectory.path}/$newFileName");
 
-            await file.writeAsBytes(bytes);
+            await file.writeAsBytes(compressed);
+            await fileModifier.add(newFileName);
+
             onChanged(newFileName);
           }
         },

@@ -3619,6 +3619,224 @@ class RecipeShoppingTableCompanion
   }
 }
 
+class $FileTableTable extends FileTable
+    with TableInfo<$FileTableTable, FileTableData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $FileTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _fileNameMeta = const VerificationMeta(
+    'fileName',
+  );
+  @override
+  late final GeneratedColumn<String> fileName = GeneratedColumn<String>(
+    'file_name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _uploadedMeta = const VerificationMeta(
+    'uploaded',
+  );
+  @override
+  late final GeneratedColumn<bool> uploaded = GeneratedColumn<bool>(
+    'uploaded',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("uploaded" IN (0, 1))',
+    ),
+    defaultValue: Constant(false),
+  );
+  @override
+  List<GeneratedColumn> get $columns => [fileName, uploaded];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'file_table';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<FileTableData> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('file_name')) {
+      context.handle(
+        _fileNameMeta,
+        fileName.isAcceptableOrUnknown(data['file_name']!, _fileNameMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_fileNameMeta);
+    }
+    if (data.containsKey('uploaded')) {
+      context.handle(
+        _uploadedMeta,
+        uploaded.isAcceptableOrUnknown(data['uploaded']!, _uploadedMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {fileName};
+  @override
+  FileTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return FileTableData(
+      fileName: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}file_name'],
+      )!,
+      uploaded: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}uploaded'],
+      )!,
+    );
+  }
+
+  @override
+  $FileTableTable createAlias(String alias) {
+    return $FileTableTable(attachedDatabase, alias);
+  }
+}
+
+class FileTableData extends DataClass implements Insertable<FileTableData> {
+  final String fileName;
+  final bool uploaded;
+  const FileTableData({required this.fileName, required this.uploaded});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['file_name'] = Variable<String>(fileName);
+    map['uploaded'] = Variable<bool>(uploaded);
+    return map;
+  }
+
+  FileTableCompanion toCompanion(bool nullToAbsent) {
+    return FileTableCompanion(
+      fileName: Value(fileName),
+      uploaded: Value(uploaded),
+    );
+  }
+
+  factory FileTableData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return FileTableData(
+      fileName: serializer.fromJson<String>(json['fileName']),
+      uploaded: serializer.fromJson<bool>(json['uploaded']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'fileName': serializer.toJson<String>(fileName),
+      'uploaded': serializer.toJson<bool>(uploaded),
+    };
+  }
+
+  FileTableData copyWith({String? fileName, bool? uploaded}) => FileTableData(
+    fileName: fileName ?? this.fileName,
+    uploaded: uploaded ?? this.uploaded,
+  );
+  FileTableData copyWithCompanion(FileTableCompanion data) {
+    return FileTableData(
+      fileName: data.fileName.present ? data.fileName.value : this.fileName,
+      uploaded: data.uploaded.present ? data.uploaded.value : this.uploaded,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('FileTableData(')
+          ..write('fileName: $fileName, ')
+          ..write('uploaded: $uploaded')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(fileName, uploaded);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is FileTableData &&
+          other.fileName == this.fileName &&
+          other.uploaded == this.uploaded);
+}
+
+class FileTableCompanion extends UpdateCompanion<FileTableData> {
+  final Value<String> fileName;
+  final Value<bool> uploaded;
+  final Value<int> rowid;
+  const FileTableCompanion({
+    this.fileName = const Value.absent(),
+    this.uploaded = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  FileTableCompanion.insert({
+    required String fileName,
+    this.uploaded = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : fileName = Value(fileName);
+  static Insertable<FileTableData> custom({
+    Expression<String>? fileName,
+    Expression<bool>? uploaded,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (fileName != null) 'file_name': fileName,
+      if (uploaded != null) 'uploaded': uploaded,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  FileTableCompanion copyWith({
+    Value<String>? fileName,
+    Value<bool>? uploaded,
+    Value<int>? rowid,
+  }) {
+    return FileTableCompanion(
+      fileName: fileName ?? this.fileName,
+      uploaded: uploaded ?? this.uploaded,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (fileName.present) {
+      map['file_name'] = Variable<String>(fileName.value);
+    }
+    if (uploaded.present) {
+      map['uploaded'] = Variable<bool>(uploaded.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('FileTableCompanion(')
+          ..write('fileName: $fileName, ')
+          ..write('uploaded: $uploaded, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -3638,6 +3856,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
       $RecipeStatisticTableTable(this);
   late final $RecipeShoppingTableTable recipeShoppingTable =
       $RecipeShoppingTableTable(this);
+  late final $FileTableTable fileTable = $FileTableTable(this);
   late final Index recipeUploaded = Index(
     'recipe_uploaded',
     'CREATE INDEX recipe_uploaded ON recipe_table (uploaded)',
@@ -3690,6 +3909,10 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     'recipeShopping_uploaded',
     'CREATE INDEX recipeShopping_uploaded ON recipe_shopping_table (uploaded)',
   );
+  late final Index fileTableUploaded = Index(
+    'fileTable_uploaded',
+    'CREATE INDEX fileTable_uploaded ON file_table (uploaded)',
+  );
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -3704,6 +3927,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     storageTable,
     recipeStatisticTable,
     recipeShoppingTable,
+    fileTable,
     recipeUploaded,
     recipeStepRecipeId,
     recipeStepUploaded,
@@ -3717,6 +3941,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     recipeStatisticsUploaded,
     recipeShoppingRecipeId,
     recipeShoppingUploaded,
+    fileTableUploaded,
   ];
   @override
   StreamQueryUpdateRules get streamUpdateRules => const StreamQueryUpdateRules([
@@ -7584,6 +7809,149 @@ typedef $$RecipeShoppingTableTableProcessedTableManager =
       RecipeShoppingTableData,
       PrefetchHooks Function({bool recipeId})
     >;
+typedef $$FileTableTableCreateCompanionBuilder =
+    FileTableCompanion Function({
+      required String fileName,
+      Value<bool> uploaded,
+      Value<int> rowid,
+    });
+typedef $$FileTableTableUpdateCompanionBuilder =
+    FileTableCompanion Function({
+      Value<String> fileName,
+      Value<bool> uploaded,
+      Value<int> rowid,
+    });
+
+class $$FileTableTableFilterComposer
+    extends Composer<_$AppDatabase, $FileTableTable> {
+  $$FileTableTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get fileName => $composableBuilder(
+    column: $table.fileName,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get uploaded => $composableBuilder(
+    column: $table.uploaded,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$FileTableTableOrderingComposer
+    extends Composer<_$AppDatabase, $FileTableTable> {
+  $$FileTableTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get fileName => $composableBuilder(
+    column: $table.fileName,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get uploaded => $composableBuilder(
+    column: $table.uploaded,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$FileTableTableAnnotationComposer
+    extends Composer<_$AppDatabase, $FileTableTable> {
+  $$FileTableTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get fileName =>
+      $composableBuilder(column: $table.fileName, builder: (column) => column);
+
+  GeneratedColumn<bool> get uploaded =>
+      $composableBuilder(column: $table.uploaded, builder: (column) => column);
+}
+
+class $$FileTableTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $FileTableTable,
+          FileTableData,
+          $$FileTableTableFilterComposer,
+          $$FileTableTableOrderingComposer,
+          $$FileTableTableAnnotationComposer,
+          $$FileTableTableCreateCompanionBuilder,
+          $$FileTableTableUpdateCompanionBuilder,
+          (
+            FileTableData,
+            BaseReferences<_$AppDatabase, $FileTableTable, FileTableData>,
+          ),
+          FileTableData,
+          PrefetchHooks Function()
+        > {
+  $$FileTableTableTableManager(_$AppDatabase db, $FileTableTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$FileTableTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$FileTableTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$FileTableTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> fileName = const Value.absent(),
+                Value<bool> uploaded = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => FileTableCompanion(
+                fileName: fileName,
+                uploaded: uploaded,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String fileName,
+                Value<bool> uploaded = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => FileTableCompanion.insert(
+                fileName: fileName,
+                uploaded: uploaded,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$FileTableTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $FileTableTable,
+      FileTableData,
+      $$FileTableTableFilterComposer,
+      $$FileTableTableOrderingComposer,
+      $$FileTableTableAnnotationComposer,
+      $$FileTableTableCreateCompanionBuilder,
+      $$FileTableTableUpdateCompanionBuilder,
+      (
+        FileTableData,
+        BaseReferences<_$AppDatabase, $FileTableTable, FileTableData>,
+      ),
+      FileTableData,
+      PrefetchHooks Function()
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -7609,4 +7977,6 @@ class $AppDatabaseManager {
       $$RecipeStatisticTableTableTableManager(_db, _db.recipeStatisticTable);
   $$RecipeShoppingTableTableTableManager get recipeShoppingTable =>
       $$RecipeShoppingTableTableTableManager(_db, _db.recipeShoppingTable);
+  $$FileTableTableTableManager get fileTable =>
+      $$FileTableTableTableManager(_db, _db.fileTable);
 }

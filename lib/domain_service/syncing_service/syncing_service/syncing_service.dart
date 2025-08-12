@@ -2,15 +2,20 @@ import 'dart:async';
 
 import 'package:localstorage/localstorage.dart';
 import 'package:logger/logger.dart';
+import 'package:recipe_list/domain_service/syncing_service/file_sync_orchestrator/file_sync_orchestrator.dart';
 import 'package:recipe_list/domain_service/syncing_service/repos/download_result.dart';
 import 'package:recipe_list/domain_service/syncing_service/sync_orchestrator/sync_orchestartor.dart';
 import 'package:recipe_list/domain_service/syncing_service/syncing_keys.dart';
 
 class SyncingService {
-  SyncingService({required this.orchestrator});
-  final logger = Logger();
+  SyncingService({
+    required this.syncOrchestrator,
+    required this.fileSyncOrchestrator,
+  });
+  final SyncOrchestrator syncOrchestrator;
+  final FileSyncOrchestrator fileSyncOrchestrator;
 
-  final SyncOrchestrator orchestrator;
+  final logger = Logger();
 
   Timer? _timer;
   Completer syncRunning = Completer();
@@ -52,18 +57,20 @@ class SyncingService {
     _timer?.cancel();
     final stopwatch = Stopwatch()..start();
 
+    int? fileUpload;
     int? uploadedCount;
     DownloadResult? downloadedResult;
 
     try {
-      uploadedCount = await orchestrator.uploadAll();
-      downloadedResult = await orchestrator.downloadAll(lastSync);
+      fileUpload = await fileSyncOrchestrator.uploadAll();
+      uploadedCount = await syncOrchestrator.uploadAll();
+      downloadedResult = await syncOrchestrator.downloadAll(lastSync);
     } catch (e, s) {
       logger.e("Sync failed", error: e, stackTrace: s);
     } finally {
       stopwatch.stop();
       logger.i(
-        "Sync took: ${stopwatch.elapsed}\nUploaded: $uploadedCount | Downloaded: ${downloadedResult?.count}",
+        "Sync took: ${stopwatch.elapsed}\nUploaded: $uploadedCount objects, $fileUpload files | Downloaded: ${downloadedResult?.count}",
       );
 
       final lastDate = downloadedResult?.lastDate;
