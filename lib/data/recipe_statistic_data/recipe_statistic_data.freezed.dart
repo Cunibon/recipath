@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$RecipeStatisticData {
 
- String get id; DateTime get startDate; DateTime get endDate; String get recipeId;
+ String get id; DateTime get startDate; DateTime get endDate; String get recipeId; bool get uploaded;
 /// Create a copy of RecipeStatisticData
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,16 +29,16 @@ $RecipeStatisticDataCopyWith<RecipeStatisticData> get copyWith => _$RecipeStatis
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RecipeStatisticData&&(identical(other.id, id) || other.id == id)&&(identical(other.startDate, startDate) || other.startDate == startDate)&&(identical(other.endDate, endDate) || other.endDate == endDate)&&(identical(other.recipeId, recipeId) || other.recipeId == recipeId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RecipeStatisticData&&(identical(other.id, id) || other.id == id)&&(identical(other.startDate, startDate) || other.startDate == startDate)&&(identical(other.endDate, endDate) || other.endDate == endDate)&&(identical(other.recipeId, recipeId) || other.recipeId == recipeId)&&(identical(other.uploaded, uploaded) || other.uploaded == uploaded));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,startDate,endDate,recipeId);
+int get hashCode => Object.hash(runtimeType,id,startDate,endDate,recipeId,uploaded);
 
 @override
 String toString() {
-  return 'RecipeStatisticData(id: $id, startDate: $startDate, endDate: $endDate, recipeId: $recipeId)';
+  return 'RecipeStatisticData(id: $id, startDate: $startDate, endDate: $endDate, recipeId: $recipeId, uploaded: $uploaded)';
 }
 
 
@@ -49,7 +49,7 @@ abstract mixin class $RecipeStatisticDataCopyWith<$Res>  {
   factory $RecipeStatisticDataCopyWith(RecipeStatisticData value, $Res Function(RecipeStatisticData) _then) = _$RecipeStatisticDataCopyWithImpl;
 @useResult
 $Res call({
- String id, DateTime startDate, DateTime endDate, String recipeId
+ String id, DateTime startDate, DateTime endDate, String recipeId, bool uploaded
 });
 
 
@@ -66,13 +66,14 @@ class _$RecipeStatisticDataCopyWithImpl<$Res>
 
 /// Create a copy of RecipeStatisticData
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? startDate = null,Object? endDate = null,Object? recipeId = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? startDate = null,Object? endDate = null,Object? recipeId = null,Object? uploaded = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,startDate: null == startDate ? _self.startDate : startDate // ignore: cast_nullable_to_non_nullable
 as DateTime,endDate: null == endDate ? _self.endDate : endDate // ignore: cast_nullable_to_non_nullable
 as DateTime,recipeId: null == recipeId ? _self.recipeId : recipeId // ignore: cast_nullable_to_non_nullable
-as String,
+as String,uploaded: null == uploaded ? _self.uploaded : uploaded // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 
@@ -83,13 +84,14 @@ as String,
 @JsonSerializable()
 
 class _RecipeStatisticData implements RecipeStatisticData {
-  const _RecipeStatisticData({required this.id, required this.startDate, required this.endDate, required this.recipeId});
+  const _RecipeStatisticData({required this.id, required this.startDate, required this.endDate, required this.recipeId, this.uploaded = false});
   factory _RecipeStatisticData.fromJson(Map<String, dynamic> json) => _$RecipeStatisticDataFromJson(json);
 
 @override final  String id;
 @override final  DateTime startDate;
 @override final  DateTime endDate;
 @override final  String recipeId;
+@override@JsonKey() final  bool uploaded;
 
 /// Create a copy of RecipeStatisticData
 /// with the given fields replaced by the non-null parameter values.
@@ -104,16 +106,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RecipeStatisticData&&(identical(other.id, id) || other.id == id)&&(identical(other.startDate, startDate) || other.startDate == startDate)&&(identical(other.endDate, endDate) || other.endDate == endDate)&&(identical(other.recipeId, recipeId) || other.recipeId == recipeId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RecipeStatisticData&&(identical(other.id, id) || other.id == id)&&(identical(other.startDate, startDate) || other.startDate == startDate)&&(identical(other.endDate, endDate) || other.endDate == endDate)&&(identical(other.recipeId, recipeId) || other.recipeId == recipeId)&&(identical(other.uploaded, uploaded) || other.uploaded == uploaded));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,startDate,endDate,recipeId);
+int get hashCode => Object.hash(runtimeType,id,startDate,endDate,recipeId,uploaded);
 
 @override
 String toString() {
-  return 'RecipeStatisticData(id: $id, startDate: $startDate, endDate: $endDate, recipeId: $recipeId)';
+  return 'RecipeStatisticData(id: $id, startDate: $startDate, endDate: $endDate, recipeId: $recipeId, uploaded: $uploaded)';
 }
 
 
@@ -124,7 +126,7 @@ abstract mixin class _$RecipeStatisticDataCopyWith<$Res> implements $RecipeStati
   factory _$RecipeStatisticDataCopyWith(_RecipeStatisticData value, $Res Function(_RecipeStatisticData) _then) = __$RecipeStatisticDataCopyWithImpl;
 @override @useResult
 $Res call({
- String id, DateTime startDate, DateTime endDate, String recipeId
+ String id, DateTime startDate, DateTime endDate, String recipeId, bool uploaded
 });
 
 
@@ -141,13 +143,14 @@ class __$RecipeStatisticDataCopyWithImpl<$Res>
 
 /// Create a copy of RecipeStatisticData
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? startDate = null,Object? endDate = null,Object? recipeId = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? startDate = null,Object? endDate = null,Object? recipeId = null,Object? uploaded = null,}) {
   return _then(_RecipeStatisticData(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,startDate: null == startDate ? _self.startDate : startDate // ignore: cast_nullable_to_non_nullable
 as DateTime,endDate: null == endDate ? _self.endDate : endDate // ignore: cast_nullable_to_non_nullable
 as DateTime,recipeId: null == recipeId ? _self.recipeId : recipeId // ignore: cast_nullable_to_non_nullable
-as String,
+as String,uploaded: null == uploaded ? _self.uploaded : uploaded // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 

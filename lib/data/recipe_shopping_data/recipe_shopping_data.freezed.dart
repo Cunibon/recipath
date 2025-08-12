@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$RecipeShoppingData {
 
- String get id; DateTime get date; String get recipeId;
+ String get id; DateTime get date; String get recipeId; bool get uploaded;
 /// Create a copy of RecipeShoppingData
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,16 +29,16 @@ $RecipeShoppingDataCopyWith<RecipeShoppingData> get copyWith => _$RecipeShopping
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RecipeShoppingData&&(identical(other.id, id) || other.id == id)&&(identical(other.date, date) || other.date == date)&&(identical(other.recipeId, recipeId) || other.recipeId == recipeId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RecipeShoppingData&&(identical(other.id, id) || other.id == id)&&(identical(other.date, date) || other.date == date)&&(identical(other.recipeId, recipeId) || other.recipeId == recipeId)&&(identical(other.uploaded, uploaded) || other.uploaded == uploaded));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,date,recipeId);
+int get hashCode => Object.hash(runtimeType,id,date,recipeId,uploaded);
 
 @override
 String toString() {
-  return 'RecipeShoppingData(id: $id, date: $date, recipeId: $recipeId)';
+  return 'RecipeShoppingData(id: $id, date: $date, recipeId: $recipeId, uploaded: $uploaded)';
 }
 
 
@@ -49,7 +49,7 @@ abstract mixin class $RecipeShoppingDataCopyWith<$Res>  {
   factory $RecipeShoppingDataCopyWith(RecipeShoppingData value, $Res Function(RecipeShoppingData) _then) = _$RecipeShoppingDataCopyWithImpl;
 @useResult
 $Res call({
- String id, DateTime date, String recipeId
+ String id, DateTime date, String recipeId, bool uploaded
 });
 
 
@@ -66,12 +66,13 @@ class _$RecipeShoppingDataCopyWithImpl<$Res>
 
 /// Create a copy of RecipeShoppingData
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? date = null,Object? recipeId = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? date = null,Object? recipeId = null,Object? uploaded = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,date: null == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
 as DateTime,recipeId: null == recipeId ? _self.recipeId : recipeId // ignore: cast_nullable_to_non_nullable
-as String,
+as String,uploaded: null == uploaded ? _self.uploaded : uploaded // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 
@@ -82,12 +83,13 @@ as String,
 @JsonSerializable()
 
 class _RecipeShoppingData implements RecipeShoppingData {
-  const _RecipeShoppingData({required this.id, required this.date, required this.recipeId});
+  const _RecipeShoppingData({required this.id, required this.date, required this.recipeId, this.uploaded = false});
   factory _RecipeShoppingData.fromJson(Map<String, dynamic> json) => _$RecipeShoppingDataFromJson(json);
 
 @override final  String id;
 @override final  DateTime date;
 @override final  String recipeId;
+@override@JsonKey() final  bool uploaded;
 
 /// Create a copy of RecipeShoppingData
 /// with the given fields replaced by the non-null parameter values.
@@ -102,16 +104,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RecipeShoppingData&&(identical(other.id, id) || other.id == id)&&(identical(other.date, date) || other.date == date)&&(identical(other.recipeId, recipeId) || other.recipeId == recipeId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RecipeShoppingData&&(identical(other.id, id) || other.id == id)&&(identical(other.date, date) || other.date == date)&&(identical(other.recipeId, recipeId) || other.recipeId == recipeId)&&(identical(other.uploaded, uploaded) || other.uploaded == uploaded));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,date,recipeId);
+int get hashCode => Object.hash(runtimeType,id,date,recipeId,uploaded);
 
 @override
 String toString() {
-  return 'RecipeShoppingData(id: $id, date: $date, recipeId: $recipeId)';
+  return 'RecipeShoppingData(id: $id, date: $date, recipeId: $recipeId, uploaded: $uploaded)';
 }
 
 
@@ -122,7 +124,7 @@ abstract mixin class _$RecipeShoppingDataCopyWith<$Res> implements $RecipeShoppi
   factory _$RecipeShoppingDataCopyWith(_RecipeShoppingData value, $Res Function(_RecipeShoppingData) _then) = __$RecipeShoppingDataCopyWithImpl;
 @override @useResult
 $Res call({
- String id, DateTime date, String recipeId
+ String id, DateTime date, String recipeId, bool uploaded
 });
 
 
@@ -139,12 +141,13 @@ class __$RecipeShoppingDataCopyWithImpl<$Res>
 
 /// Create a copy of RecipeShoppingData
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? date = null,Object? recipeId = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? date = null,Object? recipeId = null,Object? uploaded = null,}) {
   return _then(_RecipeShoppingData(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,date: null == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
 as DateTime,recipeId: null == recipeId ? _self.recipeId : recipeId // ignore: cast_nullable_to_non_nullable
-as String,
+as String,uploaded: null == uploaded ? _self.uploaded : uploaded // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 

@@ -6,4 +6,6 @@ class SupabaseTables {
   static String recipe = 'recipe';
   static String shopping = 'shopping';
   static String storage = 'storage';
+  static String recipeStatistic = 'recipe_statistic';
+  static String recipeShopping = 'recipe_shopping';
 }

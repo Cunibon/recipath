@@ -1,3 +1,4 @@
+import 'package:drift/drift.dart' as drift;
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:random_string/random_string.dart';
 import 'package:recipe_list/data/recipe_data/recipe_data.dart';
@@ -12,6 +13,7 @@ abstract class RecipeShoppingData with _$RecipeShoppingData {
     required String id,
     required DateTime date,
     required String recipeId,
+    @Default(false) bool uploaded,
   }) = _RecipeShoppingData;
 
   factory RecipeShoppingData.fromJson(Map<String, Object?> json) =>
@@ -22,6 +24,15 @@ abstract class RecipeShoppingData with _$RecipeShoppingData {
         id: data.id,
         date: DateTime.fromMillisecondsSinceEpoch(data.date),
         recipeId: data.recipeId,
+        uploaded: data.uploaded,
+      );
+
+  factory RecipeShoppingData.fromSupabase(Map<String, dynamic> data) =>
+      RecipeShoppingData(
+        id: data["id"],
+        date: DateTime.fromMillisecondsSinceEpoch(data["date"]),
+        recipeId: data["recipe_id"],
+        uploaded: true,
       );
 
   factory RecipeShoppingData.fromRecipe(RecipeData data) => RecipeShoppingData(
@@ -37,5 +48,12 @@ extension RecipeShoppingDataFunctions on RecipeShoppingData {
         id: id,
         date: date.millisecondsSinceEpoch,
         recipeId: recipeId,
+        uploaded: drift.Value(uploaded),
       );
+
+  Map<String, dynamic> toSupabase() => {
+    "id": id,
+    "date": date.millisecondsSinceEpoch,
+    "recipe_id": recipeId,
+  };
 }
