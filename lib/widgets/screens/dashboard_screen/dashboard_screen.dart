@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_list/common.dart';
 import 'package:recipe_list/helper/date_time_extension.dart';
-import 'package:recipe_list/widgets/generic/navigation_drawer_scaffold.dart';
+import 'package:recipe_list/widgets/navigation/navigation_drawer_scaffold.dart';
 import 'package:recipe_list/widgets/screens/dashboard_screen/charts/grocery_chart/grocery_chart.dart';
 import 'package:recipe_list/widgets/screens/dashboard_screen/charts/kcal_chart/nutrition_chart.dart';
 import 'package:recipe_list/widgets/screens/dashboard_screen/charts/recipe_chart/recipe_chart.dart';

@@ -12,7 +12,8 @@ import 'package:recipe_list/repos/grocery/grocery_repo_notifier.dart';
 import 'package:recipe_list/repos/recipe/recipe_repo_notifier.dart';
 import 'package:recipe_list/repos/shopping/shopping_repo_notifier.dart';
 import 'package:recipe_list/repos/storage/storage_repo_notifier.dart';
-import 'package:recipe_list/widgets/generic/navigation_drawer_scaffold.dart';
+import 'package:recipe_list/widgets/navigation/default_navigation_title.dart';
+import 'package:recipe_list/widgets/navigation/navigation_drawer_scaffold.dart';
 import 'package:share_plus/share_plus.dart';
 
 class SettingsScreen extends ConsumerWidget {
@@ -21,6 +22,8 @@ class SettingsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return NavigationDrawerScaffold(
+      titleBuilder: (title) =>
+          DefaultNavigationTitle(title: title, syncState: SyncState.synced),
       body: Column(
         children: [
           TextButton.icon(

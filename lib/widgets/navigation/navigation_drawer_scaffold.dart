@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:recipe_list/domain_service/syncing_service/syncing_service/syncing_service_notifier.dart';
 import 'package:recipe_list/widgets/authentication/auth_buttons.dart';
 import 'package:recipe_list/widgets/providers/drawer_destination_notifier.dart';
 import 'package:recipe_list/widgets/screens/recipe_screen/drawer_destination.dart';
@@ -11,14 +10,14 @@ class NavigationDrawerScaffold extends ConsumerWidget {
     this.floatingActionButton,
     this.body,
     this.actions,
-    this.titleBuilder,
+    required this.titleBuilder,
     super.key,
   });
 
   final Widget? floatingActionButton;
   final Widget? body;
   final List<Widget>? actions;
-  final Widget Function(String title)? titleBuilder;
+  final Widget Function(String title) titleBuilder;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -42,12 +41,7 @@ class NavigationDrawerScaffold extends ConsumerWidget {
             );
           },
         ),
-        title: titleBuilder == null
-            ? Text(
-                destiantions[selectedIndex].label,
-                style: Theme.of(context).textTheme.titleLarge,
-              )
-            : titleBuilder!(destiantions[selectedIndex].label),
+        title: titleBuilder(destiantions[selectedIndex].label),
         actions: actions,
       ),
       floatingActionButton: floatingActionButton,
@@ -56,19 +50,9 @@ class NavigationDrawerScaffold extends ConsumerWidget {
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Destinations',
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                IconButton(
-                  onPressed: () =>
-                      ref.read(syncingServiceNotifierProvider).start(),
-                  icon: Icon(Icons.cloud_upload),
-                ),
-              ],
+            child: Text(
+              'Destinations',
+              style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
           for (final destinations in nestedDestinations) ...[

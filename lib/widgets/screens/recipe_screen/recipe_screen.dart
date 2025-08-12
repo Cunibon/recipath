@@ -8,9 +8,10 @@ import 'package:recipe_list/data/recipe_data/recipe_data.dart';
 import 'package:recipe_list/root_routes.dart';
 import 'package:recipe_list/widgets/generic/dialogs/clear_confirmation_dialog.dart';
 import 'package:recipe_list/widgets/generic/dialogs/finish_shopping_planning.dart';
-import 'package:recipe_list/widgets/generic/navigation_drawer_scaffold.dart';
 import 'package:recipe_list/widgets/generic/notifier_future_builder.dart';
 import 'package:recipe_list/widgets/generic/searchable_list.dart';
+import 'package:recipe_list/widgets/navigation/default_navigation_title.dart';
+import 'package:recipe_list/widgets/navigation/navigation_drawer_scaffold.dart';
 import 'package:recipe_list/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 import 'package:recipe_list/widgets/screens/recipe_screen/compact_recipe_item.dart';
 import 'package:recipe_list/widgets/screens/recipe_screen/providers/recipe_notifier.dart';
@@ -27,6 +28,13 @@ class RecipeScreen extends ConsumerWidget {
     final shoppingPlan = ref.watch(shoppingPlanningNotifierProvider);
 
     return NavigationDrawerScaffold(
+      titleBuilder: (title) => DefaultNavigationTitle(
+        title: title,
+        syncState:
+            asyncRecipe.value?.values.any((e) => e.uploaded == false) == true
+            ? SyncState.unsynced
+            : SyncState.synced,
+      ),
       actions: [
         if (shoppingPlan == null)
           IconButton(

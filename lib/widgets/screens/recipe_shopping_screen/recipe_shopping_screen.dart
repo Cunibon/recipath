@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:recipe_list/widgets/generic/navigation_drawer_scaffold.dart';
+import 'package:recipe_list/widgets/navigation/default_navigation_title.dart';
+import 'package:recipe_list/widgets/navigation/navigation_drawer_scaffold.dart';
 import 'package:recipe_list/widgets/screens/recipe_shopping_screen/providers/recipe_shopping_screen_notifier.dart';
 import 'package:recipe_list/widgets/screens/recipe_shopping_screen/recipe_shopping_item.dart';
 
@@ -9,10 +10,18 @@ class RecipeShoppingScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final asyncValue = ref.watch(recipeShoppingScreenNotifierProvider);
+    final asyncData = ref.watch(recipeShoppingScreenNotifierProvider);
 
     return NavigationDrawerScaffold(
-      body: asyncValue.when(
+      titleBuilder: (title) => DefaultNavigationTitle(
+        title: title,
+        syncState:
+            asyncData.value?.any((e) => e.shoppingData.uploaded == false) ==
+                true
+            ? SyncState.unsynced
+            : SyncState.synced,
+      ),
+      body: asyncData.when(
         data: (data) => ListView.builder(
           itemCount: data.length,
           itemBuilder: (context, index) =>

@@ -5,7 +5,6 @@ import 'package:recipe_list/data/recipe_data/recipe_data.dart';
 import 'package:recipe_list/root_routes.dart';
 import 'package:recipe_list/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipe_list/widgets/generic/highlight_search/highlightable_text.dart';
-import 'package:recipe_list/widgets/providers/supabase/supabase_user_notifier.dart';
 import 'package:recipe_list/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 import 'package:recipe_list/widgets/screens/recipe_screen/create_recipe_screen/compact_ingredient_view.dart';
 import 'package:recipe_list/widgets/screens/recipe_screen/local_image.dart';
@@ -103,9 +102,7 @@ class CompactRecipeItem extends ConsumerWidget {
                                 .copyWith(fontWeight: FontWeight.bold),
                           ),
                           Icon(Icons.shopping_cart),
-                        ] else if (!data.uploaded &&
-                            ref.watch(supabaseUserProvider) != null)
-                          Icon(Icons.cloud_upload),
+                        ],
                       ],
                     ),
                     CompactIngredientView(

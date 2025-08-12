@@ -4,9 +4,10 @@ import 'package:recipe_list/application/shopping_modifier/shopping_modifier_noti
 import 'package:recipe_list/data/ingredient_data/ingredient_data.dart';
 import 'package:recipe_list/data/shopping_data/shopping_data.dart';
 import 'package:recipe_list/widgets/generic/dialogs/clear_confirmation_dialog.dart';
-import 'package:recipe_list/widgets/generic/navigation_drawer_scaffold.dart';
 import 'package:recipe_list/widgets/generic/notifier_future_builder.dart';
 import 'package:recipe_list/widgets/generic/searchable_list.dart';
+import 'package:recipe_list/widgets/navigation/default_navigation_title.dart';
+import 'package:recipe_list/widgets/navigation/navigation_drawer_scaffold.dart';
 import 'package:recipe_list/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 import 'package:recipe_list/widgets/screens/shopping_screen/add_ingredient_dialog.dart';
 import 'package:recipe_list/widgets/screens/shopping_screen/providers/shopping_notifier.dart';
@@ -31,6 +32,13 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
     final asyncStorage = ref.watch(storageNotifierProvider);
 
     return NavigationDrawerScaffold(
+      titleBuilder: (title) => DefaultNavigationTitle(
+        title: title,
+        syncState:
+            asyncItems.value?.values.any((e) => e.uploaded == false) == true
+            ? SyncState.unsynced
+            : SyncState.synced,
+      ),
       actions: [
         TextButton(
           onPressed: () async {
