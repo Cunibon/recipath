@@ -15,7 +15,7 @@
 - 🛒 **Shopping** — Create a shopping list based on your recipes and tick them off as you go.
 - 🥫 **Storage** — Keep track of ingredients and quantities in your storage.
 - 📈 **Charts** — Analyze your cooking habits with a dashboard showing what you cooked, what ingredients it took and how many calories those have.
-- ☁️ **Supabase** — Access your data on multiple devices.
+- ☁️ **Syncing** — Access your data on multiple devices.
 
 ---
 
