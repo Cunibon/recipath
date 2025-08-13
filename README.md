@@ -19,7 +19,7 @@
 
 ---
 
-## 🆓 Free vs. Pro
+## Free vs. Pro
 
 ReciPath is **free to use locally** with Shopping sync.  
 Upgrade to **Pro** to sync all your recipes, images, charts etc.
@@ -63,7 +63,7 @@ Once you are done your time will be recorded, an average time for the recipe wil
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Frontend:** Flutter (cross-platform)
 - **Backend:** Supabse
@@ -71,14 +71,14 @@ Once you are done your time will be recorded, an average time for the recipe wil
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 We welcome contributions!  
 Whether it’s bug reports, feature requests, or code contributions
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the [MIT License](LICENSE).
 
