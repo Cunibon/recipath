@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_list/root_routes.dart';
-import 'package:recipe_list/widgets/recipe_screen/drawer_destination.dart';
+import 'package:recipe_list/widgets/screens/recipe_screen/drawer_destination.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'drawer_destination_notifier.g.dart';

@@ -1,5 +1,5 @@
 import 'package:drift/drift.dart';
-import 'package:recipe_list/data/recipe_statistic_data.dart';
+import 'package:recipe_list/data/recipe_statistic_data/recipe_statistic_data.dart';
 import 'package:recipe_list/drift/database.dart';
 import 'package:recipe_list/repos/recipe_statistics/recipe_statistics_repo.dart';
 
@@ -21,15 +21,28 @@ class RecipeStatisticsRepoDrift extends RecipeStatisticsRepo {
   }
 
   @override
+  Future<Map<String, RecipeStatisticData>> getNotUploaded() async {
+    final rows = await (baseQuery..where((tbl) => tbl.uploaded.equals(false)))
+        .get();
+    return {
+      for (final row in rows) row.id: RecipeStatisticData.fromTableData(row),
+    };
+  }
+
+  @override
   Future<Map<String, RecipeStatisticData>> get() async {
     final rows = await baseQuery.get();
-    return {for (final row in rows) row.id: RecipeStatisticData.fromRow(row)};
+    return {
+      for (final row in rows) row.id: RecipeStatisticData.fromTableData(row),
+    };
   }
 
   @override
   Stream<Map<String, RecipeStatisticData>> stream() {
     return baseQuery.watch().map((rows) {
-      return {for (final row in rows) row.id: RecipeStatisticData.fromRow(row)};
+      return {
+        for (final row in rows) row.id: RecipeStatisticData.fromTableData(row),
+      };
     });
   }
 

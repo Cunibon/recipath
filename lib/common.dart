@@ -21,3 +21,7 @@ final doubleNumberFormat = NumberFormat()..maximumFractionDigits = 2;
 
 final dateFormat = DateFormat("dd.MM.yy");
 final dateTimeFormat = DateFormat("dd.MM.yy HH:mm");
+
+final emailRegex = RegExp(
+  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z]+",
+);

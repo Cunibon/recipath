@@ -1,9 +1,9 @@
 import 'package:drift/drift.dart';
-import 'package:recipe_list/data/recipe_shopping_data.dart';
+import 'package:recipe_list/data/recipe_shopping_data/recipe_shopping_data.dart';
 import 'package:recipe_list/drift/database.dart';
-import 'package:recipe_list/repos/repo.dart';
+import 'package:recipe_list/repos/sync_repo.dart';
 
-class RecipeShoppingRepoDrift extends Repo<RecipeShoppingData> {
+class RecipeShoppingRepoDrift extends SyncRepo<RecipeShoppingData> {
   RecipeShoppingRepoDrift(super.db);
 
   @override
@@ -21,15 +21,28 @@ class RecipeShoppingRepoDrift extends Repo<RecipeShoppingData> {
   }
 
   @override
+  Future<Map<String, RecipeShoppingData>> getNotUploaded() async {
+    final rows = await (baseQuery..where((tbl) => tbl.uploaded.equals(false)))
+        .get();
+    return {
+      for (final row in rows) row.id: RecipeShoppingData.fromTableData(row),
+    };
+  }
+
+  @override
   Future<Map<String, RecipeShoppingData>> get() async {
     final rows = await baseQuery.get();
-    return {for (final row in rows) row.id: RecipeShoppingData.fromRow(row)};
+    return {
+      for (final row in rows) row.id: RecipeShoppingData.fromTableData(row),
+    };
   }
 
   @override
   Stream<Map<String, RecipeShoppingData>> stream() {
     return baseQuery.watch().map((rows) {
-      return {for (final row in rows) row.id: RecipeShoppingData.fromRow(row)};
+      return {
+        for (final row in rows) row.id: RecipeShoppingData.fromTableData(row),
+      };
     });
   }
 

@@ -2,6 +2,7 @@ import 'package:drift/drift.dart';
 import 'package:recipe_list/drift/tables/recipe_table.dart';
 
 @TableIndex(name: 'recipeStatistics_recipeId', columns: {#recipeId})
+@TableIndex(name: 'recipeStatistics_uploaded', columns: {#uploaded})
 class RecipeStatisticTable extends Table {
   @override
   Set<Column<Object>> get primaryKey => {id};
@@ -12,4 +13,6 @@ class RecipeStatisticTable extends Table {
 
   TextColumn get recipeId =>
       text().references(RecipeTable, #id, onDelete: KeyAction.cascade)();
+
+  BoolColumn get uploaded => boolean().withDefault(Constant(false))();
 }

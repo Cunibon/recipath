@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:localstorage/localstorage.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:recipe_list/application_constants.dart';
+import 'package:recipe_list/domain_service/syncing_service/syncing_service/syncing_service_notifier.dart';
 import 'package:recipe_list/drift/database.dart';
 import 'package:recipe_list/drift/database_notifier.dart';
+import 'package:recipe_list/providers/application_path_provider.dart';
 import 'package:recipe_list/root_routes.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,6 +17,10 @@ void main() async {
 
   final isolateDb = await AppDatabase.createIsolate();
   final db = AppDatabase(await isolateDb.connect());
+
+  final applicationPath = await getApplicationSupportDirectory();
+
+  await Supabase.initialize(url: supabaseUrl, anonKey: supabaseKey);
 
   final goRouter = GoRouter(
     routes: [
@@ -29,22 +38,36 @@ void main() async {
 
   runApp(
     ProviderScope(
-      overrides: [databaseNotifierProvider.overrideWith((ref) => db)],
+      overrides: [
+        databaseNotifierProvider.overrideWith((ref) => db),
+        applicationPathProvider.overrideWith((ref) => applicationPath),
+      ],
       child: MyApp(router: goRouter),
     ),
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerStatefulWidget {
   const MyApp({required this.router, super.key});
 
   final GoRouter router;
 
   @override
+  ConsumerState<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends ConsumerState<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+    ref.read(syncingServiceNotifierProvider).start();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      routerConfig: router,
-      title: 'Recipe List',
+      title: 'ReciPath',
+      routerConfig: widget.router,
       theme: ThemeData.dark().copyWith(
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(

@@ -1,11 +1,11 @@
 import 'package:drift/drift.dart';
-import 'package:recipe_list/data/ingredient_data.dart';
-import 'package:recipe_list/data/recipe_data.dart';
-import 'package:recipe_list/data/recipe_step_data.dart';
+import 'package:recipe_list/data/ingredient_data/ingredient_data.dart';
+import 'package:recipe_list/data/recipe_data/recipe_data.dart';
+import 'package:recipe_list/data/recipe_step_data/recipe_step_data.dart';
 import 'package:recipe_list/drift/database.dart';
-import 'package:recipe_list/repos/repo.dart';
+import 'package:recipe_list/repos/sync_repo.dart';
 
-class RecipeRepoDrift extends Repo<RecipeData> {
+class RecipeRepoDrift extends SyncRepo<RecipeData> {
   RecipeRepoDrift(super.db, {this.incluedArchived = false});
   final bool incluedArchived;
 
@@ -51,14 +51,14 @@ class RecipeRepoDrift extends Repo<RecipeData> {
       final stepRow = row.readTableOrNull(db.recipeStepTable);
 
       final recipe = recipesById.putIfAbsent(recipeRow.id, () {
-        return RecipeData.fromRow(recipeRow);
+        return RecipeData.fromTableData(recipeRow);
       });
 
       if (stepRow != null) {
         late RecipeStepData recipeStep;
 
         if (recipe.steps.lastOrNull?.id != stepRow.id) {
-          recipeStep = RecipeStepData.fromRow(stepRow);
+          recipeStep = RecipeStepData.fromTable(stepRow);
           recipesById[recipe.id] = recipesById[recipe.id]!.copyWith(
             steps: [...recipesById[recipe.id]!.steps, recipeStep],
           );
@@ -76,7 +76,7 @@ class RecipeRepoDrift extends Repo<RecipeData> {
                 recipeStep.copyWith(
                   ingredients: [
                     ...recipeStep.ingredients,
-                    IngredientData.fromRow(ingredientRow),
+                    IngredientData.fromTableData(ingredientRow),
                   ],
                 ),
               ),
@@ -86,6 +86,12 @@ class RecipeRepoDrift extends Repo<RecipeData> {
     }
 
     return recipesById;
+  }
+
+  @override
+  Future<Map<String, RecipeData>> getNotUploaded() async {
+    final rows = await (baseQuery..where(table.uploaded.equals(false))).get();
+    return mapResult(rows);
   }
 
   @override
@@ -111,6 +117,7 @@ class RecipeRepoDrift extends Repo<RecipeData> {
               servings: Value(newData.servings),
               imageName: Value(newData.imageName),
               archived: Value(newData.archived),
+              uploaded: Value(newData.uploaded),
             ),
             mode: InsertMode.insertOrReplace,
           );

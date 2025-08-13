@@ -7,6 +7,7 @@ import 'package:drift_flutter/drift_flutter.dart';
 import 'package:flutter/services.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
+import 'package:recipe_list/drift/tables/file_table.dart';
 import 'package:recipe_list/drift/tables/grocery_table.dart';
 import 'package:recipe_list/drift/tables/ingredient_table.dart';
 import 'package:recipe_list/drift/tables/recipe_shopping_table.dart';
@@ -30,13 +31,14 @@ part 'database.g.dart';
     StorageTable,
     RecipeStatisticTable,
     RecipeShoppingTable,
+    FileTable,
   ],
 )
 class AppDatabase extends _$AppDatabase {
   AppDatabase([QueryExecutor? executor]) : super(executor ?? _openConnection());
 
   @override
-  int get schemaVersion => 6;
+  int get schemaVersion => 9;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -66,6 +68,27 @@ class AppDatabase extends _$AppDatabase {
       if (from < 6) {
         await m.createTable(recipeShoppingTable);
       }
+      if (from < 7) {
+        await m.addColumn(groceryTable, groceryTable.uploaded);
+        await m.addColumn(recipeShoppingTable, recipeShoppingTable.uploaded);
+        await m.addColumn(recipeStatisticTable, recipeStatisticTable.uploaded);
+        await m.addColumn(
+          recipeStepIngredientTable,
+          recipeStepIngredientTable.uploaded,
+        );
+        await m.addColumn(recipeStepTable, recipeStepTable.uploaded);
+        await m.addColumn(recipeTable, recipeTable.uploaded);
+        await m.addColumn(shoppingTable, shoppingTable.uploaded);
+        await m.addColumn(storageTable, storageTable.uploaded);
+      }
+      if (from < 8) {
+        await m.addColumn(groceryTable, groceryTable.archived);
+        await m.addColumn(shoppingTable, shoppingTable.deleted);
+        await m.addColumn(storageTable, storageTable.deleted);
+      }
+      if (from < 9) {
+        await m.createTable(fileTable);
+      }
     },
   );
 
@@ -85,5 +108,15 @@ class AppDatabase extends _$AppDatabase {
         return NativeDatabase(File(path));
       });
     });
+  }
+
+  Future<void> clear() async {
+    await customStatement('PRAGMA foreign_keys = OFF');
+    await transaction(() async {
+      for (final table in allTables) {
+        await delete(table).go();
+      }
+    });
+    await customStatement('PRAGMA foreign_keys = ON');
   }
 }

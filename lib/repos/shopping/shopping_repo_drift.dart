@@ -1,21 +1,30 @@
 import 'package:drift/drift.dart';
-import 'package:recipe_list/data/ingredient_data.dart';
-import 'package:recipe_list/data/shopping_data.dart';
+import 'package:recipe_list/data/ingredient_data/ingredient_data.dart';
+import 'package:recipe_list/data/shopping_data/shopping_data.dart';
 import 'package:recipe_list/drift/database.dart';
-import 'package:recipe_list/repos/repo.dart';
+import 'package:recipe_list/repos/sync_repo.dart';
 
-class ShoppingRepoDrift extends Repo<ShoppingData> {
-  ShoppingRepoDrift(super.db);
+class ShoppingRepoDrift extends SyncRepo<ShoppingData> {
+  ShoppingRepoDrift(super.db, {this.incluedDeleted = false});
+  final bool incluedDeleted;
 
   @override
   $ShoppingTableTable get table => db.shoppingTable;
   @override
-  JoinedSelectStatement get baseQuery => db.select(table).join([
-    leftOuterJoin(
-      db.ingredientTable,
-      table.ingredientId.equalsExp(db.ingredientTable.id),
-    ),
-  ]);
+  JoinedSelectStatement get baseQuery {
+    final query = db.select(table).join([
+      leftOuterJoin(
+        db.ingredientTable,
+        table.ingredientId.equalsExp(db.ingredientTable.id),
+      ),
+    ]);
+
+    if (!incluedDeleted) {
+      query.where(table.deleted.equals(false));
+    }
+
+    return query;
+  }
 
   Map<String, ShoppingData> mapResult(List<TypedResult> rows) {
     final Map<String, ShoppingData> shoppingById = {};
@@ -24,14 +33,18 @@ class ShoppingRepoDrift extends Repo<ShoppingData> {
       final shoppingRow = row.readTable(table);
       final ingredientRow = row.readTable(db.ingredientTable);
 
-      shoppingById[shoppingRow.id] = ShoppingData(
-        id: shoppingRow.id,
-        done: shoppingRow.done,
-        count: shoppingRow.count,
-        ingredient: IngredientData.fromRow(ingredientRow),
+      shoppingById[shoppingRow.id] = ShoppingData.fromTableData(
+        shoppingRow,
+        IngredientData.fromTableData(ingredientRow),
       );
     }
     return shoppingById;
+  }
+
+  @override
+  Future<Map<String, ShoppingData>> getNotUploaded() async {
+    final rows = await (baseQuery..where(table.uploaded.equals(false))).get();
+    return mapResult(rows);
   }
 
   @override

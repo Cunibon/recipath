@@ -1,12 +1,13 @@
+import 'package:random_string/random_string.dart';
 import 'package:recipe_list/application/grocery_modifier/grocery_modifier.dart';
 import 'package:recipe_list/application/recipe_modifier/recipe_modifier.dart';
 import 'package:recipe_list/application/shopping_modifier/shopping_modifier.dart';
 import 'package:recipe_list/application/storage_modifier/storage_modifier.dart';
 import 'package:recipe_list/application_constants.dart';
-import 'package:recipe_list/data/grocery_data.dart';
-import 'package:recipe_list/data/ingredient_data.dart';
-import 'package:recipe_list/data/recipe_data.dart';
-import 'package:recipe_list/data/shopping_data.dart';
+import 'package:recipe_list/data/grocery_data/grocery_data.dart';
+import 'package:recipe_list/data/recipe_data/recipe_data.dart';
+import 'package:recipe_list/data/shopping_data/shopping_data.dart';
+import 'package:recipe_list/data/storage_data/storage_data.dart';
 
 class DataImportService {
   DataImportService({
@@ -22,47 +23,67 @@ class DataImportService {
 
   Future<void> import(Map<String, dynamic> data) async {
     final groceryData = data[groceryDataKey];
-    if (groceryData is Map<String, dynamic>) {
-      await importGrocery(groceryData);
-    }
+    final groceryLookup = await importGrocery(groceryData);
 
     final recipeData = data[recipeDataKey];
-    if (recipeData is Map<String, dynamic>) {
-      await importRecipe(recipeData);
-    }
+    await importRecipe(recipeData, groceryLookup);
 
     final shoppingData = data[shoppingDataKey];
-    if (shoppingData is Map<String, dynamic>) {
-      await importShopping(shoppingData);
-    }
+    await importShopping(shoppingData, groceryLookup);
 
     final storageData = data[storageDataKey];
-    if (storageData is Map<String, dynamic>) {
-      await importStorage(storageData);
-    }
+    await importStorage(storageData, groceryLookup);
   }
 
-  Future<void> importRecipe(Map<String, dynamic> recipeData) async {
-    for (final data in recipeData.values) {
-      await recipeModifier.add(RecipeData.fromJson(data));
-    }
-  }
+  Future<Map<String, String>> importGrocery(
+    Map<String, dynamic> groceryData,
+  ) async {
+    final lookup = <String, String>{};
 
-  Future<void> importShopping(Map<String, dynamic> shoppingData) async {
-    for (final data in shoppingData.values) {
-      await shoppingModifier.updateItem(ShoppingData.fromJson(data));
-    }
-  }
-
-  Future<void> importStorage(Map<String, dynamic> storageData) async {
-    for (final data in storageData.values) {
-      await storageModifier.updateItem(IngredientData.fromJson(data));
-    }
-  }
-
-  Future<void> importGrocery(Map<String, dynamic> groceryData) async {
     for (final data in groceryData.values) {
-      await groceryModifier.add(GroceryData.fromJson(data));
+      data["uploaded"] = false;
+      final parsed = GroceryData.fromJson(data);
+      final copy = parsed.copyWith(id: randomAlphaNumeric(16));
+      lookup[parsed.id] = copy.id;
+      await groceryModifier.add(copy);
+    }
+
+    return lookup;
+  }
+
+  Future<void> importRecipe(
+    Map<String, dynamic> recipeData,
+    Map<String, String> groceryLookup,
+  ) async {
+    for (final data in recipeData.values) {
+      data["uploaded"] = false;
+      await recipeModifier.add(
+        RecipeData.fromJson(data).copyWithNewId(groceryLookup: groceryLookup),
+      );
+    }
+  }
+
+  Future<void> importShopping(
+    Map<String, dynamic> shoppingData,
+    Map<String, String> groceryLookup,
+  ) async {
+    for (final data in shoppingData.values) {
+      data["uploaded"] = false;
+      await shoppingModifier.updateItem(
+        ShoppingData.fromJson(data).copyWithNewId(groceryLookup: groceryLookup),
+      );
+    }
+  }
+
+  Future<void> importStorage(
+    Map<String, dynamic> storageData,
+    Map<String, String> groceryLookup,
+  ) async {
+    for (final data in storageData.values) {
+      data["uploaded"] = false;
+      await storageModifier.updateItem(
+        StorageData.fromJson(data).copyWithNewId(groceryLookup: groceryLookup),
+      );
     }
   }
 }

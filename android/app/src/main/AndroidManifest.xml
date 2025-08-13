@@ -4,9 +4,10 @@
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
     <uses-permission android:name="android.permission.READ_MEDIA_DOCUMENTS" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:label="recipe_list"
+        android:label="ReciPath"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

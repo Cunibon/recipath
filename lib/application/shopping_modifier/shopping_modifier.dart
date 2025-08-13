@@ -1,7 +1,9 @@
+import 'package:drift/drift.dart';
 import 'package:random_string/random_string.dart';
-import 'package:recipe_list/data/grocery_data.dart';
-import 'package:recipe_list/data/ingredient_data.dart';
-import 'package:recipe_list/data/shopping_data.dart';
+import 'package:recipe_list/data/grocery_data/grocery_data.dart';
+import 'package:recipe_list/data/ingredient_data/ingredient_data.dart';
+import 'package:recipe_list/data/shopping_data/shopping_data.dart';
+import 'package:recipe_list/drift/database.dart';
 import 'package:recipe_list/repos/repo.dart';
 
 class ShoppingModifier {
@@ -40,6 +42,7 @@ class ShoppingModifier {
         newShoppingData[grocery.id] = shoppingData.copyWith(
           count: (updatedIngredient.amount / grocery.normalAmount).ceil(),
           ingredient: updatedIngredient,
+          uploaded: false,
         );
       }
     }
@@ -49,9 +52,19 @@ class ShoppingModifier {
     }
   }
 
-  Future<void> updateItem(ShoppingData updated) => repo.add(updated);
+  Future<void> updateItem(ShoppingData updated) =>
+      repo.add(updated.copyWith(uploaded: false));
 
-  Future<void> deleteItem(ShoppingData toDelete) => repo.delete(toDelete.id);
+  Future<void> deleteItem(ShoppingData toDelete) =>
+      (repo.db.update(
+        repo.db.shoppingTable,
+      )..where((tbl) => tbl.id.equals(toDelete.id))).write(
+        ShoppingTableCompanion(deleted: Value(true), uploaded: Value(false)),
+      );
 
-  Future<void> clear() => repo.clear();
+  Future<void> clear() => repo.db
+      .update(repo.db.shoppingTable)
+      .write(
+        ShoppingTableCompanion(deleted: Value(true), uploaded: Value(false)),
+      );
 }
