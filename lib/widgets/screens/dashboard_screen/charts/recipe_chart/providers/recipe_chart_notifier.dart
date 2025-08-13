@@ -13,7 +13,7 @@ part 'recipe_chart_notifier.g.dart';
 Future<ChartState> recipeChartNotifier(
   Ref ref,
   DateTimeRange dateRange,
-  List<String> selectedRecipes,
+  Set<String> selectedRecipes,
 ) async {
   final recipeHistoyData = await ref.watch(
     recipeChartStatisticsNotifierProvider(dateRange).future,

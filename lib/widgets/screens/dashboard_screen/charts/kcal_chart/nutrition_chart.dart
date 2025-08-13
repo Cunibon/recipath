@@ -15,7 +15,7 @@ class NutritionChart extends ConsumerWidget {
   });
 
   final DateTimeRange dateRange;
-  final List<String> selectedRecipes;
+  final Set<String> selectedRecipes;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

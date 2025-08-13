@@ -13,7 +13,7 @@ class RecipeChart extends ConsumerWidget {
   });
 
   final DateTimeRange dateRange;
-  final List<String> selectedRecipes;
+  final Set<String> selectedRecipes;
 
   final void Function(String? recipeId) onTap;
 

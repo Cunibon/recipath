@@ -14,7 +14,7 @@ part 'nutrition_chart_notifier.g.dart';
 Future<ChartState> nutritionChartNotifier(
   Ref ref,
   DateTimeRange dateRange,
-  List<String> selectedRecipes,
+  Set<String> selectedRecipes,
 ) async {
   final groceryMap = await ref.watch(groceryNotifierProvider.future);
   final groceryStatisticsData = await ref.watch(

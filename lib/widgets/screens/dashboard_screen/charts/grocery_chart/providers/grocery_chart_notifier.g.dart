@@ -7,7 +7,7 @@ part of 'grocery_chart_notifier.dart';
 // **************************************************************************
 
 String _$groceryChartNotifierHash() =>
-    r'e2a950188e7038ca7194d718e4658d80dd7bedd8';
+    r'349d55a8e82b30a90010922af07116d6baf58086';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -42,7 +42,7 @@ class GroceryChartNotifierFamily extends Family<AsyncValue<ChartState>> {
   /// See also [groceryChartNotifier].
   GroceryChartNotifierProvider call(
     DateTimeRange<DateTime> dateRange,
-    List<String> selectedRecipes,
+    Set<String> selectedRecipes,
   ) {
     return GroceryChartNotifierProvider(dateRange, selectedRecipes);
   }
@@ -75,7 +75,7 @@ class GroceryChartNotifierProvider
   /// See also [groceryChartNotifier].
   GroceryChartNotifierProvider(
     DateTimeRange<DateTime> dateRange,
-    List<String> selectedRecipes,
+    Set<String> selectedRecipes,
   ) : this._internal(
         (ref) => groceryChartNotifier(
           ref as GroceryChartNotifierRef,
@@ -106,7 +106,7 @@ class GroceryChartNotifierProvider
   }) : super.internal();
 
   final DateTimeRange<DateTime> dateRange;
-  final List<String> selectedRecipes;
+  final Set<String> selectedRecipes;
 
   @override
   Override overrideWith(
@@ -156,7 +156,7 @@ mixin GroceryChartNotifierRef on AutoDisposeFutureProviderRef<ChartState> {
   DateTimeRange<DateTime> get dateRange;
 
   /// The parameter `selectedRecipes` of this provider.
-  List<String> get selectedRecipes;
+  Set<String> get selectedRecipes;
 }
 
 class _GroceryChartNotifierProviderElement
@@ -168,7 +168,7 @@ class _GroceryChartNotifierProviderElement
   DateTimeRange<DateTime> get dateRange =>
       (origin as GroceryChartNotifierProvider).dateRange;
   @override
-  List<String> get selectedRecipes =>
+  Set<String> get selectedRecipes =>
       (origin as GroceryChartNotifierProvider).selectedRecipes;
 }
 

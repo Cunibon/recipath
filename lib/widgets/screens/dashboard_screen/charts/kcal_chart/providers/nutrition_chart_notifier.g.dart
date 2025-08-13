@@ -7,7 +7,7 @@ part of 'nutrition_chart_notifier.dart';
 // **************************************************************************
 
 String _$nutritionChartNotifierHash() =>
-    r'7aeeea05a68f729500dcf8bc23314e5e756b2f31';
+    r'23240cfbafbee2ed83d6ab832a302f7fb7910b98';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -42,7 +42,7 @@ class NutritionChartNotifierFamily extends Family<AsyncValue<ChartState>> {
   /// See also [nutritionChartNotifier].
   NutritionChartNotifierProvider call(
     DateTimeRange<DateTime> dateRange,
-    List<String> selectedRecipes,
+    Set<String> selectedRecipes,
   ) {
     return NutritionChartNotifierProvider(dateRange, selectedRecipes);
   }
@@ -75,7 +75,7 @@ class NutritionChartNotifierProvider
   /// See also [nutritionChartNotifier].
   NutritionChartNotifierProvider(
     DateTimeRange<DateTime> dateRange,
-    List<String> selectedRecipes,
+    Set<String> selectedRecipes,
   ) : this._internal(
         (ref) => nutritionChartNotifier(
           ref as NutritionChartNotifierRef,
@@ -106,7 +106,7 @@ class NutritionChartNotifierProvider
   }) : super.internal();
 
   final DateTimeRange<DateTime> dateRange;
-  final List<String> selectedRecipes;
+  final Set<String> selectedRecipes;
 
   @override
   Override overrideWith(
@@ -156,7 +156,7 @@ mixin NutritionChartNotifierRef on AutoDisposeFutureProviderRef<ChartState> {
   DateTimeRange<DateTime> get dateRange;
 
   /// The parameter `selectedRecipes` of this provider.
-  List<String> get selectedRecipes;
+  Set<String> get selectedRecipes;
 }
 
 class _NutritionChartNotifierProviderElement
@@ -168,7 +168,7 @@ class _NutritionChartNotifierProviderElement
   DateTimeRange<DateTime> get dateRange =>
       (origin as NutritionChartNotifierProvider).dateRange;
   @override
-  List<String> get selectedRecipes =>
+  Set<String> get selectedRecipes =>
       (origin as NutritionChartNotifierProvider).selectedRecipes;
 }
 
