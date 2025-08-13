@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_list/common.dart';
 import 'package:recipe_list/data/grocery_data/grocery_data.dart';
+import 'package:recipe_list/data/unit_enum.dart';
 import 'package:recipe_list/widgets/screens/dashboard_screen/charts/chart_entry.dart';
 import 'package:recipe_list/widgets/screens/dashboard_screen/charts/grocery_chart/providers/grocery_statistics_notifier.dart';
 import 'package:recipe_list/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
@@ -34,7 +35,7 @@ Future<ChartState> groceryChartNotifier(
 
       final total = entry.value.entries.fold<double>(0, (sum, e) {
         return sum +
-            grocery.convertToNorm(e.value, GroceryData.jsonStringToEnum(e.key));
+            grocery.convertToGram(e.value, GroceryData.jsonStringToEnum(e.key));
       });
 
       aggregatedData[grocery] = (aggregatedData[grocery] ?? 0) + total;
@@ -89,8 +90,7 @@ Future<ChartState> groceryChartNotifier(
           ],
         ),
         title: entry.key.name,
-        tooltip:
-            "${doubleNumberFormat.format(entry.value)}${entry.key.unit.name}",
+        tooltip: "${doubleNumberFormat.format(entry.value)}${UnitEnum.g.name}",
       ),
     );
 

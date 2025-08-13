@@ -7,7 +7,7 @@ part of 'grocery_chart_notifier.dart';
 // **************************************************************************
 
 String _$groceryChartNotifierHash() =>
-    r'349d55a8e82b30a90010922af07116d6baf58086';
+    r'e2879c5c91ec24df8945a2f4b8f550bf85ae6caa';
 
 /// Copied from Dart SDK
 class _SystemHash {
