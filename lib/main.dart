@@ -1,3 +1,6 @@
+// Copyright (c) 2025 Michael Neufeld
+// Licensed under the MIT License. See LICENSE file in the project root for details.
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
