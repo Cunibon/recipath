@@ -11,14 +11,17 @@ class CountUpTimer extends StatefulWidget {
   State<CountUpTimer> createState() => _CountUpTimerState();
 }
 
-class _CountUpTimerState extends State<CountUpTimer> {
+class _CountUpTimerState extends State<CountUpTimer>
+    with WidgetsBindingObserver {
   late Duration _elapsed;
   Timer? _timer;
+
+  Duration get currentDiff => DateTime.now().difference(widget.startTime);
 
   @override
   void initState() {
     super.initState();
-    _elapsed = DateTime.now().difference(widget.startTime);
+    _elapsed = currentDiff;
 
     _timer = Timer.periodic(const Duration(seconds: 1), (_) {
       setState(() {
@@ -33,8 +36,17 @@ class _CountUpTimerState extends State<CountUpTimer> {
     super.dispose();
   }
 
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      setState(() {
+        _elapsed = currentDiff;
+      });
+    }
+  }
+
   String _formatDuration(Duration duration) {
-    final minutes = duration.inMinutes.remainder(60).toString().padLeft(2, '0');
+    final minutes = duration.inMinutes.toString().padLeft(2, '0');
     final seconds = duration.inSeconds.remainder(60).toString().padLeft(2, '0');
     return '$minutes:$seconds';
   }
