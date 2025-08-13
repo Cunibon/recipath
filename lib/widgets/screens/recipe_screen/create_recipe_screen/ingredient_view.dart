@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_list/data/ingredient_data/ingredient_data.dart';
+import 'package:recipe_list/widgets/generic/expandable.dart';
 import 'package:recipe_list/widgets/screens/recipe_screen/create_recipe_screen/compact_ingredient_view.dart';
 import 'package:recipe_list/widgets/screens/recipe_screen/create_recipe_screen/ingredient_item.dart';
 
@@ -44,49 +45,36 @@ class _IngredientViewState extends State<IngredientView> {
       );
     }
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: GestureDetector(
-            onTap: () => setState(() => expanded = !expanded),
-            child: Row(
-              children: [
-                Text(
-                  expanded ? "Collapse" : "Expand",
-                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                ),
-                Icon(
-                  expanded
-                      ? Icons.keyboard_arrow_down
-                      : Icons.keyboard_arrow_right,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-              ],
+    return Expandable(
+      titleBuilder: (expanded) => Row(
+        children: [
+          Text(
+            expanded ? "Collapse" : "Expand",
+            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+              color: Theme.of(context).colorScheme.primary,
             ),
           ),
-        ),
-        if (expanded)
-          ReorderableListView(
-            scrollController: widget.controller,
-            shrinkWrap: true,
-            children: items,
-            onReorder: (int oldIndex, int newIndex) {
-              if (oldIndex < newIndex) {
-                newIndex -= 1;
-              }
-              final item = listCopy.removeAt(oldIndex);
-              listCopy.insert(newIndex, item);
-              widget.onChanged(listCopy);
-            },
-          )
-        else
-          CompactIngredientView(ingredients: widget.ingredients),
-      ],
+          Icon(
+            expanded ? Icons.keyboard_arrow_down : Icons.keyboard_arrow_right,
+            color: Theme.of(context).colorScheme.primary,
+          ),
+        ],
+      ),
+      contentBuilder: (expanded) => expanded
+          ? ReorderableListView(
+              scrollController: widget.controller,
+              shrinkWrap: true,
+              children: items,
+              onReorder: (int oldIndex, int newIndex) {
+                if (oldIndex < newIndex) {
+                  newIndex -= 1;
+                }
+                final item = listCopy.removeAt(oldIndex);
+                listCopy.insert(newIndex, item);
+                widget.onChanged(listCopy);
+              },
+            )
+          : CompactIngredientView(ingredients: widget.ingredients),
     );
   }
 }

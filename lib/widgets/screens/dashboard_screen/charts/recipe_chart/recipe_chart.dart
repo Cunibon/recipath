@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:recipe_list/widgets/generic/expandable.dart';
 import 'package:recipe_list/widgets/screens/dashboard_screen/charts/async_chart.dart';
 import 'package:recipe_list/widgets/screens/dashboard_screen/charts/base_chart.dart';
 import 'package:recipe_list/widgets/screens/dashboard_screen/charts/recipe_chart/providers/recipe_chart_notifier.dart';
@@ -23,24 +24,39 @@ class RecipeChart extends ConsumerWidget {
       recipeChartNotifierProvider(dateRange, selectedRecipes),
     );
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text("Recipe usage", style: Theme.of(context).textTheme.titleLarge),
-        Divider(),
-        AsyncChart(
-          asyncState: state,
-          builder: (data) => BaseChart(
-            state: data,
-            horizontalInterval: 1,
-            horizontalTitleInterval: 10,
-            onTap: (index) => onTap(
-              index != null ? state.value!.entries[index].identifier : null,
-            ),
+    return Expandable(
+      titleBuilder: (expanded) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Text(
+                "Recipe usage",
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              Icon(
+                expanded
+                    ? Icons.keyboard_arrow_down
+                    : Icons.keyboard_arrow_right,
+              ),
+            ],
           ),
-        ),
-      ],
+          Divider(),
+        ],
+      ),
+      contentBuilder: (expanded) => expanded
+          ? AsyncChart(
+              asyncState: state,
+              builder: (data) => BaseChart(
+                state: data,
+                horizontalInterval: 1,
+                horizontalTitleInterval: 10,
+                onTap: (index) => onTap(
+                  index != null ? state.value!.entries[index].identifier : null,
+                ),
+              ),
+            )
+          : SizedBox.shrink(),
     );
   }
 }
