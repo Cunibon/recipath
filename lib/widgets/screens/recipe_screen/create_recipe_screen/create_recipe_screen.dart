@@ -61,7 +61,10 @@ class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
               onPressed: () async {
                 if (formKey.currentState?.validate() == true) {
                   final goRouter = GoRouter.of(context);
-                  if (widget.recipeId == null) {
+
+                  final ingredientChange = initalData.diffIngredients(data);
+
+                  if (widget.recipeId == null || ingredientChange.isEmpty) {
                     await ref.read(recipeModifierNotifierProvider).add(data);
                     goRouter.pop();
                   } else if (data != initalData) {
@@ -78,8 +81,9 @@ class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
                     goRouter.go(
                       '${RootRoutes.recipeRoute.path}/recipeOverview/${newData.id}',
                     );
+                  } else {
+                    goRouter.pop();
                   }
-                  goRouter.pop();
                 }
               },
               icon: Icon(Icons.save),

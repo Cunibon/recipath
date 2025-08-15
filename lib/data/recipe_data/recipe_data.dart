@@ -93,6 +93,14 @@ extension RecipeDataFunctions on RecipeData {
     );
   }
 
+  Set<IngredientData> diffIngredients(RecipeData other) {
+    final ingredients = steps.expand((step) => step.ingredients).toSet();
+    final otherIngredients = other.steps
+        .expand((step) => step.ingredients)
+        .toSet();
+    return ingredients.difference(otherIngredients);
+  }
+
   List<IngredientData> getIngredients(Map<String, GroceryData> groceries) =>
       IngredientData.aggregateIngredients(
         groceries,
