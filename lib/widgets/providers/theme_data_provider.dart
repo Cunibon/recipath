@@ -34,5 +34,6 @@ ThemeData themeDataNotifier(Ref ref) {
         foregroundColor: startTheme.colorScheme.onPrimaryContainer,
       ),
     ),
+    cardTheme: CardThemeData(color: startTheme.colorScheme.surfaceContainer),
   );
 }
