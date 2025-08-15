@@ -38,6 +38,7 @@ dependencies:
   supabase_flutter: ^2.9.1
   logger: ^2.6.1
   flutter_image_compress: ^2.4.0
+  dynamic_color: ^1.8.1
 
 dev_dependencies:
   flutter_test:
