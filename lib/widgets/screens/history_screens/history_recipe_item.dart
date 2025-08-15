@@ -2,31 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_list/common.dart';
 import 'package:recipe_list/data/recipe_data/recipe_data.dart';
-import 'package:recipe_list/data/recipe_shopping_data/recipe_shopping_data.dart';
+import 'package:recipe_list/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipe_list/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
+import 'package:recipe_list/widgets/screens/history_screens/data/history_data.dart';
 import 'package:recipe_list/widgets/screens/recipe_screen/create_recipe_screen/compact_ingredient_view.dart';
 import 'package:recipe_list/widgets/screens/recipe_screen/local_image.dart';
 
-class RecipeShoppingItem extends ConsumerWidget {
-  const RecipeShoppingItem({required this.data, super.key});
-  final ({RecipeShoppingData shoppingData, RecipeData recipe}) data;
+class HistoryRecipeItem extends ConsumerWidget {
+  const HistoryRecipeItem({required this.data, super.key});
+  final HistoryData data;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final groceryMap = ref.watch(groceryNotifierProvider).value!;
-
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (data.recipe.imageName != null)
+            if (data.recipeData.imageName != null)
               Padding(
                 padding: const EdgeInsets.only(top: 12),
                 child: SizedBox(
                   width: 100,
-                  child: LocalImage(fileName: data.recipe.imageName!),
+                  child: LocalImage(fileName: data.recipeData.imageName!),
                 ),
               ),
             SizedBox(width: 8),
@@ -39,15 +38,18 @@ class RecipeShoppingItem extends ConsumerWidget {
                     children: [
                       Flexible(
                         child: Text(
-                          data.recipe.title.trim(),
+                          data.recipeData.title.trim(),
                           style: Theme.of(context).textTheme.titleMedium!,
                         ),
                       ),
-                      Text(dateTimeFormat.format(data.shoppingData.date)),
+                      Text(timeFormat.format(data.date)),
                     ],
                   ),
-                  CompactIngredientView(
-                    ingredients: data.recipe.getIngredients(groceryMap),
+                  CachedAsyncValueWrapper(
+                    asyncState: ref.watch(groceryNotifierProvider),
+                    builder: (groceryData) => CompactIngredientView(
+                      ingredients: data.recipeData.getIngredients(groceryData),
+                    ),
                   ),
                 ],
               ),

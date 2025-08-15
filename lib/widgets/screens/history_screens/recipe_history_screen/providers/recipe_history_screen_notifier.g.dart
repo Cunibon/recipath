@@ -7,14 +7,12 @@ part of 'recipe_history_screen_notifier.dart';
 // **************************************************************************
 
 String _$recipeHistoryScreenNotifierHash() =>
-    r'689ede2cf637320a910c7ac3eb2fe643938d3273';
+    r'115c44b5083838fbb43d395f4994559398e145e8';
 
 /// See also [recipeHistoryScreenNotifier].
 @ProviderFor(recipeHistoryScreenNotifier)
 final recipeHistoryScreenNotifierProvider =
-    AutoDisposeFutureProvider<
-      List<({RecipeStatisticData statistics, RecipeData recipe})>
-    >.internal(
+    AutoDisposeFutureProvider<Map<DateTime, List<HistoryData>>>.internal(
       recipeHistoryScreenNotifier,
       name: r'recipeHistoryScreenNotifierProvider',
       debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -27,8 +25,6 @@ final recipeHistoryScreenNotifierProvider =
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef RecipeHistoryScreenNotifierRef =
-    AutoDisposeFutureProviderRef<
-      List<({RecipeStatisticData statistics, RecipeData recipe})>
-    >;
+    AutoDisposeFutureProviderRef<Map<DateTime, List<HistoryData>>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
