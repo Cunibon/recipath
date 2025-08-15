@@ -12,6 +12,7 @@ import 'package:recipe_list/drift/database.dart';
 import 'package:recipe_list/drift/database_notifier.dart';
 import 'package:recipe_list/providers/application_path_provider.dart';
 import 'package:recipe_list/root_routes.dart';
+import 'package:recipe_list/widgets/providers/theme_data_provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
@@ -68,17 +69,12 @@ class _MyAppState extends ConsumerState<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    final themeData = ref.watch(themeDataNotifierProvider);
+
     return MaterialApp.router(
       title: 'ReciPath',
       routerConfig: widget.router,
-      theme: ThemeData.dark().copyWith(
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.purple[900],
-            foregroundColor: Colors.white,
-          ),
-        ),
-      ),
+      theme: themeData,
     );
   }
 }

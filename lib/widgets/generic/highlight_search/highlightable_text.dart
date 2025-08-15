@@ -17,6 +17,10 @@ class HighlightableText extends StatelessWidget {
 
     if (matches.isEmpty) return Text(text, style: style);
 
+    final highlightColor = Theme.of(
+      context,
+    ).colorScheme.surfaceContainerHighest;
+
     final spans = <TextSpan>[];
     int currentIndex = 0;
 
@@ -28,9 +32,7 @@ class HighlightableText extends StatelessWidget {
       spans.add(
         TextSpan(
           text: match.group(0),
-          style: TextStyle(
-            backgroundColor: const Color.fromARGB(255, 58, 58, 58),
-          ),
+          style: TextStyle(backgroundColor: highlightColor),
         ),
       );
 

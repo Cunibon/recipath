@@ -34,7 +34,7 @@ class CompactIngredientView extends ConsumerWidget {
           return HighlightableText(
             "● ${e.toReadable(groceryMap.value![e.groceryId]!)}",
             style: inStorage && checkStorage
-                ? TextStyle(color: Colors.green)
+                ? TextStyle(color: Colors.green[600])
                 : null,
           );
         }).toList(),
