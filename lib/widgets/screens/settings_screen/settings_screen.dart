@@ -17,6 +17,7 @@ class SettingsScreen extends ConsumerWidget {
       titleBuilder: (title) =>
           DefaultNavigationTitle(title: title, syncState: SyncState.synced),
       body: Column(
+        spacing: 8,
         children: [
           SettingSection(
             title: "Theme",
