@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_list/data/ingredient_data/ingredient_data.dart';
-import 'package:recipe_list/l10n/app_localizations.dart';
-import 'package:recipe_list/widgets/generic/expandable.dart';
-import 'package:recipe_list/widgets/screens/recipe_screen/create_recipe_screen/compact_ingredient_view.dart';
-import 'package:recipe_list/widgets/screens/recipe_screen/create_recipe_screen/ingredient_item.dart';
+import 'package:recipath/data/ingredient_data/ingredient_data.dart';
+import 'package:recipath/l10n/app_localizations.dart';
+import 'package:recipath/widgets/generic/expandable.dart';
+import 'package:recipath/widgets/screens/recipe_screen/create_recipe_screen/compact_ingredient_view.dart';
+import 'package:recipath/widgets/screens/recipe_screen/create_recipe_screen/ingredient_item.dart';
 
 class IngredientView extends StatefulWidget {
   const IngredientView({

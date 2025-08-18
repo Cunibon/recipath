@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:recipe_list/l10n/app_localizations.dart';
-import 'package:recipe_list/widgets/generic/highlight_search/highlight_scope.dart';
+import 'package:recipath/l10n/app_localizations.dart';
+import 'package:recipath/widgets/generic/highlight_search/highlight_scope.dart';
 
 class SearchableList<T> extends StatefulWidget {
   const SearchableList({

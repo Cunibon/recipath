@@ -1,8 +1,8 @@
 import 'package:go_router/go_router.dart';
-import 'package:recipe_list/application_constants.dart';
-import 'package:recipe_list/widgets/screens/grocery_screen/grocery_routes.dart';
-import 'package:recipe_list/widgets/screens/recipe_screen/create_recipe_screen/create_recipe_screen.dart';
-import 'package:recipe_list/widgets/screens/recipe_screen/recipe_overview_screen/recipe_overview_screen.dart';
+import 'package:recipath/application_constants.dart';
+import 'package:recipath/widgets/screens/grocery_screen/grocery_routes.dart';
+import 'package:recipath/widgets/screens/recipe_screen/create_recipe_screen/create_recipe_screen.dart';
+import 'package:recipath/widgets/screens/recipe_screen/recipe_overview_screen/recipe_overview_screen.dart';
 
 class MainRoutes {
   static GoRoute recipeOverview = GoRoute(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_list/l10n/app_localizations.dart';
+import 'package:recipath/l10n/app_localizations.dart';
 
 enum Nutriments {
   kcal(Colors.purple),

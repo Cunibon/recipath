@@ -1,7 +1,7 @@
 import 'package:logger/logger.dart';
-import 'package:recipe_list/domain_service/syncing_service/assemblers/abstract/supabase_assembler.dart';
-import 'package:recipe_list/domain_service/syncing_service/repos/abstract/sync_interfaces.dart';
-import 'package:recipe_list/domain_service/syncing_service/repos/download_result.dart';
+import 'package:recipath/domain_service/syncing_service/assemblers/abstract/supabase_assembler.dart';
+import 'package:recipath/domain_service/syncing_service/repos/abstract/sync_interfaces.dart';
+import 'package:recipath/domain_service/syncing_service/repos/download_result.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 typedef AssemblyContext = Map<String, Map<String, dynamic>>;

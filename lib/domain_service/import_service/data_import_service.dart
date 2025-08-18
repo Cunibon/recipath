@@ -1,13 +1,13 @@
 import 'package:random_string/random_string.dart';
-import 'package:recipe_list/application/grocery_modifier/grocery_modifier.dart';
-import 'package:recipe_list/application/recipe_modifier/recipe_modifier.dart';
-import 'package:recipe_list/application/shopping_modifier/shopping_modifier.dart';
-import 'package:recipe_list/application/storage_modifier/storage_modifier.dart';
-import 'package:recipe_list/application_constants.dart';
-import 'package:recipe_list/data/grocery_data/grocery_data.dart';
-import 'package:recipe_list/data/recipe_data/recipe_data.dart';
-import 'package:recipe_list/data/shopping_data/shopping_data.dart';
-import 'package:recipe_list/data/storage_data/storage_data.dart';
+import 'package:recipath/application/grocery_modifier/grocery_modifier.dart';
+import 'package:recipath/application/recipe_modifier/recipe_modifier.dart';
+import 'package:recipath/application/shopping_modifier/shopping_modifier.dart';
+import 'package:recipath/application/storage_modifier/storage_modifier.dart';
+import 'package:recipath/application_constants.dart';
+import 'package:recipath/data/grocery_data/grocery_data.dart';
+import 'package:recipath/data/recipe_data/recipe_data.dart';
+import 'package:recipath/data/shopping_data/shopping_data.dart';
+import 'package:recipath/data/storage_data/storage_data.dart';
 
 class DataImportService {
   DataImportService({

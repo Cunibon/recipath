@@ -1,7 +1,7 @@
 import 'package:drift/drift.dart';
-import 'package:recipe_list/data/ingredient_data/ingredient_data.dart';
-import 'package:recipe_list/drift/database.dart';
-import 'package:recipe_list/repos/repo.dart';
+import 'package:recipath/data/ingredient_data/ingredient_data.dart';
+import 'package:recipath/drift/database.dart';
+import 'package:recipath/repos/repo.dart';
 
 class IngredientRepoDrift extends Repo<IngredientData> {
   IngredientRepoDrift(super.db);

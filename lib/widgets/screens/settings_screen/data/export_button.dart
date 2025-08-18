@@ -3,13 +3,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:recipe_list/application_constants.dart';
-import 'package:recipe_list/l10n/app_localizations.dart';
-import 'package:recipe_list/providers/application_path_provider.dart';
-import 'package:recipe_list/repos/grocery/grocery_repo_notifier.dart';
-import 'package:recipe_list/repos/recipe/recipe_repo_notifier.dart';
-import 'package:recipe_list/repos/shopping/shopping_repo_notifier.dart';
-import 'package:recipe_list/repos/storage/storage_repo_notifier.dart';
+import 'package:recipath/application_constants.dart';
+import 'package:recipath/l10n/app_localizations.dart';
+import 'package:recipath/providers/application_path_provider.dart';
+import 'package:recipath/repos/grocery/grocery_repo_notifier.dart';
+import 'package:recipath/repos/recipe/recipe_repo_notifier.dart';
+import 'package:recipath/repos/shopping/shopping_repo_notifier.dart';
+import 'package:recipath/repos/storage/storage_repo_notifier.dart';
 import 'package:share_plus/share_plus.dart';
 
 class ExportButton extends ConsumerWidget {
@@ -28,7 +28,7 @@ class ExportButton extends ConsumerWidget {
           groceryDataKey: await ref.read(groceryRepoNotifierProvider).get(),
         };
 
-        final filePath = "${dir.path}/recipe_list.json";
+        final filePath = "${dir.path}/recipath.json";
 
         final file = File(filePath);
         await file.writeAsString(jsonEncode(allData));

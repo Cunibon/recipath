@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:recipe_list/data/recipe_data/recipe_data.dart';
-import 'package:recipe_list/l10n/app_localizations.dart';
-import 'package:recipe_list/root_routes.dart';
-import 'package:recipe_list/widgets/generic/cached_async_value_wrapper.dart';
-import 'package:recipe_list/widgets/generic/highlight_search/highlightable_text.dart';
-import 'package:recipe_list/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
-import 'package:recipe_list/widgets/screens/recipe_screen/create_recipe_screen/compact_ingredient_view.dart';
-import 'package:recipe_list/widgets/screens/recipe_screen/local_image.dart';
-import 'package:recipe_list/widgets/screens/recipe_screen/providers/average_recipe_time_notifier.dart';
-import 'package:recipe_list/widgets/screens/recipe_screen/providers/shopping_planning_notifier.dart';
-import 'package:recipe_list/widgets/screens/recipe_screen/providers/timer_notifier.dart';
+import 'package:recipath/data/recipe_data/recipe_data.dart';
+import 'package:recipath/l10n/app_localizations.dart';
+import 'package:recipath/root_routes.dart';
+import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
+import 'package:recipath/widgets/generic/highlight_search/highlightable_text.dart';
+import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
+import 'package:recipath/widgets/screens/recipe_screen/create_recipe_screen/compact_ingredient_view.dart';
+import 'package:recipath/widgets/screens/recipe_screen/local_image.dart';
+import 'package:recipath/widgets/screens/recipe_screen/providers/average_recipe_time_notifier.dart';
+import 'package:recipath/widgets/screens/recipe_screen/providers/shopping_planning_notifier.dart';
+import 'package:recipath/widgets/screens/recipe_screen/providers/timer_notifier.dart';
 
 class CompactRecipeItem extends ConsumerWidget {
   const CompactRecipeItem({required this.data, super.key});

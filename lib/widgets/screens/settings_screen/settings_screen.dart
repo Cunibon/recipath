@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:recipe_list/l10n/app_localizations.dart';
-import 'package:recipe_list/widgets/navigation/default_navigation_title.dart';
-import 'package:recipe_list/widgets/navigation/navigation_drawer_scaffold.dart';
-import 'package:recipe_list/widgets/screens/settings_screen/appearance/dark_mode_toggle.dart';
-import 'package:recipe_list/widgets/screens/settings_screen/appearance/locale_picker.dart';
-import 'package:recipe_list/widgets/screens/settings_screen/appearance/material_you_toggle.dart';
-import 'package:recipe_list/widgets/screens/settings_screen/data/export_button.dart';
-import 'package:recipe_list/widgets/screens/settings_screen/data/import_button.dart';
-import 'package:recipe_list/widgets/screens/settings_screen/setting_section.dart';
+import 'package:recipath/l10n/app_localizations.dart';
+import 'package:recipath/widgets/navigation/default_navigation_title.dart';
+import 'package:recipath/widgets/navigation/navigation_drawer_scaffold.dart';
+import 'package:recipath/widgets/screens/settings_screen/appearance/dark_mode_toggle.dart';
+import 'package:recipath/widgets/screens/settings_screen/appearance/locale_picker.dart';
+import 'package:recipath/widgets/screens/settings_screen/appearance/material_you_toggle.dart';
+import 'package:recipath/widgets/screens/settings_screen/data/export_button.dart';
+import 'package:recipath/widgets/screens/settings_screen/data/import_button.dart';
+import 'package:recipath/widgets/screens/settings_screen/setting_section.dart';
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});

@@ -1,8 +1,8 @@
 import 'package:drift/drift.dart' as drift;
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:recipe_list/common.dart';
-import 'package:recipe_list/data/unit_enum.dart';
-import 'package:recipe_list/drift/database.dart';
+import 'package:recipath/common.dart';
+import 'package:recipath/data/unit_enum.dart';
+import 'package:recipath/drift/database.dart';
 
 part 'grocery_data.freezed.dart';
 part 'grocery_data.g.dart';

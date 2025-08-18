@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:recipe_list/application/storage_modifier/storage_modifier_notifier.dart';
-import 'package:recipe_list/common.dart';
-import 'package:recipe_list/data/storage_data/storage_data.dart';
-import 'package:recipe_list/data/unit_enum.dart';
-import 'package:recipe_list/l10n/app_localizations.dart';
-import 'package:recipe_list/widgets/generic/highlight_search/highlightable_text.dart';
-import 'package:recipe_list/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
+import 'package:recipath/application/storage_modifier/storage_modifier_notifier.dart';
+import 'package:recipath/common.dart';
+import 'package:recipath/data/storage_data/storage_data.dart';
+import 'package:recipath/data/unit_enum.dart';
+import 'package:recipath/l10n/app_localizations.dart';
+import 'package:recipath/widgets/generic/highlight_search/highlightable_text.dart';
+import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 
 class StorageItem extends ConsumerWidget {
   const StorageItem({required this.data, super.key});

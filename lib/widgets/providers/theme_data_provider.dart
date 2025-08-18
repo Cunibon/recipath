@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:recipe_list/helper/color_extension.dart';
-import 'package:recipe_list/widgets/providers/material_you_scheme_provider.dart';
-import 'package:recipe_list/widgets/screens/settings_screen/providers/dark_mode_provider.dart';
-import 'package:recipe_list/widgets/screens/settings_screen/providers/material_you_provider.dart';
+import 'package:recipath/helper/color_extension.dart';
+import 'package:recipath/widgets/providers/material_you_scheme_provider.dart';
+import 'package:recipath/widgets/screens/settings_screen/providers/dark_mode_provider.dart';
+import 'package:recipath/widgets/screens/settings_screen/providers/material_you_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'theme_data_provider.g.dart';

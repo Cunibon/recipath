@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:recipe_list/helper/date_time_extension.dart';
-import 'package:recipe_list/repos/recipe/full_recipe_repo_notifier.dart';
-import 'package:recipe_list/repos/recipe_statistics/recipe_statistics_repo_notifier.dart';
-import 'package:recipe_list/widgets/screens/history_screens/data/history_data.dart';
+import 'package:recipath/helper/date_time_extension.dart';
+import 'package:recipath/repos/recipe/full_recipe_repo_notifier.dart';
+import 'package:recipath/repos/recipe_statistics/recipe_statistics_repo_notifier.dart';
+import 'package:recipath/widgets/screens/history_screens/data/history_data.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'recipe_history_screen_notifier.g.dart';

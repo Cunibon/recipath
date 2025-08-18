@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:recipe_list/l10n/app_localizations.dart';
-import 'package:recipe_list/root_routes.dart';
-import 'package:recipe_list/widgets/authentication/auth_buttons.dart';
-import 'package:recipe_list/widgets/providers/drawer_destination_notifier.dart';
-import 'package:recipe_list/widgets/screens/recipe_screen/drawer_destination.dart';
+import 'package:recipath/l10n/app_localizations.dart';
+import 'package:recipath/root_routes.dart';
+import 'package:recipath/widgets/authentication/auth_buttons.dart';
+import 'package:recipath/widgets/providers/drawer_destination_notifier.dart';
+import 'package:recipath/widgets/screens/recipe_screen/drawer_destination.dart';
 
 class NavigationDrawerScaffold extends ConsumerWidget {
   const NavigationDrawerScaffold({

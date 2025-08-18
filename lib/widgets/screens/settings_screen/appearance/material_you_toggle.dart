@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:recipe_list/widgets/screens/settings_screen/providers/material_you_provider.dart';
-import 'package:recipe_list/widgets/screens/settings_screen/setting_toggle.dart';
+import 'package:recipath/widgets/screens/settings_screen/providers/material_you_provider.dart';
+import 'package:recipath/widgets/screens/settings_screen/setting_toggle.dart';
 
 class MaterialYouToggle extends ConsumerWidget {
   const MaterialYouToggle({super.key});

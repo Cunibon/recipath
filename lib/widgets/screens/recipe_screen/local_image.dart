@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:recipe_list/domain_service/syncing_service/supabase_buckets.dart';
-import 'package:recipe_list/widgets/screens/recipe_screen/providers/file_notifier.dart';
+import 'package:recipath/domain_service/syncing_service/supabase_buckets.dart';
+import 'package:recipath/widgets/screens/recipe_screen/providers/file_notifier.dart';
 
 class LocalImage extends ConsumerWidget {
   const LocalImage({

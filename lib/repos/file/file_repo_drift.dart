@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
-import 'package:recipe_list/drift/database.dart';
-import 'package:recipe_list/repos/sync_repo.dart';
+import 'package:recipath/drift/database.dart';
+import 'package:recipath/repos/sync_repo.dart';
 
 class FileRepoDrift extends SyncRepo<FileTableData> {
   FileRepoDrift(super.db);

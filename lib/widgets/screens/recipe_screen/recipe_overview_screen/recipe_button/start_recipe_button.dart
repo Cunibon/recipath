@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:recipe_list/widgets/screens/recipe_screen/providers/timer_notifier.dart';
+import 'package:recipath/widgets/screens/recipe_screen/providers/timer_notifier.dart';
 
 class StartRecipeButton extends ConsumerWidget {
   const StartRecipeButton({required this.recipeId, super.key});

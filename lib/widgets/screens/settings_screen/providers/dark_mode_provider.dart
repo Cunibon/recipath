@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:localstorage/localstorage.dart';
-import 'package:recipe_list/helper/local_storage_extension.dart';
+import 'package:recipath/helper/local_storage_extension.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'dark_mode_provider.g.dart';

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:recipe_list/l10n/app_localizations.dart';
-import 'package:recipe_list/widgets/generic/expandable.dart';
-import 'package:recipe_list/widgets/screens/dashboard_screen/charts/async_chart.dart';
-import 'package:recipe_list/widgets/screens/dashboard_screen/charts/base_chart.dart';
-import 'package:recipe_list/widgets/screens/dashboard_screen/charts/grocery_chart/providers/grocery_chart_notifier.dart';
+import 'package:recipath/l10n/app_localizations.dart';
+import 'package:recipath/widgets/generic/expandable.dart';
+import 'package:recipath/widgets/screens/dashboard_screen/charts/async_chart.dart';
+import 'package:recipath/widgets/screens/dashboard_screen/charts/base_chart.dart';
+import 'package:recipath/widgets/screens/dashboard_screen/charts/grocery_chart/providers/grocery_chart_notifier.dart';
 
 class GroceryChart extends ConsumerWidget {
   const GroceryChart({

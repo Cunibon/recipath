@@ -1,4 +1,4 @@
-import 'package:recipe_list/repos/repo.dart';
+import 'package:recipath/repos/repo.dart';
 
 abstract class SyncRepo<T> extends Repo<T> {
   SyncRepo(super.db);

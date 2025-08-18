@@ -1,5 +1,5 @@
-import 'package:recipe_list/data/recipe_statistic_data/recipe_statistic_data.dart';
-import 'package:recipe_list/repos/sync_repo.dart';
+import 'package:recipath/data/recipe_statistic_data/recipe_statistic_data.dart';
+import 'package:recipath/repos/sync_repo.dart';
 
 abstract class RecipeStatisticsRepo extends SyncRepo<RecipeStatisticData> {
   RecipeStatisticsRepo(super.db);

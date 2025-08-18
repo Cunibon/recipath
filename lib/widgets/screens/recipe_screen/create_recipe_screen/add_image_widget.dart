@@ -6,10 +6,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:random_string/random_string.dart';
-import 'package:recipe_list/application/file_modifier.dart/file_modifier_notifier.dart';
-import 'package:recipe_list/l10n/app_localizations.dart';
-import 'package:recipe_list/providers/application_path_provider.dart';
-import 'package:recipe_list/widgets/screens/recipe_screen/local_image.dart';
+import 'package:recipath/application/file_modifier.dart/file_modifier_notifier.dart';
+import 'package:recipath/l10n/app_localizations.dart';
+import 'package:recipath/providers/application_path_provider.dart';
+import 'package:recipath/widgets/screens/recipe_screen/local_image.dart';
 
 class AddImageWidget extends ConsumerWidget {
   const AddImageWidget({this.fileName, required this.onChanged, super.key});

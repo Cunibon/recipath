@@ -4,8 +4,8 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:recipe_list/domain_service/import_service/data_import_service_notifier.dart';
-import 'package:recipe_list/l10n/app_localizations.dart';
+import 'package:recipath/domain_service/import_service/data_import_service_notifier.dart';
+import 'package:recipath/l10n/app_localizations.dart';
 
 class ImportButton extends ConsumerWidget {
   const ImportButton({super.key});

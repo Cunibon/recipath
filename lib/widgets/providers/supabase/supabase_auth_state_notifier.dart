@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:recipe_list/widgets/providers/supabase/supabase_client_notifier.dart';
+import 'package:recipath/widgets/providers/supabase/supabase_client_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 

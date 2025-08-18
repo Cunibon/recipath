@@ -1,5 +1,5 @@
 import 'package:drift/drift.dart';
-import 'package:recipe_list/drift/database.dart';
+import 'package:recipath/drift/database.dart';
 
 abstract class Repo<T> {
   Repo(this.db);

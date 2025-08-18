@@ -1,7 +1,7 @@
 import 'package:drift/drift.dart';
-import 'package:recipe_list/data/grocery_data/grocery_data.dart';
-import 'package:recipe_list/drift/database.dart';
-import 'package:recipe_list/repos/sync_repo.dart';
+import 'package:recipath/data/grocery_data/grocery_data.dart';
+import 'package:recipath/drift/database.dart';
+import 'package:recipath/repos/sync_repo.dart';
 
 class GroceryRepoDrift extends SyncRepo<GroceryData> {
   GroceryRepoDrift(super.db, {this.incluedArchived = false});

@@ -1,6 +1,6 @@
-import 'package:recipe_list/data/recipe_data/recipe_data.dart';
-import 'package:recipe_list/data/recipe_shopping_data/recipe_shopping_data.dart';
-import 'package:recipe_list/repos/repo.dart';
+import 'package:recipath/data/recipe_data/recipe_data.dart';
+import 'package:recipath/data/recipe_shopping_data/recipe_shopping_data.dart';
+import 'package:recipath/repos/repo.dart';
 
 class RecipeShoppingModifier {
   RecipeShoppingModifier(this.repo);

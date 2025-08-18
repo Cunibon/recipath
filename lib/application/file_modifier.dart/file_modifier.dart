@@ -1,5 +1,5 @@
-import 'package:recipe_list/drift/database.dart';
-import 'package:recipe_list/repos/repo.dart';
+import 'package:recipath/drift/database.dart';
+import 'package:recipath/repos/repo.dart';
 
 class FileModifier {
   FileModifier(this.repo);

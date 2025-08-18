@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_list/widgets/navigation/sync_state_button.dart';
+import 'package:recipath/widgets/navigation/sync_state_button.dart';
 
 enum SyncState { synced, unsynced }
 

@@ -1,4 +1,4 @@
-import 'package:recipe_list/data/recipe_data/recipe_data.dart';
+import 'package:recipath/data/recipe_data/recipe_data.dart';
 
 class HistoryData {
   HistoryData({required this.date, required this.recipeData});

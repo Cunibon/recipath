@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
-import 'package:recipe_list/drift/tables/ingredient_table.dart';
-import 'package:recipe_list/drift/tables/recipe_step_table.dart';
+import 'package:recipath/drift/tables/ingredient_table.dart';
+import 'package:recipath/drift/tables/recipe_step_table.dart';
 
 @TableIndex(name: 'recipeStepIngredient_uploaded', columns: {#uploaded})
 class RecipeStepIngredientTable extends Table {

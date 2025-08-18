@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:recipe_list/data/unit_enum.dart';
+import 'package:recipath/data/unit_enum.dart';
 
 part 'gtin_data.freezed.dart';
 part 'gtin_data.g.dart';

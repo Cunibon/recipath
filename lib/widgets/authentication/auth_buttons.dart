@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:recipe_list/domain_service/syncing_service/syncing_service/syncing_service_notifier.dart';
-import 'package:recipe_list/drift/database_notifier.dart';
-import 'package:recipe_list/l10n/app_localizations.dart';
-import 'package:recipe_list/widgets/authentication/auth_dialog.dart';
-import 'package:recipe_list/widgets/providers/supabase/supabase_client_notifier.dart';
-import 'package:recipe_list/widgets/providers/supabase/supabase_user_notifier.dart';
+import 'package:recipath/domain_service/syncing_service/syncing_service/syncing_service_notifier.dart';
+import 'package:recipath/drift/database_notifier.dart';
+import 'package:recipath/l10n/app_localizations.dart';
+import 'package:recipath/widgets/authentication/auth_dialog.dart';
+import 'package:recipath/widgets/providers/supabase/supabase_client_notifier.dart';
+import 'package:recipath/widgets/providers/supabase/supabase_user_notifier.dart';
 
 class AuthButtons extends ConsumerWidget {
   const AuthButtons({super.key});

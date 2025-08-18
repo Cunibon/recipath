@@ -1,6 +1,6 @@
 {
-    "name": "recipe_list",
-    "short_name": "recipe_list",
+    "name": "recipath",
+    "short_name": "recipath",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

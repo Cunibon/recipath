@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:recipe_list/widgets/screens/history_screens/history_screen.dart';
-import 'package:recipe_list/widgets/screens/history_screens/recipe_history_screen/providers/recipe_history_screen_notifier.dart';
+import 'package:recipath/widgets/screens/history_screens/history_screen.dart';
+import 'package:recipath/widgets/screens/history_screens/recipe_history_screen/providers/recipe_history_screen_notifier.dart';
 
 class RecipeHistoryScreen extends ConsumerWidget {
   const RecipeHistoryScreen({super.key});

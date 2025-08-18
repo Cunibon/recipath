@@ -1,8 +1,8 @@
 import 'package:drift/drift.dart' as drift;
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:random_string/random_string.dart';
-import 'package:recipe_list/data/ingredient_data/ingredient_data.dart';
-import 'package:recipe_list/drift/database.dart';
+import 'package:recipath/data/ingredient_data/ingredient_data.dart';
+import 'package:recipath/drift/database.dart';
 
 part 'storage_data.freezed.dart';
 part 'storage_data.g.dart';

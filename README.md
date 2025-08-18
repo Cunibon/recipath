@@ -1,8 +1,8 @@
 # 🍳 ReciPath — Recipes, Shopping, Storage and Charts
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/Cunibon/recipe_list?style=social)](https://github.com/Cunibon/recipe_list/stargazers)
-[![GitHub issues](https://img.shields.io/github/issues/Cunibon/recipe_list)](https://github.com/Cunibon/recipe_list/issues)
+[![GitHub stars](https://img.shields.io/github/stars/Cunibon/recipath?style=social)](https://github.com/Cunibon/recipath/stargazers)
+[![GitHub issues](https://img.shields.io/github/issues/Cunibon/recipath)](https://github.com/Cunibon/recipath/issues)
 
 **ReciPath** is an open-source app that helps you manage your recipes, track your pantry, and create shopping lists based on your recipes — all stored securely on supabase.
 

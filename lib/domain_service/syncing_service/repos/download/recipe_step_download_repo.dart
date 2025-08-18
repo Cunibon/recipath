@@ -1,5 +1,5 @@
-import 'package:recipe_list/domain_service/syncing_service/repos/abstract/data_download_repo.dart';
-import 'package:recipe_list/domain_service/syncing_service/supabase_tables.dart';
+import 'package:recipath/domain_service/syncing_service/repos/abstract/data_download_repo.dart';
+import 'package:recipath/domain_service/syncing_service/supabase_tables.dart';
 
 class RecipeStepDownloadRepo extends DataDownloadRepo {
   RecipeStepDownloadRepo({required super.supabaseClient});

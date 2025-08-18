@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:logger/logger.dart';
-import 'package:recipe_list/domain_service/syncing_service/file_sync_orchestrator/bucket_repo.dart';
+import 'package:recipath/domain_service/syncing_service/file_sync_orchestrator/bucket_repo.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class FileSyncOrchestrator {
