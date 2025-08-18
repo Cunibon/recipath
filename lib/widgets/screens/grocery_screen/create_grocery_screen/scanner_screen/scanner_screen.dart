@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:recipe_list/data/gtin_data/gtin_data.dart';
+import 'package:recipe_list/l10n/app_localizations.dart';
 import 'package:recipe_list/widgets/generic/information_dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -43,10 +44,12 @@ class _ScannerScreenState extends State<ScannerScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Scan grocery",
+          localization.scanGrocery,
           style: Theme.of(context).textTheme.titleLarge,
         ),
         actions: [
@@ -93,7 +96,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
                       await showDialog(
                         context: context,
                         builder: (context) => InformationDialog(
-                          message: "Could not find product for code: $barcode",
+                          message: localization.couldNotFindBarcode,
                         ),
                       );
                     }

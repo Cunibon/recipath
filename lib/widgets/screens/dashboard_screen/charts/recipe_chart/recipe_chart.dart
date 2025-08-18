@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:recipe_list/l10n/app_localizations.dart';
 import 'package:recipe_list/widgets/generic/expandable.dart';
 import 'package:recipe_list/widgets/screens/dashboard_screen/charts/async_chart.dart';
 import 'package:recipe_list/widgets/screens/dashboard_screen/charts/base_chart.dart';
@@ -31,7 +32,7 @@ class RecipeChart extends ConsumerWidget {
           Row(
             children: [
               Text(
-                "Recipe usage",
+                AppLocalizations.of(context)!.recipeUsage,
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               Icon(

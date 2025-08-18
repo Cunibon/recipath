@@ -1,7 +1,120 @@
 {
     "@@locale": "en",
-    "helloWorld": "Hello World!",
-    "@helloWorld": {
-        "description": "The conventional newborn programmer greeting"
-    }
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "eMail": "E-Mail",
+    "objectInvalid": "{object} invalid",
+    "@objectInvalid": {
+        "placeholders": {
+            "object": {
+                "type": "String"
+            }
+        }
+    },
+    "addEMail": "Add an email",
+    "password": "Password",
+    "addPassword": "Add a password",
+    "repeatPassword": "Repeat password",
+    "passwordsDontMatch": "Passwords don't match",
+    "passwordLength": "Password needs to be at least 12 letters long",
+    "verifactionEMailSent": "Verifaction E-Mail has been sent",
+    "couldNotAuthenticate": "Could not authenticate user",
+    "searchFor": "Search for {type}",
+    "@searchFor": {
+        "placeholders": {
+            "type": {
+                "type": "String"
+            }
+        }
+    },
+    "clearAllItems": "Clear all items?",
+    "clearAllContent": "Do you really want clear all items?\nThere is no way to get them back.",
+    "yes": "Yes",
+    "no": "No",
+    "reallyDelete": "Do you really want to delete",
+    "finishShoppingPlanning": "Finish shopping planning",
+    "finishShoppingContent": "Do you want to finish your shopping planning and your items to your shopping list",
+    "leaveThisPage": "Are you want to leave this page?",
+    "leaveThisPageContent": "All unsaved changes will be lost!",
+    "recipes": "Recipes",
+    "shoppingList": "Shopping list",
+    "storage": "Storage",
+    "groceries": "Groceries",
+    "dashboard": "Dashboard",
+    "cookingHistory": "Cooking history",
+    "shoppingHistory": "Shopping history",
+    "settings": "Settings",
+    "recipeUsage": "Recipe usage",
+    "groceryUsage": "Grocery usage",
+    "nutriments": "Nutriments",
+    "grocery": "Grocery",
+    "cantDeleteGroceryMessage": "There are {recipes} recipes, {shopping} shopping items and {storage} storage items using this ingredient.\nIt cannot be deleted.",
+    "@cantDeleteGroceryMessage": {
+        "placeholders": {
+            "recipes": {
+                "type": "int"
+            },
+            "shopping": {
+                "type": "int"
+            },
+            "storage": {
+                "type": "int"
+            }
+        }
+    },
+    "createGrocery": "Create grocery",
+    "save": "Save",
+    "delete": "Delete",
+    "name": "Name",
+    "addName": "Add name",
+    "normalAmount": "Normal amount",
+    "addNormalAmount": "Add normal amount",
+    "unit": "Unit",
+    "addUnit": "Add unit",
+    "conversionAmount": "Conversion amount",
+    "addConversionAmount": "Add conversion amount",
+    "addRealNumber": "Add real number",
+    "scanGrocery": "Scan grocery",
+    "couldNotFindBarcode": "Could not find product for code: $barcode",
+    "servings": "Servings",
+    "addedItemsToShopping": "Added items to shopping list!",
+    "recipe": "Recipe",
+    "addNew": "Add new",
+    "done": "Done",
+    "takePicture": "Take picture",
+    "addPictureFromGallery": "Add a picture from gallery",
+    "createRecipe": "Create recipe",
+    "title": "Title",
+    "addTitle": "Add title",
+    "step": "Step",
+    "addStep": "Add step",
+    "amount": "Amount",
+    "addAmount": "Add amount",
+    "expand": "Expand",
+    "collapse": "Collapse",
+    "objectDescription": "{object} description",
+    "@objectDescription": {
+        "placeholders": {
+            "object": {
+                "type": "String"
+            }
+        }
+    },
+    "addDescription": "Add description",
+    "changeIngredients": "Change ingredients",
+    "ingredients": "Ingredients",
+    "perServing": "Per serving",
+    "somethingWentWrong": "Something went wrong :(",
+    "howLongDidTheRecipeTake": "How long did the recipe take?",
+    "cancleTimer": "Cancle timer",
+    "removedIngredientsFromStorage": "Removed ingredients from storage!",
+    "appearance": "Appearance",
+    "data": "Data",
+    "importData": "Import data",
+    "exportData": "Export data",
+    "darkMode": "Dark mode",
+    "clear": "Clear",
+    "items": "Items",
+    "language": "Language"
 }

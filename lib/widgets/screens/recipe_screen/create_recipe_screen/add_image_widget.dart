@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:random_string/random_string.dart';
 import 'package:recipe_list/application/file_modifier.dart/file_modifier_notifier.dart';
+import 'package:recipe_list/l10n/app_localizations.dart';
 import 'package:recipe_list/providers/application_path_provider.dart';
 import 'package:recipe_list/widgets/screens/recipe_screen/local_image.dart';
 
@@ -17,6 +18,8 @@ class AddImageWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final localization = AppLocalizations.of(context)!;
+
     if (fileName != null) {
       return IntrinsicWidth(
         child: Stack(
@@ -52,7 +55,7 @@ class AddImageWidget extends ConsumerWidget {
                       borderRadius: BorderRadiusGeometry.circular(32),
                     ),
                     leading: Icon(Icons.camera_alt),
-                    title: Text("Take a picture"),
+                    title: Text(localization.takePicture),
                     onTap: () async => context.pop(
                       await picker.pickImage(source: ImageSource.camera),
                     ),
@@ -62,7 +65,7 @@ class AddImageWidget extends ConsumerWidget {
                       borderRadius: BorderRadiusGeometry.circular(32),
                     ),
                     leading: Icon(Icons.image),
-                    title: Text("Add a picture from gallery"),
+                    title: Text(localization.addPictureFromGallery),
                     onTap: () async => context.pop(
                       await picker.pickImage(source: ImageSource.gallery),
                     ),

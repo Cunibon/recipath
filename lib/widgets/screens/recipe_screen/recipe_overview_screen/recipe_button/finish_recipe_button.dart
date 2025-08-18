@@ -6,6 +6,7 @@ import 'package:recipe_list/application/storage_modifier/storage_modifier_notifi
 import 'package:recipe_list/data/recipe_data/recipe_data.dart';
 import 'package:recipe_list/data/recipe_statistic_data/recipe_statistic_data.dart';
 import 'package:recipe_list/data/storage_data/storage_data.dart';
+import 'package:recipe_list/l10n/app_localizations.dart';
 import 'package:recipe_list/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 import 'package:recipe_list/widgets/screens/recipe_screen/providers/recipe_notifier.dart';
 import 'package:recipe_list/widgets/screens/recipe_screen/providers/timer_notifier.dart';
@@ -27,8 +28,6 @@ class FinishRecipeButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return FloatingActionButton.extended(
       onPressed: () async {
-        final scaffoldMessenger = ScaffoldMessenger.of(context);
-
         final recipeDateRange = DateTimeRange(
           start: ref.read(timerNotifierProvider)[recipeId]!,
           end: DateTime.now(),
@@ -74,12 +73,16 @@ class FinishRecipeButton extends ConsumerWidget {
           ref.read(storageModifierNotifierProvider).subtractItem(storageItem);
         }
 
-        scaffoldMessenger.showSnackBar(
-          SnackBar(
-            duration: Duration(seconds: 5),
-            content: Text("Removed ingredients from storage!"),
-          ),
-        );
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              duration: Duration(seconds: 5),
+              content: Text(
+                AppLocalizations.of(context)!.removedIngredientsFromStorage,
+              ),
+            ),
+          );
+        }
       },
       label: Row(
         children: [

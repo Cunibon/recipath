@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:recipe_list/l10n/app_localizations.dart';
 import 'package:recipe_list/widgets/generic/highlight_search/highlight_scope.dart';
 
 class SearchableList<T> extends StatefulWidget {
@@ -87,7 +88,9 @@ class _SearchableListState<T> extends State<SearchableList<T>> {
         children: [
           TextField(
             controller: controller,
-            decoration: InputDecoration(labelText: "Search for ${widget.type}"),
+            decoration: InputDecoration(
+              labelText: AppLocalizations.of(context)!.searchFor(widget.type),
+            ),
             onChanged: (value) => setState(() => search = value),
           ),
           Expanded(

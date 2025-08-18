@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:recipe_list/data/recipe_data/recipe_data.dart';
+import 'package:recipe_list/l10n/app_localizations.dart';
 import 'package:recipe_list/root_routes.dart';
 import 'package:recipe_list/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipe_list/widgets/generic/highlight_search/highlightable_text.dart';
@@ -91,7 +92,9 @@ class CompactRecipeItem extends ConsumerWidget {
                                 ],
                               ),
                               if (data.servings != null)
-                                Text("Servings: ${data.servings}"),
+                                Text(
+                                  "${AppLocalizations.of(context)!.servings}: ${data.servings}",
+                                ),
                             ],
                           ),
                         ),

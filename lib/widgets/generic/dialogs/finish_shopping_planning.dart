@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_list/l10n/app_localizations.dart';
 import 'package:recipe_list/widgets/generic/dialogs/two_option_dialog.dart';
 
 class FinishShoppingPlanning extends StatelessWidget {
@@ -6,12 +7,13 @@ class FinishShoppingPlanning extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
+
     return TwoOptionDialog(
-      title: "Finish shopping planning",
-      content:
-          "Do you want to finish your shopping planning and your items to your shopping list",
-      agree: 'Yes',
-      disagree: 'No',
+      title: localization.finishShoppingPlanning,
+      content: localization.finishShoppingContent,
+      agree: localization.yes,
+      disagree: localization.no,
     );
   }
 }

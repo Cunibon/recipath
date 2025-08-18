@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_list/common.dart';
 import 'package:recipe_list/data/ingredient_data/ingredient_data.dart';
 import 'package:recipe_list/data/unit_enum.dart';
+import 'package:recipe_list/l10n/app_localizations.dart';
 import 'package:recipe_list/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 
 class IngredientItem extends ConsumerStatefulWidget {
@@ -34,6 +35,8 @@ class _IngredientItemState extends ConsumerState<IngredientItem> {
 
   @override
   Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
+
     final grocery = ref.watch(
       groceryNotifierProvider.select(
         (value) => value.value![widget.data.groceryId],
@@ -54,13 +57,13 @@ class _IngredientItemState extends ConsumerState<IngredientItem> {
           flex: 3,
           child: TextFormField(
             controller: amountController,
-            decoration: InputDecoration(labelText: "Amount"),
+            decoration: InputDecoration(labelText: localization.amount),
             keyboardType: TextInputType.numberWithOptions(decimal: true),
             validator: (value) =>
                 value == null ||
                     value.isEmpty ||
                     doubleNumberFormat.tryParse(value) == 0
-                ? "Add amount"
+                ? localization.addAmount
                 : null,
             onChanged: (value) {
               final parsed = doubleNumberFormat.tryParse(value);
@@ -85,9 +88,10 @@ class _IngredientItemState extends ConsumerState<IngredientItem> {
                   ),
                 )
               : DropdownButtonFormField(
-                  decoration: InputDecoration(labelText: "Unit"),
+                  decoration: InputDecoration(labelText: localization.unit),
                   value: widget.data.unit,
-                  validator: (value) => value == null ? "Add unit" : null,
+                  validator: (value) =>
+                      value == null ? localization.addUnit : null,
                   items:
                       [
                             ...UnitConversion.volumeToMl.keys,

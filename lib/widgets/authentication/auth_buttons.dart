@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_list/domain_service/syncing_service/syncing_service/syncing_service_notifier.dart';
 import 'package:recipe_list/drift/database_notifier.dart';
+import 'package:recipe_list/l10n/app_localizations.dart';
 import 'package:recipe_list/widgets/authentication/auth_dialog.dart';
 import 'package:recipe_list/widgets/providers/supabase/supabase_client_notifier.dart';
 import 'package:recipe_list/widgets/providers/supabase/supabase_user_notifier.dart';
@@ -12,6 +13,7 @@ class AuthButtons extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(supabaseUserProvider);
+    final localization = AppLocalizations.of(context)!;
 
     return Column(
       children: [
@@ -21,7 +23,7 @@ class AuthButtons extends ConsumerWidget {
               context: context,
               builder: (context) => AuthDialog(isLogin: true),
             ),
-            label: Text("Login"),
+            label: Text(localization.login),
             icon: Icon(Icons.person),
           ),
           TextButton.icon(
@@ -29,7 +31,7 @@ class AuthButtons extends ConsumerWidget {
               context: context,
               builder: (context) => AuthDialog(isLogin: false),
             ),
-            label: Text("Register"),
+            label: Text(localization.register),
             icon: Icon(Icons.person_add),
           ),
         ] else ...[
@@ -39,7 +41,7 @@ class AuthButtons extends ConsumerWidget {
               await ref.read(syncingServiceNotifierProvider).reset();
               await ref.read(databaseNotifierProvider).clear();
             },
-            label: Text("Logout"),
+            label: Text(localization.logout),
             icon: Icon(Icons.logout),
           ),
           Text(user.email ?? ""),

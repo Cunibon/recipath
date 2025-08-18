@@ -1,4 +1,120 @@
 {
     "@@locale": "de",
-    "helloWorld": "Hallo welt!"
+    "login": "Anmelden",
+    "register": "Registrieren",
+    "logout": "Abmelden",
+    "eMail": "E-Mail",
+    "objectInvalid": "{object} ungültig",
+    "@objectInvalid": {
+        "placeholders": {
+            "object": {
+                "type": "String"
+            }
+        }
+    },
+    "addEMail": "E-Mail hinzufügen",
+    "password": "Passwort",
+    "addPassword": "Passwort hinzufügen",
+    "repeatPassword": "Passwort wiederholen",
+    "passwordsDontMatch": "Passwörter stimmen nicht überein",
+    "passwordLength": "Passwort muss mindestens 12 Zeichen lang sein",
+    "verifactionEMailSent": "Bestätigungs-E-Mail wurde gesendet",
+    "couldNotAuthenticate": "Benutzer konnte nicht authentifiziert werden",
+    "searchFor": "Suche nach {type}",
+    "@searchFor": {
+        "placeholders": {
+            "type": {
+                "type": "String"
+            }
+        }
+    },
+    "clearAllItems": "Alle Elemente löschen?",
+    "clearAllContent": "Möchten Sie wirklich alle Elemente löschen?\nEs gibt keine Möglichkeit, sie wiederherzustellen.",
+    "yes": "Ja",
+    "no": "Nein",
+    "reallyDelete": "Möchten Sie wirklich löschen",
+    "finishShoppingPlanning": "Einkaufsplanung abschließen",
+    "finishShoppingContent": "Möchten Sie Ihre Einkaufsplanung abschließen und die Artikel zur Einkaufsliste hinzufügen?",
+    "leaveThisPage": "Möchten Sie diese Seite verlassen?",
+    "leaveThisPageContent": "Alle ungespeicherten Änderungen gehen verloren!",
+    "recipes": "Rezepte",
+    "shoppingList": "Einkaufsliste",
+    "storage": "Vorrat",
+    "groceries": "Lebensmittel",
+    "dashboard": "Übersicht",
+    "cookingHistory": "Kochverlauf",
+    "shoppingHistory": "Einkaufsverlauf",
+    "settings": "Einstellungen",
+    "recipeUsage": "Rezeptnutzung",
+    "groceryUsage": "Lebensmittelnutzung",
+    "nutriments": "Nährstoffe",
+    "grocery": "Lebensmittel",
+    "cantDeleteGroceryMessage": "Es gibt {recipes} Rezepte, {shopping} Einkaufsartikel und {storage} Vorratsartikel, die diese Zutat verwenden.\nSie kann nicht gelöscht werden.",
+    "@cantDeleteGroceryMessage": {
+        "placeholders": {
+            "recipes": {
+                "type": "int"
+            },
+            "shopping": {
+                "type": "int"
+            },
+            "storage": {
+                "type": "int"
+            }
+        }
+    },
+    "createGrocery": "Lebensmittel erstellen",
+    "save": "Speichern",
+    "delete": "Löschen",
+    "name": "Name",
+    "addName": "Name hinzufügen",
+    "normalAmount": "Normale Menge",
+    "addNormalAmount": "Normale Menge hinzufügen",
+    "unit": "Einheit",
+    "addUnit": "Einheit hinzufügen",
+    "conversionAmount": "Umrechnungsmenge",
+    "addConversionAmount": "Umrechnungsmenge hinzufügen",
+    "addRealNumber": "Reelle Zahl hinzufügen",
+    "scanGrocery": "Lebensmittel scannen",
+    "couldNotFindBarcode": "Kein Produkt gefunden für Code: $barcode",
+    "servings": "Portionen",
+    "addedItemsToShopping": "Artikel zur Einkaufsliste hinzugefügt!",
+    "recipe": "Rezept",
+    "addNew": "Neu hinzufügen",
+    "done": "Fertig",
+    "takePicture": "Foto aufnehmen",
+    "addPictureFromGallery": "Bild aus Galerie hinzufügen",
+    "createRecipe": "Rezept erstellen",
+    "title": "Titel",
+    "addTitle": "Titel hinzufügen",
+    "step": "Schritt",
+    "addStep": "Schritt hinzufügen",
+    "amount": "Menge",
+    "addAmount": "Menge hinzufügen",
+    "expand": "Erweitern",
+    "collapse": "Einklappen",
+    "objectDescription": "{object} Beschreibung",
+    "@objectDescription": {
+        "placeholders": {
+            "object": {
+                "type": "String"
+            }
+        }
+    },
+    "addDescription": "Beschreibung hinzufügen",
+    "changeIngredients": "Zutaten ändern",
+    "ingredients": "Zutaten",
+    "perServing": "Pro Portion",
+    "somethingWentWrong": "Etwas ist schiefgelaufen :(",
+    "howLongDidTheRecipeTake": "Wie lange hat das Rezept gedauert?",
+    "cancleTimer": "Timer abbrechen",
+    "removedIngredientsFromStorage": "Zutaten aus dem Vorrat entfernt!",
+    "appearance": "Darstellung",
+    "data": "Daten",
+    "importData": "Daten importieren",
+    "exportData": "Daten exportieren",
+    "darkMode": "Dunkelmodus",
+    "clear": "Löschen",
+    "items": "Elemente",
+    "language": "Sprache"
 }

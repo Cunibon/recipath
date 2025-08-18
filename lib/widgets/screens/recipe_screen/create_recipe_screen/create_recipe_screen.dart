@@ -5,6 +5,7 @@ import 'package:random_string/random_string.dart';
 import 'package:recipe_list/application/recipe_modifier/recipe_modifier_notifier.dart';
 import 'package:recipe_list/data/recipe_data/recipe_data.dart';
 import 'package:recipe_list/data/recipe_step_data/recipe_step_data.dart';
+import 'package:recipe_list/l10n/app_localizations.dart';
 import 'package:recipe_list/root_routes.dart';
 import 'package:recipe_list/widgets/generic/dialogs/delete_confirmation_dialog.dart';
 import 'package:recipe_list/widgets/generic/unsaved_changes_scope.dart';
@@ -44,12 +45,14 @@ class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
+
     return UnsavedChangesScope(
       canPop: data == initalData,
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            "Create recipe",
+            localization.createRecipe,
             style: Theme.of(context).textTheme.titleLarge,
           ),
         ),
@@ -87,7 +90,7 @@ class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
                 }
               },
               icon: Icon(Icons.save),
-              label: Text("Save"),
+              label: Text(localization.save),
             ),
             if (widget.recipeId != null)
               ElevatedButton.icon(
@@ -103,7 +106,7 @@ class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
                   }
                 },
                 icon: Icon(Icons.delete),
-                label: Text("Delete"),
+                label: Text(localization.delete),
               ),
           ],
         ),
@@ -129,10 +132,12 @@ class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
                     children: [
                       Expanded(
                         child: TextFormField(
-                          decoration: InputDecoration(labelText: "Title"),
+                          decoration: InputDecoration(
+                            labelText: localization.title,
+                          ),
                           initialValue: data.title,
                           validator: (value) => value == null || value.isEmpty
-                              ? "Add title"
+                              ? localization.addTitle
                               : null,
                           onChanged: (value) => setState(
                             () => data = data.copyWith(title: value),
@@ -144,11 +149,13 @@ class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
                         width: 100,
                         child: TextFormField(
                           initialValue: data.servings?.toString() ?? "",
-                          decoration: InputDecoration(labelText: "Servings"),
+                          decoration: InputDecoration(
+                            labelText: localization.servings,
+                          ),
                           keyboardType: TextInputType.number,
                           validator: (value) => value?.isEmpty == false
                               ? int.tryParse(value!) == null
-                                    ? "Add valid servings"
+                                    ? localization.addRealNumber
                                     : null
                               : null,
                           onChanged: (value) {
@@ -184,7 +191,7 @@ class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
                         ),
                       ),
                       icon: Icon(Icons.add),
-                      label: Text("Add step"),
+                      label: Text(localization.addStep),
                     ),
                   ),
                   SizedBox(height: 60),

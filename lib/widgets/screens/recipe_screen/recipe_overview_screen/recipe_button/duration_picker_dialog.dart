@@ -1,5 +1,6 @@
 import 'package:duration_picker/duration_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:recipe_list/l10n/app_localizations.dart';
 
 class DurationPickerResponse {
   DurationPickerResponse({this.duration});
@@ -27,9 +28,11 @@ class _DurationPickerDialogState extends State<DurationPickerDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
+
     return AlertDialog(
       title: Text(
-        "How long did your recipe take?",
+        localization.howLongDidTheRecipeTake,
         style: Theme.of(context).textTheme.labelLarge,
       ),
       content: DurationPicker(
@@ -43,7 +46,7 @@ class _DurationPickerDialogState extends State<DurationPickerDialog> {
           style: TextButton.styleFrom(
             textStyle: Theme.of(context).textTheme.labelLarge,
           ),
-          child: const Text('Cancle timer'),
+          child: Text(localization.cancleTimer),
           onPressed: () {
             Navigator.of(context).pop(DurationPickerResponse());
           },
@@ -52,7 +55,7 @@ class _DurationPickerDialogState extends State<DurationPickerDialog> {
           style: TextButton.styleFrom(
             textStyle: Theme.of(context).textTheme.labelLarge,
           ),
-          child: const Text('Done'),
+          child: Text(localization.done),
           onPressed: () {
             Navigator.of(
               context,

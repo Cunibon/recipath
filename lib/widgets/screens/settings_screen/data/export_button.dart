@@ -1,10 +1,16 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:recipe_list/domain_service/import_service/data_import_service_notifier.dart';
+import 'package:recipe_list/application_constants.dart';
+import 'package:recipe_list/l10n/app_localizations.dart';
+import 'package:recipe_list/providers/application_path_provider.dart';
+import 'package:recipe_list/repos/grocery/grocery_repo_notifier.dart';
+import 'package:recipe_list/repos/recipe/recipe_repo_notifier.dart';
+import 'package:recipe_list/repos/shopping/shopping_repo_notifier.dart';
+import 'package:recipe_list/repos/storage/storage_repo_notifier.dart';
+import 'package:share_plus/share_plus.dart';
 
 class ExportButton extends ConsumerWidget {
   const ExportButton({super.key});
@@ -13,23 +19,26 @@ class ExportButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return TextButton.icon(
       onPressed: () async {
-        FilePickerResult? result = await FilePicker.platform.pickFiles(
-          type: FileType.custom,
-          allowedExtensions: ["json"],
-        );
+        final dir = ref.read(applicationPathProvider);
 
-        if (result != null) {
-          File file = File(result.files.single.path!);
+        final allData = {
+          recipeDataKey: await ref.read(recipeRepoNotifierProvider).get(),
+          shoppingDataKey: await ref.read(shoppingRepoNotifierProvider).get(),
+          storageDataKey: await ref.read(storageRepoNotifierProvider).get(),
+          groceryDataKey: await ref.read(groceryRepoNotifierProvider).get(),
+        };
 
-          final data = jsonDecode(await file.readAsString());
+        final filePath = "${dir.path}/recipe_list.json";
 
-          if (data is Map<String, dynamic>) {
-            ref.read(dataImportServiceNotifierProvider).import(data);
-          }
-        }
+        final file = File(filePath);
+        await file.writeAsString(jsonEncode(allData));
+
+        final params = ShareParams(files: [XFile(filePath)]);
+
+        await SharePlus.instance.share(params);
       },
-      icon: Icon(Icons.download),
-      label: Text("Import data"),
+      icon: Icon(Icons.upload),
+      label: Text(AppLocalizations.of(context)!.exportData),
     );
   }
 }

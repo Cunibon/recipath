@@ -5,6 +5,7 @@ import 'package:random_string/random_string.dart';
 import 'package:recipe_list/common.dart';
 import 'package:recipe_list/data/grocery_data/grocery_data.dart';
 import 'package:recipe_list/data/ingredient_data/ingredient_data.dart';
+import 'package:recipe_list/l10n/app_localizations.dart';
 import 'package:recipe_list/widgets/generic/searchable_list.dart';
 import 'package:recipe_list/widgets/screens/grocery_screen/grocery_routes.dart';
 import 'package:recipe_list/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
@@ -43,6 +44,8 @@ class _AddIngredientDialogState extends ConsumerState<AddIngredientDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
+
     final groceries = ref.watch(groceryNotifierProvider).value!;
     final groceryList = groceries.values.toList();
 
@@ -61,7 +64,7 @@ class _AddIngredientDialogState extends ConsumerState<AddIngredientDialog> {
                     children: [
                       SearchableList(
                         initialSearch: widget.initialSearch,
-                        type: "Groceries",
+                        type: localization.groceries,
                         items: groceryList,
                         listViewPadding: EdgeInsets.only(bottom: 33),
                         sort: (a, b) => a.name.toLowerCase().compareTo(
@@ -102,7 +105,7 @@ class _AddIngredientDialogState extends ConsumerState<AddIngredientDialog> {
                             "./${GroceryRoutes.createGrocery.path}",
                           ),
                           icon: Icon(Icons.add),
-                          label: Text("Add new"),
+                          label: Text(localization.addNew),
                         ),
                       ),
                     ],
@@ -118,7 +121,9 @@ class _AddIngredientDialogState extends ConsumerState<AddIngredientDialog> {
                           width: 100,
                           child: TextFormField(
                             controller: amountController,
-                            decoration: InputDecoration(labelText: "Amount"),
+                            decoration: InputDecoration(
+                              labelText: localization.amount,
+                            ),
                             keyboardType: TextInputType.numberWithOptions(
                               decimal: true,
                             ),
@@ -126,7 +131,7 @@ class _AddIngredientDialogState extends ConsumerState<AddIngredientDialog> {
                                 value == null ||
                                     value.isEmpty ||
                                     doubleNumberFormat.tryParse(value) == 0
-                                ? "Add amount"
+                                ? localization.addAmount
                                 : null,
                           ),
                         ),
@@ -155,7 +160,7 @@ class _AddIngredientDialogState extends ConsumerState<AddIngredientDialog> {
                         }
                       },
                       icon: Icon(Icons.done),
-                      label: Text("Done"),
+                      label: Text(localization.done),
                     ),
                   ),
                 ],

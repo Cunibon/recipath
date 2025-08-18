@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_list/data/recipe_step_data/recipe_step_data.dart';
+import 'package:recipe_list/l10n/app_localizations.dart';
 import 'package:recipe_list/widgets/screens/recipe_screen/recipe_overview_screen/ingredients_list.dart';
 
 class RecipeStep extends StatelessWidget {
@@ -14,7 +15,7 @@ class RecipeStep extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Step ${index + 1}:",
+          "${AppLocalizations.of(context)!.step} ${index + 1}:",
           style: Theme.of(context).textTheme.titleLarge,
         ),
         Divider(),

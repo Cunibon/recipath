@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_list/data/ingredient_data/ingredient_data.dart';
+import 'package:recipe_list/l10n/app_localizations.dart';
 import 'package:recipe_list/widgets/generic/expandable.dart';
 import 'package:recipe_list/widgets/screens/recipe_screen/create_recipe_screen/compact_ingredient_view.dart';
 import 'package:recipe_list/widgets/screens/recipe_screen/create_recipe_screen/ingredient_item.dart';
@@ -26,6 +27,8 @@ class _IngredientViewState extends State<IngredientView> {
 
   @override
   Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
+
     final listCopy = List<IngredientData>.from(widget.ingredients);
 
     final List<Widget> items = [];
@@ -49,7 +52,7 @@ class _IngredientViewState extends State<IngredientView> {
       titleBuilder: (expanded) => Row(
         children: [
           Text(
-            expanded ? "Collapse" : "Expand",
+            expanded ? localization.collapse : localization.expand,
             style: Theme.of(context).textTheme.bodyLarge!.copyWith(
               color: Theme.of(context).colorScheme.primary,
             ),

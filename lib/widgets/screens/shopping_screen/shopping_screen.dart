@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_list/application/shopping_modifier/shopping_modifier_notifier.dart';
 import 'package:recipe_list/data/ingredient_data/ingredient_data.dart';
 import 'package:recipe_list/data/shopping_data/shopping_data.dart';
+import 'package:recipe_list/l10n/app_localizations.dart';
 import 'package:recipe_list/widgets/generic/dialogs/clear_confirmation_dialog.dart';
 import 'package:recipe_list/widgets/generic/notifier_future_builder.dart';
 import 'package:recipe_list/widgets/generic/searchable_list.dart';
@@ -26,6 +27,8 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
+
     final asyncItems = ref.watch(shoppingNotifierProvider);
     final asyncGroceryMap = ref.watch(groceryNotifierProvider);
 
@@ -51,7 +54,7 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
               ref.read(shoppingModifierNotifierProvider).clear();
             }
           },
-          child: Text("Clear"),
+          child: Text(localization.clear),
         ),
       ],
       floatingActionButton: FloatingActionButton(
@@ -74,7 +77,7 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
         futures: [asyncItems, asyncGroceryMap, asyncStorage],
         childBuilder: () => SearchableList(
           searchController: searchController,
-          type: "Items",
+          type: localization.items,
           items: asyncItems.value!.values.toList(),
           toSearchable: (item) => item.toReadable(
             asyncGroceryMap.value![item.ingredient.groceryId]!,

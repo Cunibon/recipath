@@ -8,6 +8,7 @@ import 'package:recipe_list/data/grocery_data/grocery_data.dart';
 import 'package:recipe_list/data/gtin_data/gtin_data.dart';
 import 'package:recipe_list/data/recipe_data/recipe_data.dart';
 import 'package:recipe_list/data/unit_enum.dart';
+import 'package:recipe_list/l10n/app_localizations.dart';
 import 'package:recipe_list/repos/recipe/recipe_repo_notifier.dart';
 import 'package:recipe_list/repos/shopping/shopping_repo_notifier.dart';
 import 'package:recipe_list/repos/storage/storage_repo_notifier.dart';
@@ -79,12 +80,14 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
+
     return UnsavedChangesScope(
       canPop: data == initialData,
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            "Create grocery",
+            localization.createGrocery,
             style: Theme.of(context).textTheme.titleLarge,
           ),
           actions: [
@@ -185,7 +188,7 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
                 }
               },
               icon: Icon(Icons.save),
-              label: Text("Save"),
+              label: Text(localization.save),
             ),
             if (widget.groceryId != null)
               ElevatedButton.icon(
@@ -222,8 +225,11 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
                       showDialog(
                         context: context,
                         builder: (context) => InformationDialog(
-                          message:
-                              "There are ${recipesUsing.length} recipes, ${shoppingUsing.length} shopping items and ${storageUsing.length} storage items using this ingredient.\nIt cannot be deleted.",
+                          message: localization.cantDeleteGroceryMessage(
+                            recipesUsing.length,
+                            shoppingUsing.length,
+                            storageUsing.length,
+                          ),
                         ),
                       );
                     }
@@ -243,7 +249,7 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
                   }
                 },
                 icon: Icon(Icons.delete),
-                label: Text("Delete"),
+                label: Text(localization.delete),
               ),
           ],
         ),

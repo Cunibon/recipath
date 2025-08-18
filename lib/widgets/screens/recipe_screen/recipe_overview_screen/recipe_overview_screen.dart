@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:recipe_list/application_constants.dart';
 import 'package:recipe_list/data/recipe_data/recipe_data.dart';
+import 'package:recipe_list/l10n/app_localizations.dart';
 import 'package:recipe_list/root_routes.dart';
 import 'package:recipe_list/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 import 'package:recipe_list/widgets/screens/recipe_screen/local_image.dart';
@@ -20,12 +21,14 @@ class RecipeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final localization = AppLocalizations.of(context)!;
+
     final recipe = ref.watch(
       recipeNotifierProvider.select((value) => value.value?[recipeId]),
     );
 
     if (recipe == null) {
-      return Center(child: Text("Something went wrong :("));
+      return Center(child: Text(localization.somethingWentWrong));
     }
 
     final groceries = ref.watch(groceryNotifierProvider).value!;
@@ -65,7 +68,7 @@ class RecipeScreen extends ConsumerWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: Text(
-                    "Servings: ${recipe.servings}",
+                    "${localization.servings}: ${recipe.servings}",
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                 ),

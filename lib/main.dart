@@ -13,7 +13,7 @@ import 'package:recipe_list/drift/database_notifier.dart';
 import 'package:recipe_list/l10n/app_localizations.dart';
 import 'package:recipe_list/providers/application_path_provider.dart';
 import 'package:recipe_list/root_routes.dart';
-import 'package:recipe_list/widgets/providers/local_provider.dart';
+import 'package:recipe_list/widgets/providers/locale_provider.dart';
 import 'package:recipe_list/widgets/providers/theme_data_provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -72,10 +72,10 @@ class _MyAppState extends ConsumerState<MyApp> {
   @override
   Widget build(BuildContext context) {
     final themeData = ref.watch(themeDataNotifierProvider);
-    final locale = ref.watch(localNotifierProvider);
+    final locale = ref.watch(localeNotifierProvider);
 
     return MaterialApp.router(
-      title: 'ReciPath',
+      title: "ReciPath",
       locale: AppLocalizations.supportedLocales.contains(locale)
           ? locale
           : Locale('en'),

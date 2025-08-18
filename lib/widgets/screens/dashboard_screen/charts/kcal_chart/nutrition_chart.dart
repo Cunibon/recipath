@@ -2,6 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_list/common.dart';
+import 'package:recipe_list/l10n/app_localizations.dart';
 import 'package:recipe_list/widgets/generic/expandable.dart';
 import 'package:recipe_list/widgets/screens/dashboard_screen/charts/async_chart.dart';
 import 'package:recipe_list/widgets/screens/dashboard_screen/charts/base_chart.dart';
@@ -31,7 +32,7 @@ class NutritionChart extends ConsumerWidget {
           Row(
             children: [
               Text(
-                "Nutriments/100g",
+                "${AppLocalizations.of(context)!.nutriments}/100g",
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               Icon(

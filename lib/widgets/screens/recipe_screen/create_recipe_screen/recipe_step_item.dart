@@ -4,6 +4,7 @@ import 'package:random_string/random_string.dart';
 import 'package:recipe_list/data/grocery_data/grocery_data.dart';
 import 'package:recipe_list/data/ingredient_data/ingredient_data.dart';
 import 'package:recipe_list/data/recipe_step_data/recipe_step_data.dart';
+import 'package:recipe_list/l10n/app_localizations.dart';
 import 'package:recipe_list/widgets/screens/recipe_screen/create_recipe_screen/add_groceries_dialog.dart';
 import 'package:recipe_list/widgets/screens/recipe_screen/create_recipe_screen/ingredient_view.dart';
 
@@ -26,6 +27,8 @@ class RecipeStepItem extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final localization = AppLocalizations.of(context)!;
+
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -51,11 +54,13 @@ class RecipeStepItem extends ConsumerWidget {
                       TextFormField(
                         maxLines: null,
                         decoration: InputDecoration(
-                          labelText: "Step ${index + 1} description",
+                          labelText: localization.objectDescription(
+                            "${localization.step} ${index + 1}",
+                          ),
                         ),
                         initialValue: data.description,
                         validator: (value) => value == null || value.isEmpty
-                            ? "Add decription"
+                            ? localization.addDescription
                             : null,
                         onChanged: (value) =>
                             onChanged(data.copyWith(description: value)),
@@ -104,7 +109,7 @@ class RecipeStepItem extends ConsumerWidget {
                           }
                         },
                         icon: Icon(Icons.add),
-                        label: Text("Change ingredients"),
+                        label: Text(localization.changeIngredients),
                       ),
                     ],
                   ),

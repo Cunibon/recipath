@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_list/l10n/app_localizations.dart';
 import 'package:recipe_list/widgets/generic/dialogs/two_option_dialog.dart';
 
 class DeleteConfirmationDialog extends StatelessWidget {
@@ -6,10 +7,12 @@ class DeleteConfirmationDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
+
     return TwoOptionDialog(
-      content: "Do you really want to delete?",
-      agree: 'Yes',
-      disagree: 'No',
+      content: localization.reallyDelete,
+      agree: localization.yes,
+      disagree: localization.no,
     );
   }
 }

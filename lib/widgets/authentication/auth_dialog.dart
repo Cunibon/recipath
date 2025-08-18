@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 import 'package:recipe_list/common.dart';
 import 'package:recipe_list/domain_service/syncing_service/syncing_service/syncing_service_notifier.dart';
+import 'package:recipe_list/l10n/app_localizations.dart';
 import 'package:recipe_list/widgets/providers/supabase/supabase_client_notifier.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -27,6 +28,8 @@ class _AuthDialogState extends ConsumerState<AuthDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
+
     return Dialog(
       child: Padding(
         padding: EdgeInsetsGeometry.all(8),
@@ -40,32 +43,32 @@ class _AuthDialogState extends ConsumerState<AuthDialog> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  widget.isLogin ? "Login" : "Register",
+                  widget.isLogin ? localization.login : localization.register,
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 TextFormField(
                   controller: emailController,
 
-                  decoration: InputDecoration(hintText: "E-Mail"),
+                  decoration: InputDecoration(hintText: localization.eMail),
                   validator: (value) {
                     if (value != null) {
                       if (emailRegex.hasMatch(value)) {
                         return null;
                       } else {
-                        return "E-Mail invalid";
+                        return localization.objectInvalid(localization.eMail);
                       }
                     } else {
-                      return "Add an email";
+                      return localization.addEMail;
                     }
                   },
                 ),
                 TextFormField(
                   controller: passwordController,
                   obscureText: true,
-                  decoration: InputDecoration(hintText: "Password"),
+                  decoration: InputDecoration(hintText: localization.password),
                   validator: (value) {
                     if (value == null) {
-                      return "Add a password";
+                      return localization.addPassword;
                     }
                     return null;
                   },
@@ -73,20 +76,22 @@ class _AuthDialogState extends ConsumerState<AuthDialog> {
                 if (!widget.isLogin)
                   TextFormField(
                     obscureText: true,
-                    decoration: InputDecoration(hintText: "Repeat password"),
+                    decoration: InputDecoration(
+                      hintText: localization.repeatPassword,
+                    ),
                     validator: (value) {
                       if (value != null) {
                         if (value.length >= 12) {
                           if (passwordController.text == value) {
                             return null;
                           } else {
-                            return "Passwords dont match";
+                            return localization.passwordsDontMatch;
                           }
                         } else {
-                          return "Password needs to be at least 12 letters long";
+                          return localization.passwordLength;
                         }
                       } else {
-                        return "Repeat your password";
+                        return localization.addPassword;
                       }
                     },
                   ),
@@ -128,7 +133,7 @@ class _AuthDialogState extends ConsumerState<AuthDialog> {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text(
-                                    "Verifaction email has been sent",
+                                    localization.verifactionEMailSent,
                                   ),
                                 ),
                               );
@@ -143,7 +148,7 @@ class _AuthDialogState extends ConsumerState<AuthDialog> {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     content: Text(
-                                      "Could not authenticate user",
+                                      localization.couldNotAuthenticate,
                                     ),
                                   ),
                                 );
@@ -165,7 +170,11 @@ class _AuthDialogState extends ConsumerState<AuthDialog> {
                             width: 20,
                             child: CircularProgressIndicator(),
                           )
-                        : Text(widget.isLogin ? "Login" : "Register"),
+                        : Text(
+                            widget.isLogin
+                                ? localization.login
+                                : localization.register,
+                          ),
                   ),
                 ),
               ],

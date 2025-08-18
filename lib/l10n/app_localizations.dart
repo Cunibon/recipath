@@ -98,11 +98,503 @@ abstract class AppLocalizations {
     Locale('en'),
   ];
 
-  /// The conventional newborn programmer greeting
+  /// No description provided for @login.
   ///
   /// In en, this message translates to:
-  /// **'Hello World!'**
-  String get helloWorld;
+  /// **'Login'**
+  String get login;
+
+  /// No description provided for @register.
+  ///
+  /// In en, this message translates to:
+  /// **'Register'**
+  String get register;
+
+  /// No description provided for @logout.
+  ///
+  /// In en, this message translates to:
+  /// **'Logout'**
+  String get logout;
+
+  /// No description provided for @eMail.
+  ///
+  /// In en, this message translates to:
+  /// **'E-Mail'**
+  String get eMail;
+
+  /// No description provided for @objectInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'{object} invalid'**
+  String objectInvalid(String object);
+
+  /// No description provided for @addEMail.
+  ///
+  /// In en, this message translates to:
+  /// **'Add an email'**
+  String get addEMail;
+
+  /// No description provided for @password.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get password;
+
+  /// No description provided for @addPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a password'**
+  String get addPassword;
+
+  /// No description provided for @repeatPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Repeat password'**
+  String get repeatPassword;
+
+  /// No description provided for @passwordsDontMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords don\'t match'**
+  String get passwordsDontMatch;
+
+  /// No description provided for @passwordLength.
+  ///
+  /// In en, this message translates to:
+  /// **'Password needs to be at least 12 letters long'**
+  String get passwordLength;
+
+  /// No description provided for @verifactionEMailSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Verifaction E-Mail has been sent'**
+  String get verifactionEMailSent;
+
+  /// No description provided for @couldNotAuthenticate.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not authenticate user'**
+  String get couldNotAuthenticate;
+
+  /// No description provided for @searchFor.
+  ///
+  /// In en, this message translates to:
+  /// **'Search for {type}'**
+  String searchFor(String type);
+
+  /// No description provided for @clearAllItems.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear all items?'**
+  String get clearAllItems;
+
+  /// No description provided for @clearAllContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you really want clear all items?\nThere is no way to get them back.'**
+  String get clearAllContent;
+
+  /// No description provided for @yes.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get yes;
+
+  /// No description provided for @no.
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get no;
+
+  /// No description provided for @reallyDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you really want to delete'**
+  String get reallyDelete;
+
+  /// No description provided for @finishShoppingPlanning.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish shopping planning'**
+  String get finishShoppingPlanning;
+
+  /// No description provided for @finishShoppingContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to finish your shopping planning and your items to your shopping list'**
+  String get finishShoppingContent;
+
+  /// No description provided for @leaveThisPage.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you want to leave this page?'**
+  String get leaveThisPage;
+
+  /// No description provided for @leaveThisPageContent.
+  ///
+  /// In en, this message translates to:
+  /// **'All unsaved changes will be lost!'**
+  String get leaveThisPageContent;
+
+  /// No description provided for @recipes.
+  ///
+  /// In en, this message translates to:
+  /// **'Recipes'**
+  String get recipes;
+
+  /// No description provided for @shoppingList.
+  ///
+  /// In en, this message translates to:
+  /// **'Shopping list'**
+  String get shoppingList;
+
+  /// No description provided for @storage.
+  ///
+  /// In en, this message translates to:
+  /// **'Storage'**
+  String get storage;
+
+  /// No description provided for @groceries.
+  ///
+  /// In en, this message translates to:
+  /// **'Groceries'**
+  String get groceries;
+
+  /// No description provided for @dashboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Dashboard'**
+  String get dashboard;
+
+  /// No description provided for @cookingHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Cooking history'**
+  String get cookingHistory;
+
+  /// No description provided for @shoppingHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Shopping history'**
+  String get shoppingHistory;
+
+  /// No description provided for @settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settings;
+
+  /// No description provided for @recipeUsage.
+  ///
+  /// In en, this message translates to:
+  /// **'Recipe usage'**
+  String get recipeUsage;
+
+  /// No description provided for @groceryUsage.
+  ///
+  /// In en, this message translates to:
+  /// **'Grocery usage'**
+  String get groceryUsage;
+
+  /// No description provided for @nutriments.
+  ///
+  /// In en, this message translates to:
+  /// **'Nutriments'**
+  String get nutriments;
+
+  /// No description provided for @grocery.
+  ///
+  /// In en, this message translates to:
+  /// **'Grocery'**
+  String get grocery;
+
+  /// No description provided for @cantDeleteGroceryMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'There are {recipes} recipes, {shopping} shopping items and {storage} storage items using this ingredient.\nIt cannot be deleted.'**
+  String cantDeleteGroceryMessage(int recipes, int shopping, int storage);
+
+  /// No description provided for @createGrocery.
+  ///
+  /// In en, this message translates to:
+  /// **'Create grocery'**
+  String get createGrocery;
+
+  /// No description provided for @save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
+
+  /// No description provided for @delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get delete;
+
+  /// No description provided for @name.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get name;
+
+  /// No description provided for @addName.
+  ///
+  /// In en, this message translates to:
+  /// **'Add name'**
+  String get addName;
+
+  /// No description provided for @normalAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Normal amount'**
+  String get normalAmount;
+
+  /// No description provided for @addNormalAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Add normal amount'**
+  String get addNormalAmount;
+
+  /// No description provided for @unit.
+  ///
+  /// In en, this message translates to:
+  /// **'Unit'**
+  String get unit;
+
+  /// No description provided for @addUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'Add unit'**
+  String get addUnit;
+
+  /// No description provided for @conversionAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Conversion amount'**
+  String get conversionAmount;
+
+  /// No description provided for @addConversionAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Add conversion amount'**
+  String get addConversionAmount;
+
+  /// No description provided for @addRealNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Add real number'**
+  String get addRealNumber;
+
+  /// No description provided for @scanGrocery.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan grocery'**
+  String get scanGrocery;
+
+  /// No description provided for @couldNotFindBarcode.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not find product for code: \$barcode'**
+  String get couldNotFindBarcode;
+
+  /// No description provided for @servings.
+  ///
+  /// In en, this message translates to:
+  /// **'Servings'**
+  String get servings;
+
+  /// No description provided for @addedItemsToShopping.
+  ///
+  /// In en, this message translates to:
+  /// **'Added items to shopping list!'**
+  String get addedItemsToShopping;
+
+  /// No description provided for @recipe.
+  ///
+  /// In en, this message translates to:
+  /// **'Recipe'**
+  String get recipe;
+
+  /// No description provided for @addNew.
+  ///
+  /// In en, this message translates to:
+  /// **'Add new'**
+  String get addNew;
+
+  /// No description provided for @done.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get done;
+
+  /// No description provided for @takePicture.
+  ///
+  /// In en, this message translates to:
+  /// **'Take picture'**
+  String get takePicture;
+
+  /// No description provided for @addPictureFromGallery.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a picture from gallery'**
+  String get addPictureFromGallery;
+
+  /// No description provided for @createRecipe.
+  ///
+  /// In en, this message translates to:
+  /// **'Create recipe'**
+  String get createRecipe;
+
+  /// No description provided for @title.
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get title;
+
+  /// No description provided for @addTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add title'**
+  String get addTitle;
+
+  /// No description provided for @step.
+  ///
+  /// In en, this message translates to:
+  /// **'Step'**
+  String get step;
+
+  /// No description provided for @addStep.
+  ///
+  /// In en, this message translates to:
+  /// **'Add step'**
+  String get addStep;
+
+  /// No description provided for @amount.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount'**
+  String get amount;
+
+  /// No description provided for @addAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Add amount'**
+  String get addAmount;
+
+  /// No description provided for @expand.
+  ///
+  /// In en, this message translates to:
+  /// **'Expand'**
+  String get expand;
+
+  /// No description provided for @collapse.
+  ///
+  /// In en, this message translates to:
+  /// **'Collapse'**
+  String get collapse;
+
+  /// No description provided for @objectDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'{object} description'**
+  String objectDescription(String object);
+
+  /// No description provided for @addDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Add description'**
+  String get addDescription;
+
+  /// No description provided for @changeIngredients.
+  ///
+  /// In en, this message translates to:
+  /// **'Change ingredients'**
+  String get changeIngredients;
+
+  /// No description provided for @ingredients.
+  ///
+  /// In en, this message translates to:
+  /// **'Ingredients'**
+  String get ingredients;
+
+  /// No description provided for @perServing.
+  ///
+  /// In en, this message translates to:
+  /// **'Per serving'**
+  String get perServing;
+
+  /// No description provided for @somethingWentWrong.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong :('**
+  String get somethingWentWrong;
+
+  /// No description provided for @howLongDidTheRecipeTake.
+  ///
+  /// In en, this message translates to:
+  /// **'How long did the recipe take?'**
+  String get howLongDidTheRecipeTake;
+
+  /// No description provided for @cancleTimer.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancle timer'**
+  String get cancleTimer;
+
+  /// No description provided for @removedIngredientsFromStorage.
+  ///
+  /// In en, this message translates to:
+  /// **'Removed ingredients from storage!'**
+  String get removedIngredientsFromStorage;
+
+  /// No description provided for @appearance.
+  ///
+  /// In en, this message translates to:
+  /// **'Appearance'**
+  String get appearance;
+
+  /// No description provided for @data.
+  ///
+  /// In en, this message translates to:
+  /// **'Data'**
+  String get data;
+
+  /// No description provided for @importData.
+  ///
+  /// In en, this message translates to:
+  /// **'Import data'**
+  String get importData;
+
+  /// No description provided for @exportData.
+  ///
+  /// In en, this message translates to:
+  /// **'Export data'**
+  String get exportData;
+
+  /// No description provided for @darkMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark mode'**
+  String get darkMode;
+
+  /// No description provided for @clear.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear'**
+  String get clear;
+
+  /// No description provided for @items.
+  ///
+  /// In en, this message translates to:
+  /// **'Items'**
+  String get items;
+
+  /// No description provided for @language.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get language;
 }
 
 class _AppLocalizationsDelegate

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_list/l10n/app_localizations.dart';
 import 'package:recipe_list/widgets/generic/dialogs/two_option_dialog.dart';
 
 class ClearConfirmationDialog extends StatelessWidget {
@@ -6,12 +7,13 @@ class ClearConfirmationDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
+
     return TwoOptionDialog(
-      title: "Clear all items?",
-      content:
-          "Do you really want clear all items?\nThere is no way to get them back.",
-      agree: 'Yes',
-      disagree: 'No',
+      title: localization.clearAllItems,
+      content: localization.clearAllContent,
+      agree: localization.yes,
+      disagree: localization.no,
     );
   }
 }

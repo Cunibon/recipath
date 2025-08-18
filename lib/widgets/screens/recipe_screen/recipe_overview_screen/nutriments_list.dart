@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_list/common.dart';
 import 'package:recipe_list/data/grocery_data/grocery_data.dart';
 import 'package:recipe_list/data/ingredient_data/ingredient_data.dart';
+import 'package:recipe_list/l10n/app_localizations.dart';
 import 'package:recipe_list/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 
 class NutrimentsList extends ConsumerWidget {
@@ -13,6 +14,8 @@ class NutrimentsList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final localization = AppLocalizations.of(context)!;
+
     final groceryMap = ref.watch(groceryNotifierProvider).value!;
 
     final Map<String, double> aggregatedNutriments = {};
@@ -44,7 +47,7 @@ class NutrimentsList extends ConsumerWidget {
 
     final nutrimentBuffer = StringBuffer();
 
-    nutrimentBuffer.writeln("Nutriments:");
+    nutrimentBuffer.writeln("${localization.nutriments}:");
 
     for (final entry in aggregatedNutriments.entries) {
       nutrimentBuffer.writeln(
@@ -53,7 +56,7 @@ class NutrimentsList extends ConsumerWidget {
     }
 
     if (servings != null) {
-      nutrimentBuffer.writeln("\nPer Serving:");
+      nutrimentBuffer.writeln("\n${localization.perServing}:");
 
       for (final entry in aggregatedNutriments.entries) {
         nutrimentBuffer.writeln(
