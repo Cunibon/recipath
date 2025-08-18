@@ -8,13 +8,13 @@ class MaterialYouToggle extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final materialYou = ref.watch(materialYouProviderProvider);
+    final materialYou = ref.watch(materialYouNotifierProvider);
 
     return SettingToggle(
       text: "Material You",
       value: materialYou,
       onChanged: (value) =>
-          ref.read(materialYouProviderProvider.notifier).set(value),
+          ref.read(materialYouNotifierProvider.notifier).set(value),
     );
   }
 }

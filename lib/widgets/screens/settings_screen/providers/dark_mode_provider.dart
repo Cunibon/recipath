@@ -6,7 +6,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'dark_mode_provider.g.dart';
 
 @riverpod
-class DarkModeProvider extends _$DarkModeProvider {
+class DarkModeNotifier extends _$DarkModeNotifier {
   static const darkmodeKey = "darkmodeKey";
 
   @override

@@ -8,7 +8,7 @@ part 'material_you_scheme_provider.g.dart';
 
 @riverpod
 Future<ColorScheme?> materialYouSchemeNotifier(Ref ref) async {
-  final darkMode = ref.watch(darkModeProviderProvider);
+  final darkMode = ref.watch(darkModeNotifierProvider);
   final corePalette = await DynamicColorPlugin.getCorePalette();
 
   return corePalette?.toColorScheme(

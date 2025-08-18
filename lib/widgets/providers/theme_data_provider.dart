@@ -10,8 +10,8 @@ part 'theme_data_provider.g.dart';
 
 @riverpod
 ThemeData themeDataNotifier(Ref ref) {
-  final darkMode = ref.watch(darkModeProviderProvider);
-  final materialYou = ref.watch(materialYouProviderProvider);
+  final darkMode = ref.watch(darkModeNotifierProvider);
+  final materialYou = ref.watch(materialYouNotifierProvider);
 
   ThemeData startTheme = darkMode ? ThemeData.dark() : ThemeData.light();
 

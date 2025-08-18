@@ -39,6 +39,8 @@ dependencies:
   logger: ^2.6.1
   flutter_image_compress: ^2.4.0
   dynamic_color: ^1.8.1
+  flutter_localizations:
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:
@@ -53,7 +55,7 @@ dev_dependencies:
   drift_dev: ^2.28.0
 
 flutter:
-
+  generate: true
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:

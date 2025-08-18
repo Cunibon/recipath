@@ -5,7 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'material_you_provider.g.dart';
 
 @riverpod
-class MaterialYouProvider extends _$MaterialYouProvider {
+class MaterialYouNotifier extends _$MaterialYouNotifier {
   static const materialYouKey = "materialYouKey";
 
   @override

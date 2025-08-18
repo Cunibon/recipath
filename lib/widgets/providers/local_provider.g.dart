@@ -1,27 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'material_you_provider.dart';
+part of 'local_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$materialYouNotifierHash() =>
-    r'746cde9c54ea1aa50c79e31f9bc11849444fdb1a';
+String _$localNotifierHash() => r'b605e8915c32f4006f2232748e303987cadd596b';
 
-/// See also [MaterialYouNotifier].
-@ProviderFor(MaterialYouNotifier)
-final materialYouNotifierProvider =
-    AutoDisposeNotifierProvider<MaterialYouNotifier, bool>.internal(
-      MaterialYouNotifier.new,
-      name: r'materialYouNotifierProvider',
+/// See also [LocalNotifier].
+@ProviderFor(LocalNotifier)
+final localNotifierProvider =
+    AutoDisposeNotifierProvider<LocalNotifier, Locale>.internal(
+      LocalNotifier.new,
+      name: r'localNotifierProvider',
       debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
           ? null
-          : _$materialYouNotifierHash,
+          : _$localNotifierHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );
 
-typedef _$MaterialYouNotifier = AutoDisposeNotifier<bool>;
+typedef _$LocalNotifier = AutoDisposeNotifier<Locale>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
