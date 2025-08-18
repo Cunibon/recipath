@@ -39,6 +39,7 @@ dependencies:
   logger: ^2.6.1
   flutter_image_compress: ^2.4.0
   dynamic_color: ^1.8.1
+  purchases_flutter: ^9.2.1
   flutter_localizations:
     sdk: flutter
 
