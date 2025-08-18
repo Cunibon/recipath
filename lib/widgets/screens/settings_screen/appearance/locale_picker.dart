@@ -11,7 +11,7 @@ class LocalePicker extends ConsumerWidget {
     final locale = ref.watch(localeNotifierProvider);
 
     return Padding(
-      padding: const EdgeInsets.only(left: 8),
+      padding: const EdgeInsets.only(left: 8, right: 6),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
