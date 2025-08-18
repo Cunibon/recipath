@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_list/application/shopping_modifier/shopping_modifier_notifier.dart';
 import 'package:recipe_list/data/ingredient_data/ingredient_data.dart';
 import 'package:recipe_list/data/shopping_data/shopping_data.dart';
+import 'package:recipe_list/data/unit_enum.dart';
 import 'package:recipe_list/l10n/app_localizations.dart';
 import 'package:recipe_list/widgets/generic/dialogs/clear_confirmation_dialog.dart';
 import 'package:recipe_list/widgets/generic/notifier_future_builder.dart';
@@ -28,6 +29,7 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
   @override
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context)!;
+    final unitLocalized = localizeUnits(context);
 
     final asyncItems = ref.watch(shoppingNotifierProvider);
     final asyncGroceryMap = ref.watch(groceryNotifierProvider);
@@ -83,6 +85,7 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
             asyncGroceryMap.value![item.ingredient.groceryId]!,
             asyncStorage.value![item.ingredient.groceryId]?.ingredient.amount ??
                 0,
+            unitLocalized,
           ),
           toWidget: (item) => ShoppingItem(
             data: item,

@@ -36,6 +36,7 @@ class _IngredientItemState extends ConsumerState<IngredientItem> {
   @override
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context)!;
+    final unitLocalized = localizeUnits(context);
 
     final grocery = ref.watch(
       groceryNotifierProvider.select(
@@ -81,7 +82,7 @@ class _IngredientItemState extends ConsumerState<IngredientItem> {
               ? SizedBox(
                   width: double.infinity,
                   child: Text(
-                    widget.data.unit.name,
+                    unitLocalized[widget.data.unit]!,
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                       fontWeight: FontWeight.bold,
                     ),

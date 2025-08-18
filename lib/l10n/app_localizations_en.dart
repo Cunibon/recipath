@@ -283,4 +283,43 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get fiber => 'Fiber';
+
+  @override
+  String get milliliter => 'ml';
+
+  @override
+  String get liter => 'l';
+
+  @override
+  String get teaspoon => 'tsp';
+
+  @override
+  String get tablespoon => 'tbsp';
+
+  @override
+  String get cup => 'cup';
+
+  @override
+  String get gram => 'g';
+
+  @override
+  String get kg => 'kg';
+
+  @override
+  String get ounce => 'oz';
+
+  @override
+  String get pound => 'lb';
+
+  @override
+  String get pinch => 'pinch';
+
+  @override
+  String get clove => 'clove';
+
+  @override
+  String get can => 'can';
+
+  @override
+  String get piece => 'piece';
 }

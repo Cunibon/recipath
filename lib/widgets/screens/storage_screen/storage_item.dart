@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_list/application/storage_modifier/storage_modifier_notifier.dart';
 import 'package:recipe_list/common.dart';
 import 'package:recipe_list/data/storage_data/storage_data.dart';
+import 'package:recipe_list/data/unit_enum.dart';
 import 'package:recipe_list/l10n/app_localizations.dart';
 import 'package:recipe_list/widgets/generic/highlight_search/highlightable_text.dart';
 import 'package:recipe_list/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
@@ -15,6 +16,7 @@ class StorageItem extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final localization = AppLocalizations.of(context)!;
+    final unitLocalized = localizeUnits(context);
 
     final grocery = ref.watch(
       groceryNotifierProvider.select(
@@ -59,7 +61,7 @@ class StorageItem extends ConsumerWidget {
             ),
             Expanded(
               child: HighlightableText(
-                "${data.ingredient.unit.name} ${grocery.name}",
+                "${unitLocalized[data.ingredient.unit]} ${grocery.name}",
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
             ),

@@ -3,6 +3,7 @@ import 'package:random_string/random_string.dart';
 import 'package:recipe_list/data/grocery_data/grocery_data.dart';
 import 'package:recipe_list/data/ingredient_data/ingredient_data.dart';
 import 'package:recipe_list/data/recipe_step_data/recipe_step_data.dart';
+import 'package:recipe_list/data/unit_enum.dart';
 import 'package:recipe_list/drift/database.dart';
 
 part 'recipe_data.freezed.dart';
@@ -48,14 +49,17 @@ abstract class RecipeData with _$RecipeData {
 }
 
 extension RecipeDataFunctions on RecipeData {
-  String toReadable(Map<String, GroceryData> groceries) {
+  String toReadable(
+    Map<String, GroceryData> groceries,
+    Map<UnitEnum, String> unitLocalized,
+  ) {
     final stringBuffer = StringBuffer();
 
     stringBuffer.writeln(title);
 
     getIngredients(groceries).forEach(
       (ingredient) => stringBuffer.writeln(
-        ingredient.toReadable(groceries[ingredient.groceryId]!),
+        ingredient.toReadable(groceries[ingredient.groceryId]!, unitLocalized),
       ),
     );
 

@@ -121,5 +121,18 @@
     "fat": "Fett",
     "carbs": "Kohlenhydrate",
     "protein": "Protein",
-    "fiber": "Ballaststoffe"
+    "fiber": "Ballaststoffe",
+    "milliliter": "ml",
+    "liter": "l",
+    "teaspoon": "TL",
+    "tablespoon": "EL",
+    "cup": "Tasse",
+    "gram": "g",
+    "kg": "kg",
+    "ounce": "oz",
+    "pound": "lb",
+    "pinch": "Prise",
+    "clove": "Zehe",
+    "can": "Dose",
+    "piece": "Stück"
 }

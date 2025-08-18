@@ -5,6 +5,7 @@ import 'package:recipe_list/application/recipe_shopping_modifier/recipe_shopping
 import 'package:recipe_list/application/shopping_modifier/shopping_modifier_notifier.dart';
 import 'package:recipe_list/data/ingredient_data/ingredient_data.dart';
 import 'package:recipe_list/data/recipe_data/recipe_data.dart';
+import 'package:recipe_list/data/unit_enum.dart';
 import 'package:recipe_list/l10n/app_localizations.dart';
 import 'package:recipe_list/root_routes.dart';
 import 'package:recipe_list/widgets/generic/dialogs/clear_confirmation_dialog.dart';
@@ -25,6 +26,7 @@ class RecipeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final localization = AppLocalizations.of(context)!;
+    final unitLocalized = localizeUnits(context);
 
     final asyncRecipe = ref.watch(recipeNotifierProvider);
     final asyncGrocery = ref.watch(groceryNotifierProvider);
@@ -119,7 +121,8 @@ class RecipeScreen extends ConsumerWidget {
         childBuilder: () => SearchableList(
           type: localization.recipe,
           items: asyncRecipe.value!.values.toList(),
-          toSearchable: (item) => item.toReadable(asyncGrocery.value!),
+          toSearchable: (item) =>
+              item.toReadable(asyncGrocery.value!, unitLocalized),
           toWidget: (item) => Dismissible(
             key: Key(item.id),
             child: CompactRecipeItem(data: item),

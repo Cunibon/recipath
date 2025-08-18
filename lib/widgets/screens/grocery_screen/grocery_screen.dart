@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:recipe_list/data/grocery_data/grocery_data.dart';
+import 'package:recipe_list/data/unit_enum.dart';
 import 'package:recipe_list/l10n/app_localizations.dart';
 import 'package:recipe_list/root_routes.dart';
 import 'package:recipe_list/widgets/generic/notifier_future_builder.dart';
@@ -18,6 +19,7 @@ class GroceryScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncData = ref.watch(groceryNotifierProvider);
+    final unitLocalized = localizeUnits(context);
 
     return NavigationDrawerScaffold(
       titleBuilder: (title) => DefaultNavigationTitle(
@@ -41,7 +43,7 @@ class GroceryScreen extends ConsumerWidget {
           return SearchableList(
             type: AppLocalizations.of(context)!.grocery,
             items: data,
-            toSearchable: (item) => item.toReadable(),
+            toSearchable: (item) => item.toReadable(unitLocalized),
             toWidget: (item) => GroceryItem(data: item),
             sort: (a, b) => a.name.compareTo(b.name),
           );

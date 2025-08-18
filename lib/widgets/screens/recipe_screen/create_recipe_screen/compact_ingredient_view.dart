@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_list/data/ingredient_data/ingredient_data.dart';
+import 'package:recipe_list/data/unit_enum.dart';
 import 'package:recipe_list/widgets/generic/highlight_search/highlightable_text.dart';
 import 'package:recipe_list/widgets/generic/notifier_future_builder.dart';
 import 'package:recipe_list/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
@@ -18,6 +19,7 @@ class CompactIngredientView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final unitLocalized = localizeUnits(context);
     final groceryMap = ref.watch(groceryNotifierProvider);
     final storage = ref.watch(storageNotifierProvider);
 
@@ -32,7 +34,7 @@ class CompactIngredientView extends ConsumerWidget {
               storageItem != null && e.amount <= storageItem.ingredient.amount;
 
           return HighlightableText(
-            "● ${e.toReadable(groceryMap.value![e.groceryId]!)}",
+            "● ${e.toReadable(groceryMap.value![e.groceryId]!, unitLocalized)}",
             style: inStorage && checkStorage
                 ? TextStyle(color: Colors.green[600])
                 : null,

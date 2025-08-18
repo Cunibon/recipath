@@ -625,6 +625,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Fiber'**
   String get fiber;
+
+  /// No description provided for @milliliter.
+  ///
+  /// In en, this message translates to:
+  /// **'ml'**
+  String get milliliter;
+
+  /// No description provided for @liter.
+  ///
+  /// In en, this message translates to:
+  /// **'l'**
+  String get liter;
+
+  /// No description provided for @teaspoon.
+  ///
+  /// In en, this message translates to:
+  /// **'tsp'**
+  String get teaspoon;
+
+  /// No description provided for @tablespoon.
+  ///
+  /// In en, this message translates to:
+  /// **'tbsp'**
+  String get tablespoon;
+
+  /// No description provided for @cup.
+  ///
+  /// In en, this message translates to:
+  /// **'cup'**
+  String get cup;
+
+  /// No description provided for @gram.
+  ///
+  /// In en, this message translates to:
+  /// **'g'**
+  String get gram;
+
+  /// No description provided for @kg.
+  ///
+  /// In en, this message translates to:
+  /// **'kg'**
+  String get kg;
+
+  /// No description provided for @ounce.
+  ///
+  /// In en, this message translates to:
+  /// **'oz'**
+  String get ounce;
+
+  /// No description provided for @pound.
+  ///
+  /// In en, this message translates to:
+  /// **'lb'**
+  String get pound;
+
+  /// No description provided for @pinch.
+  ///
+  /// In en, this message translates to:
+  /// **'pinch'**
+  String get pinch;
+
+  /// No description provided for @clove.
+  ///
+  /// In en, this message translates to:
+  /// **'clove'**
+  String get clove;
+
+  /// No description provided for @can.
+  ///
+  /// In en, this message translates to:
+  /// **'can'**
+  String get can;
+
+  /// No description provided for @piece.
+  ///
+  /// In en, this message translates to:
+  /// **'piece'**
+  String get piece;
 }
 
 class _AppLocalizationsDelegate

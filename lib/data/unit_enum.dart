@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:recipe_list/l10n/app_localizations.dart';
 
 @JsonEnum()
 enum UnitEnum {
@@ -33,6 +35,29 @@ enum UnitEnum {
   can,
   @JsonValue("Piece")
   piece,
+}
+
+Map<UnitEnum, String> localizeUnits(BuildContext context) {
+  final localization = AppLocalizations.of(context)!;
+
+  return {
+    //Volume
+    UnitEnum.ml: localization.milliliter,
+    UnitEnum.l: localization.liter,
+    UnitEnum.tsp: localization.teaspoon,
+    UnitEnum.tbsp: localization.tablespoon,
+    UnitEnum.cup: localization.cup,
+    //Weight
+    UnitEnum.g: localization.gram,
+    UnitEnum.kg: localization.kg,
+    UnitEnum.oz: localization.ounce,
+    UnitEnum.lb: localization.pound,
+    //Miscellaneous
+    UnitEnum.pinch: localization.pinch,
+    UnitEnum.clove: localization.clove,
+    UnitEnum.can: localization.can,
+    UnitEnum.piece: localization.piece,
+  };
 }
 
 enum UnitType { volume, weight, misc }

@@ -121,5 +121,18 @@
     "fat": "Fat",
     "carbs": "Carbs",
     "protein": "Protein",
-    "fiber": "Fiber"
+    "fiber": "Fiber",
+    "milliliter": "ml",
+    "liter": "l",
+    "teaspoon": "tsp",
+    "tablespoon": "tbsp",
+    "cup": "cup",
+    "gram": "g",
+    "kg": "kg",
+    "ounce": "oz",
+    "pound": "lb",
+    "pinch": "pinch",
+    "clove": "clove",
+    "can": "can",
+    "piece": "piece"
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_list/application/storage_modifier/storage_modifier_notifier.dart';
 import 'package:recipe_list/data/ingredient_data/ingredient_data.dart';
+import 'package:recipe_list/data/unit_enum.dart';
 import 'package:recipe_list/l10n/app_localizations.dart';
 import 'package:recipe_list/widgets/generic/dialogs/clear_confirmation_dialog.dart';
 import 'package:recipe_list/widgets/generic/notifier_future_builder.dart';
@@ -26,6 +27,7 @@ class _StorageScreenState extends ConsumerState<StorageScreen> {
   @override
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context)!;
+    final unitLocalized = localizeUnits(context);
 
     final asyncItems = ref.watch(storageNotifierProvider);
     final asyncGroceries = ref.watch(groceryNotifierProvider);
@@ -80,6 +82,7 @@ class _StorageScreenState extends ConsumerState<StorageScreen> {
           items: asyncItems.value!.values.toList(),
           toSearchable: (item) => item.ingredient.toReadable(
             asyncGroceries.value![item.ingredient.groceryId]!,
+            unitLocalized,
           ),
           toWidget: (item) => StorageItem(data: item),
           sort: (a, b) => asyncGroceries.value![a.ingredient.groceryId]!.name

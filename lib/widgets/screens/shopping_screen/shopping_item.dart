@@ -5,6 +5,7 @@ import 'package:recipe_list/application/shopping_modifier/shopping_modifier_noti
 import 'package:recipe_list/application/storage_modifier/storage_modifier_notifier.dart';
 import 'package:recipe_list/data/ingredient_data/ingredient_data.dart';
 import 'package:recipe_list/data/shopping_data/shopping_data.dart';
+import 'package:recipe_list/data/unit_enum.dart';
 import 'package:recipe_list/widgets/generic/dialogs/delete_confirmation_dialog.dart';
 import 'package:recipe_list/widgets/generic/highlight_search/highlightable_text.dart';
 import 'package:recipe_list/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
@@ -21,6 +22,8 @@ class ShoppingItem extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final unitLocalized = localizeUnits(context);
+
     final groceries = ref.watch(groceryNotifierProvider).value!;
 
     void switchState() {
@@ -65,6 +68,7 @@ class ShoppingItem extends ConsumerWidget {
                   data.toReadable(
                     groceries[data.ingredient.groceryId]!,
                     ingredientData?.amount ?? 0,
+                    unitLocalized,
                   ),
                   style: (ingredientData?.amount ?? 0) >= data.ingredient.amount
                       ? TextStyle(color: Colors.green)

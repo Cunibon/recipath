@@ -5,6 +5,7 @@ import 'package:random_string/random_string.dart';
 import 'package:recipe_list/common.dart';
 import 'package:recipe_list/data/grocery_data/grocery_data.dart';
 import 'package:recipe_list/data/ingredient_data/ingredient_data.dart';
+import 'package:recipe_list/data/unit_enum.dart';
 import 'package:recipe_list/l10n/app_localizations.dart';
 import 'package:recipe_list/widgets/generic/searchable_list.dart';
 import 'package:recipe_list/widgets/screens/grocery_screen/grocery_routes.dart';
@@ -45,6 +46,7 @@ class _AddIngredientDialogState extends ConsumerState<AddIngredientDialog> {
   @override
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context)!;
+    final unitLocalized = localizeUnits(context);
 
     final groceries = ref.watch(groceryNotifierProvider).value!;
     final groceryList = groceries.values.toList();
@@ -136,7 +138,7 @@ class _AddIngredientDialogState extends ConsumerState<AddIngredientDialog> {
                           ),
                         ),
                         Text(
-                          "${selected!.unit.name} ${selected!.name}",
+                          "${unitLocalized[selected!.unit]} ${selected!.name}",
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                       ],

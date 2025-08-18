@@ -62,8 +62,8 @@ abstract class IngredientData with _$IngredientData {
 }
 
 extension IngredientDataFunctions on IngredientData {
-  String toReadable(GroceryData grocery) =>
-      "${doubleNumberFormat.format(amount)}${unit.name} ${grocery.name}";
+  String toReadable(GroceryData grocery, Map<UnitEnum, String> unitLocalized) =>
+      "${doubleNumberFormat.format(amount)}${unitLocalized[unit]} ${grocery.name}";
 
   IngredientTableCompanion toTableCompanion() =>
       IngredientTableCompanion.insert(

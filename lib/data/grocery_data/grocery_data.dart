@@ -65,8 +65,8 @@ abstract class GroceryData with _$GroceryData {
 }
 
 extension GroceryDataFunctions on GroceryData {
-  String toReadable() =>
-      "${doubleNumberFormat.format(normalAmount)}${unit.name} $name";
+  String toReadable(Map<UnitEnum, String> unitLocalized) =>
+      "${doubleNumberFormat.format(normalAmount)}${unitLocalized[unit]} $name";
 
   double convertToNorm(double value, UnitEnum otherUnit) {
     final unitType = UnitConversion.unitType(unit);

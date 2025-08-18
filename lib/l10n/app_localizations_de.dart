@@ -284,4 +284,43 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get fiber => 'Ballaststoffe';
+
+  @override
+  String get milliliter => 'ml';
+
+  @override
+  String get liter => 'l';
+
+  @override
+  String get teaspoon => 'TL';
+
+  @override
+  String get tablespoon => 'EL';
+
+  @override
+  String get cup => 'Tasse';
+
+  @override
+  String get gram => 'g';
+
+  @override
+  String get kg => 'kg';
+
+  @override
+  String get ounce => 'oz';
+
+  @override
+  String get pound => 'lb';
+
+  @override
+  String get pinch => 'Prise';
+
+  @override
+  String get clove => 'Zehe';
+
+  @override
+  String get can => 'Dose';
+
+  @override
+  String get piece => 'Stück';
 }

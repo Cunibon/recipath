@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:recipe_list/application_constants.dart';
 import 'package:recipe_list/common.dart';
 import 'package:recipe_list/data/grocery_data/grocery_data.dart';
+import 'package:recipe_list/data/unit_enum.dart';
 import 'package:recipe_list/root_routes.dart';
 import 'package:recipe_list/widgets/generic/highlight_search/highlightable_text.dart';
 import 'package:recipe_list/widgets/screens/grocery_screen/grocery_routes.dart';
@@ -13,6 +14,8 @@ class GroceryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final unitLocalized = localizeUnits(context);
+
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -40,7 +43,7 @@ class GroceryItem extends StatelessWidget {
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 HighlightableText(
-                  "${doubleNumberFormat.format(data.normalAmount)}${data.unit.name}",
+                  "${doubleNumberFormat.format(data.normalAmount)}${unitLocalized[data.unit]}",
                 ),
               ],
             ),

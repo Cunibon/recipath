@@ -4,6 +4,7 @@ import 'package:random_string/random_string.dart';
 import 'package:recipe_list/common.dart';
 import 'package:recipe_list/data/grocery_data/grocery_data.dart';
 import 'package:recipe_list/data/ingredient_data/ingredient_data.dart';
+import 'package:recipe_list/data/unit_enum.dart';
 import 'package:recipe_list/drift/database.dart';
 
 part 'shopping_data.freezed.dart';
@@ -49,8 +50,12 @@ abstract class ShoppingData with _$ShoppingData {
 }
 
 extension ShoppingDataFunctions on ShoppingData {
-  String toReadable(GroceryData grocery, double storageData) =>
-      "${count}x ${grocery.toReadable()} (${doubleNumberFormat.format(ingredient.amount)}${grocery.unit.name}/${doubleNumberFormat.format(storageData)}${grocery.unit.name})";
+  String toReadable(
+    GroceryData grocery,
+    double storageData,
+    Map<UnitEnum, String> unitLocalized,
+  ) =>
+      "${count}x ${grocery.toReadable(unitLocalized)} (${doubleNumberFormat.format(ingredient.amount)}${unitLocalized[grocery.unit]}/${doubleNumberFormat.format(storageData)}${unitLocalized[grocery.unit]})";
 
   ShoppingTableCompanion toTableCompanion() => ShoppingTableCompanion.insert(
     id: id,
