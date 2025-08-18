@@ -1,11 +1,13 @@
 // Copyright (c) 2025 Michael Neufeld
 // Licensed under the MIT License. See LICENSE file in the project root for details.
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:recipath/application_constants.dart';
 import 'package:recipath/domain_service/syncing_service/syncing_service/syncing_service_notifier.dart';
 import 'package:recipath/drift/database.dart';
@@ -27,6 +29,16 @@ void main() async {
   final applicationPath = await getApplicationSupportDirectory();
 
   await Supabase.initialize(url: supabaseUrl, anonKey: supabaseKey);
+
+  if (kDebugMode) {
+    await Purchases.setLogLevel(LogLevel.debug);
+  }
+  await Purchases.configure(PurchasesConfiguration(revenueCatPublicKey));
+
+  final currentUser = Supabase.instance.client.auth.currentUser;
+  if (currentUser != null) {
+    Purchases.logIn(currentUser.id);
+  }
 
   final goRouter = GoRouter(
     routes: [

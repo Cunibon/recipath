@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:recipath/domain_service/syncing_service/syncing_service/syncing_service_notifier.dart';
 import 'package:recipath/drift/database_notifier.dart';
 import 'package:recipath/l10n/app_localizations.dart';
@@ -37,6 +38,7 @@ class AuthButtons extends ConsumerWidget {
         ] else ...[
           TextButton.icon(
             onPressed: () async {
+              Purchases.logOut();
               await ref.read(supabaseClientProvider).auth.signOut();
               await ref.read(syncingServiceNotifierProvider).reset();
               await ref.read(databaseNotifierProvider).clear();
