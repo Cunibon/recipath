@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_list/common.dart';
 import 'package:recipe_list/widgets/screens/dashboard_screen/charts/chart_entry.dart';
-import 'package:recipe_list/widgets/screens/dashboard_screen/charts/kcal_chart/providers/nutrient_color_notifier.dart';
+import 'package:recipe_list/widgets/screens/dashboard_screen/charts/kcal_chart/providers/nutriment_enum.dart';
 
 class NutritionLegend extends ConsumerWidget {
   const NutritionLegend({required this.data, super.key});
@@ -11,8 +11,8 @@ class NutritionLegend extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final nutrimentsMap = ref.watch(nutrimentColorNotifierProvider);
-    final nutrimentEntries = nutrimentsMap.entries.toList();
+    final nutrimentEntries = Nutriments.values;
+    final localized = localizeNutriments(context);
 
     final Map<String, double> nutrimentSum = {};
 
@@ -20,7 +20,7 @@ class NutritionLegend extends ConsumerWidget {
       final barRods = chartEntry.groupData.barRods;
       for (int i = 0; i < barRods.length; i++) {
         final barRod = barRods[i];
-        final nutrimentKey = nutrimentEntries[i].key;
+        final nutrimentKey = nutrimentEntries[i].name;
 
         final currentValue = nutrimentSum.putIfAbsent(nutrimentKey, () => 0);
 
@@ -41,18 +41,18 @@ class NutritionLegend extends ConsumerWidget {
                 children: [
                   Container(
                     decoration: BoxDecoration(
-                      color: entry.value,
+                      color: entry.color,
                       borderRadius: BorderRadius.circular(10),
                     ),
                     width: 20,
                     height: 20,
                   ),
                   SizedBox(width: 5),
-                  Text(entry.key),
+                  Text(localized[entry]!),
                 ],
               ),
               Text(
-                "Sum: ${doubleNumberFormat.format(nutrimentSum[entry.key] ?? 0)}",
+                "Sum: ${doubleNumberFormat.format(nutrimentSum[entry.name] ?? 0)}",
               ),
             ],
           ),

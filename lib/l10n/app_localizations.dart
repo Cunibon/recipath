@@ -595,6 +595,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Language'**
   String get language;
+
+  /// No description provided for @kcal.
+  ///
+  /// In en, this message translates to:
+  /// **'Kcal'**
+  String get kcal;
+
+  /// No description provided for @fat.
+  ///
+  /// In en, this message translates to:
+  /// **'Fat'**
+  String get fat;
+
+  /// No description provided for @carbs.
+  ///
+  /// In en, this message translates to:
+  /// **'Carbs'**
+  String get carbs;
+
+  /// No description provided for @protein.
+  ///
+  /// In en, this message translates to:
+  /// **'Protein'**
+  String get protein;
+
+  /// No description provided for @fiber.
+  ///
+  /// In en, this message translates to:
+  /// **'Fiber'**
+  String get fiber;
 }
 
 class _AppLocalizationsDelegate

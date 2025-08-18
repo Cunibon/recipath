@@ -7,7 +7,7 @@ part of 'nutrition_chart_notifier.dart';
 // **************************************************************************
 
 String _$nutritionChartNotifierHash() =>
-    r'23240cfbafbee2ed83d6ab832a302f7fb7910b98';
+    r'42c0a35e5da1960d42d096aee05ca98fab059700';
 
 /// Copied from Dart SDK
 class _SystemHash {

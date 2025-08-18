@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_list/data/grocery_data/grocery_data.dart';
 import 'package:recipe_list/widgets/screens/dashboard_screen/charts/chart_entry.dart';
 import 'package:recipe_list/widgets/screens/dashboard_screen/charts/grocery_chart/providers/grocery_statistics_notifier.dart';
-import 'package:recipe_list/widgets/screens/dashboard_screen/charts/kcal_chart/providers/nutrient_color_notifier.dart';
+import 'package:recipe_list/widgets/screens/dashboard_screen/charts/kcal_chart/providers/nutriment_enum.dart';
 import 'package:recipe_list/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -20,8 +20,6 @@ Future<ChartState> nutritionChartNotifier(
   final groceryStatisticsData = await ref.watch(
     groceryChartStatisticsNotifierProvider(dateRange).future,
   );
-
-  final nutrimentsColorMap = ref.watch(nutrimentColorNotifierProvider);
 
   final aggregated = <GroceryData, Map<String, double>>{};
 
@@ -85,15 +83,11 @@ Future<ChartState> nutritionChartNotifier(
 
     final barRods = <BarChartRodData>[];
 
-    for (final nutrientKey in nutrimentsColorMap.keys) {
-      final value = nutrientMap[nutrientKey] ?? 0;
+    for (final nutriment in Nutriments.values) {
+      final value = nutrientMap[nutriment.name] ?? 0;
 
       barRods.add(
-        BarChartRodData(
-          toY: value,
-          width: 20,
-          color: nutrimentsColorMap[nutrientKey],
-        ),
+        BarChartRodData(toY: value, width: 20, color: nutriment.color),
       );
 
       if (value > maxY) maxY = value;

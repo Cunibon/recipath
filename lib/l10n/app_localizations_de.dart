@@ -269,4 +269,19 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get language => 'Sprache';
+
+  @override
+  String get kcal => 'Kcal';
+
+  @override
+  String get fat => 'Fett';
+
+  @override
+  String get carbs => 'Kohlenhydrate';
+
+  @override
+  String get protein => 'Protein';
+
+  @override
+  String get fiber => 'Ballaststoffe';
 }

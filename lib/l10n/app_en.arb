@@ -116,5 +116,10 @@
     "darkMode": "Dark mode",
     "clear": "Clear",
     "items": "Items",
-    "language": "Language"
+    "language": "Language",
+    "kcal": "Kcal",
+    "fat": "Fat",
+    "carbs": "Carbs",
+    "protein": "Protein",
+    "fiber": "Fiber"
 }

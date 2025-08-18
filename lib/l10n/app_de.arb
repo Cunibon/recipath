@@ -116,5 +116,10 @@
     "darkMode": "Dunkelmodus",
     "clear": "Löschen",
     "items": "Elemente",
-    "language": "Sprache"
+    "language": "Sprache",
+    "kcal": "Kcal",
+    "fat": "Fett",
+    "carbs": "Kohlenhydrate",
+    "protein": "Protein",
+    "fiber": "Ballaststoffe"
 }

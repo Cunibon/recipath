@@ -4,6 +4,7 @@ import 'package:recipe_list/common.dart';
 import 'package:recipe_list/data/grocery_data/grocery_data.dart';
 import 'package:recipe_list/data/ingredient_data/ingredient_data.dart';
 import 'package:recipe_list/l10n/app_localizations.dart';
+import 'package:recipe_list/widgets/screens/dashboard_screen/charts/kcal_chart/providers/nutriment_enum.dart';
 import 'package:recipe_list/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 
 class NutrimentsList extends ConsumerWidget {
@@ -15,6 +16,12 @@ class NutrimentsList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final localization = AppLocalizations.of(context)!;
+    final localizedNutriments = localizeNutriments(context);
+
+    final stringToNutrimentLocalized = {
+      for (final value in Nutriments.values)
+        value.name: localizedNutriments[value]!,
+    };
 
     final groceryMap = ref.watch(groceryNotifierProvider).value!;
 
@@ -51,7 +58,7 @@ class NutrimentsList extends ConsumerWidget {
 
     for (final entry in aggregatedNutriments.entries) {
       nutrimentBuffer.writeln(
-        "● ${entry.key}: ${doubleNumberFormat.format(entry.value)}",
+        "● ${stringToNutrimentLocalized[entry.key]}: ${doubleNumberFormat.format(entry.value)}",
       );
     }
 
@@ -60,7 +67,7 @@ class NutrimentsList extends ConsumerWidget {
 
       for (final entry in aggregatedNutriments.entries) {
         nutrimentBuffer.writeln(
-          "● ${entry.key}: ${doubleNumberFormat.format(entry.value / servings!)}",
+          "● ${stringToNutrimentLocalized[entry.key]}: ${doubleNumberFormat.format(entry.value / servings!)}",
         );
       }
     }
