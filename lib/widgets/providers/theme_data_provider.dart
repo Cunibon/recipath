@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:recipe_list/helper/color_extension.dart';
 import 'package:recipe_list/widgets/providers/material_you_scheme_provider.dart';
 import 'package:recipe_list/widgets/screens/settings_screen/providers/dark_mode_provider.dart';
 import 'package:recipe_list/widgets/screens/settings_screen/providers/material_you_provider.dart';
@@ -20,9 +21,15 @@ ThemeData themeDataNotifier(Ref ref) {
         .value;
 
     if (materialColorScheme != null) {
+      final modifiedColorScheme = materialColorScheme.copyWith(
+        surfaceContainer: darkMode
+            ? materialColorScheme.surfaceContainer.lighten(0.05)
+            : materialColorScheme.surfaceContainer.darken(0.01),
+      );
+
       startTheme = ThemeData(
-        colorScheme: materialColorScheme,
-        brightness: materialColorScheme.brightness,
+        colorScheme: modifiedColorScheme,
+        brightness: modifiedColorScheme.brightness,
       );
     }
   }
