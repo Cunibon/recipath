@@ -28,7 +28,7 @@ Upgrade to **Pro** to sync all your recipes, images, charts etc.
 |---------|------|-----|
 | Local recipes & lists | ✅ | ✅ |
 | Cloud sync | Shopping | Everything |
-| Price | Free | 0.99€ a year |
+| Price | Free | 4.99€ a year |
 
 ---
 
@@ -66,7 +66,7 @@ Once you are done your time will be recorded, an average time for the recipe wil
 ## Tech Stack
 
 - **Frontend:** Flutter (cross-platform)
-- **Backend:** Supabse
+- **Backend:** Supabase
 - **Database:** PostgreSQL
 
 ---
