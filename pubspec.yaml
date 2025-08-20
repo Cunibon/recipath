@@ -42,6 +42,7 @@ dependencies:
   purchases_flutter: ^9.2.1
   flutter_localizations:
     sdk: flutter
+  flutter_launcher_icons: ^0.14.4
 
 dev_dependencies:
   flutter_test:
