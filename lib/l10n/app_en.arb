@@ -134,5 +134,6 @@
     "pinch": "pinch",
     "clove": "clove",
     "can": "can",
-    "piece": "piece"
+    "piece": "piece",
+    "version": "Version"
 }

@@ -323,4 +323,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get piece => 'Stück';
+
+  @override
+  String get version => 'Version';
 }

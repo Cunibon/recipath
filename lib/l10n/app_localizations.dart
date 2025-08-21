@@ -703,6 +703,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'piece'**
   String get piece;
+
+  /// No description provided for @version.
+  ///
+  /// In en, this message translates to:
+  /// **'Version'**
+  String get version;
 }
 
 class _AppLocalizationsDelegate

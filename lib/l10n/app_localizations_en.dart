@@ -322,4 +322,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get piece => 'piece';
+
+  @override
+  String get version => 'Version';
 }

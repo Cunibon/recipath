@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/navigation/default_navigation_title.dart';
 import 'package:recipath/widgets/navigation/navigation_drawer_scaffold.dart';
@@ -8,13 +7,14 @@ import 'package:recipath/widgets/screens/settings_screen/appearance/locale_picke
 import 'package:recipath/widgets/screens/settings_screen/appearance/material_you_toggle.dart';
 import 'package:recipath/widgets/screens/settings_screen/data/export_button.dart';
 import 'package:recipath/widgets/screens/settings_screen/data/import_button.dart';
+import 'package:recipath/widgets/screens/settings_screen/providers/version_tag.dart';
 import 'package:recipath/widgets/screens/settings_screen/setting_section.dart';
 
-class SettingsScreen extends ConsumerWidget {
+class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context)!;
 
     return NavigationDrawerScaffold(
@@ -31,6 +31,7 @@ class SettingsScreen extends ConsumerWidget {
             title: localization.data,
             children: [ImportButton(), ExportButton()],
           ),
+          VersionTag(),
         ],
       ),
     );
