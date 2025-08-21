@@ -44,7 +44,11 @@ class SyncOrchestrator {
       }
     } catch (e, s) {
       logger.e("Error while uploading!", error: e, stackTrace: s);
-      await Sentry.captureException(e, stackTrace: s);
+      await Sentry.captureException(
+        e,
+        stackTrace: s,
+        hint: Hint.withMap(syncContext),
+      );
     }
 
     return uploadCount;
@@ -54,6 +58,8 @@ class SyncOrchestrator {
     if (!loggedIn) return DownloadResult(lastDate: lastSync, count: 0);
 
     final SyncContext syncContext = {};
+    final AssemblyContext assemblyContext = {};
+
     int downloadCount = 0;
     DateTime latestDate = lastSync;
 
@@ -67,13 +73,19 @@ class SyncOrchestrator {
         }
       }
 
-      final AssemblyContext assemblyContext = {};
-
       for (final assembler in assemblers) {
         await assembler.assemble(syncContext, assemblyContext);
       }
     } catch (e, s) {
       logger.e("Error while downloading!", error: e, stackTrace: s);
+      await Sentry.captureException(
+        e,
+        stackTrace: s,
+        hint: Hint.withMap({
+          "syncContext": syncContext,
+          "assemblyContext": assemblyContext,
+        }),
+      );
     }
 
     return DownloadResult(lastDate: latestDate, count: downloadCount);
