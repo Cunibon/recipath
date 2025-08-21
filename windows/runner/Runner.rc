@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.cunibongames" "\0"
-            VALUE "FileDescription", "recipe_list" "\0"
+            VALUE "FileDescription", "recipath" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "recipe_list" "\0"
+            VALUE "InternalName", "recipath" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2025 com.cunibongames. All rights reserved." "\0"
-            VALUE "OriginalFilename", "recipe_list.exe" "\0"
-            VALUE "ProductName", "recipe_list" "\0"
+            VALUE "OriginalFilename", "recipath.exe" "\0"
+            VALUE "ProductName", "recipath" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

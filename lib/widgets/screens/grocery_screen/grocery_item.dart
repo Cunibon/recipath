@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:recipe_list/application_constants.dart';
-import 'package:recipe_list/common.dart';
-import 'package:recipe_list/data/grocery_data/grocery_data.dart';
-import 'package:recipe_list/data/unit_enum.dart';
-import 'package:recipe_list/root_routes.dart';
-import 'package:recipe_list/widgets/generic/highlight_search/highlightable_text.dart';
-import 'package:recipe_list/widgets/screens/grocery_screen/grocery_routes.dart';
+import 'package:recipath/application_constants.dart';
+import 'package:recipath/common.dart';
+import 'package:recipath/data/grocery_data/grocery_data.dart';
+import 'package:recipath/data/unit_enum.dart';
+import 'package:recipath/root_routes.dart';
+import 'package:recipath/widgets/generic/highlight_search/highlightable_text.dart';
+import 'package:recipath/widgets/screens/grocery_screen/grocery_routes.dart';
 
 class GroceryItem extends StatelessWidget {
   const GroceryItem({required this.data, super.key});

@@ -1,7 +1,7 @@
-import 'package:recipe_list/domain_service/syncing_service/repos/abstract/sync_interfaces.dart';
-import 'package:recipe_list/domain_service/syncing_service/repos/download_result.dart';
-import 'package:recipe_list/domain_service/syncing_service/sync_orchestrator/sync_orchestartor.dart';
-import 'package:recipe_list/domain_service/syncing_service/syncing_keys.dart';
+import 'package:recipath/domain_service/syncing_service/repos/abstract/sync_interfaces.dart';
+import 'package:recipath/domain_service/syncing_service/repos/download_result.dart';
+import 'package:recipath/domain_service/syncing_service/sync_orchestrator/sync_orchestartor.dart';
+import 'package:recipath/domain_service/syncing_service/syncing_keys.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class DataDownloadRepo implements DownloadInterface {

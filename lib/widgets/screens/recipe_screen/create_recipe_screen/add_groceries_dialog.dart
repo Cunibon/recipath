@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:recipe_list/data/grocery_data/grocery_data.dart';
-import 'package:recipe_list/l10n/app_localizations.dart';
-import 'package:recipe_list/widgets/generic/searchable_list.dart';
-import 'package:recipe_list/widgets/screens/grocery_screen/grocery_routes.dart';
-import 'package:recipe_list/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
+import 'package:recipath/data/grocery_data/grocery_data.dart';
+import 'package:recipath/l10n/app_localizations.dart';
+import 'package:recipath/widgets/generic/searchable_list.dart';
+import 'package:recipath/widgets/screens/grocery_screen/grocery_routes.dart';
+import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 
 class AddGroceriesDialog extends ConsumerStatefulWidget {
   const AddGroceriesDialog({

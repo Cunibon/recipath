@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:recipe_list/widgets/generic/dialogs/pop_confirmation_dialog.dart';
+import 'package:recipath/widgets/generic/dialogs/pop_confirmation_dialog.dart';
 
 class UnsavedChangesScope extends StatelessWidget {
   const UnsavedChangesScope({

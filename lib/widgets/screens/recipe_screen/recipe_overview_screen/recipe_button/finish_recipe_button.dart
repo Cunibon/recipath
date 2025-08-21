@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:random_string/random_string.dart';
-import 'package:recipe_list/application/recipe_statistics_modifier%20copy/recipe_statistics_modifier_notifier.dart';
-import 'package:recipe_list/application/storage_modifier/storage_modifier_notifier.dart';
-import 'package:recipe_list/data/recipe_data/recipe_data.dart';
-import 'package:recipe_list/data/recipe_statistic_data/recipe_statistic_data.dart';
-import 'package:recipe_list/data/storage_data/storage_data.dart';
-import 'package:recipe_list/l10n/app_localizations.dart';
-import 'package:recipe_list/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
-import 'package:recipe_list/widgets/screens/recipe_screen/providers/recipe_notifier.dart';
-import 'package:recipe_list/widgets/screens/recipe_screen/providers/timer_notifier.dart';
-import 'package:recipe_list/widgets/screens/recipe_screen/recipe_overview_screen/recipe_button/count_up_timer.dart';
-import 'package:recipe_list/widgets/screens/recipe_screen/recipe_overview_screen/recipe_button/duration_picker_dialog.dart';
-import 'package:recipe_list/widgets/screens/storage_screen/providers/storage_notifier.dart';
+import 'package:recipath/application/recipe_statistics_modifier%20copy/recipe_statistics_modifier_notifier.dart';
+import 'package:recipath/application/storage_modifier/storage_modifier_notifier.dart';
+import 'package:recipath/data/recipe_data/recipe_data.dart';
+import 'package:recipath/data/recipe_statistic_data/recipe_statistic_data.dart';
+import 'package:recipath/data/storage_data/storage_data.dart';
+import 'package:recipath/l10n/app_localizations.dart';
+import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
+import 'package:recipath/widgets/screens/recipe_screen/providers/recipe_notifier.dart';
+import 'package:recipath/widgets/screens/recipe_screen/providers/timer_notifier.dart';
+import 'package:recipath/widgets/screens/recipe_screen/recipe_overview_screen/recipe_button/count_up_timer.dart';
+import 'package:recipath/widgets/screens/recipe_screen/recipe_overview_screen/recipe_button/duration_picker_dialog.dart';
+import 'package:recipath/widgets/screens/storage_screen/providers/storage_notifier.dart';
 
 class FinishRecipeButton extends ConsumerWidget {
   const FinishRecipeButton({

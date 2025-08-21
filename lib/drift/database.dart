@@ -7,16 +7,16 @@ import 'package:drift_flutter/drift_flutter.dart';
 import 'package:flutter/services.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
-import 'package:recipe_list/drift/tables/file_table.dart';
-import 'package:recipe_list/drift/tables/grocery_table.dart';
-import 'package:recipe_list/drift/tables/ingredient_table.dart';
-import 'package:recipe_list/drift/tables/recipe_shopping_table.dart';
-import 'package:recipe_list/drift/tables/recipe_statistic_table.dart';
-import 'package:recipe_list/drift/tables/recipe_step_ingredient_table.dart';
-import 'package:recipe_list/drift/tables/recipe_step_table.dart';
-import 'package:recipe_list/drift/tables/recipe_table.dart';
-import 'package:recipe_list/drift/tables/shopping_table.dart';
-import 'package:recipe_list/drift/tables/storage_table.dart';
+import 'package:recipath/drift/tables/file_table.dart';
+import 'package:recipath/drift/tables/grocery_table.dart';
+import 'package:recipath/drift/tables/ingredient_table.dart';
+import 'package:recipath/drift/tables/recipe_shopping_table.dart';
+import 'package:recipath/drift/tables/recipe_statistic_table.dart';
+import 'package:recipath/drift/tables/recipe_step_ingredient_table.dart';
+import 'package:recipath/drift/tables/recipe_step_table.dart';
+import 'package:recipath/drift/tables/recipe_table.dart';
+import 'package:recipath/drift/tables/shopping_table.dart';
+import 'package:recipath/drift/tables/storage_table.dart';
 
 part 'database.g.dart';
 

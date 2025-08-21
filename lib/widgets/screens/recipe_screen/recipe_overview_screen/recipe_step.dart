@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_list/data/recipe_step_data/recipe_step_data.dart';
-import 'package:recipe_list/l10n/app_localizations.dart';
-import 'package:recipe_list/widgets/screens/recipe_screen/recipe_overview_screen/ingredients_list.dart';
+import 'package:recipath/data/recipe_step_data/recipe_step_data.dart';
+import 'package:recipath/l10n/app_localizations.dart';
+import 'package:recipath/widgets/screens/recipe_screen/recipe_overview_screen/ingredients_list.dart';
 
 class RecipeStep extends StatelessWidget {
   const RecipeStep({required this.index, required this.step, super.key});

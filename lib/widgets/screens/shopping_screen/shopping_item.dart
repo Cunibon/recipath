@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:random_string/random_string.dart';
-import 'package:recipe_list/application/shopping_modifier/shopping_modifier_notifier.dart';
-import 'package:recipe_list/application/storage_modifier/storage_modifier_notifier.dart';
-import 'package:recipe_list/data/ingredient_data/ingredient_data.dart';
-import 'package:recipe_list/data/shopping_data/shopping_data.dart';
-import 'package:recipe_list/data/unit_enum.dart';
-import 'package:recipe_list/widgets/generic/dialogs/delete_confirmation_dialog.dart';
-import 'package:recipe_list/widgets/generic/highlight_search/highlightable_text.dart';
-import 'package:recipe_list/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
+import 'package:recipath/application/shopping_modifier/shopping_modifier_notifier.dart';
+import 'package:recipath/application/storage_modifier/storage_modifier_notifier.dart';
+import 'package:recipath/data/ingredient_data/ingredient_data.dart';
+import 'package:recipath/data/shopping_data/shopping_data.dart';
+import 'package:recipath/data/unit_enum.dart';
+import 'package:recipath/widgets/generic/dialogs/delete_confirmation_dialog.dart';
+import 'package:recipath/widgets/generic/highlight_search/highlightable_text.dart';
+import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 
 class ShoppingItem extends ConsumerWidget {
   const ShoppingItem({

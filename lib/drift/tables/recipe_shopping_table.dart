@@ -1,5 +1,5 @@
 import 'package:drift/drift.dart';
-import 'package:recipe_list/drift/tables/recipe_table.dart';
+import 'package:recipath/drift/tables/recipe_table.dart';
 
 @TableIndex(name: 'recipeShopping_recipeId', columns: {#recipeId})
 @TableIndex(name: 'recipeShopping_uploaded', columns: {#uploaded})

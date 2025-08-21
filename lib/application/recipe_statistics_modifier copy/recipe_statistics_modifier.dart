@@ -1,5 +1,5 @@
-import 'package:recipe_list/data/recipe_statistic_data/recipe_statistic_data.dart';
-import 'package:recipe_list/repos/recipe_statistics/recipe_statistics_repo.dart';
+import 'package:recipath/data/recipe_statistic_data/recipe_statistic_data.dart';
+import 'package:recipath/repos/recipe_statistics/recipe_statistics_repo.dart';
 
 class RecipeStatisticsModifier {
   RecipeStatisticsModifier(this.repo);

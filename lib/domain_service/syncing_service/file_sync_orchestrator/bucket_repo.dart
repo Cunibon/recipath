@@ -1,4 +1,4 @@
-import 'package:recipe_list/repos/sync_repo.dart';
+import 'package:recipath/repos/sync_repo.dart';
 
 class BucketRepo {
   BucketRepo({

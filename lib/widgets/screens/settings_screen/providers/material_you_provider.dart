@@ -1,5 +1,5 @@
 import 'package:localstorage/localstorage.dart';
-import 'package:recipe_list/helper/local_storage_extension.dart';
+import 'package:recipath/helper/local_storage_extension.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'material_you_provider.g.dart';

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:recipe_list/common.dart';
-import 'package:recipe_list/widgets/screens/dashboard_screen/charts/chart_entry.dart';
-import 'package:recipe_list/widgets/screens/dashboard_screen/charts/kcal_chart/providers/nutriment_enum.dart';
+import 'package:recipath/common.dart';
+import 'package:recipath/widgets/screens/dashboard_screen/charts/chart_entry.dart';
+import 'package:recipath/widgets/screens/dashboard_screen/charts/kcal_chart/providers/nutriment_enum.dart';
 
 class NutritionLegend extends ConsumerWidget {
   const NutritionLegend({required this.data, super.key});

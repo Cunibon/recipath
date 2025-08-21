@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart' as drift;
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:recipe_list/drift/database.dart';
+import 'package:recipath/drift/database.dart';
 
 part 'recipe_statistic_data.freezed.dart';
 part 'recipe_statistic_data.g.dart';

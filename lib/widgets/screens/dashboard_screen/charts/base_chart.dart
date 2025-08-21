@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:recipe_list/widgets/screens/dashboard_screen/charts/chart_entry.dart';
+import 'package:recipath/widgets/screens/dashboard_screen/charts/chart_entry.dart';
 
 class BaseChart extends StatelessWidget {
   const BaseChart({

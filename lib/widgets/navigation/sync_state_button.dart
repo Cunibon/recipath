@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:recipe_list/domain_service/syncing_service/syncing_service/syncing_service_notifier.dart';
+import 'package:recipath/domain_service/syncing_service/syncing_service/syncing_service_notifier.dart';
 
 class SyncStateButton extends ConsumerStatefulWidget {
   const SyncStateButton({super.key});

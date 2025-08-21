@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:recipe_list/application_constants.dart';
-import 'package:recipe_list/data/recipe_data/recipe_data.dart';
-import 'package:recipe_list/l10n/app_localizations.dart';
-import 'package:recipe_list/root_routes.dart';
-import 'package:recipe_list/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
-import 'package:recipe_list/widgets/screens/recipe_screen/local_image.dart';
-import 'package:recipe_list/widgets/screens/recipe_screen/providers/recipe_notifier.dart';
-import 'package:recipe_list/widgets/screens/recipe_screen/recipe_overview_screen/ingredients_list.dart';
-import 'package:recipe_list/widgets/screens/recipe_screen/recipe_overview_screen/nutriments_list.dart';
-import 'package:recipe_list/widgets/screens/recipe_screen/recipe_overview_screen/recipe_button/track_recipe_button.dart';
-import 'package:recipe_list/widgets/screens/recipe_screen/recipe_overview_screen/recipe_step.dart';
-import 'package:recipe_list/widgets/screens/recipe_screen/recipe_routes.dart';
+import 'package:recipath/application_constants.dart';
+import 'package:recipath/data/recipe_data/recipe_data.dart';
+import 'package:recipath/l10n/app_localizations.dart';
+import 'package:recipath/root_routes.dart';
+import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
+import 'package:recipath/widgets/screens/recipe_screen/local_image.dart';
+import 'package:recipath/widgets/screens/recipe_screen/providers/recipe_notifier.dart';
+import 'package:recipath/widgets/screens/recipe_screen/recipe_overview_screen/ingredients_list.dart';
+import 'package:recipath/widgets/screens/recipe_screen/recipe_overview_screen/nutriments_list.dart';
+import 'package:recipath/widgets/screens/recipe_screen/recipe_overview_screen/recipe_button/track_recipe_button.dart';
+import 'package:recipath/widgets/screens/recipe_screen/recipe_overview_screen/recipe_step.dart';
+import 'package:recipath/widgets/screens/recipe_screen/recipe_routes.dart';
 
 class RecipeScreen extends ConsumerWidget {
   const RecipeScreen({required this.recipeId, super.key});
@@ -45,7 +45,7 @@ class RecipeScreen extends ConsumerWidget {
             onPressed: () => context.go(
               Uri(
                 path:
-                    '${RootRoutes.recipeRoute.path}/recipeOverview/$recipeId/${MainRoutes.createRecipe.path}',
+                    '${RootRoutes.recipeRoute.path}/recipeOverview/$recipeId/${RecipeRoutes.createRecipe.path}',
                 queryParameters: {idParameter: recipeId},
               ).toString(),
             ),

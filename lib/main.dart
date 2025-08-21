@@ -1,20 +1,24 @@
 // Copyright (c) 2025 Michael Neufeld
 // Licensed under the MIT License. See LICENSE file in the project root for details.
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:recipe_list/application_constants.dart';
-import 'package:recipe_list/domain_service/syncing_service/syncing_service/syncing_service_notifier.dart';
-import 'package:recipe_list/drift/database.dart';
-import 'package:recipe_list/drift/database_notifier.dart';
-import 'package:recipe_list/l10n/app_localizations.dart';
-import 'package:recipe_list/providers/application_path_provider.dart';
-import 'package:recipe_list/root_routes.dart';
-import 'package:recipe_list/widgets/providers/locale_provider.dart';
-import 'package:recipe_list/widgets/providers/theme_data_provider.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
+import 'package:recipath/application_constants.dart';
+import 'package:recipath/domain_service/syncing_service/syncing_service/syncing_service_notifier.dart';
+import 'package:recipath/drift/database.dart';
+import 'package:recipath/drift/database_notifier.dart';
+import 'package:recipath/helper/local_storage_extension.dart';
+import 'package:recipath/l10n/app_localizations.dart';
+import 'package:recipath/providers/application_path_provider.dart';
+import 'package:recipath/root_routes.dart';
+import 'package:recipath/widgets/providers/locale_provider.dart';
+import 'package:recipath/widgets/providers/theme_data_provider.dart';
+import 'package:recipath/widgets/screens/recipe_screen/recipe_routes.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
@@ -28,6 +32,21 @@ void main() async {
 
   await Supabase.initialize(url: supabaseUrl, anonKey: supabaseKey);
 
+  if (kDebugMode) {
+    await Purchases.setLogLevel(LogLevel.debug);
+  }
+  await Purchases.configure(PurchasesConfiguration(revenueCatPublicKey));
+
+  final currentUser = Supabase.instance.client.auth.currentUser;
+  if (currentUser != null) {
+    Purchases.logIn(currentUser.id);
+  }
+
+  final firstTime = localStorage.getBool(openAppFirstTime) ?? true;
+  if (firstTime) {
+    localStorage.setDynamic(openAppFirstTime, false);
+  }
+
   final goRouter = GoRouter(
     routes: [
       RootRoutes.recipeRoute,
@@ -39,7 +58,9 @@ void main() async {
       RootRoutes.recipeShoppingRoute,
       RootRoutes.settingsRoute,
     ],
-    initialLocation: RootRoutes.recipeRoute.path,
+    initialLocation: firstTime
+        ? "${RootRoutes.recipeRoute.path}/${RecipeRoutes.introductionScreen.path}"
+        : RootRoutes.recipeRoute.path,
   );
 
   runApp(

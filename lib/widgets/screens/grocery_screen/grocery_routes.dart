@@ -1,7 +1,7 @@
 import 'package:go_router/go_router.dart';
-import 'package:recipe_list/application_constants.dart';
-import 'package:recipe_list/widgets/screens/grocery_screen/create_grocery_screen/create_grocery_screen.dart';
-import 'package:recipe_list/widgets/screens/grocery_screen/create_grocery_screen/scanner_screen/scanner_screen.dart';
+import 'package:recipath/application_constants.dart';
+import 'package:recipath/widgets/screens/grocery_screen/create_grocery_screen/create_grocery_screen.dart';
+import 'package:recipath/widgets/screens/grocery_screen/create_grocery_screen/scanner_screen/scanner_screen.dart';
 
 class GroceryRoutes {
   static GoRoute createGrocery = GoRoute(

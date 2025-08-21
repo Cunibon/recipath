@@ -1,5 +1,5 @@
-import 'package:recipe_list/domain_service/syncing_service/assemblers/abstract/supabase_write_assembler.dart';
-import 'package:recipe_list/domain_service/syncing_service/sync_orchestrator/sync_orchestartor.dart';
+import 'package:recipath/domain_service/syncing_service/assemblers/abstract/supabase_write_assembler.dart';
+import 'package:recipath/domain_service/syncing_service/sync_orchestrator/sync_orchestartor.dart';
 
 abstract class StandardWriteAssembler<T> extends SupabaseWriteAssembler<T> {
   StandardWriteAssembler({required super.repo});

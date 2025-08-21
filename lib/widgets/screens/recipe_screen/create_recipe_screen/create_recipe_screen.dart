@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:random_string/random_string.dart';
-import 'package:recipe_list/application/recipe_modifier/recipe_modifier_notifier.dart';
-import 'package:recipe_list/data/recipe_data/recipe_data.dart';
-import 'package:recipe_list/data/recipe_step_data/recipe_step_data.dart';
-import 'package:recipe_list/l10n/app_localizations.dart';
-import 'package:recipe_list/root_routes.dart';
-import 'package:recipe_list/widgets/generic/dialogs/delete_confirmation_dialog.dart';
-import 'package:recipe_list/widgets/generic/unsaved_changes_scope.dart';
-import 'package:recipe_list/widgets/screens/recipe_screen/create_recipe_screen/add_image_widget.dart';
-import 'package:recipe_list/widgets/screens/recipe_screen/create_recipe_screen/recipe_step_view.dart';
-import 'package:recipe_list/widgets/screens/recipe_screen/providers/recipe_notifier.dart';
-import 'package:recipe_list/widgets/screens/recipe_screen/providers/timer_notifier.dart';
+import 'package:recipath/application/recipe_modifier/recipe_modifier_notifier.dart';
+import 'package:recipath/data/recipe_data/recipe_data.dart';
+import 'package:recipath/data/recipe_step_data/recipe_step_data.dart';
+import 'package:recipath/l10n/app_localizations.dart';
+import 'package:recipath/root_routes.dart';
+import 'package:recipath/widgets/generic/dialogs/delete_confirmation_dialog.dart';
+import 'package:recipath/widgets/generic/unsaved_changes_scope.dart';
+import 'package:recipath/widgets/screens/recipe_screen/create_recipe_screen/add_image_widget.dart';
+import 'package:recipath/widgets/screens/recipe_screen/create_recipe_screen/recipe_step_view.dart';
+import 'package:recipath/widgets/screens/recipe_screen/providers/recipe_notifier.dart';
+import 'package:recipath/widgets/screens/recipe_screen/providers/timer_notifier.dart';
 
 class CreateRecipeScreen extends ConsumerStatefulWidget {
   const CreateRecipeScreen({this.recipeId, super.key});

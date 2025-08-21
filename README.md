@@ -1,8 +1,8 @@
 # 🍳 ReciPath — Recipes, Shopping, Storage and Charts
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/Cunibon/recipe_list?style=social)](https://github.com/Cunibon/recipe_list/stargazers)
-[![GitHub issues](https://img.shields.io/github/issues/Cunibon/recipe_list)](https://github.com/Cunibon/recipe_list/issues)
+[![GitHub stars](https://img.shields.io/github/stars/Cunibon/recipath?style=social)](https://github.com/Cunibon/recipath/stargazers)
+[![GitHub issues](https://img.shields.io/github/issues/Cunibon/recipath)](https://github.com/Cunibon/recipath/issues)
 
 **ReciPath** is an open-source app that helps you manage your recipes, track your pantry, and create shopping lists based on your recipes — all stored securely on supabase.
 
@@ -28,7 +28,7 @@ Upgrade to **Pro** to sync all your recipes, images, charts etc.
 |---------|------|-----|
 | Local recipes & lists | ✅ | ✅ |
 | Cloud sync | Shopping | Everything |
-| Price | Free | 0.99€ a year |
+| Price | Free | 4.99€ a year |
 
 ---
 
@@ -66,7 +66,7 @@ Once you are done your time will be recorded, an average time for the recipe wil
 ## Tech Stack
 
 - **Frontend:** Flutter (cross-platform)
-- **Backend:** Supabse
+- **Backend:** Supabase
 - **Database:** PostgreSQL
 
 ---
