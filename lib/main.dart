@@ -12,11 +12,13 @@ import 'package:recipath/application_constants.dart';
 import 'package:recipath/domain_service/syncing_service/syncing_service/syncing_service_notifier.dart';
 import 'package:recipath/drift/database.dart';
 import 'package:recipath/drift/database_notifier.dart';
+import 'package:recipath/helper/local_storage_extension.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/providers/application_path_provider.dart';
 import 'package:recipath/root_routes.dart';
 import 'package:recipath/widgets/providers/locale_provider.dart';
 import 'package:recipath/widgets/providers/theme_data_provider.dart';
+import 'package:recipath/widgets/screens/recipe_screen/recipe_routes.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
@@ -40,6 +42,11 @@ void main() async {
     Purchases.logIn(currentUser.id);
   }
 
+  final firstTime = localStorage.getBool(openAppFirstTime) ?? true;
+  if (firstTime) {
+    localStorage.setDynamic(openAppFirstTime, false);
+  }
+
   final goRouter = GoRouter(
     routes: [
       RootRoutes.recipeRoute,
@@ -51,7 +58,9 @@ void main() async {
       RootRoutes.recipeShoppingRoute,
       RootRoutes.settingsRoute,
     ],
-    initialLocation: RootRoutes.recipeRoute.path,
+    initialLocation: firstTime
+        ? "${RootRoutes.recipeRoute.path}/${RecipeRoutes.introductionScreen.path}"
+        : RootRoutes.recipeRoute.path,
   );
 
   runApp(

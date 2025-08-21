@@ -2,6 +2,8 @@ const supabaseUrl = String.fromEnvironment('SUPABASE_URL');
 const supabaseKey = String.fromEnvironment('SUPABASE_KEY');
 const revenueCatPublicKey = String.fromEnvironment('REVENUECAT_PUBLIC_KEY');
 
+const String openAppFirstTime = "openAppFirstTime";
+
 const List<String> dataKeys = [
   recipeDataKey,
   groceryDataKey,

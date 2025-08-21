@@ -112,7 +112,7 @@ class RecipeScreen extends ConsumerWidget {
       ],
       floatingActionButton: FloatingActionButton(
         onPressed: () => context.go(
-          "${RootRoutes.recipeRoute.path}/${MainRoutes.createRecipe.path}",
+          "${RootRoutes.recipeRoute.path}/${RecipeRoutes.createRecipe.path}",
         ),
         child: Icon(Icons.add),
       ),

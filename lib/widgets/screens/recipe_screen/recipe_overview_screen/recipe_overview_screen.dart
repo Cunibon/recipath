@@ -45,7 +45,7 @@ class RecipeScreen extends ConsumerWidget {
             onPressed: () => context.go(
               Uri(
                 path:
-                    '${RootRoutes.recipeRoute.path}/recipeOverview/$recipeId/${MainRoutes.createRecipe.path}',
+                    '${RootRoutes.recipeRoute.path}/recipeOverview/$recipeId/${RecipeRoutes.createRecipe.path}',
                 queryParameters: {idParameter: recipeId},
               ).toString(),
             ),
