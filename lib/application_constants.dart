@@ -1,6 +1,7 @@
 const supabaseUrl = String.fromEnvironment('SUPABASE_URL');
 const supabaseKey = String.fromEnvironment('SUPABASE_KEY');
 const revenueCatPublicKey = String.fromEnvironment('REVENUECAT_PUBLIC_KEY');
+const sentryUrl = String.fromEnvironment('SENTRY_URL');
 
 const String openAppFirstTime = "openAppFirstTime";
 
