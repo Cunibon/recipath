@@ -19,7 +19,8 @@ import 'package:recipath/root_routes.dart';
 import 'package:recipath/widgets/providers/locale_provider.dart';
 import 'package:recipath/widgets/providers/theme_data_provider.dart';
 import 'package:recipath/widgets/screens/recipe_screen/recipe_routes.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';import 'package:sentry_flutter/sentry_flutter.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -63,7 +64,17 @@ void main() async {
         : RootRoutes.recipeRoute.path,
   );
 
-  runApp(
+  await SentryFlutter.init(
+    (options) {
+      options.dsn = 'https://24c3d73415f409c1ee1eaab8f628bbf2@o4509882776551424.ingest.de.sentry.io/4509882777600080';
+      // Set tracesSampleRate to 1.0 to capture 100% of transactions for tracing.
+      // We recommend adjusting this value in production.
+      options.tracesSampleRate = 1.0;
+      // The sampling rate for profiling is relative to tracesSampleRate
+      // Setting to 1.0 will profile 100% of sampled transactions:
+      options.profilesSampleRate = 1.0;
+    },
+    appRunner: () => runApp(SentryWidget(child: 
     ProviderScope(
       overrides: [
         databaseNotifierProvider.overrideWith((ref) => db),
@@ -71,7 +82,10 @@ void main() async {
       ],
       child: MyApp(router: goRouter),
     ),
+  )),
   );
+  // TODO: Remove this line after sending the first sample event to sentry.
+  await Sentry.captureException(Exception('This is a sample exception.'));
 }
 
 class MyApp extends ConsumerStatefulWidget {

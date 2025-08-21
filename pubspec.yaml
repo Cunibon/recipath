@@ -9,6 +9,7 @@ environment:
   sdk: ^3.8.1
 
 dependencies:
+  sentry_flutter: ^9.6.0
   flutter:
     sdk: flutter  
   flutter_web_plugins:
@@ -47,6 +48,7 @@ dependencies:
   markdown_widget: ^2.3.2+8
 
 dev_dependencies:
+  sentry_dart_plugin: ^3.1.1
   flutter_test:
     sdk: flutter
 
@@ -92,3 +94,9 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+
+sentry:
+  upload_debug_symbols: true
+  upload_source_maps: true
+  project: flutter
+  org: cunibon-games
