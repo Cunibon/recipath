@@ -20,19 +20,21 @@ class SettingsScreen extends StatelessWidget {
     return NavigationDrawerScaffold(
       titleBuilder: (title) =>
           DefaultNavigationTitle(title: title, syncState: SyncState.synced),
-      body: Column(
-        spacing: 8,
-        children: [
-          SettingSection(
-            title: localization.appearance,
-            children: [LocalePicker(), DarkModeToggle(), MaterialYouToggle()],
-          ),
-          SettingSection(
-            title: localization.data,
-            children: [ImportButton(), ExportButton()],
-          ),
-          VersionTag(),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          spacing: 8,
+          children: [
+            SettingSection(
+              title: localization.appearance,
+              children: [LocalePicker(), DarkModeToggle(), MaterialYouToggle()],
+            ),
+            SettingSection(
+              title: localization.data,
+              children: [ImportButton(), ExportButton()],
+            ),
+            VersionTag(),
+          ],
+        ),
       ),
     );
   }
