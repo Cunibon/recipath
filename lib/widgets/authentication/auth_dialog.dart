@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
@@ -33,7 +34,7 @@ class _AuthDialogState extends ConsumerState<AuthDialog> {
 
     return Dialog(
       child: Padding(
-        padding: EdgeInsetsGeometry.all(8),
+        padding: EdgeInsetsGeometry.all(12),
         child: SizedBox(
           width: 200,
           child: Form(
@@ -45,11 +46,14 @@ class _AuthDialogState extends ConsumerState<AuthDialog> {
               children: [
                 Text(
                   widget.isLogin ? localization.login : localization.register,
-                  style: Theme.of(context).textTheme.titleMedium,
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
                 TextFormField(
                   controller: emailController,
-
+                  keyboardType: TextInputType.emailAddress,
+                  autofillHints: widget.isLogin
+                      ? const [AutofillHints.username]
+                      : const [AutofillHints.newUsername],
                   decoration: InputDecoration(hintText: localization.eMail),
                   validator: (value) {
                     if (value != null) {
@@ -65,6 +69,7 @@ class _AuthDialogState extends ConsumerState<AuthDialog> {
                 ),
                 TextFormField(
                   controller: passwordController,
+                  autofillHints: const [AutofillHints.password],
                   obscureText: true,
                   decoration: InputDecoration(hintText: localization.password),
                   validator: (value) {
@@ -77,6 +82,7 @@ class _AuthDialogState extends ConsumerState<AuthDialog> {
                 if (!widget.isLogin)
                   TextFormField(
                     obscureText: true,
+                    autofillHints: const [AutofillHints.newPassword],
                     decoration: InputDecoration(
                       hintText: localization.repeatPassword,
                     ),
@@ -101,6 +107,8 @@ class _AuthDialogState extends ConsumerState<AuthDialog> {
                   child: ElevatedButton(
                     onPressed: () async {
                       if (formKey.currentState?.validate() == true) {
+                        TextInput.finishAutofillContext();
+
                         setState(() {
                           loading = true;
                         });
