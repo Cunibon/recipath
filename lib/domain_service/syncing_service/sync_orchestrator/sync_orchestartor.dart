@@ -47,7 +47,11 @@ class SyncOrchestrator {
       await Sentry.captureException(
         e,
         stackTrace: s,
-        hint: Hint.withMap(syncContext),
+        hint: Hint.withMap({
+          "syncContext": syncContext,
+          "uploadOrder": uploadOrder,
+          "uploads": uploads.length,
+        }),
       );
     }
 
