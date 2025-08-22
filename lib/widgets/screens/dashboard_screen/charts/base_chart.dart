@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:recipath/l10n/app_localizations.dart';
+import 'package:recipath/widgets/generic/empty_state.dart';
 import 'package:recipath/widgets/screens/dashboard_screen/charts/chart_entry.dart';
 
 class BaseChart extends StatelessWidget {
@@ -40,27 +42,37 @@ class BaseChart extends StatelessWidget {
           child: SizedBox(
             width: max(constrained.maxWidth, state.entries.length * axisSpace),
             height: 350,
-            child: BarChart(
-              BarChartData(
-                groupsSpace: axisSpace,
-                maxY: state.maxY * 1.1,
-                barTouchData: barTouchData(),
-                titlesData: titlesData(),
-                barGroups: state.entries.map((e) => e.groupData).toList(),
-                borderData: FlBorderData(show: false),
-                gridData: FlGridData(
-                  show: true,
-                  drawVerticalLine: false,
-                  horizontalInterval: horizontalInterval,
-                  getDrawingHorizontalLine: (value) => FlLine(
-                    color: value % horizontalTitleInterval == 0
-                        ? Theme.of(context).colorScheme.onPrimary
-                        : Theme.of(context).colorScheme.onSecondary,
-                    dashArray: [5, 10],
+            child: Stack(
+              children: [
+                BarChart(
+                  BarChartData(
+                    groupsSpace: axisSpace,
+                    maxY: state.maxY * 1.1,
+                    barTouchData: barTouchData(),
+                    titlesData: titlesData(),
+                    barGroups: state.entries.map((e) => e.groupData).toList(),
+                    borderData: FlBorderData(show: false),
+                    gridData: FlGridData(
+                      show: true,
+                      drawVerticalLine: false,
+                      horizontalInterval: horizontalInterval,
+                      getDrawingHorizontalLine: (value) => FlLine(
+                        color: value % horizontalTitleInterval == 0
+                            ? Theme.of(context).colorScheme.onPrimary
+                            : Theme.of(context).colorScheme.onSecondary,
+                        dashArray: [5, 10],
+                      ),
+                    ),
+                    alignment: BarChartAlignment.start,
                   ),
                 ),
-                alignment: BarChartAlignment.start,
-              ),
+                if (state.entries.isEmpty)
+                  Center(
+                    child: EmptyState(
+                      hint: AppLocalizations.of(context)!.cookRecipeForData,
+                    ),
+                  ),
+              ],
             ),
           ),
         ),

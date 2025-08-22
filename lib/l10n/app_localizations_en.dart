@@ -332,4 +332,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get appIntroduction =>
       '## Getting Started\n\n### 1. Create recipes\nYou can create recipes right off the bat.\n- Add a title and maybe an image\n- Add steps and their respective ingredients\n    - Groceries created are available for all recipes and can be found in the Groceries Screen\n    - Groceries have a normal amount (in what quantity you would buy them) this is used to determine how many of said ingredient needs to be bought\n    - You can also add a conversion rate and Nutriments, both of which are important for accurate dashboard data\n    - The little QR code at the top right can help you quickly enter most values\n- Save and you are ready to go\n\n### 2. Start shopping\nBy swiping a recipe or clicking the shopping button at the top you can enter \"shopping mode\".\nPlan your next shopping trip by selecting the recipes you want to cook, automatically adding all ingredients to the Shopping screen.\n\nYou can also see all the recipes you added in the shopping history.\n\n### 3. Keep track of what you have\nEverything you tick off your list is added to your Storage Screen.\nYou can check it as a reference and both the Shopping and Recipe screen will highlight ingredients you have at home, making it easy to see what you can cook or what needs to be bought.\n\n### 4. Start cooking\nWhen you are ready to cook, click on a recipe and start the timer.\nOnce you are done your time will be recorded, an average time for the recipe will be displayed on the Recipe screen.';
+
+  @override
+  String get nothingToSee => 'Nothing to see';
+
+  @override
+  String get cookRecipeForData => 'Cook a recipe to add data';
 }
