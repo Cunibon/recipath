@@ -14,9 +14,18 @@ class RecipeStep extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          "${AppLocalizations.of(context)!.step} ${index + 1}:",
-          style: Theme.of(context).textTheme.titleLarge,
+        Container(
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.primaryContainer,
+            borderRadius: BorderRadius.circular(25),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: Text(
+              "${AppLocalizations.of(context)!.step} ${index + 1}:",
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+          ),
         ),
         Divider(),
         Text(step.description, style: Theme.of(context).textTheme.bodyLarge),
