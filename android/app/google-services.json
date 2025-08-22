@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "832061936141",
+    "project_id": "recipath-377c4",
+    "storage_bucket": "recipath-377c4.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:832061936141:android:3317979b488c01d6803b44",
+        "android_client_info": {
+          "package_name": "com.cunibongames.recipath"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBaUuJrzno8UVQ7tNvrYnWq7DgAmHa8lyA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

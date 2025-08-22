@@ -46,6 +46,7 @@ dependencies:
   flutter_launcher_icons: ^0.14.4
   package_info_plus: ^8.3.1
   markdown_widget: ^2.3.2+8
+  firebase_core: ^4.0.0
 
 dev_dependencies:
   sentry_dart_plugin: ^3.1.1

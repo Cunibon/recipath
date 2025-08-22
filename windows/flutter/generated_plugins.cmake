@@ -6,6 +6,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   app_links
   dynamic_color
   file_selector_windows
+  firebase_core
   sentry_flutter
   share_plus
   sqlite3_flutter_libs

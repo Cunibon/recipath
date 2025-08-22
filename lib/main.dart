@@ -1,6 +1,7 @@
 // Copyright (c) 2025 Michael Neufeld
 // Licensed under the MIT License. See LICENSE file in the project root for details.
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -12,6 +13,7 @@ import 'package:recipath/application_constants.dart';
 import 'package:recipath/domain_service/syncing_service/syncing_service/syncing_service_notifier.dart';
 import 'package:recipath/drift/database.dart';
 import 'package:recipath/drift/database_notifier.dart';
+import 'package:recipath/firebase_options.dart';
 import 'package:recipath/helper/local_storage_extension.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/providers/application_path_provider.dart';
@@ -63,6 +65,8 @@ void main() async {
         ? "${RootRoutes.recipeRoute.path}/${RecipeRoutes.introductionScreen.path}"
         : RootRoutes.recipeRoute.path,
   );
+
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   await SentryFlutter.init(
     (options) {
