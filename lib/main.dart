@@ -69,14 +69,12 @@ void main() async {
       options.dsn = sentryUrl;
     },
     appRunner: () => runApp(
-      SentryWidget(
-        child: ProviderScope(
-          overrides: [
-            databaseNotifierProvider.overrideWith((ref) => db),
-            applicationPathProvider.overrideWith((ref) => applicationPath),
-          ],
-          child: MyApp(router: goRouter),
-        ),
+      ProviderScope(
+        overrides: [
+          databaseNotifierProvider.overrideWith((ref) => db),
+          applicationPathProvider.overrideWith((ref) => applicationPath),
+        ],
+        child: SentryWidget(child: MyApp(router: goRouter)),
       ),
     ),
   );
