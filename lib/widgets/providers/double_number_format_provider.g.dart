@@ -7,7 +7,7 @@ part of 'double_number_format_provider.dart';
 // **************************************************************************
 
 String _$doubleNumberFormatNotifierHash() =>
-    r'c6be327dd6df800ee623dacf70bc987c074181f8';
+    r'ef028de6b31f3bc2566b4f21d930761d90431b38';
 
 /// See also [doubleNumberFormatNotifier].
 @ProviderFor(doubleNumberFormatNotifier)

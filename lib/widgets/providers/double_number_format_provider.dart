@@ -7,5 +7,5 @@ part 'double_number_format_provider.g.dart';
 
 @riverpod
 NumberFormat doubleNumberFormatNotifier(Ref ref) =>
-    NumberFormat(null, ref.watch(localeNotifierProvider).countryCode)
+    NumberFormat(null, ref.watch(localeNotifierProvider).languageCode)
       ..maximumFractionDigits = 2;
