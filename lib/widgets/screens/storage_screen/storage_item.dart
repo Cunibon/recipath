@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/application/storage_modifier/storage_modifier_notifier.dart';
-import 'package:recipath/common.dart';
 import 'package:recipath/data/storage_data/storage_data.dart';
 import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/generic/highlight_search/highlightable_text.dart';
+import 'package:recipath/widgets/providers/double_number_format_provider.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 
 class StorageItem extends ConsumerWidget {
@@ -17,6 +17,8 @@ class StorageItem extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final localization = AppLocalizations.of(context)!;
     final unitLocalized = localizeUnits(context);
+
+    final doubleNumberFormat = ref.watch(doubleNumberFormatNotifierProvider);
 
     final grocery = ref.watch(
       groceryNotifierProvider.select(

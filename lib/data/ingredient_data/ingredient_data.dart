@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:recipath/common.dart';
+import 'package:intl/intl.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/drift/database.dart';
@@ -62,7 +62,11 @@ abstract class IngredientData with _$IngredientData {
 }
 
 extension IngredientDataFunctions on IngredientData {
-  String toReadable(GroceryData grocery, Map<UnitEnum, String> unitLocalized) =>
+  String toReadable({
+    required GroceryData grocery,
+    required Map<UnitEnum, String> unitLocalized,
+    required NumberFormat doubleNumberFormat,
+  }) =>
       "${doubleNumberFormat.format(amount)}${unitLocalized[unit]} ${grocery.name}";
 
   IngredientTableCompanion toTableCompanion() =>

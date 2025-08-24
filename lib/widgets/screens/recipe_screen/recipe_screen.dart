@@ -14,6 +14,7 @@ import 'package:recipath/widgets/generic/notifier_future_builder.dart';
 import 'package:recipath/widgets/generic/searchable_list.dart';
 import 'package:recipath/widgets/navigation/default_navigation_title.dart';
 import 'package:recipath/widgets/navigation/navigation_drawer_scaffold.dart';
+import 'package:recipath/widgets/providers/double_number_format_provider.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/compact_recipe_item.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/recipe_notifier.dart';
@@ -27,6 +28,8 @@ class RecipeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final localization = AppLocalizations.of(context)!;
     final unitLocalized = localizeUnits(context);
+
+    final doubleNumberFormat = ref.watch(doubleNumberFormatNotifierProvider);
 
     final asyncRecipe = ref.watch(recipeNotifierProvider);
     final asyncGrocery = ref.watch(groceryNotifierProvider);
@@ -121,8 +124,11 @@ class RecipeScreen extends ConsumerWidget {
         childBuilder: () => SearchableList(
           type: localization.recipe,
           items: asyncRecipe.value!.values.toList(),
-          toSearchable: (item) =>
-              item.toReadable(asyncGrocery.value!, unitLocalized),
+          toSearchable: (item) => item.toReadable(
+            groceries: asyncGrocery.value!,
+            unitLocalized: unitLocalized,
+            doubleNumberFormat: doubleNumberFormat,
+          ),
           toWidget: (item) => Dismissible(
             key: Key(item.id),
             child: CompactRecipeItem(data: item),

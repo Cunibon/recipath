@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:intl/intl.dart';
 import 'package:random_string/random_string.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/ingredient_data/ingredient_data.dart';
@@ -49,17 +50,22 @@ abstract class RecipeData with _$RecipeData {
 }
 
 extension RecipeDataFunctions on RecipeData {
-  String toReadable(
-    Map<String, GroceryData> groceries,
-    Map<UnitEnum, String> unitLocalized,
-  ) {
+  String toReadable({
+    required Map<String, GroceryData> groceries,
+    required Map<UnitEnum, String> unitLocalized,
+    required NumberFormat doubleNumberFormat,
+  }) {
     final stringBuffer = StringBuffer();
 
     stringBuffer.writeln(title);
 
     getIngredients(groceries).forEach(
       (ingredient) => stringBuffer.writeln(
-        ingredient.toReadable(groceries[ingredient.groceryId]!, unitLocalized),
+        ingredient.toReadable(
+          grocery: groceries[ingredient.groceryId]!,
+          unitLocalized: unitLocalized,
+          doubleNumberFormat: doubleNumberFormat,
+        ),
       ),
     );
 

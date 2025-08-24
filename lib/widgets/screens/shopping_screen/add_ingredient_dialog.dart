@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:random_string/random_string.dart';
-import 'package:recipath/common.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/ingredient_data/ingredient_data.dart';
 import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/generic/searchable_list.dart';
+import 'package:recipath/widgets/providers/double_number_format_provider.dart';
 import 'package:recipath/widgets/screens/grocery_screen/grocery_routes.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 
@@ -34,7 +35,7 @@ class _AddIngredientDialogState extends ConsumerState<AddIngredientDialog> {
   final amountController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
-  void updateSelected(GroceryData item) {
+  void updateSelected(GroceryData item, NumberFormat doubleNumberFormat) {
     if (!widget.allowSelectedRemoval && widget.selected.contains(item.id)) {
       return;
     }
@@ -47,6 +48,8 @@ class _AddIngredientDialogState extends ConsumerState<AddIngredientDialog> {
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context)!;
     final unitLocalized = localizeUnits(context);
+
+    final doubleNumberFormat = ref.watch(doubleNumberFormatNotifierProvider);
 
     final groceries = ref.watch(groceryNotifierProvider).value!;
     final groceryList = groceries.values.toList();
@@ -74,7 +77,7 @@ class _AddIngredientDialogState extends ConsumerState<AddIngredientDialog> {
                         ),
                         toSearchable: (item) => item.name,
                         toWidget: (item) => GestureDetector(
-                          onTap: () => updateSelected(item),
+                          onTap: () => updateSelected(item, doubleNumberFormat),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 4),
                             child: Card(
@@ -89,7 +92,10 @@ class _AddIngredientDialogState extends ConsumerState<AddIngredientDialog> {
                                       onChanged:
                                           widget.allowSelectedRemoval ||
                                               !widget.selected.contains(item.id)
-                                          ? (_) => updateSelected(item)
+                                          ? (_) => updateSelected(
+                                              item,
+                                              doubleNumberFormat,
+                                            )
                                           : null,
                                     ),
                                     Text(item.name),

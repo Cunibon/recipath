@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:recipath/common.dart';
+import 'package:recipath/widgets/providers/double_number_format_provider.dart';
 import 'package:recipath/widgets/screens/dashboard_screen/charts/chart_entry.dart';
 import 'package:recipath/widgets/screens/dashboard_screen/charts/kcal_chart/providers/nutriment_enum.dart';
 
@@ -11,6 +11,8 @@ class NutritionLegend extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final doubleNumberFormat = ref.watch(doubleNumberFormatNotifierProvider);
+
     final nutrimentEntries = Nutriments.values;
     final localized = localizeNutriments(context);
 

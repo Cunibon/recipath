@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:recipath/common.dart';
 import 'package:recipath/data/ingredient_data/ingredient_data.dart';
 import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/l10n/app_localizations.dart';
+import 'package:recipath/widgets/providers/double_number_format_provider.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 
 class IngredientItem extends ConsumerStatefulWidget {
@@ -29,6 +29,8 @@ class _IngredientItemState extends ConsumerState<IngredientItem> {
   @override
   void initState() {
     super.initState();
+    final doubleNumberFormat = ref.read(doubleNumberFormatNotifierProvider);
+
     amountController.text = doubleNumberFormat.format(widget.data.amount);
     isMisc = UnitConversion.unitType(widget.data.unit) == UnitType.misc;
   }
@@ -37,6 +39,8 @@ class _IngredientItemState extends ConsumerState<IngredientItem> {
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context)!;
     final unitLocalized = localizeUnits(context);
+
+    final doubleNumberFormat = ref.watch(doubleNumberFormatNotifierProvider);
 
     final grocery = ref.watch(
       groceryNotifierProvider.select(

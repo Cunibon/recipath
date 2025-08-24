@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/data/ingredient_data/ingredient_data.dart';
 import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/l10n/app_localizations.dart';
+import 'package:recipath/widgets/providers/double_number_format_provider.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 
 class IngredientsList extends ConsumerWidget {
@@ -15,6 +16,8 @@ class IngredientsList extends ConsumerWidget {
     final localization = AppLocalizations.of(context)!;
     final unitLocalized = localizeUnits(context);
 
+    final doubleNumberFormat = ref.watch(doubleNumberFormatNotifierProvider);
+
     final groceryMap = ref.watch(groceryNotifierProvider).value!;
 
     final ingredientBuffer = StringBuffer();
@@ -23,7 +26,7 @@ class IngredientsList extends ConsumerWidget {
 
     for (final ingredient in ingredients) {
       ingredientBuffer.writeln(
-        "● ${ingredient.toReadable(groceryMap[ingredient.groceryId]!, unitLocalized)}",
+        "● ${ingredient.toReadable(grocery: groceryMap[ingredient.groceryId]!, unitLocalized: unitLocalized, doubleNumberFormat: doubleNumberFormat)}",
       );
     }
 

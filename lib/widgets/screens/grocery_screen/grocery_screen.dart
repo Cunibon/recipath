@@ -9,6 +9,7 @@ import 'package:recipath/widgets/generic/notifier_future_builder.dart';
 import 'package:recipath/widgets/generic/searchable_list.dart';
 import 'package:recipath/widgets/navigation/default_navigation_title.dart';
 import 'package:recipath/widgets/navigation/navigation_drawer_scaffold.dart';
+import 'package:recipath/widgets/providers/double_number_format_provider.dart';
 import 'package:recipath/widgets/screens/grocery_screen/grocery_item.dart';
 import 'package:recipath/widgets/screens/grocery_screen/grocery_routes.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
@@ -20,6 +21,8 @@ class GroceryScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncData = ref.watch(groceryNotifierProvider);
     final unitLocalized = localizeUnits(context);
+
+    final doubleNumberFormat = ref.watch(doubleNumberFormatNotifierProvider);
 
     return NavigationDrawerScaffold(
       titleBuilder: (title) => DefaultNavigationTitle(
@@ -43,7 +46,10 @@ class GroceryScreen extends ConsumerWidget {
           return SearchableList(
             type: AppLocalizations.of(context)!.grocery,
             items: data,
-            toSearchable: (item) => item.toReadable(unitLocalized),
+            toSearchable: (item) => item.toReadable(
+              unitLocalized: unitLocalized,
+              doubleNumberFormat: doubleNumberFormat,
+            ),
             toWidget: (item) => GroceryItem(data: item),
             sort: (a, b) => a.name.compareTo(b.name),
           );

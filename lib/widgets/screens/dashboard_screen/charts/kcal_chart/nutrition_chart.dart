@@ -1,9 +1,9 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:recipath/common.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/generic/expandable.dart';
+import 'package:recipath/widgets/providers/double_number_format_provider.dart';
 import 'package:recipath/widgets/screens/dashboard_screen/charts/async_chart.dart';
 import 'package:recipath/widgets/screens/dashboard_screen/charts/base_chart.dart';
 import 'package:recipath/widgets/screens/dashboard_screen/charts/kcal_chart/nutrition_legend.dart';
@@ -21,6 +21,8 @@ class NutritionChart extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final doubleNumberFormat = ref.watch(doubleNumberFormatNotifierProvider);
+
     final state = ref.watch(
       nutritionChartNotifierProvider(dateRange, selectedRecipes),
     );

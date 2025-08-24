@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:random_string/random_string.dart';
 import 'package:recipath/application/grocery_modifier/grocery_modifier_notifier.dart';
-import 'package:recipath/common.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/gtin_data/gtin_data.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
@@ -15,6 +14,7 @@ import 'package:recipath/repos/storage/storage_repo_notifier.dart';
 import 'package:recipath/widgets/generic/dialogs/delete_confirmation_dialog.dart';
 import 'package:recipath/widgets/generic/information_dialog.dart';
 import 'package:recipath/widgets/generic/unsaved_changes_scope.dart';
+import 'package:recipath/widgets/providers/double_number_format_provider.dart';
 import 'package:recipath/widgets/screens/grocery_screen/create_grocery_screen/grocery_form_fields.dart';
 import 'package:recipath/widgets/screens/grocery_screen/grocery_routes.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
@@ -56,6 +56,8 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
         );
     data = initialData;
 
+    final doubleNumberFormat = ref.read(doubleNumberFormatNotifierProvider);
+
     nameController.text = data.name;
     amountController.text = doubleNumberFormat.format(data.normalAmount);
     conversionController.text = doubleNumberFormat.format(
@@ -80,6 +82,8 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final doubleNumberFormat = ref.watch(doubleNumberFormatNotifierProvider);
+
     final localization = AppLocalizations.of(context)!;
 
     return UnsavedChangesScope(

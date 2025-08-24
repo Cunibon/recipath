@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:recipath/application_constants.dart';
-import 'package:recipath/common.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/root_routes.dart';
 import 'package:recipath/widgets/generic/highlight_search/highlightable_text.dart';
+import 'package:recipath/widgets/providers/double_number_format_provider.dart';
 import 'package:recipath/widgets/screens/grocery_screen/grocery_routes.dart';
 
-class GroceryItem extends StatelessWidget {
+class GroceryItem extends ConsumerWidget {
   const GroceryItem({required this.data, super.key});
   final GroceryData data;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final doubleNumberFormat = ref.watch(doubleNumberFormatNotifierProvider);
+
     final unitLocalized = localizeUnits(context);
 
     return Card(

@@ -17,8 +17,6 @@ Color getRandomColorBasedOnString(String string) {
   return Color.fromARGB(255, r, g, b);
 }
 
-final doubleNumberFormat = NumberFormat()..maximumFractionDigits = 2;
-
 final dateFormat = DateFormat("dd.MM.yy");
 final dateTimeFormat = DateFormat("dd.MM.yy HH:mm");
 final timeFormat = DateFormat("HH:mm");

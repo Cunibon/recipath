@@ -1,7 +1,7 @@
 import 'package:drift/drift.dart' as drift;
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:intl/intl.dart';
 import 'package:random_string/random_string.dart';
-import 'package:recipath/common.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/ingredient_data/ingredient_data.dart';
 import 'package:recipath/data/unit_enum.dart';
@@ -50,12 +50,13 @@ abstract class ShoppingData with _$ShoppingData {
 }
 
 extension ShoppingDataFunctions on ShoppingData {
-  String toReadable(
-    GroceryData grocery,
-    double storageData,
-    Map<UnitEnum, String> unitLocalized,
-  ) =>
-      "${count}x ${grocery.toReadable(unitLocalized)} (${doubleNumberFormat.format(ingredient.amount)}${unitLocalized[grocery.unit]}/${doubleNumberFormat.format(storageData)}${unitLocalized[grocery.unit]})";
+  String toReadable({
+    required GroceryData grocery,
+    required double storageData,
+    required Map<UnitEnum, String> unitLocalized,
+    required NumberFormat doubleNumberFormat,
+  }) =>
+      "${count}x ${grocery.toReadable(unitLocalized: unitLocalized, doubleNumberFormat: doubleNumberFormat)} (${doubleNumberFormat.format(ingredient.amount)}${unitLocalized[grocery.unit]}/${doubleNumberFormat.format(storageData)}${unitLocalized[grocery.unit]})";
 
   ShoppingTableCompanion toTableCompanion() => ShoppingTableCompanion.insert(
     id: id,

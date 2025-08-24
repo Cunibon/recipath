@@ -8,6 +8,7 @@ import 'package:recipath/data/shopping_data/shopping_data.dart';
 import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/widgets/generic/dialogs/delete_confirmation_dialog.dart';
 import 'package:recipath/widgets/generic/highlight_search/highlightable_text.dart';
+import 'package:recipath/widgets/providers/double_number_format_provider.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 
 class ShoppingItem extends ConsumerWidget {
@@ -23,6 +24,8 @@ class ShoppingItem extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final unitLocalized = localizeUnits(context);
+
+    final doubleNumberFormat = ref.watch(doubleNumberFormatNotifierProvider);
 
     final groceries = ref.watch(groceryNotifierProvider).value!;
 
@@ -66,9 +69,10 @@ class ShoppingItem extends ConsumerWidget {
               Expanded(
                 child: HighlightableText(
                   data.toReadable(
-                    groceries[data.ingredient.groceryId]!,
-                    ingredientData?.amount ?? 0,
-                    unitLocalized,
+                    grocery: groceries[data.ingredient.groceryId]!,
+                    storageData: ingredientData?.amount ?? 0,
+                    unitLocalized: unitLocalized,
+                    doubleNumberFormat: doubleNumberFormat,
                   ),
                   style: (ingredientData?.amount ?? 0) >= data.ingredient.amount
                       ? TextStyle(color: Colors.green)

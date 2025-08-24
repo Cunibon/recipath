@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:recipath/common.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:recipath/widgets/providers/double_number_format_provider.dart';
 
-class DoubleInputField extends StatelessWidget {
+class DoubleInputField extends ConsumerWidget {
   const DoubleInputField({
     super.key,
     this.controller,
@@ -17,7 +18,9 @@ class DoubleInputField extends StatelessWidget {
   final void Function(double? parsed) onChanged;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final doubleNumberFormat = ref.watch(doubleNumberFormatNotifierProvider);
+
     return TextFormField(
       controller: controller,
       decoration: InputDecoration(labelText: labelText),

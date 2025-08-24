@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart' as drift;
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:recipath/common.dart';
+import 'package:intl/intl.dart';
 import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/drift/database.dart';
 
@@ -65,7 +65,10 @@ abstract class GroceryData with _$GroceryData {
 }
 
 extension GroceryDataFunctions on GroceryData {
-  String toReadable(Map<UnitEnum, String> unitLocalized) =>
+  String toReadable({
+    required Map<UnitEnum, String> unitLocalized,
+    required NumberFormat doubleNumberFormat,
+  }) =>
       "${doubleNumberFormat.format(normalAmount)}${unitLocalized[unit]} $name";
 
   double convertToNorm(double value, UnitEnum otherUnit) {

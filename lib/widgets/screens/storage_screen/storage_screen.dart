@@ -9,6 +9,7 @@ import 'package:recipath/widgets/generic/notifier_future_builder.dart';
 import 'package:recipath/widgets/generic/searchable_list.dart';
 import 'package:recipath/widgets/navigation/default_navigation_title.dart';
 import 'package:recipath/widgets/navigation/navigation_drawer_scaffold.dart';
+import 'package:recipath/widgets/providers/double_number_format_provider.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 import 'package:recipath/widgets/screens/shopping_screen/add_ingredient_dialog.dart';
 import 'package:recipath/widgets/screens/storage_screen/providers/storage_notifier.dart';
@@ -28,6 +29,8 @@ class _StorageScreenState extends ConsumerState<StorageScreen> {
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context)!;
     final unitLocalized = localizeUnits(context);
+
+    final doubleNumberFormat = ref.watch(doubleNumberFormatNotifierProvider);
 
     final asyncItems = ref.watch(storageNotifierProvider);
     final asyncGroceries = ref.watch(groceryNotifierProvider);
@@ -81,8 +84,9 @@ class _StorageScreenState extends ConsumerState<StorageScreen> {
           type: localization.items,
           items: asyncItems.value!.values.toList(),
           toSearchable: (item) => item.ingredient.toReadable(
-            asyncGroceries.value![item.ingredient.groceryId]!,
-            unitLocalized,
+            grocery: asyncGroceries.value![item.ingredient.groceryId]!,
+            unitLocalized: unitLocalized,
+            doubleNumberFormat: doubleNumberFormat,
           ),
           toWidget: (item) => StorageItem(data: item),
           sort: (a, b) => asyncGroceries.value![a.ingredient.groceryId]!.name
