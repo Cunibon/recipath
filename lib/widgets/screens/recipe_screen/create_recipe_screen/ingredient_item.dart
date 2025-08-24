@@ -10,12 +10,14 @@ class IngredientItem extends ConsumerStatefulWidget {
   const IngredientItem({
     required this.index,
     required this.data,
+    required this.localizedUnits,
     required this.onChanged,
     super.key,
   });
 
   final int index;
   final IngredientData data;
+  final Map<UnitEnum, String> localizedUnits;
   final void Function(IngredientData newIngredient) onChanged;
 
   @override

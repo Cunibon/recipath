@@ -37,6 +37,8 @@ class GroceryFormFields extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final localization = AppLocalizations.of(context)!;
+    final localizedUnits = localizeUnits(context);
+
     final unitType = UnitConversion.unitType(data.unit);
 
     final doubleNumberFormat = ref.watch(doubleNumberFormatNotifierProvider);
@@ -107,7 +109,10 @@ class GroceryFormFields extends ConsumerWidget {
                       value == null ? localization.addUnit : null,
                   items: UnitEnum.values
                       .map(
-                        (e) => DropdownMenuItem(value: e, child: Text(e.name)),
+                        (e) => DropdownMenuItem(
+                          value: e,
+                          child: Text(localizedUnits[e]!),
+                        ),
                       )
                       .toList(),
                   onChanged: (value) {

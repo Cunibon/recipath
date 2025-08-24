@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipath/data/ingredient_data/ingredient_data.dart';
+import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/generic/expandable.dart';
 import 'package:recipath/widgets/screens/recipe_screen/create_recipe_screen/compact_ingredient_view.dart';
@@ -28,6 +29,7 @@ class _IngredientViewState extends State<IngredientView> {
   @override
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context)!;
+    final localizedUnits = localizeUnits(context);
 
     final listCopy = List<IngredientData>.from(widget.ingredients);
 
@@ -39,6 +41,7 @@ class _IngredientViewState extends State<IngredientView> {
           key: Key(ingredient.id),
           index: i,
           data: ingredient,
+          localizedUnits: localizedUnits,
           onChanged: (newIngredient) {
             listCopy.removeAt(i);
             listCopy.insert(i, newIngredient);
