@@ -5,7 +5,7 @@ import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/root_routes.dart';
-import 'package:recipath/widgets/generic/notifier_future_builder.dart';
+import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/generic/searchable_list.dart';
 import 'package:recipath/widgets/navigation/default_navigation_title.dart';
 import 'package:recipath/widgets/navigation/navigation_drawer_scaffold.dart';
@@ -38,14 +38,12 @@ class GroceryScreen extends ConsumerWidget {
         ),
         child: Icon(Icons.add),
       ),
-      body: NotifierFutureBuilder(
-        futures: [asyncData],
-        childBuilder: () {
-          final data = asyncData.value!.values.toList();
-
+      body: CachedAsyncValueWrapper(
+        asyncState: asyncData,
+        builder: (data) {
           return SearchableList(
             type: AppLocalizations.of(context)!.grocery,
-            items: data,
+            items: data.values.toList(),
             toSearchable: (item) => item.toReadable(
               unitLocalized: unitLocalized,
               doubleNumberFormat: doubleNumberFormat,

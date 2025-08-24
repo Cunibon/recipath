@@ -5,17 +5,15 @@ import 'package:recipath/data/ingredient_data/ingredient_data.dart';
 import 'package:recipath/data/shopping_data/shopping_data.dart';
 import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/l10n/app_localizations.dart';
+import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/generic/dialogs/clear_confirmation_dialog.dart';
-import 'package:recipath/widgets/generic/notifier_future_builder.dart';
 import 'package:recipath/widgets/generic/searchable_list.dart';
 import 'package:recipath/widgets/navigation/default_navigation_title.dart';
 import 'package:recipath/widgets/navigation/navigation_drawer_scaffold.dart';
 import 'package:recipath/widgets/providers/double_number_format_provider.dart';
-import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 import 'package:recipath/widgets/screens/shopping_screen/add_ingredient_dialog.dart';
-import 'package:recipath/widgets/screens/shopping_screen/providers/shopping_notifier.dart';
+import 'package:recipath/widgets/screens/shopping_screen/providers/shopping_screen_state_notifier.dart';
 import 'package:recipath/widgets/screens/shopping_screen/shopping_item.dart';
-import 'package:recipath/widgets/screens/storage_screen/providers/storage_notifier.dart';
 
 class ShoppingScreen extends ConsumerStatefulWidget {
   const ShoppingScreen({super.key});
@@ -34,16 +32,16 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
 
     final doubleNumberFormat = ref.watch(doubleNumberFormatNotifierProvider);
 
-    final asyncItems = ref.watch(shoppingNotifierProvider);
-    final asyncGroceryMap = ref.watch(groceryNotifierProvider);
-
-    final asyncStorage = ref.watch(storageNotifierProvider);
+    final screenState = ref.watch(shoppingScreenStateNotifierProvider);
 
     return NavigationDrawerScaffold(
       titleBuilder: (title) => DefaultNavigationTitle(
         title: title,
         syncState:
-            asyncItems.value?.values.any((e) => e.uploaded == false) == true
+            screenState.value?.shoppingData.values.any(
+                  (e) => e.uploaded == false,
+                ) ==
+                true
             ? SyncState.unsynced
             : SyncState.synced,
       ),
@@ -73,39 +71,33 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
           if (result != null) {
             ref.read(shoppingModifierNotifierProvider).addItems([
               result,
-            ], asyncGroceryMap.value!);
+            ], screenState.value!.groceryMap);
           }
         },
         child: Icon(Icons.add),
       ),
-      body: NotifierFutureBuilder(
-        futures: [asyncItems, asyncGroceryMap, asyncStorage],
-        childBuilder: () => SearchableList(
+      body: CachedAsyncValueWrapper(
+        asyncState: screenState,
+        builder: (data) => SearchableList(
           searchController: searchController,
           type: localization.items,
-          items: asyncItems.value!.values.toList(),
+          items: data.shoppingData.values.toList(),
           toSearchable: (item) => item.toReadable(
-            grocery: asyncGroceryMap.value![item.ingredient.groceryId]!,
+            grocery: data.groceryMap[item.ingredient.groceryId]!,
             storageData:
-                asyncStorage
-                    .value![item.ingredient.groceryId]
-                    ?.ingredient
-                    .amount ??
-                0,
+                data.storage[item.ingredient.groceryId]?.ingredient.amount ?? 0,
             unitLocalized: unitLocalized,
             doubleNumberFormat: doubleNumberFormat,
           ),
           toWidget: (item) => ShoppingItem(
             data: item,
-            ingredientData:
-                asyncStorage.value![item.ingredient.groceryId]?.ingredient,
+            ingredientData: data.storage[item.ingredient.groceryId]?.ingredient,
           ),
           sort: (a, b) {
             if (a.done == b.done) {
-              return asyncGroceryMap.value![a.ingredient.groceryId]!.name
-                  .compareTo(
-                    asyncGroceryMap.value![b.ingredient.groceryId]!.name,
-                  );
+              return data.groceryMap[a.ingredient.groceryId]!.name.compareTo(
+                data.groceryMap[b.ingredient.groceryId]!.name,
+              );
             } else {
               return a.done ? 1 : -1;
             }

@@ -8,16 +8,15 @@ import 'package:recipath/data/recipe_data/recipe_data.dart';
 import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/root_routes.dart';
+import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/generic/dialogs/clear_confirmation_dialog.dart';
 import 'package:recipath/widgets/generic/dialogs/finish_shopping_planning.dart';
-import 'package:recipath/widgets/generic/notifier_future_builder.dart';
 import 'package:recipath/widgets/generic/searchable_list.dart';
 import 'package:recipath/widgets/navigation/default_navigation_title.dart';
 import 'package:recipath/widgets/navigation/navigation_drawer_scaffold.dart';
 import 'package:recipath/widgets/providers/double_number_format_provider.dart';
-import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/compact_recipe_item.dart';
-import 'package:recipath/widgets/screens/recipe_screen/providers/recipe_notifier.dart';
+import 'package:recipath/widgets/screens/recipe_screen/providers/recipe_screen_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/shopping_planning_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/recipe_routes.dart';
 
@@ -31,15 +30,15 @@ class RecipeScreen extends ConsumerWidget {
 
     final doubleNumberFormat = ref.watch(doubleNumberFormatNotifierProvider);
 
-    final asyncRecipe = ref.watch(recipeNotifierProvider);
-    final asyncGrocery = ref.watch(groceryNotifierProvider);
+    final screenState = ref.watch(recipeScreenNotifierProvider);
     final shoppingPlan = ref.watch(shoppingPlanningNotifierProvider);
 
     return NavigationDrawerScaffold(
       titleBuilder: (title) => DefaultNavigationTitle(
         title: title,
         syncState:
-            asyncRecipe.value?.values.any((e) => e.uploaded == false) == true
+            screenState.value?.recipe.values.any((e) => e.uploaded == false) ==
+                true
             ? SyncState.unsynced
             : SyncState.synced,
       ),
@@ -90,7 +89,7 @@ class RecipeScreen extends ConsumerWidget {
               for (final entry in shoppingPlan.entries) {
                 for (int i = 0; i < entry.value; i++) {
                   ingredientData.addAll(
-                    entry.key.getIngredients(asyncGrocery.value!),
+                    entry.key.getIngredients(screenState.value!.grocery),
                   );
                   await recipeShopping.addRecipe(entry.key);
                 }
@@ -98,7 +97,7 @@ class RecipeScreen extends ConsumerWidget {
 
               await shoppingModifier.addItems(
                 ingredientData,
-                asyncGrocery.value!,
+                screenState.value!.grocery,
               );
 
               if (context.mounted) {
@@ -119,13 +118,13 @@ class RecipeScreen extends ConsumerWidget {
         ),
         child: Icon(Icons.add),
       ),
-      body: NotifierFutureBuilder(
-        futures: [asyncRecipe, asyncGrocery],
-        childBuilder: () => SearchableList(
+      body: CachedAsyncValueWrapper(
+        asyncState: screenState,
+        builder: (data) => SearchableList(
           type: localization.recipe,
-          items: asyncRecipe.value!.values.toList(),
+          items: data.recipe.values.toList(),
           toSearchable: (item) => item.toReadable(
-            groceries: asyncGrocery.value!,
+            groceries: data.grocery,
             unitLocalized: unitLocalized,
             doubleNumberFormat: doubleNumberFormat,
           ),

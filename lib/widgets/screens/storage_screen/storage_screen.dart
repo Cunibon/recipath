@@ -4,15 +4,14 @@ import 'package:recipath/application/storage_modifier/storage_modifier_notifier.
 import 'package:recipath/data/ingredient_data/ingredient_data.dart';
 import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/l10n/app_localizations.dart';
+import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/generic/dialogs/clear_confirmation_dialog.dart';
-import 'package:recipath/widgets/generic/notifier_future_builder.dart';
 import 'package:recipath/widgets/generic/searchable_list.dart';
 import 'package:recipath/widgets/navigation/default_navigation_title.dart';
 import 'package:recipath/widgets/navigation/navigation_drawer_scaffold.dart';
 import 'package:recipath/widgets/providers/double_number_format_provider.dart';
-import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 import 'package:recipath/widgets/screens/shopping_screen/add_ingredient_dialog.dart';
-import 'package:recipath/widgets/screens/storage_screen/providers/storage_notifier.dart';
+import 'package:recipath/widgets/screens/storage_screen/providers/storage_sceen_state_notifier.dart';
 import 'package:recipath/widgets/screens/storage_screen/storage_item.dart';
 
 class StorageScreen extends ConsumerStatefulWidget {
@@ -32,14 +31,14 @@ class _StorageScreenState extends ConsumerState<StorageScreen> {
 
     final doubleNumberFormat = ref.watch(doubleNumberFormatNotifierProvider);
 
-    final asyncItems = ref.watch(storageNotifierProvider);
-    final asyncGroceries = ref.watch(groceryNotifierProvider);
+    final screenState = ref.watch(storageScreenStateNotifierProvider);
 
     return NavigationDrawerScaffold(
       titleBuilder: (title) => DefaultNavigationTitle(
         title: title,
         syncState:
-            asyncItems.value?.values.any((e) => e.uploaded == false) == true
+            screenState.value?.storage.values.any((e) => e.uploaded == false) ==
+                true
             ? SyncState.unsynced
             : SyncState.synced,
       ),
@@ -64,7 +63,7 @@ class _StorageScreenState extends ConsumerState<StorageScreen> {
             context: context,
             builder: (context) => AddIngredientDialog(
               initialSearch: searchController.text,
-              selected: asyncItems.value!.values.toList().map(
+              selected: screenState.value!.storage.values.toList().map(
                 (e) => e.ingredient.groceryId,
               ),
               allowSelectedRemoval: false,
@@ -77,20 +76,20 @@ class _StorageScreenState extends ConsumerState<StorageScreen> {
         },
         child: Icon(Icons.add),
       ),
-      body: NotifierFutureBuilder(
-        futures: [asyncItems, asyncGroceries],
-        childBuilder: () => SearchableList(
+      body: CachedAsyncValueWrapper(
+        asyncState: screenState,
+        builder: (data) => SearchableList(
           searchController: searchController,
           type: localization.items,
-          items: asyncItems.value!.values.toList(),
+          items: data.storage.values.toList(),
           toSearchable: (item) => item.ingredient.toReadable(
-            grocery: asyncGroceries.value![item.ingredient.groceryId]!,
+            grocery: data.groceries[item.ingredient.groceryId]!,
             unitLocalized: unitLocalized,
             doubleNumberFormat: doubleNumberFormat,
           ),
           toWidget: (item) => StorageItem(data: item),
-          sort: (a, b) => asyncGroceries.value![a.ingredient.groceryId]!.name
-              .compareTo(asyncGroceries.value![b.ingredient.groceryId]!.name),
+          sort: (a, b) => data.groceries[a.ingredient.groceryId]!.name
+              .compareTo(data.groceries[b.ingredient.groceryId]!.name),
         ),
       ),
     );
