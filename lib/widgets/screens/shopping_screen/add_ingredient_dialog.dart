@@ -109,9 +109,14 @@ class _AddIngredientDialogState extends ConsumerState<AddIngredientDialog> {
                       Align(
                         alignment: Alignment.bottomRight,
                         child: ElevatedButton.icon(
-                          onPressed: () => context.go(
-                            "./${GroceryRoutes.createGrocery.path}",
-                          ),
+                          onPressed: () async {
+                            final newGrocery = await context.push<GroceryData>(
+                              "./${GroceryRoutes.createGrocery.path}",
+                            );
+                            if (newGrocery != null) {
+                              updateSelected(newGrocery, doubleNumberFormat);
+                            }
+                          },
                           icon: Icon(Icons.add),
                           label: Text(localization.addNew),
                         ),

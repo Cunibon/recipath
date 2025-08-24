@@ -185,10 +185,12 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             ElevatedButton.icon(
-              onPressed: () {
+              onPressed: () async {
                 if (formKey.currentState?.validate() == true) {
-                  ref.read(groceryModifierNotifierProvider).add(data);
-                  context.pop();
+                  await ref.read(groceryModifierNotifierProvider).add(data);
+                  if (context.mounted) {
+                    context.pop(data);
+                  }
                 }
               },
               icon: Icon(Icons.save),

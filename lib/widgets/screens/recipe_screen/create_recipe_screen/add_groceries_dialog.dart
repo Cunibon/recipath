@@ -99,8 +99,14 @@ class _AddGroceriesDialogState extends ConsumerState<AddGroceriesDialog> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     ElevatedButton.icon(
-                      onPressed: () =>
-                          context.go("./${GroceryRoutes.createGrocery.path}"),
+                      onPressed: () async {
+                        final newGrocery = await context.push<GroceryData>(
+                          "./${GroceryRoutes.createGrocery.path}",
+                        );
+                        if (newGrocery != null) {
+                          updateSelected(newGrocery);
+                        }
+                      },
                       icon: Icon(Icons.add),
                       label: Text(localization.addNew),
                     ),
