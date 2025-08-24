@@ -47,7 +47,7 @@ class SyncOrchestrator {
       await Sentry.captureException(
         e,
         stackTrace: s,
-        hint: Hint.withMap({
+        withScope: (scope) => scope.setContexts('upload', {
           "syncContext": syncContext,
           "uploadOrder": uploadOrder,
           "uploads": uploads.length,
@@ -85,7 +85,7 @@ class SyncOrchestrator {
       await Sentry.captureException(
         e,
         stackTrace: s,
-        hint: Hint.withMap({
+        withScope: (scope) => scope.setContexts("download", {
           "syncContext": syncContext,
           "assemblyContext": assemblyContext,
         }),
