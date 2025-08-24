@@ -148,9 +148,11 @@ class _AddIngredientDialogState extends ConsumerState<AddIngredientDialog> {
                                 : null,
                           ),
                         ),
-                        Text(
-                          "${unitLocalized[selected!.unit]} ${selected!.name}",
-                          style: Theme.of(context).textTheme.bodyLarge,
+                        Expanded(
+                          child: Text(
+                            "${unitLocalized[selected!.unit]} ${selected!.name}",
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          ),
                         ),
                       ],
                     ),

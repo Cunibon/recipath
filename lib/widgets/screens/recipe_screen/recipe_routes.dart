@@ -17,7 +17,7 @@ class RecipeRoutes {
     path: "createRecipe",
     builder: (context, state) =>
         CreateRecipeScreen(recipeId: state.uri.queryParameters[idParameter]),
-    routes: [GroceryRoutes.createGrocery],
+    routes: [GroceryRoutes.createGrocery, GroceryRoutes.scanGrocery],
   );
 
   static GoRoute introductionScreen = GoRoute(

@@ -30,13 +30,13 @@ class RootRoutes {
   static GoRoute shoppingRoute = GoRoute(
     path: "/shopping",
     builder: (context, state) => ShoppingScreen(),
-    routes: [GroceryRoutes.createGrocery],
+    routes: [GroceryRoutes.createGrocery, GroceryRoutes.scanGrocery],
   );
 
   static GoRoute storageRoute = GoRoute(
     path: "/storage",
     builder: (context, state) => StorageScreen(),
-    routes: [GroceryRoutes.createGrocery],
+    routes: [GroceryRoutes.createGrocery, GroceryRoutes.scanGrocery],
   );
 
   static GoRoute dashboardRoute = GoRoute(
