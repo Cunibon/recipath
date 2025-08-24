@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$GTINData {
 
- String get name; double get amount; UnitEnum get unit; double? get kcal; double? get fat; double? get carbs; double? get protein; double? get fiber;
+ String get barcode; String get name; double get amount; UnitEnum get unit; double? get kcal; double? get fat; double? get carbs; double? get protein; double? get fiber;
 /// Create a copy of GTINData
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $GTINDataCopyWith<GTINData> get copyWith => _$GTINDataCopyWithImpl<GTINData>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GTINData&&(identical(other.name, name) || other.name == name)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.unit, unit) || other.unit == unit)&&(identical(other.kcal, kcal) || other.kcal == kcal)&&(identical(other.fat, fat) || other.fat == fat)&&(identical(other.carbs, carbs) || other.carbs == carbs)&&(identical(other.protein, protein) || other.protein == protein)&&(identical(other.fiber, fiber) || other.fiber == fiber));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is GTINData&&(identical(other.barcode, barcode) || other.barcode == barcode)&&(identical(other.name, name) || other.name == name)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.unit, unit) || other.unit == unit)&&(identical(other.kcal, kcal) || other.kcal == kcal)&&(identical(other.fat, fat) || other.fat == fat)&&(identical(other.carbs, carbs) || other.carbs == carbs)&&(identical(other.protein, protein) || other.protein == protein)&&(identical(other.fiber, fiber) || other.fiber == fiber));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,amount,unit,kcal,fat,carbs,protein,fiber);
+int get hashCode => Object.hash(runtimeType,barcode,name,amount,unit,kcal,fat,carbs,protein,fiber);
 
 @override
 String toString() {
-  return 'GTINData(name: $name, amount: $amount, unit: $unit, kcal: $kcal, fat: $fat, carbs: $carbs, protein: $protein, fiber: $fiber)';
+  return 'GTINData(barcode: $barcode, name: $name, amount: $amount, unit: $unit, kcal: $kcal, fat: $fat, carbs: $carbs, protein: $protein, fiber: $fiber)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $GTINDataCopyWith<$Res>  {
   factory $GTINDataCopyWith(GTINData value, $Res Function(GTINData) _then) = _$GTINDataCopyWithImpl;
 @useResult
 $Res call({
- String name, double amount, UnitEnum unit, double? kcal, double? fat, double? carbs, double? protein, double? fiber
+ String barcode, String name, double amount, UnitEnum unit, double? kcal, double? fat, double? carbs, double? protein, double? fiber
 });
 
 
@@ -65,9 +65,10 @@ class _$GTINDataCopyWithImpl<$Res>
 
 /// Create a copy of GTINData
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? amount = null,Object? unit = null,Object? kcal = freezed,Object? fat = freezed,Object? carbs = freezed,Object? protein = freezed,Object? fiber = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? barcode = null,Object? name = null,Object? amount = null,Object? unit = null,Object? kcal = freezed,Object? fat = freezed,Object? carbs = freezed,Object? protein = freezed,Object? fiber = freezed,}) {
   return _then(_self.copyWith(
-name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+barcode: null == barcode ? _self.barcode : barcode // ignore: cast_nullable_to_non_nullable
+as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
 as double,unit: null == unit ? _self.unit : unit // ignore: cast_nullable_to_non_nullable
 as UnitEnum,kcal: freezed == kcal ? _self.kcal : kcal // ignore: cast_nullable_to_non_nullable
@@ -160,10 +161,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  double amount,  UnitEnum unit,  double? kcal,  double? fat,  double? carbs,  double? protein,  double? fiber)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String barcode,  String name,  double amount,  UnitEnum unit,  double? kcal,  double? fat,  double? carbs,  double? protein,  double? fiber)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _GTINData() when $default != null:
-return $default(_that.name,_that.amount,_that.unit,_that.kcal,_that.fat,_that.carbs,_that.protein,_that.fiber);case _:
+return $default(_that.barcode,_that.name,_that.amount,_that.unit,_that.kcal,_that.fat,_that.carbs,_that.protein,_that.fiber);case _:
   return orElse();
 
 }
@@ -181,10 +182,10 @@ return $default(_that.name,_that.amount,_that.unit,_that.kcal,_that.fat,_that.ca
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  double amount,  UnitEnum unit,  double? kcal,  double? fat,  double? carbs,  double? protein,  double? fiber)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String barcode,  String name,  double amount,  UnitEnum unit,  double? kcal,  double? fat,  double? carbs,  double? protein,  double? fiber)  $default,) {final _that = this;
 switch (_that) {
 case _GTINData():
-return $default(_that.name,_that.amount,_that.unit,_that.kcal,_that.fat,_that.carbs,_that.protein,_that.fiber);case _:
+return $default(_that.barcode,_that.name,_that.amount,_that.unit,_that.kcal,_that.fat,_that.carbs,_that.protein,_that.fiber);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -201,10 +202,10 @@ return $default(_that.name,_that.amount,_that.unit,_that.kcal,_that.fat,_that.ca
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  double amount,  UnitEnum unit,  double? kcal,  double? fat,  double? carbs,  double? protein,  double? fiber)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String barcode,  String name,  double amount,  UnitEnum unit,  double? kcal,  double? fat,  double? carbs,  double? protein,  double? fiber)?  $default,) {final _that = this;
 switch (_that) {
 case _GTINData() when $default != null:
-return $default(_that.name,_that.amount,_that.unit,_that.kcal,_that.fat,_that.carbs,_that.protein,_that.fiber);case _:
+return $default(_that.barcode,_that.name,_that.amount,_that.unit,_that.kcal,_that.fat,_that.carbs,_that.protein,_that.fiber);case _:
   return null;
 
 }
@@ -216,9 +217,10 @@ return $default(_that.name,_that.amount,_that.unit,_that.kcal,_that.fat,_that.ca
 @JsonSerializable()
 
 class _GTINData implements GTINData {
-  const _GTINData({required this.name, required this.amount, required this.unit, this.kcal, this.fat, this.carbs, this.protein, this.fiber});
+  const _GTINData({required this.barcode, required this.name, required this.amount, required this.unit, this.kcal, this.fat, this.carbs, this.protein, this.fiber});
   factory _GTINData.fromJson(Map<String, dynamic> json) => _$GTINDataFromJson(json);
 
+@override final  String barcode;
 @override final  String name;
 @override final  double amount;
 @override final  UnitEnum unit;
@@ -241,16 +243,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _GTINData&&(identical(other.name, name) || other.name == name)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.unit, unit) || other.unit == unit)&&(identical(other.kcal, kcal) || other.kcal == kcal)&&(identical(other.fat, fat) || other.fat == fat)&&(identical(other.carbs, carbs) || other.carbs == carbs)&&(identical(other.protein, protein) || other.protein == protein)&&(identical(other.fiber, fiber) || other.fiber == fiber));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _GTINData&&(identical(other.barcode, barcode) || other.barcode == barcode)&&(identical(other.name, name) || other.name == name)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.unit, unit) || other.unit == unit)&&(identical(other.kcal, kcal) || other.kcal == kcal)&&(identical(other.fat, fat) || other.fat == fat)&&(identical(other.carbs, carbs) || other.carbs == carbs)&&(identical(other.protein, protein) || other.protein == protein)&&(identical(other.fiber, fiber) || other.fiber == fiber));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,amount,unit,kcal,fat,carbs,protein,fiber);
+int get hashCode => Object.hash(runtimeType,barcode,name,amount,unit,kcal,fat,carbs,protein,fiber);
 
 @override
 String toString() {
-  return 'GTINData(name: $name, amount: $amount, unit: $unit, kcal: $kcal, fat: $fat, carbs: $carbs, protein: $protein, fiber: $fiber)';
+  return 'GTINData(barcode: $barcode, name: $name, amount: $amount, unit: $unit, kcal: $kcal, fat: $fat, carbs: $carbs, protein: $protein, fiber: $fiber)';
 }
 
 
@@ -261,7 +263,7 @@ abstract mixin class _$GTINDataCopyWith<$Res> implements $GTINDataCopyWith<$Res>
   factory _$GTINDataCopyWith(_GTINData value, $Res Function(_GTINData) _then) = __$GTINDataCopyWithImpl;
 @override @useResult
 $Res call({
- String name, double amount, UnitEnum unit, double? kcal, double? fat, double? carbs, double? protein, double? fiber
+ String barcode, String name, double amount, UnitEnum unit, double? kcal, double? fat, double? carbs, double? protein, double? fiber
 });
 
 
@@ -278,9 +280,10 @@ class __$GTINDataCopyWithImpl<$Res>
 
 /// Create a copy of GTINData
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? amount = null,Object? unit = null,Object? kcal = freezed,Object? fat = freezed,Object? carbs = freezed,Object? protein = freezed,Object? fiber = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? barcode = null,Object? name = null,Object? amount = null,Object? unit = null,Object? kcal = freezed,Object? fat = freezed,Object? carbs = freezed,Object? protein = freezed,Object? fiber = freezed,}) {
   return _then(_GTINData(
-name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+barcode: null == barcode ? _self.barcode : barcode // ignore: cast_nullable_to_non_nullable
+as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
 as double,unit: null == unit ? _self.unit : unit // ignore: cast_nullable_to_non_nullable
 as UnitEnum,kcal: freezed == kcal ? _self.kcal : kcal // ignore: cast_nullable_to_non_nullable

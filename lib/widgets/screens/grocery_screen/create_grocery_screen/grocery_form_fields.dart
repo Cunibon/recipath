@@ -12,6 +12,7 @@ class GroceryFormFields extends ConsumerWidget {
     required this.nameController,
     required this.amountController,
     required this.conversionController,
+    required this.barcodeController,
     required this.kcalController,
     required this.fatController,
     required this.carbsController,
@@ -26,6 +27,7 @@ class GroceryFormFields extends ConsumerWidget {
   final TextEditingController nameController;
   final TextEditingController amountController;
   final TextEditingController conversionController;
+  final TextEditingController barcodeController;
   final TextEditingController kcalController;
   final TextEditingController fatController;
   final TextEditingController carbsController;
@@ -228,6 +230,11 @@ class GroceryFormFields extends ConsumerWidget {
                       ),
               ),
             ],
+          ),
+          TextFormField(
+            controller: barcodeController,
+            decoration: InputDecoration(labelText: "barcode"),
+            onChanged: (barcode) => updateData(data.copyWith(barcode: barcode)),
           ),
           DoubleInputField(
             controller: kcalController,

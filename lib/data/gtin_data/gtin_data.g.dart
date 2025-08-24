@@ -7,6 +7,7 @@ part of 'gtin_data.dart';
 // **************************************************************************
 
 _GTINData _$GTINDataFromJson(Map<String, dynamic> json) => _GTINData(
+  barcode: json['barcode'] as String,
   name: json['name'] as String,
   amount: (json['amount'] as num).toDouble(),
   unit: $enumDecode(_$UnitEnumEnumMap, json['unit']),
@@ -18,6 +19,7 @@ _GTINData _$GTINDataFromJson(Map<String, dynamic> json) => _GTINData(
 );
 
 Map<String, dynamic> _$GTINDataToJson(_GTINData instance) => <String, dynamic>{
+  'barcode': instance.barcode,
   'name': instance.name,
   'amount': instance.amount,
   'unit': _$UnitEnumEnumMap[instance.unit]!,

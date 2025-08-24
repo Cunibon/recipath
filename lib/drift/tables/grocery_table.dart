@@ -11,6 +11,7 @@ class GroceryTable extends Table {
   TextColumn get unit => text()();
   RealColumn get conversionAmount => real()();
   TextColumn get conversionUnit => text()();
+  TextColumn get barcode => text().nullable()();
   RealColumn get kcal => real().nullable()();
   RealColumn get fat => real().nullable()();
   RealColumn get carbs => real().nullable()();

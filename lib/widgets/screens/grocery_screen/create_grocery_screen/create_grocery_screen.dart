@@ -33,6 +33,7 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
   final nameController = TextEditingController();
   final amountController = TextEditingController();
   final conversionController = TextEditingController();
+  final barcodeController = TextEditingController();
   final kcalController = TextEditingController();
   final fatController = TextEditingController();
   final carbsController = TextEditingController();
@@ -63,6 +64,7 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
     conversionController.text = doubleNumberFormat.format(
       data.conversionAmount,
     );
+    barcodeController.text = data.barcode == null ? "" : data.barcode!;
     kcalController.text = data.kcal == null
         ? ""
         : doubleNumberFormat.format(data.kcal);
@@ -134,6 +136,7 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
                     conversionUnit: updateAmount
                         ? conversion
                         : data.conversionUnit,
+                    barcode: gtin.barcode,
                     kcal: gtin.kcal,
                     fat: gtin.fat,
                     carbs: gtin.carbs,
@@ -148,6 +151,7 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
                   conversionController.text = doubleNumberFormat.format(
                     newData.conversionAmount,
                   );
+                  barcodeController.text = newData.barcode!;
                   if (newData.kcal != null) {
                     kcalController.text = doubleNumberFormat.format(
                       newData.kcal,
@@ -268,6 +272,7 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
               nameController: nameController,
               amountController: amountController,
               conversionController: conversionController,
+              barcodeController: barcodeController,
               kcalController: kcalController,
               fatController: fatController,
               carbsController: carbsController,

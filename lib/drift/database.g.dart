@@ -851,6 +851,17 @@ class $GroceryTableTable extends GroceryTable
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
+  static const VerificationMeta _barcodeMeta = const VerificationMeta(
+    'barcode',
+  );
+  @override
+  late final GeneratedColumn<String> barcode = GeneratedColumn<String>(
+    'barcode',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _kcalMeta = const VerificationMeta('kcal');
   @override
   late final GeneratedColumn<double> kcal = GeneratedColumn<double>(
@@ -936,6 +947,7 @@ class $GroceryTableTable extends GroceryTable
     unit,
     conversionAmount,
     conversionUnit,
+    barcode,
     kcal,
     fat,
     carbs,
@@ -1009,6 +1021,12 @@ class $GroceryTableTable extends GroceryTable
       );
     } else if (isInserting) {
       context.missing(_conversionUnitMeta);
+    }
+    if (data.containsKey('barcode')) {
+      context.handle(
+        _barcodeMeta,
+        barcode.isAcceptableOrUnknown(data['barcode']!, _barcodeMeta),
+      );
     }
     if (data.containsKey('kcal')) {
       context.handle(
@@ -1085,6 +1103,10 @@ class $GroceryTableTable extends GroceryTable
         DriftSqlType.string,
         data['${effectivePrefix}conversion_unit'],
       )!,
+      barcode: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}barcode'],
+      ),
       kcal: attachedDatabase.typeMapping.read(
         DriftSqlType.double,
         data['${effectivePrefix}kcal'],
@@ -1130,6 +1152,7 @@ class GroceryTableData extends DataClass
   final String unit;
   final double conversionAmount;
   final String conversionUnit;
+  final String? barcode;
   final double? kcal;
   final double? fat;
   final double? carbs;
@@ -1144,6 +1167,7 @@ class GroceryTableData extends DataClass
     required this.unit,
     required this.conversionAmount,
     required this.conversionUnit,
+    this.barcode,
     this.kcal,
     this.fat,
     this.carbs,
@@ -1161,6 +1185,9 @@ class GroceryTableData extends DataClass
     map['unit'] = Variable<String>(unit);
     map['conversion_amount'] = Variable<double>(conversionAmount);
     map['conversion_unit'] = Variable<String>(conversionUnit);
+    if (!nullToAbsent || barcode != null) {
+      map['barcode'] = Variable<String>(barcode);
+    }
     if (!nullToAbsent || kcal != null) {
       map['kcal'] = Variable<double>(kcal);
     }
@@ -1189,6 +1216,9 @@ class GroceryTableData extends DataClass
       unit: Value(unit),
       conversionAmount: Value(conversionAmount),
       conversionUnit: Value(conversionUnit),
+      barcode: barcode == null && nullToAbsent
+          ? const Value.absent()
+          : Value(barcode),
       kcal: kcal == null && nullToAbsent ? const Value.absent() : Value(kcal),
       fat: fat == null && nullToAbsent ? const Value.absent() : Value(fat),
       carbs: carbs == null && nullToAbsent
@@ -1217,6 +1247,7 @@ class GroceryTableData extends DataClass
       unit: serializer.fromJson<String>(json['unit']),
       conversionAmount: serializer.fromJson<double>(json['conversionAmount']),
       conversionUnit: serializer.fromJson<String>(json['conversionUnit']),
+      barcode: serializer.fromJson<String?>(json['barcode']),
       kcal: serializer.fromJson<double?>(json['kcal']),
       fat: serializer.fromJson<double?>(json['fat']),
       carbs: serializer.fromJson<double?>(json['carbs']),
@@ -1236,6 +1267,7 @@ class GroceryTableData extends DataClass
       'unit': serializer.toJson<String>(unit),
       'conversionAmount': serializer.toJson<double>(conversionAmount),
       'conversionUnit': serializer.toJson<String>(conversionUnit),
+      'barcode': serializer.toJson<String?>(barcode),
       'kcal': serializer.toJson<double?>(kcal),
       'fat': serializer.toJson<double?>(fat),
       'carbs': serializer.toJson<double?>(carbs),
@@ -1253,6 +1285,7 @@ class GroceryTableData extends DataClass
     String? unit,
     double? conversionAmount,
     String? conversionUnit,
+    Value<String?> barcode = const Value.absent(),
     Value<double?> kcal = const Value.absent(),
     Value<double?> fat = const Value.absent(),
     Value<double?> carbs = const Value.absent(),
@@ -1267,6 +1300,7 @@ class GroceryTableData extends DataClass
     unit: unit ?? this.unit,
     conversionAmount: conversionAmount ?? this.conversionAmount,
     conversionUnit: conversionUnit ?? this.conversionUnit,
+    barcode: barcode.present ? barcode.value : this.barcode,
     kcal: kcal.present ? kcal.value : this.kcal,
     fat: fat.present ? fat.value : this.fat,
     carbs: carbs.present ? carbs.value : this.carbs,
@@ -1289,6 +1323,7 @@ class GroceryTableData extends DataClass
       conversionUnit: data.conversionUnit.present
           ? data.conversionUnit.value
           : this.conversionUnit,
+      barcode: data.barcode.present ? data.barcode.value : this.barcode,
       kcal: data.kcal.present ? data.kcal.value : this.kcal,
       fat: data.fat.present ? data.fat.value : this.fat,
       carbs: data.carbs.present ? data.carbs.value : this.carbs,
@@ -1308,6 +1343,7 @@ class GroceryTableData extends DataClass
           ..write('unit: $unit, ')
           ..write('conversionAmount: $conversionAmount, ')
           ..write('conversionUnit: $conversionUnit, ')
+          ..write('barcode: $barcode, ')
           ..write('kcal: $kcal, ')
           ..write('fat: $fat, ')
           ..write('carbs: $carbs, ')
@@ -1327,6 +1363,7 @@ class GroceryTableData extends DataClass
     unit,
     conversionAmount,
     conversionUnit,
+    barcode,
     kcal,
     fat,
     carbs,
@@ -1345,6 +1382,7 @@ class GroceryTableData extends DataClass
           other.unit == this.unit &&
           other.conversionAmount == this.conversionAmount &&
           other.conversionUnit == this.conversionUnit &&
+          other.barcode == this.barcode &&
           other.kcal == this.kcal &&
           other.fat == this.fat &&
           other.carbs == this.carbs &&
@@ -1361,6 +1399,7 @@ class GroceryTableCompanion extends UpdateCompanion<GroceryTableData> {
   final Value<String> unit;
   final Value<double> conversionAmount;
   final Value<String> conversionUnit;
+  final Value<String?> barcode;
   final Value<double?> kcal;
   final Value<double?> fat;
   final Value<double?> carbs;
@@ -1376,6 +1415,7 @@ class GroceryTableCompanion extends UpdateCompanion<GroceryTableData> {
     this.unit = const Value.absent(),
     this.conversionAmount = const Value.absent(),
     this.conversionUnit = const Value.absent(),
+    this.barcode = const Value.absent(),
     this.kcal = const Value.absent(),
     this.fat = const Value.absent(),
     this.carbs = const Value.absent(),
@@ -1392,6 +1432,7 @@ class GroceryTableCompanion extends UpdateCompanion<GroceryTableData> {
     required String unit,
     required double conversionAmount,
     required String conversionUnit,
+    this.barcode = const Value.absent(),
     this.kcal = const Value.absent(),
     this.fat = const Value.absent(),
     this.carbs = const Value.absent(),
@@ -1413,6 +1454,7 @@ class GroceryTableCompanion extends UpdateCompanion<GroceryTableData> {
     Expression<String>? unit,
     Expression<double>? conversionAmount,
     Expression<String>? conversionUnit,
+    Expression<String>? barcode,
     Expression<double>? kcal,
     Expression<double>? fat,
     Expression<double>? carbs,
@@ -1429,6 +1471,7 @@ class GroceryTableCompanion extends UpdateCompanion<GroceryTableData> {
       if (unit != null) 'unit': unit,
       if (conversionAmount != null) 'conversion_amount': conversionAmount,
       if (conversionUnit != null) 'conversion_unit': conversionUnit,
+      if (barcode != null) 'barcode': barcode,
       if (kcal != null) 'kcal': kcal,
       if (fat != null) 'fat': fat,
       if (carbs != null) 'carbs': carbs,
@@ -1447,6 +1490,7 @@ class GroceryTableCompanion extends UpdateCompanion<GroceryTableData> {
     Value<String>? unit,
     Value<double>? conversionAmount,
     Value<String>? conversionUnit,
+    Value<String?>? barcode,
     Value<double?>? kcal,
     Value<double?>? fat,
     Value<double?>? carbs,
@@ -1463,6 +1507,7 @@ class GroceryTableCompanion extends UpdateCompanion<GroceryTableData> {
       unit: unit ?? this.unit,
       conversionAmount: conversionAmount ?? this.conversionAmount,
       conversionUnit: conversionUnit ?? this.conversionUnit,
+      barcode: barcode ?? this.barcode,
       kcal: kcal ?? this.kcal,
       fat: fat ?? this.fat,
       carbs: carbs ?? this.carbs,
@@ -1494,6 +1539,9 @@ class GroceryTableCompanion extends UpdateCompanion<GroceryTableData> {
     }
     if (conversionUnit.present) {
       map['conversion_unit'] = Variable<String>(conversionUnit.value);
+    }
+    if (barcode.present) {
+      map['barcode'] = Variable<String>(barcode.value);
     }
     if (kcal.present) {
       map['kcal'] = Variable<double>(kcal.value);
@@ -1531,6 +1579,7 @@ class GroceryTableCompanion extends UpdateCompanion<GroceryTableData> {
           ..write('unit: $unit, ')
           ..write('conversionAmount: $conversionAmount, ')
           ..write('conversionUnit: $conversionUnit, ')
+          ..write('barcode: $barcode, ')
           ..write('kcal: $kcal, ')
           ..write('fat: $fat, ')
           ..write('carbs: $carbs, ')
@@ -4991,6 +5040,7 @@ typedef $$GroceryTableTableCreateCompanionBuilder =
       required String unit,
       required double conversionAmount,
       required String conversionUnit,
+      Value<String?> barcode,
       Value<double?> kcal,
       Value<double?> fat,
       Value<double?> carbs,
@@ -5008,6 +5058,7 @@ typedef $$GroceryTableTableUpdateCompanionBuilder =
       Value<String> unit,
       Value<double> conversionAmount,
       Value<String> conversionUnit,
+      Value<String?> barcode,
       Value<double?> kcal,
       Value<double?> fat,
       Value<double?> carbs,
@@ -5083,6 +5134,11 @@ class $$GroceryTableTableFilterComposer
 
   ColumnFilters<String> get conversionUnit => $composableBuilder(
     column: $table.conversionUnit,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get barcode => $composableBuilder(
+    column: $table.barcode,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -5186,6 +5242,11 @@ class $$GroceryTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<String> get barcode => $composableBuilder(
+    column: $table.barcode,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<double> get kcal => $composableBuilder(
     column: $table.kcal,
     builder: (column) => ColumnOrderings(column),
@@ -5254,6 +5315,9 @@ class $$GroceryTableTableAnnotationComposer
     column: $table.conversionUnit,
     builder: (column) => column,
   );
+
+  GeneratedColumn<String> get barcode =>
+      $composableBuilder(column: $table.barcode, builder: (column) => column);
 
   GeneratedColumn<double> get kcal =>
       $composableBuilder(column: $table.kcal, builder: (column) => column);
@@ -5336,6 +5400,7 @@ class $$GroceryTableTableTableManager
                 Value<String> unit = const Value.absent(),
                 Value<double> conversionAmount = const Value.absent(),
                 Value<String> conversionUnit = const Value.absent(),
+                Value<String?> barcode = const Value.absent(),
                 Value<double?> kcal = const Value.absent(),
                 Value<double?> fat = const Value.absent(),
                 Value<double?> carbs = const Value.absent(),
@@ -5351,6 +5416,7 @@ class $$GroceryTableTableTableManager
                 unit: unit,
                 conversionAmount: conversionAmount,
                 conversionUnit: conversionUnit,
+                barcode: barcode,
                 kcal: kcal,
                 fat: fat,
                 carbs: carbs,
@@ -5368,6 +5434,7 @@ class $$GroceryTableTableTableManager
                 required String unit,
                 required double conversionAmount,
                 required String conversionUnit,
+                Value<String?> barcode = const Value.absent(),
                 Value<double?> kcal = const Value.absent(),
                 Value<double?> fat = const Value.absent(),
                 Value<double?> carbs = const Value.absent(),
@@ -5383,6 +5450,7 @@ class $$GroceryTableTableTableManager
                 unit: unit,
                 conversionAmount: conversionAmount,
                 conversionUnit: conversionUnit,
+                barcode: barcode,
                 kcal: kcal,
                 fat: fat,
                 carbs: carbs,

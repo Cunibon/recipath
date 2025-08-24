@@ -7,6 +7,7 @@ part 'gtin_data.g.dart';
 @freezed
 abstract class GTINData with _$GTINData {
   const factory GTINData({
+    required String barcode,
     required String name,
     required double amount,
     required UnitEnum unit,
@@ -22,7 +23,7 @@ abstract class GTINData with _$GTINData {
   factory GTINData.fromJson(Map<String, Object?> json) =>
       _$GTINDataFromJson(json);
 
-  static GTINData? fromAPI(Map<String, dynamic> json) {
+  static GTINData? fromAPI(String barcode, Map<String, dynamic> json) {
     final product = json['product']!;
 
     final name = product['product_name'] ?? product["generic_name"];
@@ -48,6 +49,7 @@ abstract class GTINData with _$GTINData {
       );
 
       return GTINData(
+        barcode: barcode,
         name: name,
         amount: amount ?? 0,
         unit: unit,

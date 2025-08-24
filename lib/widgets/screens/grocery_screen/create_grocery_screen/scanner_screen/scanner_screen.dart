@@ -88,7 +88,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
                   if (response.statusCode == 200) {
                     final data = jsonDecode(response.body);
 
-                    final gtin = GTINData.fromAPI(data);
+                    final gtin = GTINData.fromAPI(barcode, data);
                     if (gtin != null) {
                       goRouter.pop(gtin);
                       foundGTIN = true;
