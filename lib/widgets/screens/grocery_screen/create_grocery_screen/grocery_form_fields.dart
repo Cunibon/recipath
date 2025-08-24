@@ -105,6 +105,7 @@ class GroceryFormFields extends ConsumerWidget {
               SizedBox(
                 width: 65,
                 child: DropdownButtonFormField(
+                  isExpanded: true,
                   decoration: InputDecoration(labelText: localization.unit),
                   value: data.unit,
                   validator: (value) =>
@@ -189,6 +190,7 @@ class GroceryFormFields extends ConsumerWidget {
                         ),
                       )
                     : DropdownButtonFormField(
+                        isExpanded: true,
                         decoration: InputDecoration(
                           labelText: localization.unit,
                         ),
