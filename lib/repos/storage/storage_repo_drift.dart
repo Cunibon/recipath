@@ -35,7 +35,7 @@ class StorageRepoDrift extends SyncRepo<StorageData> {
 
       final ingredient = IngredientData.fromTableData(ingredientRow);
 
-      storageById[ingredientRow.groceryId] = StorageData.fromTableData(
+      storageById[ingredient.groceryId] = StorageData.fromTableData(
         storageRow,
         ingredient,
       );

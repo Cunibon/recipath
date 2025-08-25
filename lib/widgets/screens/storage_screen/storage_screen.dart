@@ -10,7 +10,6 @@ import 'package:recipath/widgets/generic/searchable_list.dart';
 import 'package:recipath/widgets/navigation/default_navigation_title.dart';
 import 'package:recipath/widgets/navigation/navigation_drawer_scaffold.dart';
 import 'package:recipath/widgets/providers/double_number_format_provider.dart';
-import 'package:recipath/widgets/screens/shopping_screen/add_ingredient_dialog.dart';
 import 'package:recipath/widgets/screens/storage_screen/providers/storage_sceen_state_notifier.dart';
 import 'package:recipath/widgets/screens/storage_screen/storage_item.dart';
 
@@ -37,7 +36,9 @@ class _StorageScreenState extends ConsumerState<StorageScreen> {
       titleBuilder: (title) => DefaultNavigationTitle(
         title: title,
         syncState:
-            screenState.value?.storage.values.any((e) => e.uploaded == false) ==
+            screenState.value?.inStorage.values.any(
+                  (e) => e.uploaded == false,
+                ) ==
                 true
             ? SyncState.unsynced
             : SyncState.synced,
@@ -57,31 +58,13 @@ class _StorageScreenState extends ConsumerState<StorageScreen> {
           child: Text(localization.clear),
         ),
       ],
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          final ingredient = (await showDialog<IngredientData>(
-            context: context,
-            builder: (context) => AddIngredientDialog(
-              initialSearch: searchController.text,
-              selected: screenState.value!.storage.values.toList().map(
-                (e) => e.ingredient.groceryId,
-              ),
-              allowSelectedRemoval: false,
-            ),
-          ));
-
-          if (ingredient != null) {
-            ref.read(storageModifierNotifierProvider).addItem(ingredient);
-          }
-        },
-        child: Icon(Icons.add),
-      ),
       body: CachedAsyncValueWrapper(
         asyncState: screenState,
         builder: (data) => SearchableList(
+          listViewPadding: EdgeInsets.only(bottom: 12),
           searchController: searchController,
           type: localization.items,
-          items: data.storage.values.toList(),
+          items: data.storageData,
           toSearchable: (item) => item.ingredient.toReadable(
             grocery: data.groceries[item.ingredient.groceryId]!,
             unitLocalized: unitLocalized,

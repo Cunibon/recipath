@@ -67,11 +67,6 @@ class StorageItem extends ConsumerWidget {
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
             ),
-            IconButton(
-              onPressed: () =>
-                  ref.read(storageModifierNotifierProvider).deleteItem(data),
-              icon: Icon(Icons.delete),
-            ),
           ],
         ),
       ),
