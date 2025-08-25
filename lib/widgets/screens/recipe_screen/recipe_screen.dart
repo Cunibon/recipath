@@ -5,40 +5,30 @@ import 'package:recipath/application/recipe_shopping_modifier/recipe_shopping_mo
 import 'package:recipath/application/shopping_modifier/shopping_modifier_notifier.dart';
 import 'package:recipath/data/ingredient_data/ingredient_data.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
-import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/root_routes.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
-import 'package:recipath/widgets/generic/searchable_list.dart';
 import 'package:recipath/widgets/navigation/default_navigation_title.dart';
 import 'package:recipath/widgets/navigation/navigation_drawer_scaffold.dart';
-import 'package:recipath/widgets/providers/double_number_format_provider.dart';
-import 'package:recipath/widgets/screens/recipe_screen/compact_recipe_item.dart';
 import 'package:recipath/widgets/screens/recipe_screen/dialogs/cancel_shopping_planning.dart';
 import 'package:recipath/widgets/screens/recipe_screen/dialogs/finish_shopping_planning.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/recipe_screen_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/shopping_planning_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/recipe_routes.dart';
+import 'package:recipath/widgets/screens/recipe_screen/recipe_search_view.dart';
 
 class RecipeScreen extends ConsumerWidget {
   const RecipeScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final localization = AppLocalizations.of(context)!;
-    final unitLocalized = localizeUnits(context);
-
-    final doubleNumberFormat = ref.watch(doubleNumberFormatNotifierProvider);
-
     final screenState = ref.watch(recipeScreenNotifierProvider);
     final shoppingPlan = ref.watch(shoppingPlanningNotifierProvider);
 
     return NavigationDrawerScaffold(
       titleBuilder: (title) => DefaultNavigationTitle(
         title: title,
-        syncState:
-            screenState.value?.recipe.values.any((e) => e.uploaded == false) ==
-                true
+        syncState: screenState.value?.synced == false
             ? SyncState.unsynced
             : SyncState.synced,
       ),
@@ -101,7 +91,11 @@ class RecipeScreen extends ConsumerWidget {
 
                 if (context.mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text(localization.addedItemsToShopping)),
+                    SnackBar(
+                      content: Text(
+                        AppLocalizations.of(context)!.addedItemsToShopping,
+                      ),
+                    ),
                   );
                 }
               }
@@ -120,33 +114,7 @@ class RecipeScreen extends ConsumerWidget {
       ),
       body: CachedAsyncValueWrapper(
         asyncState: screenState,
-        builder: (data) => SearchableList(
-          name: localization.recipe,
-          items: data.recipe.values.toList(),
-          toSearchable: (item) => item.toReadable(
-            groceries: data.grocery,
-            unitLocalized: unitLocalized,
-            doubleNumberFormat: doubleNumberFormat,
-          ),
-          toWidget: (item) => Dismissible(
-            key: Key(item.id),
-            child: CompactRecipeItem(data: item),
-            confirmDismiss: (direction) async {
-              if (direction == DismissDirection.startToEnd) {
-                ref
-                    .read(shoppingPlanningNotifierProvider.notifier)
-                    .addRecipe(item);
-              } else {
-                ref
-                    .read(shoppingPlanningNotifierProvider.notifier)
-                    .removeRecipe(item);
-              }
-
-              return false;
-            },
-          ),
-          sort: (a, b) => a.title.compareTo(b.title),
-        ),
+        builder: (data) => RecipeSearchView(data: data),
       ),
     );
   }

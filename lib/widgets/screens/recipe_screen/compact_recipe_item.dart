@@ -11,15 +11,18 @@ import 'package:recipath/widgets/screens/recipe_screen/create_recipe_screen/comp
 import 'package:recipath/widgets/screens/recipe_screen/local_image.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/average_recipe_time_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/shopping_planning_notifier.dart';
-import 'package:recipath/widgets/screens/recipe_screen/providers/timer_notifier.dart';
 
 class CompactRecipeItem extends ConsumerWidget {
-  const CompactRecipeItem({required this.data, super.key});
+  const CompactRecipeItem({
+    required this.data,
+    required this.timerRunning,
+    super.key,
+  });
   final RecipeData data;
+  final bool timerRunning;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final timer = ref.watch(timerNotifierProvider)[data.id];
     final shoppingPlan = ref.watch(shoppingPlanningNotifierProvider);
 
     return GestureDetector(
@@ -82,7 +85,7 @@ class CompactRecipeItem extends ConsumerWidget {
                                           ),
                                     loadingBuilder: () => SizedBox.shrink(),
                                   ),
-                                  if (timer != null)
+                                  if (timerRunning)
                                     Icon(
                                       Icons.timer,
                                       color: Colors.amber,
