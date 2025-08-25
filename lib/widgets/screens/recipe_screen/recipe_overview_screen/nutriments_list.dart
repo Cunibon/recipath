@@ -20,14 +20,9 @@ class NutrimentsList extends ConsumerWidget {
 
     final doubleNumberFormat = ref.watch(doubleNumberFormatNotifierProvider);
 
-    final stringToNutrimentLocalized = {
-      for (final value in Nutriments.values)
-        value.name: localizedNutriments[value]!,
-    };
-
     final groceryMap = ref.watch(groceryNotifierProvider).value!;
 
-    final Map<String, double> aggregatedNutriments = {};
+    final Map<Nutriments, double> aggregatedNutriments = {};
 
     for (final ingredient in ingredients) {
       final grocery = groceryMap[ingredient.groceryId]!;
@@ -60,7 +55,7 @@ class NutrimentsList extends ConsumerWidget {
 
     for (final entry in aggregatedNutriments.entries) {
       nutrimentBuffer.writeln(
-        "● ${stringToNutrimentLocalized[entry.key]}: ${doubleNumberFormat.format(entry.value)}",
+        "● ${localizedNutriments[entry.key]}: ${doubleNumberFormat.format(entry.value)}",
       );
     }
 
@@ -69,7 +64,7 @@ class NutrimentsList extends ConsumerWidget {
 
       for (final entry in aggregatedNutriments.entries) {
         nutrimentBuffer.writeln(
-          "● ${stringToNutrimentLocalized[entry.key]}: ${doubleNumberFormat.format(entry.value / servings!)}",
+          "● ${localizedNutriments[entry.key]}: ${doubleNumberFormat.format(entry.value / servings!)}",
         );
       }
     }

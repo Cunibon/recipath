@@ -21,7 +21,7 @@ Future<ChartState> nutritionChartNotifier(
     groceryChartStatisticsNotifierProvider(dateRange).future,
   );
 
-  final aggregated = <GroceryData, Map<String, double>>{};
+  final aggregated = <GroceryData, Map<Nutriments, double>>{};
 
   void aggregateForRecipe(
     String recipeKey,
@@ -69,8 +69,8 @@ Future<ChartState> nutritionChartNotifier(
 
   final sortedGroceries = aggregated.entries.toList()
     ..sort((a, b) {
-      final aKcal = a.value['kcal'] ?? 0;
-      final bKcal = b.value['kcal'] ?? 0;
+      final aKcal = a.value[Nutriments.kcal] ?? 0;
+      final bKcal = b.value[Nutriments.kcal] ?? 0;
       return bKcal.compareTo(aKcal);
     });
 
@@ -84,7 +84,7 @@ Future<ChartState> nutritionChartNotifier(
     final barRods = <BarChartRodData>[];
 
     for (final nutriment in Nutriments.values) {
-      final value = nutrientMap[nutriment.name] ?? 0;
+      final value = nutrientMap[nutriment] ?? 0;
 
       barRods.add(
         BarChartRodData(toY: value, width: 20, color: nutriment.color),

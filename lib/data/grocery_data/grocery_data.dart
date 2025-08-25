@@ -3,6 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:intl/intl.dart';
 import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/drift/database.dart';
+import 'package:recipath/widgets/screens/dashboard_screen/charts/kcal_chart/providers/nutriment_enum.dart';
 
 part 'grocery_data.freezed.dart';
 part 'grocery_data.g.dart';
@@ -127,12 +128,12 @@ extension GroceryDataFunctions on GroceryData {
     }
   }
 
-  Map<String, double?> getNutrients() => {
-    'kcal': kcal,
-    'fat': fat,
-    'carbs': carbs,
-    'protein': protein,
-    'fiber': fiber,
+  Map<Nutriments, double?> getNutrients() => {
+    Nutriments.kcal: kcal,
+    Nutriments.fat: fat,
+    Nutriments.carbs: carbs,
+    Nutriments.protein: protein,
+    Nutriments.fiber: fiber,
   };
 
   GroceryTableCompanion toTableCompanion() => GroceryTableCompanion.insert(
