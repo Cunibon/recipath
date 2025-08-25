@@ -110,7 +110,7 @@ class RecipeRepoDrift extends SyncRepo<RecipeData> {
     await db.transaction(() async {
       await db
           .into(table)
-          .insert(
+          .insertOnConflictUpdate(
             RecipeTableCompanion.insert(
               id: newData.id,
               title: newData.title,
@@ -119,41 +119,35 @@ class RecipeRepoDrift extends SyncRepo<RecipeData> {
               archived: Value(newData.archived),
               uploaded: Value(newData.uploaded),
             ),
-            mode: InsertMode.insertOrReplace,
           );
 
       for (int i = 0; i < newData.steps.length; i++) {
         final step = newData.steps[i];
         await db
             .into(db.recipeStepTable)
-            .insert(
+            .insertOnConflictUpdate(
               RecipeStepTableCompanion.insert(
                 id: step.id,
                 description: step.description,
                 recipeId: newData.id,
                 index: i,
               ),
-              mode: InsertMode.insertOrReplace,
             );
 
         for (int y = 0; y < step.ingredients.length; y++) {
           final ingredient = step.ingredients[y];
           await db
               .into(db.ingredientTable)
-              .insert(
-                ingredient.toTableCompanion(),
-                mode: InsertMode.insertOrReplace,
-              );
+              .insertOnConflictUpdate(ingredient.toTableCompanion());
 
           await db
               .into(db.recipeStepIngredientTable)
-              .insert(
+              .insertOnConflictUpdate(
                 RecipeStepIngredientTableCompanion.insert(
                   stepId: step.id,
                   ingredientId: ingredient.id,
                   index: y,
                 ),
-                mode: InsertMode.insertOrReplace,
               );
         }
       }

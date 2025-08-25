@@ -29,9 +29,7 @@ class IngredientRepoDrift extends Repo<IngredientData> {
 
   @override
   Future<void> add(IngredientData newData) async {
-    await db
-        .into(table)
-        .insert(newData.toTableCompanion(), mode: InsertMode.insertOrReplace);
+    await db.into(table).insertOnConflictUpdate(newData.toTableCompanion());
   }
 
   @override

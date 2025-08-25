@@ -65,14 +65,9 @@ class StorageRepoDrift extends SyncRepo<StorageData> {
     await db.transaction(() async {
       await db
           .into(db.ingredientTable)
-          .insert(
-            newData.ingredient.toTableCompanion(),
-            mode: InsertMode.insertOrReplace,
-          );
+          .insertOnConflictUpdate(newData.ingredient.toTableCompanion());
 
-      await db
-          .into(table)
-          .insert(newData.toTableCompanion(), mode: InsertMode.insertOrReplace);
+      await db.into(table).insertOnConflictUpdate(newData.toTableCompanion());
     });
   }
 

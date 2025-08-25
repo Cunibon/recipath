@@ -48,9 +48,7 @@ class RecipeShoppingRepoDrift extends SyncRepo<RecipeShoppingData> {
 
   @override
   Future<void> add(RecipeShoppingData newData) async {
-    await db
-        .into(table)
-        .insert(newData.toTableCompanion(), mode: InsertMode.insertOrReplace);
+    await db.into(table).insertOnConflictUpdate(newData.toTableCompanion());
   }
 
   @override

@@ -35,12 +35,11 @@ class FileRepoDrift extends SyncRepo<FileTableData> {
   Future<void> add(FileTableData newData) async {
     await db
         .into(table)
-        .insert(
+        .insertOnConflictUpdate(
           FileTableCompanion.insert(
             fileName: newData.fileName,
             uploaded: Value(newData.uploaded),
           ),
-          mode: InsertMode.insertOrReplace,
         );
   }
 
