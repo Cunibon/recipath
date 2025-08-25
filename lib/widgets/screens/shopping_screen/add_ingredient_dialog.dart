@@ -98,7 +98,7 @@ class _AddIngredientDialogState extends ConsumerState<AddIngredientDialog> {
                                             )
                                           : null,
                                     ),
-                                    Text(item.name),
+                                    Expanded(child: Text(item.name)),
                                   ],
                                 ),
                               ),
