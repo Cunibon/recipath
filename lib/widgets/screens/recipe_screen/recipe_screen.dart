@@ -121,7 +121,7 @@ class RecipeScreen extends ConsumerWidget {
       body: CachedAsyncValueWrapper(
         asyncState: screenState,
         builder: (data) => SearchableList(
-          type: localization.recipe,
+          name: localization.recipe,
           items: data.recipe.values.toList(),
           toSearchable: (item) => item.toReadable(
             groceries: data.grocery,

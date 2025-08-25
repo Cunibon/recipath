@@ -11,14 +11,12 @@ class AddGroceriesDialog extends ConsumerStatefulWidget {
   const AddGroceriesDialog({
     this.initialSearch,
     this.selected = const [],
-    this.allowSelectedRemoval = true,
     super.key,
   });
 
   final String? initialSearch;
 
   final Iterable<String> selected;
-  final bool allowSelectedRemoval;
 
   @override
   ConsumerState<AddGroceriesDialog> createState() => _AddGroceriesDialogState();
@@ -33,17 +31,11 @@ class _AddGroceriesDialogState extends ConsumerState<AddGroceriesDialog> {
     selected.addAll(widget.selected);
   }
 
-  void updateSelected(GroceryData item) {
-    if (!widget.allowSelectedRemoval && widget.selected.contains(item.id)) {
-      return;
-    }
-
-    setState(
-      () => selected.contains(item.id)
-          ? selected.remove(item.id)
-          : selected.add(item.id),
-    );
-  }
+  void updateSelected(GroceryData item) => setState(
+    () => selected.contains(item.id)
+        ? selected.remove(item.id)
+        : selected.add(item.id),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +53,16 @@ class _AddGroceriesDialogState extends ConsumerState<AddGroceriesDialog> {
             children: [
               SearchableList(
                 initialSearch: widget.initialSearch,
-                type: localization.groceries,
+                name: localization.groceries,
+                trailing: selected.isNotEmpty
+                    ? Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        child: Text(
+                          selected.length.toString(),
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                      )
+                    : null,
                 items: groceryList,
                 sort: (a, b) =>
                     a.name.toLowerCase().compareTo(b.name.toLowerCase()),
@@ -77,11 +78,7 @@ class _AddGroceriesDialogState extends ConsumerState<AddGroceriesDialog> {
                           children: [
                             Checkbox(
                               value: selected.contains(item.id),
-                              onChanged:
-                                  widget.allowSelectedRemoval ||
-                                      !widget.selected.contains(item.id)
-                                  ? (_) => updateSelected(item)
-                                  : null,
+                              onChanged: (_) => updateSelected(item),
                             ),
                             Text(item.name),
                           ],

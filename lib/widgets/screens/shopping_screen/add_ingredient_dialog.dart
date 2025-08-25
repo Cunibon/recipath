@@ -69,7 +69,7 @@ class _AddIngredientDialogState extends ConsumerState<AddIngredientDialog> {
                     children: [
                       SearchableList(
                         initialSearch: widget.initialSearch,
-                        type: localization.groceries,
+                        name: localization.groceries,
                         items: groceryList,
                         listViewPadding: EdgeInsets.only(bottom: 33),
                         sort: (a, b) => a.name.toLowerCase().compareTo(

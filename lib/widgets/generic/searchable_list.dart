@@ -7,11 +7,12 @@ class SearchableList<T> extends StatefulWidget {
   const SearchableList({
     this.initialSearch,
     this.searchController,
-    required this.type,
+    required this.name,
     required this.items,
     required this.toSearchable,
     required this.toWidget,
     this.sort,
+    this.trailing,
     this.listViewPadding = const EdgeInsets.only(bottom: 78),
     super.key,
   }) : assert(initialSearch == null || searchController == null);
@@ -19,12 +20,13 @@ class SearchableList<T> extends StatefulWidget {
   final String? initialSearch;
   final TextEditingController? searchController;
 
-  final String type;
+  final String name;
   final List<T> items;
   final String Function(T item) toSearchable;
   final Widget Function(T item) toWidget;
   final int Function(T a, T b)? sort;
 
+  final Widget? trailing;
   final EdgeInsets listViewPadding;
 
   @override
@@ -86,12 +88,21 @@ class _SearchableListState<T> extends State<SearchableList<T>> {
       highlightTerm: search,
       child: Column(
         children: [
-          TextField(
-            controller: controller,
-            decoration: InputDecoration(
-              labelText: AppLocalizations.of(context)!.searchFor(widget.type),
-            ),
-            onChanged: (value) => setState(() => search = value),
+          Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: controller,
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(
+                      context,
+                    )!.searchFor(widget.name),
+                  ),
+                  onChanged: (value) => setState(() => search = value),
+                ),
+              ),
+              if (widget.trailing != null) widget.trailing!,
+            ],
           ),
           Expanded(
             child: ListView.builder(

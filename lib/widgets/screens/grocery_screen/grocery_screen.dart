@@ -42,7 +42,7 @@ class GroceryScreen extends ConsumerWidget {
         asyncState: asyncData,
         builder: (data) {
           return SearchableList(
-            type: AppLocalizations.of(context)!.grocery,
+            name: AppLocalizations.of(context)!.grocery,
             items: data.values.toList(),
             toSearchable: (item) => item.toReadable(
               unitLocalized: unitLocalized,

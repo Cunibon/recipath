@@ -83,7 +83,7 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
         asyncState: screenState,
         builder: (data) => SearchableList(
           searchController: searchController,
-          type: localization.items,
+          name: localization.items,
           items: data.shoppingData.values.toList(),
           toSearchable: (item) => item.toReadable(
             grocery: data.groceryMap[item.ingredient.groceryId]!,

@@ -63,7 +63,7 @@ class _StorageScreenState extends ConsumerState<StorageScreen> {
         builder: (data) => SearchableList(
           listViewPadding: EdgeInsets.only(bottom: 12),
           searchController: searchController,
-          type: localization.items,
+          name: localization.items,
           items: data.storageData,
           toSearchable: (item) => item.ingredient.toReadable(
             grocery: data.groceries[item.ingredient.groceryId]!,
