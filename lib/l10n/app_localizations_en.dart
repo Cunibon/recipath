@@ -71,6 +71,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get reallyDelete => 'Do you really want to delete';
 
   @override
+  String get cancelShoppingPlanning => 'Cancel shopping planning';
+
+  @override
+  String get cancelShoppingContent =>
+      'Do you want to cancel your shopping planning?\nThis can not be undone.';
+
+  @override
   String get finishShoppingPlanning => 'Finish shopping planning';
 
   @override

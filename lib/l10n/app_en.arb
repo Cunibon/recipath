@@ -33,6 +33,8 @@
     "yes": "Yes",
     "no": "No",
     "reallyDelete": "Do you really want to delete",
+    "cancelShoppingPlanning": "Cancel shopping planning",
+    "cancelShoppingContent": "Do you want to cancel your shopping planning?\nThis can not be undone.",
     "finishShoppingPlanning": "Finish shopping planning",
     "finishShoppingContent": "Do you want to finish your shopping planning and your items to your shopping list",
     "leaveThisPage": "Are you want to leave this page?",

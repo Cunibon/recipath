@@ -72,6 +72,13 @@ class AppLocalizationsDe extends AppLocalizations {
   String get reallyDelete => 'Möchten Sie wirklich löschen';
 
   @override
+  String get cancelShoppingPlanning => 'Einkaufsplanung abbrechen';
+
+  @override
+  String get cancelShoppingContent =>
+      'Möchten Sie Ihre Einkaufsplanung abbrechen?\nDies kann nicht rückgängig gemacht werden.';
+
+  @override
   String get finishShoppingPlanning => 'Einkaufsplanung abschließen';
 
   @override

@@ -9,13 +9,13 @@ import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/root_routes.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
-import 'package:recipath/widgets/generic/dialogs/clear_confirmation_dialog.dart';
-import 'package:recipath/widgets/generic/dialogs/finish_shopping_planning.dart';
 import 'package:recipath/widgets/generic/searchable_list.dart';
 import 'package:recipath/widgets/navigation/default_navigation_title.dart';
 import 'package:recipath/widgets/navigation/navigation_drawer_scaffold.dart';
 import 'package:recipath/widgets/providers/double_number_format_provider.dart';
 import 'package:recipath/widgets/screens/recipe_screen/compact_recipe_item.dart';
+import 'package:recipath/widgets/screens/recipe_screen/dialogs/cancel_shopping_planning.dart';
+import 'package:recipath/widgets/screens/recipe_screen/dialogs/finish_shopping_planning.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/recipe_screen_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/shopping_planning_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/recipe_routes.dart';
@@ -52,12 +52,12 @@ class RecipeScreen extends ConsumerWidget {
         else ...[
           IconButton(
             onPressed: () async {
-              final clear = await showDialog<bool>(
+              final cancel = await showDialog<bool>(
                 context: context,
-                builder: (context) => ClearConfirmationDialog(),
+                builder: (context) => CancelShoppingPlanning(),
               );
 
-              if (clear == true) {
+              if (cancel == true) {
                 ref.read(shoppingPlanningNotifierProvider.notifier).clear();
               }
             },
@@ -75,35 +75,35 @@ class RecipeScreen extends ConsumerWidget {
 
               final shoppingPlan = ref.read(shoppingPlanningNotifierProvider);
 
-              if (shoppingPlan == null || shoppingPlan.isEmpty) return;
-
-              final shoppingModifier = ref.read(
-                shoppingModifierNotifierProvider,
-              );
-              final recipeShopping = ref.read(
-                recipeShoppingModifierNotifierProvider,
-              );
-
-              List<IngredientData> ingredientData = [];
-
-              for (final entry in shoppingPlan.entries) {
-                for (int i = 0; i < entry.value; i++) {
-                  ingredientData.addAll(
-                    entry.key.getIngredients(screenState.value!.grocery),
-                  );
-                  await recipeShopping.addRecipe(entry.key);
-                }
-              }
-
-              await shoppingModifier.addItems(
-                ingredientData,
-                screenState.value!.grocery,
-              );
-
-              if (context.mounted) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(localization.addedItemsToShopping)),
+              if (shoppingPlan != null && shoppingPlan.isNotEmpty) {
+                final shoppingModifier = ref.read(
+                  shoppingModifierNotifierProvider,
                 );
+                final recipeShopping = ref.read(
+                  recipeShoppingModifierNotifierProvider,
+                );
+
+                List<IngredientData> ingredientData = [];
+
+                for (final entry in shoppingPlan.entries) {
+                  for (int i = 0; i < entry.value; i++) {
+                    ingredientData.addAll(
+                      entry.key.getIngredients(screenState.value!.grocery),
+                    );
+                    await recipeShopping.addRecipe(entry.key);
+                  }
+                }
+
+                await shoppingModifier.addItems(
+                  ingredientData,
+                  screenState.value!.grocery,
+                );
+
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(localization.addedItemsToShopping)),
+                  );
+                }
               }
 
               ref.read(shoppingPlanningNotifierProvider.notifier).clear();

@@ -212,6 +212,18 @@ abstract class AppLocalizations {
   /// **'Do you really want to delete'**
   String get reallyDelete;
 
+  /// No description provided for @cancelShoppingPlanning.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel shopping planning'**
+  String get cancelShoppingPlanning;
+
+  /// No description provided for @cancelShoppingContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to cancel your shopping planning?\nThis can not be undone.'**
+  String get cancelShoppingContent;
+
   /// No description provided for @finishShoppingPlanning.
   ///
   /// In en, this message translates to:

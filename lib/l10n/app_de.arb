@@ -33,6 +33,8 @@
     "yes": "Ja",
     "no": "Nein",
     "reallyDelete": "Möchten Sie wirklich löschen",
+    "cancelShoppingPlanning": "Einkaufsplanung abbrechen",
+    "cancelShoppingContent": "Möchten Sie Ihre Einkaufsplanung abbrechen?\nDies kann nicht rückgängig gemacht werden.",
     "finishShoppingPlanning": "Einkaufsplanung abschließen",
     "finishShoppingContent": "Möchten Sie Ihre Einkaufsplanung abschließen und die Artikel zur Einkaufsliste hinzufügen?",
     "leaveThisPage": "Möchten Sie diese Seite verlassen?",
