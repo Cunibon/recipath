@@ -47,6 +47,7 @@ class _IngredientViewState extends State<IngredientView> {
             listCopy.insert(i, newIngredient);
             widget.onChanged(listCopy);
           },
+          remove: () => widget.onChanged(listCopy..remove(ingredient)),
         ),
       );
     }

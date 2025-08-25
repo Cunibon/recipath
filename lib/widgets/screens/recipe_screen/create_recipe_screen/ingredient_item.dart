@@ -13,6 +13,7 @@ class IngredientItem extends ConsumerStatefulWidget {
     required this.data,
     required this.localizedUnits,
     required this.onChanged,
+    required this.remove,
     super.key,
   });
 
@@ -20,6 +21,7 @@ class IngredientItem extends ConsumerStatefulWidget {
   final IngredientData data;
   final Map<UnitEnum, String> localizedUnits;
   final void Function(IngredientData newIngredient) onChanged;
+  final void Function() remove;
 
   @override
   ConsumerState<IngredientItem> createState() => _IngredientItemState();
@@ -73,6 +75,13 @@ class _IngredientItemState extends ConsumerState<IngredientItem> {
                     doubleNumberFormat.tryParse(value) == 0
                 ? localization.addAmount
                 : null,
+            onEditingComplete: () {
+              final parsed = doubleNumberFormat.parse(amountController.text);
+
+              if (parsed == 0) {
+                widget.remove();
+              }
+            },
             onChanged: (value) {
               final parsed = doubleNumberFormat.tryParse(value);
               if (parsed != null) {
