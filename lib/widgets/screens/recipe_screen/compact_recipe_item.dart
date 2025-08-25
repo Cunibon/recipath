@@ -19,7 +19,6 @@ class CompactRecipeItem extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final groceryMap = ref.watch(groceryNotifierProvider).value!;
     final timer = ref.watch(timerNotifierProvider)[data.id];
     final shoppingPlan = ref.watch(shoppingPlanningNotifierProvider);
 
@@ -108,9 +107,12 @@ class CompactRecipeItem extends ConsumerWidget {
                         ],
                       ],
                     ),
-                    CompactIngredientView(
-                      checkStorage: true,
-                      ingredients: data.getIngredients(groceryMap),
+                    CachedAsyncValueWrapper(
+                      asyncState: ref.watch(groceryNotifierProvider),
+                      builder: (groceryMap) => CompactIngredientView(
+                        checkStorage: true,
+                        ingredients: data.getIngredients(groceryMap),
+                      ),
                     ),
                   ],
                 ),
