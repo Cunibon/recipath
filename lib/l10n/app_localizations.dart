@@ -584,6 +584,12 @@ abstract class AppLocalizations {
   /// **'Export data'**
   String get exportData;
 
+  /// No description provided for @privacyPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy policy'**
+  String get privacyPolicy;
+
   /// No description provided for @darkMode.
   ///
   /// In en, this message translates to:

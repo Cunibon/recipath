@@ -266,6 +266,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get exportData => 'Export data';
 
   @override
+  String get privacyPolicy => 'Privacy policy';
+
+  @override
   String get darkMode => 'Dark mode';
 
   @override

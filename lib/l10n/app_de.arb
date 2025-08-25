@@ -5,13 +5,6 @@
     "logout": "Abmelden",
     "eMail": "E-Mail",
     "objectInvalid": "{object} ungültig",
-    "@objectInvalid": {
-        "placeholders": {
-            "object": {
-                "type": "String"
-            }
-        }
-    },
     "addEMail": "E-Mail hinzufügen",
     "password": "Passwort",
     "addPassword": "Passwort hinzufügen",
@@ -21,13 +14,6 @@
     "verifactionEMailSent": "Bestätigungs-E-Mail wurde gesendet",
     "couldNotAuthenticate": "Benutzer konnte nicht authentifiziert werden",
     "searchFor": "Suche nach {type}",
-    "@searchFor": {
-        "placeholders": {
-            "type": {
-                "type": "String"
-            }
-        }
-    },
     "clearAllItems": "Alle Elemente löschen?",
     "clearAllContent": "Möchten Sie wirklich alle Elemente löschen?\nEs gibt keine Möglichkeit, sie wiederherzustellen.",
     "yes": "Ja",
@@ -52,19 +38,6 @@
     "nutriments": "Nährstoffe",
     "grocery": "Lebensmittel",
     "cantDeleteGroceryMessage": "Es gibt {recipes} Rezepte, {shopping} Einkaufsartikel und {storage} Vorratsartikel, die diese Zutat verwenden.\nSie kann nicht gelöscht werden.",
-    "@cantDeleteGroceryMessage": {
-        "placeholders": {
-            "recipes": {
-                "type": "int"
-            },
-            "shopping": {
-                "type": "int"
-            },
-            "storage": {
-                "type": "int"
-            }
-        }
-    },
     "createGrocery": "Lebensmittel erstellen",
     "save": "Speichern",
     "delete": "Löschen",
@@ -96,13 +69,6 @@
     "expand": "Erweitern",
     "collapse": "Einklappen",
     "objectDescription": "{object} Beschreibung",
-    "@objectDescription": {
-        "placeholders": {
-            "object": {
-                "type": "String"
-            }
-        }
-    },
     "addDescription": "Beschreibung hinzufügen",
     "changeIngredients": "Zutaten ändern",
     "ingredients": "Zutaten",
@@ -115,6 +81,7 @@
     "data": "Daten",
     "importData": "Daten importieren",
     "exportData": "Daten exportieren",
+    "privacyPolicy": "Datenschutzerklärung",
     "darkMode": "Dunkelmodus",
     "clear": "Löschen",
     "items": "Elemente",
