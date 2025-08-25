@@ -166,7 +166,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get scanGrocery => 'Lebensmittel scannen';
 
   @override
-  String get couldNotFindBarcode => 'Kein Produkt gefunden für Code: \$barcode';
+  String couldNotFindBarcode(String barcode) {
+    return 'Kein Produkt gefunden für Code: $barcode';
+  }
 
   @override
   String get servings => 'Portionen';

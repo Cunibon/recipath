@@ -76,7 +76,14 @@
     "addConversionAmount": "Add conversion amount",
     "addRealNumber": "Add real number",
     "scanGrocery": "Scan grocery",
-    "couldNotFindBarcode": "Could not find product for code: $barcode",
+    "couldNotFindBarcode": "Could not find product for code: {barcode}",
+    "@couldNotFindBarcode": {
+        "placeholders": {
+            "barcode": {
+                "type": "String"
+            }
+        }
+    },
     "servings": "Servings",
     "addedItemsToShopping": "Added items to shopping list!",
     "recipe": "Recipe",

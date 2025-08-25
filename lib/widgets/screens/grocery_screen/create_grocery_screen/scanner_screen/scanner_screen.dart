@@ -96,7 +96,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
                       await showDialog(
                         context: context,
                         builder: (context) => InformationDialog(
-                          message: localization.couldNotFindBarcode,
+                          message: localization.couldNotFindBarcode(barcode),
                         ),
                       );
                     }

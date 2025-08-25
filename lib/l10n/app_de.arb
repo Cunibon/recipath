@@ -76,7 +76,7 @@
     "addConversionAmount": "Umrechnungsmenge hinzufügen",
     "addRealNumber": "Reelle Zahl hinzufügen",
     "scanGrocery": "Lebensmittel scannen",
-    "couldNotFindBarcode": "Kein Produkt gefunden für Code: $barcode",
+    "couldNotFindBarcode": "Kein Produkt gefunden für Code: {barcode}",
     "servings": "Portionen",
     "addedItemsToShopping": "Artikel zur Einkaufsliste hinzugefügt!",
     "recipe": "Rezept",

@@ -395,8 +395,8 @@ abstract class AppLocalizations {
   /// No description provided for @couldNotFindBarcode.
   ///
   /// In en, this message translates to:
-  /// **'Could not find product for code: \$barcode'**
-  String get couldNotFindBarcode;
+  /// **'Could not find product for code: {barcode}'**
+  String couldNotFindBarcode(String barcode);
 
   /// No description provided for @servings.
   ///
