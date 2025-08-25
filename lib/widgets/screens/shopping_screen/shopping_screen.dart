@@ -69,9 +69,12 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
           );
 
           if (result != null) {
+            final currentState = await ref.read(
+              shoppingScreenStateNotifierProvider.future,
+            );
             ref.read(shoppingModifierNotifierProvider).addItems([
               result,
-            ], screenState.value!.groceryMap);
+            ], currentState.groceryMap);
           }
         },
         child: Icon(Icons.add),
