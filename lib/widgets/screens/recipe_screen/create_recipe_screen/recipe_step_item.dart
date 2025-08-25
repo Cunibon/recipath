@@ -49,6 +49,7 @@ class RecipeStepItem extends ConsumerWidget {
               children: [
                 Expanded(
                   child: Column(
+                    spacing: 8,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       TextFormField(

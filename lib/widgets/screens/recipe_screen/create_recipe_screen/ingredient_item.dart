@@ -142,6 +142,7 @@ class _IngredientItemState extends ConsumerState<IngredientItem> {
           child: Text(
             grocery.name,
             style: Theme.of(context).textTheme.bodyLarge,
+            overflow: TextOverflow.ellipsis,
           ),
         ),
       ],
