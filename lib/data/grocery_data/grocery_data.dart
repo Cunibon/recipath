@@ -91,29 +91,39 @@ extension GroceryDataFunctions on GroceryData {
   }
 
   double convertToGram(double value, UnitEnum otherUnit) {
-    final unitType = UnitConversion.unitType(unit); // this.unit
+    final baseValue = convertFromTo(value, otherUnit, UnitEnum.g);
     final otherUnitType = UnitConversion.unitType(otherUnit);
 
     if (otherUnitType == UnitType.misc) {
       return (value / normalAmount) * conversionAmount;
-    } else if (otherUnitType == UnitType.volume) {
-      if (unitType == UnitType.volume) {
-        return UnitConversion.convert(
-          UnitConversion.convert(value, otherUnit, unit) *
-              (conversionAmount / normalAmount),
-          unit,
-          UnitEnum.g,
-        );
-      } else {
-        return UnitConversion.convert(
-          UnitConversion.convert(value, otherUnit, conversionUnit) *
-              (normalAmount / conversionAmount),
-          conversionUnit,
-          UnitEnum.g,
-        );
-      }
     } else {
-      return UnitConversion.convert(value, otherUnit, UnitEnum.g);
+      return baseValue;
+    }
+  }
+
+  double convertFromTo(double value, UnitEnum startUnit, UnitEnum newUnit) {
+    final startUnitType = UnitConversion.unitType(startUnit);
+    final newUnitType = UnitConversion.unitType(newUnit);
+    final conversionUnitType = UnitConversion.unitType(conversionUnit);
+
+    if (startUnitType == UnitType.misc || newUnitType == UnitType.misc) {
+      return value;
+    } else if (newUnitType == startUnitType) {
+      return UnitConversion.convert(value, startUnit, newUnit);
+    } else if (startUnitType == conversionUnitType) {
+      return UnitConversion.convert(
+        UnitConversion.convert(value, startUnit, conversionUnit) *
+            (normalAmount / conversionAmount),
+        unit,
+        newUnit,
+      );
+    } else {
+      return UnitConversion.convert(
+        UnitConversion.convert(value, startUnit, unit) *
+            (conversionAmount / normalAmount),
+        conversionUnit,
+        newUnit,
+      );
     }
   }
 

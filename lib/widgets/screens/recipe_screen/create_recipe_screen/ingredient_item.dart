@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/ingredient_data/ingredient_data.dart';
 import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/l10n/app_localizations.dart';
@@ -110,18 +111,18 @@ class _IngredientItemState extends ConsumerState<IngredientItem> {
                                 DropdownMenuItem(value: e, child: Text(e.name)),
                           )
                           .toList(),
-                  onChanged: (value) {
-                    if (value != null) {
-                      final newAmount = UnitConversion.convert(
+                  onChanged: (newUnit) {
+                    if (newUnit != null) {
+                      final newAmount = grocery.convertFromTo(
                         widget.data.amount,
                         widget.data.unit,
-                        value,
+                        newUnit,
                       );
                       amountController.text = doubleNumberFormat.format(
                         newAmount,
                       );
                       widget.onChanged(
-                        widget.data.copyWith(unit: value, amount: newAmount),
+                        widget.data.copyWith(unit: newUnit, amount: newAmount),
                       );
                     }
                   },
