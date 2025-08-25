@@ -12,9 +12,6 @@ abstract class StandardDataSyncRepo<T> extends DataSyncRepo<T>
   Future<int> prepareUpload(SyncContext context) async {
     final repoData = await repo.getNotUploaded();
     final uploadData = repoData.values.map(toSupabase).toList();
-    if (uploadData.isNotEmpty) {
-      await supabaseClient.from(tableName).upsert(uploadData);
-    }
 
     context[tableName] = uploadData;
 
