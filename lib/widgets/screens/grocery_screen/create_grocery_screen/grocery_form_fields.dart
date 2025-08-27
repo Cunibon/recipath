@@ -240,7 +240,7 @@ class GroceryFormFields extends ConsumerWidget {
           ),
           DoubleInputField(
             controller: kcalController,
-            labelText: "kcal/100g",
+            labelText: "${localization.kcal}/100g",
             validatorText: localization.addRealNumber,
             onChanged: (parsed) {
               if (parsed != null) {
@@ -250,7 +250,7 @@ class GroceryFormFields extends ConsumerWidget {
           ),
           DoubleInputField(
             controller: fatController,
-            labelText: "fat/100g",
+            labelText: "${localization.fat}/100g",
             validatorText: localization.addRealNumber,
             onChanged: (parsed) {
               if (parsed != null) {
@@ -260,7 +260,7 @@ class GroceryFormFields extends ConsumerWidget {
           ),
           DoubleInputField(
             controller: carbsController,
-            labelText: "carbs/100g",
+            labelText: "${localization.carbs}/100g",
             validatorText: localization.addRealNumber,
             onChanged: (parsed) {
               if (parsed != null) {
@@ -270,7 +270,7 @@ class GroceryFormFields extends ConsumerWidget {
           ),
           DoubleInputField(
             controller: proteinController,
-            labelText: "protein/100g",
+            labelText: "${localization.protein}/100g",
             validatorText: localization.addRealNumber,
             onChanged: (parsed) {
               if (parsed != null) {
@@ -280,7 +280,7 @@ class GroceryFormFields extends ConsumerWidget {
           ),
           DoubleInputField(
             controller: fiberController,
-            labelText: "fiber/100g",
+            labelText: "${localization.fiber}/100g",
             validatorText: localization.addRealNumber,
             onChanged: (parsed) {
               if (parsed != null) {
