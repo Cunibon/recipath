@@ -27,8 +27,10 @@ Future<RecipeScreenState> recipeScreenNotifier(Ref ref) async {
       synced = false;
     }
 
-    if (onlyShowRunning && timers.containsKey(recipe.id)) {
-      recipeList.add(recipe);
+    if (onlyShowRunning) {
+      if (timers.containsKey(recipe.id)) {
+        recipeList.add(recipe);
+      }
     } else {
       recipeList.add(recipe);
     }
