@@ -41,7 +41,10 @@ abstract class IngredientData with _$IngredientData {
   ) {
     final Map<String, IngredientData> ingredientsMap = {};
     for (final ingredient in ingredients) {
-      final grocery = groceries[ingredient.groceryId]!;
+      final grocery = groceries[ingredient.groceryId];
+
+      if (grocery == null) continue;
+
       final data = ingredientsMap.putIfAbsent(
         ingredient.groceryId,
         () => IngredientData(
