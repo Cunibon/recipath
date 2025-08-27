@@ -25,12 +25,6 @@ class RecipeSearchView extends ConsumerWidget {
 
     final onlyShowRunning = quickFilters[QuickFilters.running] ?? false;
 
-    final recipes =
-        (onlyShowRunning
-                ? data.timers.map((e) => data.recipe[e]!).nonNulls
-                : data.recipe.values)
-            .toList();
-
     return SearchableList(
       name: localization.recipe,
       trailing: data.timers.isEmpty
@@ -51,7 +45,7 @@ class RecipeSearchView extends ConsumerWidget {
                 ),
               ),
             ),
-      items: recipes,
+      items: data.recipe,
       toSearchable: (item) => item.toReadable(
         groceries: data.grocery,
         unitLocalized: unitLocalized,
