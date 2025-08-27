@@ -43,7 +43,7 @@ void main() async {
     Purchases.logIn(currentUser.id);
   }
 
-  final firstTime = localStorage.getBool(openAppFirstTime) ?? true;
+  final firstTime = localStorage.get<bool>(openAppFirstTime) ?? true;
   if (firstTime) {
     localStorage.setDynamic(openAppFirstTime, false);
   }

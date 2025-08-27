@@ -14,7 +14,7 @@ class DarkModeNotifier extends _$DarkModeNotifier {
     final systemDefault =
         WidgetsBinding.instance.platformDispatcher.platformBrightness;
 
-    return localStorage.getBool(darkmodeKey) ??
+    return localStorage.get<bool>(darkmodeKey) ??
         systemDefault == Brightness.dark;
   }
 

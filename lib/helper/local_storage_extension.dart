@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:localstorage/localstorage.dart';
 
 extension TypedStorage on LocalStorage {
-  bool? getBool(String key) {
+  T? get<T>(String key) {
     final item = getItem(key);
     if (item is String) {
       return jsonDecode(item);

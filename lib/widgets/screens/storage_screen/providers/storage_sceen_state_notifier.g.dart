@@ -7,7 +7,7 @@ part of 'storage_sceen_state_notifier.dart';
 // **************************************************************************
 
 String _$storageScreenStateNotifierHash() =>
-    r'8f3be4412e1e25496ba90e1f48fa5bf488edb768';
+    r'c684f400c765bd63190fef8bfedb67e283c7b712';
 
 /// See also [storageScreenStateNotifier].
 @ProviderFor(storageScreenStateNotifier)

@@ -7,7 +7,7 @@ part of 'recipe_screen_notifier.dart';
 // **************************************************************************
 
 String _$recipeScreenNotifierHash() =>
-    r'2b29702a2a8098de9e92950bd18e4903125dd2c4';
+    r'16e2e597b611144e70019f940d39f924899940ac';
 
 /// See also [recipeScreenNotifier].
 @ProviderFor(recipeScreenNotifier)

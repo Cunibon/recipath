@@ -17,6 +17,4 @@ const String groceryDataKey = "groceryData";
 const String shoppingDataKey = "shoppingData";
 const String storageDataKey = "storageData";
 
-const String timerDataKey = "timerData";
-
 const String idParameter = "id";

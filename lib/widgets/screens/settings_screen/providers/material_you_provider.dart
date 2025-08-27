@@ -9,7 +9,7 @@ class MaterialYouNotifier extends _$MaterialYouNotifier {
   static const materialYouKey = "materialYouKey";
 
   @override
-  bool build() => localStorage.getBool(materialYouKey) ?? false;
+  bool build() => localStorage.get<bool>(materialYouKey) ?? false;
 
   void set(bool value) {
     localStorage.setDynamic(materialYouKey, value);

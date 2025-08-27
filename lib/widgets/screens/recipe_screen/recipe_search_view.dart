@@ -6,40 +6,42 @@ import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/generic/searchable_list.dart';
 import 'package:recipath/widgets/providers/double_number_format_provider.dart';
 import 'package:recipath/widgets/screens/recipe_screen/compact_recipe_item.dart';
+import 'package:recipath/widgets/screens/recipe_screen/providers/quick_filter_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/recipe_screen_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/shopping_planning_notifier.dart';
 
-class RecipeSearchView extends ConsumerStatefulWidget {
+class RecipeSearchView extends ConsumerWidget {
   const RecipeSearchView({required this.data, super.key});
 
   final RecipeScreenState data;
 
   @override
-  ConsumerState<RecipeSearchView> createState() => _RecipeSearchViewState();
-}
-
-class _RecipeSearchViewState extends ConsumerState<RecipeSearchView> {
-  bool onlyShowRunning = false;
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final localization = AppLocalizations.of(context)!;
     final unitLocalized = localizeUnits(context);
 
     final doubleNumberFormat = ref.watch(doubleNumberFormatNotifierProvider);
+    final quickFilters = ref.watch(quickFilterNotifierProvider);
+
+    final onlyShowRunning = quickFilters[QuickFilters.running] ?? false;
 
     final recipes =
         (onlyShowRunning
-                ? widget.data.timers.map((e) => widget.data.recipe[e]!).nonNulls
-                : widget.data.recipe.values)
+                ? data.timers.map((e) => data.recipe[e]!).nonNulls
+                : data.recipe.values)
             .toList();
 
     return SearchableList(
       name: localization.recipe,
-      trailing: widget.data.timers.isEmpty
+      trailing: data.timers.isEmpty
           ? null
           : GestureDetector(
-              onTap: () => setState(() => onlyShowRunning = !onlyShowRunning),
+              onTap: () => ref
+                  .read(quickFilterNotifierProvider.notifier)
+                  .setFilter(
+                    filter: QuickFilters.running,
+                    value: !onlyShowRunning,
+                  ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12),
                 child: Icon(
@@ -51,7 +53,7 @@ class _RecipeSearchViewState extends ConsumerState<RecipeSearchView> {
             ),
       items: recipes,
       toSearchable: (item) => item.toReadable(
-        groceries: widget.data.grocery,
+        groceries: data.grocery,
         unitLocalized: unitLocalized,
         doubleNumberFormat: doubleNumberFormat,
       ),
@@ -59,7 +61,7 @@ class _RecipeSearchViewState extends ConsumerState<RecipeSearchView> {
         key: Key(item.id),
         child: CompactRecipeItem(
           data: item,
-          timerRunning: widget.data.timers.contains(item.id),
+          timerRunning: data.timers.contains(item.id),
         ),
         confirmDismiss: (direction) async {
           if (direction == DismissDirection.startToEnd) {
