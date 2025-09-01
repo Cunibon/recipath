@@ -751,6 +751,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Cook a recipe to add data'**
   String get cookRecipeForData;
+
+  /// No description provided for @guideAddNewRecipe.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a new Recipe'**
+  String get guideAddNewRecipe;
 }
 
 class _AppLocalizationsDelegate

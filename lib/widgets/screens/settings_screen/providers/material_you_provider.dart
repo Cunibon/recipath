@@ -12,7 +12,7 @@ class MaterialYouNotifier extends _$MaterialYouNotifier {
   bool build() => localStorage.get<bool>(materialYouKey) ?? false;
 
   void set(bool value) {
-    localStorage.setDynamic(materialYouKey, value);
+    localStorage.set(materialYouKey, value);
 
     ref.invalidateSelf();
   }

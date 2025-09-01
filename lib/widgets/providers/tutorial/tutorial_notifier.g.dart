@@ -1,26 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'dark_mode_provider.dart';
+part of 'tutorial_notifier.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$darkModeNotifierHash() => r'f37b19c851f5b095288ff7ea22dabe5f549854ba';
+String _$tutorialNotifierHash() => r'f7f9d6543a14bf9f0fc24928a4dad1043c94a44a';
 
-/// See also [DarkModeNotifier].
-@ProviderFor(DarkModeNotifier)
-final darkModeNotifierProvider =
-    AutoDisposeNotifierProvider<DarkModeNotifier, bool>.internal(
-      DarkModeNotifier.new,
-      name: r'darkModeNotifierProvider',
+/// See also [TutorialNotifier].
+@ProviderFor(TutorialNotifier)
+final tutorialNotifierProvider =
+    AutoDisposeNotifierProvider<TutorialNotifier, List<String>>.internal(
+      TutorialNotifier.new,
+      name: r'tutorialNotifierProvider',
       debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
           ? null
-          : _$darkModeNotifierHash,
+          : _$tutorialNotifierHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );
 
-typedef _$DarkModeNotifier = AutoDisposeNotifier<bool>;
+typedef _$TutorialNotifier = AutoDisposeNotifier<List<String>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

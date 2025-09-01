@@ -351,4 +351,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get cookRecipeForData => 'Koche ein Rezept, um Daten hinzuzufügen';
+
+  @override
+  String get guideAddNewRecipe => 'Add a new Recipe';
 }

@@ -16,10 +16,11 @@ import 'package:recipath/helper/local_storage_extension.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/providers/application_path_provider.dart';
 import 'package:recipath/root_routes.dart';
-import 'package:recipath/widgets/providers/locale_provider.dart';
-import 'package:recipath/widgets/providers/theme_data_provider.dart';
+import 'package:recipath/widgets/providers/locale_notifier.dart';
+import 'package:recipath/widgets/providers/theme_data_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/recipe_routes.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:showcaseview/showcaseview.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
@@ -45,7 +46,7 @@ void main() async {
 
   final firstTime = localStorage.get<bool>(openAppFirstTime) ?? true;
   if (firstTime) {
-    localStorage.setDynamic(openAppFirstTime, false);
+    localStorage.set(openAppFirstTime, false);
   }
 
   final goRouter = GoRouter(
@@ -74,7 +75,9 @@ void main() async {
           databaseNotifierProvider.overrideWith((ref) => db),
           applicationPathProvider.overrideWith((ref) => applicationPath),
         ],
-        child: SentryWidget(child: MyApp(router: goRouter)),
+        child: SentryWidget(
+          child: ShowCaseWidget(builder: (_) => MyApp(router: goRouter)),
+        ),
       ),
     ),
   );

@@ -7,7 +7,7 @@ part of 'material_you_provider.dart';
 // **************************************************************************
 
 String _$materialYouNotifierHash() =>
-    r'46de0c133a54a55df6d0dd764677cc722308a821';
+    r'8e388c815563c359c83db200abb4791a0ddf3d61';
 
 /// See also [MaterialYouNotifier].
 @ProviderFor(MaterialYouNotifier)

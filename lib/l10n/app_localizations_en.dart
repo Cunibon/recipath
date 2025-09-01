@@ -349,4 +349,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get cookRecipeForData => 'Cook a recipe to add data';
+
+  @override
+  String get guideAddNewRecipe => 'Add a new Recipe';
 }

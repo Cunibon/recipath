@@ -19,7 +19,7 @@ class DarkModeNotifier extends _$DarkModeNotifier {
   }
 
   void set(bool darkMode) {
-    localStorage.setDynamic(darkmodeKey, darkMode);
+    localStorage.set(darkmodeKey, darkMode);
     ref.invalidateSelf();
   }
 }
