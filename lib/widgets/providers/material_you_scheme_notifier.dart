@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/widgets/screens/settings_screen/providers/dark_mode_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'material_you_scheme_provider.g.dart';
+part 'material_you_scheme_notifier.g.dart';
 
 @riverpod
 Future<ColorScheme?> materialYouSchemeNotifier(Ref ref) async {
