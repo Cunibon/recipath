@@ -1,3 +1,4 @@
+import 'package:http/http.dart';
 import 'package:logger/logger.dart';
 import 'package:recipath/domain_service/syncing_service/assemblers/abstract/supabase_assembler.dart';
 import 'package:recipath/domain_service/syncing_service/repos/abstract/sync_interfaces.dart';
@@ -44,15 +45,17 @@ class SyncOrchestrator {
       }
     } catch (e, s) {
       logger.e("Error while uploading!", error: e, stackTrace: s);
-      await Sentry.captureException(
-        e,
-        stackTrace: s,
-        withScope: (scope) => scope.setContexts('upload', {
-          "syncContext": syncContext,
-          "uploadOrder": uploadOrder,
-          "uploads": uploads.length,
-        }),
-      );
+      if (e is! ClientException) {
+        await Sentry.captureException(
+          e,
+          stackTrace: s,
+          withScope: (scope) => scope.setContexts('upload', {
+            "syncContext": syncContext,
+            "uploadOrder": uploadOrder,
+            "uploads": uploads.length,
+          }),
+        );
+      }
     }
 
     return uploadCount;
