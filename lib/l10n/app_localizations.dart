@@ -769,6 +769,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Cook a recipe to add data'**
   String get cookRecipeForData;
+
+  /// No description provided for @goPro.
+  ///
+  /// In en, this message translates to:
+  /// **'Go Pro'**
+  String get goPro;
+
+  /// No description provided for @manageSubscription.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage subscription'**
+  String get manageSubscription;
 }
 
 class _AppLocalizationsDelegate

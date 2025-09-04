@@ -361,4 +361,10 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get cookRecipeForData => 'Koche ein Rezept, um Daten hinzuzufügen';
+
+  @override
+  String get goPro => 'Go Pro';
+
+  @override
+  String get manageSubscription => 'Abonnement verwalten';
 }

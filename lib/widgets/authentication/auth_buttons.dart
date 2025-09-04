@@ -6,6 +6,8 @@ import 'package:recipath/domain_service/syncing_service/syncing_service/syncing_
 import 'package:recipath/drift/database_notifier.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/authentication/auth_dialog.dart';
+import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
+import 'package:recipath/widgets/providers/revenue_cat/revenue_pro_notifier.dart';
 import 'package:recipath/widgets/providers/supabase/supabase_client_notifier.dart';
 import 'package:recipath/widgets/providers/supabase/supabase_user_notifier.dart';
 
@@ -17,47 +19,56 @@ class AuthButtons extends ConsumerWidget {
     final user = ref.watch(supabaseUserProvider);
     final localization = AppLocalizations.of(context)!;
 
-    return Column(
-      children: [
-        if (user == null) ...[
-          TextButton.icon(
-            onPressed: () => showDialog(
-              context: context,
-              builder: (context) => AuthDialog(isLogin: true),
+    return CachedAsyncValueWrapper(
+      asyncState: ref.watch(revenueProNotifierProvider),
+      builder: (pro) => Column(
+        children: [
+          if (user == null) ...[
+            TextButton.icon(
+              onPressed: () => showDialog(
+                context: context,
+                builder: (context) => AuthDialog(isLogin: true),
+              ),
+              label: Text(localization.login),
+              icon: Icon(Icons.person),
             ),
-            label: Text(localization.login),
-            icon: Icon(Icons.person),
-          ),
-          TextButton.icon(
-            onPressed: () => showDialog(
-              context: context,
-              builder: (context) => AuthDialog(isLogin: false),
+            TextButton.icon(
+              onPressed: () => showDialog(
+                context: context,
+                builder: (context) => AuthDialog(isLogin: false),
+              ),
+              label: Text(localization.register),
+              icon: Icon(Icons.person_add),
             ),
-            label: Text(localization.register),
-            icon: Icon(Icons.person_add),
-          ),
-        ] else ...[
-          TextButton.icon(
-            onPressed: () async {
-              Purchases.logOut();
-              await ref.read(supabaseClientProvider).auth.signOut();
-              await ref.read(syncingServiceNotifierProvider).reset();
-              await ref.read(databaseNotifierProvider).clear();
-            },
-            label: Text(localization.logout),
-            icon: Icon(Icons.logout),
-          ),
-          Text(user.email ?? ""),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ElevatedButton.icon(
-              onPressed: () async => await RevenueCatUI.presentPaywall(),
-              label: Text("Go Pro"),
-              icon: Icon(Icons.star),
+          ] else ...[
+            TextButton.icon(
+              onPressed: () async {
+                Purchases.logOut();
+                await ref.read(supabaseClientProvider).auth.signOut();
+                await ref.read(syncingServiceNotifierProvider).reset();
+                await ref.read(databaseNotifierProvider).clear();
+              },
+              label: Text(localization.logout),
+              icon: Icon(Icons.logout),
             ),
-          ),
+            Text(user.email ?? ""),
+            if (!pro)
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton.icon(
+                  onPressed: () => RevenueCatUI.presentPaywall(),
+                  label: Text(localization.goPro),
+                  icon: Icon(Icons.star),
+                ),
+              )
+            else
+              TextButton(
+                onPressed: () => RevenueCatUI.presentCustomerCenter(),
+                child: Text(localization.manageSubscription),
+              ),
+          ],
         ],
-      ],
+      ),
     );
   }
 }

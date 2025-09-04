@@ -358,4 +358,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get cookRecipeForData => 'Cook a recipe to add data';
+
+  @override
+  String get goPro => 'Go Pro';
+
+  @override
+  String get manageSubscription => 'Manage subscription';
 }
