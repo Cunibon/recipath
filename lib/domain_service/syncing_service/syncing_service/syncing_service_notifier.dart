@@ -10,7 +10,9 @@ part 'syncing_service_notifier.g.dart';
 Future<SyncingService> syncingServiceNotifier(Ref ref) async {
   final service = SyncingService(
     syncOrchestrator: await ref.watch(syncOrchestratorNotifierProvider.future),
-    fileSyncOrchestrator: ref.watch(fileSyncOrchestratorNotifierProvider),
+    fileSyncOrchestrator: await ref.watch(
+      fileSyncOrchestratorNotifierProvider.future,
+    ),
   );
 
   ref.onDispose(() => service.stop());
