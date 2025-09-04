@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
+import 'package:purchases_ui_flutter/purchases_ui_flutter.dart';
 import 'package:recipath/domain_service/syncing_service/syncing_service/syncing_service_notifier.dart';
 import 'package:recipath/drift/database_notifier.dart';
 import 'package:recipath/l10n/app_localizations.dart';
@@ -47,6 +48,14 @@ class AuthButtons extends ConsumerWidget {
             icon: Icon(Icons.logout),
           ),
           Text(user.email ?? ""),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ElevatedButton.icon(
+              onPressed: () async => await RevenueCatUI.presentPaywall(),
+              label: Text("Go Pro"),
+              icon: Icon(Icons.star),
+            ),
+          ),
         ],
       ],
     );
