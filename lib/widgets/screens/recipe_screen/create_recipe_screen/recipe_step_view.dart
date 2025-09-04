@@ -6,9 +6,14 @@ class RecipeStepView extends StatelessWidget {
   const RecipeStepView({
     required this.steps,
     required this.onChanged,
+    this.header,
+    this.footer,
     this.controller,
     super.key,
   });
+
+  final Widget? header;
+  final Widget? footer;
 
   final List<RecipeStepData> steps;
   final void Function(List<RecipeStepData> newSteps) onChanged;
@@ -42,6 +47,8 @@ class RecipeStepView extends StatelessWidget {
     }
 
     return ReorderableListView(
+      header: header,
+      footer: footer,
       scrollController: controller,
       shrinkWrap: true,
       children: items,

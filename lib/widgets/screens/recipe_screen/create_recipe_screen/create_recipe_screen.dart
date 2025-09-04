@@ -114,9 +114,8 @@ class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
           key: formKey,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: SingleChildScrollView(
-              controller: controller,
-              child: Column(
+            child: RecipeStepView(
+              header: Column(
                 children: [
                   ConstrainedBox(
                     constraints: BoxConstraints(maxHeight: 200),
@@ -169,34 +168,34 @@ class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
                     ],
                   ),
                   SizedBox(height: 8),
-                  RecipeStepView(
-                    controller: controller,
-                    steps: data.steps,
-                    onChanged: (newSteps) =>
-                        setState(() => data = data.copyWith(steps: newSteps)),
-                  ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: ElevatedButton.icon(
-                      onPressed: () => setState(
-                        () => data = data.copyWith(
-                          steps: List.from(data.steps)
-                            ..add(
-                              RecipeStepData(
-                                id: randomAlphaNumeric(16),
-                                description: "",
-                                ingredients: [],
-                              ),
-                            ),
-                        ),
-                      ),
-                      icon: Icon(Icons.add),
-                      label: Text(localization.addStep),
-                    ),
-                  ),
-                  SizedBox(height: 60),
                 ],
               ),
+              footer: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ElevatedButton.icon(
+                    onPressed: () => setState(
+                      () => data = data.copyWith(
+                        steps: List.from(data.steps)
+                          ..add(
+                            RecipeStepData(
+                              id: randomAlphaNumeric(16),
+                              description: "",
+                              ingredients: [],
+                            ),
+                          ),
+                      ),
+                    ),
+                    icon: Icon(Icons.add),
+                    label: Text(localization.addStep),
+                  ),
+                  SizedBox(height: 64),
+                ],
+              ),
+              controller: controller,
+              steps: data.steps,
+              onChanged: (newSteps) =>
+                  setState(() => data = data.copyWith(steps: newSteps)),
             ),
           ),
         ),
