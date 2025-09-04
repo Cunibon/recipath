@@ -7,7 +7,7 @@ part of 'sync_orchestrator_notifier.dart';
 // **************************************************************************
 
 String _$syncOrchestratorNotifierHash() =>
-    r'da6e759cffe80da8f88a5c47904d3036c878380a';
+    r'88964309c17a82e60d6360653b053e03c19dbfae';
 
 /// See also [syncOrchestratorNotifier].
 @ProviderFor(syncOrchestratorNotifier)

@@ -57,8 +57,6 @@ Future<SyncOrchestrator> syncOrchestratorNotifier(Ref ref) async {
     ),
   ];
 
-  print("--- ${uploadOrder.length}");
-
   return SyncOrchestrator(
     uploads: syncRepos,
     uploadOrder: uploadOrder,

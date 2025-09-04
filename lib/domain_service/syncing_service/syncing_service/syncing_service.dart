@@ -62,7 +62,6 @@ class SyncingService {
     DownloadResult? downloadedResult;
 
     try {
-      print("--- sync");
       fileUpload = await fileSyncOrchestrator.uploadAll();
       uploadedCount = await syncOrchestrator.uploadAll();
       downloadedResult = await syncOrchestrator.downloadAll(lastSync);
