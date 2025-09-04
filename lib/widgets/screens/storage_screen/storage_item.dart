@@ -39,12 +39,19 @@ class StorageItem extends ConsumerWidget {
                 initialValue: doubleNumberFormat.format(data.ingredient.amount),
                 decoration: InputDecoration(labelText: localization.amount),
                 keyboardType: TextInputType.numberWithOptions(decimal: true),
-                validator: (value) =>
-                    value == null ||
-                        value.isEmpty ||
-                        doubleNumberFormat.tryParse(value) == 0
-                    ? localization.addAmount
-                    : null,
+                onEditingComplete: () {
+                  if (data.ingredient.amount == 0) {
+                    ref
+                        .read(storageModifierNotifierProvider)
+                        .deleteItem(
+                          data.copyWith(
+                            ingredient: data.ingredient.copyWith(
+                              amount: data.ingredient.amount,
+                            ),
+                          ),
+                        );
+                  }
+                },
                 onChanged: (value) {
                   final parsed = doubleNumberFormat.tryParse(value);
                   if (parsed != null) {
