@@ -140,6 +140,16 @@ class AppLocalizationsDe extends AppLocalizations {
   String get save => 'Speichern';
 
   @override
+  String get copy => 'Kopie';
+
+  @override
+  String get saveCopy => 'Kopie speichern';
+
+  @override
+  String get saveCopyContent =>
+      'Möchten Sie eine Kopie von diesem Rezept speichern?';
+
+  @override
   String get delete => 'Löschen';
 
   @override

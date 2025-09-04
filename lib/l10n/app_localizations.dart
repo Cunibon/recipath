@@ -338,6 +338,24 @@ abstract class AppLocalizations {
   /// **'Save'**
   String get save;
 
+  /// No description provided for @copy.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy'**
+  String get copy;
+
+  /// No description provided for @saveCopy.
+  ///
+  /// In en, this message translates to:
+  /// **'Save copy'**
+  String get saveCopy;
+
+  /// No description provided for @saveCopyContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to save a copy of this recipe?'**
+  String get saveCopyContent;
+
   /// No description provided for @delete.
   ///
   /// In en, this message translates to:

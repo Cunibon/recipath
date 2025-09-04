@@ -10,6 +10,7 @@ import 'package:recipath/root_routes.dart';
 import 'package:recipath/widgets/generic/dialogs/delete_confirmation_dialog.dart';
 import 'package:recipath/widgets/generic/unsaved_changes_scope.dart';
 import 'package:recipath/widgets/screens/recipe_screen/create_recipe_screen/add_image_widget.dart';
+import 'package:recipath/widgets/screens/recipe_screen/create_recipe_screen/dialogs/make_copy_dialog.dart';
 import 'package:recipath/widgets/screens/recipe_screen/create_recipe_screen/recipe_step_view.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/recipe_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/timer_notifier.dart';
@@ -55,6 +56,23 @@ class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
             localization.createRecipe,
             style: Theme.of(context).textTheme.titleLarge,
           ),
+          actions: [
+            if (widget.recipeId != null)
+              IconButton(
+                onPressed: () async {
+                  final result = await showDialog<bool>(
+                    context: context,
+                    builder: (context) => DeleteConfirmationDialog(),
+                  );
+
+                  if (context.mounted && result == true) {
+                    ref.read(recipeModifierNotifierProvider).archive(data);
+                    context.go(RootRoutes.recipeRoute.path);
+                  }
+                },
+                icon: Icon(Icons.delete),
+              ),
+          ],
         ),
         floatingActionButton: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
@@ -95,18 +113,30 @@ class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
             if (widget.recipeId != null)
               ElevatedButton.icon(
                 onPressed: () async {
-                  final result = await showDialog<bool>(
-                    context: context,
-                    builder: (context) => DeleteConfirmationDialog(),
-                  );
+                  if (formKey.currentState?.validate() == true) {
+                    final goRouter = GoRouter.of(context);
 
-                  if (context.mounted && result == true) {
-                    ref.read(recipeModifierNotifierProvider).archive(data);
-                    context.go(RootRoutes.recipeRoute.path);
+                    final result = await showDialog<bool>(
+                      context: context,
+                      builder: (context) => MakeCopyDialog(),
+                    );
+
+                    if (result == true) {
+                      final newData = data.copyWithNewId().copyWith(
+                        title: "${data.title} (${localization.copy})",
+                      );
+                      await ref
+                          .read(recipeModifierNotifierProvider)
+                          .add(newData);
+
+                      goRouter.go(
+                        '${RootRoutes.recipeRoute.path}/recipeOverview/${newData.id}',
+                      );
+                    }
                   }
                 },
-                icon: Icon(Icons.delete),
-                label: Text(localization.delete),
+                icon: Icon(Icons.copy),
+                label: Text(localization.saveCopy),
               ),
           ],
         ),

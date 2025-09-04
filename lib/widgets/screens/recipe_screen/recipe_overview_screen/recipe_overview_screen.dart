@@ -61,7 +61,10 @@ class RecipeScreen extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if (recipe.imageName != null) ...[
-                LocalImage(fileName: recipe.imageName!),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4),
+                  child: LocalImage(fileName: recipe.imageName!),
+                ),
                 Divider(),
               ],
               if (recipe.servings != null)

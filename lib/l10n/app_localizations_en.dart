@@ -138,6 +138,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get save => 'Save';
 
   @override
+  String get copy => 'Copy';
+
+  @override
+  String get saveCopy => 'Save copy';
+
+  @override
+  String get saveCopyContent => 'Do you want to save a copy of this recipe?';
+
+  @override
   String get delete => 'Delete';
 
   @override
