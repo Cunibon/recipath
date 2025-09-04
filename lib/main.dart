@@ -93,7 +93,9 @@ class _MyAppState extends ConsumerState<MyApp> {
   @override
   void initState() {
     super.initState();
-    ref.read(syncingServiceNotifierProvider).start();
+    ref
+        .read(syncingServiceNotifierProvider.future)
+        .then((value) => value.start());
   }
 
   @override
