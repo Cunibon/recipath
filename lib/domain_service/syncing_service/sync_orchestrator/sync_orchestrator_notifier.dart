@@ -16,14 +16,15 @@ import 'package:recipath/domain_service/syncing_service/repos/sync/recipe_statis
 import 'package:recipath/domain_service/syncing_service/repos/sync/recipe_sync_repo.dart';
 import 'package:recipath/domain_service/syncing_service/repos/sync/shopping_sync_repo.dart';
 import 'package:recipath/domain_service/syncing_service/repos/sync/storage_sync_repo.dart';
+import 'package:recipath/domain_service/syncing_service/supabase_tables.dart';
 import 'package:recipath/domain_service/syncing_service/sync_orchestrator/sync_orchestartor.dart';
-import 'package:recipath/domain_service/syncing_service/sync_orchestrator/upload_order_notifier.dart';
 import 'package:recipath/repos/grocery/full_grocery_repo_notifier.dart';
 import 'package:recipath/repos/recipe/full_recipe_repo_notifier.dart';
 import 'package:recipath/repos/recipe_shopping/recipe_shopping_repo_notifier.dart';
 import 'package:recipath/repos/recipe_statistics/recipe_statistics_repo_notifier.dart';
 import 'package:recipath/repos/shopping/full_shopping_repo_notifier.dart';
 import 'package:recipath/repos/storage/full_storage_repo_notifier.dart';
+import 'package:recipath/widgets/providers/revenue_cat/revenue_pro_notifier.dart';
 import 'package:recipath/widgets/providers/supabase/supabase_client_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -40,12 +41,32 @@ Future<SyncOrchestrator> syncOrchestratorNotifier(Ref ref) async {
 
   final supabaseClient = ref.watch(supabaseClientProvider);
 
-  final uploadOrder = await ref.watch(uploadOrderNotifierProvider.future);
+  final pro = await ref.watch(revenueProNotifierProvider.future);
 
-  final syncRepos = <DataSyncRepo>[
+  final uploadOrder = [
+    SupabaseTables.grocery,
+    SupabaseTables.ingredient,
+    SupabaseTables.shopping,
+
+    if (pro == true) ...[
+      SupabaseTables.recipe,
+      SupabaseTables.recipeStep,
+      SupabaseTables.recipeStepIngredient,
+
+      SupabaseTables.storage,
+
+      SupabaseTables.recipeStatistic,
+      SupabaseTables.recipeShopping,
+    ],
+  ];
+
+  final baseRepos = <DataSyncRepo>[
     GrocerySyncRepo(supabaseClient: supabaseClient, repo: groceryRepo),
-    RecipeSyncRepo(supabaseClient: supabaseClient, repo: recipeRepo),
     ShoppingSyncRepo(supabaseClient: supabaseClient, repo: shoppingRepo),
+  ];
+
+  final proRepos = <DataSyncRepo>[
+    RecipeSyncRepo(supabaseClient: supabaseClient, repo: recipeRepo),
     StorageSyncRepo(supabaseClient: supabaseClient, repo: storageRepo),
     RecipeStatisticSyncRepo(
       supabaseClient: supabaseClient,
@@ -58,13 +79,14 @@ Future<SyncOrchestrator> syncOrchestratorNotifier(Ref ref) async {
   ];
 
   return SyncOrchestrator(
-    uploads: syncRepos,
+    uploads: [...baseRepos, if (pro) ...proRepos],
     uploadOrder: uploadOrder,
     downloads: [
       IngredientDownloadRepo(supabaseClient: supabaseClient),
       RecipeStepDownloadRepo(supabaseClient: supabaseClient),
       RecipeStepIngredientDownloadRepo(supabaseClient: supabaseClient),
-      ...syncRepos,
+      ...baseRepos,
+      ...proRepos,
     ],
     assemblers: [
       GroceryAssembler(repo: groceryRepo),

@@ -14,6 +14,7 @@ Future<SyncingService> syncingServiceNotifier(Ref ref) async {
   );
 
   ref.onDispose(() => service.stop());
+  service.start();
 
   return service;
 }
