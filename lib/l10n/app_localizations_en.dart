@@ -364,4 +364,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get manageSubscription => 'Manage subscription';
+
+  @override
+  String get subscription => 'Subscription';
 }

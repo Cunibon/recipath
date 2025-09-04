@@ -154,5 +154,6 @@
     "nothingToSee": "Nothing to see",
     "cookRecipeForData": "Cook a recipe to add data",
     "goPro": "Go Pro",
-    "manageSubscription": "Manage subscription"
+    "manageSubscription": "Manage subscription",
+    "subscription": "Subscription"
 }

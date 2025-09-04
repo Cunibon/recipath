@@ -5,6 +5,7 @@ import 'package:recipath/widgets/navigation/navigation_drawer_scaffold.dart';
 import 'package:recipath/widgets/screens/settings_screen/appearance/dark_mode_toggle.dart';
 import 'package:recipath/widgets/screens/settings_screen/appearance/locale_picker.dart';
 import 'package:recipath/widgets/screens/settings_screen/appearance/material_you_toggle.dart';
+import 'package:recipath/widgets/screens/settings_screen/auth/manage_supscription_button.dart';
 import 'package:recipath/widgets/screens/settings_screen/data/export_button.dart';
 import 'package:recipath/widgets/screens/settings_screen/data/import_button.dart';
 import 'package:recipath/widgets/screens/settings_screen/data/privacy_policy.dart';
@@ -32,6 +33,10 @@ class SettingsScreen extends StatelessWidget {
             SettingSection(
               title: localization.data,
               children: [ImportButton(), ExportButton(), PrivacyPolicy()],
+            ),
+            SettingSection(
+              title: localization.subscription,
+              children: [ManageSupscriptionButton()],
             ),
             VersionTag(),
           ],

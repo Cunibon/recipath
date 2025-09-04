@@ -62,11 +62,6 @@ class AuthButtons extends ConsumerWidget {
                   label: Text(localization.goPro),
                   icon: Icon(Icons.star),
                 ),
-              )
-            else
-              TextButton(
-                onPressed: () => RevenueCatUI.presentCustomerCenter(),
-                child: Text(localization.manageSubscription),
               ),
           ],
         ],

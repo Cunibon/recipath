@@ -113,5 +113,6 @@
     "nothingToSee": "Nichts zu sehen",
     "cookRecipeForData": "Koche ein Rezept, um Daten hinzuzufügen",
     "goPro": "Go Pro",
-    "manageSubscription": "Abonnement verwalten"
+    "manageSubscription": "Abonnement verwalten",
+    "subscription": "Abonnement"
 }
