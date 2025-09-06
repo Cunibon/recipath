@@ -12,6 +12,7 @@ abstract class RecipeStatisticData with _$RecipeStatisticData {
     required DateTime startDate,
     required DateTime endDate,
     required String recipeId,
+    required int? servings,
     @Default(false) bool uploaded,
   }) = _RecipeStatisticData;
 
@@ -24,6 +25,7 @@ abstract class RecipeStatisticData with _$RecipeStatisticData {
         startDate: DateTime.fromMillisecondsSinceEpoch(data.startDate),
         endDate: DateTime.fromMillisecondsSinceEpoch(data.endDate),
         recipeId: data.recipeId,
+        servings: data.servings,
         uploaded: data.uploaded,
       );
 
@@ -33,6 +35,7 @@ abstract class RecipeStatisticData with _$RecipeStatisticData {
         startDate: DateTime.fromMillisecondsSinceEpoch(data["start_date"]),
         endDate: DateTime.fromMillisecondsSinceEpoch(data["end_date"]),
         recipeId: data["recipe_id"],
+        servings: data["servings"],
         uploaded: true,
       );
 }
@@ -44,6 +47,7 @@ extension RecipeStatisticDataFunctions on RecipeStatisticData {
         startDate: startDate.millisecondsSinceEpoch,
         endDate: endDate.millisecondsSinceEpoch,
         recipeId: recipeId,
+        servings: drift.Value(servings),
         uploaded: drift.Value(uploaded),
       );
 
@@ -52,5 +56,6 @@ extension RecipeStatisticDataFunctions on RecipeStatisticData {
     "start_date": startDate.millisecondsSinceEpoch,
     "end_date": endDate.millisecondsSinceEpoch,
     "recipe_id": recipeId,
+    "servings": servings,
   };
 }

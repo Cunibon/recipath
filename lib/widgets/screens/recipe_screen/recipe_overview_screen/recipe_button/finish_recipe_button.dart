@@ -62,6 +62,7 @@ class FinishRecipeButton extends ConsumerWidget {
                 startDate: recipeDateRange.start,
                 endDate: recipeDateRange.start.add(durationResponse.duration!),
                 recipeId: recipe.id,
+                servings: timerData.servings,
               ),
             );
 

@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$RecipeStatisticData {
 
- String get id; DateTime get startDate; DateTime get endDate; String get recipeId; bool get uploaded;
+ String get id; DateTime get startDate; DateTime get endDate; String get recipeId; int? get servings; bool get uploaded;
 /// Create a copy of RecipeStatisticData
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $RecipeStatisticDataCopyWith<RecipeStatisticData> get copyWith => _$RecipeStatis
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RecipeStatisticData&&(identical(other.id, id) || other.id == id)&&(identical(other.startDate, startDate) || other.startDate == startDate)&&(identical(other.endDate, endDate) || other.endDate == endDate)&&(identical(other.recipeId, recipeId) || other.recipeId == recipeId)&&(identical(other.uploaded, uploaded) || other.uploaded == uploaded));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RecipeStatisticData&&(identical(other.id, id) || other.id == id)&&(identical(other.startDate, startDate) || other.startDate == startDate)&&(identical(other.endDate, endDate) || other.endDate == endDate)&&(identical(other.recipeId, recipeId) || other.recipeId == recipeId)&&(identical(other.servings, servings) || other.servings == servings)&&(identical(other.uploaded, uploaded) || other.uploaded == uploaded));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,startDate,endDate,recipeId,uploaded);
+int get hashCode => Object.hash(runtimeType,id,startDate,endDate,recipeId,servings,uploaded);
 
 @override
 String toString() {
-  return 'RecipeStatisticData(id: $id, startDate: $startDate, endDate: $endDate, recipeId: $recipeId, uploaded: $uploaded)';
+  return 'RecipeStatisticData(id: $id, startDate: $startDate, endDate: $endDate, recipeId: $recipeId, servings: $servings, uploaded: $uploaded)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $RecipeStatisticDataCopyWith<$Res>  {
   factory $RecipeStatisticDataCopyWith(RecipeStatisticData value, $Res Function(RecipeStatisticData) _then) = _$RecipeStatisticDataCopyWithImpl;
 @useResult
 $Res call({
- String id, DateTime startDate, DateTime endDate, String recipeId, bool uploaded
+ String id, DateTime startDate, DateTime endDate, String recipeId, int? servings, bool uploaded
 });
 
 
@@ -65,13 +65,14 @@ class _$RecipeStatisticDataCopyWithImpl<$Res>
 
 /// Create a copy of RecipeStatisticData
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? startDate = null,Object? endDate = null,Object? recipeId = null,Object? uploaded = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? startDate = null,Object? endDate = null,Object? recipeId = null,Object? servings = freezed,Object? uploaded = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,startDate: null == startDate ? _self.startDate : startDate // ignore: cast_nullable_to_non_nullable
 as DateTime,endDate: null == endDate ? _self.endDate : endDate // ignore: cast_nullable_to_non_nullable
 as DateTime,recipeId: null == recipeId ? _self.recipeId : recipeId // ignore: cast_nullable_to_non_nullable
-as String,uploaded: null == uploaded ? _self.uploaded : uploaded // ignore: cast_nullable_to_non_nullable
+as String,servings: freezed == servings ? _self.servings : servings // ignore: cast_nullable_to_non_nullable
+as int?,uploaded: null == uploaded ? _self.uploaded : uploaded // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }
@@ -157,10 +158,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  DateTime startDate,  DateTime endDate,  String recipeId,  bool uploaded)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  DateTime startDate,  DateTime endDate,  String recipeId,  int? servings,  bool uploaded)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _RecipeStatisticData() when $default != null:
-return $default(_that.id,_that.startDate,_that.endDate,_that.recipeId,_that.uploaded);case _:
+return $default(_that.id,_that.startDate,_that.endDate,_that.recipeId,_that.servings,_that.uploaded);case _:
   return orElse();
 
 }
@@ -178,10 +179,10 @@ return $default(_that.id,_that.startDate,_that.endDate,_that.recipeId,_that.uplo
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  DateTime startDate,  DateTime endDate,  String recipeId,  bool uploaded)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  DateTime startDate,  DateTime endDate,  String recipeId,  int? servings,  bool uploaded)  $default,) {final _that = this;
 switch (_that) {
 case _RecipeStatisticData():
-return $default(_that.id,_that.startDate,_that.endDate,_that.recipeId,_that.uploaded);case _:
+return $default(_that.id,_that.startDate,_that.endDate,_that.recipeId,_that.servings,_that.uploaded);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -198,10 +199,10 @@ return $default(_that.id,_that.startDate,_that.endDate,_that.recipeId,_that.uplo
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  DateTime startDate,  DateTime endDate,  String recipeId,  bool uploaded)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  DateTime startDate,  DateTime endDate,  String recipeId,  int? servings,  bool uploaded)?  $default,) {final _that = this;
 switch (_that) {
 case _RecipeStatisticData() when $default != null:
-return $default(_that.id,_that.startDate,_that.endDate,_that.recipeId,_that.uploaded);case _:
+return $default(_that.id,_that.startDate,_that.endDate,_that.recipeId,_that.servings,_that.uploaded);case _:
   return null;
 
 }
@@ -213,13 +214,14 @@ return $default(_that.id,_that.startDate,_that.endDate,_that.recipeId,_that.uplo
 @JsonSerializable()
 
 class _RecipeStatisticData implements RecipeStatisticData {
-  const _RecipeStatisticData({required this.id, required this.startDate, required this.endDate, required this.recipeId, this.uploaded = false});
+  const _RecipeStatisticData({required this.id, required this.startDate, required this.endDate, required this.recipeId, required this.servings, this.uploaded = false});
   factory _RecipeStatisticData.fromJson(Map<String, dynamic> json) => _$RecipeStatisticDataFromJson(json);
 
 @override final  String id;
 @override final  DateTime startDate;
 @override final  DateTime endDate;
 @override final  String recipeId;
+@override final  int? servings;
 @override@JsonKey() final  bool uploaded;
 
 /// Create a copy of RecipeStatisticData
@@ -235,16 +237,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RecipeStatisticData&&(identical(other.id, id) || other.id == id)&&(identical(other.startDate, startDate) || other.startDate == startDate)&&(identical(other.endDate, endDate) || other.endDate == endDate)&&(identical(other.recipeId, recipeId) || other.recipeId == recipeId)&&(identical(other.uploaded, uploaded) || other.uploaded == uploaded));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RecipeStatisticData&&(identical(other.id, id) || other.id == id)&&(identical(other.startDate, startDate) || other.startDate == startDate)&&(identical(other.endDate, endDate) || other.endDate == endDate)&&(identical(other.recipeId, recipeId) || other.recipeId == recipeId)&&(identical(other.servings, servings) || other.servings == servings)&&(identical(other.uploaded, uploaded) || other.uploaded == uploaded));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,startDate,endDate,recipeId,uploaded);
+int get hashCode => Object.hash(runtimeType,id,startDate,endDate,recipeId,servings,uploaded);
 
 @override
 String toString() {
-  return 'RecipeStatisticData(id: $id, startDate: $startDate, endDate: $endDate, recipeId: $recipeId, uploaded: $uploaded)';
+  return 'RecipeStatisticData(id: $id, startDate: $startDate, endDate: $endDate, recipeId: $recipeId, servings: $servings, uploaded: $uploaded)';
 }
 
 
@@ -255,7 +257,7 @@ abstract mixin class _$RecipeStatisticDataCopyWith<$Res> implements $RecipeStati
   factory _$RecipeStatisticDataCopyWith(_RecipeStatisticData value, $Res Function(_RecipeStatisticData) _then) = __$RecipeStatisticDataCopyWithImpl;
 @override @useResult
 $Res call({
- String id, DateTime startDate, DateTime endDate, String recipeId, bool uploaded
+ String id, DateTime startDate, DateTime endDate, String recipeId, int? servings, bool uploaded
 });
 
 
@@ -272,13 +274,14 @@ class __$RecipeStatisticDataCopyWithImpl<$Res>
 
 /// Create a copy of RecipeStatisticData
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? startDate = null,Object? endDate = null,Object? recipeId = null,Object? uploaded = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? startDate = null,Object? endDate = null,Object? recipeId = null,Object? servings = freezed,Object? uploaded = null,}) {
   return _then(_RecipeStatisticData(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,startDate: null == startDate ? _self.startDate : startDate // ignore: cast_nullable_to_non_nullable
 as DateTime,endDate: null == endDate ? _self.endDate : endDate // ignore: cast_nullable_to_non_nullable
 as DateTime,recipeId: null == recipeId ? _self.recipeId : recipeId // ignore: cast_nullable_to_non_nullable
-as String,uploaded: null == uploaded ? _self.uploaded : uploaded // ignore: cast_nullable_to_non_nullable
+as String,servings: freezed == servings ? _self.servings : servings // ignore: cast_nullable_to_non_nullable
+as int?,uploaded: null == uploaded ? _self.uploaded : uploaded // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }
