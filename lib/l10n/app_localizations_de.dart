@@ -177,7 +177,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get addConversionAmount => 'Umrechnungsmenge hinzufügen';
 
   @override
-  String get addRealNumber => 'Reelle Zahl hinzufügen';
+  String get addRealNumber => 'Echte Zahl hinzufügen';
 
   @override
   String get scanGrocery => 'Lebensmittel scannen';

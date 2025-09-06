@@ -6,6 +6,7 @@ import 'package:recipath/application/storage_modifier/storage_modifier_notifier.
 import 'package:recipath/data/recipe_data/recipe_data.dart';
 import 'package:recipath/data/recipe_statistic_data/recipe_statistic_data.dart';
 import 'package:recipath/data/storage_data/storage_data.dart';
+import 'package:recipath/data/timer_data/timer_data.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/recipe_notifier.dart';
@@ -16,12 +17,12 @@ import 'package:recipath/widgets/screens/storage_screen/providers/storage_notifi
 
 class FinishRecipeButton extends ConsumerWidget {
   const FinishRecipeButton({
-    required this.timerStartTime,
+    required this.timerData,
     required this.recipeId,
     super.key,
   });
 
-  final DateTime timerStartTime;
+  final TimerData timerData;
   final String recipeId;
 
   @override
@@ -29,7 +30,7 @@ class FinishRecipeButton extends ConsumerWidget {
     return FloatingActionButton.extended(
       onPressed: () async {
         final recipeDateRange = DateTimeRange(
-          start: ref.read(timerNotifierProvider)[recipeId]!,
+          start: timerData.startTime,
           end: DateTime.now(),
         );
 
@@ -45,11 +46,13 @@ class FinishRecipeButton extends ConsumerWidget {
 
         if (durationResponse.duration == null) return;
 
-        final recipe = ref.read(
-          recipeNotifierProvider.select((value) => value.value?[recipeId]),
-        );
+        final recipe = ref
+            .read(
+              recipeNotifierProvider.select((value) => value.value?[recipeId]),
+            )!
+            .adjustIngredientForPlannedServings(timerData.servings);
         final groceries = ref.read(groceryNotifierProvider).value!;
-        final ingredients = recipe!.getIngredients(groceries);
+        final ingredients = recipe.getIngredients(groceries);
 
         ref
             .read(recipeStatisticsModifierNotifierProvider)
@@ -86,7 +89,7 @@ class FinishRecipeButton extends ConsumerWidget {
       },
       label: Row(
         children: [
-          CountUpTimer(startTime: timerStartTime),
+          CountUpTimer(startTime: timerData.startTime),
           SizedBox(width: 20),
           Icon(Icons.check),
         ],

@@ -9,7 +9,7 @@ class RecipeRoutes {
   static GoRoute recipeOverview = GoRoute(
     path: "recipeOverview/:recipeId",
     builder: (context, state) =>
-        RecipeScreen(recipeId: state.pathParameters["recipeId"]!),
+        RecipeOverviewScreen(recipeId: state.pathParameters["recipeId"]!),
     routes: [createRecipe],
   );
 

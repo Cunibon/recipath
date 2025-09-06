@@ -103,6 +103,26 @@ extension RecipeDataFunctions on RecipeData {
     );
   }
 
+  RecipeData adjustIngredientForPlannedServings(int? plannedServings) {
+    if (servings == null || plannedServings == null) return this;
+    final ratio = plannedServings / servings!;
+    return copyWith(
+      servings: plannedServings,
+      steps: steps
+          .map(
+            (step) => step.copyWith(
+              ingredients: step.ingredients
+                  .map(
+                    (ingredient) =>
+                        ingredient.copyWith(amount: ingredient.amount * ratio),
+                  )
+                  .toList(),
+            ),
+          )
+          .toList(),
+    );
+  }
+
   Set<IngredientData> diffIngredients(RecipeData other) {
     final ingredients = steps.expand((step) => step.ingredients).toSet();
     final otherIngredients = other.steps
