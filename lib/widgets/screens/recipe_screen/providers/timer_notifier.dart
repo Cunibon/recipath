@@ -35,6 +35,14 @@ class TimerNotifier extends _$TimerNotifier {
     updateState();
   }
 
+  void adjustServings(String recipeId, int? servings) {
+    if (state.containsKey(recipeId)) {
+      state[recipeId] = state[recipeId]!.copyWith(servings: servings);
+
+      updateState();
+    }
+  }
+
   void moveTimer({required RecipeData newData, required RecipeData oldData}) {
     if (state.containsKey(oldData.id)) {
       state[newData.id] = state.remove(oldData.id)!;

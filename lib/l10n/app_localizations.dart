@@ -248,6 +248,12 @@ abstract class AppLocalizations {
   /// **'All unsaved changes will be lost!'**
   String get leaveThisPageContent;
 
+  /// No description provided for @baseValue.
+  ///
+  /// In en, this message translates to:
+  /// **'Base value'**
+  String get baseValue;
+
   /// No description provided for @recipes.
   ///
   /// In en, this message translates to:

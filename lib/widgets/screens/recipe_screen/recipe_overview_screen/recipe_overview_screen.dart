@@ -15,29 +15,52 @@ import 'package:recipath/widgets/screens/recipe_screen/recipe_overview_screen/re
 import 'package:recipath/widgets/screens/recipe_screen/recipe_overview_screen/recipe_step.dart';
 import 'package:recipath/widgets/screens/recipe_screen/recipe_routes.dart';
 
-class RecipeOverviewScreen extends ConsumerStatefulWidget {
+class RecipeOverviewScreen extends ConsumerWidget {
   const RecipeOverviewScreen({required this.recipeId, super.key});
 
   final String recipeId;
 
   @override
-  ConsumerState<RecipeOverviewScreen> createState() =>
-      _RecipeOverviewScreenState();
+  Widget build(BuildContext context, WidgetRef ref) {
+    return _RecipeOverviewScreen(
+      originalData: ref.watch(
+        recipeNotifierProvider.select((value) => value.value?[recipeId]),
+      )!,
+    );
+  }
 }
 
-class _RecipeOverviewScreenState extends ConsumerState<RecipeOverviewScreen> {
-  late RecipeData originalData;
+class _RecipeOverviewScreen extends ConsumerStatefulWidget {
+  const _RecipeOverviewScreen({required this.originalData});
+
+  final RecipeData originalData;
+
+  @override
+  ConsumerState<_RecipeOverviewScreen> createState() =>
+      __RecipeOverviewScreenState();
+}
+
+class __RecipeOverviewScreenState extends ConsumerState<_RecipeOverviewScreen> {
   late RecipeData recipeData;
+
+  @override
+  void didUpdateWidget(covariant _RecipeOverviewScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.originalData != widget.originalData) {
+      setState(() => setInitialData());
+    }
+  }
 
   @override
   void initState() {
     super.initState();
-    originalData = ref.read(
-      recipeNotifierProvider.select((value) => value.value?[widget.recipeId]),
-    )!;
-    final timer = ref.read(timerNotifierProvider)[originalData.id];
-    recipeData = originalData.adjustIngredientForPlannedServings(
-      timer?.servings ?? originalData.servings,
+    setInitialData();
+  }
+
+  void setInitialData() {
+    final timer = ref.read(timerNotifierProvider)[widget.originalData.id];
+    recipeData = widget.originalData.adjustIngredientForPlannedServings(
+      timer?.servings ?? widget.originalData.servings,
     );
   }
 
@@ -59,8 +82,8 @@ class _RecipeOverviewScreenState extends ConsumerState<RecipeOverviewScreen> {
             onPressed: () => context.go(
               Uri(
                 path:
-                    '${RootRoutes.recipeRoute.path}/recipeOverview/${widget.recipeId}/${RecipeRoutes.createRecipe.path}',
-                queryParameters: {idParameter: widget.recipeId},
+                    '${RootRoutes.recipeRoute.path}/recipeOverview/${widget.originalData.id}/${RecipeRoutes.createRecipe.path}',
+                queryParameters: {idParameter: widget.originalData.id},
               ).toString(),
             ),
             icon: Icon(Icons.edit),
@@ -119,7 +142,8 @@ class _RecipeOverviewScreenState extends ConsumerState<RecipeOverviewScreen> {
                   child: TextFormField(
                     initialValue: recipeData.servings!.toString(),
                     decoration: InputDecoration(
-                      labelText: localization.servings,
+                      labelText:
+                          "${localization.servings} (${localization.baseValue}: ${widget.originalData.servings})",
                     ),
                     autovalidateMode: AutovalidateMode.always,
                     keyboardType: TextInputType.number,
@@ -136,10 +160,13 @@ class _RecipeOverviewScreenState extends ConsumerState<RecipeOverviewScreen> {
                       if (newServings != null &&
                           !newServings.isNegative &&
                           newServings != 0) {
-                        setState(
-                          () => recipeData = originalData
-                              .adjustIngredientForPlannedServings(newServings),
-                        );
+                        setState(() {
+                          recipeData = widget.originalData
+                              .adjustIngredientForPlannedServings(newServings);
+                          ref
+                              .read(timerNotifierProvider.notifier)
+                              .adjustServings(recipeData.id, newServings);
+                        });
                       }
                     },
                   ),

@@ -93,6 +93,9 @@ class AppLocalizationsDe extends AppLocalizations {
       'Alle ungespeicherten Änderungen gehen verloren!';
 
   @override
+  String get baseValue => 'Basiswert';
+
+  @override
   String get recipes => 'Rezepte';
 
   @override

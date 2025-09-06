@@ -39,6 +39,7 @@
     "finishShoppingContent": "Do you want to finish your shopping planning and your items to your shopping list",
     "leaveThisPage": "Are you want to leave this page?",
     "leaveThisPageContent": "All unsaved changes will be lost!",
+    "baseValue": "Base value",
     "recipes": "Recipes",
     "shoppingList": "Shopping list",
     "storage": "Storage",

@@ -91,6 +91,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get leaveThisPageContent => 'All unsaved changes will be lost!';
 
   @override
+  String get baseValue => 'Base value';
+
+  @override
   String get recipes => 'Recipes';
 
   @override
