@@ -107,7 +107,7 @@ class _IngredientItemState extends ConsumerState<IngredientItem> {
               : DropdownButtonFormField(
                   isExpanded: true,
                   decoration: InputDecoration(labelText: localization.unit),
-                  value: widget.data.unit,
+                  initialValue: widget.data.unit,
                   validator: (value) =>
                       value == null ? localization.addUnit : null,
                   items:
