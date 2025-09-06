@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
+import 'package:recipath/data/timer_data/timer_data.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/root_routes.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
@@ -15,11 +16,11 @@ import 'package:recipath/widgets/screens/recipe_screen/providers/shopping_planni
 class CompactRecipeItem extends ConsumerWidget {
   const CompactRecipeItem({
     required this.data,
-    required this.timerRunning,
+    required this.timerData,
     super.key,
   });
   final RecipeData data;
-  final bool timerRunning;
+  final TimerData? timerData;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -85,7 +86,7 @@ class CompactRecipeItem extends ConsumerWidget {
                                           ),
                                     loadingBuilder: () => SizedBox.shrink(),
                                   ),
-                                  if (timerRunning)
+                                  if (timerData != null)
                                     Icon(
                                       Icons.timer,
                                       color: Colors.amber,
@@ -95,7 +96,7 @@ class CompactRecipeItem extends ConsumerWidget {
                               ),
                               if (data.servings != null)
                                 Text(
-                                  "${AppLocalizations.of(context)!.servings}: ${data.servings}",
+                                  "${AppLocalizations.of(context)!.servings}: ${timerData?.servings ?? data.servings}",
                                 ),
                             ],
                           ),
