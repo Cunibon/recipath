@@ -12,6 +12,7 @@ _RecipeStatisticData _$RecipeStatisticDataFromJson(Map<String, dynamic> json) =>
       startDate: DateTime.parse(json['startDate'] as String),
       endDate: DateTime.parse(json['endDate'] as String),
       recipeId: json['recipeId'] as String,
+      servings: (json['servings'] as num?)?.toInt(),
       uploaded: json['uploaded'] as bool? ?? false,
     );
 
@@ -22,5 +23,6 @@ Map<String, dynamic> _$RecipeStatisticDataToJson(
   'startDate': instance.startDate.toIso8601String(),
   'endDate': instance.endDate.toIso8601String(),
   'recipeId': instance.recipeId,
+  'servings': instance.servings,
   'uploaded': instance.uploaded,
 };

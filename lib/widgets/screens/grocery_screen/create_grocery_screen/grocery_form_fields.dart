@@ -107,7 +107,7 @@ class GroceryFormFields extends ConsumerWidget {
                 child: DropdownButtonFormField(
                   isExpanded: true,
                   decoration: InputDecoration(labelText: localization.unit),
-                  value: data.unit,
+                  initialValue: data.unit,
                   validator: (value) =>
                       value == null ? localization.addUnit : null,
                   items: UnitEnum.values
@@ -194,7 +194,7 @@ class GroceryFormFields extends ConsumerWidget {
                         decoration: InputDecoration(
                           labelText: localization.unit,
                         ),
-                        value: data.conversionUnit,
+                        initialValue: data.conversionUnit,
                         validator: (value) =>
                             value == null ? localization.addUnit : null,
                         items:

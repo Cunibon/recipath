@@ -93,6 +93,9 @@ class AppLocalizationsDe extends AppLocalizations {
       'Alle ungespeicherten Änderungen gehen verloren!';
 
   @override
+  String get baseValue => 'Basiswert';
+
+  @override
   String get recipes => 'Rezepte';
 
   @override
@@ -177,7 +180,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get addConversionAmount => 'Umrechnungsmenge hinzufügen';
 
   @override
-  String get addRealNumber => 'Reelle Zahl hinzufügen';
+  String get addRealNumber => 'Echte Zahl hinzufügen';
 
   @override
   String get scanGrocery => 'Lebensmittel scannen';

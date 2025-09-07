@@ -3015,6 +3015,17 @@ class $RecipeStatisticTableTable extends RecipeStatisticTable
     type: DriftSqlType.int,
     requiredDuringInsert: true,
   );
+  static const VerificationMeta _servingsMeta = const VerificationMeta(
+    'servings',
+  );
+  @override
+  late final GeneratedColumn<int> servings = GeneratedColumn<int>(
+    'servings',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _recipeIdMeta = const VerificationMeta(
     'recipeId',
   );
@@ -3049,6 +3060,7 @@ class $RecipeStatisticTableTable extends RecipeStatisticTable
     id,
     startDate,
     endDate,
+    servings,
     recipeId,
     uploaded,
   ];
@@ -3084,6 +3096,12 @@ class $RecipeStatisticTableTable extends RecipeStatisticTable
       );
     } else if (isInserting) {
       context.missing(_endDateMeta);
+    }
+    if (data.containsKey('servings')) {
+      context.handle(
+        _servingsMeta,
+        servings.isAcceptableOrUnknown(data['servings']!, _servingsMeta),
+      );
     }
     if (data.containsKey('recipe_id')) {
       context.handle(
@@ -3123,6 +3141,10 @@ class $RecipeStatisticTableTable extends RecipeStatisticTable
         DriftSqlType.int,
         data['${effectivePrefix}end_date'],
       )!,
+      servings: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}servings'],
+      ),
       recipeId: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}recipe_id'],
@@ -3145,12 +3167,14 @@ class RecipeStatisticTableData extends DataClass
   final String id;
   final int startDate;
   final int endDate;
+  final int? servings;
   final String recipeId;
   final bool uploaded;
   const RecipeStatisticTableData({
     required this.id,
     required this.startDate,
     required this.endDate,
+    this.servings,
     required this.recipeId,
     required this.uploaded,
   });
@@ -3160,6 +3184,9 @@ class RecipeStatisticTableData extends DataClass
     map['id'] = Variable<String>(id);
     map['start_date'] = Variable<int>(startDate);
     map['end_date'] = Variable<int>(endDate);
+    if (!nullToAbsent || servings != null) {
+      map['servings'] = Variable<int>(servings);
+    }
     map['recipe_id'] = Variable<String>(recipeId);
     map['uploaded'] = Variable<bool>(uploaded);
     return map;
@@ -3170,6 +3197,9 @@ class RecipeStatisticTableData extends DataClass
       id: Value(id),
       startDate: Value(startDate),
       endDate: Value(endDate),
+      servings: servings == null && nullToAbsent
+          ? const Value.absent()
+          : Value(servings),
       recipeId: Value(recipeId),
       uploaded: Value(uploaded),
     );
@@ -3184,6 +3214,7 @@ class RecipeStatisticTableData extends DataClass
       id: serializer.fromJson<String>(json['id']),
       startDate: serializer.fromJson<int>(json['startDate']),
       endDate: serializer.fromJson<int>(json['endDate']),
+      servings: serializer.fromJson<int?>(json['servings']),
       recipeId: serializer.fromJson<String>(json['recipeId']),
       uploaded: serializer.fromJson<bool>(json['uploaded']),
     );
@@ -3195,6 +3226,7 @@ class RecipeStatisticTableData extends DataClass
       'id': serializer.toJson<String>(id),
       'startDate': serializer.toJson<int>(startDate),
       'endDate': serializer.toJson<int>(endDate),
+      'servings': serializer.toJson<int?>(servings),
       'recipeId': serializer.toJson<String>(recipeId),
       'uploaded': serializer.toJson<bool>(uploaded),
     };
@@ -3204,12 +3236,14 @@ class RecipeStatisticTableData extends DataClass
     String? id,
     int? startDate,
     int? endDate,
+    Value<int?> servings = const Value.absent(),
     String? recipeId,
     bool? uploaded,
   }) => RecipeStatisticTableData(
     id: id ?? this.id,
     startDate: startDate ?? this.startDate,
     endDate: endDate ?? this.endDate,
+    servings: servings.present ? servings.value : this.servings,
     recipeId: recipeId ?? this.recipeId,
     uploaded: uploaded ?? this.uploaded,
   );
@@ -3220,6 +3254,7 @@ class RecipeStatisticTableData extends DataClass
       id: data.id.present ? data.id.value : this.id,
       startDate: data.startDate.present ? data.startDate.value : this.startDate,
       endDate: data.endDate.present ? data.endDate.value : this.endDate,
+      servings: data.servings.present ? data.servings.value : this.servings,
       recipeId: data.recipeId.present ? data.recipeId.value : this.recipeId,
       uploaded: data.uploaded.present ? data.uploaded.value : this.uploaded,
     );
@@ -3231,6 +3266,7 @@ class RecipeStatisticTableData extends DataClass
           ..write('id: $id, ')
           ..write('startDate: $startDate, ')
           ..write('endDate: $endDate, ')
+          ..write('servings: $servings, ')
           ..write('recipeId: $recipeId, ')
           ..write('uploaded: $uploaded')
           ..write(')'))
@@ -3238,7 +3274,8 @@ class RecipeStatisticTableData extends DataClass
   }
 
   @override
-  int get hashCode => Object.hash(id, startDate, endDate, recipeId, uploaded);
+  int get hashCode =>
+      Object.hash(id, startDate, endDate, servings, recipeId, uploaded);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -3246,6 +3283,7 @@ class RecipeStatisticTableData extends DataClass
           other.id == this.id &&
           other.startDate == this.startDate &&
           other.endDate == this.endDate &&
+          other.servings == this.servings &&
           other.recipeId == this.recipeId &&
           other.uploaded == this.uploaded);
 }
@@ -3255,6 +3293,7 @@ class RecipeStatisticTableCompanion
   final Value<String> id;
   final Value<int> startDate;
   final Value<int> endDate;
+  final Value<int?> servings;
   final Value<String> recipeId;
   final Value<bool> uploaded;
   final Value<int> rowid;
@@ -3262,6 +3301,7 @@ class RecipeStatisticTableCompanion
     this.id = const Value.absent(),
     this.startDate = const Value.absent(),
     this.endDate = const Value.absent(),
+    this.servings = const Value.absent(),
     this.recipeId = const Value.absent(),
     this.uploaded = const Value.absent(),
     this.rowid = const Value.absent(),
@@ -3270,6 +3310,7 @@ class RecipeStatisticTableCompanion
     required String id,
     required int startDate,
     required int endDate,
+    this.servings = const Value.absent(),
     required String recipeId,
     this.uploaded = const Value.absent(),
     this.rowid = const Value.absent(),
@@ -3281,6 +3322,7 @@ class RecipeStatisticTableCompanion
     Expression<String>? id,
     Expression<int>? startDate,
     Expression<int>? endDate,
+    Expression<int>? servings,
     Expression<String>? recipeId,
     Expression<bool>? uploaded,
     Expression<int>? rowid,
@@ -3289,6 +3331,7 @@ class RecipeStatisticTableCompanion
       if (id != null) 'id': id,
       if (startDate != null) 'start_date': startDate,
       if (endDate != null) 'end_date': endDate,
+      if (servings != null) 'servings': servings,
       if (recipeId != null) 'recipe_id': recipeId,
       if (uploaded != null) 'uploaded': uploaded,
       if (rowid != null) 'rowid': rowid,
@@ -3299,6 +3342,7 @@ class RecipeStatisticTableCompanion
     Value<String>? id,
     Value<int>? startDate,
     Value<int>? endDate,
+    Value<int?>? servings,
     Value<String>? recipeId,
     Value<bool>? uploaded,
     Value<int>? rowid,
@@ -3307,6 +3351,7 @@ class RecipeStatisticTableCompanion
       id: id ?? this.id,
       startDate: startDate ?? this.startDate,
       endDate: endDate ?? this.endDate,
+      servings: servings ?? this.servings,
       recipeId: recipeId ?? this.recipeId,
       uploaded: uploaded ?? this.uploaded,
       rowid: rowid ?? this.rowid,
@@ -3324,6 +3369,9 @@ class RecipeStatisticTableCompanion
     }
     if (endDate.present) {
       map['end_date'] = Variable<int>(endDate.value);
+    }
+    if (servings.present) {
+      map['servings'] = Variable<int>(servings.value);
     }
     if (recipeId.present) {
       map['recipe_id'] = Variable<String>(recipeId.value);
@@ -3343,6 +3391,7 @@ class RecipeStatisticTableCompanion
           ..write('id: $id, ')
           ..write('startDate: $startDate, ')
           ..write('endDate: $endDate, ')
+          ..write('servings: $servings, ')
           ..write('recipeId: $recipeId, ')
           ..write('uploaded: $uploaded, ')
           ..write('rowid: $rowid')
@@ -7219,6 +7268,7 @@ typedef $$RecipeStatisticTableTableCreateCompanionBuilder =
       required String id,
       required int startDate,
       required int endDate,
+      Value<int?> servings,
       required String recipeId,
       Value<bool> uploaded,
       Value<int> rowid,
@@ -7228,6 +7278,7 @@ typedef $$RecipeStatisticTableTableUpdateCompanionBuilder =
       Value<String> id,
       Value<int> startDate,
       Value<int> endDate,
+      Value<int?> servings,
       Value<String> recipeId,
       Value<bool> uploaded,
       Value<int> rowid,
@@ -7293,6 +7344,11 @@ class $$RecipeStatisticTableTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
+  ColumnFilters<int> get servings => $composableBuilder(
+    column: $table.servings,
+    builder: (column) => ColumnFilters(column),
+  );
+
   ColumnFilters<bool> get uploaded => $composableBuilder(
     column: $table.uploaded,
     builder: (column) => ColumnFilters(column),
@@ -7346,6 +7402,11 @@ class $$RecipeStatisticTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<int> get servings => $composableBuilder(
+    column: $table.servings,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<bool> get uploaded => $composableBuilder(
     column: $table.uploaded,
     builder: (column) => ColumnOrderings(column),
@@ -7392,6 +7453,9 @@ class $$RecipeStatisticTableTableAnnotationComposer
 
   GeneratedColumn<int> get endDate =>
       $composableBuilder(column: $table.endDate, builder: (column) => column);
+
+  GeneratedColumn<int> get servings =>
+      $composableBuilder(column: $table.servings, builder: (column) => column);
 
   GeneratedColumn<bool> get uploaded =>
       $composableBuilder(column: $table.uploaded, builder: (column) => column);
@@ -7459,6 +7523,7 @@ class $$RecipeStatisticTableTableTableManager
                 Value<String> id = const Value.absent(),
                 Value<int> startDate = const Value.absent(),
                 Value<int> endDate = const Value.absent(),
+                Value<int?> servings = const Value.absent(),
                 Value<String> recipeId = const Value.absent(),
                 Value<bool> uploaded = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
@@ -7466,6 +7531,7 @@ class $$RecipeStatisticTableTableTableManager
                 id: id,
                 startDate: startDate,
                 endDate: endDate,
+                servings: servings,
                 recipeId: recipeId,
                 uploaded: uploaded,
                 rowid: rowid,
@@ -7475,6 +7541,7 @@ class $$RecipeStatisticTableTableTableManager
                 required String id,
                 required int startDate,
                 required int endDate,
+                Value<int?> servings = const Value.absent(),
                 required String recipeId,
                 Value<bool> uploaded = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
@@ -7482,6 +7549,7 @@ class $$RecipeStatisticTableTableTableManager
                 id: id,
                 startDate: startDate,
                 endDate: endDate,
+                servings: servings,
                 recipeId: recipeId,
                 uploaded: uploaded,
                 rowid: rowid,

@@ -10,6 +10,7 @@ class RecipeStatisticTable extends Table {
   TextColumn get id => text()();
   IntColumn get startDate => integer()();
   IntColumn get endDate => integer()();
+  IntColumn get servings => integer().nullable()();
 
   TextColumn get recipeId =>
       text().references(RecipeTable, #id, onDelete: KeyAction.cascade)();

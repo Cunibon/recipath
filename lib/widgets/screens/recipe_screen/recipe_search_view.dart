@@ -27,7 +27,7 @@ class RecipeSearchView extends ConsumerWidget {
 
     return SearchableList(
       name: localization.recipe,
-      trailing: data.timers.isEmpty
+      trailing: data.timerData.isEmpty
           ? null
           : GestureDetector(
               onTap: () => ref
@@ -55,7 +55,7 @@ class RecipeSearchView extends ConsumerWidget {
         key: Key(item.id),
         child: CompactRecipeItem(
           data: item,
-          timerRunning: data.timers.contains(item.id),
+          timerData: data.timerData[item.id],
         ),
         confirmDismiss: (direction) async {
           if (direction == DismissDirection.startToEnd) {

@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
+import 'package:recipath/data/timer_data/timer_data.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/quick_filter_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/recipe_notifier.dart';
@@ -38,7 +39,7 @@ Future<RecipeScreenState> recipeScreenNotifier(Ref ref) async {
 
   return RecipeScreenState(
     synced: synced,
-    timers: timers.keys.toList(),
+    timerData: timers,
     recipe: recipeList,
     grocery: groceries,
   );
@@ -47,13 +48,13 @@ Future<RecipeScreenState> recipeScreenNotifier(Ref ref) async {
 class RecipeScreenState {
   RecipeScreenState({
     required this.synced,
-    required this.timers,
+    required this.timerData,
     required this.recipe,
     required this.grocery,
   });
 
   final bool synced;
-  final List<String> timers;
+  final Map<String, TimerData> timerData;
   final List<RecipeData> recipe;
   final Map<String, GroceryData> grocery;
 }

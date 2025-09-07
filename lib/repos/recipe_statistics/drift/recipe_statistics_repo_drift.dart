@@ -111,7 +111,17 @@ class RecipeStatisticsRepoDrift extends RecipeStatisticsRepo {
       rs.${db.recipeStatisticTable.recipeId.name} AS recipeId, 
       i.${db.ingredientTable.groceryId.name} AS groceryId, 
       i.${db.ingredientTable.unit.name} AS ingredientUnit,
-      SUM(i.${db.ingredientTable.amount.name}) AS totalAmount
+      SUM(
+        i.${db.ingredientTable.amount.name} *
+        CASE
+          WHEN rs.${db.recipeStatisticTable.servings.name} IS NOT NULL
+          AND r.${db.recipeTable.servings.name} IS NOT NULL
+          THEN 
+            CAST(rs.${db.recipeStatisticTable.servings.name} AS REAL) /
+            CAST(r.${db.recipeTable.servings.name} AS REAL)
+          ELSE 1
+        END
+      ) AS totalAmount
     FROM ${db.recipeStatisticTable.actualTableName} rs
     JOIN ${db.recipeStepTable.actualTableName} steps
       ON steps.${db.recipeStepTable.recipeId.name} = rs.${db.recipeStatisticTable.recipeId.name}
@@ -119,6 +129,8 @@ class RecipeStatisticsRepoDrift extends RecipeStatisticsRepo {
       ON rsi.${db.recipeStepIngredientTable.stepId.name} = steps.${db.recipeStepTable.id.name}
     JOIN ${db.ingredientTable.actualTableName} i
       ON i.${db.ingredientTable.id.name} = rsi.${db.recipeStepIngredientTable.ingredientId.name}
+    LEFT JOIN ${db.recipeTable.actualTableName} r
+      ON r.${db.recipeTable.id.name} = rs.${db.recipeStatisticTable.recipeId.name}
     WHERE rs.${db.recipeStatisticTable.startDate.name} >= ?
       AND rs.${db.recipeStatisticTable.startDate.name} <= ?
     GROUP BY rs.${db.recipeStatisticTable.recipeId.name}, i.${db.ingredientTable.groceryId.name}, i.${db.ingredientTable.unit.name}
