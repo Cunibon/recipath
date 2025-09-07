@@ -12,24 +12,10 @@ extension DateTimeExtension on DateTime {
   }
 
   DateTime toTime() {
-    return DateTime(
-      0,
-      1,
-      1,
-      hour,
-      minute,
-      second,
-    );
+    return DateTime(0, 1, 1, hour, minute, second);
   }
 
   DateTime toDate() {
-    return DateTime(
-      year,
-      month,
-      day,
-      0,
-      0,
-      0,
-    );
+    return DateTime(year, month, day, 0, 0, 0);
   }
 }
