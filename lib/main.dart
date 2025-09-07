@@ -64,20 +64,21 @@ void main() async {
         : RootRoutes.recipeRoute.path,
   );
 
-  await SentryFlutter.init(
-    (options) {
-      options.dsn = sentryUrl;
-    },
-    appRunner: () => runApp(
-      ProviderScope(
-        overrides: [
-          databaseNotifierProvider.overrideWith((ref) => db),
-          applicationPathProvider.overrideWith((ref) => applicationPath),
-        ],
-        child: SentryWidget(child: MyApp(router: goRouter)),
-      ),
-    ),
+  final app = ProviderScope(
+    overrides: [
+      databaseNotifierProvider.overrideWith((ref) => db),
+      applicationPathProvider.overrideWith((ref) => applicationPath),
+    ],
+    child: SentryWidget(child: MyApp(router: goRouter)),
   );
+
+  if (kDebugMode) {
+    runApp(app);
+  } else {
+    await SentryFlutter.init((options) {
+      options.dsn = sentryUrl;
+    }, appRunner: () => runApp(app));
+  }
 }
 
 class MyApp extends ConsumerStatefulWidget {
