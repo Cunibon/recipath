@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/common.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
+import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 import 'package:recipath/widgets/screens/history_screens/data/history_data.dart';
@@ -45,6 +46,10 @@ class HistoryRecipeItem extends ConsumerWidget {
                       Text(timeFormat.format(data.date)),
                     ],
                   ),
+                  if (data.recipeData.servings != null)
+                    Text(
+                      "${AppLocalizations.of(context)!.servings}: ${data.recipeData.servings}",
+                    ),
                   CachedAsyncValueWrapper(
                     asyncState: ref.watch(groceryNotifierProvider),
                     builder: (groceryData) => CompactIngredientView(
