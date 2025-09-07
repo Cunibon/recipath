@@ -99,19 +99,19 @@ class RecipeOverviewScreen extends ConsumerWidget {
                   child: TextFormField(
                     key: Key(state.originalData.servings.toString()),
                     initialValue: state.recipeData.servings!.toString(),
+                    autovalidateMode: AutovalidateMode.always,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       labelText:
                           "${localization.servings} (${localization.baseValue}: ${state.originalData.servings})",
                     ),
-                    autovalidateMode: AutovalidateMode.always,
-                    keyboardType: TextInputType.number,
                     validator: (value) {
                       final newServings = int.tryParse(value!);
-                      return newServings == null ||
-                              newServings.isNegative ||
-                              newServings == 0
-                          ? localization.addRealNumber
-                          : null;
+                      return newServings != null &&
+                              !newServings.isNegative &&
+                              newServings != 0
+                          ? null
+                          : localization.addRealNumber;
                     },
                     onChanged: (value) {
                       final newServings = int.tryParse(value);
