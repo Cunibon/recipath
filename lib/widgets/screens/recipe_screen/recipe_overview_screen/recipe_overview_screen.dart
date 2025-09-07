@@ -7,10 +7,9 @@ import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/root_routes.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/local_image.dart';
-import 'package:recipath/widgets/screens/recipe_screen/providers/recipe_notifier.dart';
-import 'package:recipath/widgets/screens/recipe_screen/providers/timer_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/recipe_overview_screen/ingredients_list.dart';
 import 'package:recipath/widgets/screens/recipe_screen/recipe_overview_screen/nutriments_list.dart';
+import 'package:recipath/widgets/screens/recipe_screen/recipe_overview_screen/providers/recipe_overview_screen_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/recipe_overview_screen/recipe_button/track_recipe_button.dart';
 import 'package:recipath/widgets/screens/recipe_screen/recipe_overview_screen/recipe_step.dart';
 import 'package:recipath/widgets/screens/recipe_screen/recipe_routes.dart';
@@ -22,59 +21,17 @@ class RecipeOverviewScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return _RecipeOverviewScreen(
-      originalData: ref.watch(
-        recipeNotifierProvider.select((value) => value.value?[recipeId]),
-      )!,
-    );
-  }
-}
-
-class _RecipeOverviewScreen extends ConsumerStatefulWidget {
-  const _RecipeOverviewScreen({required this.originalData});
-
-  final RecipeData originalData;
-
-  @override
-  ConsumerState<_RecipeOverviewScreen> createState() =>
-      __RecipeOverviewScreenState();
-}
-
-class __RecipeOverviewScreenState extends ConsumerState<_RecipeOverviewScreen> {
-  late RecipeData recipeData;
-
-  @override
-  void didUpdateWidget(covariant _RecipeOverviewScreen oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (oldWidget.originalData != widget.originalData) {
-      setState(() => setInitialData());
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    setInitialData();
-  }
-
-  void setInitialData() {
-    final timer = ref.read(timerNotifierProvider)[widget.originalData.id];
-    recipeData = widget.originalData.adjustIngredientForPlannedServings(
-      timer?.servings ?? widget.originalData.servings,
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context)!;
 
+    final state = ref.watch(recipeOverviewScreenNotifierProvider(recipeId));
+
     final groceries = ref.watch(groceryNotifierProvider).value!;
-    final ingredients = recipeData.getIngredients(groceries);
+    final ingredients = state.recipeData.getIngredients(groceries);
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          recipeData.title,
+          state.recipeData.title,
           style: Theme.of(context).textTheme.titleLarge,
         ),
         actions: [
@@ -82,25 +39,25 @@ class __RecipeOverviewScreenState extends ConsumerState<_RecipeOverviewScreen> {
             onPressed: () => context.go(
               Uri(
                 path:
-                    '${RootRoutes.recipeRoute.path}/recipeOverview/${widget.originalData.id}/${RecipeRoutes.createRecipe.path}',
-                queryParameters: {idParameter: widget.originalData.id},
+                    '${RootRoutes.recipeRoute.path}/recipeOverview/${state.originalData.id}/${RecipeRoutes.createRecipe.path}',
+                queryParameters: {idParameter: state.originalData.id},
               ).toString(),
             ),
             icon: Icon(Icons.edit),
           ),
         ],
       ),
-      floatingActionButton: TrackRecipeButton(recipeData: recipeData),
+      floatingActionButton: TrackRecipeButton(recipeData: state.recipeData),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (recipeData.imageName != null) ...[
+              if (state.recipeData.imageName != null) ...[
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 4),
-                  child: LocalImage(fileName: recipeData.imageName!),
+                  child: LocalImage(fileName: state.recipeData.imageName!),
                 ),
                 Divider(),
               ],
@@ -127,7 +84,7 @@ class __RecipeOverviewScreenState extends ConsumerState<_RecipeOverviewScreen> {
                             height: double.infinity,
                             child: NutrimentsList(
                               ingredients: ingredients,
-                              servings: recipeData.servings,
+                              servings: state.recipeData.servings,
                             ),
                           ),
                         ),
@@ -136,14 +93,15 @@ class __RecipeOverviewScreenState extends ConsumerState<_RecipeOverviewScreen> {
                   ],
                 ),
               ),
-              if (recipeData.servings != null)
+              if (state.recipeData.servings != null)
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: TextFormField(
-                    initialValue: recipeData.servings!.toString(),
+                    key: Key(state.originalData.servings.toString()),
+                    initialValue: state.recipeData.servings!.toString(),
                     decoration: InputDecoration(
                       labelText:
-                          "${localization.servings} (${localization.baseValue}: ${widget.originalData.servings})",
+                          "${localization.servings} (${localization.baseValue}: ${state.originalData.servings})",
                     ),
                     autovalidateMode: AutovalidateMode.always,
                     keyboardType: TextInputType.number,
@@ -160,22 +118,25 @@ class __RecipeOverviewScreenState extends ConsumerState<_RecipeOverviewScreen> {
                       if (newServings != null &&
                           !newServings.isNegative &&
                           newServings != 0) {
-                        setState(() {
-                          recipeData = widget.originalData
-                              .adjustIngredientForPlannedServings(newServings);
-                          ref
-                              .read(timerNotifierProvider.notifier)
-                              .adjustServings(recipeData.id, newServings);
-                        });
+                        ref
+                            .read(
+                              recipeOverviewScreenNotifierProvider(
+                                recipeId,
+                              ).notifier,
+                            )
+                            .adjustServings(newServings);
                       }
                     },
                   ),
                 ),
-              for (int i = 0; i < recipeData.steps.length; i++)
+              for (int i = 0; i < state.recipeData.steps.length; i++)
                 Card(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: RecipeStep(index: i, step: recipeData.steps[i]),
+                    child: RecipeStep(
+                      index: i,
+                      step: state.recipeData.steps[i],
+                    ),
                   ),
                 ),
               SizedBox(height: 78),
