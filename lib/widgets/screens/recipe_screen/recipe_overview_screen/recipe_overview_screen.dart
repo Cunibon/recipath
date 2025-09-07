@@ -97,7 +97,9 @@ class RecipeOverviewScreen extends ConsumerWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: TextFormField(
-                    key: Key(state.originalData.servings.toString()),
+                    key: Key(
+                      "${state.originalData.servings} ${state.timer?.servings}",
+                    ),
                     initialValue: state.recipeData.servings!.toString(),
                     autovalidateMode: AutovalidateMode.always,
                     keyboardType: TextInputType.number,
