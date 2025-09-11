@@ -47,6 +47,7 @@ class NavigationDrawerScaffold extends ConsumerWidget {
     final selectedIndex = destiantions.indexWhere(
       (element) => currentRoute.startsWith(element.route),
     );
+    final localization = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: AppBar(
@@ -72,7 +73,7 @@ class NavigationDrawerScaffold extends ConsumerWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              'Destinations',
+              localization.destinations,
               style: Theme.of(context).textTheme.titleLarge,
             ),
           ),

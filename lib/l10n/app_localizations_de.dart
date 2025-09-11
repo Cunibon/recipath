@@ -373,4 +373,10 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get subscription => 'Abonnement';
+
+  @override
+  String get destinations => 'Reiseziele';
+
+  @override
+  String get somethingUnexpected => 'Ups, etwas Unerwartetes ist passiert';
 }
