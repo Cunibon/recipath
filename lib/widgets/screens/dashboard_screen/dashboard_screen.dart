@@ -71,10 +71,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
               selectedRecipes: selectedRecipes,
               onTap: (recipeId) => setState(() {
                 if (recipeId != null) {
-                  selectedRecipes = {...selectedRecipes, recipeId};
+                  if (selectedRecipes.contains(recipeId)) {
+                    selectedRecipes.remove(recipeId);
+                  } else {
+                    selectedRecipes.add(recipeId);
+                  }
                 } else {
-                  selectedRecipes = {};
+                  selectedRecipes.clear();
                 }
+                selectedRecipes = Set.from(selectedRecipes);
               }),
             ),
             GroceryChart(
