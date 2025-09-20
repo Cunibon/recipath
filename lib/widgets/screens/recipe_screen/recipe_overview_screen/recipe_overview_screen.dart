@@ -23,9 +23,9 @@ class RecipeOverviewScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final localization = AppLocalizations.of(context)!;
 
-    final state = ref.watch(recipeOverviewScreenNotifierProvider(recipeId));
+    final state = ref.watch(recipeOverviewScreenProvider(recipeId));
 
-    final groceries = ref.watch(groceryNotifierProvider).value!;
+    final groceries = ref.watch(groceryProvider).value!;
     final ingredients = state.recipeData.getIngredients(groceries);
 
     return Scaffold(
@@ -122,9 +122,7 @@ class RecipeOverviewScreen extends ConsumerWidget {
                           newServings != 0) {
                         ref
                             .read(
-                              recipeOverviewScreenNotifierProvider(
-                                recipeId,
-                              ).notifier,
+                              recipeOverviewScreenProvider(recipeId).notifier,
                             )
                             .adjustServings(newServings);
                       }

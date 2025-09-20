@@ -25,7 +25,7 @@ class ImportButton extends ConsumerWidget {
           final data = jsonDecode(await file.readAsString());
 
           if (data is Map<String, dynamic>) {
-            ref.read(dataImportServiceNotifierProvider).import(data);
+            ref.read(dataImportServiceProvider).import(data);
           }
         }
       },

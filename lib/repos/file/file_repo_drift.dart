@@ -1,8 +1,9 @@
 import 'package:drift/drift.dart';
+import 'package:recipath/data/file_data/file_data.dart';
 import 'package:recipath/drift/database.dart';
 import 'package:recipath/repos/sync_repo.dart';
 
-class FileRepoDrift extends SyncRepo<FileTableData> {
+class FileRepoDrift extends SyncRepo<FileData> {
   FileRepoDrift(super.db);
 
   @override
@@ -12,27 +13,29 @@ class FileRepoDrift extends SyncRepo<FileTableData> {
       db.select(table);
 
   @override
-  Future<Map<String, FileTableData>> getNotUploaded() async {
+  Future<Map<String, FileData>> getNotUploaded() async {
     final rows = await (baseQuery..where((tbl) => tbl.uploaded.equals(false)))
         .get();
-    return {for (final row in rows) row.fileName: row};
+    return {for (final row in rows) row.fileName: FileData.fromTableData(row)};
   }
 
   @override
-  Future<Map<String, FileTableData>> get() async {
+  Future<Map<String, FileData>> get() async {
     final rows = await baseQuery.get();
-    return {for (final row in rows) row.fileName: row};
+    return {for (final row in rows) row.fileName: FileData.fromTableData(row)};
   }
 
   @override
-  Stream<Map<String, FileTableData>> stream() {
+  Stream<Map<String, FileData>> stream() {
     return baseQuery.watch().map(
-      (rows) => {for (final row in rows) row.fileName: row},
+      (rows) => {
+        for (final row in rows) row.fileName: FileData.fromTableData(row),
+      },
     );
   }
 
   @override
-  Future<void> add(FileTableData newData) async {
+  Future<void> add(FileData newData) async {
     await db
         .into(table)
         .insertOnConflictUpdate(

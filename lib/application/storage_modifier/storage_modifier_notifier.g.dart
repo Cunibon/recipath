@@ -50,4 +50,4 @@ final class StorageModifierNotifierProvider
 }
 
 String _$storageModifierNotifierHash() =>
-    r'cc3442721f66cd614d4e196a13c2215418adabae';
+    r'661b526bf7a78d158afed40c29bbf17a123b7241';

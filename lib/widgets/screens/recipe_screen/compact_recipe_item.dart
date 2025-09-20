@@ -24,7 +24,7 @@ class CompactRecipeItem extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final shoppingPlan = ref.watch(shoppingPlanningNotifierProvider);
+    final shoppingPlan = ref.watch(shoppingPlanningProvider);
 
     return GestureDetector(
       onTap: () {
@@ -33,7 +33,7 @@ class CompactRecipeItem extends ConsumerWidget {
             '${RootRoutes.recipeRoute.path}/recipeOverview/${data.id}',
           );
         } else {
-          ref.read(shoppingPlanningNotifierProvider.notifier).addRecipe(data);
+          ref.read(shoppingPlanningProvider.notifier).addRecipe(data);
         }
       },
       child: Card(
@@ -75,9 +75,7 @@ class CompactRecipeItem extends ConsumerWidget {
                                   ),
                                   CachedAsyncValueWrapper(
                                     asyncState: ref.watch(
-                                      averageRecipeTimeNotifierProvider(
-                                        data.id,
-                                      ),
+                                      averageRecipeTimeProvider(data.id),
                                     ),
                                     builder: (data) => data == null
                                         ? SizedBox.shrink()
@@ -112,7 +110,7 @@ class CompactRecipeItem extends ConsumerWidget {
                       ],
                     ),
                     CachedAsyncValueWrapper(
-                      asyncState: ref.watch(groceryNotifierProvider),
+                      asyncState: ref.watch(groceryProvider),
                       builder: (groceryMap) => CompactIngredientView(
                         checkStorage: true,
                         ingredients: data.getIngredients(groceryMap),

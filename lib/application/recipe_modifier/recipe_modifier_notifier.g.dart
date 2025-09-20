@@ -49,4 +49,4 @@ final class RecipeModifierNotifierProvider
 }
 
 String _$recipeModifierNotifierHash() =>
-    r'0bfa846f3a7b5bf3cafb9cdd89c2521162d05c38';
+    r'6c641df19b1212fa0b488e3cb89b326dd42a989f';

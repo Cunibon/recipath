@@ -25,13 +25,13 @@ class ShoppingItem extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final unitLocalized = localizeUnits(context);
 
-    final doubleNumberFormat = ref.watch(doubleNumberFormatNotifierProvider);
+    final doubleNumberFormat = ref.watch(doubleNumberFormatProvider);
 
-    final groceries = ref.watch(groceryNotifierProvider).value!;
+    final groceries = ref.watch(groceryProvider).value!;
 
     void switchState() {
-      final shoppingNotifier = ref.read(shoppingModifierNotifierProvider);
-      final storageNotifier = ref.read(storageModifierNotifierProvider);
+      final shoppingNotifier = ref.read(shoppingModifierProvider);
+      final storageNotifier = ref.read(storageModifierProvider);
 
       final ingredientRep = IngredientData(
         id: randomAlphaNumeric(16),
@@ -89,7 +89,7 @@ class ShoppingItem extends ConsumerWidget {
                         );
 
                   if (result == true) {
-                    ref.read(shoppingModifierNotifierProvider).deleteItem(data);
+                    ref.read(shoppingModifierProvider).deleteItem(data);
                   }
                 },
                 icon: Icon(Icons.delete),

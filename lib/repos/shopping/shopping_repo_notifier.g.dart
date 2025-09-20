@@ -55,4 +55,4 @@ final class ShoppingRepoNotifierProvider
 }
 
 String _$shoppingRepoNotifierHash() =>
-    r'c48e2ce372dacce1d1263f3b891fb2545f57f715';
+    r'8cf35d1105192fdffd6544d8ef37b4fad781facf';

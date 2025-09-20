@@ -22,8 +22,8 @@ class RecipeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final screenState = ref.watch(recipeScreenNotifierProvider);
-    final shoppingPlan = ref.watch(shoppingPlanningNotifierProvider);
+    final screenState = ref.watch(recipeScreenProvider);
+    final shoppingPlan = ref.watch(shoppingPlanningProvider);
 
     return NavigationDrawerScaffold(
       titleBuilder: (title) => DefaultNavigationTitle(
@@ -36,7 +36,7 @@ class RecipeScreen extends ConsumerWidget {
         if (shoppingPlan == null)
           IconButton(
             onPressed: () =>
-                ref.read(shoppingPlanningNotifierProvider.notifier).start(),
+                ref.read(shoppingPlanningProvider.notifier).start(),
             icon: Icon(Icons.shopping_cart),
           )
         else ...[
@@ -48,7 +48,7 @@ class RecipeScreen extends ConsumerWidget {
               );
 
               if (cancel == true) {
-                ref.read(shoppingPlanningNotifierProvider.notifier).clear();
+                ref.read(shoppingPlanningProvider.notifier).clear();
               }
             },
             icon: Icon(Icons.clear),
@@ -63,15 +63,11 @@ class RecipeScreen extends ConsumerWidget {
 
               if (finish != true) return;
 
-              final shoppingPlan = ref.read(shoppingPlanningNotifierProvider);
+              final shoppingPlan = ref.read(shoppingPlanningProvider);
 
               if (shoppingPlan != null && shoppingPlan.isNotEmpty) {
-                final shoppingModifier = ref.read(
-                  shoppingModifierNotifierProvider,
-                );
-                final recipeShopping = ref.read(
-                  recipeShoppingModifierNotifierProvider,
-                );
+                final shoppingModifier = ref.read(shoppingModifierProvider);
+                final recipeShopping = ref.read(recipeShoppingModifierProvider);
 
                 List<IngredientData> ingredientData = [];
 
@@ -100,7 +96,7 @@ class RecipeScreen extends ConsumerWidget {
                 }
               }
 
-              ref.read(shoppingPlanningNotifierProvider.notifier).clear();
+              ref.read(shoppingPlanningProvider.notifier).clear();
             },
             icon: Icon(Icons.done),
           ),

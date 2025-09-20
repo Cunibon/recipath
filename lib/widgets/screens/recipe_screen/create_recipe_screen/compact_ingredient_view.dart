@@ -20,9 +20,9 @@ class CompactIngredientView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final unitLocalized = localizeUnits(context);
-    final screenState = ref.watch(compactIngredientViewNotifierProvider);
+    final screenState = ref.watch(compactIngredientViewProvider);
 
-    final doubleNumberFormat = ref.watch(doubleNumberFormatNotifierProvider);
+    final doubleNumberFormat = ref.watch(doubleNumberFormatProvider);
 
     return CachedAsyncValueWrapper(
       asyncState: screenState,

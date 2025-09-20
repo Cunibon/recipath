@@ -66,7 +66,7 @@ void main() async {
 
   final app = ProviderScope(
     overrides: [
-      databaseNotifierProvider.overrideWith((ref) => db),
+      databaseProvider.overrideWith((ref) => db),
       applicationPathProvider.overrideWith((ref) => applicationPath),
     ],
     child: SentryWidget(child: MyApp(router: goRouter)),
@@ -94,13 +94,13 @@ class _MyAppState extends ConsumerState<MyApp> {
   @override
   void initState() {
     super.initState();
-    ref.read(syncingServiceNotifierProvider.future);
+    ref.read(syncingServiceProvider.future);
   }
 
   @override
   Widget build(BuildContext context) {
-    final themeData = ref.watch(themeDataNotifierProvider);
-    final locale = ref.watch(localeNotifierProvider);
+    final themeData = ref.watch(themeDataProvider);
+    final locale = ref.watch(localeProvider);
 
     return MaterialApp.router(
       title: "ReciPath",

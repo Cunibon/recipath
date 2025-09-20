@@ -8,7 +8,7 @@ class RecipeHistoryScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final asyncData = ref.watch(recipeHistoryScreenNotifierProvider);
+    final asyncData = ref.watch(recipeHistoryScreenProvider);
 
     return HistoryScreen(asyncData: asyncData);
   }

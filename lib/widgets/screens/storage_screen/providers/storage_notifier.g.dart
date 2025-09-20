@@ -48,4 +48,4 @@ final class StorageNotifierProvider
   }
 }
 
-String _$storageNotifierHash() => r'af540b0268a2247268c2b7b25e0e849734a12038';
+String _$storageNotifierHash() => r'3ac4e68ea5761a336220eac4432e1519166c69b3';

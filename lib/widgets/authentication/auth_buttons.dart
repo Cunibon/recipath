@@ -20,7 +20,7 @@ class AuthButtons extends ConsumerWidget {
     final localization = AppLocalizations.of(context)!;
 
     return CachedAsyncValueWrapper(
-      asyncState: ref.watch(revenueProNotifierProvider),
+      asyncState: ref.watch(revenueProProvider),
       builder: (pro) => Column(
         children: [
           if (user == null) ...[
@@ -45,10 +45,8 @@ class AuthButtons extends ConsumerWidget {
               onPressed: () async {
                 Purchases.logOut();
                 await ref.read(supabaseClientProvider).auth.signOut();
-                await (await ref.read(
-                  syncingServiceNotifierProvider.future,
-                )).reset();
-                await ref.read(databaseNotifierProvider).clear();
+                await (await ref.read(syncingServiceProvider.future)).reset();
+                await ref.read(databaseProvider).clear();
               },
               label: Text(localization.logout),
               icon: Icon(Icons.logout),

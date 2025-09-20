@@ -19,10 +19,10 @@ class GroceryScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final asyncData = ref.watch(groceryNotifierProvider);
+    final asyncData = ref.watch(groceryProvider);
     final unitLocalized = localizeUnits(context);
 
-    final doubleNumberFormat = ref.watch(doubleNumberFormatNotifierProvider);
+    final doubleNumberFormat = ref.watch(doubleNumberFormatProvider);
 
     return NavigationDrawerScaffold(
       titleBuilder: (title) => DefaultNavigationTitle(

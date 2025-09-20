@@ -18,10 +18,10 @@ class StorageItem extends ConsumerWidget {
     final localization = AppLocalizations.of(context)!;
     final unitLocalized = localizeUnits(context);
 
-    final doubleNumberFormat = ref.watch(doubleNumberFormatNotifierProvider);
+    final doubleNumberFormat = ref.watch(doubleNumberFormatProvider);
 
     final grocery = ref.watch(
-      groceryNotifierProvider.select(
+      groceryProvider.select(
         (value) => value.value![data.ingredient.groceryId],
       ),
     )!;
@@ -42,7 +42,7 @@ class StorageItem extends ConsumerWidget {
                 onEditingComplete: () {
                   if (data.ingredient.amount == 0) {
                     ref
-                        .read(storageModifierNotifierProvider)
+                        .read(storageModifierProvider)
                         .deleteItem(
                           data.copyWith(
                             ingredient: data.ingredient.copyWith(
@@ -56,7 +56,7 @@ class StorageItem extends ConsumerWidget {
                   final parsed = doubleNumberFormat.tryParse(value);
                   if (parsed != null) {
                     ref
-                        .read(storageModifierNotifierProvider)
+                        .read(storageModifierProvider)
                         .updateItem(
                           data.copyWith(
                             ingredient: data.ingredient.copyWith(

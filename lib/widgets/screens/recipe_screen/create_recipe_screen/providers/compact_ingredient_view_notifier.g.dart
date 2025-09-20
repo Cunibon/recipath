@@ -49,4 +49,4 @@ final class CompactIngredientViewNotifierProvider
 }
 
 String _$compactIngredientViewNotifierHash() =>
-    r'eff5eedb3332dd13524099de2db29e20646d56a8';
+    r'68b8ac2f768bff2d4ff7641d9bae9e59ae51bf93';

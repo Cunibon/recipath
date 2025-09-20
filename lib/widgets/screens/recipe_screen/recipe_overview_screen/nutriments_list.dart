@@ -18,9 +18,9 @@ class NutrimentsList extends ConsumerWidget {
     final localization = AppLocalizations.of(context)!;
     final localizedNutriments = localizeNutriments(context);
 
-    final doubleNumberFormat = ref.watch(doubleNumberFormatNotifierProvider);
+    final doubleNumberFormat = ref.watch(doubleNumberFormatProvider);
 
-    final groceryMap = ref.watch(groceryNotifierProvider).value!;
+    final groceryMap = ref.watch(groceryProvider).value!;
 
     final Map<Nutriments, double> aggregatedNutriments = {};
 

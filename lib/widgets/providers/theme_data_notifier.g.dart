@@ -48,4 +48,4 @@ final class ThemeDataNotifierProvider
   }
 }
 
-String _$themeDataNotifierHash() => r'a58cf1bc2fdc670638c2866c8f4fc9f9a0074a74';
+String _$themeDataNotifierHash() => r'5d96b783bc12d5cb6c676b9a6f6777265c61039c';

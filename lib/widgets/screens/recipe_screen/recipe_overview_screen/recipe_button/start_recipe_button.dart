@@ -16,7 +16,7 @@ class StartRecipeButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return FloatingActionButton(
       onPressed: () =>
-          ref.read(timerNotifierProvider.notifier).start(recipeId, servings),
+          ref.read(timerProvider.notifier).start(recipeId, servings),
       child: Icon(Icons.timer),
     );
   }

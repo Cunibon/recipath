@@ -55,4 +55,4 @@ final class GroceryRepoNotifierProvider
 }
 
 String _$groceryRepoNotifierHash() =>
-    r'6802b3964e279bcdb10833f1d74869f03d94aa82';
+    r'5be02d597b84f03c04f75e8d16bcd4ff36b3abae';

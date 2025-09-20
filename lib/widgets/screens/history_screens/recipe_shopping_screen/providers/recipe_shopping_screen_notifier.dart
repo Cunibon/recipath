@@ -1,4 +1,3 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/helper/date_time_extension.dart';
 import 'package:recipath/repos/recipe/full_recipe_repo_notifier.dart';
 import 'package:recipath/repos/recipe_shopping/recipe_shopping_repo_notifier.dart';
@@ -11,10 +10,8 @@ part 'recipe_shopping_screen_notifier.g.dart';
 Future<Map<DateTime, List<HistoryData>>> recipeShoppingScreenNotifier(
   Ref ref,
 ) async {
-  final recipeMap = await ref.watch(fullRecipeRepoNotifierProvider).get();
-  final recipeShoppingList = await ref
-      .watch(recipeShoppingRepoNotifierProvider)
-      .get();
+  final recipeMap = await ref.watch(fullRecipeRepoProvider).get();
+  final recipeShoppingList = await ref.watch(recipeShoppingRepoProvider).get();
 
   final groupedEntries = <DateTime, List<HistoryData>>{};
 

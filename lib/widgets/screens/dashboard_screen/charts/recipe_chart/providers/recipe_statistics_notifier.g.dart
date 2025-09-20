@@ -66,7 +66,7 @@ final class RecipeChartStatisticsNotifierProvider
 }
 
 String _$recipeChartStatisticsNotifierHash() =>
-    r'44f6a8eaeccefe2d677fb97b8e07daafcd0ec05f';
+    r'68767aa82be187afa4202fd55263d6893ae3fb38';
 
 final class RecipeChartStatisticsNotifierFamily extends $Family
     with

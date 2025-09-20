@@ -1,4 +1,3 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/data/shopping_data/shopping_data.dart';
 import 'package:recipath/drift/database_notifier.dart';
 import 'package:recipath/repos/repo.dart';
@@ -9,6 +8,6 @@ part 'shopping_repo_notifier.g.dart';
 
 @riverpod
 Repo<ShoppingData> shoppingRepoNotifier(Ref ref) {
-  final db = ref.watch(databaseNotifierProvider);
+  final db = ref.watch(databaseProvider);
   return ShoppingRepoDrift(db);
 }

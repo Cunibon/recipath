@@ -43,7 +43,7 @@ class GroceryFormFields extends ConsumerWidget {
 
     final unitType = UnitConversion.unitType(data.unit);
 
-    final doubleNumberFormat = ref.watch(doubleNumberFormatNotifierProvider);
+    final doubleNumberFormat = ref.watch(doubleNumberFormatProvider);
 
     return SingleChildScrollView(
       child: Column(

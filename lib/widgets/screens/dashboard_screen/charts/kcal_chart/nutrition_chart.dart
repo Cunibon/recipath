@@ -21,11 +21,9 @@ class NutritionChart extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final doubleNumberFormat = ref.watch(doubleNumberFormatNotifierProvider);
+    final doubleNumberFormat = ref.watch(doubleNumberFormatProvider);
 
-    final state = ref.watch(
-      nutritionChartNotifierProvider(dateRange, selectedRecipes),
-    );
+    final state = ref.watch(nutritionChartProvider(dateRange, selectedRecipes));
 
     return Expandable(
       titleBuilder: (expanded) => Column(

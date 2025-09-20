@@ -49,4 +49,4 @@ final class ShoppingScreenStateNotifierProvider
 }
 
 String _$shoppingScreenStateNotifierHash() =>
-    r'ca91f3ffeb73f4806b2d113077f25b0273c79a73';
+    r'3bc67f8683bce20be86562cb001457fc0a966d52';

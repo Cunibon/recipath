@@ -49,4 +49,4 @@ final class DoubleNumberFormatNotifierProvider
 }
 
 String _$doubleNumberFormatNotifierHash() =>
-    r'ef028de6b31f3bc2566b4f21d930761d90431b38';
+    r'4121665b1fb4b325da93ad46fc35cae24c85704e';

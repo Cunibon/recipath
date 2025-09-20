@@ -11,7 +11,7 @@ class NutritionLegend extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final doubleNumberFormat = ref.watch(doubleNumberFormatNotifierProvider);
+    final doubleNumberFormat = ref.watch(doubleNumberFormatProvider);
 
     final nutrimentEntries = Nutriments.values;
     final localized = localizeNutriments(context);

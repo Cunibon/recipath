@@ -1,4 +1,3 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
 import 'package:recipath/data/timer_data/timer_data.dart';
@@ -12,11 +11,11 @@ part 'recipe_screen_notifier.g.dart';
 
 @riverpod
 Future<RecipeScreenState> recipeScreenNotifier(Ref ref) async {
-  final recipes = await ref.watch(recipeNotifierProvider.future);
-  final groceries = await ref.watch(groceryNotifierProvider.future);
-  final timers = ref.watch(timerNotifierProvider);
+  final recipes = await ref.watch(recipeProvider.future);
+  final groceries = await ref.watch(groceryProvider.future);
+  final timers = ref.watch(timerProvider);
 
-  final quickFilters = ref.watch(quickFilterNotifierProvider);
+  final quickFilters = ref.watch(quickFilterProvider);
 
   final onlyShowRunning = quickFilters[QuickFilters.running] ?? false;
 

@@ -1,6 +1,5 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/common.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/unit_enum.dart';
@@ -18,9 +17,9 @@ Future<ChartState> groceryChartNotifier(
   DateTimeRange dateRange,
   Set<String> selectedRecipes,
 ) async {
-  final groceryMap = await ref.watch(groceryNotifierProvider.future);
+  final groceryMap = await ref.watch(groceryProvider.future);
   final groceryStatisticsData = await ref.watch(
-    groceryChartStatisticsNotifierProvider(dateRange).future,
+    groceryChartStatisticsProvider(dateRange).future,
   );
 
   final aggregatedData = <GroceryData, double>{};
@@ -72,7 +71,7 @@ Future<ChartState> groceryChartNotifier(
   double maxY = 0;
   final chartEntries = <ChartEntry>[];
 
-  final doubleNumberFormat = ref.watch(doubleNumberFormatNotifierProvider);
+  final doubleNumberFormat = ref.watch(doubleNumberFormatProvider);
 
   for (int i = 0; i < sortedEntries.length; i++) {
     final entry = sortedEntries[i];

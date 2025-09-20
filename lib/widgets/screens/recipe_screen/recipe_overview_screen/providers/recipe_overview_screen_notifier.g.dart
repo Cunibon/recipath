@@ -64,7 +64,7 @@ final class RecipeOverviewScreenNotifierProvider
 }
 
 String _$recipeOverviewScreenNotifierHash() =>
-    r'10099e4096269b580b8559715c6ac9af3e9f77c7';
+    r'bdfa6754ed4cc1ca9ce789d86afd07754a96c1b7';
 
 final class RecipeOverviewScreenNotifierFamily extends $Family
     with

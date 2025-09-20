@@ -47,4 +47,4 @@ final class SyncingServiceNotifierProvider
 }
 
 String _$syncingServiceNotifierHash() =>
-    r'204895de1b7dccba66ca57f767e55d77f5755d98';
+    r'6bfbacacb745613257d86c31a778ededc9699a2e';

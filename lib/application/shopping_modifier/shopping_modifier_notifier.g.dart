@@ -54,4 +54,4 @@ final class ShoppingModifierNotifierProvider
 }
 
 String _$shoppingModifierNotifierHash() =>
-    r'5d25f05b36e6396090a254ecc1cdc9749f3e2f4c';
+    r'7c8958bbe6471ff90332fec65234f0b918dd2f64';

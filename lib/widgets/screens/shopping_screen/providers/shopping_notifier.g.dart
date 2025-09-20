@@ -48,4 +48,4 @@ final class ShoppingNotifierProvider
   }
 }
 
-String _$shoppingNotifierHash() => r'5a69e2c827fa399d087bcea4ebb8f7293ddb1e4a';
+String _$shoppingNotifierHash() => r'3d15f7de2a79d90c3675c58781c3b61ec8488c29';

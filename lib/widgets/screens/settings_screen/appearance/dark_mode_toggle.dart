@@ -9,13 +9,12 @@ class DarkModeToggle extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final darkMode = ref.watch(darkModeNotifierProvider);
+    final darkMode = ref.watch(darkModeProvider);
 
     return SettingToggle(
       text: AppLocalizations.of(context)!.darkMode,
       value: darkMode,
-      onChanged: (value) =>
-          ref.read(darkModeNotifierProvider.notifier).set(value),
+      onChanged: (value) => ref.read(darkModeProvider.notifier).set(value),
     );
   }
 }

@@ -34,7 +34,7 @@ class _IngredientItemState extends ConsumerState<IngredientItem> {
   @override
   void initState() {
     super.initState();
-    final doubleNumberFormat = ref.read(doubleNumberFormatNotifierProvider);
+    final doubleNumberFormat = ref.read(doubleNumberFormatProvider);
 
     amountController.text = doubleNumberFormat.format(widget.data.amount);
     isMisc = UnitConversion.unitType(widget.data.unit) == UnitType.misc;
@@ -45,12 +45,10 @@ class _IngredientItemState extends ConsumerState<IngredientItem> {
     final localization = AppLocalizations.of(context)!;
     final unitLocalized = localizeUnits(context);
 
-    final doubleNumberFormat = ref.watch(doubleNumberFormatNotifierProvider);
+    final doubleNumberFormat = ref.watch(doubleNumberFormatProvider);
 
     final grocery = ref.watch(
-      groceryNotifierProvider.select(
-        (value) => value.value![widget.data.groceryId],
-      ),
+      groceryProvider.select((value) => value.value![widget.data.groceryId]),
     )!;
 
     return Row(

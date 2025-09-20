@@ -55,4 +55,4 @@ final class FullShoppingRepoNotifierProvider
 }
 
 String _$fullShoppingRepoNotifierHash() =>
-    r'2bb7c098209e4175784e64d6f19eafd91cc07c72';
+    r'db3b476af88609e64e7a93df9a1e92473be94647';

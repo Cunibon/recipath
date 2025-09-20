@@ -28,9 +28,9 @@ class _StorageScreenState extends ConsumerState<StorageScreen> {
     final localization = AppLocalizations.of(context)!;
     final unitLocalized = localizeUnits(context);
 
-    final doubleNumberFormat = ref.watch(doubleNumberFormatNotifierProvider);
+    final doubleNumberFormat = ref.watch(doubleNumberFormatProvider);
 
-    final screenState = ref.watch(storageScreenStateNotifierProvider);
+    final screenState = ref.watch(storageScreenStateProvider);
 
     return NavigationDrawerScaffold(
       titleBuilder: (title) => DefaultNavigationTitle(
@@ -52,7 +52,7 @@ class _StorageScreenState extends ConsumerState<StorageScreen> {
             );
 
             if (result == true) {
-              ref.read(storageModifierNotifierProvider).clear();
+              ref.read(storageModifierProvider).clear();
             }
           },
           child: Text(localization.clear),

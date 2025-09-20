@@ -55,4 +55,4 @@ final class IngredientRepoNotifierProvider
 }
 
 String _$ingredientRepoNotifierHash() =>
-    r'a10197c50d533fdaa4015bb1b631faad82106602';
+    r'568b637d5f1fcdb60ef23a2a1cbb51dc8f0dc4ec';

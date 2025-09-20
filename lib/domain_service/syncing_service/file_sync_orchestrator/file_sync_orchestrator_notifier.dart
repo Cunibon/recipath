@@ -1,4 +1,3 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/domain_service/syncing_service/file_sync_orchestrator/bucket_repo.dart';
 import 'package:recipath/domain_service/syncing_service/file_sync_orchestrator/file_sync_orchestrator.dart';
 import 'package:recipath/domain_service/syncing_service/supabase_buckets.dart';
@@ -12,12 +11,12 @@ part 'file_sync_orchestrator_notifier.g.dart';
 
 @riverpod
 Future<FileSyncOrchestrator> fileSyncOrchestratorNotifier(Ref ref) async {
-  final fileRepo = ref.watch(fileRepoNotifierProvider);
+  final fileRepo = ref.watch(fileRepoProvider);
 
   final supabaseClient = ref.watch(supabaseClientProvider);
   final applicationPath = ref.watch(applicationPathProvider);
 
-  final pro = await ref.watch(revenueProNotifierProvider.future);
+  final pro = await ref.watch(revenueProProvider.future);
 
   return FileSyncOrchestrator(
     supabaseClient: supabaseClient,

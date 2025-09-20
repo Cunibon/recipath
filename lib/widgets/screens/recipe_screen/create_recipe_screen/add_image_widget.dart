@@ -77,7 +77,7 @@ class AddImageWidget extends ConsumerWidget {
 
           if (xFile != null) {
             final appDirectory = ref.watch(applicationPathProvider);
-            final fileModifier = ref.watch(fileModifierNotifierProvider);
+            final fileModifier = ref.watch(fileModifierProvider);
             final bytes = await xFile.readAsBytes();
 
             final compressed = await FlutterImageCompress.compressWithList(

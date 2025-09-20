@@ -41,4 +41,4 @@ final class RevenueProNotifierProvider
 }
 
 String _$revenueProNotifierHash() =>
-    r'd6efb1a4985efaa10250f9b42f24d99bade17ea2';
+    r'ea327792d567d7afb78e325645dc6c81aebee2df';

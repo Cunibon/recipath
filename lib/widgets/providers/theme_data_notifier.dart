@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/helper/color_extension.dart';
 import 'package:recipath/widgets/providers/material_you_scheme_notifier.dart';
 import 'package:recipath/widgets/screens/settings_screen/providers/dark_mode_provider.dart';
@@ -10,15 +9,13 @@ part 'theme_data_notifier.g.dart';
 
 @riverpod
 ThemeData themeDataNotifier(Ref ref) {
-  final darkMode = ref.watch(darkModeNotifierProvider);
-  final materialYou = ref.watch(materialYouNotifierProvider);
+  final darkMode = ref.watch(darkModeProvider);
+  final materialYou = ref.watch(materialYouProvider);
 
   ThemeData startTheme = darkMode ? ThemeData.dark() : ThemeData.light();
 
   if (materialYou) {
-    final materialColorScheme = ref
-        .watch(materialYouSchemeNotifierProvider)
-        .value;
+    final materialColorScheme = ref.watch(materialYouSchemeProvider).value;
 
     if (materialColorScheme != null) {
       final modifiedColorScheme = materialColorScheme.copyWith(

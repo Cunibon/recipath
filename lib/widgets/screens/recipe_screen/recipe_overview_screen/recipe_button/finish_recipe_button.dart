@@ -42,20 +42,18 @@ class FinishRecipeButton extends ConsumerWidget {
 
         if (durationResponse == null) return;
 
-        ref.read(timerNotifierProvider.notifier).stop(recipeId);
+        ref.read(timerProvider.notifier).stop(recipeId);
 
         if (durationResponse.duration == null) return;
 
         final recipe = ref
-            .read(
-              recipeNotifierProvider.select((value) => value.value?[recipeId]),
-            )!
+            .read(recipeProvider.select((value) => value.value?[recipeId]))!
             .adjustIngredientForPlannedServings(timerData.servings);
-        final groceries = ref.read(groceryNotifierProvider).value!;
+        final groceries = ref.read(groceryProvider).value!;
         final ingredients = recipe.getIngredients(groceries);
 
         ref
-            .read(recipeStatisticsModifierNotifierProvider)
+            .read(recipeStatisticsModifierProvider)
             .add(
               RecipeStatisticData(
                 id: randomAlphaNumeric(16),
@@ -67,14 +65,14 @@ class FinishRecipeButton extends ConsumerWidget {
             );
 
         final ingredientsInStorage = Map<String, StorageData>.from(
-          ref.read(storageNotifierProvider).value!,
+          ref.read(storageProvider).value!,
         );
         final availableIngredients = ingredients.where(
           (e) => ingredientsInStorage.keys.contains(e.groceryId),
         );
 
         for (final storageItem in availableIngredients) {
-          ref.read(storageModifierNotifierProvider).subtractItem(storageItem);
+          ref.read(storageModifierProvider).subtractItem(storageItem);
         }
 
         if (context.mounted) {

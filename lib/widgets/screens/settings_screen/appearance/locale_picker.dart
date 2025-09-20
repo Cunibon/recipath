@@ -8,7 +8,7 @@ class LocalePicker extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final locale = ref.watch(localeNotifierProvider);
+    final locale = ref.watch(localeProvider);
 
     return Padding(
       padding: const EdgeInsets.only(left: 8, right: 6),
@@ -29,8 +29,7 @@ class LocalePicker extends ConsumerWidget {
                   ),
                 )
                 .toList(),
-            onChanged: (value) =>
-                ref.read(localeNotifierProvider.notifier).set(value!),
+            onChanged: (value) => ref.read(localeProvider.notifier).set(value!),
           ),
         ],
       ),

@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
 import 'package:recipath/data/timer_data/timer_data.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/recipe_notifier.dart';
@@ -11,10 +12,10 @@ class RecipeOverviewScreenNotifier extends _$RecipeOverviewScreenNotifier {
   @override
   RecipeOverviewScreenState build(String recipeId) {
     final originalData = ref.watch(
-      recipeNotifierProvider.select((value) => value.value?[recipeId]),
+      recipeProvider.select((value) => value.value?[recipeId]),
     )!;
 
-    final timer = ref.watch(timerNotifierProvider)[recipeId];
+    final timer = ref.watch(timerProvider)[recipeId];
     final recipeData = originalData.adjustIngredientForPlannedServings(
       timer?.servings ?? originalData.servings,
     );
@@ -30,9 +31,7 @@ class RecipeOverviewScreenNotifier extends _$RecipeOverviewScreenNotifier {
     final recipeData = state.originalData.adjustIngredientForPlannedServings(
       servings,
     );
-    ref
-        .read(timerNotifierProvider.notifier)
-        .adjustServings(recipeData.id, servings);
+    ref.read(timerProvider.notifier).adjustServings(recipeData.id, servings);
 
     state = RecipeOverviewScreenState(
       originalData: state.originalData,

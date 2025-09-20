@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/repos/recipe_statistics/recipe_statistics_repo_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -10,5 +9,5 @@ Future<Map<String, int>> recipeChartStatisticsNotifier(
   Ref ref,
   DateTimeRange dateRange,
 ) => ref
-    .watch(recipeStatisticsRepoNotifierProvider)
+    .watch(recipeStatisticsRepoProvider)
     .getRecipeCountBetween(startDate: dateRange.start, endDate: dateRange.end);

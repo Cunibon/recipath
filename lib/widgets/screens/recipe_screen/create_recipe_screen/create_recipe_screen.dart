@@ -33,7 +33,7 @@ class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
   void initState() {
     super.initState();
     initalData =
-        ref.read(recipeNotifierProvider).value![widget.recipeId] ??
+        ref.read(recipeProvider).value![widget.recipeId] ??
         RecipeData(
           id: randomAlphaNumeric(16),
           title: "",
@@ -66,7 +66,7 @@ class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
                   );
 
                   if (context.mounted && result == true) {
-                    ref.read(recipeModifierNotifierProvider).archive(data);
+                    ref.read(recipeModifierProvider).archive(data);
                     context.go(RootRoutes.recipeRoute.path);
                   }
                 },
@@ -86,17 +86,17 @@ class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
                   final ingredientChange = initalData.diffIngredients(data);
 
                   if (widget.recipeId == null || ingredientChange.isEmpty) {
-                    await ref.read(recipeModifierNotifierProvider).add(data);
+                    await ref.read(recipeModifierProvider).add(data);
                     goRouter.pop();
                   } else if (data != initalData) {
                     final newData = data.copyWithNewId();
 
                     await ref
-                        .read(recipeModifierNotifierProvider)
+                        .read(recipeModifierProvider)
                         .replace(newData: newData, oldData: initalData);
 
                     ref
-                        .read(timerNotifierProvider.notifier)
+                        .read(timerProvider.notifier)
                         .moveTimer(newData: newData, oldData: initalData);
 
                     goRouter.go(
@@ -125,9 +125,7 @@ class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
                       final newData = data.copyWithNewId().copyWith(
                         title: "${data.title} (${localization.copy})",
                       );
-                      await ref
-                          .read(recipeModifierNotifierProvider)
-                          .add(newData);
+                      await ref.read(recipeModifierProvider).add(newData);
 
                       goRouter.go(
                         '${RootRoutes.recipeRoute.path}/recipeOverview/${newData.id}',

@@ -49,4 +49,4 @@ final class FileModifierNotifierProvider
 }
 
 String _$fileModifierNotifierHash() =>
-    r'77856d70912704e4f8ee564ccdfa6fea22ba2020';
+    r'be059688be9ce7156dcc09737cd67aa4f43fc2be';

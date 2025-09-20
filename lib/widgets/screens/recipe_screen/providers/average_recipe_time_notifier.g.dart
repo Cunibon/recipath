@@ -61,7 +61,7 @@ final class AverageRecipeTimeNotifierProvider
 }
 
 String _$averageRecipeTimeNotifierHash() =>
-    r'949fcbff3cce9fc7def3f7852816cfc6e1a89b7b';
+    r'3d1bf69ebeb4c717395a62bb6ef240fa158dbc89';
 
 final class AverageRecipeTimeNotifierFamily extends $Family
     with $FunctionalFamilyOverride<Stream<Duration?>, String> {

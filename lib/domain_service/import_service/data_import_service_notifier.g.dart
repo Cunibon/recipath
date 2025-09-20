@@ -55,4 +55,4 @@ final class DataImportServiceNotifierProvider
 }
 
 String _$dataImportServiceNotifierHash() =>
-    r'7fc62c7b9394fdaa3d6bc3773aa070f4aa7d9c17';
+    r'921b9ba235e6cd59b62182793ecb47c1f03245f6';

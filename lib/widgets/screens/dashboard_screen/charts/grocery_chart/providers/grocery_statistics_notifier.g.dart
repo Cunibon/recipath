@@ -67,7 +67,7 @@ final class GroceryChartStatisticsNotifierProvider
 }
 
 String _$groceryChartStatisticsNotifierHash() =>
-    r'7ce195a7b57d7f07e7f74b2b75b50a185cb56046';
+    r'ea8ef50c9b53077ccfd517533157d8fde6317336';
 
 final class GroceryChartStatisticsNotifierFamily extends $Family
     with

@@ -65,7 +65,7 @@ final class NutritionChartNotifierProvider
 }
 
 String _$nutritionChartNotifierHash() =>
-    r'3ffd6ea74a71b77920dd98349eec29798a4ba90e';
+    r'303880ebeea2a50d122360f3a1bea147603eafdf';
 
 final class NutritionChartNotifierFamily extends $Family
     with

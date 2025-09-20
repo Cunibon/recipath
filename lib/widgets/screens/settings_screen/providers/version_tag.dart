@@ -10,7 +10,7 @@ class VersionTag extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return CachedAsyncValueWrapper(
-      asyncState: ref.watch(packageInfoNotifierProvider),
+      asyncState: ref.watch(packageInfoProvider),
       builder: (data) => Padding(
         padding: const EdgeInsets.all(8.0),
         child: Text(

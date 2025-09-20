@@ -1,4 +1,3 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/domain_service/syncing_service/file_sync_orchestrator/file_sync_orchestrator_notifier.dart';
 import 'package:recipath/domain_service/syncing_service/sync_orchestrator/sync_orchestrator_notifier.dart';
 import 'package:recipath/domain_service/syncing_service/syncing_service/syncing_service.dart';
@@ -9,10 +8,8 @@ part 'syncing_service_notifier.g.dart';
 @Riverpod(keepAlive: true)
 Future<SyncingService> syncingServiceNotifier(Ref ref) async {
   final service = SyncingService(
-    syncOrchestrator: await ref.watch(syncOrchestratorNotifierProvider.future),
-    fileSyncOrchestrator: await ref.watch(
-      fileSyncOrchestratorNotifierProvider.future,
-    ),
+    syncOrchestrator: await ref.watch(syncOrchestratorProvider.future),
+    fileSyncOrchestrator: await ref.watch(fileSyncOrchestratorProvider.future),
   );
 
   ref.onDispose(() => service.stop());

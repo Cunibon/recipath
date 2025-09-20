@@ -56,4 +56,4 @@ final class RecipeStatisticsModifierNotifierProvider
 }
 
 String _$recipeStatisticsModifierNotifierHash() =>
-    r'5f0590c1675c6193e3bbcddda61ec3b19417ce00';
+    r'04e4ff64124c3f21acb7725f8aeedc1d98982c70';

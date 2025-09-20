@@ -12,7 +12,7 @@ class TrackRecipeButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final timer = ref.watch(timerNotifierProvider)[recipeData.id];
+    final timer = ref.watch(timerProvider)[recipeData.id];
 
     return timer == null
         ? StartRecipeButton(

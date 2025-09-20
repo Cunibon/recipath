@@ -29,7 +29,7 @@ class TimerNotifier extends _$TimerNotifier {
     state.remove(recipeId);
     if (state.isEmpty) {
       ref
-          .read(quickFilterNotifierProvider.notifier)
+          .read(quickFilterProvider.notifier)
           .setFilter(filter: QuickFilters.running, value: false);
     }
     updateState();

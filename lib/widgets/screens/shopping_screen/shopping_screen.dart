@@ -30,9 +30,9 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
     final localization = AppLocalizations.of(context)!;
     final unitLocalized = localizeUnits(context);
 
-    final doubleNumberFormat = ref.watch(doubleNumberFormatNotifierProvider);
+    final doubleNumberFormat = ref.watch(doubleNumberFormatProvider);
 
-    final screenState = ref.watch(shoppingScreenStateNotifierProvider);
+    final screenState = ref.watch(shoppingScreenStateProvider);
 
     return NavigationDrawerScaffold(
       titleBuilder: (title) => DefaultNavigationTitle(
@@ -54,7 +54,7 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
             );
 
             if (result == true) {
-              ref.read(shoppingModifierNotifierProvider).clear();
+              ref.read(shoppingModifierProvider).clear();
             }
           },
           child: Text(localization.clear),
@@ -70,9 +70,9 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
 
           if (result != null) {
             final currentState = await ref.read(
-              shoppingScreenStateNotifierProvider.future,
+              shoppingScreenStateProvider.future,
             );
-            ref.read(shoppingModifierNotifierProvider).addItems([
+            ref.read(shoppingModifierProvider).addItems([
               result,
             ], currentState.groceryMap);
           }

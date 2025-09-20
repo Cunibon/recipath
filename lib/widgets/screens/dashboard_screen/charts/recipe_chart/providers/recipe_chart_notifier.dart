@@ -1,6 +1,5 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/common.dart';
 import 'package:recipath/repos/recipe/full_recipe_repo_notifier.dart';
 import 'package:recipath/widgets/screens/dashboard_screen/charts/chart_entry.dart';
@@ -16,13 +15,13 @@ Future<ChartState> recipeChartNotifier(
   Set<String> selectedRecipes,
 ) async {
   final recipeHistoyData = await ref.watch(
-    recipeChartStatisticsNotifierProvider(dateRange).future,
+    recipeChartStatisticsProvider(dateRange).future,
   );
   final recipeHistoryList = recipeHistoyData.entries.toList();
 
   recipeHistoryList.sort((a, b) => -a.value.compareTo(b.value));
 
-  final recipeMap = await ref.watch(fullRecipeRepoNotifierProvider).get();
+  final recipeMap = await ref.watch(fullRecipeRepoProvider).get();
 
   final chartEntries = <ChartEntry>[];
   int maxY = 0;

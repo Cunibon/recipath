@@ -1,4 +1,3 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/domain_service/syncing_service/assemblers/grocery_assembler.dart';
 import 'package:recipath/domain_service/syncing_service/assemblers/ingredient_assembler.dart';
 import 'package:recipath/domain_service/syncing_service/assemblers/recipe_assembler.dart';
@@ -32,16 +31,16 @@ part 'sync_orchestrator_notifier.g.dart';
 
 @riverpod
 Future<SyncOrchestrator> syncOrchestratorNotifier(Ref ref) async {
-  final groceryRepo = ref.watch(fullGroceryRepoNotifierProvider);
-  final recipeRepo = ref.watch(fullRecipeRepoNotifierProvider);
-  final shoppingRepo = ref.watch(fullShoppingRepoNotifierProvider);
-  final storageRepo = ref.watch(fullStorageRepoNotifierProvider);
-  final recipeStatisticRepo = ref.watch(recipeStatisticsRepoNotifierProvider);
-  final recipeShoppingRepo = ref.watch(recipeShoppingRepoNotifierProvider);
+  final groceryRepo = ref.watch(fullGroceryRepoProvider);
+  final recipeRepo = ref.watch(fullRecipeRepoProvider);
+  final shoppingRepo = ref.watch(fullShoppingRepoProvider);
+  final storageRepo = ref.watch(fullStorageRepoProvider);
+  final recipeStatisticRepo = ref.watch(recipeStatisticsRepoProvider);
+  final recipeShoppingRepo = ref.watch(recipeShoppingRepoProvider);
 
   final supabaseClient = ref.watch(supabaseClientProvider);
 
-  final pro = await ref.watch(revenueProNotifierProvider.future);
+  final pro = await ref.watch(revenueProProvider.future);
 
   final uploadOrder = [
     SupabaseTables.grocery,

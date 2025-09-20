@@ -54,4 +54,4 @@ final class RecipeRepoNotifierProvider
 }
 
 String _$recipeRepoNotifierHash() =>
-    r'19fa7cb653c1160a69415fca88f5a749cdf6e297';
+    r'19f1a47798d064376aa1d70c58465ee54542980e';

@@ -47,4 +47,4 @@ final class MaterialYouSchemeNotifierProvider
 }
 
 String _$materialYouSchemeNotifierHash() =>
-    r'3c083aad2eb93e0371c761f6f33163bea2f0f63c';
+    r'fc8d91841861ceec2c7cfdaf6b7aa40d1c1fe9b0';

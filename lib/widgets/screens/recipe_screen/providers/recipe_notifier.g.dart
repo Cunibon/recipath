@@ -48,4 +48,4 @@ final class RecipeNotifierProvider
   }
 }
 
-String _$recipeNotifierHash() => r'2d1711149a26f50a7c7279c92beb281bead8ef38';
+String _$recipeNotifierHash() => r'92911a34ecce6d345d8dab988e2af7e9719f482e';

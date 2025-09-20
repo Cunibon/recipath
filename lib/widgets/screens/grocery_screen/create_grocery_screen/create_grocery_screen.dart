@@ -46,7 +46,7 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
   void initState() {
     super.initState();
     initialData =
-        ref.read(groceryNotifierProvider).value![widget.groceryId] ??
+        ref.read(groceryProvider).value![widget.groceryId] ??
         GroceryData(
           id: randomAlphaNumeric(16),
           name: "",
@@ -57,7 +57,7 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
         );
     data = initialData;
 
-    final doubleNumberFormat = ref.read(doubleNumberFormatNotifierProvider);
+    final doubleNumberFormat = ref.read(doubleNumberFormatProvider);
 
     nameController.text = data.name;
     amountController.text = doubleNumberFormat.format(data.normalAmount);
@@ -84,7 +84,7 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final doubleNumberFormat = ref.watch(doubleNumberFormatNotifierProvider);
+    final doubleNumberFormat = ref.watch(doubleNumberFormatProvider);
 
     final localization = AppLocalizations.of(context)!;
 
@@ -191,7 +191,7 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
             ElevatedButton.icon(
               onPressed: () async {
                 if (formKey.currentState?.validate() == true) {
-                  await ref.read(groceryModifierNotifierProvider).add(data);
+                  await ref.read(groceryModifierProvider).add(data);
                   if (context.mounted) {
                     context.pop(data);
                   }
@@ -203,11 +203,9 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
             if (widget.groceryId != null)
               ElevatedButton.icon(
                 onPressed: () async {
-                  final groceries = ref.read(groceryNotifierProvider).value!;
+                  final groceries = ref.read(groceryProvider).value!;
 
-                  final recipes = await ref
-                      .read(recipeRepoNotifierProvider)
-                      .get();
+                  final recipes = await ref.read(recipeRepoProvider).get();
                   final recipesUsing = recipes.values.where(
                     (e) => e
                         .getIngredients(groceries)
@@ -215,14 +213,14 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
                   );
 
                   final shoppingItems = await ref
-                      .read(shoppingRepoNotifierProvider)
+                      .read(shoppingRepoProvider)
                       .get();
                   final shoppingUsing = shoppingItems.values.where(
                     (e) => e.ingredient.groceryId == data.id,
                   );
 
                   final storageItems = await ref
-                      .read(storageRepoNotifierProvider)
+                      .read(storageRepoProvider)
                       .get();
                   final storageUsing = storageItems.values.where(
                     (e) => e.ingredient.groceryId == data.id,
@@ -253,7 +251,7 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
                     );
 
                     if (context.mounted && result) {
-                      ref.read(groceryModifierNotifierProvider).archive(data);
+                      ref.read(groceryModifierProvider).archive(data);
                       context.pop();
                     }
                   }

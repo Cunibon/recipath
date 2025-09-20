@@ -20,8 +20,8 @@ class RecipeSearchView extends ConsumerWidget {
     final localization = AppLocalizations.of(context)!;
     final unitLocalized = localizeUnits(context);
 
-    final doubleNumberFormat = ref.watch(doubleNumberFormatNotifierProvider);
-    final quickFilters = ref.watch(quickFilterNotifierProvider);
+    final doubleNumberFormat = ref.watch(doubleNumberFormatProvider);
+    final quickFilters = ref.watch(quickFilterProvider);
 
     final onlyShowRunning = quickFilters[QuickFilters.running] ?? false;
 
@@ -31,7 +31,7 @@ class RecipeSearchView extends ConsumerWidget {
           ? null
           : GestureDetector(
               onTap: () => ref
-                  .read(quickFilterNotifierProvider.notifier)
+                  .read(quickFilterProvider.notifier)
                   .setFilter(
                     filter: QuickFilters.running,
                     value: !onlyShowRunning,
@@ -59,11 +59,9 @@ class RecipeSearchView extends ConsumerWidget {
         ),
         confirmDismiss: (direction) async {
           if (direction == DismissDirection.startToEnd) {
-            ref.read(shoppingPlanningNotifierProvider.notifier).addRecipe(item);
+            ref.read(shoppingPlanningProvider.notifier).addRecipe(item);
           } else {
-            ref
-                .read(shoppingPlanningNotifierProvider.notifier)
-                .removeRecipe(item);
+            ref.read(shoppingPlanningProvider.notifier).removeRecipe(item);
           }
 
           return false;

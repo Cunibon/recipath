@@ -22,10 +22,10 @@ class ExportButton extends ConsumerWidget {
         final dir = ref.read(applicationPathProvider);
 
         final allData = {
-          recipeDataKey: await ref.read(recipeRepoNotifierProvider).get(),
-          shoppingDataKey: await ref.read(shoppingRepoNotifierProvider).get(),
-          storageDataKey: await ref.read(storageRepoNotifierProvider).get(),
-          groceryDataKey: await ref.read(groceryRepoNotifierProvider).get(),
+          recipeDataKey: await ref.read(recipeRepoProvider).get(),
+          shoppingDataKey: await ref.read(shoppingRepoProvider).get(),
+          storageDataKey: await ref.read(storageRepoProvider).get(),
+          groceryDataKey: await ref.read(groceryRepoProvider).get(),
         };
 
         final filePath = "${dir.path}/recipath.json";

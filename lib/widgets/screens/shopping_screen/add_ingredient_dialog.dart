@@ -49,9 +49,9 @@ class _AddIngredientDialogState extends ConsumerState<AddIngredientDialog> {
     final localization = AppLocalizations.of(context)!;
     final unitLocalized = localizeUnits(context);
 
-    final doubleNumberFormat = ref.watch(doubleNumberFormatNotifierProvider);
+    final doubleNumberFormat = ref.watch(doubleNumberFormatProvider);
 
-    final groceries = ref.watch(groceryNotifierProvider).value!;
+    final groceries = ref.watch(groceryProvider).value!;
     final groceryList = groceries.values.toList();
 
     return Dialog(

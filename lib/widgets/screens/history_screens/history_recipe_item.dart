@@ -51,7 +51,7 @@ class HistoryRecipeItem extends ConsumerWidget {
                       "${AppLocalizations.of(context)!.servings}: ${data.recipeData.servings}",
                     ),
                   CachedAsyncValueWrapper(
-                    asyncState: ref.watch(groceryNotifierProvider),
+                    asyncState: ref.watch(groceryProvider),
                     builder: (groceryData) => CompactIngredientView(
                       ingredients: data.recipeData.getIngredients(groceryData),
                     ),
