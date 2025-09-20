@@ -28,11 +28,14 @@ class _CountUpTimerState extends State<CountUpTimer>
         _elapsed += const Duration(seconds: 1);
       });
     });
+
+    WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void dispose() {
     _timer?.cancel();
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
