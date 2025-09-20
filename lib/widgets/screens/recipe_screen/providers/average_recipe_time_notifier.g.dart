@@ -6,152 +6,77 @@ part of 'average_recipe_time_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$averageRecipeTimeNotifierHash() =>
-    r'949fcbff3cce9fc7def3f7852816cfc6e1a89b7b';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// Copied from Dart SDK
-class _SystemHash {
-  _SystemHash._();
-
-  static int combine(int hash, int value) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + value);
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
-    return hash ^ (hash >> 6);
-  }
-
-  static int finish(int hash) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
-    // ignore: parameter_assignments
-    hash = hash ^ (hash >> 11);
-    return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
-  }
-}
-
-/// See also [averageRecipeTimeNotifier].
 @ProviderFor(averageRecipeTimeNotifier)
-const averageRecipeTimeNotifierProvider = AverageRecipeTimeNotifierFamily();
+const averageRecipeTimeProvider = AverageRecipeTimeNotifierFamily._();
 
-/// See also [averageRecipeTimeNotifier].
-class AverageRecipeTimeNotifierFamily extends Family<AsyncValue<Duration?>> {
-  /// See also [averageRecipeTimeNotifier].
-  const AverageRecipeTimeNotifierFamily();
+final class AverageRecipeTimeNotifierProvider
+    extends
+        $FunctionalProvider<AsyncValue<Duration?>, Duration?, Stream<Duration?>>
+    with $FutureModifier<Duration?>, $StreamProvider<Duration?> {
+  const AverageRecipeTimeNotifierProvider._({
+    required AverageRecipeTimeNotifierFamily super.from,
+    required String super.argument,
+  }) : super(
+         retry: null,
+         name: r'averageRecipeTimeProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
-  /// See also [averageRecipeTimeNotifier].
-  AverageRecipeTimeNotifierProvider call(String recipeId) {
-    return AverageRecipeTimeNotifierProvider(recipeId);
+  @override
+  String debugGetCreateSourceHash() => _$averageRecipeTimeNotifierHash();
+
+  @override
+  String toString() {
+    return r'averageRecipeTimeProvider'
+        ''
+        '($argument)';
   }
 
+  @$internal
   @override
-  AverageRecipeTimeNotifierProvider getProviderOverride(
-    covariant AverageRecipeTimeNotifierProvider provider,
-  ) {
-    return call(provider.recipeId);
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
+  $StreamProviderElement<Duration?> $createElement($ProviderPointer pointer) =>
+      $StreamProviderElement(pointer);
 
   @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'averageRecipeTimeNotifierProvider';
-}
-
-/// See also [averageRecipeTimeNotifier].
-class AverageRecipeTimeNotifierProvider
-    extends AutoDisposeStreamProvider<Duration?> {
-  /// See also [averageRecipeTimeNotifier].
-  AverageRecipeTimeNotifierProvider(String recipeId)
-    : this._internal(
-        (ref) => averageRecipeTimeNotifier(
-          ref as AverageRecipeTimeNotifierRef,
-          recipeId,
-        ),
-        from: averageRecipeTimeNotifierProvider,
-        name: r'averageRecipeTimeNotifierProvider',
-        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-            ? null
-            : _$averageRecipeTimeNotifierHash,
-        dependencies: AverageRecipeTimeNotifierFamily._dependencies,
-        allTransitiveDependencies:
-            AverageRecipeTimeNotifierFamily._allTransitiveDependencies,
-        recipeId: recipeId,
-      );
-
-  AverageRecipeTimeNotifierProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.recipeId,
-  }) : super.internal();
-
-  final String recipeId;
-
-  @override
-  Override overrideWith(
-    Stream<Duration?> Function(AverageRecipeTimeNotifierRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: AverageRecipeTimeNotifierProvider._internal(
-        (ref) => create(ref as AverageRecipeTimeNotifierRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        recipeId: recipeId,
-      ),
-    );
-  }
-
-  @override
-  AutoDisposeStreamProviderElement<Duration?> createElement() {
-    return _AverageRecipeTimeNotifierProviderElement(this);
+  Stream<Duration?> create(Ref ref) {
+    final argument = this.argument as String;
+    return averageRecipeTimeNotifier(ref, argument);
   }
 
   @override
   bool operator ==(Object other) {
     return other is AverageRecipeTimeNotifierProvider &&
-        other.recipeId == recipeId;
+        other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, recipeId.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
 }
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin AverageRecipeTimeNotifierRef on AutoDisposeStreamProviderRef<Duration?> {
-  /// The parameter `recipeId` of this provider.
-  String get recipeId;
-}
+String _$averageRecipeTimeNotifierHash() =>
+    r'949fcbff3cce9fc7def3f7852816cfc6e1a89b7b';
 
-class _AverageRecipeTimeNotifierProviderElement
-    extends AutoDisposeStreamProviderElement<Duration?>
-    with AverageRecipeTimeNotifierRef {
-  _AverageRecipeTimeNotifierProviderElement(super.provider);
+final class AverageRecipeTimeNotifierFamily extends $Family
+    with $FunctionalFamilyOverride<Stream<Duration?>, String> {
+  const AverageRecipeTimeNotifierFamily._()
+    : super(
+        retry: null,
+        name: r'averageRecipeTimeProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  AverageRecipeTimeNotifierProvider call(String recipeId) =>
+      AverageRecipeTimeNotifierProvider._(argument: recipeId, from: this);
 
   @override
-  String get recipeId => (origin as AverageRecipeTimeNotifierProvider).recipeId;
+  String toString() => r'averageRecipeTimeProvider';
 }
-
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

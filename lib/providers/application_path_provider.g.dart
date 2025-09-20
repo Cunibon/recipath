@@ -6,22 +6,46 @@ part of 'application_path_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$applicationPathHash() => r'9d09015e62cc90b6d591b867911b8069e38489f1';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [applicationPath].
 @ProviderFor(applicationPath)
-final applicationPathProvider = AutoDisposeProvider<Directory>.internal(
-  applicationPath,
-  name: r'applicationPathProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$applicationPathHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+const applicationPathProvider = ApplicationPathProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef ApplicationPathRef = AutoDisposeProviderRef<Directory>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class ApplicationPathProvider
+    extends $FunctionalProvider<Directory, Directory, Directory>
+    with $Provider<Directory> {
+  const ApplicationPathProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'applicationPathProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$applicationPathHash();
+
+  @$internal
+  @override
+  $ProviderElement<Directory> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  Directory create(Ref ref) {
+    return applicationPath(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(Directory value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<Directory>(value),
+    );
+  }
+}
+
+String _$applicationPathHash() => r'9d09015e62cc90b6d591b867911b8069e38489f1';

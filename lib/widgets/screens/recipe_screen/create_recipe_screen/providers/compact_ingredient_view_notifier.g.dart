@@ -6,25 +6,47 @@ part of 'compact_ingredient_view_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
+@ProviderFor(compactIngredientViewNotifier)
+const compactIngredientViewProvider = CompactIngredientViewNotifierProvider._();
+
+final class CompactIngredientViewNotifierProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<CompactIngredientViewState>,
+          CompactIngredientViewState,
+          FutureOr<CompactIngredientViewState>
+        >
+    with
+        $FutureModifier<CompactIngredientViewState>,
+        $FutureProvider<CompactIngredientViewState> {
+  const CompactIngredientViewNotifierProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'compactIngredientViewProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$compactIngredientViewNotifierHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<CompactIngredientViewState> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<CompactIngredientViewState> create(Ref ref) {
+    return compactIngredientViewNotifier(ref);
+  }
+}
+
 String _$compactIngredientViewNotifierHash() =>
     r'eff5eedb3332dd13524099de2db29e20646d56a8';
-
-/// See also [compactIngredientViewNotifier].
-@ProviderFor(compactIngredientViewNotifier)
-final compactIngredientViewNotifierProvider =
-    AutoDisposeFutureProvider<CompactIngredientViewState>.internal(
-      compactIngredientViewNotifier,
-      name: r'compactIngredientViewNotifierProvider',
-      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$compactIngredientViewNotifierHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef CompactIngredientViewNotifierRef =
-    AutoDisposeFutureProviderRef<CompactIngredientViewState>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

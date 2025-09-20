@@ -6,25 +6,45 @@ part of 'sync_orchestrator_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
+@ProviderFor(syncOrchestratorNotifier)
+const syncOrchestratorProvider = SyncOrchestratorNotifierProvider._();
+
+final class SyncOrchestratorNotifierProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<SyncOrchestrator>,
+          SyncOrchestrator,
+          FutureOr<SyncOrchestrator>
+        >
+    with $FutureModifier<SyncOrchestrator>, $FutureProvider<SyncOrchestrator> {
+  const SyncOrchestratorNotifierProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'syncOrchestratorProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$syncOrchestratorNotifierHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<SyncOrchestrator> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<SyncOrchestrator> create(Ref ref) {
+    return syncOrchestratorNotifier(ref);
+  }
+}
+
 String _$syncOrchestratorNotifierHash() =>
     r'21e23e7f207a74bea9f43eb940efd4f2366ffa68';
-
-/// See also [syncOrchestratorNotifier].
-@ProviderFor(syncOrchestratorNotifier)
-final syncOrchestratorNotifierProvider =
-    AutoDisposeFutureProvider<SyncOrchestrator>.internal(
-      syncOrchestratorNotifier,
-      name: r'syncOrchestratorNotifierProvider',
-      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$syncOrchestratorNotifierHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef SyncOrchestratorNotifierRef =
-    AutoDisposeFutureProviderRef<SyncOrchestrator>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

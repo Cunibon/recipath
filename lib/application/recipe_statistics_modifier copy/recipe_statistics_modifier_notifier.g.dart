@@ -6,25 +6,54 @@ part of 'recipe_statistics_modifier_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
+@ProviderFor(recipeStatisticsModifierNotifier)
+const recipeStatisticsModifierProvider =
+    RecipeStatisticsModifierNotifierProvider._();
+
+final class RecipeStatisticsModifierNotifierProvider
+    extends
+        $FunctionalProvider<
+          RecipeStatisticsModifier,
+          RecipeStatisticsModifier,
+          RecipeStatisticsModifier
+        >
+    with $Provider<RecipeStatisticsModifier> {
+  const RecipeStatisticsModifierNotifierProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'recipeStatisticsModifierProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$recipeStatisticsModifierNotifierHash();
+
+  @$internal
+  @override
+  $ProviderElement<RecipeStatisticsModifier> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  RecipeStatisticsModifier create(Ref ref) {
+    return recipeStatisticsModifierNotifier(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(RecipeStatisticsModifier value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<RecipeStatisticsModifier>(value),
+    );
+  }
+}
+
 String _$recipeStatisticsModifierNotifierHash() =>
     r'5f0590c1675c6193e3bbcddda61ec3b19417ce00';
-
-/// See also [recipeStatisticsModifierNotifier].
-@ProviderFor(recipeStatisticsModifierNotifier)
-final recipeStatisticsModifierNotifierProvider =
-    AutoDisposeProvider<RecipeStatisticsModifier>.internal(
-      recipeStatisticsModifierNotifier,
-      name: r'recipeStatisticsModifierNotifierProvider',
-      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$recipeStatisticsModifierNotifierHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef RecipeStatisticsModifierNotifierRef =
-    AutoDisposeProviderRef<RecipeStatisticsModifier>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

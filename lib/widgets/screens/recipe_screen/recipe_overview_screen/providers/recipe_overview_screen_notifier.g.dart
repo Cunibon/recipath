@@ -6,177 +6,111 @@ part of 'recipe_overview_screen_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$recipeOverviewScreenNotifierHash() =>
-    r'10099e4096269b580b8559715c6ac9af3e9f77c7';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// Copied from Dart SDK
-class _SystemHash {
-  _SystemHash._();
-
-  static int combine(int hash, int value) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + value);
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
-    return hash ^ (hash >> 6);
-  }
-
-  static int finish(int hash) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
-    // ignore: parameter_assignments
-    hash = hash ^ (hash >> 11);
-    return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
-  }
-}
-
-abstract class _$RecipeOverviewScreenNotifier
-    extends BuildlessAutoDisposeNotifier<RecipeOverviewScreenState> {
-  late final String recipeId;
-
-  RecipeOverviewScreenState build(String recipeId);
-}
-
-/// See also [RecipeOverviewScreenNotifier].
 @ProviderFor(RecipeOverviewScreenNotifier)
-const recipeOverviewScreenNotifierProvider =
-    RecipeOverviewScreenNotifierFamily();
+const recipeOverviewScreenProvider = RecipeOverviewScreenNotifierFamily._();
 
-/// See also [RecipeOverviewScreenNotifier].
-class RecipeOverviewScreenNotifierFamily
-    extends Family<RecipeOverviewScreenState> {
-  /// See also [RecipeOverviewScreenNotifier].
-  const RecipeOverviewScreenNotifierFamily();
-
-  /// See also [RecipeOverviewScreenNotifier].
-  RecipeOverviewScreenNotifierProvider call(String recipeId) {
-    return RecipeOverviewScreenNotifierProvider(recipeId);
-  }
-
-  @override
-  RecipeOverviewScreenNotifierProvider getProviderOverride(
-    covariant RecipeOverviewScreenNotifierProvider provider,
-  ) {
-    return call(provider.recipeId);
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'recipeOverviewScreenNotifierProvider';
-}
-
-/// See also [RecipeOverviewScreenNotifier].
-class RecipeOverviewScreenNotifierProvider
+final class RecipeOverviewScreenNotifierProvider
     extends
-        AutoDisposeNotifierProviderImpl<
+        $NotifierProvider<
           RecipeOverviewScreenNotifier,
           RecipeOverviewScreenState
         > {
-  /// See also [RecipeOverviewScreenNotifier].
-  RecipeOverviewScreenNotifierProvider(String recipeId)
-    : this._internal(
-        () => RecipeOverviewScreenNotifier()..recipeId = recipeId,
-        from: recipeOverviewScreenNotifierProvider,
-        name: r'recipeOverviewScreenNotifierProvider',
-        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-            ? null
-            : _$recipeOverviewScreenNotifierHash,
-        dependencies: RecipeOverviewScreenNotifierFamily._dependencies,
-        allTransitiveDependencies:
-            RecipeOverviewScreenNotifierFamily._allTransitiveDependencies,
-        recipeId: recipeId,
-      );
-
-  RecipeOverviewScreenNotifierProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.recipeId,
-  }) : super.internal();
-
-  final String recipeId;
+  const RecipeOverviewScreenNotifierProvider._({
+    required RecipeOverviewScreenNotifierFamily super.from,
+    required String super.argument,
+  }) : super(
+         retry: null,
+         name: r'recipeOverviewScreenProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
   @override
-  RecipeOverviewScreenState runNotifierBuild(
-    covariant RecipeOverviewScreenNotifier notifier,
-  ) {
-    return notifier.build(recipeId);
+  String debugGetCreateSourceHash() => _$recipeOverviewScreenNotifierHash();
+
+  @override
+  String toString() {
+    return r'recipeOverviewScreenProvider'
+        ''
+        '($argument)';
   }
 
+  @$internal
   @override
-  Override overrideWith(RecipeOverviewScreenNotifier Function() create) {
-    return ProviderOverride(
+  RecipeOverviewScreenNotifier create() => RecipeOverviewScreenNotifier();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(RecipeOverviewScreenState value) {
+    return $ProviderOverride(
       origin: this,
-      override: RecipeOverviewScreenNotifierProvider._internal(
-        () => create()..recipeId = recipeId,
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        recipeId: recipeId,
-      ),
+      providerOverride: $SyncValueProvider<RecipeOverviewScreenState>(value),
     );
-  }
-
-  @override
-  AutoDisposeNotifierProviderElement<
-    RecipeOverviewScreenNotifier,
-    RecipeOverviewScreenState
-  >
-  createElement() {
-    return _RecipeOverviewScreenNotifierProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
     return other is RecipeOverviewScreenNotifierProvider &&
-        other.recipeId == recipeId;
+        other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, recipeId.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
 }
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin RecipeOverviewScreenNotifierRef
-    on AutoDisposeNotifierProviderRef<RecipeOverviewScreenState> {
-  /// The parameter `recipeId` of this provider.
-  String get recipeId;
-}
+String _$recipeOverviewScreenNotifierHash() =>
+    r'10099e4096269b580b8559715c6ac9af3e9f77c7';
 
-class _RecipeOverviewScreenNotifierProviderElement
-    extends
-        AutoDisposeNotifierProviderElement<
+final class RecipeOverviewScreenNotifierFamily extends $Family
+    with
+        $ClassFamilyOverride<
           RecipeOverviewScreenNotifier,
-          RecipeOverviewScreenState
-        >
-    with RecipeOverviewScreenNotifierRef {
-  _RecipeOverviewScreenNotifierProviderElement(super.provider);
+          RecipeOverviewScreenState,
+          RecipeOverviewScreenState,
+          RecipeOverviewScreenState,
+          String
+        > {
+  const RecipeOverviewScreenNotifierFamily._()
+    : super(
+        retry: null,
+        name: r'recipeOverviewScreenProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  RecipeOverviewScreenNotifierProvider call(String recipeId) =>
+      RecipeOverviewScreenNotifierProvider._(argument: recipeId, from: this);
 
   @override
-  String get recipeId =>
-      (origin as RecipeOverviewScreenNotifierProvider).recipeId;
+  String toString() => r'recipeOverviewScreenProvider';
 }
 
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+abstract class _$RecipeOverviewScreenNotifier
+    extends $Notifier<RecipeOverviewScreenState> {
+  late final _$args = ref.$arg as String;
+  String get recipeId => _$args;
+
+  RecipeOverviewScreenState build(String recipeId);
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build(_$args);
+    final ref =
+        this.ref as $Ref<RecipeOverviewScreenState, RecipeOverviewScreenState>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<RecipeOverviewScreenState, RecipeOverviewScreenState>,
+              RecipeOverviewScreenState,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}

@@ -6,25 +6,45 @@ part of 'material_you_scheme_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
+@ProviderFor(materialYouSchemeNotifier)
+const materialYouSchemeProvider = MaterialYouSchemeNotifierProvider._();
+
+final class MaterialYouSchemeNotifierProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<ColorScheme?>,
+          ColorScheme?,
+          FutureOr<ColorScheme?>
+        >
+    with $FutureModifier<ColorScheme?>, $FutureProvider<ColorScheme?> {
+  const MaterialYouSchemeNotifierProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'materialYouSchemeProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$materialYouSchemeNotifierHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<ColorScheme?> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<ColorScheme?> create(Ref ref) {
+    return materialYouSchemeNotifier(ref);
+  }
+}
+
 String _$materialYouSchemeNotifierHash() =>
     r'3c083aad2eb93e0371c761f6f33163bea2f0f63c';
-
-/// See also [materialYouSchemeNotifier].
-@ProviderFor(materialYouSchemeNotifier)
-final materialYouSchemeNotifierProvider =
-    AutoDisposeFutureProvider<ColorScheme?>.internal(
-      materialYouSchemeNotifier,
-      name: r'materialYouSchemeNotifierProvider',
-      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$materialYouSchemeNotifierHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef MaterialYouSchemeNotifierRef =
-    AutoDisposeFutureProviderRef<ColorScheme?>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -12,25 +12,61 @@ const _$QuickFiltersEnumMap = {QuickFilters.running: 'running'};
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
+@ProviderFor(QuickFilterNotifier)
+const quickFilterProvider = QuickFilterNotifierProvider._();
+
+final class QuickFilterNotifierProvider
+    extends $NotifierProvider<QuickFilterNotifier, Map<QuickFilters, bool>> {
+  const QuickFilterNotifierProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'quickFilterProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$quickFilterNotifierHash();
+
+  @$internal
+  @override
+  QuickFilterNotifier create() => QuickFilterNotifier();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(Map<QuickFilters, bool> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<Map<QuickFilters, bool>>(value),
+    );
+  }
+}
+
 String _$quickFilterNotifierHash() =>
     r'47ddb6dba007cfaa582f64931000006d044ca7b3';
 
-/// See also [QuickFilterNotifier].
-@ProviderFor(QuickFilterNotifier)
-final quickFilterNotifierProvider =
-    AutoDisposeNotifierProvider<
-      QuickFilterNotifier,
-      Map<QuickFilters, bool>
-    >.internal(
-      QuickFilterNotifier.new,
-      name: r'quickFilterNotifierProvider',
-      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$quickFilterNotifierHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
-
-typedef _$QuickFilterNotifier = AutoDisposeNotifier<Map<QuickFilters, bool>>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+abstract class _$QuickFilterNotifier
+    extends $Notifier<Map<QuickFilters, bool>> {
+  Map<QuickFilters, bool> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref =
+        this.ref as $Ref<Map<QuickFilters, bool>, Map<QuickFilters, bool>>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<Map<QuickFilters, bool>, Map<QuickFilters, bool>>,
+              Map<QuickFilters, bool>,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}

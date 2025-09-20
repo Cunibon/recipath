@@ -6,22 +6,39 @@ part of 'supabase_auth_state_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$supabaseAuthStateHash() => r'28116a090d3eaab164f2b35a33a0b42cf3744001';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [supabaseAuthState].
 @ProviderFor(supabaseAuthState)
-final supabaseAuthStateProvider = AutoDisposeStreamProvider<AuthState>.internal(
-  supabaseAuthState,
-  name: r'supabaseAuthStateProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$supabaseAuthStateHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+const supabaseAuthStateProvider = SupabaseAuthStateProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef SupabaseAuthStateRef = AutoDisposeStreamProviderRef<AuthState>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class SupabaseAuthStateProvider
+    extends
+        $FunctionalProvider<AsyncValue<AuthState>, AuthState, Stream<AuthState>>
+    with $FutureModifier<AuthState>, $StreamProvider<AuthState> {
+  const SupabaseAuthStateProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'supabaseAuthStateProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$supabaseAuthStateHash();
+
+  @$internal
+  @override
+  $StreamProviderElement<AuthState> $createElement($ProviderPointer pointer) =>
+      $StreamProviderElement(pointer);
+
+  @override
+  Stream<AuthState> create(Ref ref) {
+    return supabaseAuthState(ref);
+  }
+}
+
+String _$supabaseAuthStateHash() => r'28116a090d3eaab164f2b35a33a0b42cf3744001';

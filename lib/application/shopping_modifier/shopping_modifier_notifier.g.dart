@@ -6,24 +6,52 @@ part of 'shopping_modifier_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
+@ProviderFor(shoppingModifierNotifier)
+const shoppingModifierProvider = ShoppingModifierNotifierProvider._();
+
+final class ShoppingModifierNotifierProvider
+    extends
+        $FunctionalProvider<
+          ShoppingModifier,
+          ShoppingModifier,
+          ShoppingModifier
+        >
+    with $Provider<ShoppingModifier> {
+  const ShoppingModifierNotifierProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'shoppingModifierProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$shoppingModifierNotifierHash();
+
+  @$internal
+  @override
+  $ProviderElement<ShoppingModifier> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  ShoppingModifier create(Ref ref) {
+    return shoppingModifierNotifier(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(ShoppingModifier value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<ShoppingModifier>(value),
+    );
+  }
+}
+
 String _$shoppingModifierNotifierHash() =>
     r'5d25f05b36e6396090a254ecc1cdc9749f3e2f4c';
-
-/// See also [shoppingModifierNotifier].
-@ProviderFor(shoppingModifierNotifier)
-final shoppingModifierNotifierProvider =
-    AutoDisposeProvider<ShoppingModifier>.internal(
-      shoppingModifierNotifier,
-      name: r'shoppingModifierNotifierProvider',
-      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$shoppingModifierNotifierHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef ShoppingModifierNotifierRef = AutoDisposeProviderRef<ShoppingModifier>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

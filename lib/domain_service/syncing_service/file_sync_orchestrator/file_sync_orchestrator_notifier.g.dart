@@ -6,25 +6,47 @@ part of 'file_sync_orchestrator_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
+@ProviderFor(fileSyncOrchestratorNotifier)
+const fileSyncOrchestratorProvider = FileSyncOrchestratorNotifierProvider._();
+
+final class FileSyncOrchestratorNotifierProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<FileSyncOrchestrator>,
+          FileSyncOrchestrator,
+          FutureOr<FileSyncOrchestrator>
+        >
+    with
+        $FutureModifier<FileSyncOrchestrator>,
+        $FutureProvider<FileSyncOrchestrator> {
+  const FileSyncOrchestratorNotifierProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'fileSyncOrchestratorProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$fileSyncOrchestratorNotifierHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<FileSyncOrchestrator> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<FileSyncOrchestrator> create(Ref ref) {
+    return fileSyncOrchestratorNotifier(ref);
+  }
+}
+
 String _$fileSyncOrchestratorNotifierHash() =>
     r'6cec82c1e9f1f55f6f67492f7454bbf3e11f530b';
-
-/// See also [fileSyncOrchestratorNotifier].
-@ProviderFor(fileSyncOrchestratorNotifier)
-final fileSyncOrchestratorNotifierProvider =
-    AutoDisposeFutureProvider<FileSyncOrchestrator>.internal(
-      fileSyncOrchestratorNotifier,
-      name: r'fileSyncOrchestratorNotifierProvider',
-      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$fileSyncOrchestratorNotifierHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef FileSyncOrchestratorNotifierRef =
-    AutoDisposeFutureProviderRef<FileSyncOrchestrator>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

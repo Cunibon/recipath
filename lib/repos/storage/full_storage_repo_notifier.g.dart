@@ -6,25 +6,53 @@ part of 'full_storage_repo_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
+@ProviderFor(fullStorageRepoNotifier)
+const fullStorageRepoProvider = FullStorageRepoNotifierProvider._();
+
+final class FullStorageRepoNotifierProvider
+    extends
+        $FunctionalProvider<
+          SyncRepo<StorageData>,
+          SyncRepo<StorageData>,
+          SyncRepo<StorageData>
+        >
+    with $Provider<SyncRepo<StorageData>> {
+  const FullStorageRepoNotifierProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'fullStorageRepoProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$fullStorageRepoNotifierHash();
+
+  @$internal
+  @override
+  $ProviderElement<SyncRepo<StorageData>> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  SyncRepo<StorageData> create(Ref ref) {
+    return fullStorageRepoNotifier(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(SyncRepo<StorageData> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<SyncRepo<StorageData>>(value),
+    );
+  }
+}
+
 String _$fullStorageRepoNotifierHash() =>
     r'b63e87ca22033198ef6a67f6d789be16aedf0aaa';
-
-/// See also [fullStorageRepoNotifier].
-@ProviderFor(fullStorageRepoNotifier)
-final fullStorageRepoNotifierProvider =
-    AutoDisposeProvider<SyncRepo<StorageData>>.internal(
-      fullStorageRepoNotifier,
-      name: r'fullStorageRepoNotifierProvider',
-      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$fullStorageRepoNotifierHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef FullStorageRepoNotifierRef =
-    AutoDisposeProviderRef<SyncRepo<StorageData>>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

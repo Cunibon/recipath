@@ -6,25 +6,53 @@ part of 'full_recipe_repo_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
+@ProviderFor(fullRecipeRepoNotifier)
+const fullRecipeRepoProvider = FullRecipeRepoNotifierProvider._();
+
+final class FullRecipeRepoNotifierProvider
+    extends
+        $FunctionalProvider<
+          SyncRepo<RecipeData>,
+          SyncRepo<RecipeData>,
+          SyncRepo<RecipeData>
+        >
+    with $Provider<SyncRepo<RecipeData>> {
+  const FullRecipeRepoNotifierProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'fullRecipeRepoProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$fullRecipeRepoNotifierHash();
+
+  @$internal
+  @override
+  $ProviderElement<SyncRepo<RecipeData>> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  SyncRepo<RecipeData> create(Ref ref) {
+    return fullRecipeRepoNotifier(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(SyncRepo<RecipeData> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<SyncRepo<RecipeData>>(value),
+    );
+  }
+}
+
 String _$fullRecipeRepoNotifierHash() =>
     r'1af4e3164eca31a4b73aed2035a5c8c4b3313965';
-
-/// See also [fullRecipeRepoNotifier].
-@ProviderFor(fullRecipeRepoNotifier)
-final fullRecipeRepoNotifierProvider =
-    AutoDisposeProvider<SyncRepo<RecipeData>>.internal(
-      fullRecipeRepoNotifier,
-      name: r'fullRecipeRepoNotifierProvider',
-      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$fullRecipeRepoNotifierHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef FullRecipeRepoNotifierRef =
-    AutoDisposeProviderRef<SyncRepo<RecipeData>>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/root_routes.dart';
 import 'package:recipath/widgets/screens/recipe_screen/drawer_destination.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

@@ -4,7 +4,6 @@ import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/generic/expandable.dart';
 import 'package:recipath/widgets/screens/dashboard_screen/charts/async_chart.dart';
 import 'package:recipath/widgets/screens/dashboard_screen/charts/base_chart.dart';
-import 'package:recipath/widgets/screens/dashboard_screen/charts/grocery_chart/providers/grocery_chart_notifier.dart';
 
 class GroceryChart extends ConsumerWidget {
   const GroceryChart({

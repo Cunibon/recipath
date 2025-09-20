@@ -6,161 +6,87 @@ part of 'recipe_statistics_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$recipeChartStatisticsNotifierHash() =>
-    r'44f6a8eaeccefe2d677fb97b8e07daafcd0ec05f';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// Copied from Dart SDK
-class _SystemHash {
-  _SystemHash._();
-
-  static int combine(int hash, int value) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + value);
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
-    return hash ^ (hash >> 6);
-  }
-
-  static int finish(int hash) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
-    // ignore: parameter_assignments
-    hash = hash ^ (hash >> 11);
-    return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
-  }
-}
-
-/// See also [recipeChartStatisticsNotifier].
 @ProviderFor(recipeChartStatisticsNotifier)
-const recipeChartStatisticsNotifierProvider =
-    RecipeChartStatisticsNotifierFamily();
+const recipeChartStatisticsProvider = RecipeChartStatisticsNotifierFamily._();
 
-/// See also [recipeChartStatisticsNotifier].
-class RecipeChartStatisticsNotifierFamily
-    extends Family<AsyncValue<Map<String, int>>> {
-  /// See also [recipeChartStatisticsNotifier].
-  const RecipeChartStatisticsNotifierFamily();
+final class RecipeChartStatisticsNotifierProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<Map<String, int>>,
+          Map<String, int>,
+          FutureOr<Map<String, int>>
+        >
+    with $FutureModifier<Map<String, int>>, $FutureProvider<Map<String, int>> {
+  const RecipeChartStatisticsNotifierProvider._({
+    required RecipeChartStatisticsNotifierFamily super.from,
+    required DateTimeRange<DateTime> super.argument,
+  }) : super(
+         retry: null,
+         name: r'recipeChartStatisticsProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
-  /// See also [recipeChartStatisticsNotifier].
-  RecipeChartStatisticsNotifierProvider call(
-    DateTimeRange<DateTime> dateRange,
-  ) {
-    return RecipeChartStatisticsNotifierProvider(dateRange);
+  @override
+  String debugGetCreateSourceHash() => _$recipeChartStatisticsNotifierHash();
+
+  @override
+  String toString() {
+    return r'recipeChartStatisticsProvider'
+        ''
+        '($argument)';
   }
 
+  @$internal
   @override
-  RecipeChartStatisticsNotifierProvider getProviderOverride(
-    covariant RecipeChartStatisticsNotifierProvider provider,
-  ) {
-    return call(provider.dateRange);
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
+  $FutureProviderElement<Map<String, int>> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
 
   @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'recipeChartStatisticsNotifierProvider';
-}
-
-/// See also [recipeChartStatisticsNotifier].
-class RecipeChartStatisticsNotifierProvider
-    extends AutoDisposeFutureProvider<Map<String, int>> {
-  /// See also [recipeChartStatisticsNotifier].
-  RecipeChartStatisticsNotifierProvider(DateTimeRange<DateTime> dateRange)
-    : this._internal(
-        (ref) => recipeChartStatisticsNotifier(
-          ref as RecipeChartStatisticsNotifierRef,
-          dateRange,
-        ),
-        from: recipeChartStatisticsNotifierProvider,
-        name: r'recipeChartStatisticsNotifierProvider',
-        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-            ? null
-            : _$recipeChartStatisticsNotifierHash,
-        dependencies: RecipeChartStatisticsNotifierFamily._dependencies,
-        allTransitiveDependencies:
-            RecipeChartStatisticsNotifierFamily._allTransitiveDependencies,
-        dateRange: dateRange,
-      );
-
-  RecipeChartStatisticsNotifierProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.dateRange,
-  }) : super.internal();
-
-  final DateTimeRange<DateTime> dateRange;
-
-  @override
-  Override overrideWith(
-    FutureOr<Map<String, int>> Function(
-      RecipeChartStatisticsNotifierRef provider,
-    )
-    create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: RecipeChartStatisticsNotifierProvider._internal(
-        (ref) => create(ref as RecipeChartStatisticsNotifierRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        dateRange: dateRange,
-      ),
-    );
-  }
-
-  @override
-  AutoDisposeFutureProviderElement<Map<String, int>> createElement() {
-    return _RecipeChartStatisticsNotifierProviderElement(this);
+  FutureOr<Map<String, int>> create(Ref ref) {
+    final argument = this.argument as DateTimeRange<DateTime>;
+    return recipeChartStatisticsNotifier(ref, argument);
   }
 
   @override
   bool operator ==(Object other) {
     return other is RecipeChartStatisticsNotifierProvider &&
-        other.dateRange == dateRange;
+        other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, dateRange.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
 }
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin RecipeChartStatisticsNotifierRef
-    on AutoDisposeFutureProviderRef<Map<String, int>> {
-  /// The parameter `dateRange` of this provider.
-  DateTimeRange<DateTime> get dateRange;
-}
+String _$recipeChartStatisticsNotifierHash() =>
+    r'44f6a8eaeccefe2d677fb97b8e07daafcd0ec05f';
 
-class _RecipeChartStatisticsNotifierProviderElement
-    extends AutoDisposeFutureProviderElement<Map<String, int>>
-    with RecipeChartStatisticsNotifierRef {
-  _RecipeChartStatisticsNotifierProviderElement(super.provider);
+final class RecipeChartStatisticsNotifierFamily extends $Family
+    with
+        $FunctionalFamilyOverride<
+          FutureOr<Map<String, int>>,
+          DateTimeRange<DateTime>
+        > {
+  const RecipeChartStatisticsNotifierFamily._()
+    : super(
+        retry: null,
+        name: r'recipeChartStatisticsProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  RecipeChartStatisticsNotifierProvider call(
+    DateTimeRange<DateTime> dateRange,
+  ) => RecipeChartStatisticsNotifierProvider._(argument: dateRange, from: this);
 
   @override
-  DateTimeRange<DateTime> get dateRange =>
-      (origin as RecipeChartStatisticsNotifierProvider).dateRange;
+  String toString() => r'recipeChartStatisticsProvider';
 }
-
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

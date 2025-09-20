@@ -6,22 +6,46 @@ part of 'database_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$databaseNotifierHash() => r'34a8d4ee8360f523143f4c5c71b2cc435fa56889';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [databaseNotifier].
 @ProviderFor(databaseNotifier)
-final databaseNotifierProvider = Provider<AppDatabase>.internal(
-  databaseNotifier,
-  name: r'databaseNotifierProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$databaseNotifierHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+const databaseProvider = DatabaseNotifierProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef DatabaseNotifierRef = ProviderRef<AppDatabase>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class DatabaseNotifierProvider
+    extends $FunctionalProvider<AppDatabase, AppDatabase, AppDatabase>
+    with $Provider<AppDatabase> {
+  const DatabaseNotifierProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'databaseProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$databaseNotifierHash();
+
+  @$internal
+  @override
+  $ProviderElement<AppDatabase> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  AppDatabase create(Ref ref) {
+    return databaseNotifier(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(AppDatabase value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<AppDatabase>(value),
+    );
+  }
+}
+
+String _$databaseNotifierHash() => r'34a8d4ee8360f523143f4c5c71b2cc435fa56889';

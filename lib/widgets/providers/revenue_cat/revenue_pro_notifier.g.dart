@@ -6,23 +6,39 @@ part of 'revenue_pro_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
+@ProviderFor(revenueProNotifier)
+const revenueProProvider = RevenueProNotifierProvider._();
+
+final class RevenueProNotifierProvider
+    extends $FunctionalProvider<AsyncValue<bool>, bool, FutureOr<bool>>
+    with $FutureModifier<bool>, $FutureProvider<bool> {
+  const RevenueProNotifierProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'revenueProProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$revenueProNotifierHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<bool> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<bool> create(Ref ref) {
+    return revenueProNotifier(ref);
+  }
+}
+
 String _$revenueProNotifierHash() =>
     r'd6efb1a4985efaa10250f9b42f24d99bade17ea2';
-
-/// See also [revenueProNotifier].
-@ProviderFor(revenueProNotifier)
-final revenueProNotifierProvider = AutoDisposeFutureProvider<bool>.internal(
-  revenueProNotifier,
-  name: r'revenueProNotifierProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$revenueProNotifierHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef RevenueProNotifierRef = AutoDisposeFutureProviderRef<bool>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

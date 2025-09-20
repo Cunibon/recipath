@@ -6,24 +6,46 @@ part of 'shopping_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$shoppingNotifierHash() => r'5a69e2c827fa399d087bcea4ebb8f7293ddb1e4a';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [shoppingNotifier].
 @ProviderFor(shoppingNotifier)
-final shoppingNotifierProvider =
-    AutoDisposeStreamProvider<Map<String, ShoppingData>>.internal(
-      shoppingNotifier,
-      name: r'shoppingNotifierProvider',
-      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$shoppingNotifierHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
+const shoppingProvider = ShoppingNotifierProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef ShoppingNotifierRef =
-    AutoDisposeStreamProviderRef<Map<String, ShoppingData>>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class ShoppingNotifierProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<Map<String, ShoppingData>>,
+          Map<String, ShoppingData>,
+          Stream<Map<String, ShoppingData>>
+        >
+    with
+        $FutureModifier<Map<String, ShoppingData>>,
+        $StreamProvider<Map<String, ShoppingData>> {
+  const ShoppingNotifierProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'shoppingProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$shoppingNotifierHash();
+
+  @$internal
+  @override
+  $StreamProviderElement<Map<String, ShoppingData>> $createElement(
+    $ProviderPointer pointer,
+  ) => $StreamProviderElement(pointer);
+
+  @override
+  Stream<Map<String, ShoppingData>> create(Ref ref) {
+    return shoppingNotifier(ref);
+  }
+}
+
+String _$shoppingNotifierHash() => r'5a69e2c827fa399d087bcea4ebb8f7293ddb1e4a';

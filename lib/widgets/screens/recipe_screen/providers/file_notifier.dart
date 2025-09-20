@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/providers/application_path_provider.dart';
 import 'package:recipath/widgets/providers/supabase/supabase_client_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

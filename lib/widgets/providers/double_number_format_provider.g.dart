@@ -6,24 +6,47 @@ part of 'double_number_format_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
+@ProviderFor(doubleNumberFormatNotifier)
+const doubleNumberFormatProvider = DoubleNumberFormatNotifierProvider._();
+
+final class DoubleNumberFormatNotifierProvider
+    extends $FunctionalProvider<NumberFormat, NumberFormat, NumberFormat>
+    with $Provider<NumberFormat> {
+  const DoubleNumberFormatNotifierProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'doubleNumberFormatProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$doubleNumberFormatNotifierHash();
+
+  @$internal
+  @override
+  $ProviderElement<NumberFormat> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  NumberFormat create(Ref ref) {
+    return doubleNumberFormatNotifier(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(NumberFormat value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<NumberFormat>(value),
+    );
+  }
+}
+
 String _$doubleNumberFormatNotifierHash() =>
     r'ef028de6b31f3bc2566b4f21d930761d90431b38';
-
-/// See also [doubleNumberFormatNotifier].
-@ProviderFor(doubleNumberFormatNotifier)
-final doubleNumberFormatNotifierProvider =
-    AutoDisposeProvider<NumberFormat>.internal(
-      doubleNumberFormatNotifier,
-      name: r'doubleNumberFormatNotifierProvider',
-      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$doubleNumberFormatNotifierHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef DoubleNumberFormatNotifierRef = AutoDisposeProviderRef<NumberFormat>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

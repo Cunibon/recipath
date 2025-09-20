@@ -4,7 +4,6 @@ import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/generic/expandable.dart';
 import 'package:recipath/widgets/screens/dashboard_screen/charts/async_chart.dart';
 import 'package:recipath/widgets/screens/dashboard_screen/charts/base_chart.dart';
-import 'package:recipath/widgets/screens/dashboard_screen/charts/recipe_chart/providers/recipe_chart_notifier.dart';
 
 class RecipeChart extends ConsumerWidget {
   const RecipeChart({
