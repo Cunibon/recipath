@@ -114,8 +114,10 @@ class _IngredientItemState extends ConsumerState<IngredientItem> {
                             ...UnitConversion.weightToGram.keys,
                           ]
                           .map(
-                            (e) =>
-                                DropdownMenuItem(value: e, child: Text(e.name)),
+                            (e) => DropdownMenuItem(
+                              value: e,
+                              child: Text(unitLocalized[e]!),
+                            ),
                           )
                           .toList(),
                   onChanged: (newUnit) {
