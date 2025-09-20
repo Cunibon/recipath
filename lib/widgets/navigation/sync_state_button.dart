@@ -19,7 +19,7 @@ class _SyncStateButtonState extends ConsumerState<SyncStateButton> {
         if (loading == true) return;
 
         setState(() => loading = true);
-        await (await ref.read(syncingServiceProvider.future)).start();
+        await ref.read(syncingServiceProvider).value?.sync();
         if (context.mounted) {
           setState(() => loading = false);
         }
