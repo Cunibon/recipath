@@ -6,7 +6,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'full_shopping_repo_notifier.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 SyncRepo<ShoppingData> fullShoppingRepoNotifier(Ref ref) {
   final db = ref.watch(databaseProvider);
   return ShoppingRepoDrift(db, incluedDeleted: true);

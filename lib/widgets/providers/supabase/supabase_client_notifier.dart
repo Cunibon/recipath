@@ -3,5 +3,5 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 part 'supabase_client_notifier.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 SupabaseClient supabaseClient(Ref ref) => Supabase.instance.client;

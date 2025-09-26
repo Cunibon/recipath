@@ -6,7 +6,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'file_repo_notifier.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 SyncRepo<FileData> fileRepoNotifier(Ref ref) {
   final db = ref.watch(databaseProvider);
   return FileRepoDrift(db);

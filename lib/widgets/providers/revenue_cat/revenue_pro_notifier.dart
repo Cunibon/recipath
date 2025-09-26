@@ -5,7 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'revenue_pro_notifier.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 Future<bool> revenueProNotifier(Ref ref) async {
   final userInfo = await ref.watch(revenueCustomerProvider.future);
 

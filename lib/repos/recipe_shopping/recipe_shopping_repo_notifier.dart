@@ -4,7 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'recipe_shopping_repo_notifier.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 RecipeShoppingRepoDrift recipeShoppingRepoNotifier(Ref ref) {
   final db = ref.watch(databaseProvider);
   return RecipeShoppingRepoDrift(db);

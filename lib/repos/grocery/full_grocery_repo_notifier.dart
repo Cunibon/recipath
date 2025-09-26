@@ -6,7 +6,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'full_grocery_repo_notifier.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 SyncRepo<GroceryData> fullGroceryRepoNotifier(Ref ref) {
   final db = ref.watch(databaseProvider);
   return GroceryRepoDrift(db, incluedArchived: true);

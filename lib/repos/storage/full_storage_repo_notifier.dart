@@ -6,7 +6,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'full_storage_repo_notifier.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 SyncRepo<StorageData> fullStorageRepoNotifier(Ref ref) {
   final db = ref.watch(databaseProvider);
   return StorageRepoDrift(db, incluedDeleted: true);

@@ -9,7 +9,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'file_sync_orchestrator_notifier.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 Future<FileSyncOrchestrator> fileSyncOrchestratorNotifier(Ref ref) async {
   final fileRepo = ref.watch(fileRepoProvider);
 

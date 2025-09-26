@@ -29,7 +29,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'sync_orchestrator_notifier.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 Future<SyncOrchestrator> syncOrchestratorNotifier(Ref ref) async {
   final groceryRepo = ref.watch(fullGroceryRepoProvider);
   final recipeRepo = ref.watch(fullRecipeRepoProvider);
