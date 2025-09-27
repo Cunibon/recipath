@@ -26,7 +26,7 @@ final class RevenueCustomerNotifierProvider
         argument: null,
         retry: null,
         name: r'revenueCustomerProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -47,4 +47,4 @@ final class RevenueCustomerNotifierProvider
 }
 
 String _$revenueCustomerNotifierHash() =>
-    r'66b9c0b1d7c0b8069ee4724172563796d23fe548';
+    r'e246d0f035cdbf521ade7653b91f1bbf79a5ba59';

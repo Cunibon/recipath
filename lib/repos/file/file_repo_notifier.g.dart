@@ -26,7 +26,7 @@ final class FileRepoNotifierProvider
         argument: null,
         retry: null,
         name: r'fileRepoProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -54,4 +54,4 @@ final class FileRepoNotifierProvider
   }
 }
 
-String _$fileRepoNotifierHash() => r'1d6f76ac690490f511821d17ba6b3f8a9f0a737f';
+String _$fileRepoNotifierHash() => r'ad48675213ce22f8d12517b8c4ab27e7eb0a40ca';

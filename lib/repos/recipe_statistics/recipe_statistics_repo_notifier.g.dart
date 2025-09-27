@@ -26,7 +26,7 @@ final class RecipeStatisticsRepoNotifierProvider
         argument: null,
         retry: null,
         name: r'recipeStatisticsRepoProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -55,4 +55,4 @@ final class RecipeStatisticsRepoNotifierProvider
 }
 
 String _$recipeStatisticsRepoNotifierHash() =>
-    r'c031fa6c89dfe318251585100fca4977477efe39';
+    r'731c9e4aaddee2cc7051e432a0f84b728e18dc7b';

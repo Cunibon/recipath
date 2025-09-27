@@ -26,7 +26,7 @@ final class FullRecipeRepoNotifierProvider
         argument: null,
         retry: null,
         name: r'fullRecipeRepoProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -55,4 +55,4 @@ final class FullRecipeRepoNotifierProvider
 }
 
 String _$fullRecipeRepoNotifierHash() =>
-    r'e42a1ac31dbbf686ca92cf274cb721855a4d1fa1';
+    r'c6340e6847ce3128a9e6d0882179765befc25772';

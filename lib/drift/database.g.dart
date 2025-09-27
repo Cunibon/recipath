@@ -2237,6 +2237,694 @@ class RecipeStepIngredientTableCompanion
   }
 }
 
+class $TagTableTable extends TagTable
+    with TableInfo<$TagTableTable, TagTableData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $TagTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+    'name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _descriptionMeta = const VerificationMeta(
+    'description',
+  );
+  @override
+  late final GeneratedColumn<String> description = GeneratedColumn<String>(
+    'description',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _colorMeta = const VerificationMeta('color');
+  @override
+  late final GeneratedColumn<int> color = GeneratedColumn<int>(
+    'color',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _deletedMeta = const VerificationMeta(
+    'deleted',
+  );
+  @override
+  late final GeneratedColumn<bool> deleted = GeneratedColumn<bool>(
+    'deleted',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("deleted" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
+  static const VerificationMeta _uploadedMeta = const VerificationMeta(
+    'uploaded',
+  );
+  @override
+  late final GeneratedColumn<bool> uploaded = GeneratedColumn<bool>(
+    'uploaded',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("uploaded" IN (0, 1))',
+    ),
+    defaultValue: Constant(false),
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    name,
+    description,
+    color,
+    deleted,
+    uploaded,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'tag_table';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<TagTableData> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+        _nameMeta,
+        name.isAcceptableOrUnknown(data['name']!, _nameMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    if (data.containsKey('description')) {
+      context.handle(
+        _descriptionMeta,
+        description.isAcceptableOrUnknown(
+          data['description']!,
+          _descriptionMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_descriptionMeta);
+    }
+    if (data.containsKey('color')) {
+      context.handle(
+        _colorMeta,
+        color.isAcceptableOrUnknown(data['color']!, _colorMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_colorMeta);
+    }
+    if (data.containsKey('deleted')) {
+      context.handle(
+        _deletedMeta,
+        deleted.isAcceptableOrUnknown(data['deleted']!, _deletedMeta),
+      );
+    }
+    if (data.containsKey('uploaded')) {
+      context.handle(
+        _uploadedMeta,
+        uploaded.isAcceptableOrUnknown(data['uploaded']!, _uploadedMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  TagTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return TagTableData(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      name: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}name'],
+      )!,
+      description: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}description'],
+      )!,
+      color: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}color'],
+      )!,
+      deleted: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}deleted'],
+      )!,
+      uploaded: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}uploaded'],
+      )!,
+    );
+  }
+
+  @override
+  $TagTableTable createAlias(String alias) {
+    return $TagTableTable(attachedDatabase, alias);
+  }
+}
+
+class TagTableData extends DataClass implements Insertable<TagTableData> {
+  final String id;
+  final String name;
+  final String description;
+  final int color;
+  final bool deleted;
+  final bool uploaded;
+  const TagTableData({
+    required this.id,
+    required this.name,
+    required this.description,
+    required this.color,
+    required this.deleted,
+    required this.uploaded,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['name'] = Variable<String>(name);
+    map['description'] = Variable<String>(description);
+    map['color'] = Variable<int>(color);
+    map['deleted'] = Variable<bool>(deleted);
+    map['uploaded'] = Variable<bool>(uploaded);
+    return map;
+  }
+
+  TagTableCompanion toCompanion(bool nullToAbsent) {
+    return TagTableCompanion(
+      id: Value(id),
+      name: Value(name),
+      description: Value(description),
+      color: Value(color),
+      deleted: Value(deleted),
+      uploaded: Value(uploaded),
+    );
+  }
+
+  factory TagTableData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return TagTableData(
+      id: serializer.fromJson<String>(json['id']),
+      name: serializer.fromJson<String>(json['name']),
+      description: serializer.fromJson<String>(json['description']),
+      color: serializer.fromJson<int>(json['color']),
+      deleted: serializer.fromJson<bool>(json['deleted']),
+      uploaded: serializer.fromJson<bool>(json['uploaded']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'name': serializer.toJson<String>(name),
+      'description': serializer.toJson<String>(description),
+      'color': serializer.toJson<int>(color),
+      'deleted': serializer.toJson<bool>(deleted),
+      'uploaded': serializer.toJson<bool>(uploaded),
+    };
+  }
+
+  TagTableData copyWith({
+    String? id,
+    String? name,
+    String? description,
+    int? color,
+    bool? deleted,
+    bool? uploaded,
+  }) => TagTableData(
+    id: id ?? this.id,
+    name: name ?? this.name,
+    description: description ?? this.description,
+    color: color ?? this.color,
+    deleted: deleted ?? this.deleted,
+    uploaded: uploaded ?? this.uploaded,
+  );
+  TagTableData copyWithCompanion(TagTableCompanion data) {
+    return TagTableData(
+      id: data.id.present ? data.id.value : this.id,
+      name: data.name.present ? data.name.value : this.name,
+      description: data.description.present
+          ? data.description.value
+          : this.description,
+      color: data.color.present ? data.color.value : this.color,
+      deleted: data.deleted.present ? data.deleted.value : this.deleted,
+      uploaded: data.uploaded.present ? data.uploaded.value : this.uploaded,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TagTableData(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('description: $description, ')
+          ..write('color: $color, ')
+          ..write('deleted: $deleted, ')
+          ..write('uploaded: $uploaded')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(id, name, description, color, deleted, uploaded);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is TagTableData &&
+          other.id == this.id &&
+          other.name == this.name &&
+          other.description == this.description &&
+          other.color == this.color &&
+          other.deleted == this.deleted &&
+          other.uploaded == this.uploaded);
+}
+
+class TagTableCompanion extends UpdateCompanion<TagTableData> {
+  final Value<String> id;
+  final Value<String> name;
+  final Value<String> description;
+  final Value<int> color;
+  final Value<bool> deleted;
+  final Value<bool> uploaded;
+  final Value<int> rowid;
+  const TagTableCompanion({
+    this.id = const Value.absent(),
+    this.name = const Value.absent(),
+    this.description = const Value.absent(),
+    this.color = const Value.absent(),
+    this.deleted = const Value.absent(),
+    this.uploaded = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  TagTableCompanion.insert({
+    required String id,
+    required String name,
+    required String description,
+    required int color,
+    this.deleted = const Value.absent(),
+    this.uploaded = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       name = Value(name),
+       description = Value(description),
+       color = Value(color);
+  static Insertable<TagTableData> custom({
+    Expression<String>? id,
+    Expression<String>? name,
+    Expression<String>? description,
+    Expression<int>? color,
+    Expression<bool>? deleted,
+    Expression<bool>? uploaded,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (name != null) 'name': name,
+      if (description != null) 'description': description,
+      if (color != null) 'color': color,
+      if (deleted != null) 'deleted': deleted,
+      if (uploaded != null) 'uploaded': uploaded,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  TagTableCompanion copyWith({
+    Value<String>? id,
+    Value<String>? name,
+    Value<String>? description,
+    Value<int>? color,
+    Value<bool>? deleted,
+    Value<bool>? uploaded,
+    Value<int>? rowid,
+  }) {
+    return TagTableCompanion(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      description: description ?? this.description,
+      color: color ?? this.color,
+      deleted: deleted ?? this.deleted,
+      uploaded: uploaded ?? this.uploaded,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
+    }
+    if (description.present) {
+      map['description'] = Variable<String>(description.value);
+    }
+    if (color.present) {
+      map['color'] = Variable<int>(color.value);
+    }
+    if (deleted.present) {
+      map['deleted'] = Variable<bool>(deleted.value);
+    }
+    if (uploaded.present) {
+      map['uploaded'] = Variable<bool>(uploaded.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TagTableCompanion(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('description: $description, ')
+          ..write('color: $color, ')
+          ..write('deleted: $deleted, ')
+          ..write('uploaded: $uploaded, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $RecipeTagTableTable extends RecipeTagTable
+    with TableInfo<$RecipeTagTableTable, RecipeTagTableData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $RecipeTagTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _recipeIdMeta = const VerificationMeta(
+    'recipeId',
+  );
+  @override
+  late final GeneratedColumn<String> recipeId = GeneratedColumn<String>(
+    'recipe_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES recipe_table (id) ON DELETE CASCADE',
+    ),
+  );
+  static const VerificationMeta _tagIdMeta = const VerificationMeta('tagId');
+  @override
+  late final GeneratedColumn<String> tagId = GeneratedColumn<String>(
+    'tag_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES tag_table (id) ON DELETE CASCADE',
+    ),
+  );
+  static const VerificationMeta _uploadedMeta = const VerificationMeta(
+    'uploaded',
+  );
+  @override
+  late final GeneratedColumn<bool> uploaded = GeneratedColumn<bool>(
+    'uploaded',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("uploaded" IN (0, 1))',
+    ),
+    defaultValue: Constant(false),
+  );
+  @override
+  List<GeneratedColumn> get $columns => [recipeId, tagId, uploaded];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'recipe_tag_table';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<RecipeTagTableData> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('recipe_id')) {
+      context.handle(
+        _recipeIdMeta,
+        recipeId.isAcceptableOrUnknown(data['recipe_id']!, _recipeIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_recipeIdMeta);
+    }
+    if (data.containsKey('tag_id')) {
+      context.handle(
+        _tagIdMeta,
+        tagId.isAcceptableOrUnknown(data['tag_id']!, _tagIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_tagIdMeta);
+    }
+    if (data.containsKey('uploaded')) {
+      context.handle(
+        _uploadedMeta,
+        uploaded.isAcceptableOrUnknown(data['uploaded']!, _uploadedMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {recipeId, tagId};
+  @override
+  RecipeTagTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return RecipeTagTableData(
+      recipeId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}recipe_id'],
+      )!,
+      tagId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}tag_id'],
+      )!,
+      uploaded: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}uploaded'],
+      )!,
+    );
+  }
+
+  @override
+  $RecipeTagTableTable createAlias(String alias) {
+    return $RecipeTagTableTable(attachedDatabase, alias);
+  }
+}
+
+class RecipeTagTableData extends DataClass
+    implements Insertable<RecipeTagTableData> {
+  final String recipeId;
+  final String tagId;
+  final bool uploaded;
+  const RecipeTagTableData({
+    required this.recipeId,
+    required this.tagId,
+    required this.uploaded,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['recipe_id'] = Variable<String>(recipeId);
+    map['tag_id'] = Variable<String>(tagId);
+    map['uploaded'] = Variable<bool>(uploaded);
+    return map;
+  }
+
+  RecipeTagTableCompanion toCompanion(bool nullToAbsent) {
+    return RecipeTagTableCompanion(
+      recipeId: Value(recipeId),
+      tagId: Value(tagId),
+      uploaded: Value(uploaded),
+    );
+  }
+
+  factory RecipeTagTableData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return RecipeTagTableData(
+      recipeId: serializer.fromJson<String>(json['recipeId']),
+      tagId: serializer.fromJson<String>(json['tagId']),
+      uploaded: serializer.fromJson<bool>(json['uploaded']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'recipeId': serializer.toJson<String>(recipeId),
+      'tagId': serializer.toJson<String>(tagId),
+      'uploaded': serializer.toJson<bool>(uploaded),
+    };
+  }
+
+  RecipeTagTableData copyWith({
+    String? recipeId,
+    String? tagId,
+    bool? uploaded,
+  }) => RecipeTagTableData(
+    recipeId: recipeId ?? this.recipeId,
+    tagId: tagId ?? this.tagId,
+    uploaded: uploaded ?? this.uploaded,
+  );
+  RecipeTagTableData copyWithCompanion(RecipeTagTableCompanion data) {
+    return RecipeTagTableData(
+      recipeId: data.recipeId.present ? data.recipeId.value : this.recipeId,
+      tagId: data.tagId.present ? data.tagId.value : this.tagId,
+      uploaded: data.uploaded.present ? data.uploaded.value : this.uploaded,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('RecipeTagTableData(')
+          ..write('recipeId: $recipeId, ')
+          ..write('tagId: $tagId, ')
+          ..write('uploaded: $uploaded')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(recipeId, tagId, uploaded);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is RecipeTagTableData &&
+          other.recipeId == this.recipeId &&
+          other.tagId == this.tagId &&
+          other.uploaded == this.uploaded);
+}
+
+class RecipeTagTableCompanion extends UpdateCompanion<RecipeTagTableData> {
+  final Value<String> recipeId;
+  final Value<String> tagId;
+  final Value<bool> uploaded;
+  final Value<int> rowid;
+  const RecipeTagTableCompanion({
+    this.recipeId = const Value.absent(),
+    this.tagId = const Value.absent(),
+    this.uploaded = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  RecipeTagTableCompanion.insert({
+    required String recipeId,
+    required String tagId,
+    this.uploaded = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : recipeId = Value(recipeId),
+       tagId = Value(tagId);
+  static Insertable<RecipeTagTableData> custom({
+    Expression<String>? recipeId,
+    Expression<String>? tagId,
+    Expression<bool>? uploaded,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (recipeId != null) 'recipe_id': recipeId,
+      if (tagId != null) 'tag_id': tagId,
+      if (uploaded != null) 'uploaded': uploaded,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  RecipeTagTableCompanion copyWith({
+    Value<String>? recipeId,
+    Value<String>? tagId,
+    Value<bool>? uploaded,
+    Value<int>? rowid,
+  }) {
+    return RecipeTagTableCompanion(
+      recipeId: recipeId ?? this.recipeId,
+      tagId: tagId ?? this.tagId,
+      uploaded: uploaded ?? this.uploaded,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (recipeId.present) {
+      map['recipe_id'] = Variable<String>(recipeId.value);
+    }
+    if (tagId.present) {
+      map['tag_id'] = Variable<String>(tagId.value);
+    }
+    if (uploaded.present) {
+      map['uploaded'] = Variable<bool>(uploaded.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('RecipeTagTableCompanion(')
+          ..write('recipeId: $recipeId, ')
+          ..write('tagId: $tagId, ')
+          ..write('uploaded: $uploaded, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 class $ShoppingTableTable extends ShoppingTable
     with TableInfo<$ShoppingTableTable, ShoppingTableData> {
   @override
@@ -3948,6 +4636,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   );
   late final $RecipeStepIngredientTableTable recipeStepIngredientTable =
       $RecipeStepIngredientTableTable(this);
+  late final $TagTableTable tagTable = $TagTableTable(this);
+  late final $RecipeTagTableTable recipeTagTable = $RecipeTagTableTable(this);
   late final $ShoppingTableTable shoppingTable = $ShoppingTableTable(this);
   late final $StorageTableTable storageTable = $StorageTableTable(this);
   late final $RecipeStatisticTableTable recipeStatisticTable =
@@ -3978,6 +4668,14 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final Index groceryUploaded = Index(
     'grocery_uploaded',
     'CREATE INDEX grocery_uploaded ON grocery_table (uploaded)',
+  );
+  late final Index tagUploaded = Index(
+    'tag_uploaded',
+    'CREATE INDEX tag_uploaded ON tag_table (uploaded)',
+  );
+  late final Index recipeTagUploaded = Index(
+    'recipeTag_uploaded',
+    'CREATE INDEX recipeTag_uploaded ON recipe_tag_table (uploaded)',
   );
   late final Index shoppingIngredientId = Index(
     'shopping_ingredientId',
@@ -4021,6 +4719,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     groceryTable,
     ingredientTable,
     recipeStepIngredientTable,
+    tagTable,
+    recipeTagTable,
     shoppingTable,
     storageTable,
     recipeStatisticTable,
@@ -4032,6 +4732,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     recipeStepIngredientUploaded,
     ingredientGroceryId,
     groceryUploaded,
+    tagUploaded,
+    recipeTagUploaded,
     shoppingIngredientId,
     shoppingUploaded,
     storageUploaded,
@@ -4058,6 +4760,20 @@ abstract class _$AppDatabase extends GeneratedDatabase {
       result: [
         TableUpdate('recipe_step_ingredient_table', kind: UpdateKind.delete),
       ],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'recipe_table',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('recipe_tag_table', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'tag_table',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('recipe_tag_table', kind: UpdateKind.delete)],
     ),
     WritePropagation(
       on: TableUpdateQuery.onTableName(
@@ -4133,6 +4849,27 @@ final class $$RecipeTableTableReferences
     final cache = $_typedResult.readTableOrNull(
       _recipeStepTableRefsTable($_db),
     );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$RecipeTagTableTable, List<RecipeTagTableData>>
+  _recipeTagTableRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.recipeTagTable,
+    aliasName: $_aliasNameGenerator(
+      db.recipeTable.id,
+      db.recipeTagTable.recipeId,
+    ),
+  );
+
+  $$RecipeTagTableTableProcessedTableManager get recipeTagTableRefs {
+    final manager = $$RecipeTagTableTableTableManager(
+      $_db,
+      $_db.recipeTagTable,
+    ).filter((f) => f.recipeId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_recipeTagTableRefsTable($_db));
     return ProcessedTableManager(
       manager.$state.copyWith(prefetchedData: cache),
     );
@@ -4249,6 +4986,31 @@ class $$RecipeTableTableFilterComposer
           }) => $$RecipeStepTableTableFilterComposer(
             $db: $db,
             $table: $db.recipeStepTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> recipeTagTableRefs(
+    Expression<bool> Function($$RecipeTagTableTableFilterComposer f) f,
+  ) {
+    final $$RecipeTagTableTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.recipeTagTable,
+      getReferencedColumn: (t) => t.recipeId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecipeTagTableTableFilterComposer(
+            $db: $db,
+            $table: $db.recipeTagTable,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
             $removeJoinBuilderFromRootComposer:
@@ -4401,6 +5163,31 @@ class $$RecipeTableTableAnnotationComposer
     return f(composer);
   }
 
+  Expression<T> recipeTagTableRefs<T extends Object>(
+    Expression<T> Function($$RecipeTagTableTableAnnotationComposer a) f,
+  ) {
+    final $$RecipeTagTableTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.recipeTagTable,
+      getReferencedColumn: (t) => t.recipeId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecipeTagTableTableAnnotationComposer(
+            $db: $db,
+            $table: $db.recipeTagTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
   Expression<T> recipeStatisticTableRefs<T extends Object>(
     Expression<T> Function($$RecipeStatisticTableTableAnnotationComposer a) f,
   ) {
@@ -4469,6 +5256,7 @@ class $$RecipeTableTableTableManager
           RecipeTableData,
           PrefetchHooks Function({
             bool recipeStepTableRefs,
+            bool recipeTagTableRefs,
             bool recipeStatisticTableRefs,
             bool recipeShoppingTableRefs,
           })
@@ -4531,6 +5319,7 @@ class $$RecipeTableTableTableManager
           prefetchHooksCallback:
               ({
                 recipeStepTableRefs = false,
+                recipeTagTableRefs = false,
                 recipeStatisticTableRefs = false,
                 recipeShoppingTableRefs = false,
               }) {
@@ -4538,6 +5327,7 @@ class $$RecipeTableTableTableManager
                   db: db,
                   explicitlyWatchedTables: [
                     if (recipeStepTableRefs) db.recipeStepTable,
+                    if (recipeTagTableRefs) db.recipeTagTable,
                     if (recipeStatisticTableRefs) db.recipeStatisticTable,
                     if (recipeShoppingTableRefs) db.recipeShoppingTable,
                   ],
@@ -4559,6 +5349,27 @@ class $$RecipeTableTableTableManager
                                 table,
                                 p0,
                               ).recipeStepTableRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.recipeId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                      if (recipeTagTableRefs)
+                        await $_getPrefetchedData<
+                          RecipeTableData,
+                          $RecipeTableTable,
+                          RecipeTagTableData
+                        >(
+                          currentTable: table,
+                          referencedTable: $$RecipeTableTableReferences
+                              ._recipeTagTableRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$RecipeTableTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).recipeTagTableRefs,
                           referencedItemsForCurrentItem:
                               (item, referencedItems) => referencedItems.where(
                                 (e) => e.recipeId == item.id,
@@ -4629,6 +5440,7 @@ typedef $$RecipeTableTableProcessedTableManager =
       RecipeTableData,
       PrefetchHooks Function({
         bool recipeStepTableRefs,
+        bool recipeTagTableRefs,
         bool recipeStatisticTableRefs,
         bool recipeShoppingTableRefs,
       })
@@ -6613,6 +7425,711 @@ typedef $$RecipeStepIngredientTableTableProcessedTableManager =
       RecipeStepIngredientTableData,
       PrefetchHooks Function({bool stepId, bool ingredientId})
     >;
+typedef $$TagTableTableCreateCompanionBuilder =
+    TagTableCompanion Function({
+      required String id,
+      required String name,
+      required String description,
+      required int color,
+      Value<bool> deleted,
+      Value<bool> uploaded,
+      Value<int> rowid,
+    });
+typedef $$TagTableTableUpdateCompanionBuilder =
+    TagTableCompanion Function({
+      Value<String> id,
+      Value<String> name,
+      Value<String> description,
+      Value<int> color,
+      Value<bool> deleted,
+      Value<bool> uploaded,
+      Value<int> rowid,
+    });
+
+final class $$TagTableTableReferences
+    extends BaseReferences<_$AppDatabase, $TagTableTable, TagTableData> {
+  $$TagTableTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static MultiTypedResultKey<$RecipeTagTableTable, List<RecipeTagTableData>>
+  _recipeTagTableRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.recipeTagTable,
+    aliasName: $_aliasNameGenerator(db.tagTable.id, db.recipeTagTable.tagId),
+  );
+
+  $$RecipeTagTableTableProcessedTableManager get recipeTagTableRefs {
+    final manager = $$RecipeTagTableTableTableManager(
+      $_db,
+      $_db.recipeTagTable,
+    ).filter((f) => f.tagId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_recipeTagTableRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+}
+
+class $$TagTableTableFilterComposer
+    extends Composer<_$AppDatabase, $TagTableTable> {
+  $$TagTableTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get description => $composableBuilder(
+    column: $table.description,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get color => $composableBuilder(
+    column: $table.color,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get deleted => $composableBuilder(
+    column: $table.deleted,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get uploaded => $composableBuilder(
+    column: $table.uploaded,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  Expression<bool> recipeTagTableRefs(
+    Expression<bool> Function($$RecipeTagTableTableFilterComposer f) f,
+  ) {
+    final $$RecipeTagTableTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.recipeTagTable,
+      getReferencedColumn: (t) => t.tagId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecipeTagTableTableFilterComposer(
+            $db: $db,
+            $table: $db.recipeTagTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$TagTableTableOrderingComposer
+    extends Composer<_$AppDatabase, $TagTableTable> {
+  $$TagTableTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get description => $composableBuilder(
+    column: $table.description,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get color => $composableBuilder(
+    column: $table.color,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get deleted => $composableBuilder(
+    column: $table.deleted,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get uploaded => $composableBuilder(
+    column: $table.uploaded,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$TagTableTableAnnotationComposer
+    extends Composer<_$AppDatabase, $TagTableTable> {
+  $$TagTableTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get name =>
+      $composableBuilder(column: $table.name, builder: (column) => column);
+
+  GeneratedColumn<String> get description => $composableBuilder(
+    column: $table.description,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get color =>
+      $composableBuilder(column: $table.color, builder: (column) => column);
+
+  GeneratedColumn<bool> get deleted =>
+      $composableBuilder(column: $table.deleted, builder: (column) => column);
+
+  GeneratedColumn<bool> get uploaded =>
+      $composableBuilder(column: $table.uploaded, builder: (column) => column);
+
+  Expression<T> recipeTagTableRefs<T extends Object>(
+    Expression<T> Function($$RecipeTagTableTableAnnotationComposer a) f,
+  ) {
+    final $$RecipeTagTableTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.recipeTagTable,
+      getReferencedColumn: (t) => t.tagId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecipeTagTableTableAnnotationComposer(
+            $db: $db,
+            $table: $db.recipeTagTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$TagTableTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $TagTableTable,
+          TagTableData,
+          $$TagTableTableFilterComposer,
+          $$TagTableTableOrderingComposer,
+          $$TagTableTableAnnotationComposer,
+          $$TagTableTableCreateCompanionBuilder,
+          $$TagTableTableUpdateCompanionBuilder,
+          (TagTableData, $$TagTableTableReferences),
+          TagTableData,
+          PrefetchHooks Function({bool recipeTagTableRefs})
+        > {
+  $$TagTableTableTableManager(_$AppDatabase db, $TagTableTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$TagTableTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$TagTableTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$TagTableTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> name = const Value.absent(),
+                Value<String> description = const Value.absent(),
+                Value<int> color = const Value.absent(),
+                Value<bool> deleted = const Value.absent(),
+                Value<bool> uploaded = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => TagTableCompanion(
+                id: id,
+                name: name,
+                description: description,
+                color: color,
+                deleted: deleted,
+                uploaded: uploaded,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String name,
+                required String description,
+                required int color,
+                Value<bool> deleted = const Value.absent(),
+                Value<bool> uploaded = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => TagTableCompanion.insert(
+                id: id,
+                name: name,
+                description: description,
+                color: color,
+                deleted: deleted,
+                uploaded: uploaded,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$TagTableTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({recipeTagTableRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [
+                if (recipeTagTableRefs) db.recipeTagTable,
+              ],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (recipeTagTableRefs)
+                    await $_getPrefetchedData<
+                      TagTableData,
+                      $TagTableTable,
+                      RecipeTagTableData
+                    >(
+                      currentTable: table,
+                      referencedTable: $$TagTableTableReferences
+                          ._recipeTagTableRefsTable(db),
+                      managerFromTypedResult: (p0) => $$TagTableTableReferences(
+                        db,
+                        table,
+                        p0,
+                      ).recipeTagTableRefs,
+                      referencedItemsForCurrentItem: (item, referencedItems) =>
+                          referencedItems.where((e) => e.tagId == item.id),
+                      typedResults: items,
+                    ),
+                ];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$TagTableTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $TagTableTable,
+      TagTableData,
+      $$TagTableTableFilterComposer,
+      $$TagTableTableOrderingComposer,
+      $$TagTableTableAnnotationComposer,
+      $$TagTableTableCreateCompanionBuilder,
+      $$TagTableTableUpdateCompanionBuilder,
+      (TagTableData, $$TagTableTableReferences),
+      TagTableData,
+      PrefetchHooks Function({bool recipeTagTableRefs})
+    >;
+typedef $$RecipeTagTableTableCreateCompanionBuilder =
+    RecipeTagTableCompanion Function({
+      required String recipeId,
+      required String tagId,
+      Value<bool> uploaded,
+      Value<int> rowid,
+    });
+typedef $$RecipeTagTableTableUpdateCompanionBuilder =
+    RecipeTagTableCompanion Function({
+      Value<String> recipeId,
+      Value<String> tagId,
+      Value<bool> uploaded,
+      Value<int> rowid,
+    });
+
+final class $$RecipeTagTableTableReferences
+    extends
+        BaseReferences<
+          _$AppDatabase,
+          $RecipeTagTableTable,
+          RecipeTagTableData
+        > {
+  $$RecipeTagTableTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $RecipeTableTable _recipeIdTable(_$AppDatabase db) =>
+      db.recipeTable.createAlias(
+        $_aliasNameGenerator(db.recipeTagTable.recipeId, db.recipeTable.id),
+      );
+
+  $$RecipeTableTableProcessedTableManager get recipeId {
+    final $_column = $_itemColumn<String>('recipe_id')!;
+
+    final manager = $$RecipeTableTableTableManager(
+      $_db,
+      $_db.recipeTable,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_recipeIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static $TagTableTable _tagIdTable(_$AppDatabase db) =>
+      db.tagTable.createAlias(
+        $_aliasNameGenerator(db.recipeTagTable.tagId, db.tagTable.id),
+      );
+
+  $$TagTableTableProcessedTableManager get tagId {
+    final $_column = $_itemColumn<String>('tag_id')!;
+
+    final manager = $$TagTableTableTableManager(
+      $_db,
+      $_db.tagTable,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_tagIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$RecipeTagTableTableFilterComposer
+    extends Composer<_$AppDatabase, $RecipeTagTableTable> {
+  $$RecipeTagTableTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<bool> get uploaded => $composableBuilder(
+    column: $table.uploaded,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$RecipeTableTableFilterComposer get recipeId {
+    final $$RecipeTableTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recipeId,
+      referencedTable: $db.recipeTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecipeTableTableFilterComposer(
+            $db: $db,
+            $table: $db.recipeTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$TagTableTableFilterComposer get tagId {
+    final $$TagTableTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.tagId,
+      referencedTable: $db.tagTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TagTableTableFilterComposer(
+            $db: $db,
+            $table: $db.tagTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$RecipeTagTableTableOrderingComposer
+    extends Composer<_$AppDatabase, $RecipeTagTableTable> {
+  $$RecipeTagTableTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<bool> get uploaded => $composableBuilder(
+    column: $table.uploaded,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$RecipeTableTableOrderingComposer get recipeId {
+    final $$RecipeTableTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recipeId,
+      referencedTable: $db.recipeTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecipeTableTableOrderingComposer(
+            $db: $db,
+            $table: $db.recipeTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$TagTableTableOrderingComposer get tagId {
+    final $$TagTableTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.tagId,
+      referencedTable: $db.tagTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TagTableTableOrderingComposer(
+            $db: $db,
+            $table: $db.tagTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$RecipeTagTableTableAnnotationComposer
+    extends Composer<_$AppDatabase, $RecipeTagTableTable> {
+  $$RecipeTagTableTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<bool> get uploaded =>
+      $composableBuilder(column: $table.uploaded, builder: (column) => column);
+
+  $$RecipeTableTableAnnotationComposer get recipeId {
+    final $$RecipeTableTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recipeId,
+      referencedTable: $db.recipeTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecipeTableTableAnnotationComposer(
+            $db: $db,
+            $table: $db.recipeTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$TagTableTableAnnotationComposer get tagId {
+    final $$TagTableTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.tagId,
+      referencedTable: $db.tagTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TagTableTableAnnotationComposer(
+            $db: $db,
+            $table: $db.tagTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$RecipeTagTableTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $RecipeTagTableTable,
+          RecipeTagTableData,
+          $$RecipeTagTableTableFilterComposer,
+          $$RecipeTagTableTableOrderingComposer,
+          $$RecipeTagTableTableAnnotationComposer,
+          $$RecipeTagTableTableCreateCompanionBuilder,
+          $$RecipeTagTableTableUpdateCompanionBuilder,
+          (RecipeTagTableData, $$RecipeTagTableTableReferences),
+          RecipeTagTableData,
+          PrefetchHooks Function({bool recipeId, bool tagId})
+        > {
+  $$RecipeTagTableTableTableManager(
+    _$AppDatabase db,
+    $RecipeTagTableTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$RecipeTagTableTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$RecipeTagTableTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$RecipeTagTableTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> recipeId = const Value.absent(),
+                Value<String> tagId = const Value.absent(),
+                Value<bool> uploaded = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => RecipeTagTableCompanion(
+                recipeId: recipeId,
+                tagId: tagId,
+                uploaded: uploaded,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String recipeId,
+                required String tagId,
+                Value<bool> uploaded = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => RecipeTagTableCompanion.insert(
+                recipeId: recipeId,
+                tagId: tagId,
+                uploaded: uploaded,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$RecipeTagTableTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({recipeId = false, tagId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (recipeId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.recipeId,
+                                referencedTable: $$RecipeTagTableTableReferences
+                                    ._recipeIdTable(db),
+                                referencedColumn:
+                                    $$RecipeTagTableTableReferences
+                                        ._recipeIdTable(db)
+                                        .id,
+                              )
+                              as T;
+                    }
+                    if (tagId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.tagId,
+                                referencedTable: $$RecipeTagTableTableReferences
+                                    ._tagIdTable(db),
+                                referencedColumn:
+                                    $$RecipeTagTableTableReferences
+                                        ._tagIdTable(db)
+                                        .id,
+                              )
+                              as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$RecipeTagTableTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $RecipeTagTableTable,
+      RecipeTagTableData,
+      $$RecipeTagTableTableFilterComposer,
+      $$RecipeTagTableTableOrderingComposer,
+      $$RecipeTagTableTableAnnotationComposer,
+      $$RecipeTagTableTableCreateCompanionBuilder,
+      $$RecipeTagTableTableUpdateCompanionBuilder,
+      (RecipeTagTableData, $$RecipeTagTableTableReferences),
+      RecipeTagTableData,
+      PrefetchHooks Function({bool recipeId, bool tagId})
+    >;
 typedef $$ShoppingTableTableCreateCompanionBuilder =
     ShoppingTableCompanion Function({
       required String id,
@@ -8105,6 +9622,10 @@ class $AppDatabaseManager {
         _db,
         _db.recipeStepIngredientTable,
       );
+  $$TagTableTableTableManager get tagTable =>
+      $$TagTableTableTableManager(_db, _db.tagTable);
+  $$RecipeTagTableTableTableManager get recipeTagTable =>
+      $$RecipeTagTableTableTableManager(_db, _db.recipeTagTable);
   $$ShoppingTableTableTableManager get shoppingTable =>
       $$ShoppingTableTableTableManager(_db, _db.shoppingTable);
   $$StorageTableTableTableManager get storageTable =>

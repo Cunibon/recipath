@@ -15,8 +15,10 @@ import 'package:recipath/drift/tables/recipe_statistic_table.dart';
 import 'package:recipath/drift/tables/recipe_step_ingredient_table.dart';
 import 'package:recipath/drift/tables/recipe_step_table.dart';
 import 'package:recipath/drift/tables/recipe_table.dart';
+import 'package:recipath/drift/tables/recipe_tag_table.dart';
 import 'package:recipath/drift/tables/shopping_table.dart';
 import 'package:recipath/drift/tables/storage_table.dart';
+import 'package:recipath/drift/tables/tag_table.dart';
 
 part 'database.g.dart';
 
@@ -27,6 +29,8 @@ part 'database.g.dart';
     RecipeStepIngredientTable,
     IngredientTable,
     GroceryTable,
+    TagTable,
+    RecipeTagTable,
     ShoppingTable,
     StorageTable,
     RecipeStatisticTable,

@@ -28,7 +28,7 @@ final class FileSyncOrchestratorNotifierProvider
         argument: null,
         retry: null,
         name: r'fileSyncOrchestratorProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -49,4 +49,4 @@ final class FileSyncOrchestratorNotifierProvider
 }
 
 String _$fileSyncOrchestratorNotifierHash() =>
-    r'6c8dd8af9bb7a36d4be9ea51d6f808551c55f16f';
+    r'2e1acf437ac5bf96a7c7b6f2832af768cc906044';

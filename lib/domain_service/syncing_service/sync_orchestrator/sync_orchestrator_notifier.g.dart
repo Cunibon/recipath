@@ -26,7 +26,7 @@ final class SyncOrchestratorNotifierProvider
         argument: null,
         retry: null,
         name: r'syncOrchestratorProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -47,4 +47,4 @@ final class SyncOrchestratorNotifierProvider
 }
 
 String _$syncOrchestratorNotifierHash() =>
-    r'c9e9736401d8741a0ed653c8e007a3d11b44433d';
+    r'f52c33437470674eee639b84c82eda856c41b699';

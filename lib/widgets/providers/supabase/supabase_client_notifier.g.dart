@@ -21,7 +21,7 @@ final class SupabaseClientProvider
         argument: null,
         retry: null,
         name: r'supabaseClientProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -48,4 +48,4 @@ final class SupabaseClientProvider
   }
 }
 
-String _$supabaseClientHash() => r'de6240783d7dddb57e07d034deb0ddf8e2fcc3e4';
+String _$supabaseClientHash() => r'3db2a4c212c7f24cea9810e376225aa1a6cab012';

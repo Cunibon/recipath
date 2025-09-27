@@ -21,7 +21,7 @@ final class RevenueProNotifierProvider
         argument: null,
         retry: null,
         name: r'revenueProProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -41,4 +41,4 @@ final class RevenueProNotifierProvider
 }
 
 String _$revenueProNotifierHash() =>
-    r'ea327792d567d7afb78e325645dc6c81aebee2df';
+    r'11541c4168eb3b448435e778f7c2e8c29382f71c';
