@@ -206,6 +206,18 @@ abstract class AppLocalizations {
   /// **'No'**
   String get no;
 
+  /// No description provided for @pick.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick'**
+  String get pick;
+
+  /// No description provided for @discard.
+  ///
+  /// In en, this message translates to:
+  /// **'Discard'**
+  String get discard;
+
   /// No description provided for @reallyDelete.
   ///
   /// In en, this message translates to:
@@ -277,6 +289,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Groceries'**
   String get groceries;
+
+  /// No description provided for @tags.
+  ///
+  /// In en, this message translates to:
+  /// **'Tags'**
+  String get tags;
 
   /// No description provided for @dashboard.
   ///
@@ -637,6 +655,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Language'**
   String get language;
+
+  /// No description provided for @description.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get description;
+
+  /// No description provided for @changeColor.
+  ///
+  /// In en, this message translates to:
+  /// **'Change color'**
+  String get changeColor;
+
+  /// No description provided for @changeTags.
+  ///
+  /// In en, this message translates to:
+  /// **'Change tags'**
+  String get changeTags;
 
   /// No description provided for @kcal.
   ///

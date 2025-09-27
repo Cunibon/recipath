@@ -11,14 +11,23 @@ class RecipeTagRepoDrift extends SyncRepo<RecipeTagData> {
   $RecipeTagTableTable get table => db.recipeTagTable;
   @override
   SimpleSelectStatement<$RecipeTagTableTable, RecipeTagTableData>
-  get baseQuery => db.select(table);
+  get baseQuery {
+    final query = db.select(table);
+
+    if (!incluedDeleted) {
+      query.where((tbl) => tbl.deleted.equals(false));
+    }
+
+    return query;
+  }
 
   @override
   Future<Map<String, RecipeTagData>> getNotUploaded() async {
     final rows = await (baseQuery..where((tbl) => tbl.uploaded.equals(false)))
         .get();
     return {
-      for (final row in rows) row.recipeId: RecipeTagData.fromTableData(row),
+      for (final row in rows)
+        "${row.recipeId}_${row.tagId}": RecipeTagData.fromTableData(row),
     };
   }
 
@@ -26,7 +35,8 @@ class RecipeTagRepoDrift extends SyncRepo<RecipeTagData> {
   Future<Map<String, RecipeTagData>> get() async {
     final rows = await baseQuery.get();
     return {
-      for (final row in rows) row.recipeId: RecipeTagData.fromTableData(row),
+      for (final row in rows)
+        "${row.recipeId}_${row.tagId}": RecipeTagData.fromTableData(row),
     };
   }
 
@@ -34,7 +44,8 @@ class RecipeTagRepoDrift extends SyncRepo<RecipeTagData> {
   Stream<Map<String, RecipeTagData>> stream() {
     return baseQuery.watch().map((rows) {
       return {
-        for (final row in rows) row.recipeId: RecipeTagData.fromTableData(row),
+        for (final row in rows)
+          "${row.recipeId}_${row.tagId}": RecipeTagData.fromTableData(row),
       };
     });
   }
@@ -45,8 +56,13 @@ class RecipeTagRepoDrift extends SyncRepo<RecipeTagData> {
   }
 
   @override
-  Future<void> delete(String id) async {
-    await (db.delete(table)..where((t) => t.recipeId.equals(id))).go();
+  Future<void> delete(RecipeTagData toDelete) async {
+    await (db.delete(table)..where(
+          (t) =>
+              t.recipeId.equals(toDelete.recipeId) &
+              t.tagId.equals(toDelete.tagId),
+        ))
+        .go();
   }
 
   @override

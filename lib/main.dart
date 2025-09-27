@@ -55,6 +55,7 @@ void main() async {
       RootRoutes.groceriesRoute,
       RootRoutes.shoppingRoute,
       RootRoutes.storageRoute,
+      RootRoutes.tagRoute,
       RootRoutes.dashboardRoute,
       RootRoutes.recipeHistoryRoute,
       RootRoutes.recipeShoppingRoute,

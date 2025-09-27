@@ -25,7 +25,7 @@ import 'package:recipath/repos/grocery/full_grocery_repo_notifier.dart';
 import 'package:recipath/repos/recipe/full_recipe_repo_notifier.dart';
 import 'package:recipath/repos/recipe_shopping/recipe_shopping_repo_notifier.dart';
 import 'package:recipath/repos/recipe_statistics/recipe_statistics_repo_notifier.dart';
-import 'package:recipath/repos/recipe_tag/recipe_tag_repo_notifier.dart';
+import 'package:recipath/repos/recipe_tag/full_recipe_tag_repo_notifier.dart';
 import 'package:recipath/repos/shopping/full_shopping_repo_notifier.dart';
 import 'package:recipath/repos/storage/full_storage_repo_notifier.dart';
 import 'package:recipath/repos/tag/full_tag_repo_notifier.dart';
@@ -42,7 +42,7 @@ Future<SyncOrchestrator> syncOrchestratorNotifier(Ref ref) async {
   final shoppingRepo = ref.watch(fullShoppingRepoProvider);
   final storageRepo = ref.watch(fullStorageRepoProvider);
   final tagRepo = ref.watch(fullTagRepoProvider);
-  final recipeTagRepo = ref.watch(recipeTagRepoProvider);
+  final recipeTagRepo = ref.watch(fullRecipeTagRepoProvider);
   final recipeStatisticRepo = ref.watch(recipeStatisticsRepoProvider);
   final recipeShoppingRepo = ref.watch(recipeShoppingRepoProvider);
 

@@ -7,12 +7,12 @@ class TagModifier {
   TagModifier(this.repo);
   final Repo<TagData> repo;
 
-  Future<void> addItem(TagData newData) => repo.add(newData);
+  Future<void> add(TagData newData) => repo.add(newData);
 
-  Future<void> updateItem(TagData updated) =>
+  Future<void> update(TagData updated) =>
       repo.add(updated.copyWith(uploaded: false));
 
-  Future<void> deleteItem(TagData toDelete) =>
+  Future<void> delete(TagData toDelete) =>
       (repo.db.update(
         repo.db.tagTable,
       )..where((tbl) => tbl.id.equals(toDelete.id))).write(

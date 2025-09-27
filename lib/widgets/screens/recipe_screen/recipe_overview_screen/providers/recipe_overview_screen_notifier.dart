@@ -1,7 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
+import 'package:recipath/data/tag_data/tag_data.dart';
 import 'package:recipath/data/timer_data/timer_data.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/recipe_notifier.dart';
+import 'package:recipath/widgets/screens/recipe_screen/providers/tags_per_recipe_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/timer_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -20,10 +22,15 @@ class RecipeOverviewScreenNotifier extends _$RecipeOverviewScreenNotifier {
       timer?.servings ?? originalData.servings,
     );
 
+    final tags = ref.watch(
+      tagsPerRecipeProvider.select((data) => data.value?[recipeId]),
+    );
+
     return RecipeOverviewScreenState(
       originalData: originalData,
       recipeData: recipeData,
       timer: timer,
+      tags: tags ?? {},
     );
   }
 
@@ -37,6 +44,7 @@ class RecipeOverviewScreenNotifier extends _$RecipeOverviewScreenNotifier {
       originalData: state.originalData,
       recipeData: recipeData,
       timer: state.timer,
+      tags: state.tags,
     );
   }
 }
@@ -46,9 +54,11 @@ class RecipeOverviewScreenState {
     required this.originalData,
     required this.recipeData,
     required this.timer,
+    required this.tags,
   });
 
   final RecipeData originalData;
   final RecipeData recipeData;
   final TimerData? timer;
+  final Set<TagData> tags;
 }

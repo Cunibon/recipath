@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:recipath/application/recipe_tag_modifier/recipe_tag_modifier_notifier.dart';
 import 'package:recipath/application_constants.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
+import 'package:recipath/data/recipe_tag_data/recipe_tag_data.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/root_routes.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
@@ -13,6 +15,7 @@ import 'package:recipath/widgets/screens/recipe_screen/recipe_overview_screen/pr
 import 'package:recipath/widgets/screens/recipe_screen/recipe_overview_screen/recipe_button/track_recipe_button.dart';
 import 'package:recipath/widgets/screens/recipe_screen/recipe_overview_screen/recipe_step.dart';
 import 'package:recipath/widgets/screens/recipe_screen/recipe_routes.dart';
+import 'package:recipath/widgets/screens/tag_screen/tag/tag_list.dart';
 
 class RecipeOverviewScreen extends ConsumerWidget {
   const RecipeOverviewScreen({required this.recipeId, super.key});
@@ -61,6 +64,28 @@ class RecipeOverviewScreen extends ConsumerWidget {
                 ),
                 Divider(),
               ],
+              Padding(
+                padding: const EdgeInsets.only(left: 4, right: 4, bottom: 4),
+                child: TagList(
+                  tags: state.tags,
+                  onEdited: (newTags) async {
+                    final added = newTags.difference(state.tags);
+                    final removed = state.tags.difference(newTags);
+
+                    final modifier = ref.read(recipeTagModifierProvider);
+                    for (final addedTag in added) {
+                      modifier.addItem(
+                        RecipeTagData(recipeId: recipeId, tagId: addedTag.id),
+                      );
+                    }
+                    for (final removedTag in removed) {
+                      modifier.deleteItem(
+                        RecipeTagData(recipeId: recipeId, tagId: removedTag.id),
+                      );
+                    }
+                  },
+                ),
+              ),
               IntrinsicHeight(
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,

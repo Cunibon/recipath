@@ -72,11 +72,11 @@ class StorageRepoDrift extends SyncRepo<StorageData> {
   }
 
   @override
-  Future<void> delete(String id) async {
-    await (db.delete(table)..where((t) => t.id.equals(id))).go();
+  Future<void> delete(StorageData toDelete) async {
+    await (db.delete(table)..where((t) => t.id.equals(toDelete.id))).go();
     await db.customStatement(
       'DELETE FROM ${db.ingredientTable.actualTableName} WHERE id = (SELECT ${table.ingredientId.name} FROM ${table.actualTableName} WHERE id = ?)',
-      [id],
+      [toDelete.id],
     );
   }
 

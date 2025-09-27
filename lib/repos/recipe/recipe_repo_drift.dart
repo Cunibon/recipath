@@ -155,7 +155,7 @@ class RecipeRepoDrift extends SyncRepo<RecipeData> {
   }
 
   @override
-  Future<void> delete(String id) async {
+  Future<void> delete(RecipeData toDelete) async {
     await db.customStatement(
       '''
       DELETE FROM ${db.ingredientTable.actualTableName} 
@@ -168,9 +168,9 @@ class RecipeRepoDrift extends SyncRepo<RecipeData> {
       ON rs.${db.recipeStepTable.id.name} = rsi.${db.recipeStepIngredientTable.stepId.name}
       WHERE r.id = ?
       )''',
-      [id],
+      [toDelete.id],
     );
-    await (db.delete(table)..where((t) => t.id.equals(id))).go();
+    await (db.delete(table)..where((t) => t.id.equals(toDelete.id))).go();
   }
 
   @override

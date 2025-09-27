@@ -10,8 +10,15 @@ class TagRepoDrift extends SyncRepo<TagData> {
   @override
   $TagTableTable get table => db.tagTable;
   @override
-  SimpleSelectStatement<$TagTableTable, TagTableData> get baseQuery =>
-      db.select(table);
+  SimpleSelectStatement<$TagTableTable, TagTableData> get baseQuery {
+    final query = db.select(table);
+
+    if (!incluedDeleted) {
+      query.where((tbl) => tbl.deleted.equals(false));
+    }
+
+    return query;
+  }
 
   @override
   Future<Map<String, TagData>> getNotUploaded() async {
@@ -22,7 +29,7 @@ class TagRepoDrift extends SyncRepo<TagData> {
 
   @override
   Future<Map<String, TagData>> get() async {
-    final rows = await baseQuery.get();
+    final rows = await (baseQuery).get();
     return {for (final row in rows) row.id: TagData.fromTableData(row)};
   }
 
@@ -39,8 +46,8 @@ class TagRepoDrift extends SyncRepo<TagData> {
   }
 
   @override
-  Future<void> delete(String id) async {
-    await (db.delete(table)..where((t) => t.id.equals(id))).go();
+  Future<void> delete(TagData toDelete) async {
+    await (db.delete(table)..where((t) => t.id.equals(toDelete.id))).go();
   }
 
   @override

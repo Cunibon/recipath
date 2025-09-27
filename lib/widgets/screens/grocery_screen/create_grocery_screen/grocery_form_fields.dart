@@ -235,7 +235,7 @@ class GroceryFormFields extends ConsumerWidget {
           ),
           TextFormField(
             controller: barcodeController,
-            decoration: InputDecoration(labelText: "barcode"),
+            decoration: InputDecoration(labelText: "Barcode"),
             onChanged: (barcode) => updateData(data.copyWith(barcode: barcode)),
           ),
           DoubleInputField(

@@ -46,8 +46,8 @@ class GroceryRepoDrift extends SyncRepo<GroceryData> {
   }
 
   @override
-  Future<void> delete(String id) async {
-    await (db.delete(table)..where((t) => t.id.equals(id))).go();
+  Future<void> delete(GroceryData toDelete) async {
+    await (db.delete(table)..where((t) => t.id.equals(toDelete.id))).go();
   }
 
   @override

@@ -21,8 +21,6 @@ class StorageScreen extends ConsumerStatefulWidget {
 }
 
 class _StorageScreenState extends ConsumerState<StorageScreen> {
-  final searchController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context)!;
@@ -62,7 +60,6 @@ class _StorageScreenState extends ConsumerState<StorageScreen> {
         asyncState: screenState,
         builder: (data) => SearchableList(
           listViewPadding: EdgeInsets.only(bottom: 12),
-          searchController: searchController,
           name: localization.items,
           items: data.storageData,
           toSearchable: (item) => item.ingredient.toReadable(

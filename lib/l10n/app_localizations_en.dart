@@ -68,6 +68,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get no => 'No';
 
   @override
+  String get pick => 'Pick';
+
+  @override
+  String get discard => 'Discard';
+
+  @override
   String get reallyDelete => 'Do you really want to delete';
 
   @override
@@ -104,6 +110,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get groceries => 'Groceries';
+
+  @override
+  String get tags => 'Tags';
 
   @override
   String get dashboard => 'Dashboard';
@@ -291,6 +300,15 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get language => 'Language';
+
+  @override
+  String get description => 'Description';
+
+  @override
+  String get changeColor => 'Change color';
+
+  @override
+  String get changeTags => 'Change tags';
 
   @override
   String get kcal => 'Kcal';

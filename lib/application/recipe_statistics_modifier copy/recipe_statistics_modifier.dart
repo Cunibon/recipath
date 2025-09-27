@@ -6,7 +6,7 @@ class RecipeStatisticsModifier {
   final RecipeStatisticsRepo repo;
 
   Future<void> add(RecipeStatisticData newData) => repo.add(newData);
-  Future<void> delete(RecipeStatisticData toDelete) => repo.delete(toDelete.id);
+  Future<void> delete(RecipeStatisticData toDelete) => repo.delete(toDelete);
 
   Future<void> clear() => repo.clear();
 }

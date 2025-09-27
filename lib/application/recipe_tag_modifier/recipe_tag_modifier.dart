@@ -9,9 +9,6 @@ class RecipeTagModifier {
 
   Future<void> addItem(RecipeTagData newData) => repo.add(newData);
 
-  Future<void> updateItem(RecipeTagData updated) =>
-      repo.add(updated.copyWith(uploaded: false));
-
   Future<void> deleteItem(RecipeTagData toDelete) =>
       (repo.db.update(repo.db.recipeTagTable)..where(
             (tbl) =>

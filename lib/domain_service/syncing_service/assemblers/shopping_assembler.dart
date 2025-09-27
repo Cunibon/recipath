@@ -29,7 +29,7 @@ class ShoppingAssembler extends SupabaseWriteAssembler<ShoppingData> {
       );
 
       if (shoppingData.deleted) {
-        await repo.delete(shoppingData.id);
+        await repo.delete(shoppingData);
       } else {
         itemAssemblyContext[shoppingData.id] = shoppingData;
         await repo.add(shoppingData);
