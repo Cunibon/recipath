@@ -11,6 +11,7 @@ class RecipeTagTable extends Table {
       text().references(RecipeTable, #id, onDelete: KeyAction.cascade)();
   TextColumn get tagId =>
       text().references(TagTable, #id, onDelete: KeyAction.cascade)();
+  BoolColumn get deleted => boolean().withDefault(const Constant(false))();
 
   BoolColumn get uploaded => boolean().withDefault(Constant(false))();
 }

@@ -2682,6 +2682,21 @@ class $RecipeTagTableTable extends RecipeTagTable
       'REFERENCES tag_table (id) ON DELETE CASCADE',
     ),
   );
+  static const VerificationMeta _deletedMeta = const VerificationMeta(
+    'deleted',
+  );
+  @override
+  late final GeneratedColumn<bool> deleted = GeneratedColumn<bool>(
+    'deleted',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("deleted" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
   static const VerificationMeta _uploadedMeta = const VerificationMeta(
     'uploaded',
   );
@@ -2698,7 +2713,7 @@ class $RecipeTagTableTable extends RecipeTagTable
     defaultValue: Constant(false),
   );
   @override
-  List<GeneratedColumn> get $columns => [recipeId, tagId, uploaded];
+  List<GeneratedColumn> get $columns => [recipeId, tagId, deleted, uploaded];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -2727,6 +2742,12 @@ class $RecipeTagTableTable extends RecipeTagTable
     } else if (isInserting) {
       context.missing(_tagIdMeta);
     }
+    if (data.containsKey('deleted')) {
+      context.handle(
+        _deletedMeta,
+        deleted.isAcceptableOrUnknown(data['deleted']!, _deletedMeta),
+      );
+    }
     if (data.containsKey('uploaded')) {
       context.handle(
         _uploadedMeta,
@@ -2750,6 +2771,10 @@ class $RecipeTagTableTable extends RecipeTagTable
         DriftSqlType.string,
         data['${effectivePrefix}tag_id'],
       )!,
+      deleted: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}deleted'],
+      )!,
       uploaded: attachedDatabase.typeMapping.read(
         DriftSqlType.bool,
         data['${effectivePrefix}uploaded'],
@@ -2767,10 +2792,12 @@ class RecipeTagTableData extends DataClass
     implements Insertable<RecipeTagTableData> {
   final String recipeId;
   final String tagId;
+  final bool deleted;
   final bool uploaded;
   const RecipeTagTableData({
     required this.recipeId,
     required this.tagId,
+    required this.deleted,
     required this.uploaded,
   });
   @override
@@ -2778,6 +2805,7 @@ class RecipeTagTableData extends DataClass
     final map = <String, Expression>{};
     map['recipe_id'] = Variable<String>(recipeId);
     map['tag_id'] = Variable<String>(tagId);
+    map['deleted'] = Variable<bool>(deleted);
     map['uploaded'] = Variable<bool>(uploaded);
     return map;
   }
@@ -2786,6 +2814,7 @@ class RecipeTagTableData extends DataClass
     return RecipeTagTableCompanion(
       recipeId: Value(recipeId),
       tagId: Value(tagId),
+      deleted: Value(deleted),
       uploaded: Value(uploaded),
     );
   }
@@ -2798,6 +2827,7 @@ class RecipeTagTableData extends DataClass
     return RecipeTagTableData(
       recipeId: serializer.fromJson<String>(json['recipeId']),
       tagId: serializer.fromJson<String>(json['tagId']),
+      deleted: serializer.fromJson<bool>(json['deleted']),
       uploaded: serializer.fromJson<bool>(json['uploaded']),
     );
   }
@@ -2807,6 +2837,7 @@ class RecipeTagTableData extends DataClass
     return <String, dynamic>{
       'recipeId': serializer.toJson<String>(recipeId),
       'tagId': serializer.toJson<String>(tagId),
+      'deleted': serializer.toJson<bool>(deleted),
       'uploaded': serializer.toJson<bool>(uploaded),
     };
   }
@@ -2814,16 +2845,19 @@ class RecipeTagTableData extends DataClass
   RecipeTagTableData copyWith({
     String? recipeId,
     String? tagId,
+    bool? deleted,
     bool? uploaded,
   }) => RecipeTagTableData(
     recipeId: recipeId ?? this.recipeId,
     tagId: tagId ?? this.tagId,
+    deleted: deleted ?? this.deleted,
     uploaded: uploaded ?? this.uploaded,
   );
   RecipeTagTableData copyWithCompanion(RecipeTagTableCompanion data) {
     return RecipeTagTableData(
       recipeId: data.recipeId.present ? data.recipeId.value : this.recipeId,
       tagId: data.tagId.present ? data.tagId.value : this.tagId,
+      deleted: data.deleted.present ? data.deleted.value : this.deleted,
       uploaded: data.uploaded.present ? data.uploaded.value : this.uploaded,
     );
   }
@@ -2833,36 +2867,41 @@ class RecipeTagTableData extends DataClass
     return (StringBuffer('RecipeTagTableData(')
           ..write('recipeId: $recipeId, ')
           ..write('tagId: $tagId, ')
+          ..write('deleted: $deleted, ')
           ..write('uploaded: $uploaded')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(recipeId, tagId, uploaded);
+  int get hashCode => Object.hash(recipeId, tagId, deleted, uploaded);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is RecipeTagTableData &&
           other.recipeId == this.recipeId &&
           other.tagId == this.tagId &&
+          other.deleted == this.deleted &&
           other.uploaded == this.uploaded);
 }
 
 class RecipeTagTableCompanion extends UpdateCompanion<RecipeTagTableData> {
   final Value<String> recipeId;
   final Value<String> tagId;
+  final Value<bool> deleted;
   final Value<bool> uploaded;
   final Value<int> rowid;
   const RecipeTagTableCompanion({
     this.recipeId = const Value.absent(),
     this.tagId = const Value.absent(),
+    this.deleted = const Value.absent(),
     this.uploaded = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   RecipeTagTableCompanion.insert({
     required String recipeId,
     required String tagId,
+    this.deleted = const Value.absent(),
     this.uploaded = const Value.absent(),
     this.rowid = const Value.absent(),
   }) : recipeId = Value(recipeId),
@@ -2870,12 +2909,14 @@ class RecipeTagTableCompanion extends UpdateCompanion<RecipeTagTableData> {
   static Insertable<RecipeTagTableData> custom({
     Expression<String>? recipeId,
     Expression<String>? tagId,
+    Expression<bool>? deleted,
     Expression<bool>? uploaded,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
       if (recipeId != null) 'recipe_id': recipeId,
       if (tagId != null) 'tag_id': tagId,
+      if (deleted != null) 'deleted': deleted,
       if (uploaded != null) 'uploaded': uploaded,
       if (rowid != null) 'rowid': rowid,
     });
@@ -2884,12 +2925,14 @@ class RecipeTagTableCompanion extends UpdateCompanion<RecipeTagTableData> {
   RecipeTagTableCompanion copyWith({
     Value<String>? recipeId,
     Value<String>? tagId,
+    Value<bool>? deleted,
     Value<bool>? uploaded,
     Value<int>? rowid,
   }) {
     return RecipeTagTableCompanion(
       recipeId: recipeId ?? this.recipeId,
       tagId: tagId ?? this.tagId,
+      deleted: deleted ?? this.deleted,
       uploaded: uploaded ?? this.uploaded,
       rowid: rowid ?? this.rowid,
     );
@@ -2903,6 +2946,9 @@ class RecipeTagTableCompanion extends UpdateCompanion<RecipeTagTableData> {
     }
     if (tagId.present) {
       map['tag_id'] = Variable<String>(tagId.value);
+    }
+    if (deleted.present) {
+      map['deleted'] = Variable<bool>(deleted.value);
     }
     if (uploaded.present) {
       map['uploaded'] = Variable<bool>(uploaded.value);
@@ -2918,6 +2964,7 @@ class RecipeTagTableCompanion extends UpdateCompanion<RecipeTagTableData> {
     return (StringBuffer('RecipeTagTableCompanion(')
           ..write('recipeId: $recipeId, ')
           ..write('tagId: $tagId, ')
+          ..write('deleted: $deleted, ')
           ..write('uploaded: $uploaded, ')
           ..write('rowid: $rowid')
           ..write(')'))
@@ -7752,6 +7799,7 @@ typedef $$RecipeTagTableTableCreateCompanionBuilder =
     RecipeTagTableCompanion Function({
       required String recipeId,
       required String tagId,
+      Value<bool> deleted,
       Value<bool> uploaded,
       Value<int> rowid,
     });
@@ -7759,6 +7807,7 @@ typedef $$RecipeTagTableTableUpdateCompanionBuilder =
     RecipeTagTableCompanion Function({
       Value<String> recipeId,
       Value<String> tagId,
+      Value<bool> deleted,
       Value<bool> uploaded,
       Value<int> rowid,
     });
@@ -7824,6 +7873,11 @@ class $$RecipeTagTableTableFilterComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
+  ColumnFilters<bool> get deleted => $composableBuilder(
+    column: $table.deleted,
+    builder: (column) => ColumnFilters(column),
+  );
+
   ColumnFilters<bool> get uploaded => $composableBuilder(
     column: $table.uploaded,
     builder: (column) => ColumnFilters(column),
@@ -7885,6 +7939,11 @@ class $$RecipeTagTableTableOrderingComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
+  ColumnOrderings<bool> get deleted => $composableBuilder(
+    column: $table.deleted,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<bool> get uploaded => $composableBuilder(
     column: $table.uploaded,
     builder: (column) => ColumnOrderings(column),
@@ -7946,6 +8005,9 @@ class $$RecipeTagTableTableAnnotationComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
+  GeneratedColumn<bool> get deleted =>
+      $composableBuilder(column: $table.deleted, builder: (column) => column);
+
   GeneratedColumn<bool> get uploaded =>
       $composableBuilder(column: $table.uploaded, builder: (column) => column);
 
@@ -8028,11 +8090,13 @@ class $$RecipeTagTableTableTableManager
               ({
                 Value<String> recipeId = const Value.absent(),
                 Value<String> tagId = const Value.absent(),
+                Value<bool> deleted = const Value.absent(),
                 Value<bool> uploaded = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => RecipeTagTableCompanion(
                 recipeId: recipeId,
                 tagId: tagId,
+                deleted: deleted,
                 uploaded: uploaded,
                 rowid: rowid,
               ),
@@ -8040,11 +8104,13 @@ class $$RecipeTagTableTableTableManager
               ({
                 required String recipeId,
                 required String tagId,
+                Value<bool> deleted = const Value.absent(),
                 Value<bool> uploaded = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => RecipeTagTableCompanion.insert(
                 recipeId: recipeId,
                 tagId: tagId,
+                deleted: deleted,
                 uploaded: uploaded,
                 rowid: rowid,
               ),
