@@ -5,6 +5,7 @@ import 'package:recipath/domain_service/syncing_service/assemblers/recipe_shoppi
 import 'package:recipath/domain_service/syncing_service/assemblers/recipe_statistic_assembler.dart';
 import 'package:recipath/domain_service/syncing_service/assemblers/shopping_assembler.dart';
 import 'package:recipath/domain_service/syncing_service/assemblers/storage_assembler.dart';
+import 'package:recipath/domain_service/syncing_service/assemblers/tag_assembler.dart';
 import 'package:recipath/domain_service/syncing_service/repos/abstract/data_sync_repo.dart';
 import 'package:recipath/domain_service/syncing_service/repos/download/ingredient_download_repo.dart';
 import 'package:recipath/domain_service/syncing_service/repos/download/recipe_step_download_repo.dart';
@@ -15,6 +16,7 @@ import 'package:recipath/domain_service/syncing_service/repos/sync/recipe_statis
 import 'package:recipath/domain_service/syncing_service/repos/sync/recipe_sync_repo.dart';
 import 'package:recipath/domain_service/syncing_service/repos/sync/shopping_sync_repo.dart';
 import 'package:recipath/domain_service/syncing_service/repos/sync/storage_sync_repo.dart';
+import 'package:recipath/domain_service/syncing_service/repos/sync/tag_sync_repo.dart';
 import 'package:recipath/domain_service/syncing_service/supabase_tables.dart';
 import 'package:recipath/domain_service/syncing_service/sync_orchestrator/sync_orchestartor.dart';
 import 'package:recipath/repos/grocery/full_grocery_repo_notifier.dart';
@@ -23,6 +25,7 @@ import 'package:recipath/repos/recipe_shopping/recipe_shopping_repo_notifier.dar
 import 'package:recipath/repos/recipe_statistics/recipe_statistics_repo_notifier.dart';
 import 'package:recipath/repos/shopping/full_shopping_repo_notifier.dart';
 import 'package:recipath/repos/storage/full_storage_repo_notifier.dart';
+import 'package:recipath/repos/tag/full_tag_repo_notifier.dart';
 import 'package:recipath/widgets/providers/revenue_cat/revenue_pro_notifier.dart';
 import 'package:recipath/widgets/providers/supabase/supabase_client_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -35,6 +38,7 @@ Future<SyncOrchestrator> syncOrchestratorNotifier(Ref ref) async {
   final recipeRepo = ref.watch(fullRecipeRepoProvider);
   final shoppingRepo = ref.watch(fullShoppingRepoProvider);
   final storageRepo = ref.watch(fullStorageRepoProvider);
+  final tagRepo = ref.watch(fullTagRepoProvider);
   final recipeStatisticRepo = ref.watch(recipeStatisticsRepoProvider);
   final recipeShoppingRepo = ref.watch(recipeShoppingRepoProvider);
 
@@ -52,6 +56,8 @@ Future<SyncOrchestrator> syncOrchestratorNotifier(Ref ref) async {
       SupabaseTables.recipeStep,
       SupabaseTables.recipeStepIngredient,
 
+      SupabaseTables.tag,
+
       SupabaseTables.storage,
 
       SupabaseTables.recipeStatistic,
@@ -66,6 +72,7 @@ Future<SyncOrchestrator> syncOrchestratorNotifier(Ref ref) async {
 
   final proRepos = <DataSyncRepo>[
     RecipeSyncRepo(supabaseClient: supabaseClient, repo: recipeRepo),
+    TagSyncRepo(supabaseClient: supabaseClient, repo: tagRepo),
     StorageSyncRepo(supabaseClient: supabaseClient, repo: storageRepo),
     RecipeStatisticSyncRepo(
       supabaseClient: supabaseClient,
@@ -91,6 +98,7 @@ Future<SyncOrchestrator> syncOrchestratorNotifier(Ref ref) async {
       GroceryAssembler(repo: groceryRepo),
       IngredientAssembler(),
       RecipeAssembler(repo: recipeRepo),
+      TagAssembler(repo: tagRepo),
       ShoppingAssembler(repo: shoppingRepo),
       StorageAssembler(repo: storageRepo),
       RecipeStatisticAssembler(repo: recipeStatisticRepo),

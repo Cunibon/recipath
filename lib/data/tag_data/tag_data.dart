@@ -4,7 +4,6 @@ import 'package:drift/drift.dart' as drift;
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:random_string/random_string.dart';
 import 'package:recipath/data/converters/color_converter.dart';
-import 'package:recipath/data/ingredient_data/ingredient_data.dart';
 import 'package:recipath/drift/database.dart';
 
 part 'tag_data.freezed.dart';
@@ -33,10 +32,7 @@ abstract class TagData with _$TagData {
     uploaded: data.uploaded,
   );
 
-  factory TagData.fromSupabase(
-    Map<String, dynamic> data,
-    IngredientData ingredient,
-  ) => TagData(
+  factory TagData.fromSupabase(Map<String, dynamic> data) => TagData(
     id: data["id"],
     name: data["name"],
     description: data["description"],
