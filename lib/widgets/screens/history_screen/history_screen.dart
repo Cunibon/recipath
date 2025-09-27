@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/common.dart';
 import 'package:recipath/widgets/navigation/default_navigation_title.dart';
 import 'package:recipath/widgets/navigation/navigation_drawer_scaffold.dart';
-import 'package:recipath/widgets/screens/history_screens/data/history_data.dart';
-import 'package:recipath/widgets/screens/history_screens/history_recipe_item.dart';
+import 'package:recipath/widgets/screens/history_screen/data/history_data.dart';
+import 'package:recipath/widgets/screens/history_screen/history_recipe_item.dart';
 
 class HistoryScreen<T> extends ConsumerWidget {
   const HistoryScreen({required this.asyncData, super.key});

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:recipath/widgets/screens/history_screens/history_screen.dart';
-import 'package:recipath/widgets/screens/history_screens/recipe_shopping_screen/providers/recipe_shopping_screen_notifier.dart';
+import 'package:recipath/widgets/screens/history_screen/history_screen.dart';
+import 'package:recipath/widgets/screens/history_screen/recipe_shopping_screen/providers/recipe_shopping_screen_notifier.dart';
 
 class RecipeShoppingScreen extends ConsumerWidget {
   const RecipeShoppingScreen({super.key});

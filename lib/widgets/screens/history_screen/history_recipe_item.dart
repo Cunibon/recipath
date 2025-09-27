@@ -5,7 +5,7 @@ import 'package:recipath/data/recipe_data/recipe_data.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
-import 'package:recipath/widgets/screens/history_screens/data/history_data.dart';
+import 'package:recipath/widgets/screens/history_screen/data/history_data.dart';
 import 'package:recipath/widgets/screens/recipe_screen/create_recipe_screen/compact_ingredient_view.dart';
 import 'package:recipath/widgets/screens/recipe_screen/local_image.dart';
 
