@@ -10,7 +10,7 @@ class Tag extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: color.darken(0.4),
+        color: color.darken(0.25),
         borderRadius: BorderRadius.circular(25),
         border: Border.all(color: color, width: 2),
       ),
@@ -22,7 +22,7 @@ class Tag extends StatelessWidget {
               text,
               style: Theme.of(
                 context,
-              ).textTheme.titleMedium?.copyWith(color: color),
+              ).textTheme.titleMedium?.copyWith(color: color.lighten(0.3)),
             ),
           ],
         ),
