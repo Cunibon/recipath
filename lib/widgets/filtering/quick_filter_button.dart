@@ -12,15 +12,12 @@ class QuickFilterButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12),
-        child: Icon(
-          filter.quickFilter.icon,
-          color: filter.active ? Colors.amber : null,
-          size: 28,
-        ),
+    return IconButton(
+      onPressed: onTap,
+      icon: Icon(
+        filter.quickFilter.icon,
+        color: filter.active ? Colors.amber : null,
+        size: 28,
       ),
     );
   }

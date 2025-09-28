@@ -28,8 +28,8 @@ class FilterButton extends ConsumerWidget {
         quickFilterState.values.any((element) => element) ||
         tagFilterState.isNotEmpty;
 
-    return GestureDetector(
-      onTap: () async {
+    return IconButton(
+      onPressed: () async {
         final result = await showDialog<ChangeFilterDialogState>(
           context: context,
           builder: (context) => ChangeFilterDialog(
@@ -66,13 +66,10 @@ class FilterButton extends ConsumerWidget {
           tagFilerNotifier.setFilters(filters: result.selectedTags.toList());
         }
       },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12),
-        child: Icon(
-          Icons.filter_alt,
-          color: filterActive ? Colors.amber : null,
-          size: 28,
-        ),
+      icon: Icon(
+        Icons.filter_alt,
+        color: filterActive ? Colors.amber : null,
+        size: 28,
       ),
     );
   }
