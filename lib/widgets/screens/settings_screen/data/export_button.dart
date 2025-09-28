@@ -7,7 +7,7 @@ import 'package:recipath/application_constants.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/providers/application_path_provider.dart';
 import 'package:recipath/repos/grocery/grocery_repo_notifier.dart';
-import 'package:recipath/repos/recipe/recipe_repo_notifier.dart';
+import 'package:recipath/repos/recipe/drift/recipe_repo_notifier.dart';
 import 'package:recipath/repos/shopping/shopping_repo_notifier.dart';
 import 'package:recipath/repos/storage/storage_repo_notifier.dart';
 import 'package:share_plus/share_plus.dart';

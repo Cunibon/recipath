@@ -1,6 +1,6 @@
 import 'package:recipath/data/recipe_data/recipe_data.dart';
 import 'package:recipath/helper/date_time_extension.dart';
-import 'package:recipath/repos/recipe/full_recipe_repo_notifier.dart';
+import 'package:recipath/repos/recipe/drift/full_recipe_repo_notifier.dart';
 import 'package:recipath/repos/recipe_statistics/recipe_statistics_repo_notifier.dart';
 import 'package:recipath/widgets/screens/history_screen/data/history_data.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
