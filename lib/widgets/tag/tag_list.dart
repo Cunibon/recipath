@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:recipath/data/tag_data/tag_data.dart';
-import 'package:recipath/widgets/screens/tag_screen/tag/change_tag_dialog.dart';
-import 'package:recipath/widgets/screens/tag_screen/tag/change_tags_button.dart';
-import 'package:recipath/widgets/screens/tag_screen/tag/tag.dart';
+import 'package:recipath/widgets/tag/change_tag_dialog.dart';
+import 'package:recipath/widgets/tag/change_tags_button.dart';
+import 'package:recipath/widgets/tag/tag.dart';
 
 class TagList extends StatelessWidget {
   const TagList({
-    required this.tags,
+    required this.selectedTags,
+    this.allTags,
     this.onTagTapped,
     this.onEdited,
     super.key,
   });
 
-  final Set<TagData> tags;
+  final Set<TagData> selectedTags;
+  final Set<TagData>? allTags;
   final void Function(TagData tagData)? onTagTapped;
 
   final void Function(Set<TagData> newTags)? onEdited;
@@ -21,8 +23,9 @@ class TagList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Wrap(
       spacing: 4,
+      runSpacing: 4,
       children: [
-        ...tags.map(
+        ...selectedTags.map(
           (e) => GestureDetector(
             onTap: () => onTagTapped?.call(e),
             child: Tag(text: e.name, color: e.color),
@@ -33,8 +36,10 @@ class TagList extends StatelessWidget {
             onTap: () async {
               final result = await showDialog<Set<TagData>>(
                 context: context,
-                builder: (context) =>
-                    ChangeTagDialog(selected: tags.map((e) => e.id)),
+                builder: (context) => ChangeTagDialog(
+                  allTags: allTags,
+                  selected: selectedTags.map((e) => e.id),
+                ),
               );
 
               if (result != null) {

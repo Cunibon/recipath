@@ -72,7 +72,13 @@ class AppLocalizationsDe extends AppLocalizations {
   String get pick => 'Auswählen';
 
   @override
+  String get apply => 'Anwenden';
+
+  @override
   String get discard => 'Verwerfen';
+
+  @override
+  String get filter => 'Filter';
 
   @override
   String get reallyDelete => 'Möchten Sie wirklich löschen';

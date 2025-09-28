@@ -212,11 +212,23 @@ abstract class AppLocalizations {
   /// **'Pick'**
   String get pick;
 
+  /// No description provided for @apply.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply'**
+  String get apply;
+
   /// No description provided for @discard.
   ///
   /// In en, this message translates to:
   /// **'Discard'**
   String get discard;
+
+  /// No description provided for @filter.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter'**
+  String get filter;
 
   /// No description provided for @reallyDelete.
   ///

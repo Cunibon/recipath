@@ -12,6 +12,8 @@ import 'package:recipath/widgets/screens/recipe_screen/create_recipe_screen/comp
 import 'package:recipath/widgets/screens/recipe_screen/local_image.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/average_recipe_time_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/shopping_planning_notifier.dart';
+import 'package:recipath/widgets/screens/recipe_screen/providers/tags_per_recipe_notifier.dart';
+import 'package:recipath/widgets/tag/tag_list.dart';
 
 class CompactRecipeItem extends ConsumerWidget {
   const CompactRecipeItem({
@@ -115,6 +117,24 @@ class CompactRecipeItem extends ConsumerWidget {
                         checkStorage: true,
                         ingredients: data.getIngredients(groceryMap),
                       ),
+                    ),
+                    CachedAsyncValueWrapper(
+                      asyncState: AsyncValue.data(
+                        ref.watch(
+                          tagsPerRecipeProvider.select(
+                            (p) => p.value?[data.id] ?? {},
+                          ),
+                        ),
+                      ),
+                      builder: (data) => data.isEmpty
+                          ? SizedBox.shrink()
+                          : Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Divider(),
+                                TagList(selectedTags: data),
+                              ],
+                            ),
                     ),
                   ],
                 ),

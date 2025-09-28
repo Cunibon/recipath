@@ -22,7 +22,7 @@ class ChangeTagsButton extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+          padding: const EdgeInsets.only(right: 4),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [Icon(Icons.add), Text(localization.changeTags)],

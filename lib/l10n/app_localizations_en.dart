@@ -71,7 +71,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get pick => 'Pick';
 
   @override
+  String get apply => 'Apply';
+
+  @override
   String get discard => 'Discard';
+
+  @override
+  String get filter => 'Filter';
 
   @override
   String get reallyDelete => 'Do you really want to delete';

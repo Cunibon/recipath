@@ -5,11 +5,12 @@ import 'package:recipath/data/tag_data/tag_data.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/generic/searchable_list.dart';
 import 'package:recipath/widgets/screens/tag_screen/providers/tag_notifier.dart';
-import 'package:recipath/widgets/screens/tag_screen/tag/tag.dart';
+import 'package:recipath/widgets/tag/tag.dart';
 
 class ChangeTagDialog extends ConsumerStatefulWidget {
-  const ChangeTagDialog({this.selected = const [], super.key});
+  const ChangeTagDialog({this.allTags, this.selected = const [], super.key});
 
+  final Set<TagData>? allTags;
   final Iterable<String> selected;
 
   @override
@@ -17,11 +18,15 @@ class ChangeTagDialog extends ConsumerStatefulWidget {
 }
 
 class _ChangeTagDialogState extends ConsumerState<ChangeTagDialog> {
+  late List<TagData> tagList;
   final Set<String> selected = {};
 
   @override
   void initState() {
     super.initState();
+    tagList =
+        widget.allTags?.toList() ??
+        ref.read(tagProvider).value!.values.toList();
     selected.addAll(widget.selected);
   }
 
@@ -36,7 +41,6 @@ class _ChangeTagDialogState extends ConsumerState<ChangeTagDialog> {
     final localization = AppLocalizations.of(context)!;
 
     final tags = ref.watch(tagProvider).value!;
-    final tagList = tags.values.toList();
 
     return Dialog(
       child: Padding(
@@ -91,8 +95,9 @@ class _ChangeTagDialogState extends ConsumerState<ChangeTagDialog> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     ElevatedButton.icon(
-                      onPressed: () =>
-                          context.pop(selected.map((e) => tags[e]!).toSet()),
+                      onPressed: () => context.pop(
+                        selected.map((e) => tags[e]).nonNulls.toSet(),
+                      ),
                       icon: Icon(Icons.done),
                       label: Text(localization.done),
                     ),

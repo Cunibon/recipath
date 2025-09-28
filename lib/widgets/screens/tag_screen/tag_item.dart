@@ -3,8 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:recipath/application_constants.dart';
 import 'package:recipath/data/tag_data/tag_data.dart';
 import 'package:recipath/root_routes.dart';
-import 'package:recipath/widgets/screens/tag_screen/tag/tag.dart';
 import 'package:recipath/widgets/screens/tag_screen/tag_routes.dart';
+import 'package:recipath/widgets/tag/tag.dart';
 
 class TagItem extends StatelessWidget {
   const TagItem({required this.data, super.key});

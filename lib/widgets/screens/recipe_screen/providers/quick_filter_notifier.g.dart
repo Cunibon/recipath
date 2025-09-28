@@ -48,7 +48,7 @@ final class QuickFilterNotifierProvider
 }
 
 String _$quickFilterNotifierHash() =>
-    r'47ddb6dba007cfaa582f64931000006d044ca7b3';
+    r'0d07ae5f694b44af0f179637e395f6b467f82c8a';
 
 abstract class _$QuickFilterNotifier
     extends $Notifier<Map<QuickFilters, bool>> {

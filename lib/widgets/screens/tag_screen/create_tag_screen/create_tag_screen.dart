@@ -10,7 +10,7 @@ import 'package:recipath/widgets/generic/dialogs/delete_confirmation_dialog.dart
 import 'package:recipath/widgets/generic/dialogs/select_color_dialog.dart';
 import 'package:recipath/widgets/generic/unsaved_changes_scope.dart';
 import 'package:recipath/widgets/screens/tag_screen/providers/tag_notifier.dart';
-import 'package:recipath/widgets/screens/tag_screen/tag/tag.dart';
+import 'package:recipath/widgets/tag/tag.dart';
 
 class CreateTagScreen extends ConsumerStatefulWidget {
   const CreateTagScreen({this.tagId, super.key});

@@ -15,7 +15,7 @@ class Tag extends StatelessWidget {
         border: Border.all(color: color, width: 2),
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+        padding: const EdgeInsets.symmetric(horizontal: 4),
         child: Stack(
           children: [
             Text(
