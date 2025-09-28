@@ -2,10 +2,11 @@ import 'package:drift/drift.dart';
 import 'package:recipath/data/ingredient_data/ingredient_data.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
 import 'package:recipath/data/recipe_step_data/recipe_step_data.dart';
+import 'package:recipath/data/tag_data/tag_data.dart';
 import 'package:recipath/drift/database.dart';
-import 'package:recipath/repos/sync_repo.dart';
+import 'package:recipath/repos/recipe/recipe_repo.dart';
 
-class RecipeRepoDrift extends SyncRepo<RecipeData> {
+class RecipeRepoDrift extends RecipeRepo {
   RecipeRepoDrift(super.db, {this.incluedArchived = false});
   final bool incluedArchived;
 
@@ -103,6 +104,30 @@ class RecipeRepoDrift extends SyncRepo<RecipeData> {
   @override
   Stream<Map<String, RecipeData>> stream() {
     return baseQuery.watch().map(mapResult);
+  }
+
+  @override
+  Stream<Map<String, RecipeData>> streamFiltered(List<TagData> tagDataFilters) {
+    final query = baseQuery;
+
+    query.where(table.archived.equals(false));
+
+    if (tagDataFilters.isNotEmpty) {
+      final requiredTagIds = tagDataFilters.map((e) => e.id).toList();
+
+      final tagSubquery = db.selectOnly(db.recipeTagTable)
+        ..addColumns([db.recipeTagTable.recipeId])
+        ..where(db.recipeTagTable.tagId.isIn(requiredTagIds))
+        ..groupBy(
+          [db.recipeTagTable.recipeId],
+          having: db.recipeTagTable.tagId
+              .count(distinct: true)
+              .equals(requiredTagIds.length),
+        );
+      query.where(table.id.isInQuery(tagSubquery));
+    }
+
+    return query.watch().map(mapResult);
   }
 
   @override

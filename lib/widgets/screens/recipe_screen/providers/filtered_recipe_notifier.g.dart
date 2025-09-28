@@ -49,4 +49,4 @@ final class FilteredRecipeNotifierProvider
 }
 
 String _$filteredRecipeNotifierHash() =>
-    r'ba749a429b26274823320b52b8b5ecee401f7212';
+    r'cd3ce837c0abb8af691592439aaf548dbc440c39';

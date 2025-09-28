@@ -13,13 +13,8 @@ part of 'full_recipe_repo_notifier.dart';
 const fullRecipeRepoProvider = FullRecipeRepoNotifierProvider._();
 
 final class FullRecipeRepoNotifierProvider
-    extends
-        $FunctionalProvider<
-          SyncRepo<RecipeData>,
-          SyncRepo<RecipeData>,
-          SyncRepo<RecipeData>
-        >
-    with $Provider<SyncRepo<RecipeData>> {
+    extends $FunctionalProvider<RecipeRepo, RecipeRepo, RecipeRepo>
+    with $Provider<RecipeRepo> {
   const FullRecipeRepoNotifierProvider._()
     : super(
         from: null,
@@ -36,23 +31,22 @@ final class FullRecipeRepoNotifierProvider
 
   @$internal
   @override
-  $ProviderElement<SyncRepo<RecipeData>> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
+  $ProviderElement<RecipeRepo> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
 
   @override
-  SyncRepo<RecipeData> create(Ref ref) {
+  RecipeRepo create(Ref ref) {
     return fullRecipeRepoNotifier(ref);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(SyncRepo<RecipeData> value) {
+  Override overrideWithValue(RecipeRepo value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<SyncRepo<RecipeData>>(value),
+      providerOverride: $SyncValueProvider<RecipeRepo>(value),
     );
   }
 }
 
 String _$fullRecipeRepoNotifierHash() =>
-    r'c6340e6847ce3128a9e6d0882179765befc25772';
+    r'3c185db3e62f723d1f3b8d87a1dab9a7805efa69';
