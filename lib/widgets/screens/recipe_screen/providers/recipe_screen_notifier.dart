@@ -2,8 +2,8 @@ import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
 import 'package:recipath/data/timer_data/timer_data.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
+import 'package:recipath/widgets/screens/recipe_screen/providers/filtered_recipe_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/quick_filter_notifier.dart';
-import 'package:recipath/widgets/screens/recipe_screen/providers/recipe_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/timer_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -11,7 +11,7 @@ part 'recipe_screen_notifier.g.dart';
 
 @riverpod
 Future<RecipeScreenState> recipeScreenNotifier(Ref ref) async {
-  final recipes = await ref.watch(recipeProvider.future);
+  final recipes = await ref.watch(filteredRecipeProvider.future);
   final groceries = await ref.watch(groceryProvider.future);
   final timers = ref.watch(timerProvider);
 

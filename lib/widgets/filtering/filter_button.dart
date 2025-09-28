@@ -3,23 +3,30 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:recipath/data/tag_data/tag_data.dart';
 import 'package:recipath/widgets/filtering/change_filter_dialog.dart';
+import 'package:recipath/widgets/filtering/filter_types.dart';
 import 'package:recipath/widgets/filtering/quick_filter_data.dart';
+import 'package:recipath/widgets/filtering/tag_filter_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/quick_filter_notifier.dart';
 
 class FilterButton extends ConsumerWidget {
   const FilterButton({
+    required this.filterType,
     this.allTags = const {},
     this.quickFilters = const [],
     super.key,
   });
+  final FilterTypes filterType;
   final Set<TagData> allTags;
   final List<QuickFilters> quickFilters;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final quickFilterState = ref.watch(quickFilterProvider);
+    final tagFilterState = ref.watch(tagFilterProvider(filterType));
 
-    final filterActive = quickFilterState.values.any((element) => element);
+    final filterActive =
+        quickFilterState.values.any((element) => element) ||
+        tagFilterState.isNotEmpty;
 
     return GestureDetector(
       onTap: () async {
@@ -28,6 +35,7 @@ class FilterButton extends ConsumerWidget {
           builder: (context) => ChangeFilterDialog(
             onClear: () {
               ref.read(quickFilterProvider.notifier).clear();
+              ref.read(tagFilterProvider(filterType).notifier).clear();
               context.pop();
             },
             quickFilters: quickFilters
@@ -38,6 +46,7 @@ class FilterButton extends ConsumerWidget {
                   ),
                 )
                 .toList(),
+            selectedTags: tagFilterState.toSet(),
             allTags: allTags,
           ),
         );
@@ -50,6 +59,11 @@ class FilterButton extends ConsumerWidget {
               value: quickFilter.active,
             );
           }
+
+          final tagFilerNotifier = ref.read(
+            tagFilterProvider(filterType).notifier,
+          );
+          tagFilerNotifier.setFilters(filters: result.selectedTags.toList());
         }
       },
       child: Padding(
