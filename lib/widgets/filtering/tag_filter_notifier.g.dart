@@ -13,7 +13,7 @@ part of 'tag_filter_notifier.dart';
 const tagFilterProvider = TagFilterNotifierFamily._();
 
 final class TagFilterNotifierProvider
-    extends $NotifierProvider<TagFilterNotifier, List<TagData>> {
+    extends $NotifierProvider<TagFilterNotifier, Set<String>> {
   const TagFilterNotifierProvider._({
     required TagFilterNotifierFamily super.from,
     required FilterTypes super.argument,
@@ -40,10 +40,10 @@ final class TagFilterNotifierProvider
   TagFilterNotifier create() => TagFilterNotifier();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(List<TagData> value) {
+  Override overrideWithValue(Set<String> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<List<TagData>>(value),
+      providerOverride: $SyncValueProvider<Set<String>>(value),
     );
   }
 
@@ -58,15 +58,15 @@ final class TagFilterNotifierProvider
   }
 }
 
-String _$tagFilterNotifierHash() => r'abcebfc9878ad60c9b3f8be2b455ebbefc619d9d';
+String _$tagFilterNotifierHash() => r'3cbb1553e1eb74d4d6cf7670bca953d442be9e5c';
 
 final class TagFilterNotifierFamily extends $Family
     with
         $ClassFamilyOverride<
           TagFilterNotifier,
-          List<TagData>,
-          List<TagData>,
-          List<TagData>,
+          Set<String>,
+          Set<String>,
+          Set<String>,
           FilterTypes
         > {
   const TagFilterNotifierFamily._()
@@ -85,21 +85,21 @@ final class TagFilterNotifierFamily extends $Family
   String toString() => r'tagFilterProvider';
 }
 
-abstract class _$TagFilterNotifier extends $Notifier<List<TagData>> {
+abstract class _$TagFilterNotifier extends $Notifier<Set<String>> {
   late final _$args = ref.$arg as FilterTypes;
   FilterTypes get filterType => _$args;
 
-  List<TagData> build(FilterTypes filterType);
+  Set<String> build(FilterTypes filterType);
   @$mustCallSuper
   @override
   void runBuild() {
     final created = build(_$args);
-    final ref = this.ref as $Ref<List<TagData>, List<TagData>>;
+    final ref = this.ref as $Ref<Set<String>, Set<String>>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<List<TagData>, List<TagData>>,
-              List<TagData>,
+              AnyNotifier<Set<String>, Set<String>>,
+              Set<String>,
               Object?,
               Object?
             >;

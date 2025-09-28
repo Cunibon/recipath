@@ -2,7 +2,6 @@ import 'package:drift/drift.dart';
 import 'package:recipath/data/ingredient_data/ingredient_data.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
 import 'package:recipath/data/recipe_step_data/recipe_step_data.dart';
-import 'package:recipath/data/tag_data/tag_data.dart';
 import 'package:recipath/drift/database.dart';
 import 'package:recipath/repos/recipe/recipe_repo.dart';
 
@@ -107,13 +106,13 @@ class RecipeRepoDrift extends RecipeRepo {
   }
 
   @override
-  Stream<Map<String, RecipeData>> streamFiltered(List<TagData> tagDataFilters) {
+  Stream<Map<String, RecipeData>> streamFiltered(Set<String> tagDataFilters) {
     final query = baseQuery;
 
     query.where(table.archived.equals(false));
 
     if (tagDataFilters.isNotEmpty) {
-      final requiredTagIds = tagDataFilters.map((e) => e.id).toList();
+      final requiredTagIds = tagDataFilters;
 
       final tagSubquery = db.selectOnly(db.recipeTagTable)
         ..addColumns([db.recipeTagTable.recipeId])

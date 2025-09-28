@@ -6,7 +6,9 @@ import 'package:recipath/widgets/filtering/change_filter_dialog.dart';
 import 'package:recipath/widgets/filtering/filter_types.dart';
 import 'package:recipath/widgets/filtering/quick_filter_data.dart';
 import 'package:recipath/widgets/filtering/tag_filter_notifier.dart';
+import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/quick_filter_notifier.dart';
+import 'package:recipath/widgets/screens/tag_screen/providers/tag_notifier.dart';
 
 class FilterButton extends ConsumerWidget {
   const FilterButton({
@@ -21,6 +23,8 @@ class FilterButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final tagState = ref.watch(tagProvider);
+
     final quickFilterState = ref.watch(quickFilterProvider);
     final tagFilterState = ref.watch(tagFilterProvider(filterType));
 
@@ -28,48 +32,54 @@ class FilterButton extends ConsumerWidget {
         quickFilterState.values.any((element) => element) ||
         tagFilterState.isNotEmpty;
 
-    return IconButton(
-      onPressed: () async {
-        final result = await showDialog<ChangeFilterDialogState>(
-          context: context,
-          builder: (context) => ChangeFilterDialog(
-            onClear: () {
-              ref.read(quickFilterProvider.notifier).clear();
-              ref.read(tagFilterProvider(filterType).notifier).clear();
-              context.pop();
-            },
-            quickFilters: quickFilters
-                .map(
-                  (e) => QuickFilterData(
-                    quickFilter: e,
-                    active: quickFilterState[e] ?? false,
-                  ),
-                )
-                .toList(),
-            selectedTags: tagFilterState.toSet(),
-            allTags: allTags,
-          ),
-        );
-
-        if (result != null) {
-          final quickFilerNotifier = ref.read(quickFilterProvider.notifier);
-          for (final quickFilter in result.quickFilters) {
-            quickFilerNotifier.setFilter(
-              filter: quickFilter.quickFilter,
-              value: quickFilter.active,
-            );
-          }
-
-          final tagFilerNotifier = ref.read(
-            tagFilterProvider(filterType).notifier,
+    return CachedAsyncValueWrapper(
+      asyncState: tagState,
+      builder: (tagLookup) => IconButton(
+        onPressed: () async {
+          final result = await showDialog<ChangeFilterDialogState>(
+            context: context,
+            builder: (context) => ChangeFilterDialog(
+              onClear: () {
+                ref.read(quickFilterProvider.notifier).clear();
+                ref.read(tagFilterProvider(filterType).notifier).clear();
+                context.pop();
+              },
+              quickFilters: quickFilters
+                  .map(
+                    (e) => QuickFilterData(
+                      quickFilter: e,
+                      active: quickFilterState[e] ?? false,
+                    ),
+                  )
+                  .toList(),
+              selectedTags: tagFilterState
+                  .map((e) => tagLookup[e])
+                  .nonNulls
+                  .toSet(),
+              allTags: allTags,
+            ),
           );
-          tagFilerNotifier.setFilters(filters: result.selectedTags.toList());
-        }
-      },
-      icon: Icon(
-        Icons.filter_alt,
-        color: filterActive ? Colors.amber : null,
-        size: 28,
+
+          if (result != null) {
+            final quickFilerNotifier = ref.read(quickFilterProvider.notifier);
+            for (final quickFilter in result.quickFilters) {
+              quickFilerNotifier.setFilter(
+                filter: quickFilter.quickFilter,
+                value: quickFilter.active,
+              );
+            }
+
+            final tagFilerNotifier = ref.read(
+              tagFilterProvider(filterType).notifier,
+            );
+            tagFilerNotifier.setFilters(filters: result.selectedTags.toList());
+          }
+        },
+        icon: Icon(
+          Icons.filter_alt,
+          color: filterActive ? Colors.amber : null,
+          size: 28,
+        ),
       ),
     );
   }

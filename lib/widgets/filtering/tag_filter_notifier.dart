@@ -13,32 +13,32 @@ class TagFilterNotifier extends _$TagFilterNotifier {
   static const tagFilterDataKey = "tagFilterDataKey";
 
   @override
-  List<TagData> build(FilterTypes filterType) {
+  Set<String> build(FilterTypes filterType) {
     final data =
         localStorage.get<List<dynamic>>(
           "$tagFilterDataKey${filterType.name}",
         ) ??
         [];
 
-    return data.map((e) => TagData.fromJson(e)).toList();
+    return data.cast<String>().toSet();
   }
 
   void setFilters({required List<TagData> filters}) {
-    state = filters;
+    state = filters.map((e) => e.id).toSet();
 
-    localStorage.setItem(
-      "$tagFilterDataKey${filterType.name}",
-      jsonEncode(state),
-    );
-    ref.invalidateSelf();
+    _saveState();
   }
 
   void addFilter({required TagData filter}) {
-    state = (state.toSet()..add(filter)).toList();
+    state = Set.from(state)..add(filter.id);
 
+    _saveState();
+  }
+
+  void _saveState() {
     localStorage.setItem(
       "$tagFilterDataKey${filterType.name}",
-      jsonEncode(state),
+      jsonEncode(state.toList()),
     );
     ref.invalidateSelf();
   }
