@@ -50,7 +50,7 @@ class RecipeSearchView extends ConsumerWidget {
       toWidget: (item) => Dismissible(
         key: Key(item.id),
         child: CompactRecipeItem(
-          data: item,
+          recipeData: item,
           timerData: data.timerData[item.id],
         ),
         confirmDismiss: (direction) async {

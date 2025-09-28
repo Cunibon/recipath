@@ -33,6 +33,16 @@ class TagFilterNotifier extends _$TagFilterNotifier {
     ref.invalidateSelf();
   }
 
+  void addFilter({required TagData filter}) {
+    state = (state.toSet()..add(filter)).toList();
+
+    localStorage.setItem(
+      "$tagFilterDataKey${filterType.name}",
+      jsonEncode(state),
+    );
+    ref.invalidateSelf();
+  }
+
   void clear() {
     localStorage.removeItem("$tagFilterDataKey${filterType.name}");
     ref.invalidateSelf();

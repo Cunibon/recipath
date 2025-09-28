@@ -79,6 +79,9 @@ class _ChangeFilterDialogState extends State<ChangeFilterDialog> {
             TagList(
               allTags: widget.allTags,
               selectedTags: selectedTags,
+              onTagTapped: (tagData) => setState(() {
+                selectedTags = Set.from(selectedTags..remove(tagData));
+              }),
               onEdited: (newTags) => setState(() {
                 selectedTags = newTags;
               }),
