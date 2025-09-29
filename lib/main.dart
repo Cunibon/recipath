@@ -46,7 +46,7 @@ void main() async {
 
   final firstTime = localStorage.get<bool>(openAppFirstTime) ?? true;
   if (firstTime) {
-    localStorage.setDynamic(openAppFirstTime, false);
+    localStorage.set(openAppFirstTime, false);
   }
 
   final goRouter = GoRouter(

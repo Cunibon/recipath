@@ -2,12 +2,10 @@ import 'package:recipath/data/ingredient_data/ingredient_data.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
 import 'package:recipath/data/recipe_step_data/recipe_step_data.dart';
 import 'package:recipath/domain_service/syncing_service/repos/abstract/data_sync_repo.dart';
-import 'package:recipath/domain_service/syncing_service/repos/abstract/sync_interfaces.dart';
 import 'package:recipath/domain_service/syncing_service/supabase_tables.dart';
 import 'package:recipath/domain_service/syncing_service/sync_orchestrator/sync_orchestartor.dart';
 
-class RecipeSyncRepo extends DataSyncRepo<RecipeData>
-    implements PrepareUploadInterface {
+class RecipeSyncRepo extends DataSyncRepo<RecipeData> {
   RecipeSyncRepo({required super.supabaseClient, required super.repo});
 
   @override
