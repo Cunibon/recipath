@@ -21,18 +21,18 @@ class SyncingService {
   Timer? _timer;
   Completer syncRunning = Completer();
 
-  late Map<String, DateTime> _lastSyncs;
+  late Map<String, DateTime> _tableSyncs;
 
   Future<void> start() async {
-    final savedSync = localStorage.get<Map<String, dynamic>>(
+    final savedSyncs = localStorage.get<Map<String, dynamic>>(
       SyncingKeys.storageKey,
     );
-    if (savedSync != null) {
-      _lastSyncs = savedSync.map(
+    if (savedSyncs != null) {
+      _tableSyncs = savedSyncs.map(
         (key, value) => MapEntry(key, DateTime.parse(value)),
       );
     } else {
-      _lastSyncs = {};
+      _tableSyncs = {};
     }
 
     _timer = Timer(Duration(minutes: 1), () => sync());
@@ -68,7 +68,7 @@ class SyncingService {
     try {
       fileUpload = await fileSyncOrchestrator.uploadAll();
       uploadedCount = await syncOrchestrator.uploadAll();
-      downloadResult = await syncOrchestrator.downloadAll(_lastSyncs);
+      downloadResult = await syncOrchestrator.downloadAll(_tableSyncs);
     } catch (e, s) {
       logger.e("Sync failed", error: e, stackTrace: s);
     } finally {
@@ -77,14 +77,14 @@ class SyncingService {
         "Sync took: ${stopwatch.elapsed}\nUploaded: $uploadedCount objects, $fileUpload files | Downloaded: ${downloadResult?.count}",
       );
 
-      if (downloadResult?.lastSyncs != null) {
+      if (downloadResult?.tableSyncs != null) {
         localStorage.set(
           SyncingKeys.storageKey,
-          downloadResult!.lastSyncs.map(
+          downloadResult!.tableSyncs.map(
             (key, value) => MapEntry(key, value.toIso8601String()),
           ),
         );
-        _lastSyncs = downloadResult.lastSyncs;
+        _tableSyncs = downloadResult.tableSyncs;
       }
 
       if (_timer != null) {

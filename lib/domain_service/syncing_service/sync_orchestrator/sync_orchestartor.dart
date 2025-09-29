@@ -63,10 +63,10 @@ class SyncOrchestrator {
   }
 
   Future<FullDownloadResult> downloadAll(
-    Map<String, DateTime> lastSyncs,
+    Map<String, DateTime> tableSyncs,
   ) async {
-    final syncCopy = Map<String, DateTime>.from(lastSyncs);
-    if (!loggedIn) return FullDownloadResult(lastSyncs: syncCopy, count: 0);
+    final syncCopy = Map<String, DateTime>.from(tableSyncs);
+    if (!loggedIn) return FullDownloadResult(tableSyncs: syncCopy, count: 0);
 
     final SyncContext syncContext = {};
     final AssemblyContext assemblyContext = {};
@@ -75,7 +75,8 @@ class SyncOrchestrator {
 
     try {
       for (final repo in downloads) {
-        final currentLastSync = syncCopy[repo.tableName] ?? DateTime(0);
+        final currentLastSync =
+            syncCopy[repo.tableName] ?? DateTime.fromMicrosecondsSinceEpoch(0);
         final result = await repo.download(currentLastSync, syncContext);
 
         downloadCount += result.count;
@@ -99,6 +100,6 @@ class SyncOrchestrator {
       );
     }
 
-    return FullDownloadResult(lastSyncs: syncCopy, count: downloadCount);
+    return FullDownloadResult(tableSyncs: syncCopy, count: downloadCount);
   }
 }

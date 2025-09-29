@@ -33,7 +33,7 @@ class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
   void initState() {
     super.initState();
     initalData =
-        ref.read(recipeProvider).value![widget.recipeId] ??
+        ref.read(recipeProvider).value?[widget.recipeId] ??
         RecipeData(
           id: randomAlphaNumeric(16),
           title: "",
