@@ -1,9 +1,10 @@
 import 'package:recipath/data/grocery_data/grocery_data.dart';
-import 'package:recipath/data/recipe_data/recipe_data.dart';
-import 'package:recipath/data/timer_data/timer_data.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
+import 'package:recipath/widgets/screens/recipe_screen/data/compact_recipe_item_data.dart';
+import 'package:recipath/widgets/screens/recipe_screen/providers/average_recipe_time_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/filtered_recipe_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/quick_filter_notifier.dart';
+import 'package:recipath/widgets/screens/recipe_screen/providers/tags_per_recipe_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/timer_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -19,26 +20,39 @@ Future<RecipeScreenState> recipeScreenNotifier(Ref ref) async {
 
   final onlyShowRunning = quickFilters[QuickFilters.running] ?? false;
 
-  final recipeList = <RecipeData>[];
+  final recipeList = <CompactRecipeItemData>[];
   bool synced = true;
 
   for (final recipe in recipes.values) {
     if (recipe.uploaded == false) {
       synced = false;
     }
+    final averageTime = await ref.watch(
+      averageRecipeTimeProvider(recipe.id).future,
+    );
+    final tags = await ref.watch(
+      tagsPerRecipeProvider.selectAsync((data) => data[recipe.id] ?? {}),
+    );
+
+    final compactRecipeData = CompactRecipeItemData(
+      recipeData: recipe,
+      averageTime: averageTime,
+      groceryMap: groceries,
+      tags: tags,
+      timerData: timers[recipe.id],
+    );
 
     if (onlyShowRunning) {
       if (timers.containsKey(recipe.id)) {
-        recipeList.add(recipe);
+        recipeList.add(compactRecipeData);
       }
     } else {
-      recipeList.add(recipe);
+      recipeList.add(compactRecipeData);
     }
   }
 
   return RecipeScreenState(
     synced: synced,
-    timerData: timers,
     recipe: recipeList,
     grocery: groceries,
   );
@@ -47,13 +61,11 @@ Future<RecipeScreenState> recipeScreenNotifier(Ref ref) async {
 class RecipeScreenState {
   RecipeScreenState({
     required this.synced,
-    required this.timerData,
     required this.recipe,
     required this.grocery,
   });
 
   final bool synced;
-  final Map<String, TimerData> timerData;
-  final List<RecipeData> recipe;
+  final List<CompactRecipeItemData> recipe;
   final Map<String, GroceryData> grocery;
 }

@@ -68,7 +68,9 @@ class _CreateTagScreenState extends ConsumerState<CreateTagScreen> {
             ElevatedButton.icon(
               onPressed: () async {
                 if (formKey.currentState?.validate() == true) {
-                  await ref.read(tagModifierProvider).add(data);
+                  if (data != initialData) {
+                    await ref.read(tagModifierProvider).add(data);
+                  }
                   if (context.mounted) {
                     context.pop(data);
                   }

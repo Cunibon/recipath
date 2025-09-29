@@ -42,28 +42,29 @@ class RecipeSearchView extends ConsumerWidget {
         allTags: usedTags,
       ),
       items: data.recipe,
-      toSearchable: (item) => item.toReadable(
+      toSearchable: (item) => item.recipeData.toReadable(
         groceries: data.grocery,
         unitLocalized: unitLocalized,
         doubleNumberFormat: doubleNumberFormat,
       ),
       toWidget: (item) => Dismissible(
-        key: Key(item.id),
-        child: CompactRecipeItem(
-          recipeData: item,
-          timerData: data.timerData[item.id],
-        ),
+        key: Key(item.recipeData.id),
+        child: CompactRecipeItem(compactRecipeData: item),
         confirmDismiss: (direction) async {
           if (direction == DismissDirection.startToEnd) {
-            ref.read(shoppingPlanningProvider.notifier).addRecipe(item);
+            ref
+                .read(shoppingPlanningProvider.notifier)
+                .addRecipe(item.recipeData);
           } else {
-            ref.read(shoppingPlanningProvider.notifier).removeRecipe(item);
+            ref
+                .read(shoppingPlanningProvider.notifier)
+                .removeRecipe(item.recipeData);
           }
 
           return false;
         },
       ),
-      sort: (a, b) => a.title.compareTo(b.title),
+      sort: (a, b) => a.recipeData.title.compareTo(b.recipeData.title),
     );
   }
 }

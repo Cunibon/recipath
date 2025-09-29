@@ -29,8 +29,12 @@ class TagFilterNotifier extends _$TagFilterNotifier {
     _saveState();
   }
 
-  void addFilter({required TagData filter}) {
-    state = Set.from(state)..add(filter.id);
+  void toggleFilter({required TagData filter}) {
+    if (state.contains(filter.id)) {
+      state = Set.from(state)..remove(filter.id);
+    } else {
+      state = Set.from(state)..add(filter.id);
+    }
 
     _saveState();
   }

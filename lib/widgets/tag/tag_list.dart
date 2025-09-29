@@ -21,11 +21,14 @@ class TagList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final sortedTags = selectedTags.toList()
+      ..sort((a, b) => a.name.compareTo(b.name));
+
     return Wrap(
       spacing: 4,
       runSpacing: 4,
       children: [
-        ...selectedTags.map(
+        ...sortedTags.map(
           (e) => GestureDetector(
             onTap: () => onTagTapped?.call(e),
             child: Tag(text: e.name, color: e.color),
