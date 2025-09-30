@@ -83,9 +83,9 @@ class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
                 if (formKey.currentState?.validate() == true) {
                   final goRouter = GoRouter.of(context);
 
-                  final ingredientChange = initalData.diffIngredients(data);
-
-                  if (widget.recipeId == null || ingredientChange.isEmpty) {
+                  if (widget.recipeId == null ||
+                      initalData.steps.length == data.steps.length &&
+                          initalData.diffIngredients(data).isEmpty) {
                     await ref.read(recipeModifierProvider).add(data);
                     goRouter.pop();
                   } else if (data != initalData) {

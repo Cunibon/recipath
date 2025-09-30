@@ -40,6 +40,7 @@ class TagScreen extends ConsumerWidget {
           items: data.values.toList(),
           toSearchable: (item) => "${item.name} ${item.description}",
           toWidget: (item) => TagItem(data: item),
+          sort: (a, b) => a.name.compareTo(b.name),
         ),
       ),
     );
