@@ -28,7 +28,6 @@ class RecipeOverviewScreen extends ConsumerWidget {
     final localization = AppLocalizations.of(context)!;
 
     final state = ref.watch(recipeOverviewScreenProvider(recipeId));
-
     final groceries = ref.watch(groceryProvider).value!;
 
     return CachedAsyncValueWrapper(
@@ -83,7 +82,7 @@ class RecipeOverviewScreen extends ConsumerWidget {
 
                         final modifier = ref.read(recipeTagModifierProvider);
                         for (final addedTag in added) {
-                          modifier.addItem(
+                          modifier.add(
                             RecipeTagData(
                               recipeId: recipeId,
                               tagId: addedTag.id,
@@ -91,7 +90,7 @@ class RecipeOverviewScreen extends ConsumerWidget {
                           );
                         }
                         for (final removedTag in removed) {
-                          modifier.deleteItem(
+                          modifier.delete(
                             RecipeTagData(
                               recipeId: recipeId,
                               tagId: removedTag.id,

@@ -7,9 +7,9 @@ class RecipeTagModifier {
   RecipeTagModifier(this.repo);
   final Repo<RecipeTagData> repo;
 
-  Future<void> addItem(RecipeTagData newData) => repo.add(newData);
+  Future<void> add(RecipeTagData newData) => repo.add(newData);
 
-  Future<void> deleteItem(RecipeTagData toDelete) =>
+  Future<void> delete(RecipeTagData toDelete) =>
       (repo.db.update(repo.db.recipeTagTable)..where(
             (tbl) =>
                 tbl.recipeId.equals(toDelete.recipeId) &
