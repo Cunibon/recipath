@@ -2,25 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
-import 'package:recipath/data/timer_data/timer_data.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/root_routes.dart';
-import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
+import 'package:recipath/widgets/filtering/filter_types.dart';
+import 'package:recipath/widgets/filtering/tag_filter_notifier.dart';
 import 'package:recipath/widgets/generic/highlight_search/highlightable_text.dart';
-import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/create_recipe_screen/compact_ingredient_view.dart';
+import 'package:recipath/widgets/screens/recipe_screen/data/compact_recipe_item_data.dart';
 import 'package:recipath/widgets/screens/recipe_screen/local_image.dart';
-import 'package:recipath/widgets/screens/recipe_screen/providers/average_recipe_time_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/shopping_planning_notifier.dart';
+import 'package:recipath/widgets/tag/tag_list.dart';
 
 class CompactRecipeItem extends ConsumerWidget {
-  const CompactRecipeItem({
-    required this.data,
-    required this.timerData,
-    super.key,
-  });
-  final RecipeData data;
-  final TimerData? timerData;
+  const CompactRecipeItem({required this.compactRecipeData, super.key});
+  final CompactRecipeItemData compactRecipeData;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -30,10 +25,12 @@ class CompactRecipeItem extends ConsumerWidget {
       onTap: () {
         if (shoppingPlan == null) {
           context.go(
-            '${RootRoutes.recipeRoute.path}/recipeOverview/${data.id}',
+            '${RootRoutes.recipeRoute.path}/recipeOverview/${compactRecipeData.recipeData.id}',
           );
         } else {
-          ref.read(shoppingPlanningProvider.notifier).addRecipe(data);
+          ref
+              .read(shoppingPlanningProvider.notifier)
+              .addRecipe(compactRecipeData.recipeData);
         }
       },
       child: Card(
@@ -42,12 +39,14 @@ class CompactRecipeItem extends ConsumerWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (data.imageName != null)
+              if (compactRecipeData.recipeData.imageName != null)
                 Padding(
                   padding: const EdgeInsets.only(top: 12),
                   child: SizedBox(
                     width: 100,
-                    child: LocalImage(fileName: data.imageName!),
+                    child: LocalImage(
+                      fileName: compactRecipeData.recipeData.imageName!,
+                    ),
                   ),
                 ),
               SizedBox(width: 8),
@@ -67,24 +66,18 @@ class CompactRecipeItem extends ConsumerWidget {
                                 children: [
                                   Flexible(
                                     child: HighlightableText(
-                                      data.title.trim(),
+                                      compactRecipeData.recipeData.title.trim(),
                                       style: Theme.of(
                                         context,
                                       ).textTheme.titleMedium,
                                     ),
                                   ),
-                                  CachedAsyncValueWrapper(
-                                    asyncState: ref.watch(
-                                      averageRecipeTimeProvider(data.id),
-                                    ),
-                                    builder: (data) => data == null
-                                        ? SizedBox.shrink()
-                                        : Text(
-                                            " (Ø ${data.inMinutes.toString()}min)",
-                                          ),
-                                    loadingBuilder: () => SizedBox.shrink(),
-                                  ),
-                                  if (timerData != null)
+                                  compactRecipeData.averageTime == null
+                                      ? SizedBox.shrink()
+                                      : Text(
+                                          " (Ø ${compactRecipeData.averageTime!.inMinutes.toString()}min)",
+                                        ),
+                                  if (compactRecipeData.timerData != null)
                                     Icon(
                                       Icons.timer,
                                       color: Colors.amber,
@@ -92,16 +85,17 @@ class CompactRecipeItem extends ConsumerWidget {
                                     ),
                                 ],
                               ),
-                              if (data.servings != null)
+                              if (compactRecipeData.recipeData.servings != null)
                                 Text(
-                                  "${AppLocalizations.of(context)!.servings}: ${timerData?.servings ?? data.servings}",
+                                  "${AppLocalizations.of(context)!.servings}: ${compactRecipeData.timerData?.servings ?? compactRecipeData.recipeData.servings}",
                                 ),
                             ],
                           ),
                         ),
                         if (shoppingPlan != null) ...[
                           Text(
-                            (shoppingPlan[data] ?? 0).toString(),
+                            (shoppingPlan[compactRecipeData.recipeData] ?? 0)
+                                .toString(),
                             style: Theme.of(context).textTheme.bodyLarge!
                                 .copyWith(fontWeight: FontWeight.bold),
                           ),
@@ -109,13 +103,23 @@ class CompactRecipeItem extends ConsumerWidget {
                         ],
                       ],
                     ),
-                    CachedAsyncValueWrapper(
-                      asyncState: ref.watch(groceryProvider),
-                      builder: (groceryMap) => CompactIngredientView(
-                        checkStorage: true,
-                        ingredients: data.getIngredients(groceryMap),
+                    CompactIngredientView(
+                      checkStorage: true,
+                      ingredients: compactRecipeData.recipeData.getIngredients(
+                        compactRecipeData.groceryMap,
                       ),
                     ),
+                    if (compactRecipeData.tags.isNotEmpty) ...[
+                      Divider(),
+                      TagList(
+                        selectedTags: compactRecipeData.tags,
+                        onTagTapped: (tagData) => ref
+                            .read(
+                              tagFilterProvider(FilterTypes.recipe).notifier,
+                            )
+                            .toggleFilter(filter: tagData),
+                      ),
+                    ],
                   ],
                 ),
               ),

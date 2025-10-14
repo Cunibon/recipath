@@ -29,6 +29,7 @@ class NavigationDrawerScaffold extends ConsumerWidget {
       RootRoutes.shoppingRoute.path: localization.shoppingList,
       RootRoutes.storageRoute.path: localization.storage,
       RootRoutes.groceriesRoute.path: localization.groceries,
+      RootRoutes.tagRoute.path: localization.tags,
       RootRoutes.dashboardRoute.path: localization.dashboard,
       RootRoutes.recipeHistoryRoute.path: localization.cookingHistory,
       RootRoutes.recipeShoppingRoute.path: localization.shoppingHistory,

@@ -70,11 +70,11 @@ class ShoppingRepoDrift extends SyncRepo<ShoppingData> {
   }
 
   @override
-  Future<void> delete(String id) async {
-    await (db.delete(table)..where((t) => t.id.equals(id))).go();
+  Future<void> delete(ShoppingData toDelete) async {
+    await (db.delete(table)..where((t) => t.id.equals(toDelete.id))).go();
     await db.customStatement(
       'DELETE FROM ${db.ingredientTable.actualTableName} WHERE id = (SELECT ${table.ingredientId.name} FROM ${table.actualTableName} WHERE id = ?)',
-      [id],
+      [toDelete.id],
     );
   }
 

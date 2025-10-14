@@ -3,7 +3,7 @@ import 'package:recipath/application_constants.dart';
 import 'package:recipath/widgets/screens/grocery_screen/create_grocery_screen/create_grocery_screen.dart';
 import 'package:recipath/widgets/screens/grocery_screen/create_grocery_screen/scanner_screen/scanner_screen.dart';
 
-class GroceryRoutes {
+abstract class GroceryRoutes {
   static GoRoute createGrocery = GoRoute(
     path: "createGrocery",
     builder: (context, state) =>

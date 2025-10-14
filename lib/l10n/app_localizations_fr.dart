@@ -70,6 +70,18 @@ class AppLocalizationsFr extends AppLocalizations {
   String get no => 'Non';
 
   @override
+  String get pick => 'Choisir';
+
+  @override
+  String get apply => 'Appliquer';
+
+  @override
+  String get discard => 'Annuler';
+
+  @override
+  String get filter => 'Filtrer';
+
+  @override
   String get reallyDelete => 'Voulez-vous vraiment supprimer';
 
   @override
@@ -107,6 +119,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get groceries => 'Épiceries';
+
+  @override
+  String get tags => 'Étiquettes';
 
   @override
   String get dashboard => 'Tableau de bord';
@@ -295,6 +310,15 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get language => 'Langue';
+
+  @override
+  String get description => 'Description';
+
+  @override
+  String get changeColor => 'Changer la couleur';
+
+  @override
+  String get changeTags => 'Modifier les étiquettes';
 
   @override
   String get kcal => 'Kilocalories';

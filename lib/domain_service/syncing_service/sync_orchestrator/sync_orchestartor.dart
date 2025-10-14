@@ -1,8 +1,9 @@
 import 'package:http/http.dart';
 import 'package:logger/logger.dart';
 import 'package:recipath/domain_service/syncing_service/assemblers/abstract/supabase_assembler.dart';
-import 'package:recipath/domain_service/syncing_service/repos/abstract/sync_interfaces.dart';
-import 'package:recipath/domain_service/syncing_service/repos/download_result.dart';
+import 'package:recipath/domain_service/syncing_service/repos/abstract/data_download_repo.dart';
+import 'package:recipath/domain_service/syncing_service/repos/abstract/data_sync_repo.dart';
+import 'package:recipath/domain_service/syncing_service/repos/full_download_result.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -18,9 +19,9 @@ class SyncOrchestrator {
     required this.supabaseClient,
   });
 
-  final List<PrepareUploadInterface> uploads;
+  final List<DataSyncRepo> uploads;
   final List<String> uploadOrder;
-  final List<DownloadInterface> downloads;
+  final List<DataDownloadRepo> downloads;
   final List<SupabaseAssembler> assemblers;
 
   final SupabaseClient supabaseClient;
@@ -61,22 +62,26 @@ class SyncOrchestrator {
     return uploadCount;
   }
 
-  Future<DownloadResult> downloadAll(DateTime lastSync) async {
-    if (!loggedIn) return DownloadResult(lastDate: lastSync, count: 0);
+  Future<FullDownloadResult> downloadAll(
+    Map<String, DateTime> tableSyncs,
+  ) async {
+    final syncCopy = Map<String, DateTime>.from(tableSyncs);
+    if (!loggedIn) return FullDownloadResult(tableSyncs: syncCopy, count: 0);
 
     final SyncContext syncContext = {};
     final AssemblyContext assemblyContext = {};
 
     int downloadCount = 0;
-    DateTime latestDate = lastSync;
 
     try {
       for (final repo in downloads) {
-        final result = await repo.download(lastSync, syncContext);
+        final currentLastSync =
+            syncCopy[repo.tableName] ?? DateTime.fromMicrosecondsSinceEpoch(0);
+        final result = await repo.download(currentLastSync, syncContext);
 
         downloadCount += result.count;
-        if (result.lastDate?.isAfter(latestDate) == true) {
-          latestDate = result.lastDate!;
+        if (result.lastDate != null) {
+          syncCopy[repo.tableName] = result.lastDate!;
         }
       }
 
@@ -95,6 +100,6 @@ class SyncOrchestrator {
       );
     }
 
-    return DownloadResult(lastDate: latestDate, count: downloadCount);
+    return FullDownloadResult(tableSyncs: syncCopy, count: downloadCount);
   }
 }

@@ -11,5 +11,5 @@ extension TypedStorage on LocalStorage {
     return null;
   }
 
-  void setDynamic(String key, dynamic value) => setItem(key, jsonEncode(value));
+  void set(String key, dynamic value) => setItem(key, jsonEncode(value));
 }

@@ -11,6 +11,6 @@ abstract class Repo<T> {
   Future<Map<String, T>> get();
   Stream<Map<String, T>> stream();
   Future<void> add(T newData);
-  Future<void> delete(String id);
+  Future<void> delete(T toDelete);
   Future<void> clear();
 }

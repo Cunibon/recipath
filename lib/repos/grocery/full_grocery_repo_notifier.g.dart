@@ -26,7 +26,7 @@ final class FullGroceryRepoNotifierProvider
         argument: null,
         retry: null,
         name: r'fullGroceryRepoProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -55,4 +55,4 @@ final class FullGroceryRepoNotifierProvider
 }
 
 String _$fullGroceryRepoNotifierHash() =>
-    r'9fc13f9cea3b28a918472eba59f6ed53559580ff';
+    r'0aba33fc8ff20b61ab4af83a1ca68f5c05f5aa61';

@@ -21,7 +21,7 @@ final class ApplicationPathProvider
         argument: null,
         retry: null,
         name: r'applicationPathProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -48,4 +48,4 @@ final class ApplicationPathProvider
   }
 }
 
-String _$applicationPathHash() => r'9d09015e62cc90b6d591b867911b8069e38489f1';
+String _$applicationPathHash() => r'5d58a1209662ae2090b0c175d4ab51896e732eec';

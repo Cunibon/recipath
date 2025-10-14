@@ -26,7 +26,7 @@ final class RecipeShoppingRepoNotifierProvider
         argument: null,
         retry: null,
         name: r'recipeShoppingRepoProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -55,4 +55,4 @@ final class RecipeShoppingRepoNotifierProvider
 }
 
 String _$recipeShoppingRepoNotifierHash() =>
-    r'55b05468964246fd07aba6489f5251b3b89a1b5a';
+    r'29762bb69388090433a3765f8c8616c89c3ab18e';

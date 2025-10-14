@@ -8,7 +8,7 @@ import 'package:recipath/data/gtin_data/gtin_data.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
 import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/l10n/app_localizations.dart';
-import 'package:recipath/repos/recipe/recipe_repo_notifier.dart';
+import 'package:recipath/repos/recipe/drift/recipe_repo_notifier.dart';
 import 'package:recipath/repos/shopping/shopping_repo_notifier.dart';
 import 'package:recipath/repos/storage/storage_repo_notifier.dart';
 import 'package:recipath/widgets/generic/dialogs/delete_confirmation_dialog.dart';

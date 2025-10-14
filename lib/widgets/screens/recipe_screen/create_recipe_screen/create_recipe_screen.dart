@@ -3,8 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:random_string/random_string.dart';
 import 'package:recipath/application/recipe_modifier/recipe_modifier_notifier.dart';
+import 'package:recipath/application/recipe_tag_modifier/recipe_tag_modifier_notifier.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
 import 'package:recipath/data/recipe_step_data/recipe_step_data.dart';
+import 'package:recipath/data/recipe_tag_data/recipe_tag_data.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/root_routes.dart';
 import 'package:recipath/widgets/generic/dialogs/delete_confirmation_dialog.dart';
@@ -13,6 +15,7 @@ import 'package:recipath/widgets/screens/recipe_screen/create_recipe_screen/add_
 import 'package:recipath/widgets/screens/recipe_screen/create_recipe_screen/dialogs/make_copy_dialog.dart';
 import 'package:recipath/widgets/screens/recipe_screen/create_recipe_screen/recipe_step_view.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/recipe_notifier.dart';
+import 'package:recipath/widgets/screens/recipe_screen/providers/tags_per_recipe_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/timer_notifier.dart';
 
 class CreateRecipeScreen extends ConsumerStatefulWidget {
@@ -33,7 +36,7 @@ class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
   void initState() {
     super.initState();
     initalData =
-        ref.read(recipeProvider).value![widget.recipeId] ??
+        ref.read(recipeProvider).value?[widget.recipeId] ??
         RecipeData(
           id: randomAlphaNumeric(16),
           title: "",
@@ -83,13 +86,18 @@ class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
                 if (formKey.currentState?.validate() == true) {
                   final goRouter = GoRouter.of(context);
 
-                  final ingredientChange = initalData.diffIngredients(data);
-
-                  if (widget.recipeId == null || ingredientChange.isEmpty) {
+                  if (widget.recipeId == null ||
+                      initalData.steps.length == data.steps.length &&
+                          initalData.diffIngredients(data).isEmpty) {
                     await ref.read(recipeModifierProvider).add(data);
                     goRouter.pop();
                   } else if (data != initalData) {
                     final newData = data.copyWithNewId();
+                    final tags = ref.read(
+                      tagsPerRecipeProvider.select(
+                        (data) => data.value?[initalData.id] ?? {},
+                      ),
+                    );
 
                     await ref
                         .read(recipeModifierProvider)
@@ -98,6 +106,14 @@ class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
                     ref
                         .read(timerProvider.notifier)
                         .moveTimer(newData: newData, oldData: initalData);
+
+                    for (final tag in tags) {
+                      await ref
+                          .read(recipeTagModifierProvider)
+                          .add(
+                            RecipeTagData(recipeId: newData.id, tagId: tag.id),
+                          );
+                    }
 
                     goRouter.go(
                       '${RootRoutes.recipeRoute.path}/recipeOverview/${newData.id}',
@@ -125,7 +141,23 @@ class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
                       final newData = data.copyWithNewId().copyWith(
                         title: "${data.title} (${localization.copy})",
                       );
+                      final tags = ref.read(
+                        tagsPerRecipeProvider.select(
+                          (data) => data.value?[initalData.id] ?? {},
+                        ),
+                      );
                       await ref.read(recipeModifierProvider).add(newData);
+
+                      for (final tag in tags) {
+                        await ref
+                            .read(recipeTagModifierProvider)
+                            .add(
+                              RecipeTagData(
+                                recipeId: newData.id,
+                                tagId: tag.id,
+                              ),
+                            );
+                      }
 
                       goRouter.go(
                         '${RootRoutes.recipeRoute.path}/recipeOverview/${newData.id}',

@@ -14,7 +14,7 @@ const recipeOverviewScreenProvider = RecipeOverviewScreenNotifierFamily._();
 
 final class RecipeOverviewScreenNotifierProvider
     extends
-        $NotifierProvider<
+        $AsyncNotifierProvider<
           RecipeOverviewScreenNotifier,
           RecipeOverviewScreenState
         > {
@@ -43,14 +43,6 @@ final class RecipeOverviewScreenNotifierProvider
   @override
   RecipeOverviewScreenNotifier create() => RecipeOverviewScreenNotifier();
 
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(RecipeOverviewScreenState value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<RecipeOverviewScreenState>(value),
-    );
-  }
-
   @override
   bool operator ==(Object other) {
     return other is RecipeOverviewScreenNotifierProvider &&
@@ -64,15 +56,15 @@ final class RecipeOverviewScreenNotifierProvider
 }
 
 String _$recipeOverviewScreenNotifierHash() =>
-    r'bdfa6754ed4cc1ca9ce789d86afd07754a96c1b7';
+    r'cd8e70ad447c720fea310a01bf6c003c0b04d359';
 
 final class RecipeOverviewScreenNotifierFamily extends $Family
     with
         $ClassFamilyOverride<
           RecipeOverviewScreenNotifier,
+          AsyncValue<RecipeOverviewScreenState>,
           RecipeOverviewScreenState,
-          RecipeOverviewScreenState,
-          RecipeOverviewScreenState,
+          FutureOr<RecipeOverviewScreenState>,
           String
         > {
   const RecipeOverviewScreenNotifierFamily._()
@@ -92,22 +84,29 @@ final class RecipeOverviewScreenNotifierFamily extends $Family
 }
 
 abstract class _$RecipeOverviewScreenNotifier
-    extends $Notifier<RecipeOverviewScreenState> {
+    extends $AsyncNotifier<RecipeOverviewScreenState> {
   late final _$args = ref.$arg as String;
   String get recipeId => _$args;
 
-  RecipeOverviewScreenState build(String recipeId);
+  FutureOr<RecipeOverviewScreenState> build(String recipeId);
   @$mustCallSuper
   @override
   void runBuild() {
     final created = build(_$args);
     final ref =
-        this.ref as $Ref<RecipeOverviewScreenState, RecipeOverviewScreenState>;
+        this.ref
+            as $Ref<
+              AsyncValue<RecipeOverviewScreenState>,
+              RecipeOverviewScreenState
+            >;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<RecipeOverviewScreenState, RecipeOverviewScreenState>,
-              RecipeOverviewScreenState,
+              AnyNotifier<
+                AsyncValue<RecipeOverviewScreenState>,
+                RecipeOverviewScreenState
+              >,
+              AsyncValue<RecipeOverviewScreenState>,
               Object?,
               Object?
             >;

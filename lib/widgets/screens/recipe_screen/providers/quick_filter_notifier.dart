@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:recipath/helper/local_storage_extension.dart';
@@ -35,7 +36,17 @@ class QuickFilterNotifier extends _$QuickFilterNotifier {
     );
     ref.invalidateSelf();
   }
+
+  void clear() {
+    localStorage.removeItem(quickFilterDataKey);
+    ref.invalidateSelf();
+  }
 }
 
 @JsonEnum(alwaysCreate: true)
-enum QuickFilters { running }
+enum QuickFilters {
+  running(icon: Icons.timer);
+
+  const QuickFilters({required this.icon});
+  final IconData icon;
+}

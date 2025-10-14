@@ -21,6 +21,7 @@ List<List<DrawerDestination>> drawerDestinations(Ref ref) => [
       route: RootRoutes.groceriesRoute.path,
       icon: Icons.kitchen,
     ),
+    DrawerDestination(route: RootRoutes.tagRoute.path, icon: Icons.label),
   ],
   [
     DrawerDestination(

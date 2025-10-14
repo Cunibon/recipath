@@ -3,12 +3,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
 import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/l10n/app_localizations.dart';
+import 'package:recipath/widgets/filtering/filter_button.dart';
+import 'package:recipath/widgets/filtering/filter_types.dart';
 import 'package:recipath/widgets/generic/searchable_list.dart';
 import 'package:recipath/widgets/providers/double_number_format_provider.dart';
 import 'package:recipath/widgets/screens/recipe_screen/compact_recipe_item.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/quick_filter_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/recipe_screen_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/shopping_planning_notifier.dart';
+import 'package:recipath/widgets/screens/recipe_screen/providers/tags_per_recipe_notifier.dart';
 
 class RecipeSearchView extends ConsumerWidget {
   const RecipeSearchView({required this.data, super.key});
@@ -21,53 +24,47 @@ class RecipeSearchView extends ConsumerWidget {
     final unitLocalized = localizeUnits(context);
 
     final doubleNumberFormat = ref.watch(doubleNumberFormatProvider);
-    final quickFilters = ref.watch(quickFilterProvider);
 
-    final onlyShowRunning = quickFilters[QuickFilters.running] ?? false;
+    final usedTags =
+        ref
+            .watch(tagsPerRecipeProvider)
+            .value
+            ?.values
+            .expand((e) => e)
+            .toSet() ??
+        {};
 
     return SearchableList(
       name: localization.recipe,
-      trailing: data.timerData.isEmpty
-          ? null
-          : GestureDetector(
-              onTap: () => ref
-                  .read(quickFilterProvider.notifier)
-                  .setFilter(
-                    filter: QuickFilters.running,
-                    value: !onlyShowRunning,
-                  ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
-                child: Icon(
-                  Icons.timer,
-                  color: onlyShowRunning ? Colors.amber : null,
-                  size: 28,
-                ),
-              ),
-            ),
+      trailing: FilterButton(
+        filterType: FilterTypes.recipe,
+        quickFilters: [QuickFilters.running],
+        allTags: usedTags,
+      ),
       items: data.recipe,
-      toSearchable: (item) => item.toReadable(
+      toSearchable: (item) => item.recipeData.toReadable(
         groceries: data.grocery,
         unitLocalized: unitLocalized,
         doubleNumberFormat: doubleNumberFormat,
       ),
       toWidget: (item) => Dismissible(
-        key: Key(item.id),
-        child: CompactRecipeItem(
-          data: item,
-          timerData: data.timerData[item.id],
-        ),
+        key: Key(item.recipeData.id),
+        child: CompactRecipeItem(compactRecipeData: item),
         confirmDismiss: (direction) async {
           if (direction == DismissDirection.startToEnd) {
-            ref.read(shoppingPlanningProvider.notifier).addRecipe(item);
+            ref
+                .read(shoppingPlanningProvider.notifier)
+                .addRecipe(item.recipeData);
           } else {
-            ref.read(shoppingPlanningProvider.notifier).removeRecipe(item);
+            ref
+                .read(shoppingPlanningProvider.notifier)
+                .removeRecipe(item.recipeData);
           }
 
           return false;
         },
       ),
-      sort: (a, b) => a.title.compareTo(b.title),
+      sort: (a, b) => a.recipeData.title.compareTo(b.recipeData.title),
     );
   }
 }

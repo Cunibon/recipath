@@ -33,8 +33,8 @@ class IngredientRepoDrift extends Repo<IngredientData> {
   }
 
   @override
-  Future<void> delete(String id) async {
-    await (db.delete(table)..where((t) => t.id.equals(id))).go();
+  Future<void> delete(IngredientData toDelete) async {
+    await (db.delete(table)..where((t) => t.id.equals(toDelete.id))).go();
   }
 
   @override

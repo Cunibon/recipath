@@ -1,0 +1,1 @@
+enum FilterTypes { recipe }

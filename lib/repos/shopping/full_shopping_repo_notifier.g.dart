@@ -26,7 +26,7 @@ final class FullShoppingRepoNotifierProvider
         argument: null,
         retry: null,
         name: r'fullShoppingRepoProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -55,4 +55,4 @@ final class FullShoppingRepoNotifierProvider
 }
 
 String _$fullShoppingRepoNotifierHash() =>
-    r'db3b476af88609e64e7a93df9a1e92473be94647';
+    r'd19973f0e0767d8ebc77c4810ea158d88e0ec01b';

@@ -9,24 +9,18 @@ part of 'revenue_customer_notifier.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(revenueCustomerNotifier)
+@ProviderFor(RevenueCustomerNotifier)
 const revenueCustomerProvider = RevenueCustomerNotifierProvider._();
 
 final class RevenueCustomerNotifierProvider
-    extends
-        $FunctionalProvider<
-          AsyncValue<CustomerInfo>,
-          CustomerInfo,
-          Stream<CustomerInfo>
-        >
-    with $FutureModifier<CustomerInfo>, $StreamProvider<CustomerInfo> {
+    extends $AsyncNotifierProvider<RevenueCustomerNotifier, CustomerInfo> {
   const RevenueCustomerNotifierProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
         name: r'revenueCustomerProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -36,15 +30,27 @@ final class RevenueCustomerNotifierProvider
 
   @$internal
   @override
-  $StreamProviderElement<CustomerInfo> $createElement(
-    $ProviderPointer pointer,
-  ) => $StreamProviderElement(pointer);
-
-  @override
-  Stream<CustomerInfo> create(Ref ref) {
-    return revenueCustomerNotifier(ref);
-  }
+  RevenueCustomerNotifier create() => RevenueCustomerNotifier();
 }
 
 String _$revenueCustomerNotifierHash() =>
-    r'66b9c0b1d7c0b8069ee4724172563796d23fe548';
+    r'12950234fb93ee748a3546d866ed6eb11315e7d7';
+
+abstract class _$RevenueCustomerNotifier extends $AsyncNotifier<CustomerInfo> {
+  FutureOr<CustomerInfo> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<AsyncValue<CustomerInfo>, CustomerInfo>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<CustomerInfo>, CustomerInfo>,
+              AsyncValue<CustomerInfo>,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}

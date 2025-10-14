@@ -26,7 +26,7 @@ final class FullStorageRepoNotifierProvider
         argument: null,
         retry: null,
         name: r'fullStorageRepoProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -55,4 +55,4 @@ final class FullStorageRepoNotifierProvider
 }
 
 String _$fullStorageRepoNotifierHash() =>
-    r'63141cc628b84520ccc6a9913dbcec69aa57dd10';
+    r'0db2ce5b698adec2614ba4e370dcbe9b77ebff61';

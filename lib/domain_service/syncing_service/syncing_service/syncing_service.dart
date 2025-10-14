@@ -3,9 +3,10 @@ import 'dart:async';
 import 'package:localstorage/localstorage.dart';
 import 'package:logger/logger.dart';
 import 'package:recipath/domain_service/syncing_service/file_sync_orchestrator/file_sync_orchestrator.dart';
-import 'package:recipath/domain_service/syncing_service/repos/download_result.dart';
+import 'package:recipath/domain_service/syncing_service/repos/full_download_result.dart';
 import 'package:recipath/domain_service/syncing_service/sync_orchestrator/sync_orchestartor.dart';
 import 'package:recipath/domain_service/syncing_service/syncing_keys.dart';
+import 'package:recipath/helper/local_storage_extension.dart';
 
 class SyncingService {
   SyncingService({
@@ -20,15 +21,18 @@ class SyncingService {
   Timer? _timer;
   Completer syncRunning = Completer();
 
-  late DateTime _lastSync;
-  DateTime get lastSync => _lastSync;
+  late Map<String, DateTime> _tableSyncs;
 
   Future<void> start() async {
-    final savedSync = localStorage.getItem(SyncingKeys.storageKey);
-    if (savedSync != null) {
-      _lastSync = DateTime.parse(savedSync);
+    final savedSyncs = localStorage.get<Map<String, dynamic>>(
+      SyncingKeys.storageKey,
+    );
+    if (savedSyncs != null) {
+      _tableSyncs = savedSyncs.map(
+        (key, value) => MapEntry(key, DateTime.parse(value)),
+      );
     } else {
-      _lastSync = DateTime.fromMicrosecondsSinceEpoch(0);
+      _tableSyncs = {};
     }
 
     _timer = Timer(Duration(minutes: 1), () => sync());
@@ -59,28 +63,28 @@ class SyncingService {
 
     int? fileUpload;
     int? uploadedCount;
-    DownloadResult? downloadedResult;
+    FullDownloadResult? downloadResult;
 
     try {
       fileUpload = await fileSyncOrchestrator.uploadAll();
       uploadedCount = await syncOrchestrator.uploadAll();
-      downloadedResult = await syncOrchestrator.downloadAll(lastSync);
+      downloadResult = await syncOrchestrator.downloadAll(_tableSyncs);
     } catch (e, s) {
       logger.e("Sync failed", error: e, stackTrace: s);
     } finally {
       stopwatch.stop();
       logger.i(
-        "Sync took: ${stopwatch.elapsed}\nUploaded: $uploadedCount objects, $fileUpload files | Downloaded: ${downloadedResult?.count}",
+        "Sync took: ${stopwatch.elapsed}\nUploaded: $uploadedCount objects, $fileUpload files | Downloaded: ${downloadResult?.count}",
       );
 
-      final lastDate = downloadedResult?.lastDate;
-
-      if (lastDate != null) {
-        localStorage.setItem(
+      if (downloadResult?.tableSyncs != null) {
+        localStorage.set(
           SyncingKeys.storageKey,
-          lastDate.toIso8601String(),
+          downloadResult!.tableSyncs.map(
+            (key, value) => MapEntry(key, value.toIso8601String()),
+          ),
         );
-        _lastSync = lastDate;
+        _tableSyncs = downloadResult.tableSyncs;
       }
 
       if (_timer != null) {

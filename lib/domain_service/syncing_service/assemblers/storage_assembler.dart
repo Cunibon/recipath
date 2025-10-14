@@ -29,7 +29,7 @@ class StorageAssembler extends SupabaseWriteAssembler<StorageData> {
       );
 
       if (storageData.deleted) {
-        await repo.delete(storageData.id);
+        await repo.delete(storageData);
       } else {
         itemAssemblyContext[storageData.id] = storageData;
         await repo.add(storageData);
