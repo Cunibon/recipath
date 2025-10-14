@@ -123,5 +123,7 @@
     "cookRecipeForData": "Koche ein Rezept, um Daten hinzuzufügen",
     "goPro": "Go Pro",
     "manageSubscription": "Abonnement verwalten",
-    "subscription": "Abonnement"
+    "subscription": "Abonnement",
+    "destinations": "Reiseziele",
+    "somethingUnexpected": "Ups, etwas Unerwartetes ist passiert"
 }

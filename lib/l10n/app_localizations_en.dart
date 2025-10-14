@@ -97,7 +97,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Do you want to finish your shopping planning and your items to your shopping list';
 
   @override
-  String get leaveThisPage => 'Are you want to leave this page?';
+  String get leaveThisPage => 'Are you sure you want to leave this page?';
 
   @override
   String get leaveThisPageContent => 'All unsaved changes will be lost!';
@@ -274,7 +274,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get howLongDidTheRecipeTake => 'How long did the recipe take?';
 
   @override
-  String get cancleTimer => 'Cancle timer';
+  String get cancleTimer => 'Cancel timer';
 
   @override
   String get removedIngredientsFromStorage =>
@@ -394,4 +394,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get subscription => 'Subscription';
+
+  @override
+  String get destinations => 'Destinations';
+
+  @override
+  String get somethingUnexpected => 'Oops, something unexpected happened';
 }

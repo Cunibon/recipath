@@ -7,6 +7,8 @@ import 'package:intl/intl.dart' as intl;
 
 import 'app_localizations_de.dart';
 import 'app_localizations_en.dart';
+import 'app_localizations_es.dart';
+import 'app_localizations_fr.dart';
 
 // ignore_for_file: type=lint
 
@@ -96,6 +98,8 @@ abstract class AppLocalizations {
   static const List<Locale> supportedLocales = <Locale>[
     Locale('de'),
     Locale('en'),
+    Locale('es'),
+    Locale('fr'),
   ];
 
   /// No description provided for @login.
@@ -263,7 +267,7 @@ abstract class AppLocalizations {
   /// No description provided for @leaveThisPage.
   ///
   /// In en, this message translates to:
-  /// **'Are you want to leave this page?'**
+  /// **'Are you sure you want to leave this page?'**
   String get leaveThisPage;
 
   /// No description provided for @leaveThisPageContent.
@@ -605,7 +609,7 @@ abstract class AppLocalizations {
   /// No description provided for @cancleTimer.
   ///
   /// In en, this message translates to:
-  /// **'Cancle timer'**
+  /// **'Cancel timer'**
   String get cancleTimer;
 
   /// No description provided for @removedIngredientsFromStorage.
@@ -841,6 +845,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Subscription'**
   String get subscription;
+
+  /// No description provided for @destinations.
+  ///
+  /// In en, this message translates to:
+  /// **'Destinations'**
+  String get destinations;
+
+  /// No description provided for @somethingUnexpected.
+  ///
+  /// In en, this message translates to:
+  /// **'Oops, something unexpected happened'**
+  String get somethingUnexpected;
 }
 
 class _AppLocalizationsDelegate
@@ -854,7 +870,7 @@ class _AppLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      <String>['de', 'en'].contains(locale.languageCode);
+      <String>['de', 'en', 'es', 'fr'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -867,6 +883,10 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
       return AppLocalizationsDe();
     case 'en':
       return AppLocalizationsEn();
+    case 'es':
+      return AppLocalizationsEs();
+    case 'fr':
+      return AppLocalizationsFr();
   }
 
   throw FlutterError(
