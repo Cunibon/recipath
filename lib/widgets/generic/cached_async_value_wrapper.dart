@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:recipath/l10n/app_localizations.dart';
 
 class CachedAsyncValueWrapper<T> extends StatefulWidget {
   const CachedAsyncValueWrapper({
@@ -32,6 +33,8 @@ class _CachedAsyncValueWrapperState<T>
 
   @override
   Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
+    
     if (widget.asyncState.hasValue) {
       lastState = widget.asyncState.value;
     }
@@ -44,7 +47,7 @@ class _CachedAsyncValueWrapperState<T>
             width: widget.width,
             height: widget.height,
             child: Center(
-              child: const Text('Oops, something unexpected happened'),
+              child: Text(localization.somethingUnexpected),
             ),
           );
     } else if (widget.asyncState.isLoading) {
