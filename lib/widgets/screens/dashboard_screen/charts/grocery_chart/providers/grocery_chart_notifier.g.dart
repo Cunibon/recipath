@@ -10,7 +10,7 @@ part of 'grocery_chart_notifier.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(groceryChartNotifier)
-const groceryChartProvider = GroceryChartNotifierFamily._();
+final groceryChartProvider = GroceryChartNotifierFamily._();
 
 final class GroceryChartNotifierProvider
     extends
@@ -20,7 +20,7 @@ final class GroceryChartNotifierProvider
           FutureOr<ChartState>
         >
     with $FutureModifier<ChartState>, $FutureProvider<ChartState> {
-  const GroceryChartNotifierProvider._({
+  GroceryChartNotifierProvider._({
     required GroceryChartNotifierFamily super.from,
     required (DateTimeRange<DateTime>, Set<String>) super.argument,
   }) : super(
@@ -72,7 +72,7 @@ final class GroceryChartNotifierFamily extends $Family
           FutureOr<ChartState>,
           (DateTimeRange<DateTime>, Set<String>)
         > {
-  const GroceryChartNotifierFamily._()
+  GroceryChartNotifierFamily._()
     : super(
         retry: null,
         name: r'groceryChartProvider',

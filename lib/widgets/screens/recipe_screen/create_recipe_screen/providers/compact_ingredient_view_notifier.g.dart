@@ -10,7 +10,7 @@ part of 'compact_ingredient_view_notifier.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(compactIngredientViewNotifier)
-const compactIngredientViewProvider = CompactIngredientViewNotifierProvider._();
+final compactIngredientViewProvider = CompactIngredientViewNotifierProvider._();
 
 final class CompactIngredientViewNotifierProvider
     extends
@@ -22,7 +22,7 @@ final class CompactIngredientViewNotifierProvider
     with
         $FutureModifier<CompactIngredientViewState>,
         $FutureProvider<CompactIngredientViewState> {
-  const CompactIngredientViewNotifierProvider._()
+  CompactIngredientViewNotifierProvider._()
     : super(
         from: null,
         argument: null,

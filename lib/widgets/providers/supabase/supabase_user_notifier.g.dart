@@ -10,12 +10,12 @@ part of 'supabase_user_notifier.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(supabaseUser)
-const supabaseUserProvider = SupabaseUserProvider._();
+final supabaseUserProvider = SupabaseUserProvider._();
 
 final class SupabaseUserProvider
     extends $FunctionalProvider<User?, User?, User?>
     with $Provider<User?> {
-  const SupabaseUserProvider._()
+  SupabaseUserProvider._()
     : super(
         from: null,
         argument: null,

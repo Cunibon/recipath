@@ -10,7 +10,7 @@ part of 'full_storage_repo_notifier.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(fullStorageRepoNotifier)
-const fullStorageRepoProvider = FullStorageRepoNotifierProvider._();
+final fullStorageRepoProvider = FullStorageRepoNotifierProvider._();
 
 final class FullStorageRepoNotifierProvider
     extends
@@ -20,7 +20,7 @@ final class FullStorageRepoNotifierProvider
           SyncRepo<StorageData>
         >
     with $Provider<SyncRepo<StorageData>> {
-  const FullStorageRepoNotifierProvider._()
+  FullStorageRepoNotifierProvider._()
     : super(
         from: null,
         argument: null,

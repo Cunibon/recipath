@@ -10,7 +10,7 @@ part of 'storage_sceen_state_notifier.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(storageScreenStateNotifier)
-const storageScreenStateProvider = StorageScreenStateNotifierProvider._();
+final storageScreenStateProvider = StorageScreenStateNotifierProvider._();
 
 final class StorageScreenStateNotifierProvider
     extends
@@ -22,7 +22,7 @@ final class StorageScreenStateNotifierProvider
     with
         $FutureModifier<StorageScreenState>,
         $FutureProvider<StorageScreenState> {
-  const StorageScreenStateNotifierProvider._()
+  StorageScreenStateNotifierProvider._()
     : super(
         from: null,
         argument: null,

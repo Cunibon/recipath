@@ -10,7 +10,7 @@ part of 'tags_per_recipe_notifier.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(tagsPerRecipeNotifier)
-const tagsPerRecipeProvider = TagsPerRecipeNotifierProvider._();
+final tagsPerRecipeProvider = TagsPerRecipeNotifierProvider._();
 
 final class TagsPerRecipeNotifierProvider
     extends
@@ -22,7 +22,7 @@ final class TagsPerRecipeNotifierProvider
     with
         $FutureModifier<Map<String, Set<TagData>>>,
         $FutureProvider<Map<String, Set<TagData>>> {
-  const TagsPerRecipeNotifierProvider._()
+  TagsPerRecipeNotifierProvider._()
     : super(
         from: null,
         argument: null,

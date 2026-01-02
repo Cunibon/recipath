@@ -10,7 +10,7 @@ part of 'file_sync_orchestrator_notifier.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(fileSyncOrchestratorNotifier)
-const fileSyncOrchestratorProvider = FileSyncOrchestratorNotifierProvider._();
+final fileSyncOrchestratorProvider = FileSyncOrchestratorNotifierProvider._();
 
 final class FileSyncOrchestratorNotifierProvider
     extends
@@ -22,7 +22,7 @@ final class FileSyncOrchestratorNotifierProvider
     with
         $FutureModifier<FileSyncOrchestrator>,
         $FutureProvider<FileSyncOrchestrator> {
-  const FileSyncOrchestratorNotifierProvider._()
+  FileSyncOrchestratorNotifierProvider._()
     : super(
         from: null,
         argument: null,

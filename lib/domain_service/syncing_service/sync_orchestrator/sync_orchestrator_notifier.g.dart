@@ -10,7 +10,7 @@ part of 'sync_orchestrator_notifier.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(syncOrchestratorNotifier)
-const syncOrchestratorProvider = SyncOrchestratorNotifierProvider._();
+final syncOrchestratorProvider = SyncOrchestratorNotifierProvider._();
 
 final class SyncOrchestratorNotifierProvider
     extends
@@ -20,7 +20,7 @@ final class SyncOrchestratorNotifierProvider
           FutureOr<SyncOrchestrator>
         >
     with $FutureModifier<SyncOrchestrator>, $FutureProvider<SyncOrchestrator> {
-  const SyncOrchestratorNotifierProvider._()
+  SyncOrchestratorNotifierProvider._()
     : super(
         from: null,
         argument: null,

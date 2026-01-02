@@ -10,12 +10,12 @@ part of 'revenue_pro_notifier.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(revenueProNotifier)
-const revenueProProvider = RevenueProNotifierProvider._();
+final revenueProProvider = RevenueProNotifierProvider._();
 
 final class RevenueProNotifierProvider
     extends $FunctionalProvider<AsyncValue<bool>, bool, FutureOr<bool>>
     with $FutureModifier<bool>, $FutureProvider<bool> {
-  const RevenueProNotifierProvider._()
+  RevenueProNotifierProvider._()
     : super(
         from: null,
         argument: null,

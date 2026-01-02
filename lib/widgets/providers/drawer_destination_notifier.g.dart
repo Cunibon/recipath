@@ -10,7 +10,7 @@ part of 'drawer_destination_notifier.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(drawerDestinations)
-const drawerDestinationsProvider = DrawerDestinationsProvider._();
+final drawerDestinationsProvider = DrawerDestinationsProvider._();
 
 final class DrawerDestinationsProvider
     extends
@@ -20,7 +20,7 @@ final class DrawerDestinationsProvider
           List<List<DrawerDestination>>
         >
     with $Provider<List<List<DrawerDestination>>> {
-  const DrawerDestinationsProvider._()
+  DrawerDestinationsProvider._()
     : super(
         from: null,
         argument: null,

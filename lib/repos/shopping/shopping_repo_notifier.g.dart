@@ -10,7 +10,7 @@ part of 'shopping_repo_notifier.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(shoppingRepoNotifier)
-const shoppingRepoProvider = ShoppingRepoNotifierProvider._();
+final shoppingRepoProvider = ShoppingRepoNotifierProvider._();
 
 final class ShoppingRepoNotifierProvider
     extends
@@ -20,7 +20,7 @@ final class ShoppingRepoNotifierProvider
           Repo<ShoppingData>
         >
     with $Provider<Repo<ShoppingData>> {
-  const ShoppingRepoNotifierProvider._()
+  ShoppingRepoNotifierProvider._()
     : super(
         from: null,
         argument: null,

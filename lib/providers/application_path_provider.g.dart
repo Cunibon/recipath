@@ -10,12 +10,12 @@ part of 'application_path_provider.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(applicationPath)
-const applicationPathProvider = ApplicationPathProvider._();
+final applicationPathProvider = ApplicationPathProvider._();
 
 final class ApplicationPathProvider
     extends $FunctionalProvider<Directory, Directory, Directory>
     with $Provider<Directory> {
-  const ApplicationPathProvider._()
+  ApplicationPathProvider._()
     : super(
         from: null,
         argument: null,

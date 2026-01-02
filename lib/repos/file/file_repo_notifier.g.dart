@@ -10,7 +10,7 @@ part of 'file_repo_notifier.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(fileRepoNotifier)
-const fileRepoProvider = FileRepoNotifierProvider._();
+final fileRepoProvider = FileRepoNotifierProvider._();
 
 final class FileRepoNotifierProvider
     extends
@@ -20,7 +20,7 @@ final class FileRepoNotifierProvider
           SyncRepo<FileData>
         >
     with $Provider<SyncRepo<FileData>> {
-  const FileRepoNotifierProvider._()
+  FileRepoNotifierProvider._()
     : super(
         from: null,
         argument: null,

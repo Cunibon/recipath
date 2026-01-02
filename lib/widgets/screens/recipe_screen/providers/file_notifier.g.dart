@@ -10,12 +10,12 @@ part of 'file_notifier.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(localFile)
-const localFileProvider = LocalFileFamily._();
+final localFileProvider = LocalFileFamily._();
 
 final class LocalFileProvider
     extends $FunctionalProvider<AsyncValue<File>, File, FutureOr<File>>
     with $FutureModifier<File>, $FutureProvider<File> {
-  const LocalFileProvider._({
+  LocalFileProvider._({
     required LocalFileFamily super.from,
     required ({String bucket, String fileName}) super.argument,
   }) : super(
@@ -66,7 +66,7 @@ final class LocalFileFamily extends $Family
           FutureOr<File>,
           ({String bucket, String fileName})
         > {
-  const LocalFileFamily._()
+  LocalFileFamily._()
     : super(
         retry: null,
         name: r'localFileProvider',

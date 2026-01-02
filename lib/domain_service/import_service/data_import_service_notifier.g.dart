@@ -10,7 +10,7 @@ part of 'data_import_service_notifier.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(dataImportServiceNotifier)
-const dataImportServiceProvider = DataImportServiceNotifierProvider._();
+final dataImportServiceProvider = DataImportServiceNotifierProvider._();
 
 final class DataImportServiceNotifierProvider
     extends
@@ -20,7 +20,7 @@ final class DataImportServiceNotifierProvider
           DataImportService
         >
     with $Provider<DataImportService> {
-  const DataImportServiceNotifierProvider._()
+  DataImportServiceNotifierProvider._()
     : super(
         from: null,
         argument: null,

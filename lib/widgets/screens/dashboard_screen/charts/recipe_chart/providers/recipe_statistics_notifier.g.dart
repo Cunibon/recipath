@@ -10,7 +10,7 @@ part of 'recipe_statistics_notifier.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(recipeChartStatisticsNotifier)
-const recipeChartStatisticsProvider = RecipeChartStatisticsNotifierFamily._();
+final recipeChartStatisticsProvider = RecipeChartStatisticsNotifierFamily._();
 
 final class RecipeChartStatisticsNotifierProvider
     extends
@@ -20,7 +20,7 @@ final class RecipeChartStatisticsNotifierProvider
           FutureOr<Map<String, int>>
         >
     with $FutureModifier<Map<String, int>>, $FutureProvider<Map<String, int>> {
-  const RecipeChartStatisticsNotifierProvider._({
+  RecipeChartStatisticsNotifierProvider._({
     required RecipeChartStatisticsNotifierFamily super.from,
     required DateTimeRange<DateTime> super.argument,
   }) : super(
@@ -74,7 +74,7 @@ final class RecipeChartStatisticsNotifierFamily extends $Family
           FutureOr<Map<String, int>>,
           DateTimeRange<DateTime>
         > {
-  const RecipeChartStatisticsNotifierFamily._()
+  RecipeChartStatisticsNotifierFamily._()
     : super(
         retry: null,
         name: r'recipeChartStatisticsProvider',

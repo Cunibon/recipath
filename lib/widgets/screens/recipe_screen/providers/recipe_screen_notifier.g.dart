@@ -10,7 +10,7 @@ part of 'recipe_screen_notifier.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(recipeScreenNotifier)
-const recipeScreenProvider = RecipeScreenNotifierProvider._();
+final recipeScreenProvider = RecipeScreenNotifierProvider._();
 
 final class RecipeScreenNotifierProvider
     extends
@@ -22,7 +22,7 @@ final class RecipeScreenNotifierProvider
     with
         $FutureModifier<RecipeScreenState>,
         $FutureProvider<RecipeScreenState> {
-  const RecipeScreenNotifierProvider._()
+  RecipeScreenNotifierProvider._()
     : super(
         from: null,
         argument: null,

@@ -10,7 +10,7 @@ part of 'ingredient_repo_notifier.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(ingredientRepoNotifier)
-const ingredientRepoProvider = IngredientRepoNotifierProvider._();
+final ingredientRepoProvider = IngredientRepoNotifierProvider._();
 
 final class IngredientRepoNotifierProvider
     extends
@@ -20,7 +20,7 @@ final class IngredientRepoNotifierProvider
           Repo<IngredientData>
         >
     with $Provider<Repo<IngredientData>> {
-  const IngredientRepoNotifierProvider._()
+  IngredientRepoNotifierProvider._()
     : super(
         from: null,
         argument: null,

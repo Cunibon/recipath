@@ -10,12 +10,12 @@ part of 'tag_modifier_notifier.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(tagModifierNotifier)
-const tagModifierProvider = TagModifierNotifierProvider._();
+final tagModifierProvider = TagModifierNotifierProvider._();
 
 final class TagModifierNotifierProvider
     extends $FunctionalProvider<TagModifier, TagModifier, TagModifier>
     with $Provider<TagModifier> {
-  const TagModifierNotifierProvider._()
+  TagModifierNotifierProvider._()
     : super(
         from: null,
         argument: null,

@@ -10,13 +10,13 @@ part of 'supabase_auth_state_notifier.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(supabaseAuthState)
-const supabaseAuthStateProvider = SupabaseAuthStateProvider._();
+final supabaseAuthStateProvider = SupabaseAuthStateProvider._();
 
 final class SupabaseAuthStateProvider
     extends
         $FunctionalProvider<AsyncValue<AuthState>, AuthState, Stream<AuthState>>
     with $FutureModifier<AuthState>, $StreamProvider<AuthState> {
-  const SupabaseAuthStateProvider._()
+  SupabaseAuthStateProvider._()
     : super(
         from: null,
         argument: null,

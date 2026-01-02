@@ -10,7 +10,7 @@ part of 'full_shopping_repo_notifier.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(fullShoppingRepoNotifier)
-const fullShoppingRepoProvider = FullShoppingRepoNotifierProvider._();
+final fullShoppingRepoProvider = FullShoppingRepoNotifierProvider._();
 
 final class FullShoppingRepoNotifierProvider
     extends
@@ -20,7 +20,7 @@ final class FullShoppingRepoNotifierProvider
           SyncRepo<ShoppingData>
         >
     with $Provider<SyncRepo<ShoppingData>> {
-  const FullShoppingRepoNotifierProvider._()
+  FullShoppingRepoNotifierProvider._()
     : super(
         from: null,
         argument: null,

@@ -10,7 +10,7 @@ part of 'material_you_scheme_notifier.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(materialYouSchemeNotifier)
-const materialYouSchemeProvider = MaterialYouSchemeNotifierProvider._();
+final materialYouSchemeProvider = MaterialYouSchemeNotifierProvider._();
 
 final class MaterialYouSchemeNotifierProvider
     extends
@@ -20,7 +20,7 @@ final class MaterialYouSchemeNotifierProvider
           FutureOr<ColorScheme?>
         >
     with $FutureModifier<ColorScheme?>, $FutureProvider<ColorScheme?> {
-  const MaterialYouSchemeNotifierProvider._()
+  MaterialYouSchemeNotifierProvider._()
     : super(
         from: null,
         argument: null,

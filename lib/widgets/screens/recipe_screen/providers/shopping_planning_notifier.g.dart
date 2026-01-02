@@ -10,11 +10,11 @@ part of 'shopping_planning_notifier.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(ShoppingPlanningNotifier)
-const shoppingPlanningProvider = ShoppingPlanningNotifierProvider._();
+final shoppingPlanningProvider = ShoppingPlanningNotifierProvider._();
 
 final class ShoppingPlanningNotifierProvider
     extends $NotifierProvider<ShoppingPlanningNotifier, Map<RecipeData, int>?> {
-  const ShoppingPlanningNotifierProvider._()
+  ShoppingPlanningNotifierProvider._()
     : super(
         from: null,
         argument: null,
@@ -50,7 +50,6 @@ abstract class _$ShoppingPlanningNotifier
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<Map<RecipeData, int>?, Map<RecipeData, int>?>;
     final element =
         ref.element
@@ -60,6 +59,6 @@ abstract class _$ShoppingPlanningNotifier
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }

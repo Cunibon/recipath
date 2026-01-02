@@ -10,12 +10,12 @@ part of 'file_modifier_notifier.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(fileModifierNotifier)
-const fileModifierProvider = FileModifierNotifierProvider._();
+final fileModifierProvider = FileModifierNotifierProvider._();
 
 final class FileModifierNotifierProvider
     extends $FunctionalProvider<FileModifier, FileModifier, FileModifier>
     with $Provider<FileModifier> {
-  const FileModifierNotifierProvider._()
+  FileModifierNotifierProvider._()
     : super(
         from: null,
         argument: null,

@@ -10,7 +10,7 @@ part of 'grocery_repo_notifier.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(groceryRepoNotifier)
-const groceryRepoProvider = GroceryRepoNotifierProvider._();
+final groceryRepoProvider = GroceryRepoNotifierProvider._();
 
 final class GroceryRepoNotifierProvider
     extends
@@ -20,7 +20,7 @@ final class GroceryRepoNotifierProvider
           Repo<GroceryData>
         >
     with $Provider<Repo<GroceryData>> {
-  const GroceryRepoNotifierProvider._()
+  GroceryRepoNotifierProvider._()
     : super(
         from: null,
         argument: null,

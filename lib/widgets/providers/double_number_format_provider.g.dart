@@ -10,12 +10,12 @@ part of 'double_number_format_provider.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(doubleNumberFormatNotifier)
-const doubleNumberFormatProvider = DoubleNumberFormatNotifierProvider._();
+final doubleNumberFormatProvider = DoubleNumberFormatNotifierProvider._();
 
 final class DoubleNumberFormatNotifierProvider
     extends $FunctionalProvider<NumberFormat, NumberFormat, NumberFormat>
     with $Provider<NumberFormat> {
-  const DoubleNumberFormatNotifierProvider._()
+  DoubleNumberFormatNotifierProvider._()
     : super(
         from: null,
         argument: null,

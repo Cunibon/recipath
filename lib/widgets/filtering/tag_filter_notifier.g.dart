@@ -10,11 +10,11 @@ part of 'tag_filter_notifier.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(TagFilterNotifier)
-const tagFilterProvider = TagFilterNotifierFamily._();
+final tagFilterProvider = TagFilterNotifierFamily._();
 
 final class TagFilterNotifierProvider
     extends $NotifierProvider<TagFilterNotifier, Set<String>> {
-  const TagFilterNotifierProvider._({
+  TagFilterNotifierProvider._({
     required TagFilterNotifierFamily super.from,
     required FilterTypes super.argument,
   }) : super(
@@ -69,7 +69,7 @@ final class TagFilterNotifierFamily extends $Family
           Set<String>,
           FilterTypes
         > {
-  const TagFilterNotifierFamily._()
+  TagFilterNotifierFamily._()
     : super(
         retry: null,
         name: r'tagFilterProvider',
@@ -93,7 +93,6 @@ abstract class _$TagFilterNotifier extends $Notifier<Set<String>> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build(_$args);
     final ref = this.ref as $Ref<Set<String>, Set<String>>;
     final element =
         ref.element
@@ -103,6 +102,6 @@ abstract class _$TagFilterNotifier extends $Notifier<Set<String>> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, () => build(_$args));
   }
 }

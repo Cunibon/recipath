@@ -10,7 +10,7 @@ part of 'tag_notifier.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(tagNotifier)
-const tagProvider = TagNotifierProvider._();
+final tagProvider = TagNotifierProvider._();
 
 final class TagNotifierProvider
     extends
@@ -22,7 +22,7 @@ final class TagNotifierProvider
     with
         $FutureModifier<Map<String, TagData>>,
         $StreamProvider<Map<String, TagData>> {
-  const TagNotifierProvider._()
+  TagNotifierProvider._()
     : super(
         from: null,
         argument: null,

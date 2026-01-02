@@ -10,12 +10,12 @@ part of 'recipe_repo_notifier.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(recipeRepoNotifier)
-const recipeRepoProvider = RecipeRepoNotifierProvider._();
+final recipeRepoProvider = RecipeRepoNotifierProvider._();
 
 final class RecipeRepoNotifierProvider
     extends $FunctionalProvider<RecipeRepo, RecipeRepo, RecipeRepo>
     with $Provider<RecipeRepo> {
-  const RecipeRepoNotifierProvider._()
+  RecipeRepoNotifierProvider._()
     : super(
         from: null,
         argument: null,

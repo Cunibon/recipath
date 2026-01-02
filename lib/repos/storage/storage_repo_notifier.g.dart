@@ -10,7 +10,7 @@ part of 'storage_repo_notifier.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(storageRepoNotifier)
-const storageRepoProvider = StorageRepoNotifierProvider._();
+final storageRepoProvider = StorageRepoNotifierProvider._();
 
 final class StorageRepoNotifierProvider
     extends
@@ -20,7 +20,7 @@ final class StorageRepoNotifierProvider
           Repo<StorageData>
         >
     with $Provider<Repo<StorageData>> {
-  const StorageRepoNotifierProvider._()
+  StorageRepoNotifierProvider._()
     : super(
         from: null,
         argument: null,

@@ -10,7 +10,7 @@ part of 'full_tag_repo_notifier.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(fullTagRepoNotifier)
-const fullTagRepoProvider = FullTagRepoNotifierProvider._();
+final fullTagRepoProvider = FullTagRepoNotifierProvider._();
 
 final class FullTagRepoNotifierProvider
     extends
@@ -20,7 +20,7 @@ final class FullTagRepoNotifierProvider
           SyncRepo<TagData>
         >
     with $Provider<SyncRepo<TagData>> {
-  const FullTagRepoNotifierProvider._()
+  FullTagRepoNotifierProvider._()
     : super(
         from: null,
         argument: null,

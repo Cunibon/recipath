@@ -10,7 +10,7 @@ part of 'recipe_history_screen_notifier.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(recipeHistoryScreenNotifier)
-const recipeHistoryScreenProvider = RecipeHistoryScreenNotifierProvider._();
+final recipeHistoryScreenProvider = RecipeHistoryScreenNotifierProvider._();
 
 final class RecipeHistoryScreenNotifierProvider
     extends
@@ -22,7 +22,7 @@ final class RecipeHistoryScreenNotifierProvider
     with
         $FutureModifier<Map<DateTime, List<HistoryData>>>,
         $FutureProvider<Map<DateTime, List<HistoryData>>> {
-  const RecipeHistoryScreenNotifierProvider._()
+  RecipeHistoryScreenNotifierProvider._()
     : super(
         from: null,
         argument: null,

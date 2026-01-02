@@ -10,13 +10,13 @@ part of 'average_recipe_time_notifier.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(averageRecipeTimeNotifier)
-const averageRecipeTimeProvider = AverageRecipeTimeNotifierFamily._();
+final averageRecipeTimeProvider = AverageRecipeTimeNotifierFamily._();
 
 final class AverageRecipeTimeNotifierProvider
     extends
         $FunctionalProvider<AsyncValue<Duration?>, Duration?, Stream<Duration?>>
     with $FutureModifier<Duration?>, $StreamProvider<Duration?> {
-  const AverageRecipeTimeNotifierProvider._({
+  AverageRecipeTimeNotifierProvider._({
     required AverageRecipeTimeNotifierFamily super.from,
     required String super.argument,
   }) : super(
@@ -65,7 +65,7 @@ String _$averageRecipeTimeNotifierHash() =>
 
 final class AverageRecipeTimeNotifierFamily extends $Family
     with $FunctionalFamilyOverride<Stream<Duration?>, String> {
-  const AverageRecipeTimeNotifierFamily._()
+  AverageRecipeTimeNotifierFamily._()
     : super(
         retry: null,
         name: r'averageRecipeTimeProvider',

@@ -10,12 +10,12 @@ part of 'tag_repo_notifier.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(tagRepoNotifier)
-const tagRepoProvider = TagRepoNotifierProvider._();
+final tagRepoProvider = TagRepoNotifierProvider._();
 
 final class TagRepoNotifierProvider
     extends $FunctionalProvider<Repo<TagData>, Repo<TagData>, Repo<TagData>>
     with $Provider<Repo<TagData>> {
-  const TagRepoNotifierProvider._()
+  TagRepoNotifierProvider._()
     : super(
         from: null,
         argument: null,

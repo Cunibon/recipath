@@ -10,13 +10,13 @@ part of 'storage_modifier_notifier.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(storageModifierNotifier)
-const storageModifierProvider = StorageModifierNotifierProvider._();
+final storageModifierProvider = StorageModifierNotifierProvider._();
 
 final class StorageModifierNotifierProvider
     extends
         $FunctionalProvider<StorageModifier, StorageModifier, StorageModifier>
     with $Provider<StorageModifier> {
-  const StorageModifierNotifierProvider._()
+  StorageModifierNotifierProvider._()
     : super(
         from: null,
         argument: null,

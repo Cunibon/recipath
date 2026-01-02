@@ -10,7 +10,7 @@ part of 'recipe_shopping_repo_notifier.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(recipeShoppingRepoNotifier)
-const recipeShoppingRepoProvider = RecipeShoppingRepoNotifierProvider._();
+final recipeShoppingRepoProvider = RecipeShoppingRepoNotifierProvider._();
 
 final class RecipeShoppingRepoNotifierProvider
     extends
@@ -20,7 +20,7 @@ final class RecipeShoppingRepoNotifierProvider
           RecipeShoppingRepoDrift
         >
     with $Provider<RecipeShoppingRepoDrift> {
-  const RecipeShoppingRepoNotifierProvider._()
+  RecipeShoppingRepoNotifierProvider._()
     : super(
         from: null,
         argument: null,

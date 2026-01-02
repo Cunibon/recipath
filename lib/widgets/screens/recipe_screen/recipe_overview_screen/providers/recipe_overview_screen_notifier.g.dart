@@ -10,7 +10,7 @@ part of 'recipe_overview_screen_notifier.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(RecipeOverviewScreenNotifier)
-const recipeOverviewScreenProvider = RecipeOverviewScreenNotifierFamily._();
+final recipeOverviewScreenProvider = RecipeOverviewScreenNotifierFamily._();
 
 final class RecipeOverviewScreenNotifierProvider
     extends
@@ -18,7 +18,7 @@ final class RecipeOverviewScreenNotifierProvider
           RecipeOverviewScreenNotifier,
           RecipeOverviewScreenState
         > {
-  const RecipeOverviewScreenNotifierProvider._({
+  RecipeOverviewScreenNotifierProvider._({
     required RecipeOverviewScreenNotifierFamily super.from,
     required String super.argument,
   }) : super(
@@ -67,7 +67,7 @@ final class RecipeOverviewScreenNotifierFamily extends $Family
           FutureOr<RecipeOverviewScreenState>,
           String
         > {
-  const RecipeOverviewScreenNotifierFamily._()
+  RecipeOverviewScreenNotifierFamily._()
     : super(
         retry: null,
         name: r'recipeOverviewScreenProvider',
@@ -92,7 +92,6 @@ abstract class _$RecipeOverviewScreenNotifier
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build(_$args);
     final ref =
         this.ref
             as $Ref<
@@ -110,6 +109,6 @@ abstract class _$RecipeOverviewScreenNotifier
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, () => build(_$args));
   }
 }

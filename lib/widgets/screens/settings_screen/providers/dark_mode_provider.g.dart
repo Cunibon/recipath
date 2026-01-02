@@ -10,11 +10,11 @@ part of 'dark_mode_provider.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(DarkModeNotifier)
-const darkModeProvider = DarkModeNotifierProvider._();
+final darkModeProvider = DarkModeNotifierProvider._();
 
 final class DarkModeNotifierProvider
     extends $NotifierProvider<DarkModeNotifier, bool> {
-  const DarkModeNotifierProvider._()
+  DarkModeNotifierProvider._()
     : super(
         from: null,
         argument: null,
@@ -48,7 +48,6 @@ abstract class _$DarkModeNotifier extends $Notifier<bool> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<bool, bool>;
     final element =
         ref.element
@@ -58,6 +57,6 @@ abstract class _$DarkModeNotifier extends $Notifier<bool> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }

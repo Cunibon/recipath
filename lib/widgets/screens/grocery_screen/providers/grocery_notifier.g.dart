@@ -10,7 +10,7 @@ part of 'grocery_notifier.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(groceryNotifier)
-const groceryProvider = GroceryNotifierProvider._();
+final groceryProvider = GroceryNotifierProvider._();
 
 final class GroceryNotifierProvider
     extends
@@ -22,7 +22,7 @@ final class GroceryNotifierProvider
     with
         $FutureModifier<Map<String, GroceryData>>,
         $StreamProvider<Map<String, GroceryData>> {
-  const GroceryNotifierProvider._()
+  GroceryNotifierProvider._()
     : super(
         from: null,
         argument: null,

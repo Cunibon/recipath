@@ -10,13 +10,13 @@ part of 'grocery_modifier_notifier.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(groceryModifierNotifier)
-const groceryModifierProvider = GroceryModifierNotifierProvider._();
+final groceryModifierProvider = GroceryModifierNotifierProvider._();
 
 final class GroceryModifierNotifierProvider
     extends
         $FunctionalProvider<GroceryModifier, GroceryModifier, GroceryModifier>
     with $Provider<GroceryModifier> {
-  const GroceryModifierNotifierProvider._()
+  GroceryModifierNotifierProvider._()
     : super(
         from: null,
         argument: null,

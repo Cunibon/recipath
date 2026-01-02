@@ -10,7 +10,7 @@ part of 'package_info_provider.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(packageInfoNotifier)
-const packageInfoProvider = PackageInfoNotifierProvider._();
+final packageInfoProvider = PackageInfoNotifierProvider._();
 
 final class PackageInfoNotifierProvider
     extends
@@ -20,7 +20,7 @@ final class PackageInfoNotifierProvider
           FutureOr<PackageInfo>
         >
     with $FutureModifier<PackageInfo>, $FutureProvider<PackageInfo> {
-  const PackageInfoNotifierProvider._()
+  PackageInfoNotifierProvider._()
     : super(
         from: null,
         argument: null,

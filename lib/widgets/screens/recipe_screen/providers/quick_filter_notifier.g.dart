@@ -16,11 +16,11 @@ const _$QuickFiltersEnumMap = {QuickFilters.running: 'running'};
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(QuickFilterNotifier)
-const quickFilterProvider = QuickFilterNotifierProvider._();
+final quickFilterProvider = QuickFilterNotifierProvider._();
 
 final class QuickFilterNotifierProvider
     extends $NotifierProvider<QuickFilterNotifier, Map<QuickFilters, bool>> {
-  const QuickFilterNotifierProvider._()
+  QuickFilterNotifierProvider._()
     : super(
         from: null,
         argument: null,
@@ -56,7 +56,6 @@ abstract class _$QuickFilterNotifier
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref =
         this.ref as $Ref<Map<QuickFilters, bool>, Map<QuickFilters, bool>>;
     final element =
@@ -67,6 +66,6 @@ abstract class _$QuickFilterNotifier
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }

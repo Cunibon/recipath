@@ -10,7 +10,7 @@ part of 'shopping_notifier.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(shoppingNotifier)
-const shoppingProvider = ShoppingNotifierProvider._();
+final shoppingProvider = ShoppingNotifierProvider._();
 
 final class ShoppingNotifierProvider
     extends
@@ -22,7 +22,7 @@ final class ShoppingNotifierProvider
     with
         $FutureModifier<Map<String, ShoppingData>>,
         $StreamProvider<Map<String, ShoppingData>> {
-  const ShoppingNotifierProvider._()
+  ShoppingNotifierProvider._()
     : super(
         from: null,
         argument: null,

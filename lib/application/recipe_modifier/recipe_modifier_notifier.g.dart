@@ -10,12 +10,12 @@ part of 'recipe_modifier_notifier.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(recipeModifierNotifier)
-const recipeModifierProvider = RecipeModifierNotifierProvider._();
+final recipeModifierProvider = RecipeModifierNotifierProvider._();
 
 final class RecipeModifierNotifierProvider
     extends $FunctionalProvider<RecipeModifier, RecipeModifier, RecipeModifier>
     with $Provider<RecipeModifier> {
-  const RecipeModifierNotifierProvider._()
+  RecipeModifierNotifierProvider._()
     : super(
         from: null,
         argument: null,

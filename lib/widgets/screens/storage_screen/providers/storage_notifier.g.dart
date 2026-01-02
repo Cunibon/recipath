@@ -10,7 +10,7 @@ part of 'storage_notifier.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(storageNotifier)
-const storageProvider = StorageNotifierProvider._();
+final storageProvider = StorageNotifierProvider._();
 
 final class StorageNotifierProvider
     extends
@@ -22,7 +22,7 @@ final class StorageNotifierProvider
     with
         $FutureModifier<Map<String, StorageData>>,
         $StreamProvider<Map<String, StorageData>> {
-  const StorageNotifierProvider._()
+  StorageNotifierProvider._()
     : super(
         from: null,
         argument: null,

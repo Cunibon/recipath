@@ -10,7 +10,7 @@ part of 'syncing_service_notifier.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(syncingServiceNotifier)
-const syncingServiceProvider = SyncingServiceNotifierProvider._();
+final syncingServiceProvider = SyncingServiceNotifierProvider._();
 
 final class SyncingServiceNotifierProvider
     extends
@@ -20,7 +20,7 @@ final class SyncingServiceNotifierProvider
           FutureOr<SyncingService>
         >
     with $FutureModifier<SyncingService>, $FutureProvider<SyncingService> {
-  const SyncingServiceNotifierProvider._()
+  SyncingServiceNotifierProvider._()
     : super(
         from: null,
         argument: null,

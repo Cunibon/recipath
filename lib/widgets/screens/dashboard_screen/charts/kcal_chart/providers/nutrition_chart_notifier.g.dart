@@ -10,7 +10,7 @@ part of 'nutrition_chart_notifier.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(nutritionChartNotifier)
-const nutritionChartProvider = NutritionChartNotifierFamily._();
+final nutritionChartProvider = NutritionChartNotifierFamily._();
 
 final class NutritionChartNotifierProvider
     extends
@@ -20,7 +20,7 @@ final class NutritionChartNotifierProvider
           FutureOr<ChartState>
         >
     with $FutureModifier<ChartState>, $FutureProvider<ChartState> {
-  const NutritionChartNotifierProvider._({
+  NutritionChartNotifierProvider._({
     required NutritionChartNotifierFamily super.from,
     required (DateTimeRange<DateTime>, Set<String>) super.argument,
   }) : super(
@@ -73,7 +73,7 @@ final class NutritionChartNotifierFamily extends $Family
           FutureOr<ChartState>,
           (DateTimeRange<DateTime>, Set<String>)
         > {
-  const NutritionChartNotifierFamily._()
+  NutritionChartNotifierFamily._()
     : super(
         retry: null,
         name: r'nutritionChartProvider',

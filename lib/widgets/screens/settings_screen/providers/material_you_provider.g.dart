@@ -10,11 +10,11 @@ part of 'material_you_provider.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(MaterialYouNotifier)
-const materialYouProvider = MaterialYouNotifierProvider._();
+final materialYouProvider = MaterialYouNotifierProvider._();
 
 final class MaterialYouNotifierProvider
     extends $NotifierProvider<MaterialYouNotifier, bool> {
-  const MaterialYouNotifierProvider._()
+  MaterialYouNotifierProvider._()
     : super(
         from: null,
         argument: null,
@@ -49,7 +49,6 @@ abstract class _$MaterialYouNotifier extends $Notifier<bool> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<bool, bool>;
     final element =
         ref.element
@@ -59,6 +58,6 @@ abstract class _$MaterialYouNotifier extends $Notifier<bool> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }

@@ -10,7 +10,7 @@ part of 'shopping_screen_state_notifier.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(shoppingScreenStateNotifier)
-const shoppingScreenStateProvider = ShoppingScreenStateNotifierProvider._();
+final shoppingScreenStateProvider = ShoppingScreenStateNotifierProvider._();
 
 final class ShoppingScreenStateNotifierProvider
     extends
@@ -22,7 +22,7 @@ final class ShoppingScreenStateNotifierProvider
     with
         $FutureModifier<ShoppingScreenState>,
         $FutureProvider<ShoppingScreenState> {
-  const ShoppingScreenStateNotifierProvider._()
+  ShoppingScreenStateNotifierProvider._()
     : super(
         from: null,
         argument: null,

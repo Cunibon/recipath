@@ -10,12 +10,12 @@ part of 'theme_data_notifier.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(themeDataNotifier)
-const themeDataProvider = ThemeDataNotifierProvider._();
+final themeDataProvider = ThemeDataNotifierProvider._();
 
 final class ThemeDataNotifierProvider
     extends $FunctionalProvider<ThemeData, ThemeData, ThemeData>
     with $Provider<ThemeData> {
-  const ThemeDataNotifierProvider._()
+  ThemeDataNotifierProvider._()
     : super(
         from: null,
         argument: null,

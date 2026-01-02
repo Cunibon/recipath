@@ -10,7 +10,7 @@ part of 'recipe_shopping_modifier_notifier.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(recipeShoppingModifierNotifier)
-const recipeShoppingModifierProvider =
+final recipeShoppingModifierProvider =
     RecipeShoppingModifierNotifierProvider._();
 
 final class RecipeShoppingModifierNotifierProvider
@@ -21,7 +21,7 @@ final class RecipeShoppingModifierNotifierProvider
           RecipeShoppingModifier
         >
     with $Provider<RecipeShoppingModifier> {
-  const RecipeShoppingModifierNotifierProvider._()
+  RecipeShoppingModifierNotifierProvider._()
     : super(
         from: null,
         argument: null,
