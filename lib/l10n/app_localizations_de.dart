@@ -302,6 +302,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get darkMode => 'Dunkelmodus';
 
   @override
+  String get storageMode => 'Vorrat modus';
+
+  @override
   String get clear => 'Löschen';
 
   @override

@@ -654,6 +654,12 @@ abstract class AppLocalizations {
   /// **'Dark mode'**
   String get darkMode;
 
+  /// No description provided for @storageMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Storage mode'**
+  String get storageMode;
+
   /// No description provided for @clear.
   ///
   /// In en, this message translates to:

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'dark_mode_provider.dart';
+part of 'storage_mode_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,28 +9,28 @@ part of 'dark_mode_provider.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(DarkModeNotifier)
-final darkModeProvider = DarkModeNotifierProvider._();
+@ProviderFor(StorageModeNotifier)
+final storageModeProvider = StorageModeNotifierProvider._();
 
-final class DarkModeNotifierProvider
-    extends $NotifierProvider<DarkModeNotifier, bool> {
-  DarkModeNotifierProvider._()
+final class StorageModeNotifierProvider
+    extends $NotifierProvider<StorageModeNotifier, bool> {
+  StorageModeNotifierProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'darkModeProvider',
+        name: r'storageModeProvider',
         isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$darkModeNotifierHash();
+  String debugGetCreateSourceHash() => _$storageModeNotifierHash();
 
   @$internal
   @override
-  DarkModeNotifier create() => DarkModeNotifier();
+  StorageModeNotifier create() => StorageModeNotifier();
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(bool value) {
@@ -41,9 +41,10 @@ final class DarkModeNotifierProvider
   }
 }
 
-String _$darkModeNotifierHash() => r'4ddcf336f3d6c0998b6e8c74d97b0ef709c72f03';
+String _$storageModeNotifierHash() =>
+    r'06a2f019a7f7359f40997944ee838ebefa509076';
 
-abstract class _$DarkModeNotifier extends $Notifier<bool> {
+abstract class _$StorageModeNotifier extends $Notifier<bool> {
   bool build();
   @$mustCallSuper
   @override

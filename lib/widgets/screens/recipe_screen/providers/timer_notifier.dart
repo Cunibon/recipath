@@ -6,6 +6,7 @@ import 'package:recipath/data/timer_data/timer_data.dart';
 import 'package:recipath/helper/local_storage_extension.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/quick_filter_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 part 'timer_notifier.g.dart';
 
@@ -22,7 +23,8 @@ class TimerNotifier extends _$TimerNotifier {
 
   void start(String recipeId, int? servings) {
     state[recipeId] = TimerData(startTime: DateTime.now(), servings: servings);
-    updateState();
+    WakelockPlus.enable();
+    _updateState();
   }
 
   void stop(String recipeId) {
@@ -31,15 +33,16 @@ class TimerNotifier extends _$TimerNotifier {
       ref
           .read(quickFilterProvider.notifier)
           .setFilter(filter: QuickFilters.running, value: false);
+      WakelockPlus.disable();
     }
-    updateState();
+    _updateState();
   }
 
   void adjustServings(String recipeId, int? servings) {
     if (state.containsKey(recipeId)) {
       state[recipeId] = state[recipeId]!.copyWith(servings: servings);
 
-      updateState();
+      _updateState();
     }
   }
 
@@ -47,11 +50,11 @@ class TimerNotifier extends _$TimerNotifier {
     if (state.containsKey(oldData.id)) {
       state[newData.id] = state.remove(oldData.id)!;
 
-      updateState();
+      _updateState();
     }
   }
 
-  void updateState() {
+  void _updateState() {
     localStorage.setItem(
       timerDataKey,
       jsonEncode(state.map((key, value) => MapEntry(key, value.toJson()))),

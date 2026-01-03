@@ -3,7 +3,7 @@ description: "An open-source app that helps you manage your recipes."
 
 publish_to: 'none'
 
-version: 1.5.4+21
+version: 1.6.0+22
 
 environment:
   sdk: ^3.9.2
@@ -48,6 +48,7 @@ dependencies:
   markdown_widget: ^2.3.2+8
   purchases_ui_flutter: ^9.4.0
   flutter_colorpicker: ^1.1.0
+  wakelock_plus: ^1.4.0
 
 dev_dependencies:
   sentry_dart_plugin: ^3.1.1

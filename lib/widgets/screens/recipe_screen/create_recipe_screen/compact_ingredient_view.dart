@@ -6,6 +6,7 @@ import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/generic/highlight_search/highlightable_text.dart';
 import 'package:recipath/widgets/providers/double_number_format_provider.dart';
 import 'package:recipath/widgets/screens/recipe_screen/create_recipe_screen/providers/compact_ingredient_view_notifier.dart';
+import 'package:recipath/widgets/screens/settings_screen/providers/storage_mode_provider.dart';
 
 class CompactIngredientView extends ConsumerWidget {
   const CompactIngredientView({
@@ -30,7 +31,9 @@ class CompactIngredientView extends ConsumerWidget {
         spacing: 8.0,
         runSpacing: 4.0,
         children: ingredients.map((e) {
-          final storageItem = data.storage[e.groceryId];
+          final storageItem = ref.watch(storageModeProvider)
+              ? data.storage[e.groceryId]
+              : null;
           bool inStorage =
               storageItem != null && e.amount <= storageItem.ingredient.amount;
 

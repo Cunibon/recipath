@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recipath/root_routes.dart';
 import 'package:recipath/widgets/screens/recipe_screen/drawer_destination.dart';
+import 'package:recipath/widgets/screens/settings_screen/providers/storage_mode_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'drawer_destination_notifier.g.dart';
@@ -13,10 +14,11 @@ List<List<DrawerDestination>> drawerDestinations(Ref ref) => [
       route: RootRoutes.shoppingRoute.path,
       icon: Icons.shopping_basket,
     ),
-    DrawerDestination(
-      route: RootRoutes.storageRoute.path,
-      icon: Icons.category,
-    ),
+    if (ref.watch(storageModeProvider))
+      DrawerDestination(
+        route: RootRoutes.storageRoute.path,
+        icon: Icons.category,
+      ),
     DrawerDestination(
       route: RootRoutes.groceriesRoute.path,
       icon: Icons.kitchen,

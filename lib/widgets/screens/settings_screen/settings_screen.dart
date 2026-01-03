@@ -9,6 +9,7 @@ import 'package:recipath/widgets/screens/settings_screen/auth/manage_supscriptio
 import 'package:recipath/widgets/screens/settings_screen/data/export_button.dart';
 import 'package:recipath/widgets/screens/settings_screen/data/import_button.dart';
 import 'package:recipath/widgets/screens/settings_screen/data/privacy_policy.dart';
+import 'package:recipath/widgets/screens/settings_screen/data/storage_toggle.dart';
 import 'package:recipath/widgets/screens/settings_screen/providers/version_tag.dart';
 import 'package:recipath/widgets/screens/settings_screen/setting_section.dart';
 
@@ -28,7 +29,12 @@ class SettingsScreen extends StatelessWidget {
           children: [
             SettingSection(
               title: localization.appearance,
-              children: [LocalePicker(), DarkModeToggle(), MaterialYouToggle()],
+              children: [
+                LocalePicker(),
+                DarkModeToggle(),
+                MaterialYouToggle(),
+                StorageToggle(),
+              ],
             ),
             SettingSection(
               title: localization.data,

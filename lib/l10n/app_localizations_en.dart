@@ -299,6 +299,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get darkMode => 'Dark mode';
 
   @override
+  String get storageMode => 'Storage mode';
+
+  @override
   String get clear => 'Clear';
 
   @override
