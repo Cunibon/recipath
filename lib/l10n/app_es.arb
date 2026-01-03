@@ -87,6 +87,8 @@
     "somethingWentWrong": "Algo salió mal :(",
     "howLongDidTheRecipeTake": "¿Cuanto tiempo te tomo hacer la receta?",
     "cancelTimer": "Cancelar temporizador",
+    "timersRunningHeader": "Temporizadores en marcha",
+    "timersRunningDescription": "⏱️ Todavía hay temporizadores activos",
     "removedIngredientsFromStorage": "¡Ingredientes retirados del almacenamiento!",
     "appearance": "Apariencia",
     "data": "datos",

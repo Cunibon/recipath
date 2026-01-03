@@ -5,6 +5,7 @@ import 'package:recipath/data/recipe_data/recipe_data.dart';
 import 'package:recipath/data/timer_data/timer_data.dart';
 import 'package:recipath/helper/local_storage_extension.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/quick_filter_notifier.dart';
+import 'package:recipath/widgets/screens/recipe_screen/timer_notification.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
@@ -24,6 +25,7 @@ class TimerNotifier extends _$TimerNotifier {
   void start(String recipeId, int? servings) {
     state[recipeId] = TimerData(startTime: DateTime.now(), servings: servings);
     WakelockPlus.enable();
+    showTimersRunningNotification();
     _updateState();
   }
 
@@ -33,6 +35,7 @@ class TimerNotifier extends _$TimerNotifier {
       ref
           .read(quickFilterProvider.notifier)
           .setFilter(filter: QuickFilters.running, value: false);
+      cancelTimersNotification();
       WakelockPlus.disable();
     }
     _updateState();

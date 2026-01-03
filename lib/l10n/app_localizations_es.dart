@@ -103,9 +103,6 @@ class AppLocalizationsEs extends AppLocalizations {
   String get finishShoppingInfo => 'Se han añadido estas recetas:';
 
   @override
-  String get finishShoppingModify => 'Modify ingredients';
-
-  @override
   String get leaveThisPage =>
       '¿Estás seguro de que quieres salir de esta página?';
 
@@ -288,6 +285,13 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get cancelTimer => 'Cancelar temporizador';
+
+  @override
+  String get timersRunningHeader => 'Temporizadores en marcha';
+
+  @override
+  String get timersRunningDescription =>
+      '⏱️ Todavía hay temporizadores activos';
 
   @override
   String get removedIngredientsFromStorage =>

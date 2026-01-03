@@ -30,7 +30,7 @@ class _ModifyIngredientsDialogState
     final localization = AppLocalizations.of(context)!;
 
     return AlertDialog(
-      title: Text(localization.finishShoppingModify),
+      title: Text(localization.changeIngredients),
       content: SizedBox(
         height: MediaQuery.of(context).size.height * 0.6,
         width: double.maxFinite,

@@ -9,6 +9,7 @@ import 'package:go_router/go_router.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
+import 'package:recipath/application/notification_service.dart';
 import 'package:recipath/application_constants.dart';
 import 'package:recipath/domain_service/syncing_service/syncing_service/syncing_service_notifier.dart';
 import 'package:recipath/drift/database.dart';
@@ -43,6 +44,8 @@ void main() async {
   if (currentUser != null) {
     Purchases.logIn(currentUser.id);
   }
+
+  await initNotifications();
 
   final firstTime = localStorage.get<bool>(openAppFirstTime) ?? true;
   if (firstTime) {

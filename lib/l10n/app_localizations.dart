@@ -276,12 +276,6 @@ abstract class AppLocalizations {
   /// **'These recipes have been added:'**
   String get finishShoppingInfo;
 
-  /// No description provided for @finishShoppingModify.
-  ///
-  /// In en, this message translates to:
-  /// **'Modify ingredients'**
-  String get finishShoppingModify;
-
   /// No description provided for @leaveThisPage.
   ///
   /// In en, this message translates to:
@@ -629,6 +623,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Cancel timer'**
   String get cancelTimer;
+
+  /// No description provided for @timersRunningHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'Timers running'**
+  String get timersRunningHeader;
+
+  /// No description provided for @timersRunningDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'⏱️ you have active timers running'**
+  String get timersRunningDescription;
 
   /// No description provided for @removedIngredientsFromStorage.
   ///

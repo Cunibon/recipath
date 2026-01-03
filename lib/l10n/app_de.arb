@@ -87,6 +87,8 @@
     "somethingWentWrong": "Etwas ist schiefgelaufen :(",
     "howLongDidTheRecipeTake": "Wie lange hat das Rezept gedauert?",
     "cancelTimer": "Timer abbrechen",
+    "timersRunningHeader": "Timer laufen",
+    "timersRunningDescription": "⏱️ es sind noch Timer aktiv",
     "removedIngredientsFromStorage": "Zutaten aus dem Vorrat entfernt!",
     "appearance": "Darstellung",
     "data": "Daten",

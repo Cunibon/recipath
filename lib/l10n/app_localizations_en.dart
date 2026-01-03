@@ -102,9 +102,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get finishShoppingInfo => 'These recipes have been added:';
 
   @override
-  String get finishShoppingModify => 'Modify ingredients';
-
-  @override
   String get leaveThisPage => 'Are you sure you want to leave this page?';
 
   @override
@@ -283,6 +280,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get cancelTimer => 'Cancel timer';
+
+  @override
+  String get timersRunningHeader => 'Timers running';
+
+  @override
+  String get timersRunningDescription => '⏱️ you have active timers running';
 
   @override
   String get removedIngredientsFromStorage =>

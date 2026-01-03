@@ -104,9 +104,6 @@ class AppLocalizationsFr extends AppLocalizations {
   String get finishShoppingInfo => 'Ces recettes ont été ajoutées:';
 
   @override
-  String get finishShoppingModify => 'Modify ingredients';
-
-  @override
   String get leaveThisPage => 'Êtes-vous sûr de vouloir quitter cette page ?';
 
   @override
@@ -287,6 +284,13 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get cancelTimer => 'Annuler la minuterie';
+
+  @override
+  String get timersRunningHeader => 'Minuteries en cours';
+
+  @override
+  String get timersRunningDescription =>
+      '⏱️ Des minuteries sont encore actives';
 
   @override
   String get removedIngredientsFromStorage =>

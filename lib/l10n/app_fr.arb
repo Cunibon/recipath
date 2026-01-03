@@ -87,6 +87,8 @@
     "somethingWentWrong": "Quelque chose s'est mal passé :(",
     "howLongDidTheRecipeTake": "Combien de temps a pris la recette ?",
     "cancelTimer": "Annuler la minuterie",
+    "timersRunningHeader": "Minuteries en cours",
+    "timersRunningDescription": "⏱️ Des minuteries sont encore actives",
     "removedIngredientsFromStorage": "Ingrédients retirés du stockage !",
     "appearance": "Apparence",
     "data": "Données",
