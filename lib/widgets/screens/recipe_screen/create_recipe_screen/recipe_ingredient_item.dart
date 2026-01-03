@@ -82,14 +82,17 @@ class _IngredientItemState extends ConsumerState<RecipeIngredientItem> {
                 : null,
             onFocusLost: (value) {
               final parsed = doubleNumberFormat.tryParse(value);
+
+              if (parsed == 0) {
+                widget.remove();
+              }
+            },
+            onChanged: (value) {
+              final parsed = doubleNumberFormat.tryParse(value);
               if (parsed != null) {
-                if (parsed == 0) {
-                  widget.remove();
-                } else {
-                  widget.onChanged(
-                    widget.data.copyWith(amount: parsed.toDouble()),
-                  );
-                }
+                widget.onChanged(
+                  widget.data.copyWith(amount: parsed.toDouble()),
+                );
               }
             },
           ),

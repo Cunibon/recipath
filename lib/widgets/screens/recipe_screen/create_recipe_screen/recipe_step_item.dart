@@ -54,6 +54,7 @@ class RecipeStepItem extends ConsumerWidget {
                     children: [
                       TextFormField(
                         maxLines: null,
+                        minLines: 2,
                         decoration: InputDecoration(
                           labelText: localization.objectDescription(
                             "${localization.step} ${index + 1}",

@@ -7,6 +7,10 @@ class FocusFormField extends StatefulWidget {
     this.initialValue,
     this.decoration = const InputDecoration(),
     this.keyboardType,
+    this.maxLength,
+    this.maxLines = 1,
+    this.minLines,
+    this.autovalidateMode,
     this.validator,
     this.onEditingComplete,
     this.onChanged,
@@ -17,6 +21,10 @@ class FocusFormField extends StatefulWidget {
   final String? initialValue;
   final InputDecoration? decoration;
   final TextInputType? keyboardType;
+  final int? maxLength;
+  final int? maxLines;
+  final int? minLines;
+  final AutovalidateMode? autovalidateMode;
   final String? Function(String?)? validator;
   final void Function()? onEditingComplete;
   final void Function(String value)? onChanged;
@@ -62,8 +70,15 @@ class _FocusFormFieldState extends State<FocusFormField> {
       controller: _controller,
       decoration: widget.decoration,
       keyboardType: widget.keyboardType,
+      maxLength: widget.maxLength,
+      maxLines: widget.maxLines,
+      minLines: widget.minLines,
+      autovalidateMode: widget.autovalidateMode,
       validator: widget.validator,
-      onEditingComplete: widget.onEditingComplete,
+      onEditingComplete: () {
+        _focusNode.unfocus();
+        widget.onEditingComplete?.call();
+      },
       onChanged: widget.onChanged,
     );
   }
