@@ -210,6 +210,18 @@ abstract class AppLocalizations {
   /// **'No'**
   String get no;
 
+  /// No description provided for @actionContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get actionContinue;
+
+  /// No description provided for @actionCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get actionCancel;
+
   /// No description provided for @pick.
   ///
   /// In en, this message translates to:
@@ -258,11 +270,17 @@ abstract class AppLocalizations {
   /// **'Finish shopping planning'**
   String get finishShoppingPlanning;
 
-  /// No description provided for @finishShoppingContent.
+  /// No description provided for @finishShoppingInfo.
   ///
   /// In en, this message translates to:
-  /// **'Do you want to finish your shopping planning and your items to your shopping list'**
-  String get finishShoppingContent;
+  /// **'These recipes have been added:'**
+  String get finishShoppingInfo;
+
+  /// No description provided for @finishShoppingModify.
+  ///
+  /// In en, this message translates to:
+  /// **'Modify ingredients'**
+  String get finishShoppingModify;
 
   /// No description provided for @leaveThisPage.
   ///
@@ -606,11 +624,11 @@ abstract class AppLocalizations {
   /// **'How long did the recipe take?'**
   String get howLongDidTheRecipeTake;
 
-  /// No description provided for @cancleTimer.
+  /// No description provided for @cancelTimer.
   ///
   /// In en, this message translates to:
   /// **'Cancel timer'**
-  String get cancleTimer;
+  String get cancelTimer;
 
   /// No description provided for @removedIngredientsFromStorage.
   ///

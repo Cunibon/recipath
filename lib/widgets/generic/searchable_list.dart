@@ -46,10 +46,18 @@ class _SearchableListState<T> extends State<SearchableList<T>> {
       search = widget.initialSearch!;
       controller = TextEditingController(text: widget.initialSearch);
     } else if (widget.searchController != null) {
-      controller = widget.searchController;
+      controller = widget.searchController!;
     }
 
     searchable = createSearchable(widget.items);
+  }
+
+  @override
+  void dispose() {
+    if (widget.searchController == null) {
+      controller?.dispose();
+    }
+    super.dispose();
   }
 
   @override

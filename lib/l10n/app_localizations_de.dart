@@ -69,6 +69,12 @@ class AppLocalizationsDe extends AppLocalizations {
   String get no => 'Nein';
 
   @override
+  String get actionContinue => 'Weiter';
+
+  @override
+  String get actionCancel => 'Abbrechen';
+
+  @override
   String get pick => 'Auswählen';
 
   @override
@@ -94,8 +100,10 @@ class AppLocalizationsDe extends AppLocalizations {
   String get finishShoppingPlanning => 'Einkaufsplanung abschließen';
 
   @override
-  String get finishShoppingContent =>
-      'Möchten Sie Ihre Einkaufsplanung abschließen und die Artikel zur Einkaufsliste hinzufügen?';
+  String get finishShoppingInfo => 'Diese Rezepte wurden hinzugefügt:';
+
+  @override
+  String get finishShoppingModify => 'Modify ingredients';
 
   @override
   String get leaveThisPage => 'Möchten Sie diese Seite verlassen?';
@@ -277,7 +285,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get howLongDidTheRecipeTake => 'Wie lange hat das Rezept gedauert?';
 
   @override
-  String get cancleTimer => 'Timer abbrechen';
+  String get cancelTimer => 'Timer abbrechen';
 
   @override
   String get removedIngredientsFromStorage =>

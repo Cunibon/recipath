@@ -6,7 +6,7 @@ import 'package:recipath/data/ingredient_data/ingredient_data.dart';
 import 'package:recipath/data/recipe_step_data/recipe_step_data.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/screens/recipe_screen/create_recipe_screen/add_groceries_dialog.dart';
-import 'package:recipath/widgets/screens/recipe_screen/create_recipe_screen/ingredient_view.dart';
+import 'package:recipath/widgets/screens/recipe_screen/create_recipe_screen/recipe_ingredient_view.dart';
 
 class RecipeStepItem extends ConsumerWidget {
   const RecipeStepItem({
@@ -67,7 +67,7 @@ class RecipeStepItem extends ConsumerWidget {
                             onChanged(data.copyWith(description: value)),
                       ),
                       if (data.ingredients.isNotEmpty)
-                        IngredientView(
+                        RecipeIngredientView(
                           controller: controller,
                           ingredients: data.ingredients,
                           onChanged: (newIngredients) => onChanged(

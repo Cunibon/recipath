@@ -67,7 +67,10 @@ class _StorageScreenState extends ConsumerState<StorageScreen> {
             unitLocalized: unitLocalized,
             doubleNumberFormat: doubleNumberFormat,
           ),
-          toWidget: (item) => StorageItem(data: item),
+          toWidget: (item) => StorageItem(
+            key: Key("${item.id} ${item.ingredient.amount}"),
+            data: item,
+          ),
           sort: (a, b) => data.groceries[a.ingredient.groceryId]!.name
               .compareTo(data.groceries[b.ingredient.groceryId]!.name),
         ),

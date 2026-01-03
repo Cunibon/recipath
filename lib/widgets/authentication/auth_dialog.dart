@@ -29,6 +29,13 @@ class _AuthDialogState extends ConsumerState<AuthDialog> {
   final logger = Logger();
 
   @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context)!;
 

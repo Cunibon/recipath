@@ -52,11 +52,10 @@ abstract class ShoppingData with _$ShoppingData {
 extension ShoppingDataFunctions on ShoppingData {
   String toReadable({
     required GroceryData grocery,
-    required double storageData,
     required Map<UnitEnum, String> unitLocalized,
     required NumberFormat doubleNumberFormat,
   }) =>
-      "${count}x ${grocery.toReadable(unitLocalized: unitLocalized, doubleNumberFormat: doubleNumberFormat)} (${doubleNumberFormat.format(ingredient.amount)}${unitLocalized[grocery.unit]}/${doubleNumberFormat.format(storageData)}${unitLocalized[grocery.unit]})";
+      "${count}x ${grocery.toReadable(unitLocalized: unitLocalized, doubleNumberFormat: doubleNumberFormat)} (${doubleNumberFormat.format(ingredient.amount)}${unitLocalized[grocery.unit]})";
 
   ShoppingTableCompanion toTableCompanion() => ShoppingTableCompanion.insert(
     id: id,

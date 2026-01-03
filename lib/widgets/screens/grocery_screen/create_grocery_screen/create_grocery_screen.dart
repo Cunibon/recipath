@@ -83,6 +83,20 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
   }
 
   @override
+  void dispose() {
+    nameController.dispose();
+    amountController.dispose();
+    conversionController.dispose();
+    barcodeController.dispose();
+    kcalController.dispose();
+    fatController.dispose();
+    carbsController.dispose();
+    proteinController.dispose();
+    fiberController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final doubleNumberFormat = ref.watch(doubleNumberFormatProvider);
 

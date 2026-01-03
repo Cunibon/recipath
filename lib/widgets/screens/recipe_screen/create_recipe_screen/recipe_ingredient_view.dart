@@ -4,10 +4,10 @@ import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/generic/expandable.dart';
 import 'package:recipath/widgets/screens/recipe_screen/create_recipe_screen/compact_ingredient_view.dart';
-import 'package:recipath/widgets/screens/recipe_screen/create_recipe_screen/ingredient_item.dart';
+import 'package:recipath/widgets/screens/recipe_screen/create_recipe_screen/recipe_ingredient_item.dart';
 
-class IngredientView extends StatefulWidget {
-  const IngredientView({
+class RecipeIngredientView extends StatefulWidget {
+  const RecipeIngredientView({
     required this.ingredients,
     required this.onChanged,
     this.controller,
@@ -20,10 +20,10 @@ class IngredientView extends StatefulWidget {
   final ScrollController? controller;
 
   @override
-  State<IngredientView> createState() => _IngredientViewState();
+  State<RecipeIngredientView> createState() => _RecipeIngredientViewState();
 }
 
-class _IngredientViewState extends State<IngredientView> {
+class _RecipeIngredientViewState extends State<RecipeIngredientView> {
   late bool expanded = true;
 
   @override
@@ -37,7 +37,7 @@ class _IngredientViewState extends State<IngredientView> {
     for (int i = 0; i < widget.ingredients.length; i++) {
       final ingredient = widget.ingredients[i];
       items.add(
-        IngredientItem(
+        RecipeIngredientItem(
           key: Key(ingredient.id),
           index: i,
           data: ingredient,

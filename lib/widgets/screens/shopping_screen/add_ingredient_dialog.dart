@@ -35,6 +35,12 @@ class _AddIngredientDialogState extends ConsumerState<AddIngredientDialog> {
   final amountController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
+  @override
+  void dispose() {
+    amountController.dispose();
+    super.dispose();
+  }
+
   void updateSelected(GroceryData item, NumberFormat doubleNumberFormat) {
     if (!widget.allowSelectedRemoval && widget.selected.contains(item.id)) {
       return;

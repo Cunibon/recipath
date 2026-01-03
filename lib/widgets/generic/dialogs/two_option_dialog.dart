@@ -10,7 +10,7 @@ class TwoOptionDialog extends StatelessWidget {
   });
 
   final String? title;
-  final String content;
+  final Widget content;
 
   final String agree;
   final String disagree;
@@ -19,7 +19,7 @@ class TwoOptionDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: title == null ? null : Text(title!),
-      content: Text(content),
+      content: content,
       actions: [
         TextButton(
           style: TextButton.styleFrom(

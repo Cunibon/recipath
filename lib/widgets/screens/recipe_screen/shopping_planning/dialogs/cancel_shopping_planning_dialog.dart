@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/generic/dialogs/two_option_dialog.dart';
 
-class FinishShoppingPlanning extends StatelessWidget {
-  const FinishShoppingPlanning({super.key});
+class CancelShoppingPlanningDialog extends StatelessWidget {
+  const CancelShoppingPlanningDialog({super.key});
 
   @override
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context)!;
 
     return TwoOptionDialog(
-      title: localization.finishShoppingPlanning,
-      content: localization.finishShoppingContent,
+      title: localization.cancelShoppingPlanning,
+      content: Text(localization.cancelShoppingContent),
       agree: localization.yes,
       disagree: localization.no,
     );

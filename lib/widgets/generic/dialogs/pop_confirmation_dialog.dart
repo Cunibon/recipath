@@ -11,7 +11,7 @@ class PopConfirmationDialog extends StatelessWidget {
 
     return TwoOptionDialog(
       title: localization.leaveThisPage,
-      content: localization.leaveThisPageContent,
+      content: Text(localization.leaveThisPageContent),
       agree: localization.yes,
       disagree: localization.no,
     );

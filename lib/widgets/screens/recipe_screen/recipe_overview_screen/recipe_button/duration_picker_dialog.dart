@@ -46,7 +46,7 @@ class _DurationPickerDialogState extends State<DurationPickerDialog> {
           style: TextButton.styleFrom(
             textStyle: Theme.of(context).textTheme.labelLarge,
           ),
-          child: Text(localization.cancleTimer),
+          child: Text(localization.cancelTimer),
           onPressed: () {
             Navigator.of(context).pop(DurationPickerResponse());
           },

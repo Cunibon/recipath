@@ -48,6 +48,12 @@ class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
   }
 
   @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context)!;
 

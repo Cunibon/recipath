@@ -49,6 +49,13 @@ class _CreateTagScreenState extends ConsumerState<CreateTagScreen> {
   }
 
   @override
+  void dispose() {
+    nameController.dispose();
+    descriptionController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context)!;
 
