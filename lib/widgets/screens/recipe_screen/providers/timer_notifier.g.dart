@@ -41,7 +41,7 @@ final class TimerNotifierProvider
   }
 }
 
-String _$timerNotifierHash() => r'be7cc790ec3b3f0250503ca2ac2bdbd948775139';
+String _$timerNotifierHash() => r'd30047ed6731dad41fae7ce61667f8d1dc4cad1e';
 
 abstract class _$TimerNotifier extends $Notifier<Map<String, TimerData>> {
   Map<String, TimerData> build();

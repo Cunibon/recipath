@@ -52,7 +52,7 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
             : SyncState.synced,
       ),
       actions: [
-        TextButton(
+        IconButton(
           onPressed: () async {
             final result = await showDialog(
               context: context,
@@ -63,7 +63,7 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
               ref.read(shoppingModifierProvider).clear();
             }
           },
-          child: Text(localization.clear),
+          icon: Icon(Icons.clear_all),
         ),
       ],
       floatingActionButton: FloatingActionButton(

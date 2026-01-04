@@ -42,7 +42,7 @@ class _StorageScreenState extends ConsumerState<StorageScreen> {
             : SyncState.synced,
       ),
       actions: [
-        TextButton(
+        IconButton(
           onPressed: () async {
             final result = await showDialog(
               context: context,
@@ -53,7 +53,7 @@ class _StorageScreenState extends ConsumerState<StorageScreen> {
               ref.read(storageModifierProvider).clear();
             }
           },
-          child: Text(localization.clear),
+          icon: Icon(Icons.clear_all),
         ),
       ],
       body: CachedAsyncValueWrapper(
