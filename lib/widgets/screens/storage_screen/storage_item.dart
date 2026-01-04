@@ -17,18 +17,16 @@ class StorageItem extends ConsumerWidget {
     return IngredientItem(
       data: data.ingredient,
       onFocusLost: (value) {
-        final parsed = doubleNumberFormat.tryParse(value);
+        final parsed = doubleNumberFormat.tryParse(value)?.toDouble();
         if (parsed != null) {
           if (parsed == 0) {
             ref.read(storageModifierProvider).deleteItem(data);
-          } else {
+          } else if (parsed != data.ingredient.amount) {
             ref
                 .read(storageModifierProvider)
                 .updateItem(
                   data.copyWith(
-                    ingredient: data.ingredient.copyWith(
-                      amount: parsed.toDouble(),
-                    ),
+                    ingredient: data.ingredient.copyWith(amount: parsed),
                   ),
                 );
           }

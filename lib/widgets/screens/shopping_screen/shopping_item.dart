@@ -84,19 +84,17 @@ class ShoppingItem extends ConsumerWidget {
                     if (parsed != null) {
                       if (parsed == 0) {
                         ref.read(shoppingModifierProvider).deleteItem(data);
-                      } else {
-                        if (parsed != data.count) {
-                          ref
-                              .read(shoppingModifierProvider)
-                              .updateItem(
-                                data.copyWith(
-                                  count: parsed,
-                                  ingredient: data.ingredient.copyWith(
-                                    amount: parsed * grocery.normalAmount,
-                                  ),
+                      } else if (parsed != data.count) {
+                        ref
+                            .read(shoppingModifierProvider)
+                            .updateItem(
+                              data.copyWith(
+                                count: parsed,
+                                ingredient: data.ingredient.copyWith(
+                                  amount: parsed * grocery.normalAmount,
                                 ),
-                              );
-                        }
+                              ),
+                            );
                       }
                     }
                   },
