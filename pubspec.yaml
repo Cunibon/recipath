@@ -6,7 +6,7 @@ publish_to: 'none'
 version: 1.6.0+22
 
 environment:
-  sdk: ^3.9.2
+  sdk: ^3.10.4
 
 dependencies:
   sentry_flutter: ^9.6.0

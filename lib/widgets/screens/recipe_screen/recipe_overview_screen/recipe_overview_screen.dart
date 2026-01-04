@@ -181,7 +181,7 @@ class RecipeOverviewScreen extends ConsumerWidget {
                         padding: const EdgeInsets.all(8.0),
                         child: RecipeStep(
                           index: i,
-                          step: data.recipeData.steps[i],
+                          recipeData: data.recipeData,
                         ),
                       ),
                     ),

@@ -13,7 +13,7 @@ part 'timer_notifier.g.dart';
 
 @riverpod
 class TimerNotifier extends _$TimerNotifier {
-  static const timerDataKey = "timerData_v2";
+  static const timerDataKey = "timerData_v3";
 
   @override
   Map<String, TimerData> build() {
@@ -23,7 +23,11 @@ class TimerNotifier extends _$TimerNotifier {
   }
 
   void start(String recipeId, int? servings) {
-    state[recipeId] = TimerData(startTime: DateTime.now(), servings: servings);
+    state[recipeId] = TimerData(
+      startTime: DateTime.now(),
+      servings: servings,
+      finishedSteps: {},
+    );
     WakelockPlus.enable();
     showTimersRunningNotification();
     _updateState();
@@ -44,6 +48,21 @@ class TimerNotifier extends _$TimerNotifier {
   void adjustServings(String recipeId, int? servings) {
     if (state.containsKey(recipeId)) {
       state[recipeId] = state[recipeId]!.copyWith(servings: servings);
+
+      _updateState();
+    }
+  }
+
+  void toggleStep(String recipeId, String stepId) {
+    if (state.containsKey(recipeId)) {
+      final currentData = state[recipeId]!;
+      final finishedSteps = Set<String>.from(currentData.finishedSteps);
+      final isDone = finishedSteps.contains(stepId);
+      state[recipeId] = currentData.copyWith(
+        finishedSteps: isDone
+            ? (finishedSteps..remove(stepId))
+            : (finishedSteps..add(stepId)),
+      );
 
       _updateState();
     }
