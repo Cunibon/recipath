@@ -9,8 +9,6 @@ import 'package:recipath/widgets/screens/dashboard_screen/charts/chart_entry.dar
 class BaseChart extends StatelessWidget {
   const BaseChart({
     required this.state,
-    required this.horizontalInterval,
-    required this.horizontalTitleInterval,
     this.axisSpace = 75,
     this.onTap,
     this.touchTooltipData,
@@ -18,8 +16,6 @@ class BaseChart extends StatelessWidget {
   });
 
   final ChartState state;
-  final double horizontalInterval;
-  final double horizontalTitleInterval;
 
   final double axisSpace;
 
@@ -32,8 +28,35 @@ class BaseChart extends StatelessWidget {
     fontSize: 14,
   );
 
+  double getNiceInterval(double value, {int desiredLines = 10}) {
+    if (value == 0) return 1;
+
+    double roughInterval = value / desiredLines;
+
+    double magnitude = pow(
+      10,
+      roughInterval.floor().toString().length - 1,
+    ).toDouble();
+
+    double niceMultiplier;
+    if (roughInterval / magnitude <= 1) {
+      niceMultiplier = 1;
+    } else if (roughInterval / magnitude <= 2) {
+      niceMultiplier = 2;
+    } else if (roughInterval / magnitude <= 5) {
+      niceMultiplier = 5;
+    } else {
+      niceMultiplier = 10;
+    }
+
+    return niceMultiplier * magnitude;
+  }
+
   @override
   Widget build(BuildContext context) {
+    double horizontalInterval = getNiceInterval(state.maxY);
+    double horizontalTitleInterval = horizontalInterval * 2;
+
     return LayoutBuilder(
       builder: (context, constrained) => SingleChildScrollView(
         scrollDirection: Axis.horizontal,
@@ -49,7 +72,7 @@ class BaseChart extends StatelessWidget {
                     groupsSpace: axisSpace,
                     maxY: state.maxY * 1.1,
                     barTouchData: barTouchData(),
-                    titlesData: titlesData(),
+                    titlesData: titlesData(horizontalTitleInterval),
                     barGroups: state.entries.map((e) => e.groupData).toList(),
                     borderData: FlBorderData(show: false),
                     gridData: FlGridData(
@@ -115,7 +138,7 @@ class BaseChart extends StatelessWidget {
         ),
   );
 
-  FlTitlesData titlesData() => FlTitlesData(
+  FlTitlesData titlesData(double horizontalTitleInterval) => FlTitlesData(
     show: true,
     bottomTitles: AxisTitles(
       sideTitles: SideTitles(
@@ -129,8 +152,16 @@ class BaseChart extends StatelessWidget {
         interval: horizontalTitleInterval,
         showTitles: true,
         reservedSize: 50,
-        getTitlesWidget: (value, meta) =>
-            SideTitleWidget(meta: meta, child: Text(value.toInt().toString())),
+        getTitlesWidget: (value, meta) {
+          if (value == meta.max) {
+            return const SizedBox.shrink();
+          }
+
+          return SideTitleWidget(
+            meta: meta,
+            child: Text(value.toInt().toString()),
+          );
+        },
       ),
     ),
     topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),

@@ -43,11 +43,7 @@ class GroceryChart extends ConsumerWidget {
       contentBuilder: (expanded) => expanded
           ? AsyncChart(
               asyncState: state,
-              builder: (data) => BaseChart(
-                state: data,
-                horizontalInterval: 100,
-                horizontalTitleInterval: 500,
-              ),
+              builder: (data) => BaseChart(state: data),
             )
           : SizedBox.shrink(),
     );

@@ -54,8 +54,6 @@ class NutritionChart extends ConsumerWidget {
                   BaseChart(
                     axisSpace: 150,
                     state: data,
-                    horizontalInterval: 500,
-                    horizontalTitleInterval: 1000,
                     touchTooltipData: BarTouchTooltipData(
                       getTooltipColor: (group) => Colors.black.withAlpha(128),
                       tooltipPadding: EdgeInsets.symmetric(horizontal: 2),

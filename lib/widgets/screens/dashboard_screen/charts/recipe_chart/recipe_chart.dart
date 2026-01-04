@@ -48,8 +48,6 @@ class RecipeChart extends ConsumerWidget {
               asyncState: state,
               builder: (data) => BaseChart(
                 state: data,
-                horizontalInterval: 1,
-                horizontalTitleInterval: 10,
                 onTap: (index) => onTap(
                   index != null ? state.value!.entries[index].identifier : null,
                 ),
