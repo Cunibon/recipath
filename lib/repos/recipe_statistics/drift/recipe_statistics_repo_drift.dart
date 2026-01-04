@@ -47,6 +47,15 @@ class RecipeStatisticsRepoDrift extends RecipeStatisticsRepo {
   }
 
   @override
+  Future<Map<String, RecipeStatisticData>> getForId(String recipeId) async {
+    final rows =
+        await (baseQuery..where((tbl) => tbl.recipeId.equals(recipeId))).get();
+    return {
+      for (final row in rows) row.id: RecipeStatisticData.fromTableData(row),
+    };
+  }
+
+  @override
   Stream<Duration?> getAverageTimeForRecipe(String recipeId) {
     final stream = db
         .customSelect(

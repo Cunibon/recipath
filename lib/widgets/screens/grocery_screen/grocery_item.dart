@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:recipath/application_constants.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/unit_enum.dart';
-import 'package:recipath/root_routes.dart';
+import 'package:recipath/helper/go_router_extension.dart';
 import 'package:recipath/widgets/generic/highlight_search/highlightable_text.dart';
 import 'package:recipath/widgets/providers/double_number_format_provider.dart';
 import 'package:recipath/widgets/screens/grocery_screen/grocery_routes.dart';
@@ -28,12 +27,9 @@ class GroceryItem extends ConsumerWidget {
               right: 0,
               top: 0,
               child: IconButton(
-                onPressed: () => context.go(
-                  Uri(
-                    path:
-                        '${RootRoutes.groceriesRoute.path}/${GroceryRoutes.createGrocery.path}',
-                    queryParameters: {idParameter: data.id},
-                  ).toString(),
+                onPressed: () => context.goRelative(
+                  './${GroceryRoutes.createGrocery.path}',
+                  queryParameters: {idParameter: data.id},
                 ),
                 icon: Icon(Icons.edit),
               ),

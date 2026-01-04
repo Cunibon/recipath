@@ -5,7 +5,6 @@ import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/root_routes.dart';
 import 'package:recipath/widgets/authentication/auth_buttons.dart';
 import 'package:recipath/widgets/providers/drawer_destination_notifier.dart';
-import 'package:recipath/widgets/screens/recipe_screen/drawer_destination.dart';
 
 class NavigationDrawerScaffold extends ConsumerWidget {
   const NavigationDrawerScaffold({
@@ -79,7 +78,7 @@ class NavigationDrawerScaffold extends ConsumerWidget {
             ),
           ),
           for (final destinations in nestedDestinations) ...[
-            ...destinations.map((DrawerDestination destination) {
+            ...destinations.map((destination) {
               return NavigationDrawerDestination(
                 label: Text(localizedRoutes[destination.route]!),
                 icon: Icon(destination.icon),

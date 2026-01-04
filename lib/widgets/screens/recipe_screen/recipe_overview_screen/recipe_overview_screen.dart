@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:recipath/application/recipe_tag_modifier/recipe_tag_modifier_notifier.dart';
 import 'package:recipath/application_constants.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
 import 'package:recipath/data/recipe_tag_data/recipe_tag_data.dart';
+import 'package:recipath/helper/go_router_extension.dart';
 import 'package:recipath/l10n/app_localizations.dart';
-import 'package:recipath/root_routes.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/local_image.dart';
@@ -43,12 +42,16 @@ class RecipeOverviewScreen extends ConsumerWidget {
             ),
             actions: [
               IconButton(
-                onPressed: () => context.go(
-                  Uri(
-                    path:
-                        '${RootRoutes.recipeRoute.path}/recipeOverview/${data.originalData.id}/${RecipeRoutes.createRecipe.path}',
-                    queryParameters: {idParameter: data.originalData.id},
-                  ).toString(),
+                onPressed: () => context.goRelative(
+                  './${RecipeRoutes.recipeHistory.path}',
+                  queryParameters: {idParameter: data.originalData.id},
+                ),
+                icon: Icon(Icons.cookie),
+              ),
+              IconButton(
+                onPressed: () => context.goRelative(
+                  './${RecipeRoutes.createRecipe.path}',
+                  queryParameters: {idParameter: data.originalData.id},
                 ),
                 icon: Icon(Icons.edit),
               ),
