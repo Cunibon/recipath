@@ -74,18 +74,7 @@ class RecipeStatisticsRepoDrift extends RecipeStatisticsRepo {
 
     return {
       for (final row in result)
-        row.read<String>('id'): RecipeStatisticData(
-          id: row.read<String>('id'),
-          startDate: DateTime.fromMillisecondsSinceEpoch(
-            row.read<int>('start_date'),
-          ),
-          endDate: DateTime.fromMillisecondsSinceEpoch(
-            row.read<int>('end_date'),
-          ),
-          recipeId: row.read<String>('recipe_id'),
-          servings: row.read<int?>('servings'),
-          uploaded: row.read<bool>('uploaded'),
-        ),
+        row.read<String>('id'): RecipeStatisticData.fromSupabase(row.data),
     };
   }
 
