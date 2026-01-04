@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$RecipeData {
 
- String get id; String get title; int? get servings; String? get imageName; List<RecipeStepData> get steps; bool get archived; dynamic get uploaded;
+ String get id; String? get parent; String get title; int? get servings; String? get imageName; List<RecipeStepData> get steps; bool get archived; dynamic get uploaded;
 /// Create a copy of RecipeData
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $RecipeDataCopyWith<RecipeData> get copyWith => _$RecipeDataCopyWithImpl<RecipeD
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RecipeData&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.servings, servings) || other.servings == servings)&&(identical(other.imageName, imageName) || other.imageName == imageName)&&const DeepCollectionEquality().equals(other.steps, steps)&&(identical(other.archived, archived) || other.archived == archived)&&const DeepCollectionEquality().equals(other.uploaded, uploaded));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RecipeData&&(identical(other.id, id) || other.id == id)&&(identical(other.parent, parent) || other.parent == parent)&&(identical(other.title, title) || other.title == title)&&(identical(other.servings, servings) || other.servings == servings)&&(identical(other.imageName, imageName) || other.imageName == imageName)&&const DeepCollectionEquality().equals(other.steps, steps)&&(identical(other.archived, archived) || other.archived == archived)&&const DeepCollectionEquality().equals(other.uploaded, uploaded));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,title,servings,imageName,const DeepCollectionEquality().hash(steps),archived,const DeepCollectionEquality().hash(uploaded));
+int get hashCode => Object.hash(runtimeType,id,parent,title,servings,imageName,const DeepCollectionEquality().hash(steps),archived,const DeepCollectionEquality().hash(uploaded));
 
 @override
 String toString() {
-  return 'RecipeData(id: $id, title: $title, servings: $servings, imageName: $imageName, steps: $steps, archived: $archived, uploaded: $uploaded)';
+  return 'RecipeData(id: $id, parent: $parent, title: $title, servings: $servings, imageName: $imageName, steps: $steps, archived: $archived, uploaded: $uploaded)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $RecipeDataCopyWith<$Res>  {
   factory $RecipeDataCopyWith(RecipeData value, $Res Function(RecipeData) _then) = _$RecipeDataCopyWithImpl;
 @useResult
 $Res call({
- String id, String title, int? servings, String? imageName, List<RecipeStepData> steps, bool archived, dynamic uploaded
+ String id, String? parent, String title, int? servings, String? imageName, List<RecipeStepData> steps, bool archived, dynamic uploaded
 });
 
 
@@ -65,10 +65,11 @@ class _$RecipeDataCopyWithImpl<$Res>
 
 /// Create a copy of RecipeData
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? servings = freezed,Object? imageName = freezed,Object? steps = null,Object? archived = null,Object? uploaded = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? parent = freezed,Object? title = null,Object? servings = freezed,Object? imageName = freezed,Object? steps = null,Object? archived = null,Object? uploaded = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+as String,parent: freezed == parent ? _self.parent : parent // ignore: cast_nullable_to_non_nullable
+as String?,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,servings: freezed == servings ? _self.servings : servings // ignore: cast_nullable_to_non_nullable
 as int?,imageName: freezed == imageName ? _self.imageName : imageName // ignore: cast_nullable_to_non_nullable
 as String?,steps: null == steps ? _self.steps : steps // ignore: cast_nullable_to_non_nullable
@@ -159,10 +160,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String title,  int? servings,  String? imageName,  List<RecipeStepData> steps,  bool archived,  dynamic uploaded)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String? parent,  String title,  int? servings,  String? imageName,  List<RecipeStepData> steps,  bool archived,  dynamic uploaded)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _RecipeData() when $default != null:
-return $default(_that.id,_that.title,_that.servings,_that.imageName,_that.steps,_that.archived,_that.uploaded);case _:
+return $default(_that.id,_that.parent,_that.title,_that.servings,_that.imageName,_that.steps,_that.archived,_that.uploaded);case _:
   return orElse();
 
 }
@@ -180,10 +181,10 @@ return $default(_that.id,_that.title,_that.servings,_that.imageName,_that.steps,
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String title,  int? servings,  String? imageName,  List<RecipeStepData> steps,  bool archived,  dynamic uploaded)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String? parent,  String title,  int? servings,  String? imageName,  List<RecipeStepData> steps,  bool archived,  dynamic uploaded)  $default,) {final _that = this;
 switch (_that) {
 case _RecipeData():
-return $default(_that.id,_that.title,_that.servings,_that.imageName,_that.steps,_that.archived,_that.uploaded);case _:
+return $default(_that.id,_that.parent,_that.title,_that.servings,_that.imageName,_that.steps,_that.archived,_that.uploaded);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -200,10 +201,10 @@ return $default(_that.id,_that.title,_that.servings,_that.imageName,_that.steps,
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String title,  int? servings,  String? imageName,  List<RecipeStepData> steps,  bool archived,  dynamic uploaded)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String? parent,  String title,  int? servings,  String? imageName,  List<RecipeStepData> steps,  bool archived,  dynamic uploaded)?  $default,) {final _that = this;
 switch (_that) {
 case _RecipeData() when $default != null:
-return $default(_that.id,_that.title,_that.servings,_that.imageName,_that.steps,_that.archived,_that.uploaded);case _:
+return $default(_that.id,_that.parent,_that.title,_that.servings,_that.imageName,_that.steps,_that.archived,_that.uploaded);case _:
   return null;
 
 }
@@ -215,10 +216,11 @@ return $default(_that.id,_that.title,_that.servings,_that.imageName,_that.steps,
 @JsonSerializable()
 
 class _RecipeData implements RecipeData {
-  const _RecipeData({required this.id, required this.title, this.servings, this.imageName, required final  List<RecipeStepData> steps, this.archived = false, this.uploaded = false}): _steps = steps;
+  const _RecipeData({required this.id, this.parent, required this.title, this.servings, this.imageName, required final  List<RecipeStepData> steps, this.archived = false, this.uploaded = false}): _steps = steps;
   factory _RecipeData.fromJson(Map<String, dynamic> json) => _$RecipeDataFromJson(json);
 
 @override final  String id;
+@override final  String? parent;
 @override final  String title;
 @override final  int? servings;
 @override final  String? imageName;
@@ -245,16 +247,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RecipeData&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.servings, servings) || other.servings == servings)&&(identical(other.imageName, imageName) || other.imageName == imageName)&&const DeepCollectionEquality().equals(other._steps, _steps)&&(identical(other.archived, archived) || other.archived == archived)&&const DeepCollectionEquality().equals(other.uploaded, uploaded));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RecipeData&&(identical(other.id, id) || other.id == id)&&(identical(other.parent, parent) || other.parent == parent)&&(identical(other.title, title) || other.title == title)&&(identical(other.servings, servings) || other.servings == servings)&&(identical(other.imageName, imageName) || other.imageName == imageName)&&const DeepCollectionEquality().equals(other._steps, _steps)&&(identical(other.archived, archived) || other.archived == archived)&&const DeepCollectionEquality().equals(other.uploaded, uploaded));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,title,servings,imageName,const DeepCollectionEquality().hash(_steps),archived,const DeepCollectionEquality().hash(uploaded));
+int get hashCode => Object.hash(runtimeType,id,parent,title,servings,imageName,const DeepCollectionEquality().hash(_steps),archived,const DeepCollectionEquality().hash(uploaded));
 
 @override
 String toString() {
-  return 'RecipeData(id: $id, title: $title, servings: $servings, imageName: $imageName, steps: $steps, archived: $archived, uploaded: $uploaded)';
+  return 'RecipeData(id: $id, parent: $parent, title: $title, servings: $servings, imageName: $imageName, steps: $steps, archived: $archived, uploaded: $uploaded)';
 }
 
 
@@ -265,7 +267,7 @@ abstract mixin class _$RecipeDataCopyWith<$Res> implements $RecipeDataCopyWith<$
   factory _$RecipeDataCopyWith(_RecipeData value, $Res Function(_RecipeData) _then) = __$RecipeDataCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String title, int? servings, String? imageName, List<RecipeStepData> steps, bool archived, dynamic uploaded
+ String id, String? parent, String title, int? servings, String? imageName, List<RecipeStepData> steps, bool archived, dynamic uploaded
 });
 
 
@@ -282,10 +284,11 @@ class __$RecipeDataCopyWithImpl<$Res>
 
 /// Create a copy of RecipeData
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? servings = freezed,Object? imageName = freezed,Object? steps = null,Object? archived = null,Object? uploaded = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? parent = freezed,Object? title = null,Object? servings = freezed,Object? imageName = freezed,Object? steps = null,Object? archived = null,Object? uploaded = freezed,}) {
   return _then(_RecipeData(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+as String,parent: freezed == parent ? _self.parent : parent // ignore: cast_nullable_to_non_nullable
+as String?,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,servings: freezed == servings ? _self.servings : servings // ignore: cast_nullable_to_non_nullable
 as int?,imageName: freezed == imageName ? _self.imageName : imageName // ignore: cast_nullable_to_non_nullable
 as String?,steps: null == steps ? _self._steps : steps // ignore: cast_nullable_to_non_nullable

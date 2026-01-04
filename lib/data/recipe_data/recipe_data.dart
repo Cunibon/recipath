@@ -14,6 +14,7 @@ part 'recipe_data.g.dart';
 abstract class RecipeData with _$RecipeData {
   const factory RecipeData({
     required String id,
+    String? parent,
     required String title,
     int? servings,
     String? imageName,
@@ -27,6 +28,7 @@ abstract class RecipeData with _$RecipeData {
 
   factory RecipeData.fromTableData(RecipeTableData data) => RecipeData(
     id: data.id,
+    parent: data.parent,
     title: data.title,
     servings: data.servings,
     imageName: data.imageName,
@@ -40,6 +42,7 @@ abstract class RecipeData with _$RecipeData {
     List<RecipeStepData> steps,
   ) => RecipeData(
     id: data["id"],
+    parent: data["parent"],
     title: data["title"],
     servings: data["servings"],
     imageName: data["image_name"],
@@ -74,6 +77,7 @@ extension RecipeDataFunctions on RecipeData {
 
   Map<String, dynamic> toSupabase() => {
     "id": id,
+    "parent": parent,
     "title": title,
     "servings": servings,
     "image_name": imageName,
