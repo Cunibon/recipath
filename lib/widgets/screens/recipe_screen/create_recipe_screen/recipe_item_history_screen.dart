@@ -29,20 +29,24 @@ class RecipeItemHistoryScreen extends ConsumerWidget {
         builder: (data) {
           final entries = data.entries.toList();
 
-          return ListView.builder(
-            itemCount: entries.length,
-            itemBuilder: (context, index) {
-              final entry = entries[index];
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: ListView.builder(
+              itemCount: entries.length,
+              itemBuilder: (context, index) {
+                final entry = entries[index];
 
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(dateFormat.format(entry.key), style: dateTheme),
-                  Divider(),
-                  for (final item in entry.value) HistoryRecipeItem(data: item),
-                ],
-              );
-            },
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(dateFormat.format(entry.key), style: dateTheme),
+                    Divider(),
+                    for (final item in entry.value)
+                      HistoryRecipeItem(data: item),
+                  ],
+                );
+              },
+            ),
           );
         },
       ),
