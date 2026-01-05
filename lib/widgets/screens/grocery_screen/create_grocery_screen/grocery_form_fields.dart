@@ -53,7 +53,7 @@ class GroceryFormFields extends ConsumerWidget {
             decoration: InputDecoration(labelText: localization.name),
             validator: (value) =>
                 value == null || value.isEmpty ? localization.addName : null,
-            onChanged: (value) => updateData(data.copyWith(name: value)),
+            onChanged: (value) => updateData(data.copyWith(name: value.trim())),
           ),
           SizedBox(height: 8),
           Row(

@@ -115,8 +115,9 @@ class _CreateTagScreenState extends ConsumerState<CreateTagScreen> {
                     controller: nameController,
                     decoration: InputDecoration(labelText: localization.name),
                     maxLength: 20,
-                    onChanged: (value) =>
-                        setState(() => data = data.copyWith(name: value)),
+                    onChanged: (value) => setState(
+                      () => data = data.copyWith(name: value.trim()),
+                    ),
                   ),
                   TextFormField(
                     controller: descriptionController,

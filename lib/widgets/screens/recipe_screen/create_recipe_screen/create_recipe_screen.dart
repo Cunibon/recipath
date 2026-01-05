@@ -205,7 +205,7 @@ class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
                               ? localization.addTitle
                               : null,
                           onChanged: (value) => setState(
-                            () => data = data.copyWith(title: value),
+                            () => data = data.copyWith(title: value.trim()),
                           ),
                         ),
                       ),

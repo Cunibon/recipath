@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'file_notifier.dart';
+part of 'bucket_file_notifier.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,29 +9,29 @@ part of 'file_notifier.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(localFile)
-final localFileProvider = LocalFileFamily._();
+@ProviderFor(bucketFileNotifier)
+final bucketFileProvider = BucketFileNotifierFamily._();
 
-final class LocalFileProvider
+final class BucketFileNotifierProvider
     extends $FunctionalProvider<AsyncValue<File>, File, FutureOr<File>>
     with $FutureModifier<File>, $FutureProvider<File> {
-  LocalFileProvider._({
-    required LocalFileFamily super.from,
+  BucketFileNotifierProvider._({
+    required BucketFileNotifierFamily super.from,
     required ({String bucket, String fileName}) super.argument,
   }) : super(
          retry: null,
-         name: r'localFileProvider',
+         name: r'bucketFileProvider',
          isAutoDispose: true,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
 
   @override
-  String debugGetCreateSourceHash() => _$localFileHash();
+  String debugGetCreateSourceHash() => _$bucketFileNotifierHash();
 
   @override
   String toString() {
-    return r'localFileProvider'
+    return r'bucketFileProvider'
         ''
         '$argument';
   }
@@ -44,12 +44,16 @@ final class LocalFileProvider
   @override
   FutureOr<File> create(Ref ref) {
     final argument = this.argument as ({String bucket, String fileName});
-    return localFile(ref, bucket: argument.bucket, fileName: argument.fileName);
+    return bucketFileNotifier(
+      ref,
+      bucket: argument.bucket,
+      fileName: argument.fileName,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return other is LocalFileProvider && other.argument == argument;
+    return other is BucketFileNotifierProvider && other.argument == argument;
   }
 
   @override
@@ -58,29 +62,32 @@ final class LocalFileProvider
   }
 }
 
-String _$localFileHash() => r'31ff5fb5d39edef5c4de59a744f98034436006be';
+String _$bucketFileNotifierHash() =>
+    r'e5bdac8e1e38259fa9018bc4c31ca499a0a9103d';
 
-final class LocalFileFamily extends $Family
+final class BucketFileNotifierFamily extends $Family
     with
         $FunctionalFamilyOverride<
           FutureOr<File>,
           ({String bucket, String fileName})
         > {
-  LocalFileFamily._()
+  BucketFileNotifierFamily._()
     : super(
         retry: null,
-        name: r'localFileProvider',
+        name: r'bucketFileProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
         isAutoDispose: true,
       );
 
-  LocalFileProvider call({required String bucket, required String fileName}) =>
-      LocalFileProvider._(
-        argument: (bucket: bucket, fileName: fileName),
-        from: this,
-      );
+  BucketFileNotifierProvider call({
+    required String bucket,
+    required String fileName,
+  }) => BucketFileNotifierProvider._(
+    argument: (bucket: bucket, fileName: fileName),
+    from: this,
+  );
 
   @override
-  String toString() => r'localFileProvider';
+  String toString() => r'bucketFileProvider';
 }

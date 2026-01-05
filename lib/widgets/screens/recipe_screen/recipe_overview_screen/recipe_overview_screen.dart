@@ -15,6 +15,7 @@ import 'package:recipath/widgets/screens/recipe_screen/recipe_overview_screen/pr
 import 'package:recipath/widgets/screens/recipe_screen/recipe_overview_screen/recipe_button/track_recipe_button.dart';
 import 'package:recipath/widgets/screens/recipe_screen/recipe_overview_screen/recipe_step.dart';
 import 'package:recipath/widgets/screens/recipe_screen/recipe_routes.dart';
+import 'package:recipath/widgets/screens/recipe_screen/share_recipe_button.dart';
 import 'package:recipath/widgets/tag/tag_list.dart';
 
 class RecipeOverviewScreen extends ConsumerWidget {
@@ -41,6 +42,7 @@ class RecipeOverviewScreen extends ConsumerWidget {
               style: Theme.of(context).textTheme.titleLarge,
             ),
             actions: [
+              ShareRecipeButton(recipes: [data.recipeData]),
               IconButton(
                 onPressed: () => context.goRelative(
                   './${RecipeRoutes.recipeHistory.path}',

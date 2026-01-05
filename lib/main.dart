@@ -2,6 +2,8 @@
 // Copyright (c) 2025 Michael Neufeld
 // Licensed under the MIT License. See LICENSE file in the project root for details.
 
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,6 +11,7 @@ import 'package:go_router/go_router.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
+import 'package:receive_sharing_intent/receive_sharing_intent.dart';
 import 'package:recipath/application/notification_service.dart';
 import 'package:recipath/application_constants.dart';
 import 'package:recipath/domain_service/syncing_service/syncing_service/syncing_service_notifier.dart';
@@ -63,6 +66,7 @@ void main() async {
       RootRoutes.recipeHistoryRoute,
       RootRoutes.recipeShoppingRoute,
       RootRoutes.settingsRoute,
+      RootRoutes.importRoute,
     ],
     initialLocation: firstTime
         ? "${RootRoutes.recipeRoute.path}/${RecipeRoutes.introductionScreen.path}"
@@ -96,10 +100,27 @@ class MyApp extends ConsumerStatefulWidget {
 }
 
 class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
+  late StreamSubscription _intentSub;
+
+  void goToImport(List<SharedMediaFile> value) {
+    if (value.isNotEmpty && context.mounted) {
+      widget.router.go(RootRoutes.importRoute.path, extra: value.first.path);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     ref.read(syncingServiceProvider.future);
+
+    _intentSub = ReceiveSharingIntent.instance.getMediaStream().listen(
+      (value) => goToImport(value),
+    );
+
+    ReceiveSharingIntent.instance.getInitialMedia().then((value) {
+      goToImport(value);
+      ReceiveSharingIntent.instance.reset();
+    });
 
     WidgetsBinding.instance.addObserver(this);
   }
@@ -110,6 +131,12 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
         state == AppLifecycleState.resumed) {
       ref.read(syncingServiceProvider).value?.sync();
     }
+  }
+
+  @override
+  void dispose() {
+    _intentSub.cancel();
+    super.dispose();
   }
 
   @override
