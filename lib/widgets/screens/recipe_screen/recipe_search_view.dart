@@ -12,6 +12,7 @@ import 'package:recipath/widgets/screens/recipe_screen/providers/quick_filter_no
 import 'package:recipath/widgets/screens/recipe_screen/providers/recipe_screen_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/shopping_planning_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/tags_per_recipe_notifier.dart';
+import 'package:recipath/widgets/screens/settings_screen/providers/storage_mode_provider.dart';
 
 class RecipeSearchView extends ConsumerWidget {
   const RecipeSearchView({required this.data, super.key});
@@ -38,7 +39,10 @@ class RecipeSearchView extends ConsumerWidget {
       name: localization.recipe,
       trailing: FilterButton(
         filterType: FilterTypes.recipe,
-        quickFilters: [QuickFilters.running],
+        quickFilters: [
+          QuickFilters.running,
+          if (ref.watch(storageModeProvider)) QuickFilters.cookable,
+        ],
         allTags: usedTags,
       ),
       items: data.recipe,

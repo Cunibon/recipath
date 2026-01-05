@@ -6,7 +6,10 @@ part of 'quick_filter_notifier.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-const _$QuickFiltersEnumMap = {QuickFilters.running: 'running'};
+const _$QuickFiltersEnumMap = {
+  QuickFilters.running: 'running',
+  QuickFilters.cookable: 'cookable',
+};
 
 // **************************************************************************
 // RiverpodGenerator

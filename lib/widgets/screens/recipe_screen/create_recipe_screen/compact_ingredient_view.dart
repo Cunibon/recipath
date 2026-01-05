@@ -31,15 +31,12 @@ class CompactIngredientView extends ConsumerWidget {
         spacing: 8.0,
         runSpacing: 4.0,
         children: ingredients.map((e) {
-          final storageItem = ref.watch(storageModeProvider)
-              ? data.storage[e.groceryId]
-              : null;
-          final inStorage =
-              storageItem != null && e.amount <= storageItem.ingredient.amount;
+          final storageItem = data.storage[e.groceryId];
+          final inStorage = e.amount <= (storageItem?.ingredient.amount ?? 0);
 
           return HighlightableText(
             "● ${e.toReadable(grocery: data.groceryMap[e.groceryId]!, unitLocalized: unitLocalized, doubleNumberFormat: doubleNumberFormat)}",
-            style: inStorage && checkStorage
+            style: inStorage && checkStorage && ref.watch(storageModeProvider)
                 ? TextStyle(color: Colors.green[600])
                 : null,
           );
