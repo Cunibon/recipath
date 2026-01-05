@@ -9,19 +9,11 @@ part of 'import_screen_notifier.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(importScreenNotifier)
+@ProviderFor(ImportScreenNotifier)
 final importScreenProvider = ImportScreenNotifierFamily._();
 
 final class ImportScreenNotifierProvider
-    extends
-        $FunctionalProvider<
-          AsyncValue<ImportScreenState>,
-          ImportScreenState,
-          FutureOr<ImportScreenState>
-        >
-    with
-        $FutureModifier<ImportScreenState>,
-        $FutureProvider<ImportScreenState> {
+    extends $AsyncNotifierProvider<ImportScreenNotifier, ImportScreenState> {
   ImportScreenNotifierProvider._({
     required ImportScreenNotifierFamily super.from,
     required String super.argument,
@@ -45,15 +37,7 @@ final class ImportScreenNotifierProvider
 
   @$internal
   @override
-  $FutureProviderElement<ImportScreenState> $createElement(
-    $ProviderPointer pointer,
-  ) => $FutureProviderElement(pointer);
-
-  @override
-  FutureOr<ImportScreenState> create(Ref ref) {
-    final argument = this.argument as String;
-    return importScreenNotifier(ref, argument);
-  }
+  ImportScreenNotifier create() => ImportScreenNotifier();
 
   @override
   bool operator ==(Object other) {
@@ -67,10 +51,17 @@ final class ImportScreenNotifierProvider
 }
 
 String _$importScreenNotifierHash() =>
-    r'33c149267db2875c08ed8384279e884495ee7b24';
+    r'c10a3f0a2062308484d667068050d2dc6e8dd6e2';
 
 final class ImportScreenNotifierFamily extends $Family
-    with $FunctionalFamilyOverride<FutureOr<ImportScreenState>, String> {
+    with
+        $ClassFamilyOverride<
+          ImportScreenNotifier,
+          AsyncValue<ImportScreenState>,
+          ImportScreenState,
+          FutureOr<ImportScreenState>,
+          String
+        > {
   ImportScreenNotifierFamily._()
     : super(
         retry: null,
@@ -85,4 +76,27 @@ final class ImportScreenNotifierFamily extends $Family
 
   @override
   String toString() => r'importScreenProvider';
+}
+
+abstract class _$ImportScreenNotifier
+    extends $AsyncNotifier<ImportScreenState> {
+  late final _$args = ref.$arg as String;
+  String get path => _$args;
+
+  FutureOr<ImportScreenState> build(String path);
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final ref =
+        this.ref as $Ref<AsyncValue<ImportScreenState>, ImportScreenState>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<ImportScreenState>, ImportScreenState>,
+              AsyncValue<ImportScreenState>,
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, () => build(_$args));
+  }
 }

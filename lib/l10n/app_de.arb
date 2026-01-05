@@ -16,6 +16,7 @@
     "searchFor": "Suche nach {type}",
     "clearAllItems": "Alle Elemente löschen?",
     "clearAllContent": "Möchten Sie wirklich alle Elemente löschen?\nEs gibt keine Möglichkeit, sie wiederherzustellen.",
+    "select": "Auswählen",
     "yes": "Ja",
     "no": "Nein",
     "actionContinue": "Weiter",
@@ -130,5 +131,6 @@
     "manageSubscription": "Abonnement verwalten",
     "subscription": "Abonnement",
     "destinations": "Reiseziele",
-    "somethingUnexpected": "Ups, etwas Unerwartetes ist passiert"
+    "somethingUnexpected": "Ups, etwas Unerwartetes ist passiert",
+    "selectOne": "Bitte wählen Sie einen Artikel aus"
 }

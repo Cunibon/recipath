@@ -198,6 +198,12 @@ abstract class AppLocalizations {
   /// **'Do you really want clear all items?\nThere is no way to get them back.'**
   String get clearAllContent;
 
+  /// No description provided for @select.
+  ///
+  /// In en, this message translates to:
+  /// **'Select'**
+  String get select;
+
   /// No description provided for @yes.
   ///
   /// In en, this message translates to:
@@ -887,6 +893,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Oops, something unexpected happened'**
   String get somethingUnexpected;
+
+  /// No description provided for @selectOne.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select at least one item'**
+  String get selectOne;
 }
 
 class _AppLocalizationsDelegate

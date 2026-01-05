@@ -45,14 +45,14 @@ class RecipeOverviewScreen extends ConsumerWidget {
               ShareRecipeButton(recipes: [data.recipeData]),
               IconButton(
                 onPressed: () => context.goRelative(
-                  './${RecipeRoutes.recipeHistory.path}',
+                  RecipeRoutes.recipeHistory.path,
                   queryParameters: {idParameter: data.originalData.id},
                 ),
                 icon: Icon(Icons.cookie),
               ),
               IconButton(
                 onPressed: () => context.goRelative(
-                  './${RecipeRoutes.createRecipe.path}',
+                  RecipeRoutes.createRecipe.path,
                   queryParameters: {idParameter: data.originalData.id},
                 ),
                 icon: Icon(Icons.edit),

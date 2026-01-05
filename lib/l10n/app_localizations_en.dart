@@ -62,6 +62,9 @@ class AppLocalizationsEn extends AppLocalizations {
       'Do you really want clear all items?\nThere is no way to get them back.';
 
   @override
+  String get select => 'Select';
+
+  @override
   String get yes => 'Yes';
 
   @override
@@ -414,4 +417,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get somethingUnexpected => 'Oops, something unexpected happened';
+
+  @override
+  String get selectOne => 'Please select at least one item';
 }

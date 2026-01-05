@@ -63,6 +63,9 @@ class AppLocalizationsDe extends AppLocalizations {
       'Möchten Sie wirklich alle Elemente löschen?\nEs gibt keine Möglichkeit, sie wiederherzustellen.';
 
   @override
+  String get select => 'Auswählen';
+
+  @override
   String get yes => 'Ja';
 
   @override
@@ -417,4 +420,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get somethingUnexpected => 'Ups, etwas Unerwartetes ist passiert';
+
+  @override
+  String get selectOne => 'Bitte wählen Sie einen Artikel aus';
 }

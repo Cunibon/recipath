@@ -30,6 +30,7 @@
     },
     "clearAllItems": "Clear all items?",
     "clearAllContent": "Do you really want clear all items?\nThere is no way to get them back.",
+    "select": "Select",
     "yes": "Yes",
     "no": "No",
     "actionContinue": "Continue",
@@ -171,5 +172,6 @@
     "manageSubscription": "Manage subscription",
     "subscription": "Subscription",
     "destinations": "Destinations",
-    "somethingUnexpected": "Oops, something unexpected happened"
+    "somethingUnexpected": "Oops, something unexpected happened",
+    "selectOne": "Please select at least one item"
 }

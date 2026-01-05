@@ -21,19 +21,10 @@ class GroceryItem extends ConsumerWidget {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Stack(
+        child: Row(
+          mainAxisAlignment: .spaceBetween,
+          crossAxisAlignment: .start,
           children: [
-            Positioned(
-              right: 0,
-              top: 0,
-              child: IconButton(
-                onPressed: () => context.goRelative(
-                  './${GroceryRoutes.createGrocery.path}',
-                  queryParameters: {idParameter: data.id},
-                ),
-                icon: Icon(Icons.edit),
-              ),
-            ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -45,6 +36,13 @@ class GroceryItem extends ConsumerWidget {
                   "${doubleNumberFormat.format(data.normalAmount)}${unitLocalized[data.unit]}",
                 ),
               ],
+            ),
+            IconButton(
+              onPressed: () => context.goRelative(
+                GroceryRoutes.createGrocery.path,
+                queryParameters: {idParameter: data.id},
+              ),
+              icon: Icon(Icons.edit),
             ),
           ],
         ),

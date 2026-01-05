@@ -64,6 +64,9 @@ class AppLocalizationsFr extends AppLocalizations {
       'Voulez-vous vraiment effacer tous les éléments ?\nIl n\'y a aucun moyen de les récupérer.';
 
   @override
+  String get select => 'Sélectionner';
+
+  @override
   String get yes => 'Oui';
 
   @override
@@ -421,4 +424,7 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get somethingUnexpected =>
       'Oups, quelque chose d\'inattendu s\'est produit';
+
+  @override
+  String get selectOne => 'Veuillez sélectionner au moins un élément';
 }

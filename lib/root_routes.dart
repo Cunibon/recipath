@@ -4,7 +4,8 @@ import 'package:recipath/widgets/screens/grocery_screen/grocery_routes.dart';
 import 'package:recipath/widgets/screens/grocery_screen/grocery_screen.dart';
 import 'package:recipath/widgets/screens/history_screen/recipe_history_screen/recipe_history_screen.dart';
 import 'package:recipath/widgets/screens/history_screen/recipe_shopping_screen/recipe_shopping_screen.dart';
-import 'package:recipath/widgets/screens/import_screen/import_screen.dart';
+import 'package:recipath/widgets/screens/import_screen/import_routes.dart';
+import 'package:recipath/widgets/screens/import_screen/recipe_import_screen.dart';
 import 'package:recipath/widgets/screens/recipe_screen/recipe_routes.dart';
 import 'package:recipath/widgets/screens/recipe_screen/recipe_screen.dart';
 import 'package:recipath/widgets/screens/settings_screen/settings_screen.dart';
@@ -69,9 +70,12 @@ abstract class RootRoutes {
   );
 
   static GoRoute importRoute = GoRoute(
-    path: "/import",
-    builder: (context, state) => ImportScreen(filePath: state.extra as String),
+    path: "/import/:filePath",
+    builder: (context, state) => RecipeImportScreen(
+      filePath: Uri.decodeComponent(state.pathParameters["filePath"] as String),
+    ),
     redirect: (context, state) =>
-        state.extra is String ? null : recipeRoute.path,
+        state.pathParameters["filePath"] is String ? null : recipeRoute.path,
+    routes: [ImportRoutes.groceryImport],
   );
 }

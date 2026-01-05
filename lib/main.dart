@@ -104,7 +104,7 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
 
   void goToImport(List<SharedMediaFile> value) {
     if (value.isNotEmpty && context.mounted) {
-      widget.router.go(RootRoutes.importRoute.path, extra: value.first.path);
+      widget.router.go("/import/${Uri.encodeComponent(value.first.path)}");
     }
   }
 

@@ -9,29 +9,8 @@ extension GoRouterRelative on BuildContext {
     final state = GoRouterState.of(this);
     final basePath = state.uri.path;
 
-    String newPath;
-
-    if (relativePath.startsWith('./')) {
-      newPath = '$basePath/${relativePath.substring(2)}';
-    } else if (relativePath.startsWith('../')) {
-      final segments = basePath.split('/')..removeLast();
-      final relativeSegments = relativePath.split('/');
-
-      for (final seg in relativeSegments) {
-        if (seg == '..') {
-          segments.removeLast();
-        } else if (seg != '.') {
-          segments.add(seg);
-        }
-      }
-
-      newPath = segments.join('/');
-    } else {
-      newPath = relativePath;
-    }
-
     final uri = Uri(
-      path: newPath,
+      path: '$basePath/$relativePath',
       queryParameters: {
         ...state.uri.queryParameters,
         if (queryParameters != null) ...queryParameters,
