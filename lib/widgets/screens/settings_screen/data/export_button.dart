@@ -1,11 +1,9 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/application_constants.dart';
 import 'package:recipath/l10n/app_localizations.dart';
-import 'package:recipath/providers/application_path_provider.dart';
 import 'package:recipath/repos/grocery/grocery_repo_notifier.dart';
 import 'package:recipath/repos/recipe/drift/recipe_repo_notifier.dart';
 import 'package:recipath/repos/shopping/shopping_repo_notifier.dart';
@@ -19,8 +17,6 @@ class ExportButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return TextButton.icon(
       onPressed: () async {
-        final dir = ref.read(applicationPathProvider);
-
         final allData = {
           recipeDataKey: await ref.read(recipeRepoProvider).get(),
           shoppingDataKey: await ref.read(shoppingRepoProvider).get(),
@@ -28,12 +24,14 @@ class ExportButton extends ConsumerWidget {
           groceryDataKey: await ref.read(groceryRepoProvider).get(),
         };
 
-        final filePath = "${dir.path}/recipath.json";
+        final jsonBytes = utf8.encode(jsonEncode(allData));
 
-        final file = File(filePath);
-        await file.writeAsString(jsonEncode(allData));
+        final xfile = XFile.fromData(jsonBytes, mimeType: "application/json");
 
-        final params = ShareParams(files: [XFile(filePath)]);
+        final params = ShareParams(
+          files: [xfile],
+          fileNameOverrides: ["recipath.json"],
+        );
 
         await SharePlus.instance.share(params);
       },
