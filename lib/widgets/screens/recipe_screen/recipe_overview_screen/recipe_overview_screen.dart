@@ -65,9 +65,11 @@ class RecipeOverviewScreen extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   if (data.recipeData.imageName != null) ...[
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 4),
-                      child: LocalImage(fileName: data.recipeData.imageName!),
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 4),
+                        child: LocalImage(fileName: data.recipeData.imageName!),
+                      ),
                     ),
                     Divider(),
                   ],
