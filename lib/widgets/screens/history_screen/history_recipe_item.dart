@@ -54,6 +54,8 @@ class HistoryRecipeItem extends ConsumerWidget {
                     asyncState: ref.watch(groceryProvider),
                     builder: (groceryData) => CompactIngredientView(
                       ingredients: data.recipeData.getIngredients(groceryData),
+                      storageData: {},
+                      groceryMap: groceryData,
                     ),
                   ),
                 ],

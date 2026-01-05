@@ -4,11 +4,13 @@ import 'package:recipath/data/recipe_data/recipe_data.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/filtering/filter_types.dart';
 import 'package:recipath/widgets/filtering/tag_filter_notifier.dart';
+import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/generic/highlight_search/highlightable_text.dart';
 import 'package:recipath/widgets/screens/recipe_screen/create_recipe_screen/compact_ingredient_view.dart';
 import 'package:recipath/widgets/screens/recipe_screen/data/compact_recipe_item_data.dart';
 import 'package:recipath/widgets/screens/recipe_screen/local_image.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/shopping_planning_notifier.dart';
+import 'package:recipath/widgets/screens/storage_screen/providers/storage_notifier.dart';
 import 'package:recipath/widgets/tag/tag_list.dart';
 
 class CompactRecipeItemContent extends ConsumerWidget {
@@ -82,11 +84,17 @@ class CompactRecipeItemContent extends ConsumerWidget {
                   ],
                 ],
               ),
-              CompactIngredientView(
-                checkStorage: true,
-                ingredients: compactRecipeData.recipeData.getIngredients(
-                  compactRecipeData.groceryMap,
-                ),
+              CachedAsyncValueWrapper(
+                asyncState: ref.watch(storageProvider),
+                builder: (storageProvider) {
+                  return CompactIngredientView(
+                    ingredients: compactRecipeData.recipeData.getIngredients(
+                      compactRecipeData.groceryMap,
+                    ),
+                    groceryMap: compactRecipeData.groceryMap,
+                    storageData: storageProvider,
+                  );
+                },
               ),
               if (compactRecipeData.tags.isNotEmpty) ...[
                 Divider(),

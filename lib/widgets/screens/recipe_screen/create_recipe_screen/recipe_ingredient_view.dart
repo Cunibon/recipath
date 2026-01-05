@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/data/ingredient_data/ingredient_data.dart';
 import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/l10n/app_localizations.dart';
+import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/generic/expandable.dart';
 import 'package:recipath/widgets/screens/recipe_screen/create_recipe_screen/compact_ingredient_view.dart';
+import 'package:recipath/widgets/screens/recipe_screen/create_recipe_screen/providers/grocey_storage_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/create_recipe_screen/recipe_ingredient_item.dart';
 
-class RecipeIngredientView extends StatefulWidget {
+class RecipeIngredientView extends ConsumerStatefulWidget {
   const RecipeIngredientView({
     required this.ingredients,
     required this.onChanged,
@@ -20,10 +23,11 @@ class RecipeIngredientView extends StatefulWidget {
   final ScrollController? controller;
 
   @override
-  State<RecipeIngredientView> createState() => _RecipeIngredientViewState();
+  ConsumerState<RecipeIngredientView> createState() =>
+      _RecipeIngredientViewState();
 }
 
-class _RecipeIngredientViewState extends State<RecipeIngredientView> {
+class _RecipeIngredientViewState extends ConsumerState<RecipeIngredientView> {
   late bool expanded = true;
 
   @override
@@ -81,7 +85,16 @@ class _RecipeIngredientViewState extends State<RecipeIngredientView> {
                 widget.onChanged(listCopy);
               },
             )
-          : CompactIngredientView(ingredients: widget.ingredients),
+          : CachedAsyncValueWrapper(
+              asyncState: ref.watch(groceryStorageProvider),
+              builder: (data) {
+                return CompactIngredientView(
+                  ingredients: widget.ingredients,
+                  storageData: data.storage,
+                  groceryMap: data.groceryMap,
+                );
+              },
+            ),
     );
   }
 }
