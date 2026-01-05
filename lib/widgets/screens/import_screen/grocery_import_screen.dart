@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:random_string/random_string.dart';
-import 'package:recipath/application/grocery_modifier/grocery_modifier_notifier.dart';
-import 'package:recipath/application/recipe_modifier/recipe_modifier_notifier.dart';
-import 'package:recipath/data/recipe_data/recipe_data.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/root_routes.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
+import 'package:recipath/widgets/generic/dialogs/two_option_dialog.dart';
 import 'package:recipath/widgets/screens/import_screen/grocery_import.dart';
 import 'package:recipath/widgets/screens/import_screen/providers/import_screen_notifier.dart';
 
@@ -30,30 +27,28 @@ class GroceryImportScreen extends ConsumerWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          final recipeModifier = ref.read(recipeModifierProvider);
-          final groceryModifier = ref.read(groceryModifierProvider);
-          final data = state.value!;
-
-          final groceryMapping = <String, String>{};
-
-          for (final entry in data.importGroceryLookup.entries) {
-            late String id;
-
-            if (data.originalGrocery.containsKey(entry.value.id)) {
-              final copy = entry.value.copyWith(id: randomAlphaNumeric(16));
-              await groceryModifier.add(copy);
-              id = copy.id;
-            } else {
-              id = entry.value.id;
-            }
-            groceryMapping[entry.key] = id;
-          }
-
-          for (final data in data.importRecipe) {
-            await recipeModifier.add(
-              data.copyWithNewId(groceryLookup: groceryMapping),
+          final newItems = state.value!.importGroceryLookup.entries.where(
+            (e) => e.key == e.value.id,
+          );
+          if (newItems.isNotEmpty) {
+            //TODO fix
+            final result = await showDialog<bool>(
+              context: context,
+              builder: (context) => TwoOptionDialog(
+                content: Text(
+                  "This will create ${newItems.length} new groceries!",
+                ),
+                agree: localization.actionContinue,
+                disagree: localization.actionCancel,
+              ),
             );
+
+            if (result != true) return;
           }
+
+          await ref
+              .read(importScreenProvider(state.value!.path).notifier)
+              .commit();
           if (context.mounted) {
             context.go(RootRoutes.recipeRoute.path);
           }

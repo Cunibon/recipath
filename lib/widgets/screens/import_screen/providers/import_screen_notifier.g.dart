@@ -51,7 +51,7 @@ final class ImportScreenNotifierProvider
 }
 
 String _$importScreenNotifierHash() =>
-    r'c10a3f0a2062308484d667068050d2dc6e8dd6e2';
+    r'1d3c995c0b4a26ad35234eeed324de71ed5faa9f';
 
 final class ImportScreenNotifierFamily extends $Family
     with
