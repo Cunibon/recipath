@@ -34,7 +34,7 @@ class _CachedAsyncValueWrapperState<T>
   @override
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context)!;
-    
+
     if (widget.asyncState.hasValue) {
       lastState = widget.asyncState.value;
     }
@@ -46,9 +46,7 @@ class _CachedAsyncValueWrapperState<T>
           SizedBox(
             width: widget.width,
             height: widget.height,
-            child: Center(
-              child: Text(localization.somethingUnexpected),
-            ),
+            child: Center(child: Text(localization.somethingUnexpected)),
           );
     } else if (widget.asyncState.isLoading) {
       return widget.loadingBuilder?.call() ??

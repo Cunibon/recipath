@@ -33,7 +33,7 @@ class NutritionChart extends ConsumerWidget {
             children: [
               Text(
                 "${AppLocalizations.of(context)!.nutriments}/100g",
-                style: Theme.of(context).textTheme.titleLarge,
+                style: TextTheme.of(context).titleLarge,
               ),
               Icon(
                 expanded

@@ -21,7 +21,7 @@ class TagItem extends StatelessWidget {
             Expanded(child: Text(data.description)),
             IconButton(
               onPressed: () => context.goRelative(
-                './${TagRoutes.createTag.path}',
+                TagRoutes.createTag.path,
                 queryParameters: {idParameter: data.id},
               ),
               icon: Icon(Icons.edit),

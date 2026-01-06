@@ -14,6 +14,7 @@ import 'package:recipath/widgets/screens/recipe_screen/recipe_overview_screen/nu
 import 'package:recipath/widgets/screens/recipe_screen/recipe_overview_screen/providers/recipe_overview_screen_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/recipe_overview_screen/recipe_button/track_recipe_button.dart';
 import 'package:recipath/widgets/screens/recipe_screen/recipe_overview_screen/recipe_step.dart';
+import 'package:recipath/widgets/screens/recipe_screen/recipe_overview_screen/share_recipe_button.dart';
 import 'package:recipath/widgets/screens/recipe_screen/recipe_routes.dart';
 import 'package:recipath/widgets/tag/tag_list.dart';
 
@@ -38,19 +39,20 @@ class RecipeOverviewScreen extends ConsumerWidget {
           appBar: AppBar(
             title: Text(
               data.recipeData.title,
-              style: Theme.of(context).textTheme.titleLarge,
+              style: TextTheme.of(context).titleLarge,
             ),
             actions: [
+              ShareRecipeButton(recipe: data.recipeData),
               IconButton(
                 onPressed: () => context.goRelative(
-                  './${RecipeRoutes.recipeHistory.path}',
+                  RecipeRoutes.recipeHistory.path,
                   queryParameters: {idParameter: data.originalData.id},
                 ),
                 icon: Icon(Icons.cookie),
               ),
               IconButton(
                 onPressed: () => context.goRelative(
-                  './${RecipeRoutes.createRecipe.path}',
+                  RecipeRoutes.createRecipe.path,
                   queryParameters: {idParameter: data.originalData.id},
                 ),
                 icon: Icon(Icons.edit),

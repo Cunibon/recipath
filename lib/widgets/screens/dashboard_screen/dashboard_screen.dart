@@ -33,10 +33,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Text(title, style: Theme.of(context).textTheme.titleLarge),
+          Text(title, style: TextTheme.of(context).titleLarge),
           Text(
             "${dateFormat.format(dateRange.start)} - ${dateFormat.format(dateRange.end)}",
-            style: Theme.of(context).textTheme.titleMedium,
+            style: TextTheme.of(context).titleMedium,
           ),
         ],
       ),

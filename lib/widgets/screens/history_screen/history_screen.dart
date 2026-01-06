@@ -14,7 +14,7 @@ class HistoryScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final dateTheme = Theme.of(context).textTheme.titleLarge;
+    final dateTheme = TextTheme.of(context).titleLarge;
 
     return NavigationDrawerScaffold(
       titleBuilder: (title) =>

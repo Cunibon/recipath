@@ -30,6 +30,18 @@
     },
     "clearAllItems": "Clear all items?",
     "clearAllContent": "Do you really want clear all items?\nThere is no way to get them back.",
+    "recipeImportInfo": "Please select the recipes you want to import.",
+    "groceryImportInfo": "Please map the imported groceries to your existing groceries, or leave them unmapped to create new ones.",
+    "missingMapping": "Missing mapping",
+    "missingMappingContent": "Unmapped items will create {count} new groceries.",
+    "@missingMappingContent": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "select": "Select",
     "yes": "Yes",
     "no": "No",
     "actionContinue": "Continue",
@@ -42,7 +54,10 @@
     "cancelShoppingPlanning": "Cancel shopping planning",
     "cancelShoppingContent": "Do you want to cancel your shopping planning?\nThis can not be undone.",
     "finishShoppingPlanning": "Finish shopping planning",
-    "finishShoppingInfo": "These recipes have been added:",
+    "cancelExport": "Cancel export",
+    "cancelExportContent": "Do you want to cancel your export?",
+    "finishExport": "Finish export",
+    "theseRecipesHaveBeenAdded": "These recipes have been added:",
     "leaveThisPage": "Are you sure you want to leave this page?",
     "leaveThisPageContent": "All unsaved changes will be lost!",
     "baseValue": "Base value",
@@ -134,6 +149,7 @@
     "appearance": "Appearance",
     "data": "Data",
     "importData": "Import data",
+    "selectFileToImport": "Select a file to import.",
     "exportData": "Export data",
     "privacyPolicy": "Privacy policy",
     "darkMode": "Dark mode",
@@ -171,5 +187,6 @@
     "manageSubscription": "Manage subscription",
     "subscription": "Subscription",
     "destinations": "Destinations",
-    "somethingUnexpected": "Oops, something unexpected happened"
+    "somethingUnexpected": "Oops, something unexpected happened",
+    "selectOne": "Please select at least one item"
 }

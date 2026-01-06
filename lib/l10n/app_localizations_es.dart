@@ -63,6 +63,24 @@ class AppLocalizationsEs extends AppLocalizations {
       '¿Realmente quieres borrar todos los elementos?\nNo hay forma de recuperarlos.';
 
   @override
+  String get recipeImportInfo => 'Seleccione las recetas que desea importar.';
+
+  @override
+  String get groceryImportInfo =>
+      'Asigne los ingredientes importados a sus ingredientes existentes o déjelos sin asignar para crear nuevos.';
+
+  @override
+  String get missingMapping => 'Asignación faltante';
+
+  @override
+  String missingMappingContent(int count) {
+    return 'Los elementos sin asignar crearán $count ingredientes nuevos.';
+  }
+
+  @override
+  String get select => 'Seleccionar';
+
+  @override
   String get yes => 'Sí';
 
   @override
@@ -100,7 +118,16 @@ class AppLocalizationsEs extends AppLocalizations {
   String get finishShoppingPlanning => 'Terminar la planificación de compras';
 
   @override
-  String get finishShoppingInfo => 'Se han añadido estas recetas:';
+  String get cancelExport => 'Cancelar exportación';
+
+  @override
+  String get cancelExportContent => '¿Desea cancelar la exportación?';
+
+  @override
+  String get finishExport => 'Finalizar exportación';
+
+  @override
+  String get theseRecipesHaveBeenAdded => 'Se han añadido estas recetas:';
 
   @override
   String get leaveThisPage =>
@@ -307,6 +334,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get importData => 'Importar datos';
 
   @override
+  String get selectFileToImport => 'Seleccione un archivo para importar.';
+
+  @override
   String get exportData => 'Exportar datos';
 
   @override
@@ -420,4 +450,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get somethingUnexpected => 'Ups, pasó algo inesperado';
+
+  @override
+  String get selectOne => 'Seleccione al menos un elemento';
 }

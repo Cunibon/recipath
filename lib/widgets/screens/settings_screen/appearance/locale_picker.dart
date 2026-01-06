@@ -17,7 +17,7 @@ class LocalePicker extends ConsumerWidget {
         children: [
           Text(
             AppLocalizations.of(context)!.language,
-            style: Theme.of(context).textTheme.titleMedium,
+            style: TextTheme.of(context).titleMedium,
           ),
           DropdownButton<String>(
             value: locale.languageCode,

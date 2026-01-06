@@ -1,20 +1,18 @@
 import 'dart:io';
 
-import 'package:recipath/providers/application_path_provider.dart';
 import 'package:recipath/widgets/providers/supabase/supabase_client_notifier.dart';
+import 'package:recipath/widgets/screens/recipe_screen/providers/local_file_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'file_notifier.g.dart';
+part 'bucket_file_notifier.g.dart';
 
 @riverpod
-Future<File> localFile(
+Future<File> bucketFileNotifier(
   Ref ref, {
   required String bucket,
   required String fileName,
 }) async {
-  final applicationPath = ref.watch(applicationPathProvider);
-
-  final file = File("${applicationPath.path}/$fileName");
+  final file = ref.watch(localFileProvider(fileName));
 
   if (!(await file.exists())) {
     final supabaseClient = ref.watch(supabaseClientProvider);

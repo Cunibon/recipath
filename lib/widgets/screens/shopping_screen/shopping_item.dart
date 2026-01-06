@@ -106,10 +106,10 @@ class ShoppingItem extends ConsumerWidget {
                   style:
                       ref.watch(storageModeProvider) &&
                           (storageData?.amount ?? 0) >= data.ingredient.amount
-                      ? Theme.of(
+                      ? TextTheme.of(
                           context,
-                        ).textTheme.bodyLarge?.copyWith(color: Colors.green)
-                      : Theme.of(context).textTheme.bodyLarge,
+                        ).bodyLarge?.copyWith(color: Colors.green)
+                      : TextTheme.of(context).bodyLarge,
                 ),
               ),
               IconButton(

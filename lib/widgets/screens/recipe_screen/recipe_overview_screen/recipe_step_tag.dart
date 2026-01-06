@@ -37,7 +37,7 @@ class RecipeStepTag extends ConsumerWidget {
               Icon(isDone ? Icons.check_box : Icons.check_box_outline_blank),
             Text(
               "${AppLocalizations.of(context)!.step} ${index + 1}:",
-              style: Theme.of(context).textTheme.titleLarge,
+              style: TextTheme.of(context).titleLarge,
             ),
           ],
         ),

@@ -64,6 +64,25 @@ class AppLocalizationsFr extends AppLocalizations {
       'Voulez-vous vraiment effacer tous les éléments ?\nIl n\'y a aucun moyen de les récupérer.';
 
   @override
+  String get recipeImportInfo =>
+      'Veuillez sélectionner les recettes que vous souhaitez importer.';
+
+  @override
+  String get groceryImportInfo =>
+      'Associez les ingrédients importés à vos ingrédients existants ou laissez-les non associés pour en créer de nouveaux.';
+
+  @override
+  String get missingMapping => 'Association manquante';
+
+  @override
+  String missingMappingContent(int count) {
+    return 'Les éléments non associés créeront $count nouveaux ingrédients.';
+  }
+
+  @override
+  String get select => 'Sélectionner';
+
+  @override
   String get yes => 'Oui';
 
   @override
@@ -101,7 +120,16 @@ class AppLocalizationsFr extends AppLocalizations {
   String get finishShoppingPlanning => 'Terminer la planification des achats';
 
   @override
-  String get finishShoppingInfo => 'Ces recettes ont été ajoutées:';
+  String get cancelExport => 'Annuler l\'exportation';
+
+  @override
+  String get cancelExportContent => 'Souhaitez-vous annuler l\'exportation ?';
+
+  @override
+  String get finishExport => 'Finaliser l\'exportation';
+
+  @override
+  String get theseRecipesHaveBeenAdded => 'Ces recettes ont été ajoutées:';
 
   @override
   String get leaveThisPage => 'Êtes-vous sûr de vouloir quitter cette page ?';
@@ -306,6 +334,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get importData => 'Importer des données';
 
   @override
+  String get selectFileToImport => 'Sélectionnez un fichier à importer.';
+
+  @override
   String get exportData => 'Exporter des données';
 
   @override
@@ -421,4 +452,7 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get somethingUnexpected =>
       'Oups, quelque chose d\'inattendu s\'est produit';
+
+  @override
+  String get selectOne => 'Veuillez sélectionner au moins un élément';
 }

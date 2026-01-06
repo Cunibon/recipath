@@ -31,7 +31,7 @@ class RecipeChart extends ConsumerWidget {
             children: [
               Text(
                 AppLocalizations.of(context)!.recipeUsage,
-                style: Theme.of(context).textTheme.titleLarge,
+                style: TextTheme.of(context).titleLarge,
               ),
               Icon(
                 expanded

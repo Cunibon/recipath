@@ -13,7 +13,7 @@ class RecipeItemHistoryScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final localization = AppLocalizations.of(context)!;
-    final dateTheme = Theme.of(context).textTheme.titleLarge;
+    final dateTheme = TextTheme.of(context).titleLarge;
 
     final asyncData = ref.watch(recipeItemHistoryScreenProvider(recipeId));
 
@@ -21,7 +21,7 @@ class RecipeItemHistoryScreen extends ConsumerWidget {
       appBar: AppBar(
         title: Text(
           localization.cookingHistory,
-          style: Theme.of(context).textTheme.titleLarge,
+          style: TextTheme.of(context).titleLarge,
         ),
       ),
       body: CachedAsyncValueWrapper(

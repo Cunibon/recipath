@@ -15,7 +15,7 @@ class SettingSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: Theme.of(context).textTheme.titleLarge),
+        Text(title, style: TextTheme.of(context).titleLarge),
         Divider(),
         Card(
           child: Padding(

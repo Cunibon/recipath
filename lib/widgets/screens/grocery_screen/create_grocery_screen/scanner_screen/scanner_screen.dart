@@ -50,7 +50,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
       appBar: AppBar(
         title: Text(
           localization.scanGrocery,
-          style: Theme.of(context).textTheme.titleLarge,
+          style: TextTheme.of(context).titleLarge,
         ),
         actions: [
           TextButton(

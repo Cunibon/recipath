@@ -40,7 +40,7 @@ class HistoryRecipeItem extends ConsumerWidget {
                       Flexible(
                         child: Text(
                           data.recipeData.title.trim(),
-                          style: Theme.of(context).textTheme.titleMedium!,
+                          style: TextTheme.of(context).titleMedium!,
                         ),
                       ),
                       Text(timeFormat.format(data.date)),
@@ -54,6 +54,8 @@ class HistoryRecipeItem extends ConsumerWidget {
                     asyncState: ref.watch(groceryProvider),
                     builder: (groceryData) => CompactIngredientView(
                       ingredients: data.recipeData.getIngredients(groceryData),
+                      storageData: {},
+                      groceryMap: groceryData,
                     ),
                   ),
                 ],

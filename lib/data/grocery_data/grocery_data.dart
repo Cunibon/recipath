@@ -79,8 +79,13 @@ extension GroceryDataFunctions on GroceryData {
     final unitType = UnitConversion.unitType(unit);
     final otherUnitType = UnitConversion.unitType(otherUnit);
 
-    if (unitType == UnitType.misc || otherUnitType == UnitType.misc) {
+    if (unit == otherUnit) {
       return value;
+    }
+
+    if (unitType == UnitType.misc || otherUnitType == UnitType.misc) {
+      final grams = convertToGram(value, otherUnit);
+      return UnitConversion.convert(grams, UnitEnum.g, unit);
     }
 
     if (unitType == otherUnitType) {
@@ -92,24 +97,29 @@ extension GroceryDataFunctions on GroceryData {
   }
 
   double convertToGram(double value, UnitEnum otherUnit) {
-    final baseValue = convertFromTo(value, otherUnit, UnitEnum.g);
     final otherUnitType = UnitConversion.unitType(otherUnit);
 
     if (otherUnitType == UnitType.misc) {
       return (value / normalAmount) * conversionAmount;
-    } else {
-      return baseValue;
     }
+    return convertFromTo(value, otherUnit, UnitEnum.g);
   }
 
   double convertFromTo(double value, UnitEnum startUnit, UnitEnum newUnit) {
+    if (startUnit == newUnit) {
+      return value;
+    }
+
     final startUnitType = UnitConversion.unitType(startUnit);
     final newUnitType = UnitConversion.unitType(newUnit);
     final conversionUnitType = UnitConversion.unitType(conversionUnit);
 
     if (startUnitType == UnitType.misc || newUnitType == UnitType.misc) {
-      return value;
-    } else if (newUnitType == startUnitType) {
+      final grams = convertToGram(value, startUnit);
+      return UnitConversion.convert(grams, UnitEnum.g, newUnit);
+    }
+
+    if (newUnitType == startUnitType) {
       return UnitConversion.convert(value, startUnit, newUnit);
     } else if (startUnitType == conversionUnitType) {
       return UnitConversion.convert(
@@ -126,6 +136,22 @@ extension GroceryDataFunctions on GroceryData {
         newUnit,
       );
     }
+  }
+
+  bool isUnitAllowed(UnitEnum otherUnit) {
+    final unitType = UnitConversion.unitType(otherUnit);
+    final groceryUnitType = UnitConversion.unitType(unit);
+    final conversionUnitType = UnitConversion.unitType(conversionUnit);
+
+    if (groceryUnitType == UnitType.misc) {
+      return unitType == UnitType.misc;
+    }
+
+    if (unitType == UnitType.misc) {
+      return false;
+    }
+
+    return unitType == groceryUnitType || unitType == conversionUnitType;
   }
 
   Map<Nutriments, double?> getNutrients() => {

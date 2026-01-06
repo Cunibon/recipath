@@ -44,5 +44,6 @@ List<List<DrawerDestination>> drawerDestinations(Ref ref) => [
       route: RootRoutes.settingsRoute.path,
       icon: Icons.settings,
     ),
+    DrawerDestination(route: RootRoutes.importRoute.path, icon: Icons.download),
   ],
 ];

@@ -198,6 +198,36 @@ abstract class AppLocalizations {
   /// **'Do you really want clear all items?\nThere is no way to get them back.'**
   String get clearAllContent;
 
+  /// No description provided for @recipeImportInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select the recipes you want to import.'**
+  String get recipeImportInfo;
+
+  /// No description provided for @groceryImportInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Please map the imported groceries to your existing groceries, or leave them unmapped to create new ones.'**
+  String get groceryImportInfo;
+
+  /// No description provided for @missingMapping.
+  ///
+  /// In en, this message translates to:
+  /// **'Missing mapping'**
+  String get missingMapping;
+
+  /// No description provided for @missingMappingContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Unmapped items will create {count} new groceries.'**
+  String missingMappingContent(int count);
+
+  /// No description provided for @select.
+  ///
+  /// In en, this message translates to:
+  /// **'Select'**
+  String get select;
+
   /// No description provided for @yes.
   ///
   /// In en, this message translates to:
@@ -270,11 +300,29 @@ abstract class AppLocalizations {
   /// **'Finish shopping planning'**
   String get finishShoppingPlanning;
 
-  /// No description provided for @finishShoppingInfo.
+  /// No description provided for @cancelExport.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel export'**
+  String get cancelExport;
+
+  /// No description provided for @cancelExportContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to cancel your export?'**
+  String get cancelExportContent;
+
+  /// No description provided for @finishExport.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish export'**
+  String get finishExport;
+
+  /// No description provided for @theseRecipesHaveBeenAdded.
   ///
   /// In en, this message translates to:
   /// **'These recipes have been added:'**
-  String get finishShoppingInfo;
+  String get theseRecipesHaveBeenAdded;
 
   /// No description provided for @leaveThisPage.
   ///
@@ -660,6 +708,12 @@ abstract class AppLocalizations {
   /// **'Import data'**
   String get importData;
 
+  /// No description provided for @selectFileToImport.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a file to import.'**
+  String get selectFileToImport;
+
   /// No description provided for @exportData.
   ///
   /// In en, this message translates to:
@@ -887,6 +941,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Oops, something unexpected happened'**
   String get somethingUnexpected;
+
+  /// No description provided for @selectOne.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select at least one item'**
+  String get selectOne;
 }
 
 class _AppLocalizationsDelegate

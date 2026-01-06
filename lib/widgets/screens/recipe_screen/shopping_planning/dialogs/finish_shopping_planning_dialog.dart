@@ -19,7 +19,7 @@ class FinishShoppingPlanningDialog extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              localization.finishShoppingInfo,
+              localization.theseRecipesHaveBeenAdded,
               style: TextTheme.of(context).bodyLarge,
             ),
             for (final entry in shoppingPlan.entries)

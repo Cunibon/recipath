@@ -56,7 +56,7 @@ class _ChangeTagDialogState extends ConsumerState<ChangeTagDialog> {
                         padding: const EdgeInsets.symmetric(horizontal: 12),
                         child: Text(
                           selected.length.toString(),
-                          style: Theme.of(context).textTheme.titleLarge,
+                          style: TextTheme.of(context).titleLarge,
                         ),
                       )
                     : null,

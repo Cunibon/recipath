@@ -54,7 +54,7 @@ class IngredientItem extends ConsumerWidget {
             Expanded(
               child: HighlightableText(
                 "${unitLocalized[data.unit]} ${grocery.name}",
-                style: style ?? Theme.of(context).textTheme.bodyLarge,
+                style: style ?? TextTheme.of(context).bodyLarge,
               ),
             ),
           ],

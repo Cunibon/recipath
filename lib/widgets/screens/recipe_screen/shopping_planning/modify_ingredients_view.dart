@@ -53,9 +53,9 @@ class ModifyIngredientsView extends ConsumerWidget {
             return IngredientItem(
               data: item,
               style: inStorage
-                  ? Theme.of(
+                  ? TextTheme.of(
                       context,
-                    ).textTheme.bodyLarge?.copyWith(color: Colors.green[600])
+                    ).bodyLarge?.copyWith(color: Colors.green[600])
                   : null,
               onChanged: (value) {
                 final parsed = doubleNumberFormat.tryParse(value);
