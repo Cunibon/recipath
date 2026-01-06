@@ -16,7 +16,9 @@ class FinishExport extends ConsumerWidget {
         );
 
         if (result == true) {
-          ref.read(exportProvider.notifier).export();
+          final notifier = ref.read(exportProvider.notifier);
+          await notifier.export();
+          notifier.clear();
         }
       },
       icon: Icon(Icons.done),

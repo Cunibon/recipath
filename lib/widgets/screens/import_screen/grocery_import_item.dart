@@ -25,6 +25,8 @@ class GroceryImportItem extends ConsumerWidget {
 
     final unitLocalized = localizeUnits(context);
 
+    final colorSchema = ColorScheme.of(context);
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
@@ -48,6 +50,9 @@ class GroceryImportItem extends ConsumerWidget {
             child: GestureDetector(
               onTap: onTap,
               child: Card(
+                color: original == current
+                    ? colorSchema.primaryContainer
+                    : null,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
@@ -58,7 +63,10 @@ class GroceryImportItem extends ConsumerWidget {
                           children: [
                             Text(
                               current.name,
-                              style: TextTheme.of(context).titleMedium,
+                              style: TextTheme.of(context).titleMedium
+                                  ?.copyWith(
+                                    color: colorSchema.onPrimaryContainer,
+                                  ),
                             ),
                             Text(
                               "${doubleNumberFormat.format(current.normalAmount)}${unitLocalized[current.unit]}",

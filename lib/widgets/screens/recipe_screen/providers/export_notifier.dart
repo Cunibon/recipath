@@ -5,6 +5,7 @@ import 'package:recipath/data/recipe_data/recipe_data.dart';
 import 'package:recipath/providers/app_localizations_notifier.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/recipe_notifier.dart';
+import 'package:recipath/widgets/screens/recipe_screen/providers/recipe_screen_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -15,7 +16,9 @@ class ExportNotifier extends _$ExportNotifier {
   @override
   List<String>? build() => null;
 
-  void start() => state = [];
+  Future<void> start() async => state = (await ref.read(
+    recipeScreenProvider.future,
+  )).recipe.map((e) => e.recipeData.id).toList();
 
   void toggleRecipe(RecipeData data) {
     final stateCopy = List<String>.from(state ?? []);

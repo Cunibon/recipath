@@ -8,7 +8,7 @@ class InfoText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 4),
+      padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
         spacing: 8,
         crossAxisAlignment: .start,

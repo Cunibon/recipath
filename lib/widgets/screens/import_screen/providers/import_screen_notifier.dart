@@ -9,6 +9,7 @@ import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/ingredient_data/ingredient_data.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
 import 'package:recipath/data/unit_enum.dart';
+import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 import 'package:recipath/widgets/screens/import_screen/data/import_screen_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -59,8 +60,12 @@ class ImportScreenNotifier extends _$ImportScreenNotifier {
     );
   }
 
-  void calculateGroceries() {
+  Future<void> calculateGroceries() async {
     final currentState = state.value!;
+
+    final localGroceryNameLookup = (await ref.read(
+      groceryProvider.future,
+    )).map((key, value) => MapEntry(value.name.trim().toLowerCase(), value));
 
     final groceryIds = currentState.importRecipe
         .expand(
@@ -68,11 +73,16 @@ class ImportScreenNotifier extends _$ImportScreenNotifier {
         )
         .map((e) => e.groceryId)
         .toSet();
-    final groceries = {
-      for (final groceryId in groceryIds)
-        if (currentState.originalGrocery.containsKey(groceryId))
-          groceryId: currentState.originalGrocery[groceryId]!,
-    };
+    final groceries = <String, GroceryData>{};
+
+    for (final groceryId in groceryIds) {
+      if (currentState.originalGrocery.containsKey(groceryId)) {
+        final importGrocery = currentState.originalGrocery[groceryId]!;
+        groceries[groceryId] =
+            localGroceryNameLookup[importGrocery.name.trim().toLowerCase()] ??
+            importGrocery;
+      }
+    }
 
     state = AsyncValue.data(
       currentState.copyWith(importGroceryLookup: groceries),
