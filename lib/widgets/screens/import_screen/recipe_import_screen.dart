@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
+import 'package:recipath/widgets/generic/info_text.dart';
 import 'package:recipath/widgets/screens/import_screen/import_routes.dart';
 import 'package:recipath/widgets/screens/import_screen/providers/import_screen_notifier.dart';
 import 'package:recipath/widgets/screens/import_screen/recipe_import.dart';
@@ -48,11 +49,7 @@ class RecipeImportScreen extends ConsumerWidget {
           builder: (data) => Column(
             crossAxisAlignment: .start,
             children: [
-              Text(
-                localization.recipeImportInfo,
-                style: TextTheme.of(context).bodyLarge,
-              ),
-              Divider(),
+              InfoText(text: localization.recipeImportInfo),
               Expanded(child: RecipeImport(data: data)),
             ],
           ),
