@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/unit_enum.dart';
+import 'package:recipath/helper/go_router_extension.dart';
 import 'package:recipath/l10n/app_localizations.dart';
-import 'package:recipath/root_routes.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
+import 'package:recipath/widgets/generic/empty_state.dart';
 import 'package:recipath/widgets/generic/searchable_list.dart';
 import 'package:recipath/widgets/navigation/default_navigation_title.dart';
 import 'package:recipath/widgets/navigation/navigation_drawer_scaffold.dart';
@@ -20,6 +20,7 @@ class GroceryScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncData = ref.watch(groceryProvider);
+    final localization = AppLocalizations.of(context)!;
     final unitLocalized = localizeUnits(context);
 
     final doubleNumberFormat = ref.watch(doubleNumberFormatProvider);
@@ -33,24 +34,28 @@ class GroceryScreen extends ConsumerWidget {
             : SyncState.synced,
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => context.go(
-          "${RootRoutes.groceriesRoute.path}/${GroceryRoutes.createGrocery.path}",
-        ),
+        onPressed: () => context.goRelative(GroceryRoutes.createGrocery.path),
         child: Icon(Icons.add),
       ),
       body: CachedAsyncValueWrapper(
         asyncState: asyncData,
         builder: (data) {
-          return SearchableList(
-            name: AppLocalizations.of(context)!.grocery,
-            items: data.values.toList(),
-            toSearchable: (item) => item.toReadable(
-              unitLocalized: unitLocalized,
-              doubleNumberFormat: doubleNumberFormat,
-            ),
-            toWidget: (item) => GroceryItem(data: item),
-            sort: (a, b) => a.name.compareTo(b.name),
-          );
+          return data.values.isEmpty
+              ? EmptyState(
+                  hint: localization.createGroceryHint,
+                  onTap: () =>
+                      context.goRelative(GroceryRoutes.createGrocery.path),
+                )
+              : SearchableList(
+                  name: AppLocalizations.of(context)!.grocery,
+                  items: data.values.toList(),
+                  toSearchable: (item) => item.toReadable(
+                    unitLocalized: unitLocalized,
+                    doubleNumberFormat: doubleNumberFormat,
+                  ),
+                  toWidget: (item) => GroceryItem(data: item),
+                  sort: (a, b) => a.name.compareTo(b.name),
+                );
         },
       ),
     );

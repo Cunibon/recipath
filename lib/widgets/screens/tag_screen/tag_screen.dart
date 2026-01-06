@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+import 'package:recipath/helper/go_router_extension.dart';
 import 'package:recipath/l10n/app_localizations.dart';
-import 'package:recipath/root_routes.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
+import 'package:recipath/widgets/generic/empty_state.dart';
 import 'package:recipath/widgets/generic/searchable_list.dart';
 import 'package:recipath/widgets/navigation/default_navigation_title.dart';
 import 'package:recipath/widgets/navigation/navigation_drawer_scaffold.dart';
@@ -28,20 +28,25 @@ class TagScreen extends ConsumerWidget {
             : SyncState.synced,
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => context.go(
-          "${RootRoutes.tagRoute.path}/${TagRoutes.createTag.path}",
-        ),
+        onPressed: () => context.goRelative(TagRoutes.createTag.path),
         child: Icon(Icons.add),
       ),
       body: CachedAsyncValueWrapper(
         asyncState: state,
-        builder: (data) => SearchableList(
-          name: localization.items,
-          items: data.values.toList(),
-          toSearchable: (item) => "${item.name} ${item.description}",
-          toWidget: (item) => TagItem(data: item),
-          sort: (a, b) => a.name.compareTo(b.name),
-        ),
+        builder: (data) => data.values.isEmpty
+            ? Center(
+                child: EmptyState(
+                  hint: localization.createTagHint,
+                  onTap: () => context.goRelative(TagRoutes.createTag.path),
+                ),
+              )
+            : SearchableList(
+                name: localization.items,
+                items: data.values.toList(),
+                toSearchable: (item) => "${item.name} ${item.description}",
+                toWidget: (item) => TagItem(data: item),
+                sort: (a, b) => a.name.compareTo(b.name),
+              ),
       ),
     );
   }

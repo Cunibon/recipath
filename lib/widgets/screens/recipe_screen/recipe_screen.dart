@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-import 'package:recipath/root_routes.dart';
+import 'package:recipath/helper/go_router_extension.dart';
+import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
+import 'package:recipath/widgets/generic/empty_state.dart';
 import 'package:recipath/widgets/navigation/default_navigation_title.dart';
 import 'package:recipath/widgets/navigation/navigation_drawer_scaffold.dart';
 import 'package:recipath/widgets/screens/recipe_screen/export/cancel_export.dart';
@@ -20,6 +21,8 @@ class RecipeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final localization = AppLocalizations.of(context)!;
+
     final screenState = ref.watch(recipeScreenProvider);
     final shoppingPlan = ref.watch(shoppingPlanningProvider);
     final export = ref.watch(exportProvider);
@@ -53,14 +56,17 @@ class RecipeScreen extends ConsumerWidget {
         ],
       ],
       floatingActionButton: FloatingActionButton(
-        onPressed: () => context.go(
-          "${RootRoutes.recipeRoute.path}/${RecipeRoutes.createRecipe.path}",
-        ),
+        onPressed: () => context.goRelative(RecipeRoutes.createRecipe.path),
         child: Icon(Icons.add),
       ),
       body: CachedAsyncValueWrapper(
         asyncState: screenState,
-        builder: (data) => RecipeSearchView(data: data),
+        builder: (data) => data.recipe.isEmpty
+            ? EmptyState(
+                hint: localization.createRecipeHint,
+                onTap: () => context.goRelative(RecipeRoutes.createRecipe.path),
+              )
+            : RecipeSearchView(data: data),
       ),
     );
   }

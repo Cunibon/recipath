@@ -191,6 +191,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get createGrocery => 'Lebensmittel erstellen';
 
   @override
+  String get createTag => 'Tag erstellen';
+
+  @override
   String get save => 'Speichern';
 
   @override
@@ -435,7 +438,31 @@ class AppLocalizationsDe extends AppLocalizations {
   String get nothingToSee => 'Nichts zu sehen';
 
   @override
-  String get cookRecipeForData => 'Koche ein Rezept, um Daten hinzuzufügen';
+  String get cookRecipeForDataHint =>
+      'Koche ein Rezept, um mit der Datenerfassung zu beginnen';
+
+  @override
+  String get shopRecipeForDataHint =>
+      'Kaufe ein Rezept, um mit der Datenerfassung zu beginnen';
+
+  @override
+  String get createRecipeHint =>
+      'Erstelle oder importiere ein Rezept, um loszulegen';
+
+  @override
+  String get shoppingHint =>
+      'Nutze den Einkaufsmodus auf der Rezepte-Seite oder füge einzelne Zutaten hinzu';
+
+  @override
+  String get createGroceryHint =>
+      'Erstelle oder importiere Zutaten für deine Rezepte';
+
+  @override
+  String get storageHint => 'Kaufe Zutaten, um sie deinem Vorrat hinzuzufügen';
+
+  @override
+  String get createTagHint =>
+      'Erstelle Tags, um deine Rezepte zu organisieren und zu filtern';
 
   @override
   String get goPro => 'Go Pro';

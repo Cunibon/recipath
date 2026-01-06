@@ -31,10 +31,8 @@ class RecipeItemHistoryScreen extends ConsumerWidget {
           final entries = data.entries.toList();
 
           if (entries.isEmpty) {
-            return Center(
-              child: EmptyState(
-                hint: AppLocalizations.of(context)!.cookRecipeForData,
-              ),
+            return EmptyState(
+              hint: AppLocalizations.of(context)!.cookRecipeForDataHint,
             );
           }
 

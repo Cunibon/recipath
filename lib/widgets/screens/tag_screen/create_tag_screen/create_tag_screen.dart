@@ -64,7 +64,7 @@ class _CreateTagScreenState extends ConsumerState<CreateTagScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            localization.createGrocery,
+            localization.createTag,
             style: TextTheme.of(context).titleLarge,
           ),
         ),

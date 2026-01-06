@@ -2,7 +2,9 @@ import 'dart:math';
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:recipath/l10n/app_localizations.dart';
+import 'package:recipath/root_routes.dart';
 import 'package:recipath/widgets/generic/empty_state.dart';
 import 'package:recipath/widgets/screens/dashboard_screen/charts/chart_entry.dart';
 
@@ -90,10 +92,9 @@ class BaseChart extends StatelessWidget {
                   ),
                 ),
                 if (state.entries.isEmpty)
-                  Center(
-                    child: EmptyState(
-                      hint: AppLocalizations.of(context)!.cookRecipeForData,
-                    ),
+                  EmptyState(
+                    hint: AppLocalizations.of(context)!.cookRecipeForDataHint,
+                    onTap: () => context.go(RootRoutes.recipeRoute.path),
                   ),
               ],
             ),

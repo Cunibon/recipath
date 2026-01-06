@@ -189,6 +189,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get createGrocery => 'Create grocery';
 
   @override
+  String get createTag => 'Create tag';
+
+  @override
   String get save => 'Save';
 
   @override
@@ -432,7 +435,28 @@ class AppLocalizationsEn extends AppLocalizations {
   String get nothingToSee => 'Nothing to see';
 
   @override
-  String get cookRecipeForData => 'Cook a recipe to add data';
+  String get cookRecipeForDataHint => 'Cook a recipe to start tracking data';
+
+  @override
+  String get shopRecipeForDataHint =>
+      'Shop for a recipe to start tracking data';
+
+  @override
+  String get createRecipeHint => 'Create or import a recipe to get started';
+
+  @override
+  String get shoppingHint =>
+      'Use shopping mode on the Recipes page or add individual groceries';
+
+  @override
+  String get createGroceryHint =>
+      'Create or import groceries to use in your recipes';
+
+  @override
+  String get storageHint => 'Shop for groceries to add them to your storage';
+
+  @override
+  String get createTagHint => 'Create tags to organize and filter your recipes';
 
   @override
   String get goPro => 'Go Pro';

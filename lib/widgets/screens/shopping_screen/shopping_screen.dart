@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:recipath/application/shopping_modifier/shopping_modifier_notifier.dart';
 import 'package:recipath/data/ingredient_data/ingredient_data.dart';
 import 'package:recipath/data/shopping_data/shopping_data.dart';
 import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/l10n/app_localizations.dart';
+import 'package:recipath/root_routes.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/generic/dialogs/clear_confirmation_dialog.dart';
+import 'package:recipath/widgets/generic/empty_state.dart';
 import 'package:recipath/widgets/generic/searchable_list.dart';
 import 'package:recipath/widgets/navigation/default_navigation_title.dart';
 import 'package:recipath/widgets/navigation/navigation_drawer_scaffold.dart';
@@ -87,30 +90,37 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
       ),
       body: CachedAsyncValueWrapper(
         asyncState: screenState,
-        builder: (data) => SearchableList(
-          searchController: searchController,
-          name: localization.items,
-          items: data.shoppingData.values.toList(),
-          toSearchable: (item) => item.toReadable(
-            grocery: data.groceryMap[item.ingredient.groceryId]!,
-            unitLocalized: unitLocalized,
-            doubleNumberFormat: doubleNumberFormat,
-          ),
-          toWidget: (item) => ShoppingItem(
-            key: Key("${item.id} ${item.count}"),
-            data: item,
-            storageData: data.storage[item.ingredient.groceryId]?.ingredient,
-          ),
-          sort: (a, b) {
-            if (a.done == b.done) {
-              return data.groceryMap[a.ingredient.groceryId]!.name.compareTo(
-                data.groceryMap[b.ingredient.groceryId]!.name,
-              );
-            } else {
-              return a.done ? 1 : -1;
-            }
-          },
-        ),
+        builder: (data) => data.shoppingData.values.isEmpty
+            ? EmptyState(
+                hint: localization.shoppingHint,
+                onTap: () => context.go(RootRoutes.recipeRoute.path),
+              )
+            : SearchableList(
+                searchController: searchController,
+                name: localization.items,
+                items: data.shoppingData.values.toList(),
+                toSearchable: (item) => item.toReadable(
+                  grocery: data.groceryMap[item.ingredient.groceryId]!,
+                  unitLocalized: unitLocalized,
+                  doubleNumberFormat: doubleNumberFormat,
+                ),
+                toWidget: (item) => ShoppingItem(
+                  key: Key("${item.id} ${item.count}"),
+                  data: item,
+                  storageData:
+                      data.storage[item.ingredient.groceryId]?.ingredient,
+                ),
+                sort: (a, b) {
+                  if (a.done == b.done) {
+                    return data.groceryMap[a.ingredient.groceryId]!.name
+                        .compareTo(
+                          data.groceryMap[b.ingredient.groceryId]!.name,
+                        );
+                  } else {
+                    return a.done ? 1 : -1;
+                  }
+                },
+              ),
       ),
     );
   }

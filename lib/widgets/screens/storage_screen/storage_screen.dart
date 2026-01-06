@@ -6,6 +6,7 @@ import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/generic/dialogs/clear_confirmation_dialog.dart';
+import 'package:recipath/widgets/generic/empty_state.dart';
 import 'package:recipath/widgets/generic/searchable_list.dart';
 import 'package:recipath/widgets/navigation/default_navigation_title.dart';
 import 'package:recipath/widgets/navigation/navigation_drawer_scaffold.dart';
@@ -58,22 +59,24 @@ class _StorageScreenState extends ConsumerState<StorageScreen> {
       ],
       body: CachedAsyncValueWrapper(
         asyncState: screenState,
-        builder: (data) => SearchableList(
-          listViewPadding: EdgeInsets.only(bottom: 12),
-          name: localization.items,
-          items: data.storageData,
-          toSearchable: (item) => item.ingredient.toReadable(
-            grocery: data.groceries[item.ingredient.groceryId]!,
-            unitLocalized: unitLocalized,
-            doubleNumberFormat: doubleNumberFormat,
-          ),
-          toWidget: (item) => StorageItem(
-            key: Key("${item.id} ${item.ingredient.amount}"),
-            data: item,
-          ),
-          sort: (a, b) => data.groceries[a.ingredient.groceryId]!.name
-              .compareTo(data.groceries[b.ingredient.groceryId]!.name),
-        ),
+        builder: (data) => data.storageData.isEmpty
+            ? EmptyState(hint: localization.storageHint)
+            : SearchableList(
+                listViewPadding: EdgeInsets.only(bottom: 12),
+                name: localization.items,
+                items: data.storageData,
+                toSearchable: (item) => item.ingredient.toReadable(
+                  grocery: data.groceries[item.ingredient.groceryId]!,
+                  unitLocalized: unitLocalized,
+                  doubleNumberFormat: doubleNumberFormat,
+                ),
+                toWidget: (item) => StorageItem(
+                  key: Key("${item.id} ${item.ingredient.amount}"),
+                  data: item,
+                ),
+                sort: (a, b) => data.groceries[a.ingredient.groceryId]!.name
+                    .compareTo(data.groceries[b.ingredient.groceryId]!.name),
+              ),
       ),
     );
   }

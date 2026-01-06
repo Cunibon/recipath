@@ -2,31 +2,42 @@ import 'package:flutter/material.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 
 class EmptyState extends StatelessWidget {
-  const EmptyState({this.iconSize = 50, this.hint, super.key});
+  const EmptyState({this.iconSize = 50, this.hint, this.onTap, super.key});
 
   final double iconSize;
   final String? hint;
+
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(Icons.block, size: iconSize),
-        Text(
-          AppLocalizations.of(context)!.nothingToSee,
-          style: theme.textTheme.bodyLarge,
-        ),
-        if (hint != null)
-          Flexible(
-            child: Text(
-              "($hint)",
-              style: TextStyle(color: theme.colorScheme.primary),
-            ),
+    return Center(
+      child: GestureDetector(
+        onTap: onTap,
+        child: ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: 300),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.block, size: iconSize),
+              Text(
+                AppLocalizations.of(context)!.nothingToSee,
+                style: theme.textTheme.bodyLarge,
+              ),
+              if (hint != null)
+                Flexible(
+                  child: Text(
+                    hint!,
+                    style: TextStyle(color: theme.colorScheme.primary),
+                    textAlign: .center,
+                  ),
+                ),
+            ],
           ),
-      ],
+        ),
+      ),
     );
   }
 }

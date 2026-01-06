@@ -438,6 +438,12 @@ abstract class AppLocalizations {
   /// **'Create grocery'**
   String get createGrocery;
 
+  /// No description provided for @createTag.
+  ///
+  /// In en, this message translates to:
+  /// **'Create tag'**
+  String get createTag;
+
   /// No description provided for @save.
   ///
   /// In en, this message translates to:
@@ -912,11 +918,47 @@ abstract class AppLocalizations {
   /// **'Nothing to see'**
   String get nothingToSee;
 
-  /// No description provided for @cookRecipeForData.
+  /// No description provided for @cookRecipeForDataHint.
   ///
   /// In en, this message translates to:
-  /// **'Cook a recipe to add data'**
-  String get cookRecipeForData;
+  /// **'Cook a recipe to start tracking data'**
+  String get cookRecipeForDataHint;
+
+  /// No description provided for @shopRecipeForDataHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Shop for a recipe to start tracking data'**
+  String get shopRecipeForDataHint;
+
+  /// No description provided for @createRecipeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Create or import a recipe to get started'**
+  String get createRecipeHint;
+
+  /// No description provided for @shoppingHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Use shopping mode on the Recipes page or add individual groceries'**
+  String get shoppingHint;
+
+  /// No description provided for @createGroceryHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Create or import groceries to use in your recipes'**
+  String get createGroceryHint;
+
+  /// No description provided for @storageHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Shop for groceries to add them to your storage'**
+  String get storageHint;
+
+  /// No description provided for @createTagHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Create tags to organize and filter your recipes'**
+  String get createTagHint;
 
   /// No description provided for @goPro.
   ///
