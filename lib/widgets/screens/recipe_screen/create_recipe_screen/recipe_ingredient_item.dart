@@ -104,7 +104,7 @@ class _IngredientItemState extends ConsumerState<RecipeIngredientItem> {
                   width: double.infinity,
                   child: Text(
                     unitLocalized[widget.data.unit]!,
-                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    style: TextTheme.of(context).bodyLarge!.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -148,7 +148,7 @@ class _IngredientItemState extends ConsumerState<RecipeIngredientItem> {
           flex: 5,
           child: Text(
             grocery.name,
-            style: Theme.of(context).textTheme.bodyLarge,
+            style: TextTheme.of(context).bodyLarge,
             overflow: TextOverflow.ellipsis,
           ),
         ),

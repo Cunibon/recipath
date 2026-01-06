@@ -18,7 +18,7 @@ class DefaultNavigationTitle extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Row(
       children: [
-        Text(title, style: Theme.of(context).textTheme.titleLarge),
+        Text(title, style: TextTheme.of(context).titleLarge),
         if (ref.watch(supabaseUserProvider) != null)
           if (syncState == SyncState.unsynced) SyncStateButton(),
       ],

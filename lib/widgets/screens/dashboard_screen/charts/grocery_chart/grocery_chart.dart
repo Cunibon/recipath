@@ -28,7 +28,7 @@ class GroceryChart extends ConsumerWidget {
             children: [
               Text(
                 AppLocalizations.of(context)!.groceryUsage,
-                style: Theme.of(context).textTheme.titleLarge,
+                style: TextTheme.of(context).titleLarge,
               ),
               Icon(
                 expanded

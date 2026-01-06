@@ -2,18 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/generic/dialogs/two_option_dialog.dart';
-import 'package:recipath/widgets/screens/recipe_screen/providers/shopping_planning_notifier.dart';
+import 'package:recipath/widgets/screens/recipe_screen/providers/export_notifier.dart';
+import 'package:recipath/widgets/screens/recipe_screen/providers/recipe_notifier.dart';
 
-class FinishShoppingPlanningDialog extends ConsumerWidget {
-  const FinishShoppingPlanningDialog({super.key});
+class FinishExportDialog extends ConsumerWidget {
+  const FinishExportDialog({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final localization = AppLocalizations.of(context)!;
-    final shoppingPlan = ref.read(shoppingPlanningProvider)!;
+    final recipeMap = ref.watch(recipeProvider).value;
+    final export = ref.watch(exportProvider)!;
+
+    final recipes = export.map((e) => recipeMap?[e]).nonNulls;
 
     return TwoOptionDialog(
-      title: localization.finishShoppingPlanning,
+      title: localization.finishExport,
       content: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -22,8 +26,7 @@ class FinishShoppingPlanningDialog extends ConsumerWidget {
               localization.theseRecipesHaveBeenAdded,
               style: TextTheme.of(context).bodyLarge,
             ),
-            for (final entry in shoppingPlan.entries)
-              Text("● ${entry.value} ${entry.key.title}"),
+            for (final recipe in recipes) Text("● ${recipe.title}"),
           ],
         ),
       ),

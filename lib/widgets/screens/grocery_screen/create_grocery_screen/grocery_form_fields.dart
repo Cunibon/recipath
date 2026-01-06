@@ -156,7 +156,7 @@ class GroceryFormFields extends ConsumerWidget {
                 ),
               ),
               SizedBox(width: 8),
-              Text("=", style: Theme.of(context).textTheme.titleLarge),
+              Text("=", style: TextTheme.of(context).titleLarge),
               SizedBox(width: 8),
               Flexible(
                 flex: 3,
@@ -185,7 +185,7 @@ class GroceryFormFields extends ConsumerWidget {
                 child: unitType == UnitType.misc
                     ? Text(
                         "g",
-                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        style: TextTheme.of(context).bodyLarge!.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
                       )

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:recipath/l10n/app_localizations.dart';
-import 'package:recipath/root_routes.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/screens/import_screen/import_routes.dart';
 import 'package:recipath/widgets/screens/import_screen/providers/import_screen_notifier.dart';
@@ -22,10 +21,7 @@ class RecipeImportScreen extends ConsumerWidget {
       appBar: AppBar(
         title: Text(
           localization.importData,
-          style: Theme.of(context).textTheme.titleLarge,
-        ),
-        leading: BackButton(
-          onPressed: () => context.go(RootRoutes.recipeRoute.path),
+          style: TextTheme.of(context).titleLarge,
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -49,7 +45,17 @@ class RecipeImportScreen extends ConsumerWidget {
         padding: const EdgeInsets.symmetric(horizontal: 8),
         child: CachedAsyncValueWrapper(
           asyncState: state,
-          builder: (data) => RecipeImport(data: data),
+          builder: (data) => Column(
+            crossAxisAlignment: .start,
+            children: [
+              Text(
+                localization.recipeImportInfo,
+                style: TextTheme.of(context).bodyLarge,
+              ),
+              Divider(),
+              Expanded(child: RecipeImport(data: data)),
+            ],
+          ),
         ),
       ),
     );

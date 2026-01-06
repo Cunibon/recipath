@@ -17,35 +17,28 @@ class RecipeImport extends ConsumerWidget {
       child: Column(
         children: [
           for (final recipe in data.originalRecipe)
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  crossAxisAlignment: .start,
-                  children: [
-                    Expanded(
-                      child: CompactRecipeItemContent(
-                        compactRecipeData: CompactRecipeItemData(
-                          recipeData: recipe,
-                          averageTime: null,
-                          groceryMap: data.originalGrocery,
-                          tags: {},
-                        ),
-                      ),
+            GestureDetector(
+              onTap: () {
+                ref
+                    .read(importScreenProvider(data.path).notifier)
+                    .toggleRecipe(recipe);
+              },
+              child: Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CompactRecipeItemContent(
+                    compactRecipeData: CompactRecipeItemData(
+                      recipeData: recipe,
+                      averageTime: null,
+                      groceryMap: data.originalGrocery,
+                      tags: {},
                     ),
-                    IconButton(
-                      onPressed: () {
-                        ref
-                            .read(importScreenProvider(data.path).notifier)
-                            .toggleRecipe(recipe);
-                      },
-                      icon: Icon(
-                        data.importRecipe.contains(recipe)
-                            ? Icons.check_box
-                            : Icons.check_box_outline_blank,
-                      ),
+                    trailingTitle: Icon(
+                      data.importRecipe.contains(recipe)
+                          ? Icons.check_box
+                          : Icons.check_box_outline_blank,
                     ),
-                  ],
+                  ),
                 ),
               ),
             ),

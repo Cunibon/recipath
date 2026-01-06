@@ -108,7 +108,7 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
         appBar: AppBar(
           title: Text(
             localization.createGrocery,
-            style: Theme.of(context).textTheme.titleLarge,
+            style: TextTheme.of(context).titleLarge,
           ),
           actions: [
             IconButton(

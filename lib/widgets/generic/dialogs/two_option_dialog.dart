@@ -23,7 +23,7 @@ class TwoOptionDialog extends StatelessWidget {
       actions: [
         TextButton(
           style: TextButton.styleFrom(
-            textStyle: Theme.of(context).textTheme.labelLarge,
+            textStyle: TextTheme.of(context).labelLarge,
           ),
           child: Text(disagree),
           onPressed: () {
@@ -32,7 +32,7 @@ class TwoOptionDialog extends StatelessWidget {
         ),
         TextButton(
           style: TextButton.styleFrom(
-            textStyle: Theme.of(context).textTheme.labelLarge,
+            textStyle: TextTheme.of(context).labelLarge,
           ),
           child: Text(agree),
           onPressed: () {

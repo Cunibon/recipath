@@ -53,7 +53,7 @@ class _AuthDialogState extends ConsumerState<AuthDialog> {
               children: [
                 Text(
                   widget.isLogin ? localization.login : localization.register,
-                  style: Theme.of(context).textTheme.titleLarge,
+                  style: TextTheme.of(context).titleLarge,
                 ),
                 TextFormField(
                   controller: emailController,

@@ -65,7 +65,7 @@ class _CreateTagScreenState extends ConsumerState<CreateTagScreen> {
         appBar: AppBar(
           title: Text(
             localization.createGrocery,
-            style: Theme.of(context).textTheme.titleLarge,
+            style: TextTheme.of(context).titleLarge,
           ),
         ),
         floatingActionButton: Column(

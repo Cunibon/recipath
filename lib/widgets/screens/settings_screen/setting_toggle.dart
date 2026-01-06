@@ -19,7 +19,7 @@ class SettingToggle extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(text, style: Theme.of(context).textTheme.titleMedium),
+          Text(text, style: TextTheme.of(context).titleMedium),
           Switch(value: value, onChanged: onChanged),
         ],
       ),

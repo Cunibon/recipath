@@ -44,7 +44,7 @@ class _ModifyIngredientsDialogState
       actions: [
         TextButton(
           style: TextButton.styleFrom(
-            textStyle: Theme.of(context).textTheme.labelLarge,
+            textStyle: TextTheme.of(context).labelLarge,
           ),
           child: Text(localization.actionCancel),
           onPressed: () {
@@ -53,7 +53,7 @@ class _ModifyIngredientsDialogState
         ),
         TextButton(
           style: TextButton.styleFrom(
-            textStyle: Theme.of(context).textTheme.labelLarge,
+            textStyle: TextTheme.of(context).labelLarge,
           ),
           child: Text(localization.actionContinue),
           onPressed: () {

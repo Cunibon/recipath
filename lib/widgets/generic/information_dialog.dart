@@ -8,11 +8,11 @@ class InformationDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      content: Text(message, style: Theme.of(context).textTheme.bodyLarge),
+      content: Text(message, style: TextTheme.of(context).bodyLarge),
       actions: [
         TextButton(
           style: TextButton.styleFrom(
-            textStyle: Theme.of(context).textTheme.labelLarge,
+            textStyle: TextTheme.of(context).labelLarge,
           ),
           child: const Text('Okay'),
           onPressed: () {

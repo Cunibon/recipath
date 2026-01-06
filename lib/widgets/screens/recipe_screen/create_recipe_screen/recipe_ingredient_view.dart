@@ -61,7 +61,7 @@ class _RecipeIngredientViewState extends ConsumerState<RecipeIngredientView> {
         children: [
           Text(
             expanded ? localization.collapse : localization.expand,
-            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+            style: TextTheme.of(context).bodyLarge!.copyWith(
               color: Theme.of(context).colorScheme.primary,
             ),
           ),

@@ -30,7 +30,7 @@ class GroceryItem extends ConsumerWidget {
               children: [
                 HighlightableText(
                   data.name,
-                  style: Theme.of(context).textTheme.titleMedium,
+                  style: TextTheme.of(context).titleMedium,
                 ),
                 HighlightableText(
                   "${doubleNumberFormat.format(data.normalAmount)}${unitLocalized[data.unit]}",

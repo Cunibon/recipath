@@ -33,10 +33,7 @@ class GroceryImportItem extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  original.name,
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
+                Text(original.name, style: TextTheme.of(context).titleMedium),
                 Text(
                   "${doubleNumberFormat.format(original.normalAmount)}${unitLocalized[original.unit]}",
                 ),
@@ -61,7 +58,7 @@ class GroceryImportItem extends ConsumerWidget {
                           children: [
                             Text(
                               current.name,
-                              style: Theme.of(context).textTheme.titleMedium,
+                              style: TextTheme.of(context).titleMedium,
                             ),
                             Text(
                               "${doubleNumberFormat.format(current.normalAmount)}${unitLocalized[current.unit]}",

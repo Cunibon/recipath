@@ -18,7 +18,7 @@ class RecipeStep extends StatelessWidget {
       children: [
         RecipeStepTag(index: index, recipeData: recipeData),
         Divider(),
-        Text(step.description, style: Theme.of(context).textTheme.bodyLarge),
+        Text(step.description, style: TextTheme.of(context).bodyLarge),
         if (step.ingredients.isNotEmpty) ...[
           Divider(),
           IngredientsList(ingredients: step.ingredients),

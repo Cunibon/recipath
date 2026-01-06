@@ -33,6 +33,7 @@ class NavigationDrawerScaffold extends ConsumerWidget {
       RootRoutes.recipeHistoryRoute.path: localization.cookingHistory,
       RootRoutes.recipeShoppingRoute.path: localization.shoppingHistory,
       RootRoutes.settingsRoute.path: localization.settings,
+      RootRoutes.importRoute.path: localization.importData,
     };
   }
 
@@ -74,7 +75,7 @@ class NavigationDrawerScaffold extends ConsumerWidget {
             padding: const EdgeInsets.all(8.0),
             child: Text(
               localization.destinations,
-              style: Theme.of(context).textTheme.titleLarge,
+              style: TextTheme.of(context).titleLarge,
             ),
           ),
           for (final destinations in nestedDestinations) ...[

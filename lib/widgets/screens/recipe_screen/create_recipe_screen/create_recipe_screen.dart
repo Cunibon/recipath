@@ -63,7 +63,7 @@ class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
         appBar: AppBar(
           title: Text(
             localization.createRecipe,
-            style: Theme.of(context).textTheme.titleLarge,
+            style: TextTheme.of(context).titleLarge,
           ),
           actions: [
             if (widget.recipeId != null)
