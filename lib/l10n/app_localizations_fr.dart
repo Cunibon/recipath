@@ -139,6 +139,9 @@ class AppLocalizationsFr extends AppLocalizations {
       'Toutes les modifications non enregistrées seront perdues !';
 
   @override
+  String get closeTheApp => 'Voulez-vous quitter cette application ?';
+
+  @override
   String get baseValue => 'Valeur de base';
 
   @override

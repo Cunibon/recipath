@@ -336,6 +336,12 @@ abstract class AppLocalizations {
   /// **'All unsaved changes will be lost!'**
   String get leaveThisPageContent;
 
+  /// No description provided for @closeTheApp.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to close the app?'**
+  String get closeTheApp;
+
   /// No description provided for @baseValue.
   ///
   /// In en, this message translates to:

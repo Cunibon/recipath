@@ -4,13 +4,13 @@ class TwoOptionDialog extends StatelessWidget {
   const TwoOptionDialog({
     super.key,
     this.title,
-    required this.content,
+    this.content,
     required this.agree,
     required this.disagree,
   });
 
   final String? title;
-  final Widget content;
+  final Widget? content;
 
   final String agree;
   final String disagree;

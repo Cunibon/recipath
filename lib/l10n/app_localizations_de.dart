@@ -138,6 +138,9 @@ class AppLocalizationsDe extends AppLocalizations {
       'Alle ungespeicherten Änderungen gehen verloren!';
 
   @override
+  String get closeTheApp => 'Möchten Sie diese App verlassen?';
+
+  @override
   String get baseValue => 'Basiswert';
 
   @override

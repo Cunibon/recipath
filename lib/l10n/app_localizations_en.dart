@@ -136,6 +136,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get leaveThisPageContent => 'All unsaved changes will be lost!';
 
   @override
+  String get closeTheApp => 'Are you sure you want to close the app?';
+
+  @override
   String get baseValue => 'Base value';
 
   @override

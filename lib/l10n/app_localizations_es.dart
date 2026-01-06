@@ -138,6 +138,9 @@ class AppLocalizationsEs extends AppLocalizations {
       '¡Se perderán todos los cambios no guardados!';
 
   @override
+  String get closeTheApp => '¿Desea salir de esta aplicación?';
+
+  @override
   String get baseValue => 'Valor base';
 
   @override

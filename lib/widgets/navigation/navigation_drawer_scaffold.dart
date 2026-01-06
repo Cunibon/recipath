@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/root_routes.dart';
 import 'package:recipath/widgets/authentication/auth_buttons.dart';
+import 'package:recipath/widgets/generic/dialogs/close_app_dialog.dart';
 import 'package:recipath/widgets/providers/drawer_destination_notifier.dart';
 
 class NavigationDrawerScaffold extends ConsumerWidget {
@@ -93,6 +97,27 @@ class NavigationDrawerScaffold extends ConsumerWidget {
       ),
       body: PopScope(
         canPop: false,
+        onPopInvokedWithResult: (didPop, result) async {
+          if (didPop) return;
+
+          final state = GoRouterState.of(context);
+          final basePath = state.uri.path;
+
+          if (basePath == RootRoutes.recipeRoute.path) {
+            if (Platform.isAndroid) {
+              final result = await showDialog<bool>(
+                context: context,
+                builder: (context) => CloseAppDialog(),
+              );
+
+              if (result == true) {
+                SystemNavigator.pop();
+              }
+            }
+          } else {
+            context.go(RootRoutes.recipeRoute.path);
+          }
+        },
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8),
           child: body,
