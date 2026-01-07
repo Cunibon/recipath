@@ -1,105 +1,54 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:random_string/random_string.dart';
 import 'package:recipath/application/grocery_modifier/grocery_modifier_notifier.dart';
 import 'package:recipath/application/recipe_modifier/recipe_modifier_notifier.dart';
-import 'package:recipath/application_constants.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/ingredient_data/ingredient_data.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
 import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
-import 'package:recipath/widgets/screens/import_screen/data/import_screen_state.dart';
+import 'package:recipath/widgets/screens/import_screen/providers/recipe_import_screen_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'import_screen_notifier.g.dart';
+part 'grocery_import_screen_notifier.g.dart';
 
 @riverpod
-class ImportScreenNotifier extends _$ImportScreenNotifier {
+class GroceryImportScreenNotifier extends _$GroceryImportScreenNotifier {
   @override
-  Future<ImportScreenState> build(String path) async {
-    final file = File(path);
-
-    final data = jsonDecode(await file.readAsString());
-
-    final groceryData = data[groceryDataKey];
-    final recipeData = data[recipeDataKey];
-
-    final groceryMap = <String, GroceryData>{};
-    final recipeList = <RecipeData>[];
-
-    for (final data in groceryData.values) {
-      final parsed = GroceryData.fromJson(data);
-      groceryMap[parsed.id] = parsed;
-    }
-
-    for (final data in recipeData.values) {
-      recipeList.add(RecipeData.fromJson(data));
-    }
-
-    return ImportScreenState(
-      path: path,
-      originalRecipe: recipeList,
-      originalGrocery: groceryMap,
-      importRecipe: recipeList,
-      importGroceryLookup: {},
+  Future<Map<String, GroceryData>> build(String path) async {
+    final recipeImportState = await ref.watch(
+      recipeImportScreenProvider(path).future,
     );
-  }
 
-  void toggleRecipe(RecipeData recipe) {
-    final currentState = state.value!;
-    final currentList = List<RecipeData>.from(currentState.importRecipe);
-
-    state = AsyncValue.data(
-      currentState.copyWith(
-        importRecipe: currentList.contains(recipe)
-            ? (currentList..remove(recipe))
-            : (currentList..add(recipe)),
-      ),
-    );
-  }
-
-  Future<void> calculateGroceries() async {
-    final currentState = state.value!;
-
-    final localGroceryNameLookup = (await ref.read(
+    final localGroceryNameLookup = (await ref.watch(
       groceryProvider.future,
     )).map((key, value) => MapEntry(value.name.trim().toLowerCase(), value));
 
-    final groceryIds = currentState.importRecipe
+    final groceryIds = recipeImportState.importRecipe
         .expand(
-          (element) => element.getIngredients(currentState.originalGrocery),
+          (element) =>
+              element.getIngredients(recipeImportState.originalGrocery),
         )
         .map((e) => e.groceryId)
         .toSet();
     final groceries = <String, GroceryData>{};
 
     for (final groceryId in groceryIds) {
-      if (currentState.originalGrocery.containsKey(groceryId)) {
-        final importGrocery = currentState.originalGrocery[groceryId]!;
+      if (recipeImportState.originalGrocery.containsKey(groceryId)) {
+        final importGrocery = recipeImportState.originalGrocery[groceryId]!;
         groceries[groceryId] =
             localGroceryNameLookup[importGrocery.name.trim().toLowerCase()] ??
             importGrocery;
       }
     }
 
-    state = AsyncValue.data(
-      currentState.copyWith(importGroceryLookup: groceries),
-    );
+    return groceries;
   }
 
   void selectGrocery(String origin, GroceryData groceryData) {
     final currentState = state.value!;
-    final currentLookup = Map<String, GroceryData>.from(
-      currentState.importGroceryLookup,
-    );
+    final currentLookup = Map<String, GroceryData>.from(currentState);
 
-    state = AsyncValue.data(
-      currentState.copyWith(
-        importGroceryLookup: currentLookup..[origin] = groceryData,
-      ),
-    );
+    state = AsyncValue.data(currentLookup..[origin] = groceryData);
   }
 
   IngredientData fixIngredient({
@@ -132,13 +81,16 @@ class ImportScreenNotifier extends _$ImportScreenNotifier {
     final recipeModifier = ref.read(recipeModifierProvider);
     final groceryModifier = ref.read(groceryModifierProvider);
     final currentState = state.value!;
+    final recipeImportState = await ref.read(
+      recipeImportScreenProvider(path).future,
+    );
 
     final groceryMapping = <String, String>{};
 
-    for (final entry in currentState.importGroceryLookup.entries) {
+    for (final entry in currentState.entries) {
       late String id;
 
-      if (currentState.originalGrocery.containsKey(entry.value.id)) {
+      if (recipeImportState.originalGrocery.containsKey(entry.value.id)) {
         final copy = entry.value.copyWith(id: randomAlphaNumeric(16));
         await groceryModifier.add(copy);
         id = copy.id;
@@ -148,13 +100,12 @@ class ImportScreenNotifier extends _$ImportScreenNotifier {
       groceryMapping[entry.key] = id;
     }
 
-    for (final recipe in currentState.importRecipe) {
+    for (final recipe in recipeImportState.importRecipe) {
       final fixedSteps = recipe.steps.map((step) {
         final fixedIngredients = step.ingredients.map((ingredient) {
           final originalGrocery =
-              currentState.originalGrocery[ingredient.groceryId]!;
-          final newGrocery =
-              currentState.importGroceryLookup[ingredient.groceryId]!;
+              recipeImportState.originalGrocery[ingredient.groceryId]!;
+          final newGrocery = currentState[ingredient.groceryId]!;
 
           final isAllowed = newGrocery.isUnitAllowed(ingredient.unit);
 

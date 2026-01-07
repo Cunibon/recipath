@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'import_screen_notifier.dart';
+part of 'recipe_import_screen_notifier.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,39 +9,41 @@ part of 'import_screen_notifier.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(ImportScreenNotifier)
-final importScreenProvider = ImportScreenNotifierFamily._();
+@ProviderFor(RecipeImportScreenNotifier)
+final recipeImportScreenProvider = RecipeImportScreenNotifierFamily._();
 
-final class ImportScreenNotifierProvider
-    extends $AsyncNotifierProvider<ImportScreenNotifier, ImportScreenState> {
-  ImportScreenNotifierProvider._({
-    required ImportScreenNotifierFamily super.from,
+final class RecipeImportScreenNotifierProvider
+    extends
+        $AsyncNotifierProvider<RecipeImportScreenNotifier, ImportScreenState> {
+  RecipeImportScreenNotifierProvider._({
+    required RecipeImportScreenNotifierFamily super.from,
     required String super.argument,
   }) : super(
          retry: null,
-         name: r'importScreenProvider',
+         name: r'recipeImportScreenProvider',
          isAutoDispose: true,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
 
   @override
-  String debugGetCreateSourceHash() => _$importScreenNotifierHash();
+  String debugGetCreateSourceHash() => _$recipeImportScreenNotifierHash();
 
   @override
   String toString() {
-    return r'importScreenProvider'
+    return r'recipeImportScreenProvider'
         ''
         '($argument)';
   }
 
   @$internal
   @override
-  ImportScreenNotifier create() => ImportScreenNotifier();
+  RecipeImportScreenNotifier create() => RecipeImportScreenNotifier();
 
   @override
   bool operator ==(Object other) {
-    return other is ImportScreenNotifierProvider && other.argument == argument;
+    return other is RecipeImportScreenNotifierProvider &&
+        other.argument == argument;
   }
 
   @override
@@ -50,35 +52,35 @@ final class ImportScreenNotifierProvider
   }
 }
 
-String _$importScreenNotifierHash() =>
-    r'1d3c995c0b4a26ad35234eeed324de71ed5faa9f';
+String _$recipeImportScreenNotifierHash() =>
+    r'2f1a2cab27560408dbda5d3baf17fbbe6320c634';
 
-final class ImportScreenNotifierFamily extends $Family
+final class RecipeImportScreenNotifierFamily extends $Family
     with
         $ClassFamilyOverride<
-          ImportScreenNotifier,
+          RecipeImportScreenNotifier,
           AsyncValue<ImportScreenState>,
           ImportScreenState,
           FutureOr<ImportScreenState>,
           String
         > {
-  ImportScreenNotifierFamily._()
+  RecipeImportScreenNotifierFamily._()
     : super(
         retry: null,
-        name: r'importScreenProvider',
+        name: r'recipeImportScreenProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
         isAutoDispose: true,
       );
 
-  ImportScreenNotifierProvider call(String path) =>
-      ImportScreenNotifierProvider._(argument: path, from: this);
+  RecipeImportScreenNotifierProvider call(String path) =>
+      RecipeImportScreenNotifierProvider._(argument: path, from: this);
 
   @override
-  String toString() => r'importScreenProvider';
+  String toString() => r'recipeImportScreenProvider';
 }
 
-abstract class _$ImportScreenNotifier
+abstract class _$RecipeImportScreenNotifier
     extends $AsyncNotifier<ImportScreenState> {
   late final _$args = ref.$arg as String;
   String get path => _$args;

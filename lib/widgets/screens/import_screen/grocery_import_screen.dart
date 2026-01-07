@@ -7,7 +7,7 @@ import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/generic/info_text.dart';
 import 'package:recipath/widgets/screens/import_screen/dialogs/confirm_grocery_creation_dialog.dart';
 import 'package:recipath/widgets/screens/import_screen/grocery_import.dart';
-import 'package:recipath/widgets/screens/import_screen/providers/import_screen_notifier.dart';
+import 'package:recipath/widgets/screens/import_screen/providers/grocery_import_screen_notifier.dart';
 
 class GroceryImportScreen extends ConsumerStatefulWidget {
   const GroceryImportScreen({required this.filePath, super.key});
@@ -25,7 +25,7 @@ class _GroceryImportScreenState extends ConsumerState<GroceryImportScreen> {
   @override
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context)!;
-    final state = ref.watch(importScreenProvider(widget.filePath));
+    final state = ref.watch(groceryImportScreenProvider(widget.filePath));
 
     return Scaffold(
       appBar: AppBar(
@@ -38,7 +38,7 @@ class _GroceryImportScreenState extends ConsumerState<GroceryImportScreen> {
         onPressed: () async {
           if (loading) return;
 
-          final newItems = state.value!.importGroceryLookup.entries.where(
+          final newItems = state.value!.entries.where(
             (e) => e.key == e.value.id,
           );
           if (newItems.isNotEmpty) {
@@ -56,7 +56,7 @@ class _GroceryImportScreenState extends ConsumerState<GroceryImportScreen> {
               loading = true;
             });
             await ref
-                .read(importScreenProvider(state.value!.path).notifier)
+                .read(groceryImportScreenProvider(widget.filePath).notifier)
                 .commit();
             if (context.mounted) {
               context.go(RootRoutes.recipeRoute.path);
@@ -77,7 +77,7 @@ class _GroceryImportScreenState extends ConsumerState<GroceryImportScreen> {
             crossAxisAlignment: .start,
             children: [
               InfoText(text: localization.groceryImportInfo),
-              Expanded(child: GroceryImport(data: data)),
+              Expanded(child: GroceryImport(filePath: widget.filePath)),
             ],
           ),
         ),

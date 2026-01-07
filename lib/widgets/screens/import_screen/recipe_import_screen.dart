@@ -5,7 +5,7 @@ import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/generic/info_text.dart';
 import 'package:recipath/widgets/screens/import_screen/import_routes.dart';
-import 'package:recipath/widgets/screens/import_screen/providers/import_screen_notifier.dart';
+import 'package:recipath/widgets/screens/import_screen/providers/recipe_import_screen_notifier.dart';
 import 'package:recipath/widgets/screens/import_screen/recipe_import.dart';
 
 class RecipeImportScreen extends ConsumerWidget {
@@ -16,7 +16,7 @@ class RecipeImportScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final localization = AppLocalizations.of(context)!;
-    final state = ref.watch(importScreenProvider(filePath));
+    final state = ref.watch(recipeImportScreenProvider(filePath));
 
     return Scaffold(
       appBar: AppBar(
@@ -28,9 +28,6 @@ class RecipeImportScreen extends ConsumerWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           if (state.value!.importRecipe.isNotEmpty) {
-            ref
-                .read(importScreenProvider(filePath).notifier)
-                .calculateGroceries();
             context.go(
               "/import/${Uri.encodeComponent(state.value!.path)}/${ImportRoutes.groceryImport.path}",
             );

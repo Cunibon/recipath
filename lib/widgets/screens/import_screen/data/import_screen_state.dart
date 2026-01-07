@@ -11,6 +11,5 @@ abstract class ImportScreenState with _$ImportScreenState {
     required List<RecipeData> originalRecipe,
     required Map<String, GroceryData> originalGrocery,
     required List<RecipeData> importRecipe,
-    required Map<String, GroceryData> importGroceryLookup,
   }) = _ImportScreenState;
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/widgets/screens/import_screen/data/import_screen_state.dart';
-import 'package:recipath/widgets/screens/import_screen/providers/import_screen_notifier.dart';
+import 'package:recipath/widgets/screens/import_screen/providers/recipe_import_screen_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/compact_recipe_item_content.dart';
 import 'package:recipath/widgets/screens/recipe_screen/data/compact_recipe_item_data.dart';
 
@@ -20,7 +20,7 @@ class RecipeImport extends ConsumerWidget {
             GestureDetector(
               onTap: () {
                 ref
-                    .read(importScreenProvider(data.path).notifier)
+                    .read(recipeImportScreenProvider(data.path).notifier)
                     .toggleRecipe(recipe);
               },
               child: Card(
