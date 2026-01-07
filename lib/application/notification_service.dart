@@ -26,6 +26,5 @@ Future<void> initNotifications() async {
       >();
 
   await androidPlugin?.createNotificationChannel(channel);
-
   await androidPlugin?.requestNotificationsPermission();
 }

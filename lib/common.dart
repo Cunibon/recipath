@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 
-final rootNavigatorKey = GlobalKey<NavigatorState>();
-
 Color getRandomColorBasedOnString(String string) {
   // A simple hash function to convert the string to a hash code
   int hash = string.hashCode;
