@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
+import 'package:recipath/widgets/generic/empty_state.dart';
 import 'package:recipath/widgets/generic/searchable_list.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 
@@ -64,6 +65,7 @@ class _SelectGroceryDialogState extends ConsumerState<SelectGroceryDialog> {
                         ),
                       ),
                     ),
+                    emptyState: EmptyState(),
                   ),
                   Align(
                     alignment: Alignment.bottomRight,

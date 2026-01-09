@@ -186,6 +186,12 @@ abstract class AppLocalizations {
   /// **'Search for {type}'**
   String searchFor(String type);
 
+  /// No description provided for @changeSearchForResults.
+  ///
+  /// In en, this message translates to:
+  /// **'Change your search to see other results'**
+  String get changeSearchForResults;
+
   /// No description provided for @clearAllItems.
   ///
   /// In en, this message translates to:

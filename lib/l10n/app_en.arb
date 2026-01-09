@@ -28,6 +28,7 @@
             }
         }
     },
+    "changeSearchForResults": "Change your search to see other results",
     "clearAllItems": "Clear all items?",
     "clearAllContent": "Do you really want clear all items?\nThere is no way to get them back.",
     "recipeImportInfo": "Please select the recipes you want to import.",

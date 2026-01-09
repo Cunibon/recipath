@@ -90,37 +90,34 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
       ),
       body: CachedAsyncValueWrapper(
         asyncState: screenState,
-        builder: (data) => data.shoppingData.values.isEmpty
-            ? EmptyState(
-                hint: localization.shoppingHint,
-                onTap: () => context.go(RootRoutes.recipeRoute.path),
-              )
-            : SearchableList(
-                searchController: searchController,
-                name: localization.items,
-                items: data.shoppingData.values.toList(),
-                toSearchable: (item) => item.toReadable(
-                  grocery: data.groceryMap[item.ingredient.groceryId]!,
-                  unitLocalized: unitLocalized,
-                  doubleNumberFormat: doubleNumberFormat,
-                ),
-                toWidget: (item) => ShoppingItem(
-                  key: Key("${item.id} ${item.count}"),
-                  data: item,
-                  storageData:
-                      data.storage[item.ingredient.groceryId]?.ingredient,
-                ),
-                sort: (a, b) {
-                  if (a.done == b.done) {
-                    return data.groceryMap[a.ingredient.groceryId]!.name
-                        .compareTo(
-                          data.groceryMap[b.ingredient.groceryId]!.name,
-                        );
-                  } else {
-                    return a.done ? 1 : -1;
-                  }
-                },
-              ),
+        builder: (data) => SearchableList(
+          searchController: searchController,
+          name: localization.items,
+          items: data.shoppingData.values.toList(),
+          toSearchable: (item) => item.toReadable(
+            grocery: data.groceryMap[item.ingredient.groceryId]!,
+            unitLocalized: unitLocalized,
+            doubleNumberFormat: doubleNumberFormat,
+          ),
+          toWidget: (item) => ShoppingItem(
+            key: Key("${item.id} ${item.count}"),
+            data: item,
+            storageData: data.storage[item.ingredient.groceryId]?.ingredient,
+          ),
+          sort: (a, b) {
+            if (a.done == b.done) {
+              return data.groceryMap[a.ingredient.groceryId]!.name.compareTo(
+                data.groceryMap[b.ingredient.groceryId]!.name,
+              );
+            } else {
+              return a.done ? 1 : -1;
+            }
+          },
+          emptyState: EmptyState(
+            hint: localization.shoppingHint,
+            onTap: () => context.go(RootRoutes.recipeRoute.path),
+          ),
+        ),
       ),
     );
   }

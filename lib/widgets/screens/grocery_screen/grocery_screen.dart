@@ -40,22 +40,20 @@ class GroceryScreen extends ConsumerWidget {
       body: CachedAsyncValueWrapper(
         asyncState: asyncData,
         builder: (data) {
-          return data.values.isEmpty
-              ? EmptyState(
-                  hint: localization.createGroceryHint,
-                  onTap: () =>
-                      context.goRelative(GroceryRoutes.createGrocery.path),
-                )
-              : SearchableList(
-                  name: AppLocalizations.of(context)!.grocery,
-                  items: data.values.toList(),
-                  toSearchable: (item) => item.toReadable(
-                    unitLocalized: unitLocalized,
-                    doubleNumberFormat: doubleNumberFormat,
-                  ),
-                  toWidget: (item) => GroceryItem(data: item),
-                  sort: (a, b) => a.name.compareTo(b.name),
-                );
+          return SearchableList(
+            name: AppLocalizations.of(context)!.grocery,
+            items: data.values.toList(),
+            toSearchable: (item) => item.toReadable(
+              unitLocalized: unitLocalized,
+              doubleNumberFormat: doubleNumberFormat,
+            ),
+            toWidget: (item) => GroceryItem(data: item),
+            sort: (a, b) => a.name.compareTo(b.name),
+            emptyState: EmptyState(
+              hint: localization.createGroceryHint,
+              onTap: () => context.goRelative(GroceryRoutes.createGrocery.path),
+            ),
+          );
         },
       ),
     );

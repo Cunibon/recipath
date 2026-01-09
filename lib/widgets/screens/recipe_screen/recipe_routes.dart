@@ -6,7 +6,7 @@ import 'package:recipath/widgets/screens/recipe_screen/create_recipe_screen/reci
 import 'package:recipath/widgets/screens/recipe_screen/introduction_screen/introduction_screen.dart';
 import 'package:recipath/widgets/screens/recipe_screen/recipe_overview_screen/recipe_overview_screen.dart';
 
-class RecipeRoutes {
+abstract class RecipeRoutes {
   static GoRoute recipeOverview = GoRoute(
     path: "recipeOverview/:recipeId",
     builder: (context, state) =>

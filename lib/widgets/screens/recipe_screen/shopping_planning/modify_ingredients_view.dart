@@ -4,6 +4,7 @@ import 'package:recipath/data/ingredient_data/ingredient_data.dart';
 import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
+import 'package:recipath/widgets/generic/empty_state.dart';
 import 'package:recipath/widgets/generic/ingredient_item.dart';
 import 'package:recipath/widgets/generic/searchable_list.dart';
 import 'package:recipath/widgets/providers/double_number_format_provider.dart';
@@ -74,6 +75,7 @@ class ModifyIngredientsView extends ConsumerWidget {
           sort: (a, b) => state.groceryMap[a.groceryId]!.name.compareTo(
             state.groceryMap[b.groceryId]!.name,
           ),
+          emptyState: EmptyState(),
         );
       },
     );

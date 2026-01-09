@@ -59,24 +59,23 @@ class _StorageScreenState extends ConsumerState<StorageScreen> {
       ],
       body: CachedAsyncValueWrapper(
         asyncState: screenState,
-        builder: (data) => data.storageData.isEmpty
-            ? EmptyState(hint: localization.storageHint)
-            : SearchableList(
-                listViewPadding: EdgeInsets.only(bottom: 12),
-                name: localization.items,
-                items: data.storageData,
-                toSearchable: (item) => item.ingredient.toReadable(
-                  grocery: data.groceries[item.ingredient.groceryId]!,
-                  unitLocalized: unitLocalized,
-                  doubleNumberFormat: doubleNumberFormat,
-                ),
-                toWidget: (item) => StorageItem(
-                  key: Key("${item.id} ${item.ingredient.amount}"),
-                  data: item,
-                ),
-                sort: (a, b) => data.groceries[a.ingredient.groceryId]!.name
-                    .compareTo(data.groceries[b.ingredient.groceryId]!.name),
-              ),
+        builder: (data) => SearchableList(
+          listViewPadding: EdgeInsets.only(bottom: 12),
+          name: localization.items,
+          items: data.storageData,
+          toSearchable: (item) => item.ingredient.toReadable(
+            grocery: data.groceries[item.ingredient.groceryId]!,
+            unitLocalized: unitLocalized,
+            doubleNumberFormat: doubleNumberFormat,
+          ),
+          toWidget: (item) => StorageItem(
+            key: Key("${item.id} ${item.ingredient.amount}"),
+            data: item,
+          ),
+          sort: (a, b) => data.groceries[a.ingredient.groceryId]!.name
+              .compareTo(data.groceries[b.ingredient.groceryId]!.name),
+          emptyState: EmptyState(hint: localization.storageHint),
+        ),
       ),
     );
   }

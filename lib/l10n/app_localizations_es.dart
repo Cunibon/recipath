@@ -56,6 +56,10 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
+  String get changeSearchForResults =>
+      'Cambia tu búsqueda para ver otros resultados';
+
+  @override
   String get clearAllItems => '¿Borrar todos los elementos?';
 
   @override

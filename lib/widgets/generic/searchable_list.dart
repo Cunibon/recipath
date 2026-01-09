@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:recipath/l10n/app_localizations.dart';
+import 'package:recipath/widgets/generic/empty_state.dart';
 import 'package:recipath/widgets/generic/highlight_search/highlight_scope.dart';
 
 class SearchableList<T> extends StatefulWidget {
@@ -13,6 +14,7 @@ class SearchableList<T> extends StatefulWidget {
     required this.toWidget,
     this.sort,
     this.trailing,
+    this.emptyState,
     this.listViewPadding = const EdgeInsets.only(bottom: 78),
     super.key,
   }) : assert(initialSearch == null || searchController == null);
@@ -27,6 +29,7 @@ class SearchableList<T> extends StatefulWidget {
   final int Function(T a, T b)? sort;
 
   final Widget? trailing;
+  final Widget? emptyState;
   final EdgeInsets listViewPadding;
 
   @override
@@ -81,6 +84,8 @@ class _SearchableListState<T> extends State<SearchableList<T>> {
 
   @override
   Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
+
     late List<T> items;
 
     if (search == "") {
@@ -90,6 +95,22 @@ class _SearchableListState<T> extends State<SearchableList<T>> {
         (e) => e.search.toLowerCase().contains(search.toLowerCase()),
       );
       items = filtered.map((e) => e.item).toList();
+    }
+
+    late Widget child;
+
+    if (items.isEmpty) {
+      if (widget.items.isEmpty) {
+        child = widget.emptyState ?? SizedBox.shrink();
+      } else {
+        child = EmptyState(hint: localization.changeSearchForResults);
+      }
+    } else {
+      child = ListView.builder(
+        itemCount: items.length,
+        itemBuilder: (context, index) => widget.toWidget(items[index]),
+        padding: widget.listViewPadding,
+      );
     }
 
     return HighlightScope(
@@ -109,16 +130,10 @@ class _SearchableListState<T> extends State<SearchableList<T>> {
                   onChanged: (value) => setState(() => search = value),
                 ),
               ),
-              if (widget.trailing != null) widget.trailing!,
+              ?widget.trailing,
             ],
           ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: items.length,
-              itemBuilder: (context, index) => widget.toWidget(items[index]),
-              padding: widget.listViewPadding,
-            ),
-          ),
+          Expanded(child: child),
         ],
       ),
     );

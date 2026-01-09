@@ -33,20 +33,17 @@ class TagScreen extends ConsumerWidget {
       ),
       body: CachedAsyncValueWrapper(
         asyncState: state,
-        builder: (data) => data.values.isEmpty
-            ? Center(
-                child: EmptyState(
-                  hint: localization.createTagHint,
-                  onTap: () => context.goRelative(TagRoutes.createTag.path),
-                ),
-              )
-            : SearchableList(
-                name: localization.items,
-                items: data.values.toList(),
-                toSearchable: (item) => "${item.name} ${item.description}",
-                toWidget: (item) => TagItem(data: item),
-                sort: (a, b) => a.name.compareTo(b.name),
-              ),
+        builder: (data) => SearchableList(
+          name: localization.items,
+          items: data.values.toList(),
+          toSearchable: (item) => "${item.name} ${item.description}",
+          toWidget: (item) => TagItem(data: item),
+          sort: (a, b) => a.name.compareTo(b.name),
+          emptyState: EmptyState(
+            hint: localization.createTagHint,
+            onTap: () => context.goRelative(TagRoutes.createTag.path),
+          ),
+        ),
       ),
     );
   }

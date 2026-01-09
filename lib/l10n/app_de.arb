@@ -14,6 +14,7 @@
     "verifactionEMailSent": "Bestätigungs-E-Mail wurde gesendet",
     "couldNotAuthenticate": "Benutzer konnte nicht authentifiziert werden",
     "searchFor": "Suche nach {type}",
+    "changeSearchForResults": "Ändern Sie Ihre Suche, um andere Ergebnisse anzuzeigen",
     "clearAllItems": "Alle Elemente löschen?",
     "clearAllContent": "Möchten Sie wirklich alle Elemente löschen?\nEs gibt keine Möglichkeit, sie wiederherzustellen.",
     "recipeImportInfo": "Bitte wählen Sie die Rezepte aus, die Sie importieren möchten.",
