@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:recipath/application_constants.dart';
+import 'package:recipath/common.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
 import 'package:recipath/providers/app_localizations_notifier.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
@@ -61,7 +62,7 @@ class ExportNotifier extends _$ExportNotifier {
     late String titel;
 
     if (recipes.length == 1) {
-      titel = recipes.first.title;
+      titel = normalizeFileName(recipes.first.title);
     } else {
       titel = (await ref.read(appLocalizationsProvider.future)).recipe;
     }
