@@ -2,6 +2,7 @@ import 'package:recipath/data/ingredient_data/ingredient_data.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
 import 'package:recipath/data/recipe_step_data/recipe_step_data.dart';
 import 'package:recipath/domain_service/syncing_service/assemblers/abstract/supabase_write_assembler.dart';
+import 'package:recipath/domain_service/syncing_service/repos/assembly_result.dart';
 import 'package:recipath/domain_service/syncing_service/supabase_tables.dart';
 import 'package:recipath/domain_service/syncing_service/sync_orchestrator/sync_orchestartor.dart';
 
@@ -12,10 +13,19 @@ class RecipeAssembler extends SupabaseWriteAssembler<RecipeData> {
   String get tableName => SupabaseTables.recipe;
 
   @override
-  Future<void> assemble(
+  List<String> get foreignDataTables => [
+    SupabaseTables.ingredient,
+    SupabaseTables.recipeStepIngredient,
+    SupabaseTables.recipeStep,
+  ];
+
+  @override
+  Future<AssemblyResult> assemble(
     SyncContext syncContext,
     AssemblyContext assemblyContext,
   ) async {
+    final assemblyResult = AssemblyResult();
+
     final ingredientLookup = assemblyContext[SupabaseTables.ingredient]!;
 
     final recipeStepIngredientData =
@@ -60,17 +70,26 @@ class RecipeAssembler extends SupabaseWriteAssembler<RecipeData> {
     final recipeData = syncContext[tableName]!;
 
     for (final rawRecipe in recipeData) {
-      final steps = recipeStepLookup[rawRecipe["id"]] ?? [];
-      steps.sort((a, b) => a.index.compareTo(b.index));
+      try {
+        final steps = recipeStepLookup[rawRecipe["id"]] ?? [];
+        steps.sort((a, b) => a.index.compareTo(b.index));
 
-      final recipe = RecipeData.fromSupabase(
-        rawRecipe,
-        steps.map((e) => e.step).toList(),
-      );
+        final recipe = RecipeData.fromSupabase(
+          rawRecipe,
+          steps.map((e) => e.step).toList(),
+        );
 
-      itemAssemblyContext[recipe.id] = recipe;
-
-      await repo.add(recipe);
+        await repo.add(recipe);
+        itemAssemblyContext[recipe.id] = recipe;
+      } catch (e, s) {
+        assemblyResult.addError(
+          id: rawRecipe["id"].toString(),
+          error: e,
+          stacktrace: s,
+        );
+      }
     }
+
+    return assemblyResult;
   }
 }

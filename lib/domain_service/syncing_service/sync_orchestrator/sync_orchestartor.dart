@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:http/http.dart';
 import 'package:logger/logger.dart';
 import 'package:recipath/domain_service/syncing_service/assemblers/abstract/supabase_assembler.dart';
@@ -86,7 +88,36 @@ class SyncOrchestrator {
       }
 
       for (final assembler in assemblers) {
-        await assembler.assemble(syncContext, assemblyContext);
+        final result = await assembler.assemble(syncContext, assemblyContext);
+
+        if (!result.success) {
+          for (final entry in result.errors.entries) {
+            final error = entry.value.error;
+            final stackTrace = entry.value.stacktrace;
+
+            logger.e(
+              "Error while Assembling!",
+              error: error,
+              stackTrace: stackTrace,
+            );
+            await Sentry.captureException(
+              error,
+              stackTrace: stackTrace,
+              withScope: (scope) => scope.setContexts('assemblyError', {
+                "id": entry.key,
+                "tableContext": syncContext[assembler.tableName],
+                "syncContext": {
+                  for (final table in assembler.foreignDataTables)
+                    syncContext[table],
+                },
+                "assemblyContext": {
+                  for (final table in assembler.foreignDataTables)
+                    assemblyContext[table],
+                },
+              }),
+            );
+          }
+        }
       }
     } catch (e, s) {
       logger.e("Error while downloading!", error: e, stackTrace: s);
