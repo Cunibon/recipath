@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:recipath/application/shopping_modifier/shopping_modifier_notifier.dart';
 import 'package:recipath/data/ingredient_data/ingredient_data.dart';
 import 'package:recipath/data/shopping_data/shopping_data.dart';
 import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/l10n/app_localizations.dart';
+import 'package:recipath/root_routes.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/generic/dialogs/clear_confirmation_dialog.dart';
+import 'package:recipath/widgets/generic/empty_state.dart';
 import 'package:recipath/widgets/generic/searchable_list.dart';
 import 'package:recipath/widgets/navigation/default_navigation_title.dart';
 import 'package:recipath/widgets/navigation/navigation_drawer_scaffold.dart';
@@ -24,6 +27,12 @@ class ShoppingScreen extends ConsumerStatefulWidget {
 
 class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
   final searchController = TextEditingController();
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +55,7 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
             : SyncState.synced,
       ),
       actions: [
-        TextButton(
+        IconButton(
           onPressed: () async {
             final result = await showDialog(
               context: context,
@@ -57,7 +66,7 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
               ref.read(shoppingModifierProvider).clear();
             }
           },
-          child: Text(localization.clear),
+          icon: Icon(Icons.clear_all),
         ),
       ],
       floatingActionButton: FloatingActionButton(
@@ -87,14 +96,13 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
           items: data.shoppingData.values.toList(),
           toSearchable: (item) => item.toReadable(
             grocery: data.groceryMap[item.ingredient.groceryId]!,
-            storageData:
-                data.storage[item.ingredient.groceryId]?.ingredient.amount ?? 0,
             unitLocalized: unitLocalized,
             doubleNumberFormat: doubleNumberFormat,
           ),
           toWidget: (item) => ShoppingItem(
+            key: Key("${item.id} ${item.count}"),
             data: item,
-            ingredientData: data.storage[item.ingredient.groceryId]?.ingredient,
+            storageData: data.storage[item.ingredient.groceryId]?.ingredient,
           ),
           sort: (a, b) {
             if (a.done == b.done) {
@@ -105,6 +113,10 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
               return a.done ? 1 : -1;
             }
           },
+          emptyState: EmptyState(
+            hint: localization.shoppingHint,
+            onTap: () => context.go(RootRoutes.recipeRoute.path),
+          ),
         ),
       ),
     );

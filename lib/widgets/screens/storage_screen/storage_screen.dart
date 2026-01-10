@@ -6,6 +6,7 @@ import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/generic/dialogs/clear_confirmation_dialog.dart';
+import 'package:recipath/widgets/generic/empty_state.dart';
 import 'package:recipath/widgets/generic/searchable_list.dart';
 import 'package:recipath/widgets/navigation/default_navigation_title.dart';
 import 'package:recipath/widgets/navigation/navigation_drawer_scaffold.dart';
@@ -42,7 +43,7 @@ class _StorageScreenState extends ConsumerState<StorageScreen> {
             : SyncState.synced,
       ),
       actions: [
-        TextButton(
+        IconButton(
           onPressed: () async {
             final result = await showDialog(
               context: context,
@@ -53,7 +54,7 @@ class _StorageScreenState extends ConsumerState<StorageScreen> {
               ref.read(storageModifierProvider).clear();
             }
           },
-          child: Text(localization.clear),
+          icon: Icon(Icons.clear_all),
         ),
       ],
       body: CachedAsyncValueWrapper(
@@ -67,9 +68,13 @@ class _StorageScreenState extends ConsumerState<StorageScreen> {
             unitLocalized: unitLocalized,
             doubleNumberFormat: doubleNumberFormat,
           ),
-          toWidget: (item) => StorageItem(data: item),
+          toWidget: (item) => StorageItem(
+            key: Key("${item.id} ${item.ingredient.amount}"),
+            data: item,
+          ),
           sort: (a, b) => data.groceries[a.ingredient.groceryId]!.name
               .compareTo(data.groceries[b.ingredient.groceryId]!.name),
+          emptyState: EmptyState(hint: localization.storageHint),
         ),
       ),
     );

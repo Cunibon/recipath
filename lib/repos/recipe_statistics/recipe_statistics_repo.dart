@@ -4,6 +4,8 @@ import 'package:recipath/repos/sync_repo.dart';
 abstract class RecipeStatisticsRepo extends SyncRepo<RecipeStatisticData> {
   RecipeStatisticsRepo(super.db);
 
+  Future<Map<String, RecipeStatisticData>> getForId(String recipeId);
+
   Stream<Duration?> getAverageTimeForRecipe(String recipeId);
 
   Future<Map<String, int>> getRecipeCountBetween({

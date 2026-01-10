@@ -14,7 +14,7 @@ class RecipeModifier {
     required RecipeData newData,
     required RecipeData oldData,
   }) async {
-    await repo.add(newData.copyWith(uploaded: false));
+    await repo.add(newData.copyWith(uploaded: false, parent: oldData.id));
     await archive(oldData);
   }
 

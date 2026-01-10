@@ -3,31 +3,37 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:random_string/random_string.dart';
 import 'package:recipath/application/shopping_modifier/shopping_modifier_notifier.dart';
 import 'package:recipath/application/storage_modifier/storage_modifier_notifier.dart';
+import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/ingredient_data/ingredient_data.dart';
 import 'package:recipath/data/shopping_data/shopping_data.dart';
 import 'package:recipath/data/unit_enum.dart';
+import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/generic/dialogs/delete_confirmation_dialog.dart';
+import 'package:recipath/widgets/generic/focus_form_field.dart';
 import 'package:recipath/widgets/generic/highlight_search/highlightable_text.dart';
 import 'package:recipath/widgets/providers/double_number_format_provider.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
+import 'package:recipath/widgets/screens/settings_screen/providers/storage_mode_provider.dart';
 
 class ShoppingItem extends ConsumerWidget {
   const ShoppingItem({
     required this.data,
-    required this.ingredientData,
+    required this.storageData,
     super.key,
   });
 
   final ShoppingData data;
-  final IngredientData? ingredientData;
+  final IngredientData? storageData;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final localization = AppLocalizations.of(context)!;
     final unitLocalized = localizeUnits(context);
 
     final doubleNumberFormat = ref.watch(doubleNumberFormatProvider);
 
     final groceries = ref.watch(groceryProvider).value!;
+    final grocery = groceries[data.ingredient.groceryId]!;
 
     void switchState() {
       final shoppingNotifier = ref.read(shoppingModifierProvider);
@@ -35,7 +41,7 @@ class ShoppingItem extends ConsumerWidget {
 
       final ingredientRep = IngredientData(
         id: randomAlphaNumeric(16),
-        amount: data.count * groceries[data.ingredient.groceryId]!.normalAmount,
+        amount: data.count * grocery.normalAmount,
         unit: data.ingredient.unit,
         groceryId: data.ingredient.groceryId,
       );
@@ -66,17 +72,44 @@ class ShoppingItem extends ConsumerWidget {
                   data.done ? Icons.check_box : Icons.check_box_outline_blank,
                 ),
               ),
+              SizedBox(
+                width: 50,
+                child: FocusFormField(
+                  key: Key(data.id),
+                  initialValue: data.count.toString(),
+                  decoration: InputDecoration(labelText: localization.amount),
+                  keyboardType: TextInputType.numberWithOptions(decimal: false),
+                  onFocusLost: (value) {
+                    final parsed = int.tryParse(value);
+                    if (parsed != null) {
+                      if (parsed == 0) {
+                        ref.read(shoppingModifierProvider).deleteItem(data);
+                      } else if (parsed != data.count) {
+                        ref
+                            .read(shoppingModifierProvider)
+                            .updateItem(
+                              data.copyWith(
+                                count: parsed,
+                                ingredient: data.ingredient.copyWith(
+                                  amount: parsed * grocery.normalAmount,
+                                ),
+                              ),
+                            );
+                      }
+                    }
+                  },
+                ),
+              ),
               Expanded(
                 child: HighlightableText(
-                  data.toReadable(
-                    grocery: groceries[data.ingredient.groceryId]!,
-                    storageData: ingredientData?.amount ?? 0,
-                    unitLocalized: unitLocalized,
-                    doubleNumberFormat: doubleNumberFormat,
-                  ),
-                  style: (ingredientData?.amount ?? 0) >= data.ingredient.amount
-                      ? TextStyle(color: Colors.green)
-                      : null,
+                  "${grocery.toReadable(unitLocalized: unitLocalized, doubleNumberFormat: doubleNumberFormat)} (${doubleNumberFormat.format(data.ingredient.amount)}${unitLocalized[grocery.unit]})",
+                  style:
+                      ref.watch(storageModeProvider) &&
+                          (storageData?.amount ?? 0) >= data.ingredient.amount
+                      ? TextTheme.of(
+                          context,
+                        ).bodyLarge?.copyWith(color: Colors.green)
+                      : TextTheme.of(context).bodyLarge,
                 ),
               ),
               IconButton(

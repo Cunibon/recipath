@@ -5,13 +5,15 @@ import 'package:recipath/data/recipe_data/recipe_data.dart';
 import 'package:recipath/data/timer_data/timer_data.dart';
 import 'package:recipath/helper/local_storage_extension.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/quick_filter_notifier.dart';
+import 'package:recipath/widgets/screens/recipe_screen/timer_notification.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 part 'timer_notifier.g.dart';
 
 @riverpod
 class TimerNotifier extends _$TimerNotifier {
-  static const timerDataKey = "timerData_v2";
+  static const timerDataKey = "timerData_v3";
 
   @override
   Map<String, TimerData> build() {
@@ -21,8 +23,14 @@ class TimerNotifier extends _$TimerNotifier {
   }
 
   void start(String recipeId, int? servings) {
-    state[recipeId] = TimerData(startTime: DateTime.now(), servings: servings);
-    updateState();
+    state[recipeId] = TimerData(
+      startTime: DateTime.now(),
+      servings: servings,
+      finishedSteps: {},
+    );
+    WakelockPlus.enable();
+    showTimersRunningNotification();
+    _updateState();
   }
 
   void stop(String recipeId) {
@@ -31,15 +39,32 @@ class TimerNotifier extends _$TimerNotifier {
       ref
           .read(quickFilterProvider.notifier)
           .setFilter(filter: QuickFilters.running, value: false);
+      cancelTimersNotification();
+      WakelockPlus.disable();
     }
-    updateState();
+    _updateState();
   }
 
   void adjustServings(String recipeId, int? servings) {
     if (state.containsKey(recipeId)) {
       state[recipeId] = state[recipeId]!.copyWith(servings: servings);
 
-      updateState();
+      _updateState();
+    }
+  }
+
+  void toggleStep(String recipeId, String stepId) {
+    if (state.containsKey(recipeId)) {
+      final currentData = state[recipeId]!;
+      final finishedSteps = Set<String>.from(currentData.finishedSteps);
+      final isDone = finishedSteps.contains(stepId);
+      state[recipeId] = currentData.copyWith(
+        finishedSteps: isDone
+            ? (finishedSteps..remove(stepId))
+            : (finishedSteps..add(stepId)),
+      );
+
+      _updateState();
     }
   }
 
@@ -47,11 +72,11 @@ class TimerNotifier extends _$TimerNotifier {
     if (state.containsKey(oldData.id)) {
       state[newData.id] = state.remove(oldData.id)!;
 
-      updateState();
+      _updateState();
     }
   }
 
-  void updateState() {
+  void _updateState() {
     localStorage.setItem(
       timerDataKey,
       jsonEncode(state.map((key, value) => MapEntry(key, value.toJson()))),

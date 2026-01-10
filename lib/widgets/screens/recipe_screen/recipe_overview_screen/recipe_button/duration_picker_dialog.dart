@@ -33,7 +33,7 @@ class _DurationPickerDialogState extends State<DurationPickerDialog> {
     return AlertDialog(
       title: Text(
         localization.howLongDidTheRecipeTake,
-        style: Theme.of(context).textTheme.labelLarge,
+        style: TextTheme.of(context).labelLarge,
       ),
       content: DurationPicker(
         duration: duration,
@@ -44,16 +44,16 @@ class _DurationPickerDialogState extends State<DurationPickerDialog> {
       actions: [
         TextButton(
           style: TextButton.styleFrom(
-            textStyle: Theme.of(context).textTheme.labelLarge,
+            textStyle: TextTheme.of(context).labelLarge,
           ),
-          child: Text(localization.cancleTimer),
+          child: Text(localization.cancelTimer),
           onPressed: () {
             Navigator.of(context).pop(DurationPickerResponse());
           },
         ),
         TextButton(
           style: TextButton.styleFrom(
-            textStyle: Theme.of(context).textTheme.labelLarge,
+            textStyle: TextTheme.of(context).labelLarge,
           ),
           child: Text(localization.done),
           onPressed: () {

@@ -137,6 +137,7 @@ class RecipeRepoDrift extends RecipeRepo {
           .insertOnConflictUpdate(
             RecipeTableCompanion.insert(
               id: newData.id,
+              parent: Value(newData.parent),
               title: newData.title,
               servings: Value(newData.servings),
               imageName: Value(newData.imageName),

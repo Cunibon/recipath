@@ -4,13 +4,13 @@ class TwoOptionDialog extends StatelessWidget {
   const TwoOptionDialog({
     super.key,
     this.title,
-    required this.content,
+    this.content,
     required this.agree,
     required this.disagree,
   });
 
   final String? title;
-  final String content;
+  final Widget? content;
 
   final String agree;
   final String disagree;
@@ -19,11 +19,11 @@ class TwoOptionDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: title == null ? null : Text(title!),
-      content: Text(content),
+      content: content,
       actions: [
         TextButton(
           style: TextButton.styleFrom(
-            textStyle: Theme.of(context).textTheme.labelLarge,
+            textStyle: TextTheme.of(context).labelLarge,
           ),
           child: Text(disagree),
           onPressed: () {
@@ -32,7 +32,7 @@ class TwoOptionDialog extends StatelessWidget {
         ),
         TextButton(
           style: TextButton.styleFrom(
-            textStyle: Theme.of(context).textTheme.labelLarge,
+            textStyle: TextTheme.of(context).labelLarge,
           ),
           child: Text(agree),
           onPressed: () {

@@ -24,3 +24,30 @@ final timeFormat = DateFormat("HH:mm");
 final emailRegex = RegExp(
   r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z]+",
 );
+
+const _windowsReserved = {
+  'con',
+  'prn',
+  'aux',
+  'nul',
+  'com1',
+  'com2',
+  'com3',
+  'com4',
+  'lpt1',
+  'lpt2',
+  'lpt3',
+};
+
+String normalizeFileName(String input) {
+  String name = input.trim().toLowerCase();
+  name = name.replaceAll(RegExp(r'\s+'), '_');
+  name = name.replaceAll(RegExp(r'[<>:"/\\|?*\x00-\x1F]'), '');
+  name = name.replaceAll(RegExp(r'_+'), '_');
+  name = _windowsReserved.contains(name) ? '${name}_file' : name;
+  if (name.isEmpty) {
+    return 'file';
+  }
+
+  return name;
+}

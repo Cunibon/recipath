@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:recipath/application_constants.dart';
 import 'package:recipath/data/tag_data/tag_data.dart';
-import 'package:recipath/root_routes.dart';
+import 'package:recipath/helper/go_router_extension.dart';
 import 'package:recipath/widgets/screens/tag_screen/tag_routes.dart';
 import 'package:recipath/widgets/tag/tag.dart';
 
@@ -21,12 +20,9 @@ class TagItem extends StatelessWidget {
             VerticalDivider(),
             Expanded(child: Text(data.description)),
             IconButton(
-              onPressed: () => context.go(
-                Uri(
-                  path:
-                      '${RootRoutes.tagRoute.path}/${TagRoutes.createTag.path}',
-                  queryParameters: {idParameter: data.id},
-                ).toString(),
+              onPressed: () => context.goRelative(
+                TagRoutes.createTag.path,
+                queryParameters: {idParameter: data.id},
               ),
               icon: Icon(Icons.edit),
             ),

@@ -47,6 +47,38 @@ class RecipeStatisticsRepoDrift extends RecipeStatisticsRepo {
   }
 
   @override
+  Future<Map<String, RecipeStatisticData>> getForId(String recipeId) async {
+    final result = await db
+        .customSelect(
+          '''
+    WITH RECURSIVE recipe_lineage AS (
+      SELECT id, parent
+      FROM ${db.recipeTable.actualTableName}
+      WHERE id = ?
+
+      UNION ALL
+
+      SELECT r.id, r.parent
+      FROM ${db.recipeTable.actualTableName} r
+      JOIN recipe_lineage rl ON rl.parent = r.id
+    )
+    SELECT rs.*
+    FROM ${db.recipeStatisticTable.actualTableName} rs
+    JOIN recipe_lineage rl ON rs.recipe_id = rl.id
+    ORDER BY rs.start_date DESC
+    ''',
+          variables: [Variable<String>(recipeId)],
+          readsFrom: {db.recipeStatisticTable, db.recipeTable},
+        )
+        .get();
+
+    return {
+      for (final row in result)
+        row.read<String>('id'): RecipeStatisticData.fromSupabase(row.data),
+    };
+  }
+
+  @override
   Stream<Duration?> getAverageTimeForRecipe(String recipeId) {
     final stream = db
         .customSelect(

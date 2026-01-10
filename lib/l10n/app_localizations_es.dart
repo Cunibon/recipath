@@ -56,6 +56,10 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
+  String get changeSearchForResults =>
+      'Cambia tu búsqueda para ver otros resultados';
+
+  @override
   String get clearAllItems => '¿Borrar todos los elementos?';
 
   @override
@@ -63,10 +67,34 @@ class AppLocalizationsEs extends AppLocalizations {
       '¿Realmente quieres borrar todos los elementos?\nNo hay forma de recuperarlos.';
 
   @override
+  String get recipeImportInfo => 'Seleccione las recetas que desea importar.';
+
+  @override
+  String get groceryImportInfo =>
+      'Asigne los ingredientes importados a sus ingredientes existentes o déjelos sin asignar para crear nuevos.';
+
+  @override
+  String get missingMapping => 'Asignación faltante';
+
+  @override
+  String missingMappingContent(int count) {
+    return 'Los elementos sin asignar crearán $count ingredientes nuevos.';
+  }
+
+  @override
+  String get select => 'Seleccionar';
+
+  @override
   String get yes => 'Sí';
 
   @override
   String get no => 'No';
+
+  @override
+  String get actionContinue => 'Continuar';
+
+  @override
+  String get actionCancel => 'Cancelar';
 
   @override
   String get pick => 'Elegir';
@@ -94,8 +122,16 @@ class AppLocalizationsEs extends AppLocalizations {
   String get finishShoppingPlanning => 'Terminar la planificación de compras';
 
   @override
-  String get finishShoppingContent =>
-      '¿Quieres terminar tu planificación de compras y añadir tus artículos a tu lista de compras?';
+  String get cancelExport => 'Cancelar exportación';
+
+  @override
+  String get cancelExportContent => '¿Desea cancelar la exportación?';
+
+  @override
+  String get finishExport => 'Finalizar exportación';
+
+  @override
+  String get theseRecipesHaveBeenAdded => 'Se han añadido estas recetas:';
 
   @override
   String get leaveThisPage =>
@@ -104,6 +140,9 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get leaveThisPageContent =>
       '¡Se perderán todos los cambios no guardados!';
+
+  @override
+  String get closeTheApp => '¿Desea salir de esta aplicación?';
 
   @override
   String get baseValue => 'Valor base';
@@ -154,6 +193,9 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get createGrocery => 'crear tienda de comestibles';
+
+  @override
+  String get createTag => 'Crear etiqueta';
 
   @override
   String get save => 'Ahorrar';
@@ -279,7 +321,14 @@ class AppLocalizationsEs extends AppLocalizations {
       '¿Cuanto tiempo te tomo hacer la receta?';
 
   @override
-  String get cancleTimer => 'Cancelar temporizador';
+  String get cancelTimer => 'Cancelar temporizador';
+
+  @override
+  String get timersRunningHeader => 'Temporizadores en marcha';
+
+  @override
+  String get timersRunningDescription =>
+      '⏱️ Todavía hay temporizadores activos';
 
   @override
   String get removedIngredientsFromStorage =>
@@ -295,6 +344,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get importData => 'Importar datos';
 
   @override
+  String get selectFileToImport => 'Seleccione un archivo para importar.';
+
+  @override
   String get exportData => 'Exportar datos';
 
   @override
@@ -302,6 +354,9 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get darkMode => 'Modo oscuro';
+
+  @override
+  String get storageMode => 'Modo inventario';
 
   @override
   String get clear => 'Claro';
@@ -389,7 +444,30 @@ class AppLocalizationsEs extends AppLocalizations {
   String get nothingToSee => 'Nada que ver';
 
   @override
-  String get cookRecipeForData => 'Cocinar una receta para añadir datos';
+  String get cookRecipeForDataHint =>
+      'Cocina una receta para empezar a registrar datos';
+
+  @override
+  String get shopRecipeForDataHint =>
+      'Compra una receta para empezar a registrar datos';
+
+  @override
+  String get createRecipeHint => 'Crea o importa una receta para comenzar';
+
+  @override
+  String get shoppingHint =>
+      'Usa el modo de compras en la página de Recetas o añade ingredientes individualmente';
+
+  @override
+  String get createGroceryHint =>
+      'Crea o importa ingredientes para tus recetas';
+
+  @override
+  String get storageHint => 'Compra ingredientes para añadirlos a tu despensa';
+
+  @override
+  String get createTagHint =>
+      'Crea etiquetas para organizar y filtrar tus recetas';
 
   @override
   String get goPro => 'Hazte profesional';
@@ -405,4 +483,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get somethingUnexpected => 'Ups, pasó algo inesperado';
+
+  @override
+  String get selectOne => 'Seleccione al menos un elemento';
 }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:logger/logger.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:recipath/common.dart';
 import 'package:recipath/domain_service/syncing_service/syncing_service/syncing_service_notifier.dart';
@@ -25,8 +24,14 @@ class _AuthDialogState extends ConsumerState<AuthDialog> {
   final passwordController = TextEditingController();
 
   late bool loading = false;
+  String? errorMessage;
 
-  final logger = Logger();
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +51,7 @@ class _AuthDialogState extends ConsumerState<AuthDialog> {
               children: [
                 Text(
                   widget.isLogin ? localization.login : localization.register,
-                  style: Theme.of(context).textTheme.titleLarge,
+                  style: TextTheme.of(context).titleLarge,
                 ),
                 TextFormField(
                   controller: emailController,
@@ -102,6 +107,13 @@ class _AuthDialogState extends ConsumerState<AuthDialog> {
                       }
                     },
                   ),
+                if (errorMessage != null)
+                  Text(
+                    errorMessage!,
+                    style: TextTheme.of(context).bodyMedium?.copyWith(
+                      color: ColorScheme.of(context).error,
+                    ),
+                  ),
                 Align(
                   alignment: Alignment.centerRight,
                   child: ElevatedButton(
@@ -111,6 +123,7 @@ class _AuthDialogState extends ConsumerState<AuthDialog> {
 
                         setState(() {
                           loading = true;
+                          errorMessage = null;
                         });
 
                         final supabaseClient = ref.read(supabaseClientProvider);
@@ -139,30 +152,17 @@ class _AuthDialogState extends ConsumerState<AuthDialog> {
                               context.pop();
                             }
                           } else {
-                            if (context.mounted) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    localization.verifactionEMailSent,
-                                  ),
-                                ),
-                              );
-                              context.pop();
-                            }
+                            setState(() {
+                              errorMessage = localization.verifactionEMailSent;
+                            });
                           }
                         } catch (e) {
-                          logger.e(e);
                           if (e is AuthApiException) {
                             if (e.code == "invalid_credentials") {
-                              if (context.mounted) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                      localization.couldNotAuthenticate,
-                                    ),
-                                  ),
-                                );
-                              }
+                              setState(() {
+                                errorMessage =
+                                    localization.couldNotAuthenticate;
+                              });
                             }
                           }
                         } finally {

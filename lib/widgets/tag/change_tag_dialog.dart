@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:recipath/data/tag_data/tag_data.dart';
 import 'package:recipath/l10n/app_localizations.dart';
+import 'package:recipath/widgets/generic/empty_state.dart';
 import 'package:recipath/widgets/generic/searchable_list.dart';
 import 'package:recipath/widgets/screens/tag_screen/providers/tag_notifier.dart';
 import 'package:recipath/widgets/tag/tag.dart';
@@ -56,7 +57,7 @@ class _ChangeTagDialogState extends ConsumerState<ChangeTagDialog> {
                         padding: const EdgeInsets.symmetric(horizontal: 12),
                         child: Text(
                           selected.length.toString(),
-                          style: Theme.of(context).textTheme.titleLarge,
+                          style: TextTheme.of(context).titleLarge,
                         ),
                       )
                     : null,
@@ -87,6 +88,7 @@ class _ChangeTagDialogState extends ConsumerState<ChangeTagDialog> {
                   ),
                 ),
                 listViewPadding: EdgeInsets.only(bottom: 100),
+                emptyState: EmptyState(),
               ),
               Align(
                 alignment: Alignment.bottomRight,

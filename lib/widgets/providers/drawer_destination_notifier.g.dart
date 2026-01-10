@@ -57,4 +57,4 @@ final class DrawerDestinationsProvider
 }
 
 String _$drawerDestinationsHash() =>
-    r'86c6bb9fb7da8d6a1153f11fd8e4f72370488e6b';
+    r'cd11f5cbf77bfb81adf2aa6893a16ddc31039674';

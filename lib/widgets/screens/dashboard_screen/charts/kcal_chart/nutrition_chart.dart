@@ -33,7 +33,7 @@ class NutritionChart extends ConsumerWidget {
             children: [
               Text(
                 "${AppLocalizations.of(context)!.nutriments}/100g",
-                style: Theme.of(context).textTheme.titleLarge,
+                style: TextTheme.of(context).titleLarge,
               ),
               Icon(
                 expanded
@@ -54,8 +54,6 @@ class NutritionChart extends ConsumerWidget {
                   BaseChart(
                     axisSpace: 150,
                     state: data,
-                    horizontalInterval: 500,
-                    horizontalTitleInterval: 1000,
                     touchTooltipData: BarTouchTooltipData(
                       getTooltipColor: (group) => Colors.black.withAlpha(128),
                       tooltipPadding: EdgeInsets.symmetric(horizontal: 2),

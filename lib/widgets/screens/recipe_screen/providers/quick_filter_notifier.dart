@@ -45,7 +45,8 @@ class QuickFilterNotifier extends _$QuickFilterNotifier {
 
 @JsonEnum(alwaysCreate: true)
 enum QuickFilters {
-  running(icon: Icons.timer);
+  running(icon: Icons.timer),
+  cookable(icon: Icons.restaurant);
 
   const QuickFilters({required this.icon});
   final IconData icon;

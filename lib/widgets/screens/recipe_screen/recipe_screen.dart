@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-import 'package:recipath/application/recipe_shopping_modifier/recipe_shopping_modifier_notifier.dart';
-import 'package:recipath/application/shopping_modifier/shopping_modifier_notifier.dart';
-import 'package:recipath/data/ingredient_data/ingredient_data.dart';
-import 'package:recipath/data/recipe_data/recipe_data.dart';
-import 'package:recipath/l10n/app_localizations.dart';
-import 'package:recipath/root_routes.dart';
+import 'package:recipath/helper/go_router_extension.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/navigation/default_navigation_title.dart';
 import 'package:recipath/widgets/navigation/navigation_drawer_scaffold.dart';
-import 'package:recipath/widgets/screens/recipe_screen/dialogs/cancel_shopping_planning.dart';
-import 'package:recipath/widgets/screens/recipe_screen/dialogs/finish_shopping_planning.dart';
+import 'package:recipath/widgets/screens/recipe_screen/export/cancel_export.dart';
+import 'package:recipath/widgets/screens/recipe_screen/export/finish_export.dart';
+import 'package:recipath/widgets/screens/recipe_screen/providers/export_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/recipe_screen_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/shopping_planning_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/recipe_routes.dart';
 import 'package:recipath/widgets/screens/recipe_screen/recipe_search_view.dart';
+import 'package:recipath/widgets/screens/recipe_screen/shopping_planning/cancel_shopping_planning.dart';
+import 'package:recipath/widgets/screens/recipe_screen/shopping_planning/finish_shopping_planning.dart';
 
 class RecipeScreen extends ConsumerWidget {
   const RecipeScreen({super.key});
@@ -24,6 +21,7 @@ class RecipeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final screenState = ref.watch(recipeScreenProvider);
     final shoppingPlan = ref.watch(shoppingPlanningProvider);
+    final export = ref.watch(exportProvider);
 
     return NavigationDrawerScaffold(
       titleBuilder: (title) => DefaultNavigationTitle(
@@ -33,79 +31,28 @@ class RecipeScreen extends ConsumerWidget {
             : SyncState.synced,
       ),
       actions: [
-        if (shoppingPlan == null)
+        if (shoppingPlan == null && export == null) ...[
+          IconButton(
+            onPressed: () => ref.read(exportProvider.notifier).start(),
+            icon: Icon(Icons.share),
+          ),
           IconButton(
             onPressed: () =>
                 ref.read(shoppingPlanningProvider.notifier).start(),
             icon: Icon(Icons.shopping_cart),
-          )
-        else ...[
-          IconButton(
-            onPressed: () async {
-              final cancel = await showDialog<bool>(
-                context: context,
-                builder: (context) => CancelShoppingPlanning(),
-              );
-
-              if (cancel == true) {
-                ref.read(shoppingPlanningProvider.notifier).clear();
-              }
-            },
-            icon: Icon(Icons.clear),
           ),
+        ] else if (shoppingPlan != null) ...[
+          CancelShoppingPlanning(),
           SizedBox(width: 10),
-          IconButton(
-            onPressed: () async {
-              final finish = await showDialog<bool>(
-                context: context,
-                builder: (context) => FinishShoppingPlanning(),
-              );
-
-              if (finish != true) return;
-
-              final shoppingPlan = ref.read(shoppingPlanningProvider);
-
-              if (shoppingPlan != null && shoppingPlan.isNotEmpty) {
-                final shoppingModifier = ref.read(shoppingModifierProvider);
-                final recipeShopping = ref.read(recipeShoppingModifierProvider);
-
-                List<IngredientData> ingredientData = [];
-
-                for (final entry in shoppingPlan.entries) {
-                  for (int i = 0; i < entry.value; i++) {
-                    ingredientData.addAll(
-                      entry.key.getIngredients(screenState.value!.grocery),
-                    );
-                    await recipeShopping.addRecipe(entry.key);
-                  }
-                }
-
-                await shoppingModifier.addItems(
-                  ingredientData,
-                  screenState.value!.grocery,
-                );
-
-                if (context.mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        AppLocalizations.of(context)!.addedItemsToShopping,
-                      ),
-                    ),
-                  );
-                }
-              }
-
-              ref.read(shoppingPlanningProvider.notifier).clear();
-            },
-            icon: Icon(Icons.done),
-          ),
+          FinishShoppingPlanning(),
+        ] else if (export != null) ...[
+          CancelExport(),
+          SizedBox(width: 10),
+          FinishExport(),
         ],
       ],
       floatingActionButton: FloatingActionButton(
-        onPressed: () => context.go(
-          "${RootRoutes.recipeRoute.path}/${RecipeRoutes.createRecipe.path}",
-        ),
+        onPressed: () => context.goRelative(RecipeRoutes.createRecipe.path),
         child: Icon(Icons.add),
       ),
       body: CachedAsyncValueWrapper(

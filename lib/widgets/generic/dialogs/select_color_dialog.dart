@@ -39,7 +39,7 @@ class _SelectColorDialogState extends State<SelectColorDialog> {
       actions: [
         TextButton(
           style: TextButton.styleFrom(
-            textStyle: Theme.of(context).textTheme.labelLarge,
+            textStyle: TextTheme.of(context).labelLarge,
           ),
           child: Text(localization.discard),
           onPressed: () {
@@ -48,7 +48,7 @@ class _SelectColorDialogState extends State<SelectColorDialog> {
         ),
         TextButton(
           style: TextButton.styleFrom(
-            textStyle: Theme.of(context).textTheme.labelLarge,
+            textStyle: TextTheme.of(context).labelLarge,
           ),
           child: Text(localization.pick),
           onPressed: () {

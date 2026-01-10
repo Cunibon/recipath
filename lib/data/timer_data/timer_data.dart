@@ -8,6 +8,7 @@ abstract class TimerData with _$TimerData {
   const factory TimerData({
     required DateTime startTime,
     required int? servings,
+    required Set<String> finishedSteps,
   }) = _TimerData;
 
   factory TimerData.fromJson(Map<String, Object?> json) =>

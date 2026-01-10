@@ -186,6 +186,12 @@ abstract class AppLocalizations {
   /// **'Search for {type}'**
   String searchFor(String type);
 
+  /// No description provided for @changeSearchForResults.
+  ///
+  /// In en, this message translates to:
+  /// **'Change your search to see other results'**
+  String get changeSearchForResults;
+
   /// No description provided for @clearAllItems.
   ///
   /// In en, this message translates to:
@@ -198,6 +204,36 @@ abstract class AppLocalizations {
   /// **'Do you really want clear all items?\nThere is no way to get them back.'**
   String get clearAllContent;
 
+  /// No description provided for @recipeImportInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select the recipes you want to import.'**
+  String get recipeImportInfo;
+
+  /// No description provided for @groceryImportInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Please map the imported groceries to your existing groceries, or leave them unmapped to create new ones.'**
+  String get groceryImportInfo;
+
+  /// No description provided for @missingMapping.
+  ///
+  /// In en, this message translates to:
+  /// **'Missing mapping'**
+  String get missingMapping;
+
+  /// No description provided for @missingMappingContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Unmapped items will create {count} new groceries.'**
+  String missingMappingContent(int count);
+
+  /// No description provided for @select.
+  ///
+  /// In en, this message translates to:
+  /// **'Select'**
+  String get select;
+
   /// No description provided for @yes.
   ///
   /// In en, this message translates to:
@@ -209,6 +245,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No'**
   String get no;
+
+  /// No description provided for @actionContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get actionContinue;
+
+  /// No description provided for @actionCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get actionCancel;
 
   /// No description provided for @pick.
   ///
@@ -258,11 +306,29 @@ abstract class AppLocalizations {
   /// **'Finish shopping planning'**
   String get finishShoppingPlanning;
 
-  /// No description provided for @finishShoppingContent.
+  /// No description provided for @cancelExport.
   ///
   /// In en, this message translates to:
-  /// **'Do you want to finish your shopping planning and your items to your shopping list'**
-  String get finishShoppingContent;
+  /// **'Cancel export'**
+  String get cancelExport;
+
+  /// No description provided for @cancelExportContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to cancel your export?'**
+  String get cancelExportContent;
+
+  /// No description provided for @finishExport.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish export'**
+  String get finishExport;
+
+  /// No description provided for @theseRecipesHaveBeenAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'These recipes have been added:'**
+  String get theseRecipesHaveBeenAdded;
 
   /// No description provided for @leaveThisPage.
   ///
@@ -275,6 +341,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'All unsaved changes will be lost!'**
   String get leaveThisPageContent;
+
+  /// No description provided for @closeTheApp.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to close the app?'**
+  String get closeTheApp;
 
   /// No description provided for @baseValue.
   ///
@@ -371,6 +443,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Create grocery'**
   String get createGrocery;
+
+  /// No description provided for @createTag.
+  ///
+  /// In en, this message translates to:
+  /// **'Create tag'**
+  String get createTag;
 
   /// No description provided for @save.
   ///
@@ -606,11 +684,23 @@ abstract class AppLocalizations {
   /// **'How long did the recipe take?'**
   String get howLongDidTheRecipeTake;
 
-  /// No description provided for @cancleTimer.
+  /// No description provided for @cancelTimer.
   ///
   /// In en, this message translates to:
   /// **'Cancel timer'**
-  String get cancleTimer;
+  String get cancelTimer;
+
+  /// No description provided for @timersRunningHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'Timers running'**
+  String get timersRunningHeader;
+
+  /// No description provided for @timersRunningDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'⏱️ you have active timers running'**
+  String get timersRunningDescription;
 
   /// No description provided for @removedIngredientsFromStorage.
   ///
@@ -636,6 +726,12 @@ abstract class AppLocalizations {
   /// **'Import data'**
   String get importData;
 
+  /// No description provided for @selectFileToImport.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a file to import.'**
+  String get selectFileToImport;
+
   /// No description provided for @exportData.
   ///
   /// In en, this message translates to:
@@ -653,6 +749,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Dark mode'**
   String get darkMode;
+
+  /// No description provided for @storageMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Storage mode'**
+  String get storageMode;
 
   /// No description provided for @clear.
   ///
@@ -822,11 +924,47 @@ abstract class AppLocalizations {
   /// **'Nothing to see'**
   String get nothingToSee;
 
-  /// No description provided for @cookRecipeForData.
+  /// No description provided for @cookRecipeForDataHint.
   ///
   /// In en, this message translates to:
-  /// **'Cook a recipe to add data'**
-  String get cookRecipeForData;
+  /// **'Cook a recipe to start tracking data'**
+  String get cookRecipeForDataHint;
+
+  /// No description provided for @shopRecipeForDataHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Shop for a recipe to start tracking data'**
+  String get shopRecipeForDataHint;
+
+  /// No description provided for @createRecipeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Create or import a recipe to get started'**
+  String get createRecipeHint;
+
+  /// No description provided for @shoppingHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Use shopping mode on the Recipes page or add individual groceries'**
+  String get shoppingHint;
+
+  /// No description provided for @createGroceryHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Create or import groceries to use in your recipes'**
+  String get createGroceryHint;
+
+  /// No description provided for @storageHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Shop for groceries to add them to your storage'**
+  String get storageHint;
+
+  /// No description provided for @createTagHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Create tags to organize and filter your recipes'**
+  String get createTagHint;
 
   /// No description provided for @goPro.
   ///
@@ -857,6 +995,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Oops, something unexpected happened'**
   String get somethingUnexpected;
+
+  /// No description provided for @selectOne.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select at least one item'**
+  String get selectOne;
 }
 
 class _AppLocalizationsDelegate

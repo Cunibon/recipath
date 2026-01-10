@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/data/ingredient_data/ingredient_data.dart';
 import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/l10n/app_localizations.dart';
+import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/generic/expandable.dart';
 import 'package:recipath/widgets/screens/recipe_screen/create_recipe_screen/compact_ingredient_view.dart';
-import 'package:recipath/widgets/screens/recipe_screen/create_recipe_screen/ingredient_item.dart';
+import 'package:recipath/widgets/screens/recipe_screen/create_recipe_screen/providers/grocey_storage_notifier.dart';
+import 'package:recipath/widgets/screens/recipe_screen/create_recipe_screen/recipe_ingredient_item.dart';
 
-class IngredientView extends StatefulWidget {
-  const IngredientView({
+class RecipeIngredientView extends ConsumerStatefulWidget {
+  const RecipeIngredientView({
     required this.ingredients,
     required this.onChanged,
     this.controller,
@@ -20,10 +23,11 @@ class IngredientView extends StatefulWidget {
   final ScrollController? controller;
 
   @override
-  State<IngredientView> createState() => _IngredientViewState();
+  ConsumerState<RecipeIngredientView> createState() =>
+      _RecipeIngredientViewState();
 }
 
-class _IngredientViewState extends State<IngredientView> {
+class _RecipeIngredientViewState extends ConsumerState<RecipeIngredientView> {
   late bool expanded = true;
 
   @override
@@ -37,7 +41,7 @@ class _IngredientViewState extends State<IngredientView> {
     for (int i = 0; i < widget.ingredients.length; i++) {
       final ingredient = widget.ingredients[i];
       items.add(
-        IngredientItem(
+        RecipeIngredientItem(
           key: Key(ingredient.id),
           index: i,
           data: ingredient,
@@ -57,7 +61,7 @@ class _IngredientViewState extends State<IngredientView> {
         children: [
           Text(
             expanded ? localization.collapse : localization.expand,
-            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+            style: TextTheme.of(context).bodyLarge!.copyWith(
               color: Theme.of(context).colorScheme.primary,
             ),
           ),
@@ -81,7 +85,16 @@ class _IngredientViewState extends State<IngredientView> {
                 widget.onChanged(listCopy);
               },
             )
-          : CompactIngredientView(ingredients: widget.ingredients),
+          : CachedAsyncValueWrapper(
+              asyncState: ref.watch(groceryStorageProvider),
+              builder: (data) {
+                return CompactIngredientView(
+                  ingredients: widget.ingredients,
+                  storageData: data.storage,
+                  groceryMap: data.groceryMap,
+                );
+              },
+            ),
     );
   }
 }

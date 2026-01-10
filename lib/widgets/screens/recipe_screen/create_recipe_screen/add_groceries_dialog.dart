@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/l10n/app_localizations.dart';
+import 'package:recipath/widgets/generic/empty_state.dart';
 import 'package:recipath/widgets/generic/searchable_list.dart';
 import 'package:recipath/widgets/screens/grocery_screen/grocery_routes.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
@@ -59,7 +60,7 @@ class _AddGroceriesDialogState extends ConsumerState<AddGroceriesDialog> {
                         padding: const EdgeInsets.symmetric(horizontal: 12),
                         child: Text(
                           selected.length.toString(),
-                          style: Theme.of(context).textTheme.titleLarge,
+                          style: TextTheme.of(context).titleLarge,
                         ),
                       )
                     : null,
@@ -88,6 +89,7 @@ class _AddGroceriesDialogState extends ConsumerState<AddGroceriesDialog> {
                   ),
                 ),
                 listViewPadding: EdgeInsets.only(bottom: 100),
+                emptyState: EmptyState(),
               ),
               Align(
                 alignment: Alignment.bottomRight,

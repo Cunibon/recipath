@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:logger/logger.dart';
 import 'package:recipath/domain_service/syncing_service/file_sync_orchestrator/file_sync_orchestrator.dart';
@@ -66,9 +67,12 @@ class SyncingService {
     FullDownloadResult? downloadResult;
 
     try {
-      fileUpload = await fileSyncOrchestrator.uploadAll();
-      uploadedCount = await syncOrchestrator.uploadAll();
-      downloadResult = await syncOrchestrator.downloadAll(_tableSyncs);
+      final connectivity = await Connectivity().checkConnectivity();
+      if (connectivity.first != ConnectivityResult.none) {
+        fileUpload = await fileSyncOrchestrator.uploadAll();
+        uploadedCount = await syncOrchestrator.uploadAll();
+        downloadResult = await syncOrchestrator.downloadAll(_tableSyncs);
+      }
     } catch (e, s) {
       logger.e("Sync failed", error: e, stackTrace: s);
     } finally {

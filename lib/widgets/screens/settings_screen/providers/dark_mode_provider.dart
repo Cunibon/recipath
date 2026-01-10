@@ -7,19 +7,19 @@ part 'dark_mode_provider.g.dart';
 
 @riverpod
 class DarkModeNotifier extends _$DarkModeNotifier {
-  static const darkmodeKey = "darkmodeKey";
+  static const darkModeKey = "darkModeKey";
 
   @override
   bool build() {
     final systemDefault =
         WidgetsBinding.instance.platformDispatcher.platformBrightness;
 
-    return localStorage.get<bool>(darkmodeKey) ??
+    return localStorage.get<bool>(darkModeKey) ??
         systemDefault == Brightness.dark;
   }
 
   void set(bool darkMode) {
-    localStorage.set(darkmodeKey, darkMode);
+    localStorage.set(darkModeKey, darkMode);
     ref.invalidateSelf();
   }
 }

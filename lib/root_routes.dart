@@ -4,6 +4,8 @@ import 'package:recipath/widgets/screens/grocery_screen/grocery_routes.dart';
 import 'package:recipath/widgets/screens/grocery_screen/grocery_screen.dart';
 import 'package:recipath/widgets/screens/history_screen/recipe_history_screen/recipe_history_screen.dart';
 import 'package:recipath/widgets/screens/history_screen/recipe_shopping_screen/recipe_shopping_screen.dart';
+import 'package:recipath/widgets/screens/import_screen/import_routes.dart';
+import 'package:recipath/widgets/screens/import_screen/import_screen.dart';
 import 'package:recipath/widgets/screens/recipe_screen/recipe_routes.dart';
 import 'package:recipath/widgets/screens/recipe_screen/recipe_screen.dart';
 import 'package:recipath/widgets/screens/settings_screen/settings_screen.dart';
@@ -50,24 +52,26 @@ abstract class RootRoutes {
   static GoRoute dashboardRoute = GoRoute(
     path: "/dashboard",
     builder: (context, state) => DashboardScreen(),
-    routes: [],
   );
 
   static GoRoute recipeHistoryRoute = GoRoute(
     path: "/recipeHistory",
     builder: (context, state) => RecipeHistoryScreen(),
-    routes: [],
   );
 
   static GoRoute recipeShoppingRoute = GoRoute(
     path: "/recipeShopping",
     builder: (context, state) => RecipeShoppingScreen(),
-    routes: [],
   );
 
   static GoRoute settingsRoute = GoRoute(
     path: "/settings",
     builder: (context, state) => SettingsScreen(),
-    routes: [],
+  );
+
+  static GoRoute importRoute = GoRoute(
+    path: "/import",
+    builder: (context, state) => ImportScreen(),
+    routes: [ImportRoutes.recipeImport],
   );
 }

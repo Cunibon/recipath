@@ -31,7 +31,7 @@ class RecipeChart extends ConsumerWidget {
             children: [
               Text(
                 AppLocalizations.of(context)!.recipeUsage,
-                style: Theme.of(context).textTheme.titleLarge,
+                style: TextTheme.of(context).titleLarge,
               ),
               Icon(
                 expanded
@@ -48,8 +48,6 @@ class RecipeChart extends ConsumerWidget {
               asyncState: state,
               builder: (data) => BaseChart(
                 state: data,
-                horizontalInterval: 1,
-                horizontalTitleInterval: 10,
                 onTap: (index) => onTap(
                   index != null ? state.value!.entries[index].identifier : null,
                 ),

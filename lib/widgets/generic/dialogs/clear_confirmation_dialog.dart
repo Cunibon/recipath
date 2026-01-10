@@ -11,7 +11,7 @@ class ClearConfirmationDialog extends StatelessWidget {
 
     return TwoOptionDialog(
       title: localization.clearAllItems,
-      content: localization.clearAllContent,
+      content: Text(localization.clearAllContent),
       agree: localization.yes,
       disagree: localization.no,
     );

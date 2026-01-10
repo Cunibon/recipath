@@ -1,5 +1,7 @@
 import 'package:recipath/data/grocery_data/grocery_data.dart';
+import 'package:recipath/data/recipe_data/recipe_data.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
+import 'package:recipath/widgets/screens/recipe_screen/create_recipe_screen/providers/grocey_storage_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/data/compact_recipe_item_data.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/average_recipe_time_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/filtered_recipe_notifier.dart';
@@ -14,11 +16,13 @@ part 'recipe_screen_notifier.g.dart';
 Future<RecipeScreenState> recipeScreenNotifier(Ref ref) async {
   final recipes = await ref.watch(filteredRecipeProvider.future);
   final groceries = await ref.watch(groceryProvider.future);
+  final storage = await ref.watch(groceryStorageProvider.future);
   final timers = ref.watch(timerProvider);
 
   final quickFilters = ref.watch(quickFilterProvider);
 
   final onlyShowRunning = quickFilters[QuickFilters.running] ?? false;
+  final onlyShowCookable = quickFilters[QuickFilters.cookable] ?? false;
 
   final recipeList = <CompactRecipeItemData>[];
   bool synced = true;
@@ -42,11 +46,26 @@ Future<RecipeScreenState> recipeScreenNotifier(Ref ref) async {
       timerData: timers[recipe.id],
     );
 
+    bool isRunning = true;
+    bool isCookable = true;
+
     if (onlyShowRunning) {
-      if (timers.containsKey(recipe.id)) {
-        recipeList.add(compactRecipeData);
-      }
-    } else {
+      isRunning = timers.containsKey(recipe.id);
+    }
+
+    if (onlyShowCookable) {
+      final ingredients = recipe.getIngredients(groceries);
+      isCookable = ingredients.every(
+        (element) =>
+            element.amount <=
+            (storage.storage[element.groceryId]?.ingredient.amount ?? 0),
+      );
+    }
+
+    final shouldInclude =
+        (!onlyShowRunning || isRunning) && (!onlyShowCookable || isCookable);
+
+    if (shouldInclude) {
       recipeList.add(compactRecipeData);
     }
   }

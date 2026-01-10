@@ -20,9 +20,9 @@ class Tag extends StatelessWidget {
           children: [
             Text(
               text,
-              style: Theme.of(
+              style: TextTheme.of(
                 context,
-              ).textTheme.titleMedium?.copyWith(color: color.lighten(0.3)),
+              ).titleMedium?.copyWith(color: color.lighten(0.3)),
             ),
           ],
         ),

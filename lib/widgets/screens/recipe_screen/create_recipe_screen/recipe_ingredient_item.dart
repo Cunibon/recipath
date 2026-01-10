@@ -4,11 +4,12 @@ import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/ingredient_data/ingredient_data.dart';
 import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/l10n/app_localizations.dart';
+import 'package:recipath/widgets/generic/focus_form_field.dart';
 import 'package:recipath/widgets/providers/double_number_format_provider.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 
-class IngredientItem extends ConsumerStatefulWidget {
-  const IngredientItem({
+class RecipeIngredientItem extends ConsumerStatefulWidget {
+  const RecipeIngredientItem({
     required this.index,
     required this.data,
     required this.localizedUnits,
@@ -24,10 +25,10 @@ class IngredientItem extends ConsumerStatefulWidget {
   final void Function() remove;
 
   @override
-  ConsumerState<IngredientItem> createState() => _IngredientItemState();
+  ConsumerState<RecipeIngredientItem> createState() => _IngredientItemState();
 }
 
-class _IngredientItemState extends ConsumerState<IngredientItem> {
+class _IngredientItemState extends ConsumerState<RecipeIngredientItem> {
   final amountController = TextEditingController();
   late bool isMisc;
 
@@ -38,6 +39,12 @@ class _IngredientItemState extends ConsumerState<IngredientItem> {
 
     amountController.text = doubleNumberFormat.format(widget.data.amount);
     isMisc = UnitConversion.unitType(widget.data.unit) == UnitType.misc;
+  }
+
+  @override
+  void dispose() {
+    amountController.dispose();
+    super.dispose();
   }
 
   @override
@@ -63,7 +70,7 @@ class _IngredientItemState extends ConsumerState<IngredientItem> {
         ),
         Flexible(
           flex: 3,
-          child: TextFormField(
+          child: FocusFormField(
             controller: amountController,
             decoration: InputDecoration(labelText: localization.amount),
             keyboardType: TextInputType.numberWithOptions(decimal: true),
@@ -73,8 +80,8 @@ class _IngredientItemState extends ConsumerState<IngredientItem> {
                     doubleNumberFormat.tryParse(value) == 0
                 ? localization.addAmount
                 : null,
-            onEditingComplete: () {
-              final parsed = doubleNumberFormat.parse(amountController.text);
+            onFocusLost: (value) {
+              final parsed = doubleNumberFormat.tryParse(value);
 
               if (parsed == 0) {
                 widget.remove();
@@ -97,7 +104,7 @@ class _IngredientItemState extends ConsumerState<IngredientItem> {
                   width: double.infinity,
                   child: Text(
                     unitLocalized[widget.data.unit]!,
-                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    style: TextTheme.of(context).bodyLarge!.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -141,7 +148,7 @@ class _IngredientItemState extends ConsumerState<IngredientItem> {
           flex: 5,
           child: Text(
             grocery.name,
-            style: Theme.of(context).textTheme.bodyLarge,
+            style: TextTheme.of(context).bodyLarge,
             overflow: TextOverflow.ellipsis,
           ),
         ),

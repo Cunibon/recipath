@@ -48,6 +48,12 @@ class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
   }
 
   @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context)!;
 
@@ -57,7 +63,7 @@ class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
         appBar: AppBar(
           title: Text(
             localization.createRecipe,
-            style: Theme.of(context).textTheme.titleLarge,
+            style: TextTheme.of(context).titleLarge,
           ),
           actions: [
             if (widget.recipeId != null)
@@ -199,7 +205,7 @@ class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
                               ? localization.addTitle
                               : null,
                           onChanged: (value) => setState(
-                            () => data = data.copyWith(title: value),
+                            () => data = data.copyWith(title: value.trim()),
                           ),
                         ),
                       ),

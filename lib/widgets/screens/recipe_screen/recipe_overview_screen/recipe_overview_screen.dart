@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:recipath/application/recipe_tag_modifier/recipe_tag_modifier_notifier.dart';
 import 'package:recipath/application_constants.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
 import 'package:recipath/data/recipe_tag_data/recipe_tag_data.dart';
+import 'package:recipath/helper/go_router_extension.dart';
 import 'package:recipath/l10n/app_localizations.dart';
-import 'package:recipath/root_routes.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/local_image.dart';
@@ -15,6 +14,7 @@ import 'package:recipath/widgets/screens/recipe_screen/recipe_overview_screen/nu
 import 'package:recipath/widgets/screens/recipe_screen/recipe_overview_screen/providers/recipe_overview_screen_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/recipe_overview_screen/recipe_button/track_recipe_button.dart';
 import 'package:recipath/widgets/screens/recipe_screen/recipe_overview_screen/recipe_step.dart';
+import 'package:recipath/widgets/screens/recipe_screen/recipe_overview_screen/share_recipe_button.dart';
 import 'package:recipath/widgets/screens/recipe_screen/recipe_routes.dart';
 import 'package:recipath/widgets/tag/tag_list.dart';
 
@@ -39,16 +39,21 @@ class RecipeOverviewScreen extends ConsumerWidget {
           appBar: AppBar(
             title: Text(
               data.recipeData.title,
-              style: Theme.of(context).textTheme.titleLarge,
+              style: TextTheme.of(context).titleLarge,
             ),
             actions: [
+              ShareRecipeButton(recipe: data.recipeData),
               IconButton(
-                onPressed: () => context.go(
-                  Uri(
-                    path:
-                        '${RootRoutes.recipeRoute.path}/recipeOverview/${data.originalData.id}/${RecipeRoutes.createRecipe.path}',
-                    queryParameters: {idParameter: data.originalData.id},
-                  ).toString(),
+                onPressed: () => context.goRelative(
+                  RecipeRoutes.recipeHistory.path,
+                  queryParameters: {idParameter: data.originalData.id},
+                ),
+                icon: Icon(Icons.cookie),
+              ),
+              IconButton(
+                onPressed: () => context.goRelative(
+                  RecipeRoutes.createRecipe.path,
+                  queryParameters: {idParameter: data.originalData.id},
                 ),
                 icon: Icon(Icons.edit),
               ),
@@ -62,9 +67,11 @@ class RecipeOverviewScreen extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   if (data.recipeData.imageName != null) ...[
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 4),
-                      child: LocalImage(fileName: data.recipeData.imageName!),
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 4),
+                        child: LocalImage(fileName: data.recipeData.imageName!),
+                      ),
                     ),
                     Divider(),
                   ],
@@ -178,7 +185,7 @@ class RecipeOverviewScreen extends ConsumerWidget {
                         padding: const EdgeInsets.all(8.0),
                         child: RecipeStep(
                           index: i,
-                          step: data.recipeData.steps[i],
+                          recipeData: data.recipeData,
                         ),
                       ),
                     ),
