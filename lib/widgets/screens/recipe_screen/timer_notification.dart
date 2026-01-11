@@ -70,10 +70,6 @@ Future<void> scheduleStepNotification({
     ),
     androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
   );
-
-  final pending = await notifications.pendingNotificationRequests();
-  final mapped = pending.map((e) => e.body).toList();
-  debugPrint('Pending notifications: $mapped');
 }
 
 Future<void> cancelNotification(int id) async {

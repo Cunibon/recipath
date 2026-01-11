@@ -1,4 +1,5 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
@@ -36,6 +37,7 @@ Future<void> initNotifications() async {
   await androidPlugin?.createNotificationChannel(stepTimerChannel);
 
   tz.initializeTimeZones();
-  //TODO wrong timezone???
-  tz.setLocalLocation(tz.getLocation(tz.local.name));
+  tz.setLocalLocation(
+    tz.getLocation((await FlutterTimezone.getLocalTimezone()).identifier),
+  );
 }
