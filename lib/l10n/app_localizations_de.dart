@@ -320,6 +320,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get howLongDidTheRecipeTake => 'Wie lange hat das Rezept gedauert?';
 
   @override
+  String get addTimer => 'Timer hinzufügen';
+
+  @override
   String get cancelTimer => 'Timer abbrechen';
 
   @override
@@ -327,6 +330,14 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get timersRunningDescription => '⏱️ es sind noch Timer aktiv';
+
+  @override
+  String get stepTimerFinishedTitle => 'Ein Timer ist abgelaufen';
+
+  @override
+  String stepTimerFinishedBody(int step, String recipe) {
+    return 'Ein Timer für Schritt $step von $recipe ist abgelaufen';
+  }
 
   @override
   String get removedIngredientsFromStorage =>

@@ -20,3 +20,5 @@ const String shoppingDataKey = "shoppingData";
 const String storageDataKey = "storageData";
 
 const String idParameter = "id";
+
+const String recipeIdKey = "recipeId";

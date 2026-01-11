@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$TimerData {
 
- DateTime get startTime; int? get servings; Set<String> get finishedSteps;
+ DateTime get startTime; int? get servings; Map<String, DateTime> get runningSteps;
 /// Create a copy of TimerData
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $TimerDataCopyWith<TimerData> get copyWith => _$TimerDataCopyWithImpl<TimerData>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TimerData&&(identical(other.startTime, startTime) || other.startTime == startTime)&&(identical(other.servings, servings) || other.servings == servings)&&const DeepCollectionEquality().equals(other.finishedSteps, finishedSteps));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TimerData&&(identical(other.startTime, startTime) || other.startTime == startTime)&&(identical(other.servings, servings) || other.servings == servings)&&const DeepCollectionEquality().equals(other.runningSteps, runningSteps));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,startTime,servings,const DeepCollectionEquality().hash(finishedSteps));
+int get hashCode => Object.hash(runtimeType,startTime,servings,const DeepCollectionEquality().hash(runningSteps));
 
 @override
 String toString() {
-  return 'TimerData(startTime: $startTime, servings: $servings, finishedSteps: $finishedSteps)';
+  return 'TimerData(startTime: $startTime, servings: $servings, runningSteps: $runningSteps)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $TimerDataCopyWith<$Res>  {
   factory $TimerDataCopyWith(TimerData value, $Res Function(TimerData) _then) = _$TimerDataCopyWithImpl;
 @useResult
 $Res call({
- DateTime startTime, int? servings, Set<String> finishedSteps
+ DateTime startTime, int? servings, Map<String, DateTime> runningSteps
 });
 
 
@@ -65,12 +65,12 @@ class _$TimerDataCopyWithImpl<$Res>
 
 /// Create a copy of TimerData
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? startTime = null,Object? servings = freezed,Object? finishedSteps = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? startTime = null,Object? servings = freezed,Object? runningSteps = null,}) {
   return _then(_self.copyWith(
 startTime: null == startTime ? _self.startTime : startTime // ignore: cast_nullable_to_non_nullable
 as DateTime,servings: freezed == servings ? _self.servings : servings // ignore: cast_nullable_to_non_nullable
-as int?,finishedSteps: null == finishedSteps ? _self.finishedSteps : finishedSteps // ignore: cast_nullable_to_non_nullable
-as Set<String>,
+as int?,runningSteps: null == runningSteps ? _self.runningSteps : runningSteps // ignore: cast_nullable_to_non_nullable
+as Map<String, DateTime>,
   ));
 }
 
@@ -155,10 +155,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( DateTime startTime,  int? servings,  Set<String> finishedSteps)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( DateTime startTime,  int? servings,  Map<String, DateTime> runningSteps)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _TimerData() when $default != null:
-return $default(_that.startTime,_that.servings,_that.finishedSteps);case _:
+return $default(_that.startTime,_that.servings,_that.runningSteps);case _:
   return orElse();
 
 }
@@ -176,10 +176,10 @@ return $default(_that.startTime,_that.servings,_that.finishedSteps);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( DateTime startTime,  int? servings,  Set<String> finishedSteps)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( DateTime startTime,  int? servings,  Map<String, DateTime> runningSteps)  $default,) {final _that = this;
 switch (_that) {
 case _TimerData():
-return $default(_that.startTime,_that.servings,_that.finishedSteps);case _:
+return $default(_that.startTime,_that.servings,_that.runningSteps);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -196,10 +196,10 @@ return $default(_that.startTime,_that.servings,_that.finishedSteps);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( DateTime startTime,  int? servings,  Set<String> finishedSteps)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( DateTime startTime,  int? servings,  Map<String, DateTime> runningSteps)?  $default,) {final _that = this;
 switch (_that) {
 case _TimerData() when $default != null:
-return $default(_that.startTime,_that.servings,_that.finishedSteps);case _:
+return $default(_that.startTime,_that.servings,_that.runningSteps);case _:
   return null;
 
 }
@@ -211,16 +211,16 @@ return $default(_that.startTime,_that.servings,_that.finishedSteps);case _:
 @JsonSerializable()
 
 class _TimerData implements TimerData {
-  const _TimerData({required this.startTime, required this.servings, required final  Set<String> finishedSteps}): _finishedSteps = finishedSteps;
+  const _TimerData({required this.startTime, required this.servings, required final  Map<String, DateTime> runningSteps}): _runningSteps = runningSteps;
   factory _TimerData.fromJson(Map<String, dynamic> json) => _$TimerDataFromJson(json);
 
 @override final  DateTime startTime;
 @override final  int? servings;
- final  Set<String> _finishedSteps;
-@override Set<String> get finishedSteps {
-  if (_finishedSteps is EqualUnmodifiableSetView) return _finishedSteps;
+ final  Map<String, DateTime> _runningSteps;
+@override Map<String, DateTime> get runningSteps {
+  if (_runningSteps is EqualUnmodifiableMapView) return _runningSteps;
   // ignore: implicit_dynamic_type
-  return EqualUnmodifiableSetView(_finishedSteps);
+  return EqualUnmodifiableMapView(_runningSteps);
 }
 
 
@@ -237,16 +237,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TimerData&&(identical(other.startTime, startTime) || other.startTime == startTime)&&(identical(other.servings, servings) || other.servings == servings)&&const DeepCollectionEquality().equals(other._finishedSteps, _finishedSteps));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TimerData&&(identical(other.startTime, startTime) || other.startTime == startTime)&&(identical(other.servings, servings) || other.servings == servings)&&const DeepCollectionEquality().equals(other._runningSteps, _runningSteps));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,startTime,servings,const DeepCollectionEquality().hash(_finishedSteps));
+int get hashCode => Object.hash(runtimeType,startTime,servings,const DeepCollectionEquality().hash(_runningSteps));
 
 @override
 String toString() {
-  return 'TimerData(startTime: $startTime, servings: $servings, finishedSteps: $finishedSteps)';
+  return 'TimerData(startTime: $startTime, servings: $servings, runningSteps: $runningSteps)';
 }
 
 
@@ -257,7 +257,7 @@ abstract mixin class _$TimerDataCopyWith<$Res> implements $TimerDataCopyWith<$Re
   factory _$TimerDataCopyWith(_TimerData value, $Res Function(_TimerData) _then) = __$TimerDataCopyWithImpl;
 @override @useResult
 $Res call({
- DateTime startTime, int? servings, Set<String> finishedSteps
+ DateTime startTime, int? servings, Map<String, DateTime> runningSteps
 });
 
 
@@ -274,12 +274,12 @@ class __$TimerDataCopyWithImpl<$Res>
 
 /// Create a copy of TimerData
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? startTime = null,Object? servings = freezed,Object? finishedSteps = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? startTime = null,Object? servings = freezed,Object? runningSteps = null,}) {
   return _then(_TimerData(
 startTime: null == startTime ? _self.startTime : startTime // ignore: cast_nullable_to_non_nullable
 as DateTime,servings: freezed == servings ? _self.servings : servings // ignore: cast_nullable_to_non_nullable
-as int?,finishedSteps: null == finishedSteps ? _self._finishedSteps : finishedSteps // ignore: cast_nullable_to_non_nullable
-as Set<String>,
+as int?,runningSteps: null == runningSteps ? _self._runningSteps : runningSteps // ignore: cast_nullable_to_non_nullable
+as Map<String, DateTime>,
   ));
 }
 

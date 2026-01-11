@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$RecipeStepData {
 
- String get id; String get description; List<IngredientData> get ingredients;
+ String get id; String get description; List<IngredientData> get ingredients; int? get minutes;
 /// Create a copy of RecipeStepData
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $RecipeStepDataCopyWith<RecipeStepData> get copyWith => _$RecipeStepDataCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RecipeStepData&&(identical(other.id, id) || other.id == id)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other.ingredients, ingredients));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RecipeStepData&&(identical(other.id, id) || other.id == id)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other.ingredients, ingredients)&&(identical(other.minutes, minutes) || other.minutes == minutes));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,description,const DeepCollectionEquality().hash(ingredients));
+int get hashCode => Object.hash(runtimeType,id,description,const DeepCollectionEquality().hash(ingredients),minutes);
 
 @override
 String toString() {
-  return 'RecipeStepData(id: $id, description: $description, ingredients: $ingredients)';
+  return 'RecipeStepData(id: $id, description: $description, ingredients: $ingredients, minutes: $minutes)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $RecipeStepDataCopyWith<$Res>  {
   factory $RecipeStepDataCopyWith(RecipeStepData value, $Res Function(RecipeStepData) _then) = _$RecipeStepDataCopyWithImpl;
 @useResult
 $Res call({
- String id, String description, List<IngredientData> ingredients
+ String id, String description, List<IngredientData> ingredients, int? minutes
 });
 
 
@@ -65,12 +65,13 @@ class _$RecipeStepDataCopyWithImpl<$Res>
 
 /// Create a copy of RecipeStepData
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? description = null,Object? ingredients = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? description = null,Object? ingredients = null,Object? minutes = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,ingredients: null == ingredients ? _self.ingredients : ingredients // ignore: cast_nullable_to_non_nullable
-as List<IngredientData>,
+as List<IngredientData>,minutes: freezed == minutes ? _self.minutes : minutes // ignore: cast_nullable_to_non_nullable
+as int?,
   ));
 }
 
@@ -155,10 +156,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String description,  List<IngredientData> ingredients)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String description,  List<IngredientData> ingredients,  int? minutes)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _RecipeStepData() when $default != null:
-return $default(_that.id,_that.description,_that.ingredients);case _:
+return $default(_that.id,_that.description,_that.ingredients,_that.minutes);case _:
   return orElse();
 
 }
@@ -176,10 +177,10 @@ return $default(_that.id,_that.description,_that.ingredients);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String description,  List<IngredientData> ingredients)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String description,  List<IngredientData> ingredients,  int? minutes)  $default,) {final _that = this;
 switch (_that) {
 case _RecipeStepData():
-return $default(_that.id,_that.description,_that.ingredients);case _:
+return $default(_that.id,_that.description,_that.ingredients,_that.minutes);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -196,10 +197,10 @@ return $default(_that.id,_that.description,_that.ingredients);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String description,  List<IngredientData> ingredients)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String description,  List<IngredientData> ingredients,  int? minutes)?  $default,) {final _that = this;
 switch (_that) {
 case _RecipeStepData() when $default != null:
-return $default(_that.id,_that.description,_that.ingredients);case _:
+return $default(_that.id,_that.description,_that.ingredients,_that.minutes);case _:
   return null;
 
 }
@@ -211,7 +212,7 @@ return $default(_that.id,_that.description,_that.ingredients);case _:
 @JsonSerializable()
 
 class _RecipeStepData implements RecipeStepData {
-  const _RecipeStepData({required this.id, required this.description, required final  List<IngredientData> ingredients}): _ingredients = ingredients;
+  const _RecipeStepData({required this.id, required this.description, required final  List<IngredientData> ingredients, required this.minutes}): _ingredients = ingredients;
   factory _RecipeStepData.fromJson(Map<String, dynamic> json) => _$RecipeStepDataFromJson(json);
 
 @override final  String id;
@@ -223,6 +224,7 @@ class _RecipeStepData implements RecipeStepData {
   return EqualUnmodifiableListView(_ingredients);
 }
 
+@override final  int? minutes;
 
 /// Create a copy of RecipeStepData
 /// with the given fields replaced by the non-null parameter values.
@@ -237,16 +239,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RecipeStepData&&(identical(other.id, id) || other.id == id)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other._ingredients, _ingredients));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RecipeStepData&&(identical(other.id, id) || other.id == id)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other._ingredients, _ingredients)&&(identical(other.minutes, minutes) || other.minutes == minutes));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,description,const DeepCollectionEquality().hash(_ingredients));
+int get hashCode => Object.hash(runtimeType,id,description,const DeepCollectionEquality().hash(_ingredients),minutes);
 
 @override
 String toString() {
-  return 'RecipeStepData(id: $id, description: $description, ingredients: $ingredients)';
+  return 'RecipeStepData(id: $id, description: $description, ingredients: $ingredients, minutes: $minutes)';
 }
 
 
@@ -257,7 +259,7 @@ abstract mixin class _$RecipeStepDataCopyWith<$Res> implements $RecipeStepDataCo
   factory _$RecipeStepDataCopyWith(_RecipeStepData value, $Res Function(_RecipeStepData) _then) = __$RecipeStepDataCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String description, List<IngredientData> ingredients
+ String id, String description, List<IngredientData> ingredients, int? minutes
 });
 
 
@@ -274,12 +276,13 @@ class __$RecipeStepDataCopyWithImpl<$Res>
 
 /// Create a copy of RecipeStepData
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? description = null,Object? ingredients = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? description = null,Object? ingredients = null,Object? minutes = freezed,}) {
   return _then(_RecipeStepData(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,ingredients: null == ingredients ? _self._ingredients : ingredients // ignore: cast_nullable_to_non_nullable
-as List<IngredientData>,
+as List<IngredientData>,minutes: freezed == minutes ? _self.minutes : minutes // ignore: cast_nullable_to_non_nullable
+as int?,
   ));
 }
 

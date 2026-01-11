@@ -13,6 +13,7 @@ _RecipeStepData _$RecipeStepDataFromJson(Map<String, dynamic> json) =>
       ingredients: (json['ingredients'] as List<dynamic>)
           .map((e) => IngredientData.fromJson(e as Map<String, dynamic>))
           .toList(),
+      minutes: (json['minutes'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$RecipeStepDataToJson(_RecipeStepData instance) =>
@@ -20,4 +21,5 @@ Map<String, dynamic> _$RecipeStepDataToJson(_RecipeStepData instance) =>
       'id': instance.id,
       'description': instance.description,
       'ingredients': instance.ingredients,
+      'minutes': instance.minutes,
     };

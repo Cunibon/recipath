@@ -317,6 +317,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get howLongDidTheRecipeTake => 'How long did the recipe take?';
 
   @override
+  String get addTimer => 'Add timer';
+
+  @override
   String get cancelTimer => 'Cancel timer';
 
   @override
@@ -324,6 +327,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get timersRunningDescription => '⏱️ you have active timers running';
+
+  @override
+  String get stepTimerFinishedTitle => 'A timer has finished';
+
+  @override
+  String stepTimerFinishedBody(int step, String recipe) {
+    return 'A timer for step $step of $recipe has finished';
+  }
 
   @override
   String get removedIngredientsFromStorage =>

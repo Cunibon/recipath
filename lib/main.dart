@@ -14,6 +14,7 @@ import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:receive_sharing_intent/receive_sharing_intent.dart';
 import 'package:recipath/application/notification_service.dart';
 import 'package:recipath/application_constants.dart';
+import 'package:recipath/common.dart';
 import 'package:recipath/domain_service/syncing_service/syncing_service/syncing_service_notifier.dart';
 import 'package:recipath/drift/database.dart';
 import 'package:recipath/drift/database_notifier.dart';
@@ -56,6 +57,7 @@ void main() async {
   }
 
   final goRouter = GoRouter(
+    navigatorKey: navigatorKey,
     routes: [
       RootRoutes.recipeRoute,
       RootRoutes.groceriesRoute,

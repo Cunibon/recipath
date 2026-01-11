@@ -684,6 +684,12 @@ abstract class AppLocalizations {
   /// **'How long did the recipe take?'**
   String get howLongDidTheRecipeTake;
 
+  /// No description provided for @addTimer.
+  ///
+  /// In en, this message translates to:
+  /// **'Add timer'**
+  String get addTimer;
+
   /// No description provided for @cancelTimer.
   ///
   /// In en, this message translates to:
@@ -701,6 +707,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'⏱️ you have active timers running'**
   String get timersRunningDescription;
+
+  /// No description provided for @stepTimerFinishedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'A timer has finished'**
+  String get stepTimerFinishedTitle;
+
+  /// No description provided for @stepTimerFinishedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A timer for step {step} of {recipe} has finished'**
+  String stepTimerFinishedBody(int step, String recipe);
 
   /// No description provided for @removedIngredientsFromStorage.
   ///
