@@ -29,8 +29,8 @@ Future<void> initNotifications() async {
   await androidPlugin?.createNotificationChannel(timerChannel);
 
   const stepTimerChannel = AndroidNotificationChannel(
-    'scheduled_channel',
-    'Scheduled Notifications',
+    'step_timer_channel',
+    'Step timer notification',
     description: "Shown when a step in the recipe is supposed to be finished",
     importance: Importance.max,
   );

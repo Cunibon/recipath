@@ -13,32 +13,35 @@ Future<void> showTimersRunningNotification() async {
         AndroidFlutterLocalNotificationsPlugin
       >();
 
-  await androidPlugin?.requestNotificationsPermission();
+  final permission =
+      await androidPlugin?.requestNotificationsPermission() ?? false;
 
-  final androidDetails = AndroidNotificationDetails(
-    'active_timers',
-    'Active timers',
-    channelDescription: 'Shown while timers are running',
-    importance: Importance.low,
-    priority: Priority.low,
-    ongoing: true,
-    autoCancel: false,
-    showWhen: false,
-    category: AndroidNotificationCategory.service,
-  );
+  if (permission) {
+    final androidDetails = AndroidNotificationDetails(
+      'active_timers',
+      'Active timers',
+      channelDescription: 'Shown while timers are running',
+      importance: Importance.low,
+      priority: Priority.low,
+      ongoing: true,
+      autoCancel: false,
+      showWhen: false,
+      category: AndroidNotificationCategory.service,
+    );
 
-  final details = NotificationDetails(android: androidDetails);
+    final details = NotificationDetails(android: androidDetails);
 
-  final localizations = await AppLocalizations.delegate.load(
-    WidgetsBinding.instance.platformDispatcher.locale,
-  );
+    final localizations = await AppLocalizations.delegate.load(
+      WidgetsBinding.instance.platformDispatcher.locale,
+    );
 
-  await notifications.show(
-    _timersNotificationId,
-    localizations.timersRunningHeader,
-    localizations.timersRunningDescription,
-    details,
-  );
+    await notifications.show(
+      _timersNotificationId,
+      localizations.timersRunningHeader,
+      localizations.timersRunningDescription,
+      details,
+    );
+  }
 }
 
 Future<void> cancelTimersNotification() async {
@@ -51,25 +54,41 @@ Future<void> scheduleStepNotification({
   required RecipeData recipe,
   required DateTime scheduledAt,
 }) async {
-  final localizations = await AppLocalizations.delegate.load(
-    WidgetsBinding.instance.platformDispatcher.locale,
-  );
+  final androidPlugin = notifications
+      .resolvePlatformSpecificImplementation<
+        AndroidFlutterLocalNotificationsPlugin
+      >();
 
-  await notifications.zonedSchedule(
-    id,
-    localizations.stepTimerFinishedTitle,
-    localizations.stepTimerFinishedBody(index++, recipe.title),
-    tz.TZDateTime.from(scheduledAt, tz.local),
-    const NotificationDetails(
-      android: AndroidNotificationDetails(
-        'scheduled_channel',
-        'Scheduled Notifications',
-        importance: Importance.max,
-        priority: Priority.high,
+  final notificationPermission =
+      await androidPlugin?.requestNotificationsPermission() ?? false;
+
+  if (notificationPermission) {
+    final exactPermission =
+        await androidPlugin?.requestExactAlarmsPermission() ?? false;
+
+    final localizations = await AppLocalizations.delegate.load(
+      WidgetsBinding.instance.platformDispatcher.locale,
+    );
+
+    await notifications.zonedSchedule(
+      id,
+      localizations.stepTimerFinishedTitle,
+      localizations.stepTimerFinishedBody(index + 1, recipe.title),
+      tz.TZDateTime.from(scheduledAt, tz.local),
+      const NotificationDetails(
+        android: AndroidNotificationDetails(
+          'step_timer_channel',
+          'Step timer notification',
+          importance: Importance.max,
+          priority: Priority.high,
+          visibility: NotificationVisibility.public,
+        ),
       ),
-    ),
-    androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
-  );
+      androidScheduleMode: exactPermission
+          ? AndroidScheduleMode.exactAllowWhileIdle
+          : AndroidScheduleMode.inexactAllowWhileIdle,
+    );
+  }
 }
 
 Future<void> cancelNotification(int id) async {
