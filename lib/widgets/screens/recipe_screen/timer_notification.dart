@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:recipath/application/notification_service.dart';
+import 'package:recipath/application_constants.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:timezone/timezone.dart' as tz;
@@ -20,7 +23,6 @@ Future<void> showTimersRunningNotification() async {
     final androidDetails = AndroidNotificationDetails(
       'active_timers',
       'Active timers',
-      channelDescription: 'Shown while timers are running',
       importance: Importance.low,
       priority: Priority.low,
       ongoing: true,
@@ -84,6 +86,7 @@ Future<void> scheduleStepNotification({
           visibility: NotificationVisibility.public,
         ),
       ),
+      payload: jsonEncode({recipeIdKey: recipe.id}),
       androidScheduleMode: exactPermission
           ? AndroidScheduleMode.exactAllowWhileIdle
           : AndroidScheduleMode.inexactAllowWhileIdle,

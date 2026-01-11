@@ -1,5 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
+import 'package:go_router/go_router.dart';
+import 'package:recipath/application_constants.dart';
+import 'package:recipath/common.dart';
+import 'package:recipath/root_routes.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
@@ -13,7 +19,12 @@ Future<void> initNotifications() async {
 
   const settings = InitializationSettings(android: androidSettings);
 
-  await notifications.initialize(settings);
+  await notifications.initialize(
+    settings,
+    onDidReceiveNotificationResponse: (NotificationResponse response) {
+      handleNotificationPayload(response.payload);
+    },
+  );
 
   final androidPlugin = notifications
       .resolvePlatformSpecificImplementation<
@@ -40,4 +51,30 @@ Future<void> initNotifications() async {
   tz.setLocalLocation(
     tz.getLocation((await FlutterTimezone.getLocalTimezone()).identifier),
   );
+
+  final NotificationAppLaunchDetails? launchDetails = await notifications
+      .getNotificationAppLaunchDetails();
+
+  if (launchDetails?.didNotificationLaunchApp ?? false) {
+    final payload = launchDetails?.notificationResponse?.payload;
+    Future.delayed(
+      Duration(seconds: 1),
+      () => handleNotificationPayload(payload),
+    );
+  }
+}
+
+void handleNotificationPayload(String? payload) {
+  if (payload == null) return;
+
+  try {
+    final Map<String, dynamic> data = jsonDecode(payload);
+
+    if (data.containsKey(recipeIdKey)) {
+      final recipeId = data[recipeIdKey];
+      navigatorKey.currentContext?.go(
+        '${RootRoutes.recipeRoute.path}/recipeOverview/$recipeId',
+      );
+    }
+  } catch (_) {}
 }
