@@ -1,4 +1,6 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 
 final FlutterLocalNotificationsPlugin notifications =
     FlutterLocalNotificationsPlugin();
@@ -12,19 +14,28 @@ Future<void> initNotifications() async {
 
   await notifications.initialize(settings);
 
-  // Android notification channel
-  const channel = AndroidNotificationChannel(
-    'active_timers',
-    'Active timers',
-    description: 'Shown while one or more timers are running',
-    importance: Importance.low,
-  );
-
   final androidPlugin = notifications
       .resolvePlatformSpecificImplementation<
         AndroidFlutterLocalNotificationsPlugin
       >();
 
-  await androidPlugin?.createNotificationChannel(channel);
-  await androidPlugin?.requestNotificationsPermission();
+  const timerChannel = AndroidNotificationChannel(
+    'active_timers',
+    'Active timers',
+    description: 'Shown while one or more timers are running',
+    importance: Importance.low,
+  );
+  await androidPlugin?.createNotificationChannel(timerChannel);
+
+  const stepTimerChannel = AndroidNotificationChannel(
+    'scheduled_channel',
+    'Scheduled Notifications',
+    description: "Shown when a step in the recipe is supposed to be finished",
+    importance: Importance.max,
+  );
+  await androidPlugin?.createNotificationChannel(stepTimerChannel);
+
+  tz.initializeTimeZones();
+  //TODO wrong timezone???
+  tz.setLocalLocation(tz.getLocation(tz.local.name));
 }

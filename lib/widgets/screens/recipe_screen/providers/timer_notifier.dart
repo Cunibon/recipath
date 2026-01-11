@@ -6,6 +6,7 @@ import 'package:recipath/data/recipe_step_data/recipe_step_data.dart';
 import 'package:recipath/data/timer_data/timer_data.dart';
 import 'package:recipath/helper/local_storage_extension.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/quick_filter_notifier.dart';
+import 'package:recipath/widgets/screens/recipe_screen/providers/recipe_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/timer_notification.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
@@ -41,6 +42,11 @@ class TimerNotifier extends _$TimerNotifier {
           .read(quickFilterProvider.notifier)
           .setFilter(filter: QuickFilters.running, value: false);
       cancelTimersNotification();
+      for (final step
+          in ref.read(recipeProvider).value?[recipeId]?.steps ??
+              <RecipeStepData>[]) {
+        cancelNotification(step.hashCode);
+      }
       WakelockPlus.disable();
     }
     _updateState();
@@ -54,17 +60,29 @@ class TimerNotifier extends _$TimerNotifier {
     }
   }
 
-  void addStep(String recipeId, RecipeStepData step) {
-    if (state.containsKey(recipeId)) {
-      final currentData = state[recipeId]!;
+  void addStep(RecipeData recipeData, int index) {
+    if (state.containsKey(recipeData.id)) {
+      final currentData = state[recipeData.id]!;
       final runningSteps = Map<String, DateTime>.from(currentData.runningSteps);
 
-      state[recipeId] = currentData.copyWith(
-        runningSteps: runningSteps
-          ..[step.id] = DateTime.now().add(
-            Duration(minutes: step.minutes ?? 0),
-          ),
+      final step = recipeData.steps[index];
+
+      final plannedTime = DateTime.now().add(
+        Duration(minutes: step.minutes ?? 0),
       );
+
+      state[recipeData.id] = currentData.copyWith(
+        runningSteps: runningSteps..[step.id] = plannedTime,
+      );
+
+      if (step.minutes != null) {
+        scheduleStepNotification(
+          id: step.hashCode,
+          index: index,
+          recipe: recipeData,
+          scheduledAt: plannedTime,
+        );
+      }
 
       _updateState();
     }
@@ -91,6 +109,10 @@ class TimerNotifier extends _$TimerNotifier {
       state[recipeId] = currentData.copyWith(
         runningSteps: runningSteps..remove(step.id),
       );
+
+      if (step.minutes != null) {
+        cancelNotification(step.hashCode);
+      }
 
       _updateState();
     }

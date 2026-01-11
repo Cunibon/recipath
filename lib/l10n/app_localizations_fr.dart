@@ -321,6 +321,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get howLongDidTheRecipeTake => 'Combien de temps a pris la recette ?';
 
   @override
+  String get addTimer => 'Ajouter une minuterie';
+
+  @override
   String get cancelTimer => 'Annuler la minuterie';
 
   @override
@@ -329,6 +332,14 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get timersRunningDescription =>
       '⏱️ Des minuteries sont encore actives';
+
+  @override
+  String get stepTimerFinishedTitle => 'Une minuterie a terminé';
+
+  @override
+  String stepTimerFinishedBody(int step, String recipe) {
+    return 'Une minuterie pour l\'étape $step de $recipe a terminé';
+  }
 
   @override
   String get removedIngredientsFromStorage =>

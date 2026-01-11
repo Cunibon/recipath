@@ -29,7 +29,7 @@ class RecipeStepTag extends ConsumerWidget {
     return GestureDetector(
       onTap: () async {
         if (runningStep == null) {
-          ref.read(timerProvider.notifier).addStep(recipeData.id, step);
+          ref.read(timerProvider.notifier).addStep(recipeData, index);
         } else if (DateTime.now().isAfter(runningStep)) {
           ref.read(timerProvider.notifier).removestep(recipeData.id, step);
         } else {

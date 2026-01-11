@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:recipath/application/notification_service.dart';
+import 'package:recipath/data/recipe_data/recipe_data.dart';
 import 'package:recipath/l10n/app_localizations.dart';
+import 'package:timezone/timezone.dart' as tz;
 
 const int _timersNotificationId = 1001;
 
 Future<void> showTimersRunningNotification() async {
+  final androidPlugin = notifications
+      .resolvePlatformSpecificImplementation<
+        AndroidFlutterLocalNotificationsPlugin
+      >();
+
+  await androidPlugin?.requestNotificationsPermission();
+
   final androidDetails = AndroidNotificationDetails(
     'active_timers',
     'Active timers',
@@ -33,5 +42,40 @@ Future<void> showTimersRunningNotification() async {
 }
 
 Future<void> cancelTimersNotification() async {
-  await notifications.cancel(_timersNotificationId);
+  await cancelNotification(_timersNotificationId);
+}
+
+Future<void> scheduleStepNotification({
+  required int id,
+  required int index,
+  required RecipeData recipe,
+  required DateTime scheduledAt,
+}) async {
+  final localizations = await AppLocalizations.delegate.load(
+    WidgetsBinding.instance.platformDispatcher.locale,
+  );
+
+  await notifications.zonedSchedule(
+    id,
+    localizations.stepTimerFinishedTitle,
+    localizations.stepTimerFinishedBody(index++, recipe.title),
+    tz.TZDateTime.from(scheduledAt, tz.local),
+    const NotificationDetails(
+      android: AndroidNotificationDetails(
+        'scheduled_channel',
+        'Scheduled Notifications',
+        importance: Importance.max,
+        priority: Priority.high,
+      ),
+    ),
+    androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
+  );
+
+  final pending = await notifications.pendingNotificationRequests();
+  final mapped = pending.map((e) => e.body).toList();
+  debugPrint('Pending notifications: $mapped');
+}
+
+Future<void> cancelNotification(int id) async {
+  await notifications.cancel(id);
 }

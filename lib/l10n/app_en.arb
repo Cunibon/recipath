@@ -145,9 +145,22 @@
     "perServing": "Per serving",
     "somethingWentWrong": "Something went wrong :(",
     "howLongDidTheRecipeTake": "How long did the recipe take?",
+    "addTimer": "Add timer",
     "cancelTimer": "Cancel timer",
     "timersRunningHeader": "Timers running",
     "timersRunningDescription": "⏱️ you have active timers running",
+    "stepTimerFinishedTitle": "A timer has finished",
+    "stepTimerFinishedBody": "A timer for step {step} of {recipe} has finished",
+    "@stepTimerFinishedBody": {
+        "placeholders": {
+            "step": {
+                "type": "int"
+            },
+            "recipe": {
+                "type": "String"
+            }
+        }
+    },
     "removedIngredientsFromStorage": "Removed ingredients from storage!",
     "appearance": "Appearance",
     "data": "Data",

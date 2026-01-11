@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/screens/recipe_screen/recipe_overview_screen/recipe_button/duration_picker_dialog.dart';
 
 class TimerButton extends StatelessWidget {
@@ -9,6 +10,8 @@ class TimerButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
+
     return TextButton.icon(
       onPressed: () async {
         final durationResponse = await showDialog<DurationPickerResponse>(
@@ -20,8 +23,7 @@ class TimerButton extends StatelessWidget {
 
         onChange(durationResponse.duration?.inMinutes);
       },
-      //TODO localize
-      label: Text(minutes == null ? "Add Timer" : "${minutes}m"),
+      label: Text(minutes == null ? localization.addTimer : "${minutes}m"),
       icon: Icon(Icons.timer),
     );
   }
