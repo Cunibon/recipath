@@ -11,6 +11,7 @@ abstract class RecipeStepData with _$RecipeStepData {
     required String id,
     required String description,
     required List<IngredientData> ingredients,
+    required int? minutes,
   }) = _RecipeStepData;
 
   factory RecipeStepData.fromJson(Map<String, Object?> json) =>
@@ -20,6 +21,7 @@ abstract class RecipeStepData with _$RecipeStepData {
     id: data.id,
     description: data.description,
     ingredients: [],
+    minutes: data.minutes,
   );
 
   factory RecipeStepData.fromSupabase(
@@ -29,6 +31,7 @@ abstract class RecipeStepData with _$RecipeStepData {
     id: data["id"],
     description: data["description"],
     ingredients: ingredients,
+    minutes: data["minutes"],
   );
 }
 

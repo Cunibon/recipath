@@ -496,6 +496,17 @@ class $RecipeStepTableTable extends RecipeStepTable
     type: DriftSqlType.int,
     requiredDuringInsert: true,
   );
+  static const VerificationMeta _minutesMeta = const VerificationMeta(
+    'minutes',
+  );
+  @override
+  late final GeneratedColumn<int> minutes = GeneratedColumn<int>(
+    'minutes',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _recipeIdMeta = const VerificationMeta(
     'recipeId',
   );
@@ -530,6 +541,7 @@ class $RecipeStepTableTable extends RecipeStepTable
     id,
     description,
     index,
+    minutes,
     recipeId,
     uploaded,
   ];
@@ -569,6 +581,12 @@ class $RecipeStepTableTable extends RecipeStepTable
     } else if (isInserting) {
       context.missing(_indexMeta);
     }
+    if (data.containsKey('minutes')) {
+      context.handle(
+        _minutesMeta,
+        minutes.isAcceptableOrUnknown(data['minutes']!, _minutesMeta),
+      );
+    }
     if (data.containsKey('recipe_id')) {
       context.handle(
         _recipeIdMeta,
@@ -604,6 +622,10 @@ class $RecipeStepTableTable extends RecipeStepTable
         DriftSqlType.int,
         data['${effectivePrefix}index'],
       )!,
+      minutes: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}minutes'],
+      ),
       recipeId: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}recipe_id'],
@@ -626,12 +648,14 @@ class RecipeStepTableData extends DataClass
   final String id;
   final String description;
   final int index;
+  final int? minutes;
   final String recipeId;
   final bool uploaded;
   const RecipeStepTableData({
     required this.id,
     required this.description,
     required this.index,
+    this.minutes,
     required this.recipeId,
     required this.uploaded,
   });
@@ -641,6 +665,9 @@ class RecipeStepTableData extends DataClass
     map['id'] = Variable<String>(id);
     map['description'] = Variable<String>(description);
     map['index'] = Variable<int>(index);
+    if (!nullToAbsent || minutes != null) {
+      map['minutes'] = Variable<int>(minutes);
+    }
     map['recipe_id'] = Variable<String>(recipeId);
     map['uploaded'] = Variable<bool>(uploaded);
     return map;
@@ -651,6 +678,9 @@ class RecipeStepTableData extends DataClass
       id: Value(id),
       description: Value(description),
       index: Value(index),
+      minutes: minutes == null && nullToAbsent
+          ? const Value.absent()
+          : Value(minutes),
       recipeId: Value(recipeId),
       uploaded: Value(uploaded),
     );
@@ -665,6 +695,7 @@ class RecipeStepTableData extends DataClass
       id: serializer.fromJson<String>(json['id']),
       description: serializer.fromJson<String>(json['description']),
       index: serializer.fromJson<int>(json['index']),
+      minutes: serializer.fromJson<int?>(json['minutes']),
       recipeId: serializer.fromJson<String>(json['recipeId']),
       uploaded: serializer.fromJson<bool>(json['uploaded']),
     );
@@ -676,6 +707,7 @@ class RecipeStepTableData extends DataClass
       'id': serializer.toJson<String>(id),
       'description': serializer.toJson<String>(description),
       'index': serializer.toJson<int>(index),
+      'minutes': serializer.toJson<int?>(minutes),
       'recipeId': serializer.toJson<String>(recipeId),
       'uploaded': serializer.toJson<bool>(uploaded),
     };
@@ -685,12 +717,14 @@ class RecipeStepTableData extends DataClass
     String? id,
     String? description,
     int? index,
+    Value<int?> minutes = const Value.absent(),
     String? recipeId,
     bool? uploaded,
   }) => RecipeStepTableData(
     id: id ?? this.id,
     description: description ?? this.description,
     index: index ?? this.index,
+    minutes: minutes.present ? minutes.value : this.minutes,
     recipeId: recipeId ?? this.recipeId,
     uploaded: uploaded ?? this.uploaded,
   );
@@ -701,6 +735,7 @@ class RecipeStepTableData extends DataClass
           ? data.description.value
           : this.description,
       index: data.index.present ? data.index.value : this.index,
+      minutes: data.minutes.present ? data.minutes.value : this.minutes,
       recipeId: data.recipeId.present ? data.recipeId.value : this.recipeId,
       uploaded: data.uploaded.present ? data.uploaded.value : this.uploaded,
     );
@@ -712,6 +747,7 @@ class RecipeStepTableData extends DataClass
           ..write('id: $id, ')
           ..write('description: $description, ')
           ..write('index: $index, ')
+          ..write('minutes: $minutes, ')
           ..write('recipeId: $recipeId, ')
           ..write('uploaded: $uploaded')
           ..write(')'))
@@ -719,7 +755,8 @@ class RecipeStepTableData extends DataClass
   }
 
   @override
-  int get hashCode => Object.hash(id, description, index, recipeId, uploaded);
+  int get hashCode =>
+      Object.hash(id, description, index, minutes, recipeId, uploaded);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -727,6 +764,7 @@ class RecipeStepTableData extends DataClass
           other.id == this.id &&
           other.description == this.description &&
           other.index == this.index &&
+          other.minutes == this.minutes &&
           other.recipeId == this.recipeId &&
           other.uploaded == this.uploaded);
 }
@@ -735,6 +773,7 @@ class RecipeStepTableCompanion extends UpdateCompanion<RecipeStepTableData> {
   final Value<String> id;
   final Value<String> description;
   final Value<int> index;
+  final Value<int?> minutes;
   final Value<String> recipeId;
   final Value<bool> uploaded;
   final Value<int> rowid;
@@ -742,6 +781,7 @@ class RecipeStepTableCompanion extends UpdateCompanion<RecipeStepTableData> {
     this.id = const Value.absent(),
     this.description = const Value.absent(),
     this.index = const Value.absent(),
+    this.minutes = const Value.absent(),
     this.recipeId = const Value.absent(),
     this.uploaded = const Value.absent(),
     this.rowid = const Value.absent(),
@@ -750,6 +790,7 @@ class RecipeStepTableCompanion extends UpdateCompanion<RecipeStepTableData> {
     required String id,
     required String description,
     required int index,
+    this.minutes = const Value.absent(),
     required String recipeId,
     this.uploaded = const Value.absent(),
     this.rowid = const Value.absent(),
@@ -761,6 +802,7 @@ class RecipeStepTableCompanion extends UpdateCompanion<RecipeStepTableData> {
     Expression<String>? id,
     Expression<String>? description,
     Expression<int>? index,
+    Expression<int>? minutes,
     Expression<String>? recipeId,
     Expression<bool>? uploaded,
     Expression<int>? rowid,
@@ -769,6 +811,7 @@ class RecipeStepTableCompanion extends UpdateCompanion<RecipeStepTableData> {
       if (id != null) 'id': id,
       if (description != null) 'description': description,
       if (index != null) 'index': index,
+      if (minutes != null) 'minutes': minutes,
       if (recipeId != null) 'recipe_id': recipeId,
       if (uploaded != null) 'uploaded': uploaded,
       if (rowid != null) 'rowid': rowid,
@@ -779,6 +822,7 @@ class RecipeStepTableCompanion extends UpdateCompanion<RecipeStepTableData> {
     Value<String>? id,
     Value<String>? description,
     Value<int>? index,
+    Value<int?>? minutes,
     Value<String>? recipeId,
     Value<bool>? uploaded,
     Value<int>? rowid,
@@ -787,6 +831,7 @@ class RecipeStepTableCompanion extends UpdateCompanion<RecipeStepTableData> {
       id: id ?? this.id,
       description: description ?? this.description,
       index: index ?? this.index,
+      minutes: minutes ?? this.minutes,
       recipeId: recipeId ?? this.recipeId,
       uploaded: uploaded ?? this.uploaded,
       rowid: rowid ?? this.rowid,
@@ -804,6 +849,9 @@ class RecipeStepTableCompanion extends UpdateCompanion<RecipeStepTableData> {
     }
     if (index.present) {
       map['index'] = Variable<int>(index.value);
+    }
+    if (minutes.present) {
+      map['minutes'] = Variable<int>(minutes.value);
     }
     if (recipeId.present) {
       map['recipe_id'] = Variable<String>(recipeId.value);
@@ -823,6 +871,7 @@ class RecipeStepTableCompanion extends UpdateCompanion<RecipeStepTableData> {
           ..write('id: $id, ')
           ..write('description: $description, ')
           ..write('index: $index, ')
+          ..write('minutes: $minutes, ')
           ..write('recipeId: $recipeId, ')
           ..write('uploaded: $uploaded, ')
           ..write('rowid: $rowid')
@@ -5562,6 +5611,7 @@ typedef $$RecipeStepTableTableCreateCompanionBuilder =
       required String id,
       required String description,
       required int index,
+      Value<int?> minutes,
       required String recipeId,
       Value<bool> uploaded,
       Value<int> rowid,
@@ -5571,6 +5621,7 @@ typedef $$RecipeStepTableTableUpdateCompanionBuilder =
       Value<String> id,
       Value<String> description,
       Value<int> index,
+      Value<int?> minutes,
       Value<String> recipeId,
       Value<bool> uploaded,
       Value<int> rowid,
@@ -5661,6 +5712,11 @@ class $$RecipeStepTableTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
+  ColumnFilters<int> get minutes => $composableBuilder(
+    column: $table.minutes,
+    builder: (column) => ColumnFilters(column),
+  );
+
   ColumnFilters<bool> get uploaded => $composableBuilder(
     column: $table.uploaded,
     builder: (column) => ColumnFilters(column),
@@ -5741,6 +5797,11 @@ class $$RecipeStepTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<int> get minutes => $composableBuilder(
+    column: $table.minutes,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<bool> get uploaded => $composableBuilder(
     column: $table.uploaded,
     builder: (column) => ColumnOrderings(column),
@@ -5789,6 +5850,9 @@ class $$RecipeStepTableTableAnnotationComposer
 
   GeneratedColumn<int> get index =>
       $composableBuilder(column: $table.index, builder: (column) => column);
+
+  GeneratedColumn<int> get minutes =>
+      $composableBuilder(column: $table.minutes, builder: (column) => column);
 
   GeneratedColumn<bool> get uploaded =>
       $composableBuilder(column: $table.uploaded, builder: (column) => column);
@@ -5880,6 +5944,7 @@ class $$RecipeStepTableTableTableManager
                 Value<String> id = const Value.absent(),
                 Value<String> description = const Value.absent(),
                 Value<int> index = const Value.absent(),
+                Value<int?> minutes = const Value.absent(),
                 Value<String> recipeId = const Value.absent(),
                 Value<bool> uploaded = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
@@ -5887,6 +5952,7 @@ class $$RecipeStepTableTableTableManager
                 id: id,
                 description: description,
                 index: index,
+                minutes: minutes,
                 recipeId: recipeId,
                 uploaded: uploaded,
                 rowid: rowid,
@@ -5896,6 +5962,7 @@ class $$RecipeStepTableTableTableManager
                 required String id,
                 required String description,
                 required int index,
+                Value<int?> minutes = const Value.absent(),
                 required String recipeId,
                 Value<bool> uploaded = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
@@ -5903,6 +5970,7 @@ class $$RecipeStepTableTableTableManager
                 id: id,
                 description: description,
                 index: index,
+                minutes: minutes,
                 recipeId: recipeId,
                 uploaded: uploaded,
                 rowid: rowid,
