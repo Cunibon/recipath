@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:localstorage/localstorage.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
+import 'package:recipath/data/recipe_step_data/recipe_step_data.dart';
 import 'package:recipath/data/timer_data/timer_data.dart';
 import 'package:recipath/helper/local_storage_extension.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/quick_filter_notifier.dart';
@@ -13,7 +14,7 @@ part 'timer_notifier.g.dart';
 
 @riverpod
 class TimerNotifier extends _$TimerNotifier {
-  static const timerDataKey = "timerData_v3";
+  static const timerDataKey = "timerData_v4";
 
   @override
   Map<String, TimerData> build() {
@@ -26,7 +27,7 @@ class TimerNotifier extends _$TimerNotifier {
     state[recipeId] = TimerData(
       startTime: DateTime.now(),
       servings: servings,
-      finishedSteps: {},
+      runningSteps: {},
     );
     WakelockPlus.enable();
     showTimersRunningNotification();
@@ -53,15 +54,42 @@ class TimerNotifier extends _$TimerNotifier {
     }
   }
 
-  void toggleStep(String recipeId, String stepId) {
+  void addStep(String recipeId, RecipeStepData step) {
     if (state.containsKey(recipeId)) {
       final currentData = state[recipeId]!;
-      final finishedSteps = Set<String>.from(currentData.finishedSteps);
-      final isDone = finishedSteps.contains(stepId);
+      final runningSteps = Map<String, DateTime>.from(currentData.runningSteps);
+
       state[recipeId] = currentData.copyWith(
-        finishedSteps: isDone
-            ? (finishedSteps..remove(stepId))
-            : (finishedSteps..add(stepId)),
+        runningSteps: runningSteps
+          ..[step.id] = DateTime.now().add(
+            Duration(minutes: step.minutes ?? 0),
+          ),
+      );
+
+      _updateState();
+    }
+  }
+
+  void finishStep(String recipeId, RecipeStepData step) {
+    if (state.containsKey(recipeId)) {
+      final currentData = state[recipeId]!;
+      final runningSteps = Map<String, DateTime>.from(currentData.runningSteps);
+
+      state[recipeId] = currentData.copyWith(
+        runningSteps: runningSteps..[step.id] = DateTime.now(),
+      );
+
+      _updateState();
+    }
+  }
+
+  void removestep(String recipeId, RecipeStepData step) {
+    if (state.containsKey(recipeId)) {
+      final currentData = state[recipeId]!;
+      final runningSteps = Map<String, DateTime>.from(currentData.runningSteps);
+
+      state[recipeId] = currentData.copyWith(
+        runningSteps: runningSteps..remove(step.id),
       );
 
       _updateState();

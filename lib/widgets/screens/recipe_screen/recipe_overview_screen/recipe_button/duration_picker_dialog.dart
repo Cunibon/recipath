@@ -9,7 +9,10 @@ class DurationPickerResponse {
 }
 
 class DurationPickerDialog extends StatefulWidget {
-  const DurationPickerDialog({required this.startDuration, super.key});
+  const DurationPickerDialog({
+    this.startDuration = const Duration(),
+    super.key,
+  });
 
   final Duration startDuration;
 

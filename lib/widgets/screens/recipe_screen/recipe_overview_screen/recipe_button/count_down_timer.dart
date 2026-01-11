@@ -2,21 +2,28 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-class CountUpTimer extends StatefulWidget {
-  const CountUpTimer({super.key, this.style, required this.startTime});
-  final DateTime startTime;
+class CountDownTimer extends StatefulWidget {
+  const CountDownTimer({
+    super.key,
+    this.style,
+    required this.endTime,
+    this.onDone,
+  });
+  final DateTime endTime;
   final TextStyle? style;
 
+  final void Function()? onDone;
+
   @override
-  State<CountUpTimer> createState() => _CountUpTimerState();
+  State<CountDownTimer> createState() => _CountDownTimerState();
 }
 
-class _CountUpTimerState extends State<CountUpTimer>
+class _CountDownTimerState extends State<CountDownTimer>
     with WidgetsBindingObserver {
   late Duration _elapsed;
   Timer? _timer;
 
-  Duration get currentDiff => DateTime.now().difference(widget.startTime);
+  Duration get currentDiff => widget.endTime.difference(DateTime.now());
 
   @override
   void initState() {
@@ -25,7 +32,13 @@ class _CountUpTimerState extends State<CountUpTimer>
 
     _timer = Timer.periodic(const Duration(seconds: 1), (_) {
       setState(() {
-        _elapsed += const Duration(seconds: 1);
+        if (_elapsed.inSeconds <= 0) {
+          if (widget.endTime.isBefore(DateTime.now())) {
+            widget.onDone?.call();
+          }
+        } else {
+          _elapsed -= const Duration(seconds: 1);
+        }
       });
     });
 
