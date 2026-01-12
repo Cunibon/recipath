@@ -21,10 +21,21 @@ class $AssetsImagesGen {
   List<AssetGenImage> get values => [empty];
 }
 
+class $AssetsSoundsGen {
+  const $AssetsSoundsGen();
+
+  /// File path: assets/sounds/step_done.wav
+  String get stepDone => 'assets/sounds/step_done.wav';
+
+  /// List of all assets
+  List<String> get values => [stepDone];
+}
+
 class Assets {
   const Assets._();
 
   static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const $AssetsSoundsGen sounds = $AssetsSoundsGen();
 }
 
 class AssetGenImage {

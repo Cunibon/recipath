@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
+import 'package:recipath/domain_service/sound_service/sound_service.dart';
+import 'package:recipath/gen/assets.gen.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/generic/dialogs/two_option_dialog.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/timer_notifier.dart';
@@ -68,9 +70,12 @@ class RecipeStepTag extends ConsumerWidget {
                   style: TextTheme.of(
                     context,
                   ).titleLarge?.copyWith(fontWeight: FontWeight.bold),
-                  onDone: () => ref
-                      .read(timerProvider.notifier)
-                      .finishStep(recipeData.id, step),
+                  onDone: () {
+                    ref
+                        .read(timerProvider.notifier)
+                        .finishStep(recipeData.id, step);
+                    SoundService.play(Assets.sounds.stepDone);
+                  },
                 ),
             Text(
               "${AppLocalizations.of(context)!.step} ${index + 1}:",

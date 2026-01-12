@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 
@@ -63,7 +64,10 @@ class _CountDownTimerState extends State<CountDownTimer>
 
   String _formatDuration(Duration duration) {
     final minutes = duration.inMinutes.toString().padLeft(2, '0');
-    final seconds = duration.inSeconds.remainder(60).toString().padLeft(2, '0');
+    final seconds = max(
+      duration.inSeconds.remainder(60),
+      0,
+    ).toString().padLeft(2, '0');
     return '$minutes:$seconds';
   }
 
