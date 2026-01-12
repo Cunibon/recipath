@@ -7,17 +7,11 @@ const String fileExtenstion = "recipath";
 
 const String openAppFirstTime = "openAppFirstTime";
 
-const List<String> dataKeys = [
-  recipeDataKey,
-  groceryDataKey,
-  shoppingDataKey,
-  storageDataKey,
-];
+const List<String> dataKeys = [recipeDataKey, groceryDataKey, tagDataKey];
 
 const String recipeDataKey = "recipeData";
 const String groceryDataKey = "groceryData";
-const String shoppingDataKey = "shoppingData";
-const String storageDataKey = "storageData";
+const String tagDataKey = "tagData";
 
 const String idParameter = "id";
 
