@@ -61,9 +61,13 @@ class RecipeStepTag extends ConsumerWidget {
           children: [
             if (runningTimer != null)
               if (runningStep == null)
-                Icon(Icons.check_box_outline_blank)
+                Icon(
+                  step.minutes == null
+                      ? Icons.check_box_outline_blank
+                      : Icons.timer_outlined,
+                )
               else if (DateTime.now().isAfter(runningStep))
-                Icon(Icons.check_box)
+                Icon(step.minutes == null ? Icons.check_box : Icons.timer)
               else
                 CountDownTimer(
                   endTime: runningStep,
