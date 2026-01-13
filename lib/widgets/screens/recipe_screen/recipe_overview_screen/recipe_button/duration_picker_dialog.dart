@@ -10,10 +10,12 @@ class DurationPickerResponse {
 
 class DurationPickerDialog extends StatefulWidget {
   const DurationPickerDialog({
+    required this.title,
     this.startDuration = const Duration(),
     super.key,
   });
 
+  final String title;
   final Duration startDuration;
 
   @override
@@ -34,10 +36,7 @@ class _DurationPickerDialogState extends State<DurationPickerDialog> {
     final localization = AppLocalizations.of(context)!;
 
     return AlertDialog(
-      title: Text(
-        localization.howLongDidTheRecipeTake,
-        style: TextTheme.of(context).labelLarge,
-      ),
+      title: Text(widget.title, style: TextTheme.of(context).labelLarge),
       content: DurationPicker(
         duration: duration,
         onChange: (val) {

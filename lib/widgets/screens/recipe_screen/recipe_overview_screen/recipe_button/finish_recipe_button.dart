@@ -27,6 +27,8 @@ class FinishRecipeButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final localization = AppLocalizations.of(context)!;
+
     return FloatingActionButton.extended(
       onPressed: () async {
         final recipeDateRange = DateTimeRange(
@@ -36,8 +38,10 @@ class FinishRecipeButton extends ConsumerWidget {
 
         final durationResponse = await showDialog<DurationPickerResponse>(
           context: context,
-          builder: (context) =>
-              DurationPickerDialog(startDuration: recipeDateRange.duration),
+          builder: (context) => DurationPickerDialog(
+            title: localization.howLongDidTheRecipeTake,
+            startDuration: recipeDateRange.duration,
+          ),
         );
 
         if (durationResponse == null) return;

@@ -207,14 +207,20 @@ abstract class AppLocalizations {
   /// No description provided for @recipeImportInfo.
   ///
   /// In en, this message translates to:
-  /// **'Please select the recipes you want to import.'**
+  /// **'Select the recipes you want to import.'**
   String get recipeImportInfo;
 
   /// No description provided for @groceryImportInfo.
   ///
   /// In en, this message translates to:
-  /// **'Please map the imported groceries to your existing groceries, or leave them unmapped to create new ones.'**
+  /// **'You can map imported groceries to your existing groceries, or leave them unmapped to create new ones.'**
   String get groceryImportInfo;
+
+  /// No description provided for @tagImportInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'You can map imported tags to your existing tags, leave them unmapped to create new ones, or remove them.'**
+  String get tagImportInfo;
 
   /// No description provided for @missingMapping.
   ///
@@ -225,8 +231,8 @@ abstract class AppLocalizations {
   /// No description provided for @missingMappingContent.
   ///
   /// In en, this message translates to:
-  /// **'Unmapped items will create {count} new groceries.'**
-  String missingMappingContent(int count);
+  /// **'Unmapped items will create {count} new {type}.'**
+  String missingMappingContent(int count, String type);
 
   /// No description provided for @select.
   ///
@@ -683,6 +689,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'How long did the recipe take?'**
   String get howLongDidTheRecipeTake;
+
+  /// No description provided for @howLongWillTheStepTake.
+  ///
+  /// In en, this message translates to:
+  /// **'How long will the step take?'**
+  String get howLongWillTheStepTake;
 
   /// No description provided for @addTimer.
   ///

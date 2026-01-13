@@ -6,6 +6,7 @@ import 'package:recipath/widgets/screens/import_screen/import_service.dart';
 import 'package:recipath/widgets/screens/import_screen/providers/grocery_import_screen_notifier.dart';
 import 'package:recipath/widgets/screens/import_screen/providers/import_data_notifier.dart';
 import 'package:recipath/widgets/screens/import_screen/providers/recipe_import_screen_notifier.dart';
+import 'package:recipath/widgets/screens/import_screen/providers/tag_import_screen_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'import_service_notifier.g.dart';
@@ -18,6 +19,7 @@ Future<ImportService> importServiceNotifier(Ref ref, String path) async =>
         recipeImportScreenProvider(path).future,
       ),
       groceries: await ref.watch(groceryImportScreenProvider(path).future),
+      tagImportState: await ref.watch(tagImportScreenProvider(path).future),
       recipeModifier: ref.watch(recipeModifierProvider),
       groceryModifier: ref.watch(groceryModifierProvider),
       tagModifier: ref.watch(tagModifierProvider),

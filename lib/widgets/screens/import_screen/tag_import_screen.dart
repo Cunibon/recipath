@@ -5,10 +5,10 @@ import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/root_routes.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/generic/info_text.dart';
-import 'package:recipath/widgets/screens/import_screen/dialogs/confirm_grocery_creation_dialog.dart';
-import 'package:recipath/widgets/screens/import_screen/grocery_import.dart';
-import 'package:recipath/widgets/screens/import_screen/providers/grocery_import_screen_notifier.dart';
+import 'package:recipath/widgets/screens/import_screen/dialogs/confirm_creation_dialog.dart';
 import 'package:recipath/widgets/screens/import_screen/providers/import_service_notifier.dart';
+import 'package:recipath/widgets/screens/import_screen/providers/tag_import_screen_notifier.dart';
+import 'package:recipath/widgets/screens/import_screen/tag_import.dart';
 
 class TagImportScreen extends ConsumerStatefulWidget {
   const TagImportScreen({required this.filePath, super.key});
@@ -25,7 +25,7 @@ class _TagImportScreenState extends ConsumerState<TagImportScreen> {
   @override
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context)!;
-    final state = ref.watch(groceryImportScreenProvider(widget.filePath));
+    final state = ref.watch(tagImportScreenProvider(widget.filePath));
 
     return Scaffold(
       appBar: AppBar(
@@ -33,17 +33,29 @@ class _TagImportScreenState extends ConsumerState<TagImportScreen> {
           localization.importData,
           style: TextTheme.of(context).titleLarge,
         ),
+        actions: [
+          IconButton(
+            onPressed: () => ref
+                .read(tagImportScreenProvider(widget.filePath).notifier)
+                .refresh(),
+            icon: Icon(Icons.refresh),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           if (loading) return;
 
-          final willCreate = state.value!.entries.where((e) => e.value == null);
+          final willCreate = state.value!.mappedTags.entries.where(
+            (e) => e.value == null,
+          );
           if (willCreate.isNotEmpty) {
             final result = await showDialog<bool>(
               context: context,
-              builder: (context) =>
-                  ConfirmGroceryCreationDialog(count: willCreate.length),
+              builder: (context) => ConfirmCreationDialog(
+                count: willCreate.length,
+                type: localization.tags,
+              ),
             );
 
             if (result != true) return;
@@ -57,7 +69,7 @@ class _TagImportScreenState extends ConsumerState<TagImportScreen> {
               importServiceProvider(widget.filePath).future,
             );
 
-            await service.commit();
+            await service.import();
             if (context.mounted) {
               context.go(RootRoutes.recipeRoute.path);
             }
@@ -76,8 +88,8 @@ class _TagImportScreenState extends ConsumerState<TagImportScreen> {
           builder: (data) => Column(
             crossAxisAlignment: .start,
             children: [
-              InfoText(text: localization.groceryImportInfo),
-              Expanded(child: GroceryImport(filePath: widget.filePath)),
+              InfoText(text: localization.tagImportInfo),
+              Expanded(child: TagImport(filePath: widget.filePath)),
             ],
           ),
         ),

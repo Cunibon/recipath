@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:recipath/data/grocery_data/grocery_data.dart';
+import 'package:recipath/data/tag_data/tag_data.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/generic/empty_state.dart';
 import 'package:recipath/widgets/generic/searchable_list.dart';
-import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
+import 'package:recipath/widgets/screens/tag_screen/providers/tag_notifier.dart';
+import 'package:recipath/widgets/tag/tag.dart';
 
-class SelectGroceryDialog extends ConsumerStatefulWidget {
-  const SelectGroceryDialog({super.key});
+class SelectTagDialog extends ConsumerStatefulWidget {
+  const SelectTagDialog({super.key});
 
   @override
-  ConsumerState<SelectGroceryDialog> createState() =>
-      _SelectGroceryDialogState();
+  ConsumerState<SelectTagDialog> createState() => _SelectTagDialogState();
 }
 
-class _SelectGroceryDialogState extends ConsumerState<SelectGroceryDialog> {
-  GroceryData? selected;
+class _SelectTagDialogState extends ConsumerState<SelectTagDialog> {
+  TagData? selected;
 
   @override
   Widget build(BuildContext context) {
@@ -29,15 +29,14 @@ class _SelectGroceryDialogState extends ConsumerState<SelectGroceryDialog> {
         child: ConstrainedBox(
           constraints: BoxConstraints(maxHeight: 500),
           child: CachedAsyncValueWrapper(
-            asyncState: ref.watch(groceryProvider),
+            asyncState: ref.watch(tagProvider),
             builder: (data) {
-              final groceryList = data.values.toList();
+              final tagList = data.values.toList();
               return Stack(
                 children: [
                   SearchableList(
-                    name: localization.groceries,
-                    items: groceryList,
-                    listViewPadding: EdgeInsets.only(bottom: 33),
+                    name: localization.tags,
+                    items: tagList,
                     sort: (a, b) =>
                         a.name.toLowerCase().compareTo(b.name.toLowerCase()),
                     toSearchable: (item) => item.name,
@@ -55,23 +54,32 @@ class _SelectGroceryDialogState extends ConsumerState<SelectGroceryDialog> {
                                   onChanged: (_) =>
                                       setState(() => selected = item),
                                 ),
-                                Expanded(child: Text(item.name)),
+                                Tag(text: item.name, color: item.color),
+                                VerticalDivider(),
+                                Expanded(child: Text(item.description)),
                               ],
                             ),
                           ),
                         ),
                       ),
                     ),
+                    listViewPadding: EdgeInsets.only(bottom: 100),
                     emptyState: EmptyState(),
                   ),
                   Align(
                     alignment: Alignment.bottomRight,
-                    child: ElevatedButton.icon(
-                      onPressed: () {
-                        context.pop(selected);
-                      },
-                      icon: Icon(Icons.check),
-                      label: Text(localization.select),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        ElevatedButton.icon(
+                          onPressed: () {
+                            context.pop(selected);
+                          },
+                          icon: Icon(Icons.done),
+                          label: Text(localization.done),
+                        ),
+                      ],
                     ),
                   ),
                 ],

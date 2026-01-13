@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/generic/info_text.dart';
-import 'package:recipath/widgets/screens/import_screen/dialogs/confirm_grocery_creation_dialog.dart';
+import 'package:recipath/widgets/screens/import_screen/dialogs/confirm_creation_dialog.dart';
 import 'package:recipath/widgets/screens/import_screen/grocery_import.dart';
 import 'package:recipath/widgets/screens/import_screen/import_routes.dart';
 import 'package:recipath/widgets/screens/import_screen/providers/grocery_import_screen_notifier.dart';
@@ -32,8 +32,10 @@ class GroceryImportScreen extends ConsumerWidget {
           if (willCreate.isNotEmpty) {
             final result = await showDialog<bool>(
               context: context,
-              builder: (context) =>
-                  ConfirmGroceryCreationDialog(count: willCreate.length),
+              builder: (context) => ConfirmCreationDialog(
+                count: willCreate.length,
+                type: localization.groceries,
+              ),
             );
 
             if (result != true) return;

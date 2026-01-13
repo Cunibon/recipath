@@ -14,7 +14,7 @@ final tagImportScreenProvider = TagImportScreenNotifierFamily._();
 
 final class TagImportScreenNotifierProvider
     extends
-        $AsyncNotifierProvider<TagImportScreenNotifier, Map<String, TagData?>> {
+        $AsyncNotifierProvider<TagImportScreenNotifier, TagImportScreenState> {
   TagImportScreenNotifierProvider._({
     required TagImportScreenNotifierFamily super.from,
     required String super.argument,
@@ -53,15 +53,15 @@ final class TagImportScreenNotifierProvider
 }
 
 String _$tagImportScreenNotifierHash() =>
-    r'a4e38422b8c1707df6c1895dec3b22f9e2ffc47c';
+    r'11d1a00cdc348c892cb06b1cc3d0add4e69d6acd';
 
 final class TagImportScreenNotifierFamily extends $Family
     with
         $ClassFamilyOverride<
           TagImportScreenNotifier,
-          AsyncValue<Map<String, TagData?>>,
-          Map<String, TagData?>,
-          FutureOr<Map<String, TagData?>>,
+          AsyncValue<TagImportScreenState>,
+          TagImportScreenState,
+          FutureOr<TagImportScreenState>,
           String
         > {
   TagImportScreenNotifierFamily._()
@@ -81,25 +81,25 @@ final class TagImportScreenNotifierFamily extends $Family
 }
 
 abstract class _$TagImportScreenNotifier
-    extends $AsyncNotifier<Map<String, TagData?>> {
+    extends $AsyncNotifier<TagImportScreenState> {
   late final _$args = ref.$arg as String;
   String get path => _$args;
 
-  FutureOr<Map<String, TagData?>> build(String path);
+  FutureOr<TagImportScreenState> build(String path);
   @$mustCallSuper
   @override
   void runBuild() {
     final ref =
         this.ref
-            as $Ref<AsyncValue<Map<String, TagData?>>, Map<String, TagData?>>;
+            as $Ref<AsyncValue<TagImportScreenState>, TagImportScreenState>;
     final element =
         ref.element
             as $ClassProviderElement<
               AnyNotifier<
-                AsyncValue<Map<String, TagData?>>,
-                Map<String, TagData?>
+                AsyncValue<TagImportScreenState>,
+                TagImportScreenState
               >,
-              AsyncValue<Map<String, TagData?>>,
+              AsyncValue<TagImportScreenState>,
               Object?,
               Object?
             >;

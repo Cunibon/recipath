@@ -66,19 +66,22 @@ class AppLocalizationsEn extends AppLocalizations {
       'Do you really want clear all items?\nThere is no way to get them back.';
 
   @override
-  String get recipeImportInfo =>
-      'Please select the recipes you want to import.';
+  String get recipeImportInfo => 'Select the recipes you want to import.';
 
   @override
   String get groceryImportInfo =>
-      'Please map the imported groceries to your existing groceries, or leave them unmapped to create new ones.';
+      'You can map imported groceries to your existing groceries, or leave them unmapped to create new ones.';
+
+  @override
+  String get tagImportInfo =>
+      'You can map imported tags to your existing tags, leave them unmapped to create new ones, or remove them.';
 
   @override
   String get missingMapping => 'Missing mapping';
 
   @override
-  String missingMappingContent(int count) {
-    return 'Unmapped items will create $count new groceries.';
+  String missingMappingContent(int count, String type) {
+    return 'Unmapped items will create $count new $type.';
   }
 
   @override
@@ -315,6 +318,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get howLongDidTheRecipeTake => 'How long did the recipe take?';
+
+  @override
+  String get howLongWillTheStepTake => 'How long will the step take?';
 
   @override
   String get addTimer => 'Add timer';

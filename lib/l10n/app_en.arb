@@ -31,14 +31,18 @@
     "changeSearchForResults": "Change your search to see other results",
     "clearAllItems": "Clear all items?",
     "clearAllContent": "Do you really want clear all items?\nThere is no way to get them back.",
-    "recipeImportInfo": "Please select the recipes you want to import.",
-    "groceryImportInfo": "Please map the imported groceries to your existing groceries, or leave them unmapped to create new ones.",
+    "recipeImportInfo": "Select the recipes you want to import.",
+    "groceryImportInfo": "You can map imported groceries to your existing groceries, or leave them unmapped to create new ones.",
+    "tagImportInfo": "You can map imported tags to your existing tags, leave them unmapped to create new ones, or remove them.",
     "missingMapping": "Missing mapping",
-    "missingMappingContent": "Unmapped items will create {count} new groceries.",
+    "missingMappingContent": "Unmapped items will create {count} new {type}.",
     "@missingMappingContent": {
         "placeholders": {
             "count": {
                 "type": "int"
+            },
+            "type": {
+                "type": "String"
             }
         }
     },
@@ -145,6 +149,7 @@
     "perServing": "Per serving",
     "somethingWentWrong": "Something went wrong :(",
     "howLongDidTheRecipeTake": "How long did the recipe take?",
+    "howLongWillTheStepTake": "How long will the step take?",
     "addTimer": "Add timer",
     "cancelTimer": "Cancel timer",
     "timersRunningHeader": "Timers running",
