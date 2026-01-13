@@ -46,7 +46,7 @@ class ExportNotifier extends _$ExportNotifier {
     if (recipes?.isEmpty ?? true) return;
 
     final groceries = <String, GroceryData>{};
-    final tags = <String, TagData>{};
+    final tags = <String, List<TagData>>{};
 
     for (final recipe in recipes!) {
       final groceryIds = recipe
@@ -58,11 +58,7 @@ class ExportNotifier extends _$ExportNotifier {
         groceries[groceryId] = groceriesMap[groceryId]!;
       }
 
-      final tagIds = tagsPerRecipe[recipe.id] ?? {};
-
-      for (final tag in tagIds) {
-        tags[tag.id] = tag;
-      }
+      tags[recipe.id] = tagsPerRecipe[recipe.id]?.toList() ?? [];
     }
 
     final allData = {
