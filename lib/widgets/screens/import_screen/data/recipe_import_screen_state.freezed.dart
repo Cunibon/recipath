@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'import_screen_state.dart';
+part of 'recipe_import_screen_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -12,20 +12,20 @@ part of 'import_screen_state.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$ImportScreenState {
+mixin _$RecipeImportScreenState {
 
  String get path; List<RecipeData> get selectedRecipes;
-/// Create a copy of ImportScreenState
+/// Create a copy of RecipeImportScreenState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$ImportScreenStateCopyWith<ImportScreenState> get copyWith => _$ImportScreenStateCopyWithImpl<ImportScreenState>(this as ImportScreenState, _$identity);
+$RecipeImportScreenStateCopyWith<RecipeImportScreenState> get copyWith => _$RecipeImportScreenStateCopyWithImpl<RecipeImportScreenState>(this as RecipeImportScreenState, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ImportScreenState&&(identical(other.path, path) || other.path == path)&&const DeepCollectionEquality().equals(other.selectedRecipes, selectedRecipes));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RecipeImportScreenState&&(identical(other.path, path) || other.path == path)&&const DeepCollectionEquality().equals(other.selectedRecipes, selectedRecipes));
 }
 
 
@@ -34,15 +34,15 @@ int get hashCode => Object.hash(runtimeType,path,const DeepCollectionEquality().
 
 @override
 String toString() {
-  return 'ImportScreenState(path: $path, selectedRecipes: $selectedRecipes)';
+  return 'RecipeImportScreenState(path: $path, selectedRecipes: $selectedRecipes)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $ImportScreenStateCopyWith<$Res>  {
-  factory $ImportScreenStateCopyWith(ImportScreenState value, $Res Function(ImportScreenState) _then) = _$ImportScreenStateCopyWithImpl;
+abstract mixin class $RecipeImportScreenStateCopyWith<$Res>  {
+  factory $RecipeImportScreenStateCopyWith(RecipeImportScreenState value, $Res Function(RecipeImportScreenState) _then) = _$RecipeImportScreenStateCopyWithImpl;
 @useResult
 $Res call({
  String path, List<RecipeData> selectedRecipes
@@ -53,14 +53,14 @@ $Res call({
 
 }
 /// @nodoc
-class _$ImportScreenStateCopyWithImpl<$Res>
-    implements $ImportScreenStateCopyWith<$Res> {
-  _$ImportScreenStateCopyWithImpl(this._self, this._then);
+class _$RecipeImportScreenStateCopyWithImpl<$Res>
+    implements $RecipeImportScreenStateCopyWith<$Res> {
+  _$RecipeImportScreenStateCopyWithImpl(this._self, this._then);
 
-  final ImportScreenState _self;
-  final $Res Function(ImportScreenState) _then;
+  final RecipeImportScreenState _self;
+  final $Res Function(RecipeImportScreenState) _then;
 
-/// Create a copy of ImportScreenState
+/// Create a copy of RecipeImportScreenState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? path = null,Object? selectedRecipes = null,}) {
   return _then(_self.copyWith(
@@ -73,8 +73,8 @@ as List<RecipeData>,
 }
 
 
-/// Adds pattern-matching-related methods to [ImportScreenState].
-extension ImportScreenStatePatterns on ImportScreenState {
+/// Adds pattern-matching-related methods to [RecipeImportScreenState].
+extension RecipeImportScreenStatePatterns on RecipeImportScreenState {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -87,10 +87,10 @@ extension ImportScreenStatePatterns on ImportScreenState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _ImportScreenState value)?  $default,{required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _RecipeImportScreenState value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _ImportScreenState() when $default != null:
+case _RecipeImportScreenState() when $default != null:
 return $default(_that);case _:
   return orElse();
 
@@ -109,10 +109,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _ImportScreenState value)  $default,){
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _RecipeImportScreenState value)  $default,){
 final _that = this;
 switch (_that) {
-case _ImportScreenState():
+case _RecipeImportScreenState():
 return $default(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -130,10 +130,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _ImportScreenState value)?  $default,){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _RecipeImportScreenState value)?  $default,){
 final _that = this;
 switch (_that) {
-case _ImportScreenState() when $default != null:
+case _RecipeImportScreenState() when $default != null:
 return $default(_that);case _:
   return null;
 
@@ -153,7 +153,7 @@ return $default(_that);case _:
 
 @optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String path,  List<RecipeData> selectedRecipes)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _ImportScreenState() when $default != null:
+case _RecipeImportScreenState() when $default != null:
 return $default(_that.path,_that.selectedRecipes);case _:
   return orElse();
 
@@ -174,7 +174,7 @@ return $default(_that.path,_that.selectedRecipes);case _:
 
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String path,  List<RecipeData> selectedRecipes)  $default,) {final _that = this;
 switch (_that) {
-case _ImportScreenState():
+case _RecipeImportScreenState():
 return $default(_that.path,_that.selectedRecipes);case _:
   throw StateError('Unexpected subclass');
 
@@ -194,7 +194,7 @@ return $default(_that.path,_that.selectedRecipes);case _:
 
 @optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String path,  List<RecipeData> selectedRecipes)?  $default,) {final _that = this;
 switch (_that) {
-case _ImportScreenState() when $default != null:
+case _RecipeImportScreenState() when $default != null:
 return $default(_that.path,_that.selectedRecipes);case _:
   return null;
 
@@ -206,8 +206,8 @@ return $default(_that.path,_that.selectedRecipes);case _:
 /// @nodoc
 
 
-class _ImportScreenState implements ImportScreenState {
-  const _ImportScreenState({required this.path, required final  List<RecipeData> selectedRecipes}): _selectedRecipes = selectedRecipes;
+class _RecipeImportScreenState implements RecipeImportScreenState {
+  const _RecipeImportScreenState({required this.path, required final  List<RecipeData> selectedRecipes}): _selectedRecipes = selectedRecipes;
   
 
 @override final  String path;
@@ -219,17 +219,17 @@ class _ImportScreenState implements ImportScreenState {
 }
 
 
-/// Create a copy of ImportScreenState
+/// Create a copy of RecipeImportScreenState
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$ImportScreenStateCopyWith<_ImportScreenState> get copyWith => __$ImportScreenStateCopyWithImpl<_ImportScreenState>(this, _$identity);
+_$RecipeImportScreenStateCopyWith<_RecipeImportScreenState> get copyWith => __$RecipeImportScreenStateCopyWithImpl<_RecipeImportScreenState>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ImportScreenState&&(identical(other.path, path) || other.path == path)&&const DeepCollectionEquality().equals(other._selectedRecipes, _selectedRecipes));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RecipeImportScreenState&&(identical(other.path, path) || other.path == path)&&const DeepCollectionEquality().equals(other._selectedRecipes, _selectedRecipes));
 }
 
 
@@ -238,15 +238,15 @@ int get hashCode => Object.hash(runtimeType,path,const DeepCollectionEquality().
 
 @override
 String toString() {
-  return 'ImportScreenState(path: $path, selectedRecipes: $selectedRecipes)';
+  return 'RecipeImportScreenState(path: $path, selectedRecipes: $selectedRecipes)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$ImportScreenStateCopyWith<$Res> implements $ImportScreenStateCopyWith<$Res> {
-  factory _$ImportScreenStateCopyWith(_ImportScreenState value, $Res Function(_ImportScreenState) _then) = __$ImportScreenStateCopyWithImpl;
+abstract mixin class _$RecipeImportScreenStateCopyWith<$Res> implements $RecipeImportScreenStateCopyWith<$Res> {
+  factory _$RecipeImportScreenStateCopyWith(_RecipeImportScreenState value, $Res Function(_RecipeImportScreenState) _then) = __$RecipeImportScreenStateCopyWithImpl;
 @override @useResult
 $Res call({
  String path, List<RecipeData> selectedRecipes
@@ -257,17 +257,17 @@ $Res call({
 
 }
 /// @nodoc
-class __$ImportScreenStateCopyWithImpl<$Res>
-    implements _$ImportScreenStateCopyWith<$Res> {
-  __$ImportScreenStateCopyWithImpl(this._self, this._then);
+class __$RecipeImportScreenStateCopyWithImpl<$Res>
+    implements _$RecipeImportScreenStateCopyWith<$Res> {
+  __$RecipeImportScreenStateCopyWithImpl(this._self, this._then);
 
-  final _ImportScreenState _self;
-  final $Res Function(_ImportScreenState) _then;
+  final _RecipeImportScreenState _self;
+  final $Res Function(_RecipeImportScreenState) _then;
 
-/// Create a copy of ImportScreenState
+/// Create a copy of RecipeImportScreenState
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? path = null,Object? selectedRecipes = null,}) {
-  return _then(_ImportScreenState(
+  return _then(_RecipeImportScreenState(
 path: null == path ? _self.path : path // ignore: cast_nullable_to_non_nullable
 as String,selectedRecipes: null == selectedRecipes ? _self._selectedRecipes : selectedRecipes // ignore: cast_nullable_to_non_nullable
 as List<RecipeData>,

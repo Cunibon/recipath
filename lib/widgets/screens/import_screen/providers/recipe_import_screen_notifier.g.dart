@@ -14,7 +14,10 @@ final recipeImportScreenProvider = RecipeImportScreenNotifierFamily._();
 
 final class RecipeImportScreenNotifierProvider
     extends
-        $AsyncNotifierProvider<RecipeImportScreenNotifier, ImportScreenState> {
+        $AsyncNotifierProvider<
+          RecipeImportScreenNotifier,
+          RecipeImportScreenState
+        > {
   RecipeImportScreenNotifierProvider._({
     required RecipeImportScreenNotifierFamily super.from,
     required String super.argument,
@@ -53,15 +56,15 @@ final class RecipeImportScreenNotifierProvider
 }
 
 String _$recipeImportScreenNotifierHash() =>
-    r'82ac29860810fedc8d1fe2de6218345a9828d06c';
+    r'b076c2425fc3bc77b4b9719d380d754c1b305c71';
 
 final class RecipeImportScreenNotifierFamily extends $Family
     with
         $ClassFamilyOverride<
           RecipeImportScreenNotifier,
-          AsyncValue<ImportScreenState>,
-          ImportScreenState,
-          FutureOr<ImportScreenState>,
+          AsyncValue<RecipeImportScreenState>,
+          RecipeImportScreenState,
+          FutureOr<RecipeImportScreenState>,
           String
         > {
   RecipeImportScreenNotifierFamily._()
@@ -81,21 +84,28 @@ final class RecipeImportScreenNotifierFamily extends $Family
 }
 
 abstract class _$RecipeImportScreenNotifier
-    extends $AsyncNotifier<ImportScreenState> {
+    extends $AsyncNotifier<RecipeImportScreenState> {
   late final _$args = ref.$arg as String;
   String get path => _$args;
 
-  FutureOr<ImportScreenState> build(String path);
+  FutureOr<RecipeImportScreenState> build(String path);
   @$mustCallSuper
   @override
   void runBuild() {
     final ref =
-        this.ref as $Ref<AsyncValue<ImportScreenState>, ImportScreenState>;
+        this.ref
+            as $Ref<
+              AsyncValue<RecipeImportScreenState>,
+              RecipeImportScreenState
+            >;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<AsyncValue<ImportScreenState>, ImportScreenState>,
-              AsyncValue<ImportScreenState>,
+              AnyNotifier<
+                AsyncValue<RecipeImportScreenState>,
+                RecipeImportScreenState
+              >,
+              AsyncValue<RecipeImportScreenState>,
               Object?,
               Object?
             >;
