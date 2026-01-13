@@ -15,7 +15,7 @@ part 'grocery_import_screen_notifier.g.dart';
 @riverpod
 class GroceryImportScreenNotifier extends _$GroceryImportScreenNotifier {
   @override
-  Future<Map<String, GroceryData>> build(String path) async {
+  Future<Map<String, GroceryData?>> build(String path) async {
     final recipeImportState = await ref.watch(
       recipeImportScreenProvider(path).future,
     );
@@ -29,23 +29,22 @@ class GroceryImportScreenNotifier extends _$GroceryImportScreenNotifier {
         .expand((element) => element.getIngredients(importData.groceries))
         .map((e) => e.groceryId)
         .toSet();
-    final groceries = <String, GroceryData>{};
+    final groceries = <String, GroceryData?>{};
 
     for (final groceryId in groceryIds) {
       if (importData.groceries.containsKey(groceryId)) {
         final importGrocery = importData.groceries[groceryId]!;
         groceries[groceryId] =
-            localGroceryNameLookup[importGrocery.name.trim().toLowerCase()] ??
-            importGrocery;
+            localGroceryNameLookup[importGrocery.name.trim().toLowerCase()];
       }
     }
 
     return groceries;
   }
 
-  void selectGrocery(String origin, GroceryData groceryData) {
+  void selectGrocery(String origin, GroceryData? groceryData) {
     final currentState = state.value!;
-    final currentLookup = Map<String, GroceryData>.from(currentState);
+    final currentLookup = Map<String, GroceryData?>.from(currentState);
 
     state = AsyncValue.data(currentLookup..[origin] = groceryData);
   }
@@ -90,12 +89,13 @@ class GroceryImportScreenNotifier extends _$GroceryImportScreenNotifier {
     for (final entry in currentState.entries) {
       late String id;
 
-      if (importData.groceries.containsKey(entry.value.id)) {
-        final copy = entry.value.copyWith(id: randomAlphaNumeric(16));
+      if (entry.value == null) {
+        final original = importData.groceries[entry.key]!;
+        final copy = original.copyWith(id: randomAlphaNumeric(16));
         await groceryModifier.add(copy);
         id = copy.id;
       } else {
-        id = entry.value.id;
+        id = entry.value!.id;
       }
       groceryMapping[entry.key] = id;
     }

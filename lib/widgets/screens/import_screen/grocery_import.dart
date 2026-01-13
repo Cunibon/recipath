@@ -41,7 +41,7 @@ class GroceryImport extends ConsumerWidget {
               clear: () {
                 ref
                     .read(groceryImportScreenProvider(filePath).notifier)
-                    .selectGrocery(entry.key, importData.groceries[entry.key]!);
+                    .selectGrocery(entry.key, null);
               },
             ),
         ],

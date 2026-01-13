@@ -16,7 +16,7 @@ final class GroceryImportScreenNotifierProvider
     extends
         $AsyncNotifierProvider<
           GroceryImportScreenNotifier,
-          Map<String, GroceryData>
+          Map<String, GroceryData?>
         > {
   GroceryImportScreenNotifierProvider._({
     required GroceryImportScreenNotifierFamily super.from,
@@ -56,15 +56,15 @@ final class GroceryImportScreenNotifierProvider
 }
 
 String _$groceryImportScreenNotifierHash() =>
-    r'e505ffdbb77fcbbfb2f1b679111024bf2e9ae946';
+    r'61121c73172078d7df6905098012ca65361c2861';
 
 final class GroceryImportScreenNotifierFamily extends $Family
     with
         $ClassFamilyOverride<
           GroceryImportScreenNotifier,
-          AsyncValue<Map<String, GroceryData>>,
-          Map<String, GroceryData>,
-          FutureOr<Map<String, GroceryData>>,
+          AsyncValue<Map<String, GroceryData?>>,
+          Map<String, GroceryData?>,
+          FutureOr<Map<String, GroceryData?>>,
           String
         > {
   GroceryImportScreenNotifierFamily._()
@@ -84,28 +84,28 @@ final class GroceryImportScreenNotifierFamily extends $Family
 }
 
 abstract class _$GroceryImportScreenNotifier
-    extends $AsyncNotifier<Map<String, GroceryData>> {
+    extends $AsyncNotifier<Map<String, GroceryData?>> {
   late final _$args = ref.$arg as String;
   String get path => _$args;
 
-  FutureOr<Map<String, GroceryData>> build(String path);
+  FutureOr<Map<String, GroceryData?>> build(String path);
   @$mustCallSuper
   @override
   void runBuild() {
     final ref =
         this.ref
             as $Ref<
-              AsyncValue<Map<String, GroceryData>>,
-              Map<String, GroceryData>
+              AsyncValue<Map<String, GroceryData?>>,
+              Map<String, GroceryData?>
             >;
     final element =
         ref.element
             as $ClassProviderElement<
               AnyNotifier<
-                AsyncValue<Map<String, GroceryData>>,
-                Map<String, GroceryData>
+                AsyncValue<Map<String, GroceryData?>>,
+                Map<String, GroceryData?>
               >,
-              AsyncValue<Map<String, GroceryData>>,
+              AsyncValue<Map<String, GroceryData?>>,
               Object?,
               Object?
             >;

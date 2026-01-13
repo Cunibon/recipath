@@ -38,14 +38,12 @@ class _GroceryImportScreenState extends ConsumerState<GroceryImportScreen> {
         onPressed: () async {
           if (loading) return;
 
-          final newItems = state.value!.entries.where(
-            (e) => e.key == e.value.id,
-          );
-          if (newItems.isNotEmpty) {
+          final willCreate = state.value!.entries.where((e) => e.value == null);
+          if (willCreate.isNotEmpty) {
             final result = await showDialog<bool>(
               context: context,
               builder: (context) =>
-                  ConfirmGroceryCreationDialog(count: newItems.length),
+                  ConfirmGroceryCreationDialog(count: willCreate.length),
             );
 
             if (result != true) return;

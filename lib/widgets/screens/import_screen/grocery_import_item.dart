@@ -14,7 +14,7 @@ class GroceryImportItem extends ConsumerWidget {
   });
 
   final GroceryData original;
-  final GroceryData current;
+  final GroceryData? current;
 
   final void Function() onTap;
   final void Function() clear;
@@ -50,9 +50,7 @@ class GroceryImportItem extends ConsumerWidget {
             child: GestureDetector(
               onTap: onTap,
               child: Card(
-                color: original == current
-                    ? colorSchema.primaryContainer
-                    : null,
+                color: current == null ? colorSchema.primaryContainer : null,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
@@ -62,19 +60,19 @@ class GroceryImportItem extends ConsumerWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              current.name,
+                              (current ?? original).name,
                               style: TextTheme.of(context).titleMedium
                                   ?.copyWith(
                                     color: colorSchema.onPrimaryContainer,
                                   ),
                             ),
                             Text(
-                              "${doubleNumberFormat.format(current.normalAmount)}${unitLocalized[current.unit]}",
+                              "${doubleNumberFormat.format((current ?? original).normalAmount)}${unitLocalized[(current ?? original).unit]}",
                             ),
                           ],
                         ),
                       ),
-                      if (original != current)
+                      if (current != null)
                         GestureDetector(onTap: clear, child: Icon(Icons.clear)),
                     ],
                   ),
