@@ -34,7 +34,7 @@ class RecipeImport extends ConsumerWidget {
                       recipeData: recipe,
                       averageTime: null,
                       groceryMap: importData.groceries,
-                      tags: {},
+                      tags: importData.tagsPerRecipe[recipe.id] ?? {},
                     ),
                     trailingTitle: Icon(
                       data.selectedRecipes.contains(recipe)
