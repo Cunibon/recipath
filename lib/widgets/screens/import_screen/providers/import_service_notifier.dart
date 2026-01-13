@@ -8,6 +8,8 @@ import 'package:recipath/widgets/screens/import_screen/providers/import_data_not
 import 'package:recipath/widgets/screens/import_screen/providers/recipe_import_screen_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+part 'import_service_notifier.g.dart';
+
 @riverpod
 Future<ImportService> importServiceNotifier(Ref ref, String path) async =>
     ImportService(

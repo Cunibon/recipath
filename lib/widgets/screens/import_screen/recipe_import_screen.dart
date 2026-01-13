@@ -29,7 +29,7 @@ class RecipeImportScreen extends ConsumerWidget {
         onPressed: () {
           if (state.value!.selectedRecipes.isNotEmpty) {
             context.go(
-              "/import/${Uri.encodeComponent(state.value!.path)}/${ImportRoutes.groceryImport.path}",
+              "/import/${Uri.encodeComponent(filePath)}/${ImportRoutes.groceryImport.path}",
             );
           } else {
             ScaffoldMessenger.of(
