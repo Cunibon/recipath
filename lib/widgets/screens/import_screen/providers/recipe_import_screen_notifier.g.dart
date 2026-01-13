@@ -53,7 +53,7 @@ final class RecipeImportScreenNotifierProvider
 }
 
 String _$recipeImportScreenNotifierHash() =>
-    r'2f1a2cab27560408dbda5d3baf17fbbe6320c634';
+    r'82ac29860810fedc8d1fe2de6218345a9828d06c';
 
 final class RecipeImportScreenNotifierFamily extends $Family
     with

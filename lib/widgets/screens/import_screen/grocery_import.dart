@@ -4,7 +4,7 @@ import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/widgets/screens/import_screen/dialogs/select_grocery_dialog.dart';
 import 'package:recipath/widgets/screens/import_screen/grocery_import_item.dart';
 import 'package:recipath/widgets/screens/import_screen/providers/grocery_import_screen_notifier.dart';
-import 'package:recipath/widgets/screens/import_screen/providers/recipe_import_screen_notifier.dart';
+import 'package:recipath/widgets/screens/import_screen/providers/import_data_notifier.dart';
 
 class GroceryImport extends ConsumerWidget {
   const GroceryImport({required this.filePath, super.key});
@@ -13,9 +13,7 @@ class GroceryImport extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final recipeImportData = ref
-        .watch(recipeImportScreenProvider(filePath))
-        .value!;
+    final importData = ref.watch(importDataProvider(filePath)).value!;
     final groceryImportData = ref
         .watch(groceryImportScreenProvider(filePath))
         .value!;
@@ -26,7 +24,7 @@ class GroceryImport extends ConsumerWidget {
         children: [
           for (final entry in groceryImportData.entries)
             GroceryImportItem(
-              original: recipeImportData.originalGrocery[entry.key]!,
+              original: importData.groceries[entry.key]!,
               current: entry.value,
               onTap: () async {
                 final result = await showDialog<GroceryData>(
@@ -43,10 +41,7 @@ class GroceryImport extends ConsumerWidget {
               clear: () {
                 ref
                     .read(groceryImportScreenProvider(filePath).notifier)
-                    .selectGrocery(
-                      entry.key,
-                      recipeImportData.originalGrocery[entry.key]!,
-                    );
+                    .selectGrocery(entry.key, importData.groceries[entry.key]!);
               },
             ),
         ],

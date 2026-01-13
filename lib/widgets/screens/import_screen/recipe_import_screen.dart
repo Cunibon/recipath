@@ -27,7 +27,7 @@ class RecipeImportScreen extends ConsumerWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          if (state.value!.importRecipe.isNotEmpty) {
+          if (state.value!.selectedRecipes.isNotEmpty) {
             context.go(
               "/import/${Uri.encodeComponent(state.value!.path)}/${ImportRoutes.groceryImport.path}",
             );

@@ -6,6 +6,7 @@ import 'package:recipath/data/ingredient_data/ingredient_data.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
 import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
+import 'package:recipath/widgets/screens/import_screen/providers/import_data_notifier.dart';
 import 'package:recipath/widgets/screens/import_screen/providers/recipe_import_screen_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -18,23 +19,21 @@ class GroceryImportScreenNotifier extends _$GroceryImportScreenNotifier {
     final recipeImportState = await ref.watch(
       recipeImportScreenProvider(path).future,
     );
+    final importData = await ref.watch(importDataProvider(path).future);
 
     final localGroceryNameLookup = (await ref.watch(
       groceryProvider.future,
     )).map((key, value) => MapEntry(value.name.trim().toLowerCase(), value));
 
-    final groceryIds = recipeImportState.importRecipe
-        .expand(
-          (element) =>
-              element.getIngredients(recipeImportState.originalGrocery),
-        )
+    final groceryIds = recipeImportState.selectedRecipes
+        .expand((element) => element.getIngredients(importData.groceries))
         .map((e) => e.groceryId)
         .toSet();
     final groceries = <String, GroceryData>{};
 
     for (final groceryId in groceryIds) {
-      if (recipeImportState.originalGrocery.containsKey(groceryId)) {
-        final importGrocery = recipeImportState.originalGrocery[groceryId]!;
+      if (importData.groceries.containsKey(groceryId)) {
+        final importGrocery = importData.groceries[groceryId]!;
         groceries[groceryId] =
             localGroceryNameLookup[importGrocery.name.trim().toLowerCase()] ??
             importGrocery;
@@ -81,6 +80,7 @@ class GroceryImportScreenNotifier extends _$GroceryImportScreenNotifier {
     final recipeModifier = ref.read(recipeModifierProvider);
     final groceryModifier = ref.read(groceryModifierProvider);
     final currentState = state.value!;
+    final importData = await ref.watch(importDataProvider(path).future);
     final recipeImportState = await ref.read(
       recipeImportScreenProvider(path).future,
     );
@@ -90,7 +90,7 @@ class GroceryImportScreenNotifier extends _$GroceryImportScreenNotifier {
     for (final entry in currentState.entries) {
       late String id;
 
-      if (recipeImportState.originalGrocery.containsKey(entry.value.id)) {
+      if (importData.groceries.containsKey(entry.value.id)) {
         final copy = entry.value.copyWith(id: randomAlphaNumeric(16));
         await groceryModifier.add(copy);
         id = copy.id;
@@ -100,11 +100,10 @@ class GroceryImportScreenNotifier extends _$GroceryImportScreenNotifier {
       groceryMapping[entry.key] = id;
     }
 
-    for (final recipe in recipeImportState.importRecipe) {
+    for (final recipe in recipeImportState.selectedRecipes) {
       final fixedSteps = recipe.steps.map((step) {
         final fixedIngredients = step.ingredients.map((ingredient) {
-          final originalGrocery =
-              recipeImportState.originalGrocery[ingredient.groceryId]!;
+          final originalGrocery = importData.groceries[ingredient.groceryId]!;
           final newGrocery = currentState[ingredient.groceryId]!;
 
           final isAllowed = newGrocery.isUnitAllowed(ingredient.unit);
