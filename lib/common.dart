@@ -53,3 +53,8 @@ String normalizeFileName(String input) {
 
   return name;
 }
+
+DateTime dateTimeFromMillis(int millis) =>
+    DateTime.fromMillisecondsSinceEpoch(millis);
+
+int dateTimeToMillis(DateTime dateTime) => dateTime.millisecondsSinceEpoch;

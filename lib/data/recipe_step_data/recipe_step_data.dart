@@ -41,5 +41,6 @@ extension RecipeStepDataFunctions on RecipeStepData {
     "description": description,
     "index": index,
     "recipe_id": recipeId,
+    "minutes": minutes,
   };
 }

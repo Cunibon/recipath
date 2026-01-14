@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$RecipeShoppingData {
 
- String get id; DateTime get date; String get recipeId; bool get uploaded;
+ String get id;@JsonKey(fromJson: dateTimeFromMillis, toJson: dateTimeToMillis) DateTime get date; String get recipeId; bool get uploaded;
 /// Create a copy of RecipeShoppingData
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $RecipeShoppingDataCopyWith<$Res>  {
   factory $RecipeShoppingDataCopyWith(RecipeShoppingData value, $Res Function(RecipeShoppingData) _then) = _$RecipeShoppingDataCopyWithImpl;
 @useResult
 $Res call({
- String id, DateTime date, String recipeId, bool uploaded
+ String id,@JsonKey(fromJson: dateTimeFromMillis, toJson: dateTimeToMillis) DateTime date, String recipeId, bool uploaded
 });
 
 
@@ -156,7 +156,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  DateTime date,  String recipeId,  bool uploaded)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id, @JsonKey(fromJson: dateTimeFromMillis, toJson: dateTimeToMillis)  DateTime date,  String recipeId,  bool uploaded)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _RecipeShoppingData() when $default != null:
 return $default(_that.id,_that.date,_that.recipeId,_that.uploaded);case _:
@@ -177,7 +177,7 @@ return $default(_that.id,_that.date,_that.recipeId,_that.uploaded);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  DateTime date,  String recipeId,  bool uploaded)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id, @JsonKey(fromJson: dateTimeFromMillis, toJson: dateTimeToMillis)  DateTime date,  String recipeId,  bool uploaded)  $default,) {final _that = this;
 switch (_that) {
 case _RecipeShoppingData():
 return $default(_that.id,_that.date,_that.recipeId,_that.uploaded);case _:
@@ -197,7 +197,7 @@ return $default(_that.id,_that.date,_that.recipeId,_that.uploaded);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  DateTime date,  String recipeId,  bool uploaded)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id, @JsonKey(fromJson: dateTimeFromMillis, toJson: dateTimeToMillis)  DateTime date,  String recipeId,  bool uploaded)?  $default,) {final _that = this;
 switch (_that) {
 case _RecipeShoppingData() when $default != null:
 return $default(_that.id,_that.date,_that.recipeId,_that.uploaded);case _:
@@ -212,11 +212,11 @@ return $default(_that.id,_that.date,_that.recipeId,_that.uploaded);case _:
 @JsonSerializable()
 
 class _RecipeShoppingData implements RecipeShoppingData {
-  const _RecipeShoppingData({required this.id, required this.date, required this.recipeId, this.uploaded = false});
+  const _RecipeShoppingData({required this.id, @JsonKey(fromJson: dateTimeFromMillis, toJson: dateTimeToMillis) required this.date, required this.recipeId, this.uploaded = false});
   factory _RecipeShoppingData.fromJson(Map<String, dynamic> json) => _$RecipeShoppingDataFromJson(json);
 
 @override final  String id;
-@override final  DateTime date;
+@override@JsonKey(fromJson: dateTimeFromMillis, toJson: dateTimeToMillis) final  DateTime date;
 @override final  String recipeId;
 @override@JsonKey() final  bool uploaded;
 
@@ -253,7 +253,7 @@ abstract mixin class _$RecipeShoppingDataCopyWith<$Res> implements $RecipeShoppi
   factory _$RecipeShoppingDataCopyWith(_RecipeShoppingData value, $Res Function(_RecipeShoppingData) _then) = __$RecipeShoppingDataCopyWithImpl;
 @override @useResult
 $Res call({
- String id, DateTime date, String recipeId, bool uploaded
+ String id,@JsonKey(fromJson: dateTimeFromMillis, toJson: dateTimeToMillis) DateTime date, String recipeId, bool uploaded
 });
 
 

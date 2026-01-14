@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart' as drift;
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:intl/intl.dart';
+import 'package:recipath/application_constants.dart';
 import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/drift/database.dart';
 import 'package:recipath/widgets/screens/dashboard_screen/charts/kcal_chart/providers/nutriment_enum.dart';
@@ -47,22 +48,8 @@ abstract class GroceryData with _$GroceryData {
     uploaded: data.uploaded,
   );
 
-  factory GroceryData.fromSupabase(Map<String, dynamic> data) => GroceryData(
-    id: data["id"],
-    name: data["name"],
-    normalAmount: (data["normal_amount"] as num).toDouble(),
-    unit: $enumDecode(_$UnitEnumEnumMap, data["unit"]),
-    conversionAmount: (data["conversion_amount"] as num).toDouble(),
-    conversionUnit: $enumDecode(_$UnitEnumEnumMap, data["conversion_unit"]),
-    barcode: data["barcode"],
-    kcal: (data["kcal"] as num?)?.toDouble(),
-    fat: (data["fat"] as num?)?.toDouble(),
-    carbs: (data["carbs"] as num?)?.toDouble(),
-    protein: (data["protein"] as num?)?.toDouble(),
-    fiber: (data["fiber"] as num?)?.toDouble(),
-    archived: data["archived"],
-    uploaded: true,
-  );
+  factory GroceryData.fromSupabase(Map<String, dynamic> data) =>
+      GroceryData.fromJson(data..[uploadedKey] = true);
 
   static UnitEnum jsonStringToEnum(String enumString) =>
       $enumDecode(_$UnitEnumEnumMap, enumString);
@@ -179,19 +166,5 @@ extension GroceryDataFunctions on GroceryData {
     uploaded: drift.Value(uploaded),
   );
 
-  Map<String, dynamic> toSupabase() => {
-    "id": id,
-    "name": name,
-    "normal_amount": normalAmount,
-    "unit": _$UnitEnumEnumMap[unit]!,
-    "conversion_amount": conversionAmount,
-    "conversion_unit": _$UnitEnumEnumMap[conversionUnit]!,
-    "barcode": barcode,
-    "kcal": kcal,
-    "fat": fat,
-    "carbs": carbs,
-    "protein": protein,
-    "fiber": fiber,
-    "archived": archived,
-  };
+  Map<String, dynamic> toSupabase() => toJson()..remove(uploadedKey);
 }

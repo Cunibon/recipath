@@ -1,5 +1,6 @@
 import 'package:drift/drift.dart' as drift;
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:recipath/application_constants.dart';
 import 'package:recipath/drift/database.dart';
 
 part 'recipe_tag_data.freezed.dart';
@@ -25,12 +26,7 @@ abstract class RecipeTagData with _$RecipeTagData {
   );
 
   factory RecipeTagData.fromSupabase(Map<String, dynamic> data) =>
-      RecipeTagData(
-        recipeId: data["recipe_id"],
-        tagId: data["tag_id"],
-        deleted: data["deleted"],
-        uploaded: true,
-      );
+      RecipeTagData.fromJson(data..[uploadedKey] = true);
 }
 
 extension TagDataFunctions on RecipeTagData {
@@ -41,9 +37,5 @@ extension TagDataFunctions on RecipeTagData {
     uploaded: drift.Value(uploaded),
   );
 
-  Map<String, dynamic> toSupabase() => {
-    "recipe_id": recipeId,
-    "tag_id": tagId,
-    "deleted": deleted,
-  };
+  Map<String, dynamic> toSupabase() => toJson()..remove(uploadedKey);
 }

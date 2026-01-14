@@ -15,7 +15,7 @@ part 'timer_notifier.g.dart';
 
 @riverpod
 class TimerNotifier extends _$TimerNotifier {
-  static const timerDataKey = "timerData_v4";
+  static const timerDataKey = "timerData_v5";
 
   @override
   Map<String, TimerData> build() {
