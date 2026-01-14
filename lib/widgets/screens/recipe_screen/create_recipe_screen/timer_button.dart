@@ -16,8 +16,10 @@ class TimerButton extends StatelessWidget {
       onPressed: () async {
         final durationResponse = await showDialog<DurationPickerResponse>(
           context: context,
-          builder: (context) =>
-              DurationPickerDialog(title: localization.howLongWillTheStepTake),
+          builder: (context) => DurationPickerDialog(
+            title: localization.howLongWillTheStepTake,
+            startDuration: Duration(minutes: minutes ?? 0),
+          ),
         );
 
         if (durationResponse == null) return;

@@ -44,150 +44,157 @@ class _AuthDialogState extends ConsumerState<AuthDialog> {
           width: 200,
           child: Form(
             key: formKey,
-            child: Column(
-              spacing: 8,
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  widget.isLogin ? localization.login : localization.register,
-                  style: TextTheme.of(context).titleLarge,
-                ),
-                TextFormField(
-                  controller: emailController,
-                  keyboardType: TextInputType.emailAddress,
-                  autofillHints: widget.isLogin
-                      ? const [AutofillHints.username]
-                      : const [AutofillHints.newUsername],
-                  decoration: InputDecoration(hintText: localization.eMail),
-                  validator: (value) {
-                    if (value != null) {
-                      if (emailRegex.hasMatch(value)) {
-                        return null;
-                      } else {
-                        return localization.objectInvalid(localization.eMail);
-                      }
-                    } else {
-                      return localization.addEMail;
-                    }
-                  },
-                ),
-                TextFormField(
-                  controller: passwordController,
-                  autofillHints: const [AutofillHints.password],
-                  obscureText: true,
-                  decoration: InputDecoration(hintText: localization.password),
-                  validator: (value) {
-                    if (value == null) {
-                      return localization.addPassword;
-                    }
-                    return null;
-                  },
-                ),
-                if (!widget.isLogin)
+            child: AutofillGroup(
+              child: Column(
+                spacing: 8,
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.isLogin ? localization.login : localization.register,
+                    style: TextTheme.of(context).titleLarge,
+                  ),
                   TextFormField(
-                    obscureText: true,
-                    autofillHints: const [AutofillHints.newPassword],
-                    decoration: InputDecoration(
-                      hintText: localization.repeatPassword,
-                    ),
+                    controller: emailController,
+                    keyboardType: TextInputType.emailAddress,
+                    autofillHints: widget.isLogin
+                        ? const [AutofillHints.username]
+                        : const [AutofillHints.newUsername],
+                    decoration: InputDecoration(hintText: localization.eMail),
                     validator: (value) {
                       if (value != null) {
-                        if (value.length >= 12) {
-                          if (passwordController.text == value) {
-                            return null;
-                          } else {
-                            return localization.passwordsDontMatch;
-                          }
+                        if (emailRegex.hasMatch(value)) {
+                          return null;
                         } else {
-                          return localization.passwordLength;
+                          return localization.objectInvalid(localization.eMail);
                         }
                       } else {
-                        return localization.addPassword;
+                        return localization.addEMail;
                       }
                     },
                   ),
-                if (errorMessage != null)
-                  Text(
-                    errorMessage!,
-                    style: TextTheme.of(context).bodyMedium?.copyWith(
-                      color: ColorScheme.of(context).error,
+                  TextFormField(
+                    controller: passwordController,
+                    autofillHints: const [AutofillHints.password],
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      hintText: localization.password,
                     ),
+                    validator: (value) {
+                      if (value == null) {
+                        return localization.addPassword;
+                      }
+                      return null;
+                    },
                   ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      if (formKey.currentState?.validate() == true) {
-                        TextInput.finishAutofillContext();
-
-                        setState(() {
-                          loading = true;
-                          errorMessage = null;
-                        });
-
-                        final supabaseClient = ref.read(supabaseClientProvider);
-
-                        try {
-                          late AuthResponse response;
-                          if (widget.isLogin) {
-                            response = await supabaseClient.auth
-                                .signInWithPassword(
-                                  email: emailController.text,
-                                  password: passwordController.text,
-                                );
-                          } else {
-                            response = await supabaseClient.auth.signUp(
-                              email: emailController.text,
-                              password: passwordController.text,
-                            );
-                          }
-
-                          if (response.session != null) {
-                            await (await ref.read(
-                              syncingServiceProvider.future,
-                            )).reset();
-                            Purchases.logIn(response.user!.id);
-                            if (context.mounted) {
-                              context.pop();
+                  if (!widget.isLogin)
+                    TextFormField(
+                      obscureText: true,
+                      autofillHints: const [AutofillHints.newPassword],
+                      decoration: InputDecoration(
+                        hintText: localization.repeatPassword,
+                      ),
+                      validator: (value) {
+                        if (value != null) {
+                          if (value.length >= 12) {
+                            if (passwordController.text == value) {
+                              return null;
+                            } else {
+                              return localization.passwordsDontMatch;
                             }
                           } else {
-                            setState(() {
-                              errorMessage = localization.verifactionEMailSent;
-                            });
+                            return localization.passwordLength;
                           }
-                        } catch (e) {
-                          if (e is AuthApiException) {
-                            if (e.code == "invalid_credentials") {
+                        } else {
+                          return localization.addPassword;
+                        }
+                      },
+                    ),
+                  if (errorMessage != null)
+                    Text(
+                      errorMessage!,
+                      style: TextTheme.of(context).bodyMedium?.copyWith(
+                        color: ColorScheme.of(context).error,
+                      ),
+                    ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        if (formKey.currentState?.validate() == true) {
+                          TextInput.finishAutofillContext();
+
+                          setState(() {
+                            loading = true;
+                            errorMessage = null;
+                          });
+
+                          final supabaseClient = ref.read(
+                            supabaseClientProvider,
+                          );
+
+                          try {
+                            late AuthResponse response;
+                            if (widget.isLogin) {
+                              response = await supabaseClient.auth
+                                  .signInWithPassword(
+                                    email: emailController.text,
+                                    password: passwordController.text,
+                                  );
+                            } else {
+                              response = await supabaseClient.auth.signUp(
+                                email: emailController.text,
+                                password: passwordController.text,
+                              );
+                            }
+
+                            if (response.session != null) {
+                              await (await ref.read(
+                                syncingServiceProvider.future,
+                              )).reset();
+                              Purchases.logIn(response.user!.id);
+                              if (context.mounted) {
+                                context.pop();
+                              }
+                            } else {
                               setState(() {
                                 errorMessage =
-                                    localization.couldNotAuthenticate;
+                                    localization.verifactionEMailSent;
+                              });
+                            }
+                          } catch (e) {
+                            if (e is AuthApiException) {
+                              if (e.code == "invalid_credentials") {
+                                setState(() {
+                                  errorMessage =
+                                      localization.couldNotAuthenticate;
+                                });
+                              }
+                            }
+                          } finally {
+                            if (context.mounted) {
+                              setState(() {
+                                loading = false;
                               });
                             }
                           }
-                        } finally {
-                          if (context.mounted) {
-                            setState(() {
-                              loading = false;
-                            });
-                          }
                         }
-                      }
-                    },
-                    child: loading
-                        ? SizedBox(
-                            height: 20,
-                            width: 20,
-                            child: CircularProgressIndicator(),
-                          )
-                        : Text(
-                            widget.isLogin
-                                ? localization.login
-                                : localization.register,
-                          ),
+                      },
+                      child: loading
+                          ? SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: CircularProgressIndicator(),
+                            )
+                          : Text(
+                              widget.isLogin
+                                  ? localization.login
+                                  : localization.register,
+                            ),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
