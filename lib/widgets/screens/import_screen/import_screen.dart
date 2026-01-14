@@ -4,6 +4,7 @@ import 'package:recipath/helper/go_router_extension.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/navigation/default_navigation_title.dart';
 import 'package:recipath/widgets/navigation/navigation_drawer_scaffold.dart';
+import 'package:recipath/widgets/screens/import_screen/import_routes.dart';
 
 class ImportScreen extends StatelessWidget {
   const ImportScreen({super.key});
@@ -32,7 +33,8 @@ class ImportScreen extends StatelessWidget {
 
                 if (result != null && context.mounted) {
                   context.goRelative(
-                    Uri.encodeComponent(result.files.single.path!),
+                    ImportRoutes.recipeImport.path,
+                    extra: result.files.single.path,
                   );
                 }
               },

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+import 'package:recipath/helper/go_router_extension.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/generic/info_text.dart';
@@ -42,9 +42,7 @@ class GroceryImportScreen extends ConsumerWidget {
           }
 
           if (context.mounted) {
-            context.go(
-              "/import/${Uri.encodeComponent(filePath)}/${ImportRoutes.groceryImport.path}/${ImportRoutes.tagImport.path}",
-            );
+            context.goRelative(ImportRoutes.tagImport.path, extra: filePath);
           }
         },
         child: Icon(Icons.arrow_forward),

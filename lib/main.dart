@@ -24,6 +24,7 @@ import 'package:recipath/providers/application_path_provider.dart';
 import 'package:recipath/root_routes.dart';
 import 'package:recipath/widgets/providers/locale_notifier.dart';
 import 'package:recipath/widgets/providers/theme_data_notifier.dart';
+import 'package:recipath/widgets/screens/import_screen/import_routes.dart';
 import 'package:recipath/widgets/screens/recipe_screen/recipe_routes.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -106,7 +107,10 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
 
   void goToImport(List<SharedMediaFile> value) {
     if (value.isNotEmpty && context.mounted) {
-      widget.router.go("/import/${Uri.encodeComponent(value.first.path)}");
+      widget.router.go(
+        "${RootRoutes.importRoute.path}/${ImportRoutes.recipeImport.path}",
+        extra: value.first.path,
+      );
     }
   }
 
