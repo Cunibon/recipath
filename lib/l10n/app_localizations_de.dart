@@ -75,11 +75,15 @@ class AppLocalizationsDe extends AppLocalizations {
       'Bitte ordnen Sie die importierten Zutaten Ihren vorhandenen Zutaten zu oder lassen Sie sie unzugeordnet, um neue zu erstellen.';
 
   @override
+  String get tagImportInfo =>
+      'Sie können importierte Tags Ihren vorhandenen Tags zuordnen, sie unzugeordnet lassen, um neue zu erstellen, oder sie entfernen.';
+
+  @override
   String get missingMapping => 'Fehlende Zuordnung';
 
   @override
-  String missingMappingContent(int count) {
-    return 'Nicht zugeordnete Einträge erstellen $count neue Zutaten.';
+  String missingMappingContent(int count, String type) {
+    return 'Nicht zugeordnete Einträge erstellen $count neue $type.';
   }
 
   @override
@@ -320,6 +324,12 @@ class AppLocalizationsDe extends AppLocalizations {
   String get howLongDidTheRecipeTake => 'Wie lange hat das Rezept gedauert?';
 
   @override
+  String get howLongWillTheStepTake => 'Wie lange wird der Schritt dauern?';
+
+  @override
+  String get addTimer => 'Timer hinzufügen';
+
+  @override
   String get cancelTimer => 'Timer abbrechen';
 
   @override
@@ -327,6 +337,14 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get timersRunningDescription => '⏱️ es sind noch Timer aktiv';
+
+  @override
+  String get stepTimerFinishedTitle => 'Ein Timer ist abgelaufen';
+
+  @override
+  String stepTimerFinishedBody(int step, String recipe) {
+    return 'Ein Timer für Schritt $step von $recipe ist abgelaufen';
+  }
 
   @override
   String get removedIngredientsFromStorage =>

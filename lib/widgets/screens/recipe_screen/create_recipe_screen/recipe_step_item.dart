@@ -7,6 +7,7 @@ import 'package:recipath/data/recipe_step_data/recipe_step_data.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/screens/recipe_screen/create_recipe_screen/add_groceries_dialog.dart';
 import 'package:recipath/widgets/screens/recipe_screen/create_recipe_screen/recipe_ingredient_view.dart';
+import 'package:recipath/widgets/screens/recipe_screen/create_recipe_screen/timer_button.dart';
 
 class RecipeStepItem extends ConsumerWidget {
   const RecipeStepItem({
@@ -32,17 +33,24 @@ class RecipeStepItem extends ConsumerWidget {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Stack(
+        child: Column(
           children: [
-            Align(
-              alignment: Alignment.topRight,
-              child: GestureDetector(
-                onTap: delete,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Icon(Icons.close),
+            Row(
+              mainAxisAlignment: .spaceBetween,
+              children: [
+                TimerButton(
+                  minutes: data.minutes,
+                  onChange: (minutes) =>
+                      onChanged(data.copyWith(minutes: minutes)),
                 ),
-              ),
+                GestureDetector(
+                  onTap: delete,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(Icons.close),
+                  ),
+                ),
+              ],
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,

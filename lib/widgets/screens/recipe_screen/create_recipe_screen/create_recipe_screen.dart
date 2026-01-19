@@ -248,6 +248,7 @@ class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
                               id: randomAlphaNumeric(16),
                               description: "",
                               ingredients: [],
+                              minutes: null,
                             ),
                           ),
                       ),

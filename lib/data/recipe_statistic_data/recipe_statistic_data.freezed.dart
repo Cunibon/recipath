@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$RecipeStatisticData {
 
- String get id; DateTime get startDate; DateTime get endDate; String get recipeId; int? get servings; bool get uploaded;
+ String get id;@JsonKey(fromJson: dateTimeFromMillis, toJson: dateTimeToMillis) DateTime get startDate;@JsonKey(fromJson: dateTimeFromMillis, toJson: dateTimeToMillis) DateTime get endDate; String get recipeId; int? get servings; bool get uploaded;
 /// Create a copy of RecipeStatisticData
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $RecipeStatisticDataCopyWith<$Res>  {
   factory $RecipeStatisticDataCopyWith(RecipeStatisticData value, $Res Function(RecipeStatisticData) _then) = _$RecipeStatisticDataCopyWithImpl;
 @useResult
 $Res call({
- String id, DateTime startDate, DateTime endDate, String recipeId, int? servings, bool uploaded
+ String id,@JsonKey(fromJson: dateTimeFromMillis, toJson: dateTimeToMillis) DateTime startDate,@JsonKey(fromJson: dateTimeFromMillis, toJson: dateTimeToMillis) DateTime endDate, String recipeId, int? servings, bool uploaded
 });
 
 
@@ -158,7 +158,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  DateTime startDate,  DateTime endDate,  String recipeId,  int? servings,  bool uploaded)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id, @JsonKey(fromJson: dateTimeFromMillis, toJson: dateTimeToMillis)  DateTime startDate, @JsonKey(fromJson: dateTimeFromMillis, toJson: dateTimeToMillis)  DateTime endDate,  String recipeId,  int? servings,  bool uploaded)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _RecipeStatisticData() when $default != null:
 return $default(_that.id,_that.startDate,_that.endDate,_that.recipeId,_that.servings,_that.uploaded);case _:
@@ -179,7 +179,7 @@ return $default(_that.id,_that.startDate,_that.endDate,_that.recipeId,_that.serv
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  DateTime startDate,  DateTime endDate,  String recipeId,  int? servings,  bool uploaded)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id, @JsonKey(fromJson: dateTimeFromMillis, toJson: dateTimeToMillis)  DateTime startDate, @JsonKey(fromJson: dateTimeFromMillis, toJson: dateTimeToMillis)  DateTime endDate,  String recipeId,  int? servings,  bool uploaded)  $default,) {final _that = this;
 switch (_that) {
 case _RecipeStatisticData():
 return $default(_that.id,_that.startDate,_that.endDate,_that.recipeId,_that.servings,_that.uploaded);case _:
@@ -199,7 +199,7 @@ return $default(_that.id,_that.startDate,_that.endDate,_that.recipeId,_that.serv
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  DateTime startDate,  DateTime endDate,  String recipeId,  int? servings,  bool uploaded)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id, @JsonKey(fromJson: dateTimeFromMillis, toJson: dateTimeToMillis)  DateTime startDate, @JsonKey(fromJson: dateTimeFromMillis, toJson: dateTimeToMillis)  DateTime endDate,  String recipeId,  int? servings,  bool uploaded)?  $default,) {final _that = this;
 switch (_that) {
 case _RecipeStatisticData() when $default != null:
 return $default(_that.id,_that.startDate,_that.endDate,_that.recipeId,_that.servings,_that.uploaded);case _:
@@ -214,12 +214,12 @@ return $default(_that.id,_that.startDate,_that.endDate,_that.recipeId,_that.serv
 @JsonSerializable()
 
 class _RecipeStatisticData implements RecipeStatisticData {
-  const _RecipeStatisticData({required this.id, required this.startDate, required this.endDate, required this.recipeId, required this.servings, this.uploaded = false});
+  const _RecipeStatisticData({required this.id, @JsonKey(fromJson: dateTimeFromMillis, toJson: dateTimeToMillis) required this.startDate, @JsonKey(fromJson: dateTimeFromMillis, toJson: dateTimeToMillis) required this.endDate, required this.recipeId, required this.servings, this.uploaded = false});
   factory _RecipeStatisticData.fromJson(Map<String, dynamic> json) => _$RecipeStatisticDataFromJson(json);
 
 @override final  String id;
-@override final  DateTime startDate;
-@override final  DateTime endDate;
+@override@JsonKey(fromJson: dateTimeFromMillis, toJson: dateTimeToMillis) final  DateTime startDate;
+@override@JsonKey(fromJson: dateTimeFromMillis, toJson: dateTimeToMillis) final  DateTime endDate;
 @override final  String recipeId;
 @override final  int? servings;
 @override@JsonKey() final  bool uploaded;
@@ -257,7 +257,7 @@ abstract mixin class _$RecipeStatisticDataCopyWith<$Res> implements $RecipeStati
   factory _$RecipeStatisticDataCopyWith(_RecipeStatisticData value, $Res Function(_RecipeStatisticData) _then) = __$RecipeStatisticDataCopyWithImpl;
 @override @useResult
 $Res call({
- String id, DateTime startDate, DateTime endDate, String recipeId, int? servings, bool uploaded
+ String id,@JsonKey(fromJson: dateTimeFromMillis, toJson: dateTimeToMillis) DateTime startDate,@JsonKey(fromJson: dateTimeFromMillis, toJson: dateTimeToMillis) DateTime endDate, String recipeId, int? servings, bool uploaded
 });
 
 

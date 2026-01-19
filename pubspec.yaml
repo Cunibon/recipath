@@ -3,7 +3,7 @@ description: "An open-source app that helps you manage your recipes."
 
 publish_to: 'none'
 
-version: 1.6.8+30
+version: 1.7.3+34
 
 environment:
   sdk: ^3.10.4
@@ -52,6 +52,9 @@ dependencies:
   flutter_local_notifications: ^19.5.0
   receive_sharing_intent: ^1.8.1
   connectivity_plus: ^7.0.0
+  timezone: ^0.10.1
+  flutter_timezone: ^5.0.1
+  audioplayers: ^6.5.1
 
 dev_dependencies:
   sentry_dart_plugin: ^3.1.1
@@ -73,6 +76,7 @@ flutter:
 
   assets:
     - assets\images\empty.png
+    - assets\sounds\step_done.wav
 
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a

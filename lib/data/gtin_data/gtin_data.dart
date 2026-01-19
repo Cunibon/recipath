@@ -2,7 +2,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:recipath/data/unit_enum.dart';
 
 part 'gtin_data.freezed.dart';
-part 'gtin_data.g.dart';
 
 @freezed
 abstract class GTINData with _$GTINData {
@@ -19,9 +18,6 @@ abstract class GTINData with _$GTINData {
   }) = _GTINData;
 
   static RegExp quantitiyRegEx = RegExp(r'^(\d+(?:[.,]\d+)?)([a-zA-Z]+)$');
-
-  factory GTINData.fromJson(Map<String, Object?> json) =>
-      _$GTINDataFromJson(json);
 
   static GTINData? fromAPI(String barcode, Map<String, dynamic> json) {
     final product = json['product']!;

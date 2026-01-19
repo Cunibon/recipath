@@ -11,7 +11,6 @@ part of 'gtin_data.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
-
 /// @nodoc
 mixin _$GTINData {
 
@@ -22,8 +21,6 @@ mixin _$GTINData {
 @pragma('vm:prefer-inline')
 $GTINDataCopyWith<GTINData> get copyWith => _$GTINDataCopyWithImpl<GTINData>(this as GTINData, _$identity);
 
-  /// Serializes this GTINData to a JSON map.
-  Map<String, dynamic> toJson();
 
 
 @override
@@ -31,7 +28,7 @@ bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is GTINData&&(identical(other.barcode, barcode) || other.barcode == barcode)&&(identical(other.name, name) || other.name == name)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.unit, unit) || other.unit == unit)&&(identical(other.kcal, kcal) || other.kcal == kcal)&&(identical(other.fat, fat) || other.fat == fat)&&(identical(other.carbs, carbs) || other.carbs == carbs)&&(identical(other.protein, protein) || other.protein == protein)&&(identical(other.fiber, fiber) || other.fiber == fiber));
 }
 
-@JsonKey(includeFromJson: false, includeToJson: false)
+
 @override
 int get hashCode => Object.hash(runtimeType,barcode,name,amount,unit,kcal,fat,carbs,protein,fiber);
 
@@ -214,11 +211,11 @@ return $default(_that.barcode,_that.name,_that.amount,_that.unit,_that.kcal,_tha
 }
 
 /// @nodoc
-@JsonSerializable()
+
 
 class _GTINData implements GTINData {
   const _GTINData({required this.barcode, required this.name, required this.amount, required this.unit, this.kcal, this.fat, this.carbs, this.protein, this.fiber});
-  factory _GTINData.fromJson(Map<String, dynamic> json) => _$GTINDataFromJson(json);
+  
 
 @override final  String barcode;
 @override final  String name;
@@ -236,17 +233,14 @@ class _GTINData implements GTINData {
 @pragma('vm:prefer-inline')
 _$GTINDataCopyWith<_GTINData> get copyWith => __$GTINDataCopyWithImpl<_GTINData>(this, _$identity);
 
-@override
-Map<String, dynamic> toJson() {
-  return _$GTINDataToJson(this, );
-}
+
 
 @override
 bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is _GTINData&&(identical(other.barcode, barcode) || other.barcode == barcode)&&(identical(other.name, name) || other.name == name)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.unit, unit) || other.unit == unit)&&(identical(other.kcal, kcal) || other.kcal == kcal)&&(identical(other.fat, fat) || other.fat == fat)&&(identical(other.carbs, carbs) || other.carbs == carbs)&&(identical(other.protein, protein) || other.protein == protein)&&(identical(other.fiber, fiber) || other.fiber == fiber));
 }
 
-@JsonKey(includeFromJson: false, includeToJson: false)
+
 @override
 int get hashCode => Object.hash(runtimeType,barcode,name,amount,unit,kcal,fat,carbs,protein,fiber);
 

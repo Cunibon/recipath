@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 class CountUpTimer extends StatefulWidget {
+  const CountUpTimer({super.key, this.style, required this.startTime});
   final DateTime startTime;
-
-  const CountUpTimer({super.key, required this.startTime});
+  final TextStyle? style;
 
   @override
   State<CountUpTimer> createState() => _CountUpTimerState();
@@ -58,7 +58,8 @@ class _CountUpTimerState extends State<CountUpTimer>
   Widget build(BuildContext context) {
     return Text(
       _formatDuration(_elapsed),
-      style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+      style:
+          widget.style ?? TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
     );
   }
 }

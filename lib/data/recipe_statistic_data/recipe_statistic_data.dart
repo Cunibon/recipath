@@ -1,5 +1,7 @@
 import 'package:drift/drift.dart' as drift;
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:recipath/application_constants.dart';
+import 'package:recipath/common.dart';
 import 'package:recipath/drift/database.dart';
 
 part 'recipe_statistic_data.freezed.dart';
@@ -9,7 +11,9 @@ part 'recipe_statistic_data.g.dart';
 abstract class RecipeStatisticData with _$RecipeStatisticData {
   const factory RecipeStatisticData({
     required String id,
+    @JsonKey(fromJson: dateTimeFromMillis, toJson: dateTimeToMillis)
     required DateTime startDate,
+    @JsonKey(fromJson: dateTimeFromMillis, toJson: dateTimeToMillis)
     required DateTime endDate,
     required String recipeId,
     required int? servings,
@@ -30,14 +34,7 @@ abstract class RecipeStatisticData with _$RecipeStatisticData {
       );
 
   factory RecipeStatisticData.fromSupabase(Map<String, dynamic> data) =>
-      RecipeStatisticData(
-        id: data["id"],
-        startDate: DateTime.fromMillisecondsSinceEpoch(data["start_date"]),
-        endDate: DateTime.fromMillisecondsSinceEpoch(data["end_date"]),
-        recipeId: data["recipe_id"],
-        servings: data["servings"],
-        uploaded: true,
-      );
+      RecipeStatisticData.fromJson(data..[uploadedKey] = true);
 }
 
 extension RecipeStatisticDataFunctions on RecipeStatisticData {
@@ -51,11 +48,5 @@ extension RecipeStatisticDataFunctions on RecipeStatisticData {
         uploaded: drift.Value(uploaded),
       );
 
-  Map<String, dynamic> toSupabase() => {
-    "id": id,
-    "start_date": startDate.millisecondsSinceEpoch,
-    "end_date": endDate.millisecondsSinceEpoch,
-    "recipe_id": recipeId,
-    "servings": servings,
-  };
+  Map<String, dynamic> toSupabase() => toJson()..remove(uploadedKey);
 }

@@ -155,6 +155,7 @@ class RecipeRepoDrift extends RecipeRepo {
                 id: step.id,
                 description: step.description,
                 recipeId: newData.id,
+                minutes: Value(step.minutes),
                 index: i,
               ),
             );

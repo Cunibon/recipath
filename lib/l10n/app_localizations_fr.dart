@@ -76,11 +76,15 @@ class AppLocalizationsFr extends AppLocalizations {
       'Associez les ingrédients importés à vos ingrédients existants ou laissez-les non associés pour en créer de nouveaux.';
 
   @override
+  String get tagImportInfo =>
+      'Vous pouvez associer les étiquettes importées à vos étiquettes existantes, les laisser non associées pour en créer de nouvelles, ou les supprimer.';
+
+  @override
   String get missingMapping => 'Association manquante';
 
   @override
-  String missingMappingContent(int count) {
-    return 'Les éléments non associés créeront $count nouveaux ingrédients.';
+  String missingMappingContent(int count, String type) {
+    return 'Les éléments non associés créeront $count nouveaux $type.';
   }
 
   @override
@@ -321,6 +325,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get howLongDidTheRecipeTake => 'Combien de temps a pris la recette ?';
 
   @override
+  String get howLongWillTheStepTake => 'Combien de temps durera l\'étape ?';
+
+  @override
+  String get addTimer => 'Ajouter une minuterie';
+
+  @override
   String get cancelTimer => 'Annuler la minuterie';
 
   @override
@@ -329,6 +339,14 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get timersRunningDescription =>
       '⏱️ Des minuteries sont encore actives';
+
+  @override
+  String get stepTimerFinishedTitle => 'Une minuterie a terminé';
+
+  @override
+  String stepTimerFinishedBody(int step, String recipe) {
+    return 'Une minuterie pour l\'étape $step de $recipe a terminé';
+  }
 
   @override
   String get removedIngredientsFromStorage =>

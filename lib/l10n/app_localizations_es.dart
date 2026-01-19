@@ -74,11 +74,15 @@ class AppLocalizationsEs extends AppLocalizations {
       'Asigne los ingredientes importados a sus ingredientes existentes o déjelos sin asignar para crear nuevos.';
 
   @override
+  String get tagImportInfo =>
+      'Puede asignar las etiquetas importadas a sus etiquetas existentes, dejarlas sin asignar para crear nuevas, o eliminarlas.';
+
+  @override
   String get missingMapping => 'Asignación faltante';
 
   @override
-  String missingMappingContent(int count) {
-    return 'Los elementos sin asignar crearán $count ingredientes nuevos.';
+  String missingMappingContent(int count, String type) {
+    return 'Los elementos sin asignar crearán $count nuevos $type.';
   }
 
   @override
@@ -321,6 +325,12 @@ class AppLocalizationsEs extends AppLocalizations {
       '¿Cuanto tiempo te tomo hacer la receta?';
 
   @override
+  String get howLongWillTheStepTake => '¿Cuánto tiempo tardará el paso?';
+
+  @override
+  String get addTimer => 'Agregar temporizador';
+
+  @override
   String get cancelTimer => 'Cancelar temporizador';
 
   @override
@@ -329,6 +339,14 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get timersRunningDescription =>
       '⏱️ Todavía hay temporizadores activos';
+
+  @override
+  String get stepTimerFinishedTitle => 'Se ha terminado un temporizador';
+
+  @override
+  String stepTimerFinishedBody(int step, String recipe) {
+    return 'Se terminó un temporizador para el paso $step de $recipe';
+  }
 
   @override
   String get removedIngredientsFromStorage =>

@@ -11,6 +11,8 @@ class RecipeStepTable extends Table {
   TextColumn get description => text()();
   IntColumn get index => integer()();
 
+  IntColumn get minutes => integer().nullable()();
+
   TextColumn get recipeId =>
       text().references(RecipeTable, #id, onDelete: KeyAction.cascade)();
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+import 'package:recipath/helper/go_router_extension.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/generic/info_text.dart';
@@ -27,9 +27,10 @@ class RecipeImportScreen extends ConsumerWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          if (state.value!.importRecipe.isNotEmpty) {
-            context.go(
-              "/import/${Uri.encodeComponent(state.value!.path)}/${ImportRoutes.groceryImport.path}",
+          if (state.value!.selectedRecipes.isNotEmpty) {
+            context.goRelative(
+              ImportRoutes.groceryImport.path,
+              extra: filePath,
             );
           } else {
             ScaffoldMessenger.of(

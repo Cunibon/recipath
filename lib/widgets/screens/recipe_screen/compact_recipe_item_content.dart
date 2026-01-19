@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
+import 'package:recipath/data/tag_data/tag_data.dart';
 import 'package:recipath/l10n/app_localizations.dart';
-import 'package:recipath/widgets/filtering/filter_types.dart';
-import 'package:recipath/widgets/filtering/tag_filter_notifier.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/generic/highlight_search/highlightable_text.dart';
 import 'package:recipath/widgets/screens/recipe_screen/create_recipe_screen/compact_ingredient_view.dart';
@@ -17,10 +16,13 @@ class CompactRecipeItemContent extends ConsumerWidget {
     super.key,
     required this.compactRecipeData,
     this.trailingTitle,
+    this.onTagTapped,
   });
 
   final CompactRecipeItemData compactRecipeData;
   final Widget? trailingTitle;
+
+  final void Function(TagData)? onTagTapped;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -47,6 +49,7 @@ class CompactRecipeItemContent extends ConsumerWidget {
                 children: [
                   Expanded(
                     child: Row(
+                      crossAxisAlignment: .start,
                       children: [
                         Flexible(
                           child: HighlightableText(
@@ -88,9 +91,7 @@ class CompactRecipeItemContent extends ConsumerWidget {
                 Divider(),
                 TagList(
                   selectedTags: compactRecipeData.tags,
-                  onTagTapped: (tagData) => ref
-                      .read(tagFilterProvider(FilterTypes.recipe).notifier)
-                      .toggleFilter(filter: tagData),
+                  onTagTapped: onTagTapped,
                 ),
               ],
             ],

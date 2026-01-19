@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:recipath/widgets/screens/import_screen/data/import_screen_state.dart';
+import 'package:recipath/widgets/screens/import_screen/data/recipe_import_screen_state.dart';
+import 'package:recipath/widgets/screens/import_screen/providers/import_data_notifier.dart';
 import 'package:recipath/widgets/screens/import_screen/providers/recipe_import_screen_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/compact_recipe_item_content.dart';
 import 'package:recipath/widgets/screens/recipe_screen/data/compact_recipe_item_data.dart';
@@ -8,15 +9,17 @@ import 'package:recipath/widgets/screens/recipe_screen/data/compact_recipe_item_
 class RecipeImport extends ConsumerWidget {
   const RecipeImport({required this.data, super.key});
 
-  final ImportScreenState data;
+  final RecipeImportScreenState data;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final importData = ref.watch(importDataProvider(data.path)).value!;
+
     return SingleChildScrollView(
       padding: const EdgeInsets.only(bottom: 78),
       child: Column(
         children: [
-          for (final recipe in data.originalRecipe)
+          for (final recipe in importData.recipes)
             GestureDetector(
               onTap: () {
                 ref
@@ -30,11 +33,11 @@ class RecipeImport extends ConsumerWidget {
                     compactRecipeData: CompactRecipeItemData(
                       recipeData: recipe,
                       averageTime: null,
-                      groceryMap: data.originalGrocery,
-                      tags: {},
+                      groceryMap: importData.groceries,
+                      tags: importData.tagsPerRecipe[recipe.id] ?? {},
                     ),
                     trailingTitle: Icon(
-                      data.importRecipe.contains(recipe)
+                      data.selectedRecipes.contains(recipe)
                           ? Icons.check_box
                           : Icons.check_box_outline_blank,
                     ),

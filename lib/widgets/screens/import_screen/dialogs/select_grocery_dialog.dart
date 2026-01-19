@@ -9,9 +9,7 @@ import 'package:recipath/widgets/generic/searchable_list.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 
 class SelectGroceryDialog extends ConsumerStatefulWidget {
-  const SelectGroceryDialog({this.initialSearch, super.key});
-
-  final String? initialSearch;
+  const SelectGroceryDialog({super.key});
 
   @override
   ConsumerState<SelectGroceryDialog> createState() =>
@@ -37,7 +35,6 @@ class _SelectGroceryDialogState extends ConsumerState<SelectGroceryDialog> {
               return Stack(
                 children: [
                   SearchableList(
-                    initialSearch: widget.initialSearch,
                     name: localization.groceries,
                     items: groceryList,
                     listViewPadding: EdgeInsets.only(bottom: 33),

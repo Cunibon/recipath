@@ -5,6 +5,7 @@ extension GoRouterRelative on BuildContext {
   void goRelative(
     String relativePath, {
     Map<String, String?>? queryParameters,
+    Object? extra,
   }) {
     final state = GoRouterState.of(this);
     final basePath = state.uri.path;
@@ -17,6 +18,6 @@ extension GoRouterRelative on BuildContext {
       },
     );
 
-    GoRouter.of(this).go(uri.toString());
+    GoRouter.of(this).go(uri.toString(), extra: extra);
   }
 }
