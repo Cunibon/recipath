@@ -1031,6 +1031,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please select at least one item'**
   String get selectOne;
+
+  /// No description provided for @downloadToImport.
+  ///
+  /// In en, this message translates to:
+  /// **'Download Recipath:\nhttps://play.google.com/store/apps/details?id=com.cunibongames.recipath\n\nTo import these recipes'**
+  String get downloadToImport;
 }
 
 class _AppLocalizationsDelegate

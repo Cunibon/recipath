@@ -70,17 +70,20 @@ class ExportNotifier extends _$ExportNotifier {
     final jsonBytes = utf8.encode(jsonEncode(allData));
     final xfile = XFile.fromData(jsonBytes, mimeType: "application/json");
 
+    final localization = await ref.read(appLocalizationsProvider.future);
+
     late String titel;
 
     if (recipes.length == 1) {
       titel = normalizeFileName(recipes.first.title);
     } else {
-      titel = (await ref.read(appLocalizationsProvider.future)).recipe;
+      titel = localization.recipe;
     }
 
     final params = ShareParams(
       files: [xfile],
       fileNameOverrides: ["$titel.$fileExtenstion"],
+      text: localization.downloadToImport,
     );
 
     await SharePlus.instance.share(params);
