@@ -263,7 +263,7 @@ class RecipeTableData extends DataClass implements Insertable<RecipeTableData> {
       parent: serializer.fromJson<String?>(json['parent']),
       title: serializer.fromJson<String>(json['title']),
       servings: serializer.fromJson<int?>(json['servings']),
-      imageName: serializer.fromJson<String?>(json['imageName']),
+      imageName: serializer.fromJson<String?>(json['image_name']),
       archived: serializer.fromJson<bool>(json['archived']),
       uploaded: serializer.fromJson<bool>(json['uploaded']),
     );
@@ -276,7 +276,7 @@ class RecipeTableData extends DataClass implements Insertable<RecipeTableData> {
       'parent': serializer.toJson<String?>(parent),
       'title': serializer.toJson<String>(title),
       'servings': serializer.toJson<int?>(servings),
-      'imageName': serializer.toJson<String?>(imageName),
+      'image_name': serializer.toJson<String?>(imageName),
       'archived': serializer.toJson<bool>(archived),
       'uploaded': serializer.toJson<bool>(uploaded),
     };
@@ -696,7 +696,7 @@ class RecipeStepTableData extends DataClass
       description: serializer.fromJson<String>(json['description']),
       index: serializer.fromJson<int>(json['index']),
       minutes: serializer.fromJson<int?>(json['minutes']),
-      recipeId: serializer.fromJson<String>(json['recipeId']),
+      recipeId: serializer.fromJson<String>(json['recipe_id']),
       uploaded: serializer.fromJson<bool>(json['uploaded']),
     );
   }
@@ -708,7 +708,7 @@ class RecipeStepTableData extends DataClass
       'description': serializer.toJson<String>(description),
       'index': serializer.toJson<int>(index),
       'minutes': serializer.toJson<int?>(minutes),
-      'recipeId': serializer.toJson<String>(recipeId),
+      'recipe_id': serializer.toJson<String>(recipeId),
       'uploaded': serializer.toJson<bool>(uploaded),
     };
   }
@@ -1338,10 +1338,10 @@ class GroceryTableData extends DataClass
     return GroceryTableData(
       id: serializer.fromJson<String>(json['id']),
       name: serializer.fromJson<String>(json['name']),
-      normalAmount: serializer.fromJson<double>(json['normalAmount']),
+      normalAmount: serializer.fromJson<double>(json['normal_amount']),
       unit: serializer.fromJson<String>(json['unit']),
-      conversionAmount: serializer.fromJson<double>(json['conversionAmount']),
-      conversionUnit: serializer.fromJson<String>(json['conversionUnit']),
+      conversionAmount: serializer.fromJson<double>(json['conversion_amount']),
+      conversionUnit: serializer.fromJson<String>(json['conversion_unit']),
       barcode: serializer.fromJson<String?>(json['barcode']),
       kcal: serializer.fromJson<double?>(json['kcal']),
       fat: serializer.fromJson<double?>(json['fat']),
@@ -1358,10 +1358,10 @@ class GroceryTableData extends DataClass
     return <String, dynamic>{
       'id': serializer.toJson<String>(id),
       'name': serializer.toJson<String>(name),
-      'normalAmount': serializer.toJson<double>(normalAmount),
+      'normal_amount': serializer.toJson<double>(normalAmount),
       'unit': serializer.toJson<String>(unit),
-      'conversionAmount': serializer.toJson<double>(conversionAmount),
-      'conversionUnit': serializer.toJson<String>(conversionUnit),
+      'conversion_amount': serializer.toJson<double>(conversionAmount),
+      'conversion_unit': serializer.toJson<String>(conversionUnit),
       'barcode': serializer.toJson<String?>(barcode),
       'kcal': serializer.toJson<double?>(kcal),
       'fat': serializer.toJson<double?>(fat),
@@ -1852,7 +1852,7 @@ class IngredientTableData extends DataClass
       id: serializer.fromJson<String>(json['id']),
       amount: serializer.fromJson<double>(json['amount']),
       unit: serializer.fromJson<String>(json['unit']),
-      groceryId: serializer.fromJson<String>(json['groceryId']),
+      groceryId: serializer.fromJson<String>(json['grocery_id']),
     );
   }
   @override
@@ -1862,7 +1862,7 @@ class IngredientTableData extends DataClass
       'id': serializer.toJson<String>(id),
       'amount': serializer.toJson<double>(amount),
       'unit': serializer.toJson<String>(unit),
-      'groceryId': serializer.toJson<String>(groceryId),
+      'grocery_id': serializer.toJson<String>(groceryId),
     };
   }
 
@@ -2179,8 +2179,8 @@ class RecipeStepIngredientTableData extends DataClass
   }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return RecipeStepIngredientTableData(
-      stepId: serializer.fromJson<String>(json['stepId']),
-      ingredientId: serializer.fromJson<String>(json['ingredientId']),
+      stepId: serializer.fromJson<String>(json['step_id']),
+      ingredientId: serializer.fromJson<String>(json['ingredient_id']),
       index: serializer.fromJson<int>(json['index']),
       uploaded: serializer.fromJson<bool>(json['uploaded']),
     );
@@ -2189,8 +2189,8 @@ class RecipeStepIngredientTableData extends DataClass
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'stepId': serializer.toJson<String>(stepId),
-      'ingredientId': serializer.toJson<String>(ingredientId),
+      'step_id': serializer.toJson<String>(stepId),
+      'ingredient_id': serializer.toJson<String>(ingredientId),
       'index': serializer.toJson<int>(index),
       'uploaded': serializer.toJson<bool>(uploaded),
     };
@@ -2920,8 +2920,8 @@ class RecipeTagTableData extends DataClass
   }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return RecipeTagTableData(
-      recipeId: serializer.fromJson<String>(json['recipeId']),
-      tagId: serializer.fromJson<String>(json['tagId']),
+      recipeId: serializer.fromJson<String>(json['recipe_id']),
+      tagId: serializer.fromJson<String>(json['tag_id']),
       deleted: serializer.fromJson<bool>(json['deleted']),
       uploaded: serializer.fromJson<bool>(json['uploaded']),
     );
@@ -2930,8 +2930,8 @@ class RecipeTagTableData extends DataClass
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'recipeId': serializer.toJson<String>(recipeId),
-      'tagId': serializer.toJson<String>(tagId),
+      'recipe_id': serializer.toJson<String>(recipeId),
+      'tag_id': serializer.toJson<String>(tagId),
       'deleted': serializer.toJson<bool>(deleted),
       'uploaded': serializer.toJson<bool>(uploaded),
     };
@@ -3302,7 +3302,7 @@ class ShoppingTableData extends DataClass
       id: serializer.fromJson<String>(json['id']),
       done: serializer.fromJson<bool>(json['done']),
       count: serializer.fromJson<int>(json['count']),
-      ingredientId: serializer.fromJson<String>(json['ingredientId']),
+      ingredientId: serializer.fromJson<String>(json['ingredient_id']),
       deleted: serializer.fromJson<bool>(json['deleted']),
       uploaded: serializer.fromJson<bool>(json['uploaded']),
     );
@@ -3314,7 +3314,7 @@ class ShoppingTableData extends DataClass
       'id': serializer.toJson<String>(id),
       'done': serializer.toJson<bool>(done),
       'count': serializer.toJson<int>(count),
-      'ingredientId': serializer.toJson<String>(ingredientId),
+      'ingredient_id': serializer.toJson<String>(ingredientId),
       'deleted': serializer.toJson<bool>(deleted),
       'uploaded': serializer.toJson<bool>(uploaded),
     };
@@ -3660,7 +3660,7 @@ class StorageTableData extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return StorageTableData(
       id: serializer.fromJson<String>(json['id']),
-      ingredientId: serializer.fromJson<String>(json['ingredientId']),
+      ingredientId: serializer.fromJson<String>(json['ingredient_id']),
       deleted: serializer.fromJson<bool>(json['deleted']),
       uploaded: serializer.fromJson<bool>(json['uploaded']),
     );
@@ -3670,7 +3670,7 @@ class StorageTableData extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<String>(id),
-      'ingredientId': serializer.toJson<String>(ingredientId),
+      'ingredient_id': serializer.toJson<String>(ingredientId),
       'deleted': serializer.toJson<bool>(deleted),
       'uploaded': serializer.toJson<bool>(uploaded),
     };
@@ -4042,10 +4042,10 @@ class RecipeStatisticTableData extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return RecipeStatisticTableData(
       id: serializer.fromJson<String>(json['id']),
-      startDate: serializer.fromJson<int>(json['startDate']),
-      endDate: serializer.fromJson<int>(json['endDate']),
+      startDate: serializer.fromJson<int>(json['start_date']),
+      endDate: serializer.fromJson<int>(json['end_date']),
       servings: serializer.fromJson<int?>(json['servings']),
-      recipeId: serializer.fromJson<String>(json['recipeId']),
+      recipeId: serializer.fromJson<String>(json['recipe_id']),
       uploaded: serializer.fromJson<bool>(json['uploaded']),
     );
   }
@@ -4054,10 +4054,10 @@ class RecipeStatisticTableData extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<String>(id),
-      'startDate': serializer.toJson<int>(startDate),
-      'endDate': serializer.toJson<int>(endDate),
+      'start_date': serializer.toJson<int>(startDate),
+      'end_date': serializer.toJson<int>(endDate),
       'servings': serializer.toJson<int?>(servings),
-      'recipeId': serializer.toJson<String>(recipeId),
+      'recipe_id': serializer.toJson<String>(recipeId),
       'uploaded': serializer.toJson<bool>(uploaded),
     };
   }
@@ -4400,7 +4400,7 @@ class RecipeShoppingTableData extends DataClass
     return RecipeShoppingTableData(
       id: serializer.fromJson<String>(json['id']),
       date: serializer.fromJson<int>(json['date']),
-      recipeId: serializer.fromJson<String>(json['recipeId']),
+      recipeId: serializer.fromJson<String>(json['recipe_id']),
       uploaded: serializer.fromJson<bool>(json['uploaded']),
     );
   }
@@ -4410,7 +4410,7 @@ class RecipeShoppingTableData extends DataClass
     return <String, dynamic>{
       'id': serializer.toJson<String>(id),
       'date': serializer.toJson<int>(date),
-      'recipeId': serializer.toJson<String>(recipeId),
+      'recipe_id': serializer.toJson<String>(recipeId),
       'uploaded': serializer.toJson<bool>(uploaded),
     };
   }
@@ -4658,7 +4658,7 @@ class FileTableData extends DataClass implements Insertable<FileTableData> {
   }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return FileTableData(
-      fileName: serializer.fromJson<String>(json['fileName']),
+      fileName: serializer.fromJson<String>(json['file_name']),
       uploaded: serializer.fromJson<bool>(json['uploaded']),
     );
   }
@@ -4666,7 +4666,7 @@ class FileTableData extends DataClass implements Insertable<FileTableData> {
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'fileName': serializer.toJson<String>(fileName),
+      'file_name': serializer.toJson<String>(fileName),
       'uploaded': serializer.toJson<bool>(uploaded),
     };
   }
