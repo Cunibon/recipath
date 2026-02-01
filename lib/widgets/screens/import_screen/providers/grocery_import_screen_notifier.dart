@@ -16,9 +16,18 @@ class GroceryImportScreenNotifier extends _$GroceryImportScreenNotifier {
     );
     final importData = await ref.watch(importDataProvider(path).future);
 
-    final localGroceryNameLookup = (await ref.watch(
-      groceryProvider.future,
-    )).map((key, value) => MapEntry(value.name.trim().toLowerCase(), value));
+    final localGroceries = await ref.watch(groceryProvider.future);
+
+    final localGrocerybarcodeLookup = <String, GroceryData>{};
+    final localGroceryNameLookup = <String, GroceryData>{};
+
+    for (final grocery in localGroceries.values) {
+      if (grocery.barcode != null) {
+        localGrocerybarcodeLookup[grocery.barcode!] = grocery;
+      }
+
+      localGroceryNameLookup[grocery.name.trim().toLowerCase()] = grocery;
+    }
 
     final groceryIds = recipeImportState.selectedRecipes
         .expand((element) => element.getIngredients(importData.groceries))
@@ -30,6 +39,7 @@ class GroceryImportScreenNotifier extends _$GroceryImportScreenNotifier {
       if (importData.groceries.containsKey(groceryId)) {
         final importGrocery = importData.groceries[groceryId]!;
         groceries[groceryId] =
+            localGrocerybarcodeLookup[importGrocery.barcode] ??
             localGroceryNameLookup[importGrocery.name.trim().toLowerCase()];
       }
     }
