@@ -25,7 +25,9 @@ abstract class DeletableDataDownloadRepo extends DataSyncRepo {
     );
 
     for (final data in supabaseData) {
-      await repo.db.into(driftTable).insertOnConflictUpdate(fromJson(data));
+      await repo.db
+          .into(driftTable)
+          .insertOnConflictUpdate(fromJson(data..["uploaded"] = true));
     }
 
     final lastDateRaw = supabaseData.lastOrNull?[SyncingKeys.updatedAtKey];
