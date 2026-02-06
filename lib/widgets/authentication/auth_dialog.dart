@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:recipath/common.dart';
 import 'package:recipath/domain_service/syncing_service/syncing_service/syncing_service_notifier.dart';
 import 'package:recipath/l10n/app_localizations.dart';
+import 'package:recipath/widgets/providers/revenue_cat/revenue_customer_notifier.dart';
 import 'package:recipath/widgets/providers/supabase/supabase_client_notifier.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -149,10 +149,12 @@ class _AuthDialogState extends ConsumerState<AuthDialog> {
                             }
 
                             if (response.session != null) {
+                              await ref
+                                  .read(revenueCustomerProvider.notifier)
+                                  .login(response.user!.id);
                               await (await ref.read(
                                 syncingServiceProvider.future,
                               )).reset();
-                              Purchases.logIn(response.user!.id);
                               if (context.mounted) {
                                 context.pop();
                               }

@@ -45,7 +45,7 @@ void main() async {
 
   final currentUser = Supabase.instance.client.auth.currentUser;
   if (currentUser != null) {
-    Purchases.logIn(currentUser.id);
+    await Purchases.logIn(currentUser.id);
   }
 
   await initNotifications();
