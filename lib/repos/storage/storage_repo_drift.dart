@@ -70,7 +70,9 @@ class StorageRepoDrift extends LocalRepo<StorageData> {
     await db.transaction(() async {
       await db
           .into(db.ingredientTable)
-          .insertOnConflictUpdate(newData.ingredient.toTableCompanion());
+          .insertOnConflictUpdate(
+            newData.ingredient.copyWith(uploaded: false).toTableCompanion(),
+          );
 
       await db.into(table).insertOnConflictUpdate(newData.toTableCompanion());
     });

@@ -162,6 +162,7 @@ class RecipeRepoDrift extends RecipeRepo {
                 recipeId: newData.id,
                 minutes: Value(step.minutes),
                 index: i,
+                uploaded: Value(newData.uploaded),
               ),
             );
 
@@ -169,7 +170,11 @@ class RecipeRepoDrift extends RecipeRepo {
           final ingredient = step.ingredients[y];
           await db
               .into(db.ingredientTable)
-              .insertOnConflictUpdate(ingredient.toTableCompanion());
+              .insertOnConflictUpdate(
+                ingredient
+                    .copyWith(uploaded: newData.uploaded)
+                    .toTableCompanion(),
+              );
 
           await db
               .into(db.recipeStepIngredientTable)
@@ -178,6 +183,7 @@ class RecipeRepoDrift extends RecipeRepo {
                   stepId: step.id,
                   ingredientId: ingredient.id,
                   index: y,
+                  uploaded: Value(newData.uploaded),
                 ),
               );
         }
