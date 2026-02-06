@@ -18,14 +18,12 @@ import 'package:recipath/common.dart';
 import 'package:recipath/domain_service/syncing_service/syncing_service/syncing_service_notifier.dart';
 import 'package:recipath/drift/database.dart';
 import 'package:recipath/drift/database_notifier.dart';
-import 'package:recipath/helper/local_storage_extension.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/providers/application_path_provider.dart';
 import 'package:recipath/root_routes.dart';
 import 'package:recipath/widgets/providers/locale_notifier.dart';
 import 'package:recipath/widgets/providers/theme_data_notifier.dart';
 import 'package:recipath/widgets/screens/import_screen/import_routes.dart';
-import 'package:recipath/widgets/screens/recipe_screen/recipe_routes.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -52,11 +50,6 @@ void main() async {
 
   await initNotifications();
 
-  final firstTime = localStorage.get<bool>(openAppFirstTime) ?? true;
-  if (firstTime) {
-    localStorage.set(openAppFirstTime, false);
-  }
-
   final goRouter = GoRouter(
     navigatorKey: navigatorKey,
     routes: [
@@ -71,9 +64,7 @@ void main() async {
       RootRoutes.settingsRoute,
       RootRoutes.importRoute,
     ],
-    initialLocation: firstTime
-        ? "${RootRoutes.recipeRoute.path}/${RecipeRoutes.introductionScreen.path}"
-        : RootRoutes.recipeRoute.path,
+    initialLocation: RootRoutes.recipeRoute.path,
   );
 
   final app = ProviderScope(

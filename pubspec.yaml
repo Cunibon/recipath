@@ -45,7 +45,6 @@ dependencies:
     sdk: flutter
   flutter_launcher_icons: ^0.14.4
   package_info_plus: ^9.0.0
-  markdown_widget: ^2.3.2+8
   purchases_ui_flutter: ^9.4.0
   flutter_colorpicker: ^1.1.0
   wakelock_plus: ^1.4.0

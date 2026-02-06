@@ -18,11 +18,7 @@ abstract class RootRoutes {
   static GoRoute recipeRoute = GoRoute(
     path: "/recipes",
     builder: (context, state) => RecipeScreen(),
-    routes: [
-      RecipeRoutes.createRecipe,
-      RecipeRoutes.recipeOverview,
-      RecipeRoutes.introductionScreen,
-    ],
+    routes: [RecipeRoutes.createRecipe, RecipeRoutes.recipeOverview],
   );
 
   static GoRoute shoppingRoute = GoRoute(

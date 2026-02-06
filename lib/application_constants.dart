@@ -5,8 +5,6 @@ const sentryUrl = String.fromEnvironment('SENTRY_URL');
 
 const String fileExtenstion = "recipath";
 
-const String openAppFirstTime = "openAppFirstTime";
-
 const List<String> dataKeys = [recipeDataKey, groceryDataKey, tagDataKey];
 
 const String recipeDataKey = "recipeData";
