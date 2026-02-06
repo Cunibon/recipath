@@ -51,11 +51,11 @@ class RecipeTagRepoDrift extends LocalRepo<RecipeTagData> {
   }
 
   @override
-  Future<void> delete(RecipeTagData toDelete) async {
+  Future<void> delete(String id) async {
+    final parts = id.split("_");
+
     await (db.delete(table)..where(
-          (t) =>
-              t.recipeId.equals(toDelete.recipeId) &
-              t.tagId.equals(toDelete.tagId),
+          (t) => t.recipeId.equals(parts.first) & t.tagId.equals(parts.last),
         ))
         .go();
   }

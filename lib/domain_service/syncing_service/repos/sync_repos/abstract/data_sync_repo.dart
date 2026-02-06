@@ -1,4 +1,5 @@
 import 'package:drift/drift.dart';
+import 'package:recipath/application_constants.dart';
 import 'package:recipath/domain_service/syncing_service/repos/download_result.dart';
 import 'package:recipath/domain_service/syncing_service/syncing_keys.dart';
 import 'package:recipath/repos/abstract/repo.dart';
@@ -18,7 +19,7 @@ abstract class DataSyncRepo {
   Future<int> upload() async {
     final toUploadData = await repo.getNotUploaded();
     final uploadJson = toUploadData
-        .map((e) => e.toJson()..remove("uploaded"))
+        .map((e) => e.toJson()..remove(uploadedKey))
         .toList();
     await supabaseClient.from(supabaseTableName).upsert(uploadJson);
     return toUploadData.length;
@@ -34,7 +35,7 @@ abstract class DataSyncRepo {
     for (final data in supabaseData) {
       await repo.db
           .into(driftTable)
-          .insertOnConflictUpdate(fromJson(data..["uploaded"] = true));
+          .insertOnConflictUpdate(fromJson(data..[uploadedKey] = true));
     }
 
     final lastDateRaw = supabaseData.lastOrNull?[SyncingKeys.updatedAtKey];

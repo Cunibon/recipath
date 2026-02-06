@@ -16,3 +16,4 @@ const String idParameter = "id";
 const String recipeIdKey = "recipeId";
 
 const String uploadedKey = "uploaded";
+const String deletedKey = "deleted";

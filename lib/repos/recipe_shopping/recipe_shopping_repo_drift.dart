@@ -48,8 +48,8 @@ class RecipeShoppingRepoDrift extends LocalRepo<RecipeShoppingData> {
   }
 
   @override
-  Future<void> delete(RecipeShoppingData toDelete) async {
-    await (db.delete(table)..where((t) => t.id.equals(toDelete.id))).go();
+  Future<void> delete(String id) async {
+    await (db.delete(table)..where((t) => t.id.equals(id))).go();
   }
 
   @override

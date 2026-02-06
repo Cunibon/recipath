@@ -45,10 +45,8 @@ class FileRepoDrift extends LocalRepo<FileData> {
   }
 
   @override
-  Future<void> delete(FileData toDelete) async {
-    await (db.delete(
-      table,
-    )..where((t) => t.fileName.equals(toDelete.fileName))).go();
+  Future<void> delete(String id) async {
+    await (db.delete(table)..where((t) => t.fileName.equals(id))).go();
   }
 
   @override
