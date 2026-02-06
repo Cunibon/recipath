@@ -1,7 +1,10 @@
 import 'dart:io';
 
+import 'package:http/http.dart';
 import 'package:logger/logger.dart';
+import 'package:recipath/data/file_data/file_data.dart';
 import 'package:recipath/domain_service/syncing_service/file_sync_orchestrator/bucket_repo.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class FileSyncOrchestrator {
@@ -38,10 +41,15 @@ class FileSyncOrchestrator {
                   metadata: {'owner_id': supabaseClient.auth.currentUser!.id},
                 ),
               );
-          await bucket.repo.delete(item.fileName);
+          await bucket.repo.delete(
+            FileData(fileName: item.fileName, uploaded: true),
+          );
           uploaded++;
-        } catch (e) {
+        } catch (e, s) {
           logger.e("Error while uploading file");
+          if (e is! ClientException) {
+            await Sentry.captureException(e, stackTrace: s);
+          }
         }
       }
     }

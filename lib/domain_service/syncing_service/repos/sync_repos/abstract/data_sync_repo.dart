@@ -17,7 +17,9 @@ abstract class DataSyncRepo {
 
   Future<int> upload() async {
     final toUploadData = await repo.getNotUploaded();
-    final uploadJson = toUploadData.map((e) => e.toJson()).toList();
+    final uploadJson = toUploadData
+        .map((e) => e.toJson()..remove("uploaded"))
+        .toList();
     await supabaseClient.from(supabaseTableName).upsert(uploadJson);
     return toUploadData.length;
   }
