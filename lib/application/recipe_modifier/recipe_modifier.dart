@@ -1,11 +1,11 @@
 import 'package:drift/drift.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
 import 'package:recipath/drift/database.dart';
-import 'package:recipath/repos/repo.dart';
+import 'package:recipath/repos/abstract/local_repo.dart';
 
 class RecipeModifier {
   RecipeModifier(this.repo);
-  final Repo<RecipeData> repo;
+  final LocalRepo<RecipeData> repo;
 
   Future<void> add(RecipeData newData) =>
       repo.add(newData.copyWith(uploaded: false));

@@ -28,16 +28,6 @@ abstract class StorageData with _$StorageData {
     deleted: data.deleted,
     uploaded: data.uploaded,
   );
-
-  factory StorageData.fromSupabase(
-    Map<String, dynamic> data,
-    IngredientData ingredient,
-  ) => StorageData(
-    id: data["id"],
-    ingredient: ingredient,
-    deleted: data["deleted"],
-    uploaded: true,
-  );
 }
 
 extension StorageDataFunctions on StorageData {
@@ -47,12 +37,6 @@ extension StorageDataFunctions on StorageData {
     deleted: drift.Value(deleted),
     uploaded: drift.Value(uploaded),
   );
-
-  Map<String, dynamic> toSupabase() => {
-    "id": id,
-    "ingredient_id": ingredient.id,
-    "deleted": deleted,
-  };
 
   StorageData copyWithNewId({Map<String, String> groceryLookup = const {}}) {
     return copyWith(

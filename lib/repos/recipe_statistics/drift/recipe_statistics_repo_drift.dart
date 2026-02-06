@@ -21,12 +21,8 @@ class RecipeStatisticsRepoDrift extends RecipeStatisticsRepo {
   }
 
   @override
-  Future<Map<String, RecipeStatisticData>> getNotUploaded() async {
-    final rows = await (baseQuery..where((tbl) => tbl.uploaded.equals(false)))
-        .get();
-    return {
-      for (final row in rows) row.id: RecipeStatisticData.fromTableData(row),
-    };
+  Future<List<RecipeStatisticTableData>> getNotUploaded() async {
+    return await (baseQuery..where((tbl) => tbl.uploaded.equals(false))).get();
   }
 
   @override
@@ -74,7 +70,7 @@ class RecipeStatisticsRepoDrift extends RecipeStatisticsRepo {
 
     return {
       for (final row in result)
-        row.read<String>('id'): RecipeStatisticData.fromSupabase(row.data),
+        row.read<String>('id'): RecipeStatisticData.fromJson(row.data),
     };
   }
 

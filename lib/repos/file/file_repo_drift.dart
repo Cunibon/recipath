@@ -1,9 +1,9 @@
 import 'package:drift/drift.dart';
 import 'package:recipath/data/file_data/file_data.dart';
 import 'package:recipath/drift/database.dart';
-import 'package:recipath/repos/sync_repo.dart';
+import 'package:recipath/repos/abstract/local_repo.dart';
 
-class FileRepoDrift extends SyncRepo<FileData> {
+class FileRepoDrift extends LocalRepo<FileData> {
   FileRepoDrift(super.db);
 
   @override
@@ -13,10 +13,8 @@ class FileRepoDrift extends SyncRepo<FileData> {
       db.select(table);
 
   @override
-  Future<Map<String, FileData>> getNotUploaded() async {
-    final rows = await (baseQuery..where((tbl) => tbl.uploaded.equals(false)))
-        .get();
-    return {for (final row in rows) row.fileName: FileData.fromTableData(row)};
+  Future<List<FileTableData>> getNotUploaded() async {
+    return await (baseQuery..where((tbl) => tbl.uploaded.equals(false))).get();
   }
 
   @override

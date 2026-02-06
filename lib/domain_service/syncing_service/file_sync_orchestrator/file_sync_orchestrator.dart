@@ -21,9 +21,9 @@ class FileSyncOrchestrator {
   Future<int> uploadAll() async {
     int uploaded = 0;
     for (final bucket in bucketRepos) {
-      final items = await bucket.repo.getNotUploaded();
+      final items = await bucket.repo.getNotUploaded() as List<dynamic>;
 
-      for (final item in items.values) {
+      for (final item in items) {
         try {
           final file = File("$filePath/${item.fileName}");
 

@@ -15,11 +15,11 @@ final recipeTagRepoProvider = RecipeTagRepoNotifierProvider._();
 final class RecipeTagRepoNotifierProvider
     extends
         $FunctionalProvider<
-          SyncRepo<RecipeTagData>,
-          SyncRepo<RecipeTagData>,
-          SyncRepo<RecipeTagData>
+          LocalRepo<RecipeTagData>,
+          LocalRepo<RecipeTagData>,
+          LocalRepo<RecipeTagData>
         >
-    with $Provider<SyncRepo<RecipeTagData>> {
+    with $Provider<LocalRepo<RecipeTagData>> {
   RecipeTagRepoNotifierProvider._()
     : super(
         from: null,
@@ -36,23 +36,23 @@ final class RecipeTagRepoNotifierProvider
 
   @$internal
   @override
-  $ProviderElement<SyncRepo<RecipeTagData>> $createElement(
+  $ProviderElement<LocalRepo<RecipeTagData>> $createElement(
     $ProviderPointer pointer,
   ) => $ProviderElement(pointer);
 
   @override
-  SyncRepo<RecipeTagData> create(Ref ref) {
+  LocalRepo<RecipeTagData> create(Ref ref) {
     return recipeTagRepoNotifier(ref);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(SyncRepo<RecipeTagData> value) {
+  Override overrideWithValue(LocalRepo<RecipeTagData> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<SyncRepo<RecipeTagData>>(value),
+      providerOverride: $SyncValueProvider<LocalRepo<RecipeTagData>>(value),
     );
   }
 }
 
 String _$recipeTagRepoNotifierHash() =>
-    r'70c2361c089cf0b04470d761398fc1ead6536fd1';
+    r'4c52dfae2acdfe95edbd59669b615ab629e85f9c';

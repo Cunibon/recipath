@@ -15,11 +15,11 @@ final storageRepoProvider = StorageRepoNotifierProvider._();
 final class StorageRepoNotifierProvider
     extends
         $FunctionalProvider<
-          Repo<StorageData>,
-          Repo<StorageData>,
-          Repo<StorageData>
+          LocalRepo<StorageData>,
+          LocalRepo<StorageData>,
+          LocalRepo<StorageData>
         >
-    with $Provider<Repo<StorageData>> {
+    with $Provider<LocalRepo<StorageData>> {
   StorageRepoNotifierProvider._()
     : super(
         from: null,
@@ -36,23 +36,23 @@ final class StorageRepoNotifierProvider
 
   @$internal
   @override
-  $ProviderElement<Repo<StorageData>> $createElement(
+  $ProviderElement<LocalRepo<StorageData>> $createElement(
     $ProviderPointer pointer,
   ) => $ProviderElement(pointer);
 
   @override
-  Repo<StorageData> create(Ref ref) {
+  LocalRepo<StorageData> create(Ref ref) {
     return storageRepoNotifier(ref);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(Repo<StorageData> value) {
+  Override overrideWithValue(LocalRepo<StorageData> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<Repo<StorageData>>(value),
+      providerOverride: $SyncValueProvider<LocalRepo<StorageData>>(value),
     );
   }
 }
 
 String _$storageRepoNotifierHash() =>
-    r'7f9ac4f67ed620ee62a9899202e06d255593adf4';
+    r'dc030d9e775bcff2efd9480d43c557526b230ae7';

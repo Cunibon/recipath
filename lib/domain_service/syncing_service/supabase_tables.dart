@@ -1,4 +1,4 @@
-class SupabaseTables {
+abstract class SupabaseTables {
   static String grocery = 'grocery';
   static String ingredient = 'ingredient';
   static String recipeStepIngredient = 'recipe_step_ingredient';

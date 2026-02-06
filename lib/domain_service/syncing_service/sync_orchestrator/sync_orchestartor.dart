@@ -2,29 +2,15 @@ import 'dart:async';
 
 import 'package:http/http.dart';
 import 'package:logger/logger.dart';
-import 'package:recipath/domain_service/syncing_service/assemblers/abstract/supabase_assembler.dart';
-import 'package:recipath/domain_service/syncing_service/repos/abstract/data_download_repo.dart';
-import 'package:recipath/domain_service/syncing_service/repos/abstract/data_sync_repo.dart';
 import 'package:recipath/domain_service/syncing_service/repos/full_download_result.dart';
+import 'package:recipath/domain_service/syncing_service/repos/sync_repos/abstract/data_sync_repo.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-typedef AssemblyContext = Map<String, Map<String, dynamic>>;
-typedef SyncContext = Map<String, List<Map<String, dynamic>>>;
-
 class SyncOrchestrator {
-  SyncOrchestrator({
-    required this.uploads,
-    required this.uploadOrder,
-    required this.downloads,
-    required this.assemblers,
-    required this.supabaseClient,
-  });
+  SyncOrchestrator({required this.syncRepos, required this.supabaseClient});
 
-  final List<DataSyncRepo> uploads;
-  final List<String> uploadOrder;
-  final List<DataDownloadRepo> downloads;
-  final List<SupabaseAssembler> assemblers;
+  final List<DataSyncRepo> syncRepos;
 
   final SupabaseClient supabaseClient;
   bool get loggedIn => supabaseClient.auth.currentUser != null;
@@ -34,17 +20,12 @@ class SyncOrchestrator {
   Future<int> uploadAll() async {
     if (!loggedIn) return 0;
 
-    final SyncContext syncContext = {};
     int uploadCount = 0;
 
     try {
-      for (final repo in uploads) {
-        final count = await repo.prepareUpload(syncContext);
+      for (final repo in syncRepos) {
+        final count = await repo.upload();
         uploadCount += count;
-      }
-
-      for (final table in uploadOrder) {
-        await supabaseClient.from(table).upsert(syncContext[table]!);
       }
     } catch (e, s) {
       logger.e("Error while uploading!", error: e, stackTrace: s);
@@ -52,11 +33,8 @@ class SyncOrchestrator {
         await Sentry.captureException(
           e,
           stackTrace: s,
-          withScope: (scope) => scope.setContexts('upload', {
-            "syncContext": syncContext,
-            "uploadOrder": uploadOrder,
-            "uploads": uploads.length,
-          }),
+          withScope: (scope) =>
+              scope.setContexts('upload', {"uploads": syncRepos.length}),
         );
       }
     }
@@ -70,65 +48,23 @@ class SyncOrchestrator {
     final syncCopy = Map<String, DateTime>.from(tableSyncs);
     if (!loggedIn) return FullDownloadResult(tableSyncs: syncCopy, count: 0);
 
-    final SyncContext syncContext = {};
-    final AssemblyContext assemblyContext = {};
-
     int downloadCount = 0;
 
     try {
-      for (final repo in downloads) {
+      for (final repo in syncRepos) {
         final currentLastSync =
-            syncCopy[repo.tableName] ?? DateTime.fromMicrosecondsSinceEpoch(0);
-        final result = await repo.download(currentLastSync, syncContext);
+            syncCopy[repo.supabaseTableName] ??
+            DateTime.fromMicrosecondsSinceEpoch(0);
+        final result = await repo.download(currentLastSync);
 
         downloadCount += result.count;
         if (result.lastDate != null) {
-          syncCopy[repo.tableName] = result.lastDate!;
-        }
-      }
-
-      for (final assembler in assemblers) {
-        final result = await assembler.assemble(syncContext, assemblyContext);
-
-        if (!result.success) {
-          for (final entry in result.errors.entries) {
-            final error = entry.value.error;
-            final stackTrace = entry.value.stacktrace;
-
-            logger.e(
-              "Error while Assembling!",
-              error: error,
-              stackTrace: stackTrace,
-            );
-            await Sentry.captureException(
-              error,
-              stackTrace: stackTrace,
-              withScope: (scope) => scope.setContexts('assemblyError', {
-                "id": entry.key,
-                "tableContext": syncContext[assembler.tableName],
-                "syncContext": {
-                  for (final table in assembler.foreignDataTables)
-                    syncContext[table],
-                },
-                "assemblyContext": {
-                  for (final table in assembler.foreignDataTables)
-                    assemblyContext[table],
-                },
-              }),
-            );
-          }
+          syncCopy[repo.supabaseTableName] = result.lastDate!;
         }
       }
     } catch (e, s) {
       logger.e("Error while downloading!", error: e, stackTrace: s);
-      await Sentry.captureException(
-        e,
-        stackTrace: s,
-        withScope: (scope) => scope.setContexts("download", {
-          "syncContext": syncContext,
-          "assemblyContext": assemblyContext,
-        }),
-      );
+      await Sentry.captureException(e, stackTrace: s);
     }
 
     return FullDownloadResult(tableSyncs: syncCopy, count: downloadCount);

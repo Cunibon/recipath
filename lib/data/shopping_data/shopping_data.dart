@@ -35,18 +35,6 @@ abstract class ShoppingData with _$ShoppingData {
     deleted: data.deleted,
     uploaded: data.uploaded,
   );
-
-  factory ShoppingData.fromSupabase(
-    Map<String, dynamic> data,
-    IngredientData ingredient,
-  ) => ShoppingData(
-    id: data["id"],
-    done: data["done"],
-    count: data["count"],
-    ingredient: ingredient,
-    deleted: data["deleted"],
-    uploaded: true,
-  );
 }
 
 extension ShoppingDataFunctions on ShoppingData {
@@ -65,14 +53,6 @@ extension ShoppingDataFunctions on ShoppingData {
     deleted: drift.Value(deleted),
     uploaded: drift.Value(uploaded),
   );
-
-  Map<String, dynamic> toSupabase() => {
-    "id": id,
-    "done": done,
-    "count": count,
-    "ingredient_id": ingredient.id,
-    "deleted": deleted,
-  };
 
   ShoppingData copyWithNewId({Map<String, String> groceryLookup = const {}}) {
     return copyWith(

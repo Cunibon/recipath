@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:intl/intl.dart';
-import 'package:recipath/application_constants.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/drift/database.dart';
@@ -27,9 +26,6 @@ abstract class IngredientData with _$IngredientData {
         unit: $enumDecode(_$UnitEnumEnumMap, data.unit),
         groceryId: data.groceryId,
       );
-
-  factory IngredientData.fromSupabase(Map<String, dynamic> data) =>
-      IngredientData.fromJson(data..[uploadedKey] = true);
 
   static List<IngredientData> aggregateIngredients(
     Map<String, GroceryData> groceries,
@@ -75,6 +71,4 @@ extension IngredientDataFunctions on IngredientData {
         unit: _$UnitEnumEnumMap[unit]!,
         groceryId: groceryId,
       );
-
-  Map<String, dynamic> toSupabase() => toJson()..remove(uploadedKey);
 }

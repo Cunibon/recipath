@@ -23,24 +23,4 @@ abstract class RecipeStepData with _$RecipeStepData {
     ingredients: [],
     minutes: data.minutes,
   );
-
-  factory RecipeStepData.fromSupabase(
-    Map<String, dynamic> data,
-    List<IngredientData> ingredients,
-  ) => RecipeStepData(
-    id: data["id"],
-    description: data["description"],
-    ingredients: ingredients,
-    minutes: data["minutes"],
-  );
-}
-
-extension RecipeStepDataFunctions on RecipeStepData {
-  Map<String, dynamic> toSupabase(String recipeId, int index) => {
-    "id": id,
-    "description": description,
-    "index": index,
-    "recipe_id": recipeId,
-    "minutes": minutes,
-  };
 }
