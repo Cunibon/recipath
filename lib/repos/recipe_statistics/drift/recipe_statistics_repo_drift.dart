@@ -1,4 +1,5 @@
 import 'package:drift/drift.dart';
+import 'package:recipath/application_constants.dart';
 import 'package:recipath/data/recipe_statistic_data/recipe_statistic_data.dart';
 import 'package:recipath/drift/database.dart';
 import 'package:recipath/repos/recipe_statistics/recipe_statistics_repo.dart';
@@ -70,7 +71,9 @@ class RecipeStatisticsRepoDrift extends RecipeStatisticsRepo {
 
     return {
       for (final row in result)
-        row.read<String>('id'): RecipeStatisticData.fromJson(row.data),
+        row.read<String>('id'): RecipeStatisticData.fromTableData(
+          RecipeStatisticTableData.fromJson(row.data..[uploadedKey] = true),
+        ),
     };
   }
 

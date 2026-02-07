@@ -1,4 +1,3 @@
-import 'package:recipath/domain_service/syncing_service/repos/sync_repos/abstract/data_sync_repo.dart';
 import 'package:recipath/domain_service/syncing_service/repos/sync_repos/grocery_sync_repo.dart';
 import 'package:recipath/domain_service/syncing_service/repos/sync_repos/ingredient_sync_repo.dart';
 import 'package:recipath/domain_service/syncing_service/repos/sync_repos/recipe_shopping_sync_repo.dart';
@@ -49,34 +48,46 @@ Future<SyncOrchestrator> syncOrchestratorNotifier(Ref ref) async {
   final recipeStatisticRepo = ref.watch(recipeStatisticsRepoProvider);
   final recipeShoppingRepo = ref.watch(recipeShoppingRepoProvider);
 
-  final baseRepos = <DataSyncRepo>[
-    GrocerySyncRepo(supabaseClient: supabaseClient, repo: groceryRepo),
-    IngredientSyncRepo(repo: ingredientRepo, supabaseClient: supabaseClient),
-    ShoppingSyncRepo(supabaseClient: supabaseClient, repo: shoppingRepo),
-  ];
-
-  final proRepos = <DataSyncRepo>[
-    RecipeSyncRepo(supabaseClient: supabaseClient, repo: recipeRepo),
-    RecipeStepSyncRepo(supabaseClient: supabaseClient, repo: recipeStepRepo),
-    RecipeStepIngredientSyncRepo(
-      supabaseClient: supabaseClient,
-      repo: recipeStepIngredientRepo,
-    ),
-    TagSyncRepo(supabaseClient: supabaseClient, repo: tagRepo),
-    RecipeTagSyncRepo(supabaseClient: supabaseClient, repo: recipeTagRepo),
-    StorageSyncRepo(supabaseClient: supabaseClient, repo: storageRepo),
-    RecipeStatisticSyncRepo(
-      supabaseClient: supabaseClient,
-      repo: recipeStatisticRepo,
-    ),
-    RecipeShoppingSyncRepo(
-      supabaseClient: supabaseClient,
-      repo: recipeShoppingRepo,
-    ),
+  final syncRepoBatches = [
+    [
+      GrocerySyncRepo(supabaseClient: supabaseClient, repo: groceryRepo),
+      if (pro) ...[
+        RecipeSyncRepo(supabaseClient: supabaseClient, repo: recipeRepo),
+        TagSyncRepo(supabaseClient: supabaseClient, repo: tagRepo),
+      ],
+    ],
+    [
+      IngredientSyncRepo(repo: ingredientRepo, supabaseClient: supabaseClient),
+      if (pro) ...[
+        RecipeStepSyncRepo(
+          supabaseClient: supabaseClient,
+          repo: recipeStepRepo,
+        ),
+        RecipeTagSyncRepo(supabaseClient: supabaseClient, repo: recipeTagRepo),
+        RecipeStatisticSyncRepo(
+          supabaseClient: supabaseClient,
+          repo: recipeStatisticRepo,
+        ),
+        RecipeShoppingSyncRepo(
+          supabaseClient: supabaseClient,
+          repo: recipeShoppingRepo,
+        ),
+      ],
+    ],
+    [
+      ShoppingSyncRepo(supabaseClient: supabaseClient, repo: shoppingRepo),
+      if (pro) ...[
+        RecipeStepIngredientSyncRepo(
+          supabaseClient: supabaseClient,
+          repo: recipeStepIngredientRepo,
+        ),
+        StorageSyncRepo(supabaseClient: supabaseClient, repo: storageRepo),
+      ],
+    ],
   ];
 
   return SyncOrchestrator(
-    syncRepos: [...baseRepos, if (pro) ...proRepos],
+    syncRepoBatches: syncRepoBatches,
     supabaseClient: supabaseClient,
   );
 }

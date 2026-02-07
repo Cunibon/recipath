@@ -8,9 +8,12 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SyncOrchestrator {
-  SyncOrchestrator({required this.syncRepos, required this.supabaseClient});
+  SyncOrchestrator({
+    required this.syncRepoBatches,
+    required this.supabaseClient,
+  });
 
-  final List<DataSyncRepo> syncRepos;
+  final List<List<DataSyncRepo>> syncRepoBatches;
 
   final SupabaseClient supabaseClient;
   bool get loggedIn => supabaseClient.auth.currentUser != null;
@@ -23,9 +26,9 @@ class SyncOrchestrator {
     int uploadCount = 0;
 
     try {
-      for (final repo in syncRepos) {
-        final count = await repo.upload();
-        uploadCount += count;
+      for (final batch in syncRepoBatches) {
+        final results = await Future.wait(batch.map((repo) => repo.upload()));
+        uploadCount += results.reduce((value, element) => value + element);
       }
     } catch (e, s) {
       logger.e("Error while uploading!", error: e, stackTrace: s);
@@ -33,8 +36,9 @@ class SyncOrchestrator {
         await Sentry.captureException(
           e,
           stackTrace: s,
-          withScope: (scope) =>
-              scope.setContexts('upload', {"uploads": syncRepos.length}),
+          withScope: (scope) => scope.setContexts('upload', {
+            "uploads": syncRepoBatches.expand((e) => e).length,
+          }),
         );
       }
     }
@@ -51,15 +55,24 @@ class SyncOrchestrator {
     int downloadCount = 0;
 
     try {
-      for (final repo in syncRepos) {
-        final currentLastSync =
-            syncCopy[repo.supabaseTableName] ??
-            DateTime.fromMicrosecondsSinceEpoch(0);
-        final result = await repo.download(currentLastSync);
+      for (final batch in syncRepoBatches) {
+        final results = await Future.wait(
+          batch.map((repo) async {
+            final currentLastSync =
+                syncCopy[repo.supabaseTableName] ??
+                DateTime.fromMicrosecondsSinceEpoch(0);
+            return await repo.download(currentLastSync);
+          }),
+        );
 
-        downloadCount += result.count;
-        if (result.lastDate != null) {
-          syncCopy[repo.supabaseTableName] = result.lastDate!;
+        for (int i = 0; i < batch.length; i++) {
+          final repo = batch[i];
+          final result = results[i];
+
+          downloadCount += result.count;
+          if (result.lastDate != null) {
+            syncCopy[repo.supabaseTableName] = result.lastDate!;
+          }
         }
       }
     } catch (e, s) {
