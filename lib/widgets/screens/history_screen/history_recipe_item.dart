@@ -35,15 +35,19 @@ class HistoryRecipeItem extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: .start,
                     children: [
-                      Flexible(
+                      Expanded(
                         child: Text(
                           data.recipeData.title.trim(),
                           style: TextTheme.of(context).titleMedium!,
                         ),
                       ),
-                      Text(timeFormat.format(data.date)),
+                      Text(timeFormat.format(data.startDate)),
+                      if (data.endDate != null)
+                        Text(
+                          " (${data.endDate!.difference(data.startDate).inMinutes}min)",
+                        ),
                     ],
                   ),
                   if (data.recipeData.servings != null)

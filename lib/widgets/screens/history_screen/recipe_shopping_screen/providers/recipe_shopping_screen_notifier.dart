@@ -21,7 +21,7 @@ Future<Map<DateTime, List<HistoryData>>> recipeShoppingScreenNotifier(
 
     currentList.add(
       HistoryData(
-        date: shopping.date,
+        startDate: shopping.date,
         recipeData: recipeMap[shopping.recipeId]!,
       ),
     );
