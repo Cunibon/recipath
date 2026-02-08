@@ -152,9 +152,7 @@ class _AuthDialogState extends ConsumerState<AuthDialog> {
                               await ref
                                   .read(revenueCustomerProvider.notifier)
                                   .login(response.user!.id);
-                              await (await ref.read(
-                                syncingServiceProvider.future,
-                              )).reset();
+                              await ref.read(syncingServiceProvider).reset();
                               if (context.mounted) {
                                 context.pop();
                               }

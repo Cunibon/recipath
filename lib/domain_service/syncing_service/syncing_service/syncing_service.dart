@@ -11,16 +11,18 @@ import 'package:recipath/helper/local_storage_extension.dart';
 
 class SyncingService {
   SyncingService({
-    required this.syncOrchestrator,
-    required this.fileSyncOrchestrator,
+    required this.getSyncOrchestrator,
+    required this.getFileSyncOrchestrator,
   });
-  final SyncOrchestrator syncOrchestrator;
-  final FileSyncOrchestrator fileSyncOrchestrator;
+  final Future<SyncOrchestrator> Function() getSyncOrchestrator;
+  final Future<FileSyncOrchestrator> Function() getFileSyncOrchestrator;
 
   final logger = Logger();
 
   Timer? _timer;
-  Completer syncRunning = Completer();
+  Completer nextSync = Completer();
+
+  bool syncRunning = false;
 
   late Map<String, DateTime> _tableSyncs;
 
@@ -46,9 +48,9 @@ class SyncingService {
     _timer = null;
 
     if (previousTimer?.isActive == true) {
-      _timer?.cancel();
+      previousTimer?.cancel();
     } else {
-      await syncRunning.future;
+      await nextSync.future;
     }
   }
 
@@ -59,6 +61,9 @@ class SyncingService {
   }
 
   Future<void> sync() async {
+    if (syncRunning) return;
+    syncRunning = true;
+
     _timer?.cancel();
     final stopwatch = Stopwatch()..start();
 
@@ -69,6 +74,9 @@ class SyncingService {
     try {
       final connectivity = await Connectivity().checkConnectivity();
       if (connectivity.first != ConnectivityResult.none) {
+        final fileSyncOrchestrator = await getFileSyncOrchestrator();
+        final syncOrchestrator = await getSyncOrchestrator();
+
         fileUpload = await fileSyncOrchestrator.uploadAll();
         uploadedCount = await syncOrchestrator.uploadAll();
         downloadResult = await syncOrchestrator.downloadAll(_tableSyncs);
@@ -94,8 +102,9 @@ class SyncingService {
       if (_timer != null) {
         _timer = Timer(Duration(minutes: 1), () => sync());
       }
-      syncRunning.complete();
-      syncRunning = Completer();
+      syncRunning = false;
+      nextSync.complete();
+      nextSync = Completer();
     }
   }
 }

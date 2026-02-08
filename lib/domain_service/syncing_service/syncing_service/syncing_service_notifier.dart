@@ -6,10 +6,12 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'syncing_service_notifier.g.dart';
 
 @Riverpod(keepAlive: true)
-Future<SyncingService> syncingServiceNotifier(Ref ref) async {
+SyncingService syncingServiceNotifier(Ref ref) {
   final service = SyncingService(
-    syncOrchestrator: await ref.watch(syncOrchestratorProvider.future),
-    fileSyncOrchestrator: await ref.watch(fileSyncOrchestratorProvider.future),
+    getSyncOrchestrator: () async =>
+        await ref.read(syncOrchestratorProvider.future),
+    getFileSyncOrchestrator: () async =>
+        await ref.read(fileSyncOrchestratorProvider.future),
   );
 
   ref.onDispose(() => service.stop());
