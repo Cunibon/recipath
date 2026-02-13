@@ -15,11 +15,11 @@ final shoppingRepoProvider = ShoppingRepoNotifierProvider._();
 final class ShoppingRepoNotifierProvider
     extends
         $FunctionalProvider<
-          Repo<ShoppingData>,
-          Repo<ShoppingData>,
-          Repo<ShoppingData>
+          LocalRepo<ShoppingData>,
+          LocalRepo<ShoppingData>,
+          LocalRepo<ShoppingData>
         >
-    with $Provider<Repo<ShoppingData>> {
+    with $Provider<LocalRepo<ShoppingData>> {
   ShoppingRepoNotifierProvider._()
     : super(
         from: null,
@@ -36,23 +36,23 @@ final class ShoppingRepoNotifierProvider
 
   @$internal
   @override
-  $ProviderElement<Repo<ShoppingData>> $createElement(
+  $ProviderElement<LocalRepo<ShoppingData>> $createElement(
     $ProviderPointer pointer,
   ) => $ProviderElement(pointer);
 
   @override
-  Repo<ShoppingData> create(Ref ref) {
+  LocalRepo<ShoppingData> create(Ref ref) {
     return shoppingRepoNotifier(ref);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(Repo<ShoppingData> value) {
+  Override overrideWithValue(LocalRepo<ShoppingData> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<Repo<ShoppingData>>(value),
+      providerOverride: $SyncValueProvider<LocalRepo<ShoppingData>>(value),
     );
   }
 }
 
 String _$shoppingRepoNotifierHash() =>
-    r'8cf35d1105192fdffd6544d8ef37b4fad781facf';
+    r'946f158806db187e13477863019cceb6588ee407';

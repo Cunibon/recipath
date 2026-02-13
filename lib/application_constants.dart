@@ -5,8 +5,6 @@ const sentryUrl = String.fromEnvironment('SENTRY_URL');
 
 const String fileExtenstion = "recipath";
 
-const String openAppFirstTime = "openAppFirstTime";
-
 const List<String> dataKeys = [recipeDataKey, groceryDataKey, tagDataKey];
 
 const String recipeDataKey = "recipeData";
@@ -18,3 +16,4 @@ const String idParameter = "id";
 const String recipeIdKey = "recipeId";
 
 const String uploadedKey = "uploaded";
+const String deletedKey = "deleted";

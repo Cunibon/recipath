@@ -215,5 +215,6 @@
     "subscription": "Subscription",
     "destinations": "Destinations",
     "somethingUnexpected": "Oops, something unexpected happened",
-    "selectOne": "Please select at least one item"
+    "selectOne": "Please select at least one item",
+    "downloadToImport": "Download Recipath:\nhttps://play.google.com/store/apps/details?id=com.cunibongames.recipath\n\nTo import these recipes"
 }

@@ -1,4 +1,5 @@
 import 'package:drift/drift.dart';
+import 'package:recipath/application_constants.dart';
 import 'package:recipath/data/recipe_statistic_data/recipe_statistic_data.dart';
 import 'package:recipath/drift/database.dart';
 import 'package:recipath/repos/recipe_statistics/recipe_statistics_repo.dart';
@@ -21,12 +22,8 @@ class RecipeStatisticsRepoDrift extends RecipeStatisticsRepo {
   }
 
   @override
-  Future<Map<String, RecipeStatisticData>> getNotUploaded() async {
-    final rows = await (baseQuery..where((tbl) => tbl.uploaded.equals(false)))
-        .get();
-    return {
-      for (final row in rows) row.id: RecipeStatisticData.fromTableData(row),
-    };
+  Future<List<RecipeStatisticTableData>> getNotUploaded() async {
+    return await (baseQuery..where((tbl) => tbl.uploaded.equals(false))).get();
   }
 
   @override
@@ -74,7 +71,9 @@ class RecipeStatisticsRepoDrift extends RecipeStatisticsRepo {
 
     return {
       for (final row in result)
-        row.read<String>('id'): RecipeStatisticData.fromSupabase(row.data),
+        row.read<String>('id'): RecipeStatisticData.fromTableData(
+          RecipeStatisticTableData.fromJson(row.data..[uploadedKey] = true),
+        ),
     };
   }
 
@@ -205,8 +204,8 @@ class RecipeStatisticsRepoDrift extends RecipeStatisticsRepo {
   }
 
   @override
-  Future<void> delete(RecipeStatisticData toDelete) async {
-    await (db.delete(table)..where((t) => t.id.equals(toDelete.id))).go();
+  Future<void> delete(String id) async {
+    await (db.delete(table)..where((t) => t.id.equals(id))).go();
   }
 
   @override

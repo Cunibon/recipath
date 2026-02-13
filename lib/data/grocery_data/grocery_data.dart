@@ -1,7 +1,6 @@
 import 'package:drift/drift.dart' as drift;
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:intl/intl.dart';
-import 'package:recipath/application_constants.dart';
 import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/drift/database.dart';
 import 'package:recipath/widgets/screens/dashboard_screen/charts/kcal_chart/providers/nutriment_enum.dart';
@@ -47,9 +46,6 @@ abstract class GroceryData with _$GroceryData {
     archived: data.archived,
     uploaded: data.uploaded,
   );
-
-  factory GroceryData.fromSupabase(Map<String, dynamic> data) =>
-      GroceryData.fromJson(data..[uploadedKey] = true);
 
   static UnitEnum jsonStringToEnum(String enumString) =>
       $enumDecode(_$UnitEnumEnumMap, enumString);
@@ -165,6 +161,4 @@ extension GroceryDataFunctions on GroceryData {
     archived: drift.Value(archived),
     uploaded: drift.Value(uploaded),
   );
-
-  Map<String, dynamic> toSupabase() => toJson()..remove(uploadedKey);
 }

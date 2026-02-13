@@ -1,11 +1,11 @@
 import 'package:drift/drift.dart';
 import 'package:recipath/data/tag_data/tag_data.dart';
 import 'package:recipath/drift/database.dart';
-import 'package:recipath/repos/repo.dart';
+import 'package:recipath/repos/abstract/local_repo.dart';
 
 class TagModifier {
   TagModifier(this.repo);
-  final Repo<TagData> repo;
+  final LocalRepo<TagData> repo;
 
   Future<void> add(TagData newData) =>
       repo.add(newData.copyWith(uploaded: false));

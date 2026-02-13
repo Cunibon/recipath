@@ -52,6 +52,7 @@ class ModifyIngredientsView extends ConsumerWidget {
                 item.amount <= storageItem.ingredient.amount;
 
             return IngredientItem(
+              key: Key(item.groceryId),
               data: item,
               style: inStorage
                   ? TextTheme.of(

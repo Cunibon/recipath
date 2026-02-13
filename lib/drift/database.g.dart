@@ -263,7 +263,7 @@ class RecipeTableData extends DataClass implements Insertable<RecipeTableData> {
       parent: serializer.fromJson<String?>(json['parent']),
       title: serializer.fromJson<String>(json['title']),
       servings: serializer.fromJson<int?>(json['servings']),
-      imageName: serializer.fromJson<String?>(json['imageName']),
+      imageName: serializer.fromJson<String?>(json['image_name']),
       archived: serializer.fromJson<bool>(json['archived']),
       uploaded: serializer.fromJson<bool>(json['uploaded']),
     );
@@ -276,7 +276,7 @@ class RecipeTableData extends DataClass implements Insertable<RecipeTableData> {
       'parent': serializer.toJson<String?>(parent),
       'title': serializer.toJson<String>(title),
       'servings': serializer.toJson<int?>(servings),
-      'imageName': serializer.toJson<String?>(imageName),
+      'image_name': serializer.toJson<String?>(imageName),
       'archived': serializer.toJson<bool>(archived),
       'uploaded': serializer.toJson<bool>(uploaded),
     };
@@ -696,7 +696,7 @@ class RecipeStepTableData extends DataClass
       description: serializer.fromJson<String>(json['description']),
       index: serializer.fromJson<int>(json['index']),
       minutes: serializer.fromJson<int?>(json['minutes']),
-      recipeId: serializer.fromJson<String>(json['recipeId']),
+      recipeId: serializer.fromJson<String>(json['recipe_id']),
       uploaded: serializer.fromJson<bool>(json['uploaded']),
     );
   }
@@ -708,7 +708,7 @@ class RecipeStepTableData extends DataClass
       'description': serializer.toJson<String>(description),
       'index': serializer.toJson<int>(index),
       'minutes': serializer.toJson<int?>(minutes),
-      'recipeId': serializer.toJson<String>(recipeId),
+      'recipe_id': serializer.toJson<String>(recipeId),
       'uploaded': serializer.toJson<bool>(uploaded),
     };
   }
@@ -1338,10 +1338,10 @@ class GroceryTableData extends DataClass
     return GroceryTableData(
       id: serializer.fromJson<String>(json['id']),
       name: serializer.fromJson<String>(json['name']),
-      normalAmount: serializer.fromJson<double>(json['normalAmount']),
+      normalAmount: serializer.fromJson<double>(json['normal_amount']),
       unit: serializer.fromJson<String>(json['unit']),
-      conversionAmount: serializer.fromJson<double>(json['conversionAmount']),
-      conversionUnit: serializer.fromJson<String>(json['conversionUnit']),
+      conversionAmount: serializer.fromJson<double>(json['conversion_amount']),
+      conversionUnit: serializer.fromJson<String>(json['conversion_unit']),
       barcode: serializer.fromJson<String?>(json['barcode']),
       kcal: serializer.fromJson<double?>(json['kcal']),
       fat: serializer.fromJson<double?>(json['fat']),
@@ -1358,10 +1358,10 @@ class GroceryTableData extends DataClass
     return <String, dynamic>{
       'id': serializer.toJson<String>(id),
       'name': serializer.toJson<String>(name),
-      'normalAmount': serializer.toJson<double>(normalAmount),
+      'normal_amount': serializer.toJson<double>(normalAmount),
       'unit': serializer.toJson<String>(unit),
-      'conversionAmount': serializer.toJson<double>(conversionAmount),
-      'conversionUnit': serializer.toJson<String>(conversionUnit),
+      'conversion_amount': serializer.toJson<double>(conversionAmount),
+      'conversion_unit': serializer.toJson<String>(conversionUnit),
       'barcode': serializer.toJson<String?>(barcode),
       'kcal': serializer.toJson<double?>(kcal),
       'fat': serializer.toJson<double?>(fat),
@@ -1735,8 +1735,23 @@ class $IngredientTableTable extends IngredientTable
       'REFERENCES grocery_table (id)',
     ),
   );
+  static const VerificationMeta _uploadedMeta = const VerificationMeta(
+    'uploaded',
+  );
   @override
-  List<GeneratedColumn> get $columns => [id, amount, unit, groceryId];
+  late final GeneratedColumn<bool> uploaded = GeneratedColumn<bool>(
+    'uploaded',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("uploaded" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
+  @override
+  List<GeneratedColumn> get $columns => [id, amount, unit, groceryId, uploaded];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -1778,6 +1793,12 @@ class $IngredientTableTable extends IngredientTable
     } else if (isInserting) {
       context.missing(_groceryIdMeta);
     }
+    if (data.containsKey('uploaded')) {
+      context.handle(
+        _uploadedMeta,
+        uploaded.isAcceptableOrUnknown(data['uploaded']!, _uploadedMeta),
+      );
+    }
     return context;
   }
 
@@ -1803,6 +1824,10 @@ class $IngredientTableTable extends IngredientTable
         DriftSqlType.string,
         data['${effectivePrefix}grocery_id'],
       )!,
+      uploaded: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}uploaded'],
+      )!,
     );
   }
 
@@ -1818,11 +1843,13 @@ class IngredientTableData extends DataClass
   final double amount;
   final String unit;
   final String groceryId;
+  final bool uploaded;
   const IngredientTableData({
     required this.id,
     required this.amount,
     required this.unit,
     required this.groceryId,
+    required this.uploaded,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -1831,6 +1858,7 @@ class IngredientTableData extends DataClass
     map['amount'] = Variable<double>(amount);
     map['unit'] = Variable<String>(unit);
     map['grocery_id'] = Variable<String>(groceryId);
+    map['uploaded'] = Variable<bool>(uploaded);
     return map;
   }
 
@@ -1840,6 +1868,7 @@ class IngredientTableData extends DataClass
       amount: Value(amount),
       unit: Value(unit),
       groceryId: Value(groceryId),
+      uploaded: Value(uploaded),
     );
   }
 
@@ -1852,7 +1881,8 @@ class IngredientTableData extends DataClass
       id: serializer.fromJson<String>(json['id']),
       amount: serializer.fromJson<double>(json['amount']),
       unit: serializer.fromJson<String>(json['unit']),
-      groceryId: serializer.fromJson<String>(json['groceryId']),
+      groceryId: serializer.fromJson<String>(json['grocery_id']),
+      uploaded: serializer.fromJson<bool>(json['uploaded']),
     );
   }
   @override
@@ -1862,7 +1892,8 @@ class IngredientTableData extends DataClass
       'id': serializer.toJson<String>(id),
       'amount': serializer.toJson<double>(amount),
       'unit': serializer.toJson<String>(unit),
-      'groceryId': serializer.toJson<String>(groceryId),
+      'grocery_id': serializer.toJson<String>(groceryId),
+      'uploaded': serializer.toJson<bool>(uploaded),
     };
   }
 
@@ -1871,11 +1902,13 @@ class IngredientTableData extends DataClass
     double? amount,
     String? unit,
     String? groceryId,
+    bool? uploaded,
   }) => IngredientTableData(
     id: id ?? this.id,
     amount: amount ?? this.amount,
     unit: unit ?? this.unit,
     groceryId: groceryId ?? this.groceryId,
+    uploaded: uploaded ?? this.uploaded,
   );
   IngredientTableData copyWithCompanion(IngredientTableCompanion data) {
     return IngredientTableData(
@@ -1883,6 +1916,7 @@ class IngredientTableData extends DataClass
       amount: data.amount.present ? data.amount.value : this.amount,
       unit: data.unit.present ? data.unit.value : this.unit,
       groceryId: data.groceryId.present ? data.groceryId.value : this.groceryId,
+      uploaded: data.uploaded.present ? data.uploaded.value : this.uploaded,
     );
   }
 
@@ -1892,13 +1926,14 @@ class IngredientTableData extends DataClass
           ..write('id: $id, ')
           ..write('amount: $amount, ')
           ..write('unit: $unit, ')
-          ..write('groceryId: $groceryId')
+          ..write('groceryId: $groceryId, ')
+          ..write('uploaded: $uploaded')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, amount, unit, groceryId);
+  int get hashCode => Object.hash(id, amount, unit, groceryId, uploaded);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -1906,7 +1941,8 @@ class IngredientTableData extends DataClass
           other.id == this.id &&
           other.amount == this.amount &&
           other.unit == this.unit &&
-          other.groceryId == this.groceryId);
+          other.groceryId == this.groceryId &&
+          other.uploaded == this.uploaded);
 }
 
 class IngredientTableCompanion extends UpdateCompanion<IngredientTableData> {
@@ -1914,12 +1950,14 @@ class IngredientTableCompanion extends UpdateCompanion<IngredientTableData> {
   final Value<double> amount;
   final Value<String> unit;
   final Value<String> groceryId;
+  final Value<bool> uploaded;
   final Value<int> rowid;
   const IngredientTableCompanion({
     this.id = const Value.absent(),
     this.amount = const Value.absent(),
     this.unit = const Value.absent(),
     this.groceryId = const Value.absent(),
+    this.uploaded = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   IngredientTableCompanion.insert({
@@ -1927,6 +1965,7 @@ class IngredientTableCompanion extends UpdateCompanion<IngredientTableData> {
     required double amount,
     required String unit,
     required String groceryId,
+    this.uploaded = const Value.absent(),
     this.rowid = const Value.absent(),
   }) : id = Value(id),
        amount = Value(amount),
@@ -1937,6 +1976,7 @@ class IngredientTableCompanion extends UpdateCompanion<IngredientTableData> {
     Expression<double>? amount,
     Expression<String>? unit,
     Expression<String>? groceryId,
+    Expression<bool>? uploaded,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
@@ -1944,6 +1984,7 @@ class IngredientTableCompanion extends UpdateCompanion<IngredientTableData> {
       if (amount != null) 'amount': amount,
       if (unit != null) 'unit': unit,
       if (groceryId != null) 'grocery_id': groceryId,
+      if (uploaded != null) 'uploaded': uploaded,
       if (rowid != null) 'rowid': rowid,
     });
   }
@@ -1953,6 +1994,7 @@ class IngredientTableCompanion extends UpdateCompanion<IngredientTableData> {
     Value<double>? amount,
     Value<String>? unit,
     Value<String>? groceryId,
+    Value<bool>? uploaded,
     Value<int>? rowid,
   }) {
     return IngredientTableCompanion(
@@ -1960,6 +2002,7 @@ class IngredientTableCompanion extends UpdateCompanion<IngredientTableData> {
       amount: amount ?? this.amount,
       unit: unit ?? this.unit,
       groceryId: groceryId ?? this.groceryId,
+      uploaded: uploaded ?? this.uploaded,
       rowid: rowid ?? this.rowid,
     );
   }
@@ -1979,6 +2022,9 @@ class IngredientTableCompanion extends UpdateCompanion<IngredientTableData> {
     if (groceryId.present) {
       map['grocery_id'] = Variable<String>(groceryId.value);
     }
+    if (uploaded.present) {
+      map['uploaded'] = Variable<bool>(uploaded.value);
+    }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
     }
@@ -1992,6 +2038,7 @@ class IngredientTableCompanion extends UpdateCompanion<IngredientTableData> {
           ..write('amount: $amount, ')
           ..write('unit: $unit, ')
           ..write('groceryId: $groceryId, ')
+          ..write('uploaded: $uploaded, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -2179,8 +2226,8 @@ class RecipeStepIngredientTableData extends DataClass
   }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return RecipeStepIngredientTableData(
-      stepId: serializer.fromJson<String>(json['stepId']),
-      ingredientId: serializer.fromJson<String>(json['ingredientId']),
+      stepId: serializer.fromJson<String>(json['step_id']),
+      ingredientId: serializer.fromJson<String>(json['ingredient_id']),
       index: serializer.fromJson<int>(json['index']),
       uploaded: serializer.fromJson<bool>(json['uploaded']),
     );
@@ -2189,8 +2236,8 @@ class RecipeStepIngredientTableData extends DataClass
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'stepId': serializer.toJson<String>(stepId),
-      'ingredientId': serializer.toJson<String>(ingredientId),
+      'step_id': serializer.toJson<String>(stepId),
+      'ingredient_id': serializer.toJson<String>(ingredientId),
       'index': serializer.toJson<int>(index),
       'uploaded': serializer.toJson<bool>(uploaded),
     };
@@ -2920,8 +2967,8 @@ class RecipeTagTableData extends DataClass
   }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return RecipeTagTableData(
-      recipeId: serializer.fromJson<String>(json['recipeId']),
-      tagId: serializer.fromJson<String>(json['tagId']),
+      recipeId: serializer.fromJson<String>(json['recipe_id']),
+      tagId: serializer.fromJson<String>(json['tag_id']),
       deleted: serializer.fromJson<bool>(json['deleted']),
       uploaded: serializer.fromJson<bool>(json['uploaded']),
     );
@@ -2930,8 +2977,8 @@ class RecipeTagTableData extends DataClass
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'recipeId': serializer.toJson<String>(recipeId),
-      'tagId': serializer.toJson<String>(tagId),
+      'recipe_id': serializer.toJson<String>(recipeId),
+      'tag_id': serializer.toJson<String>(tagId),
       'deleted': serializer.toJson<bool>(deleted),
       'uploaded': serializer.toJson<bool>(uploaded),
     };
@@ -3302,7 +3349,7 @@ class ShoppingTableData extends DataClass
       id: serializer.fromJson<String>(json['id']),
       done: serializer.fromJson<bool>(json['done']),
       count: serializer.fromJson<int>(json['count']),
-      ingredientId: serializer.fromJson<String>(json['ingredientId']),
+      ingredientId: serializer.fromJson<String>(json['ingredient_id']),
       deleted: serializer.fromJson<bool>(json['deleted']),
       uploaded: serializer.fromJson<bool>(json['uploaded']),
     );
@@ -3314,7 +3361,7 @@ class ShoppingTableData extends DataClass
       'id': serializer.toJson<String>(id),
       'done': serializer.toJson<bool>(done),
       'count': serializer.toJson<int>(count),
-      'ingredientId': serializer.toJson<String>(ingredientId),
+      'ingredient_id': serializer.toJson<String>(ingredientId),
       'deleted': serializer.toJson<bool>(deleted),
       'uploaded': serializer.toJson<bool>(uploaded),
     };
@@ -3660,7 +3707,7 @@ class StorageTableData extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return StorageTableData(
       id: serializer.fromJson<String>(json['id']),
-      ingredientId: serializer.fromJson<String>(json['ingredientId']),
+      ingredientId: serializer.fromJson<String>(json['ingredient_id']),
       deleted: serializer.fromJson<bool>(json['deleted']),
       uploaded: serializer.fromJson<bool>(json['uploaded']),
     );
@@ -3670,7 +3717,7 @@ class StorageTableData extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<String>(id),
-      'ingredientId': serializer.toJson<String>(ingredientId),
+      'ingredient_id': serializer.toJson<String>(ingredientId),
       'deleted': serializer.toJson<bool>(deleted),
       'uploaded': serializer.toJson<bool>(uploaded),
     };
@@ -4042,10 +4089,10 @@ class RecipeStatisticTableData extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return RecipeStatisticTableData(
       id: serializer.fromJson<String>(json['id']),
-      startDate: serializer.fromJson<int>(json['startDate']),
-      endDate: serializer.fromJson<int>(json['endDate']),
+      startDate: serializer.fromJson<int>(json['start_date']),
+      endDate: serializer.fromJson<int>(json['end_date']),
       servings: serializer.fromJson<int?>(json['servings']),
-      recipeId: serializer.fromJson<String>(json['recipeId']),
+      recipeId: serializer.fromJson<String>(json['recipe_id']),
       uploaded: serializer.fromJson<bool>(json['uploaded']),
     );
   }
@@ -4054,10 +4101,10 @@ class RecipeStatisticTableData extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<String>(id),
-      'startDate': serializer.toJson<int>(startDate),
-      'endDate': serializer.toJson<int>(endDate),
+      'start_date': serializer.toJson<int>(startDate),
+      'end_date': serializer.toJson<int>(endDate),
       'servings': serializer.toJson<int?>(servings),
-      'recipeId': serializer.toJson<String>(recipeId),
+      'recipe_id': serializer.toJson<String>(recipeId),
       'uploaded': serializer.toJson<bool>(uploaded),
     };
   }
@@ -4400,7 +4447,7 @@ class RecipeShoppingTableData extends DataClass
     return RecipeShoppingTableData(
       id: serializer.fromJson<String>(json['id']),
       date: serializer.fromJson<int>(json['date']),
-      recipeId: serializer.fromJson<String>(json['recipeId']),
+      recipeId: serializer.fromJson<String>(json['recipe_id']),
       uploaded: serializer.fromJson<bool>(json['uploaded']),
     );
   }
@@ -4410,7 +4457,7 @@ class RecipeShoppingTableData extends DataClass
     return <String, dynamic>{
       'id': serializer.toJson<String>(id),
       'date': serializer.toJson<int>(date),
-      'recipeId': serializer.toJson<String>(recipeId),
+      'recipe_id': serializer.toJson<String>(recipeId),
       'uploaded': serializer.toJson<bool>(uploaded),
     };
   }
@@ -4658,7 +4705,7 @@ class FileTableData extends DataClass implements Insertable<FileTableData> {
   }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return FileTableData(
-      fileName: serializer.fromJson<String>(json['fileName']),
+      fileName: serializer.fromJson<String>(json['file_name']),
       uploaded: serializer.fromJson<bool>(json['uploaded']),
     );
   }
@@ -4666,7 +4713,7 @@ class FileTableData extends DataClass implements Insertable<FileTableData> {
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'fileName': serializer.toJson<String>(fileName),
+      'file_name': serializer.toJson<String>(fileName),
       'uploaded': serializer.toJson<bool>(uploaded),
     };
   }
@@ -6565,6 +6612,7 @@ typedef $$IngredientTableTableCreateCompanionBuilder =
       required double amount,
       required String unit,
       required String groceryId,
+      Value<bool> uploaded,
       Value<int> rowid,
     });
 typedef $$IngredientTableTableUpdateCompanionBuilder =
@@ -6573,6 +6621,7 @@ typedef $$IngredientTableTableUpdateCompanionBuilder =
       Value<double> amount,
       Value<String> unit,
       Value<String> groceryId,
+      Value<bool> uploaded,
       Value<int> rowid,
     });
 
@@ -6703,6 +6752,11 @@ class $$IngredientTableTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
+  ColumnFilters<bool> get uploaded => $composableBuilder(
+    column: $table.uploaded,
+    builder: (column) => ColumnFilters(column),
+  );
+
   $$GroceryTableTableFilterComposer get groceryId {
     final $$GroceryTableTableFilterComposer composer = $composerBuilder(
       composer: this,
@@ -6828,6 +6882,11 @@ class $$IngredientTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<bool> get uploaded => $composableBuilder(
+    column: $table.uploaded,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   $$GroceryTableTableOrderingComposer get groceryId {
     final $$GroceryTableTableOrderingComposer composer = $composerBuilder(
       composer: this,
@@ -6869,6 +6928,9 @@ class $$IngredientTableTableAnnotationComposer
 
   GeneratedColumn<String> get unit =>
       $composableBuilder(column: $table.unit, builder: (column) => column);
+
+  GeneratedColumn<bool> get uploaded =>
+      $composableBuilder(column: $table.uploaded, builder: (column) => column);
 
   $$GroceryTableTableAnnotationComposer get groceryId {
     final $$GroceryTableTableAnnotationComposer composer = $composerBuilder(
@@ -7010,12 +7072,14 @@ class $$IngredientTableTableTableManager
                 Value<double> amount = const Value.absent(),
                 Value<String> unit = const Value.absent(),
                 Value<String> groceryId = const Value.absent(),
+                Value<bool> uploaded = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => IngredientTableCompanion(
                 id: id,
                 amount: amount,
                 unit: unit,
                 groceryId: groceryId,
+                uploaded: uploaded,
                 rowid: rowid,
               ),
           createCompanionCallback:
@@ -7024,12 +7088,14 @@ class $$IngredientTableTableTableManager
                 required double amount,
                 required String unit,
                 required String groceryId,
+                Value<bool> uploaded = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => IngredientTableCompanion.insert(
                 id: id,
                 amount: amount,
                 unit: unit,
                 groceryId: groceryId,
+                uploaded: uploaded,
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0

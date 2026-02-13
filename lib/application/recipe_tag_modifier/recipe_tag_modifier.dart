@@ -1,11 +1,11 @@
 import 'package:drift/drift.dart';
 import 'package:recipath/data/recipe_tag_data/recipe_tag_data.dart';
 import 'package:recipath/drift/database.dart';
-import 'package:recipath/repos/repo.dart';
+import 'package:recipath/repos/abstract/local_repo.dart';
 
 class RecipeTagModifier {
   RecipeTagModifier(this.repo);
-  final Repo<RecipeTagData> repo;
+  final LocalRepo<RecipeTagData> repo;
 
   Future<void> add(RecipeTagData newData) => repo.add(newData);
 

@@ -1,7 +1,6 @@
 import 'package:drift/drift.dart' as drift;
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:random_string/random_string.dart';
-import 'package:recipath/application_constants.dart';
 import 'package:recipath/common.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
 import 'package:recipath/drift/database.dart';
@@ -30,9 +29,6 @@ abstract class RecipeShoppingData with _$RecipeShoppingData {
         uploaded: data.uploaded,
       );
 
-  factory RecipeShoppingData.fromSupabase(Map<String, dynamic> data) =>
-      RecipeShoppingData.fromJson(data..[uploadedKey] = true);
-
   factory RecipeShoppingData.fromRecipe(RecipeData data) => RecipeShoppingData(
     id: randomAlphaNumeric(16),
     date: DateTime.now(),
@@ -48,6 +44,4 @@ extension RecipeShoppingDataFunctions on RecipeShoppingData {
         recipeId: recipeId,
         uploaded: drift.Value(uploaded),
       );
-
-  Map<String, dynamic> toSupabase() => toJson()..remove(uploadedKey);
 }

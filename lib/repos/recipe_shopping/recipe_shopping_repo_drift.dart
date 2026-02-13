@@ -1,9 +1,9 @@
 import 'package:drift/drift.dart';
 import 'package:recipath/data/recipe_shopping_data/recipe_shopping_data.dart';
 import 'package:recipath/drift/database.dart';
-import 'package:recipath/repos/sync_repo.dart';
+import 'package:recipath/repos/abstract/local_repo.dart';
 
-class RecipeShoppingRepoDrift extends SyncRepo<RecipeShoppingData> {
+class RecipeShoppingRepoDrift extends LocalRepo<RecipeShoppingData> {
   RecipeShoppingRepoDrift(super.db);
 
   @override
@@ -21,12 +21,8 @@ class RecipeShoppingRepoDrift extends SyncRepo<RecipeShoppingData> {
   }
 
   @override
-  Future<Map<String, RecipeShoppingData>> getNotUploaded() async {
-    final rows = await (baseQuery..where((tbl) => tbl.uploaded.equals(false)))
-        .get();
-    return {
-      for (final row in rows) row.id: RecipeShoppingData.fromTableData(row),
-    };
+  Future<List<RecipeShoppingTableData>> getNotUploaded() async {
+    return await (baseQuery..where((tbl) => tbl.uploaded.equals(false))).get();
   }
 
   @override
@@ -52,8 +48,8 @@ class RecipeShoppingRepoDrift extends SyncRepo<RecipeShoppingData> {
   }
 
   @override
-  Future<void> delete(RecipeShoppingData toDelete) async {
-    await (db.delete(table)..where((t) => t.id.equals(toDelete.id))).go();
+  Future<void> delete(String id) async {
+    await (db.delete(table)..where((t) => t.id.equals(id))).go();
   }
 
   @override

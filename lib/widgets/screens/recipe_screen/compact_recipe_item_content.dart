@@ -57,11 +57,10 @@ class CompactRecipeItemContent extends ConsumerWidget {
                             style: TextTheme.of(context).titleMedium,
                           ),
                         ),
-                        compactRecipeData.averageTime == null
-                            ? SizedBox.shrink()
-                            : Text(
-                                " (Ø ${compactRecipeData.averageTime!.inMinutes.toString()}min)",
-                              ),
+                        if (compactRecipeData.averageTime != null)
+                          Text(
+                            " (Ø ${compactRecipeData.averageTime!.inMinutes.toString()}min)",
+                          ),
                         if (compactRecipeData.timerData != null)
                           Icon(Icons.timer, color: Colors.amber, size: 20),
                       ],

@@ -10,4 +10,6 @@ class IngredientTable extends Table {
   RealColumn get amount => real()();
   TextColumn get unit => text()();
   TextColumn get groceryId => text().references(GroceryTable, #id)();
+
+  BoolColumn get uploaded => boolean().withDefault(const Constant(false))();
 }

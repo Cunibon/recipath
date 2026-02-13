@@ -1,6 +1,6 @@
 targets:
   $default:
     builders:
-      json_serializable:
+      drift_dev:
         options:
-          field_rename: snake
+          use_sql_column_name_as_json_key: true

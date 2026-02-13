@@ -18,14 +18,12 @@ import 'package:recipath/common.dart';
 import 'package:recipath/domain_service/syncing_service/syncing_service/syncing_service_notifier.dart';
 import 'package:recipath/drift/database.dart';
 import 'package:recipath/drift/database_notifier.dart';
-import 'package:recipath/helper/local_storage_extension.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/providers/application_path_provider.dart';
 import 'package:recipath/root_routes.dart';
 import 'package:recipath/widgets/providers/locale_notifier.dart';
 import 'package:recipath/widgets/providers/theme_data_notifier.dart';
 import 'package:recipath/widgets/screens/import_screen/import_routes.dart';
-import 'package:recipath/widgets/screens/recipe_screen/recipe_routes.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -47,15 +45,10 @@ void main() async {
 
   final currentUser = Supabase.instance.client.auth.currentUser;
   if (currentUser != null) {
-    Purchases.logIn(currentUser.id);
+    await Purchases.logIn(currentUser.id);
   }
 
   await initNotifications();
-
-  final firstTime = localStorage.get<bool>(openAppFirstTime) ?? true;
-  if (firstTime) {
-    localStorage.set(openAppFirstTime, false);
-  }
 
   final goRouter = GoRouter(
     navigatorKey: navigatorKey,
@@ -71,9 +64,7 @@ void main() async {
       RootRoutes.settingsRoute,
       RootRoutes.importRoute,
     ],
-    initialLocation: firstTime
-        ? "${RootRoutes.recipeRoute.path}/${RecipeRoutes.introductionScreen.path}"
-        : RootRoutes.recipeRoute.path,
+    initialLocation: RootRoutes.recipeRoute.path,
   );
 
   final app = ProviderScope(
@@ -117,7 +108,7 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    ref.read(syncingServiceProvider.future);
+    ref.read(syncingServiceProvider);
 
     _intentSub = ReceiveSharingIntent.instance.getMediaStream().listen(
       (value) => goToImport(value),
@@ -135,7 +126,7 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.paused ||
         state == AppLifecycleState.resumed) {
-      ref.read(syncingServiceProvider).value?.sync();
+      ref.read(syncingServiceProvider).sync();
     }
   }
 

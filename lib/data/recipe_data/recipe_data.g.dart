@@ -11,7 +11,7 @@ _RecipeData _$RecipeDataFromJson(Map<String, dynamic> json) => _RecipeData(
   parent: json['parent'] as String?,
   title: json['title'] as String,
   servings: (json['servings'] as num?)?.toInt(),
-  imageName: json['image_name'] as String?,
+  imageName: json['imageName'] as String?,
   steps: (json['steps'] as List<dynamic>)
       .map((e) => RecipeStepData.fromJson(e as Map<String, dynamic>))
       .toList(),
@@ -25,7 +25,7 @@ Map<String, dynamic> _$RecipeDataToJson(_RecipeData instance) =>
       'parent': instance.parent,
       'title': instance.title,
       'servings': instance.servings,
-      'image_name': instance.imageName,
+      'imageName': instance.imageName,
       'steps': instance.steps,
       'archived': instance.archived,
       'uploaded': instance.uploaded,

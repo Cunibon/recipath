@@ -11,7 +11,8 @@ _IngredientData _$IngredientDataFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String,
       amount: (json['amount'] as num).toDouble(),
       unit: $enumDecode(_$UnitEnumEnumMap, json['unit']),
-      groceryId: json['grocery_id'] as String,
+      groceryId: json['groceryId'] as String,
+      uploaded: json['uploaded'] ?? false,
     );
 
 Map<String, dynamic> _$IngredientDataToJson(_IngredientData instance) =>
@@ -19,7 +20,8 @@ Map<String, dynamic> _$IngredientDataToJson(_IngredientData instance) =>
       'id': instance.id,
       'amount': instance.amount,
       'unit': _$UnitEnumEnumMap[instance.unit]!,
-      'grocery_id': instance.groceryId,
+      'groceryId': instance.groceryId,
+      'uploaded': instance.uploaded,
     };
 
 const _$UnitEnumEnumMap = {
