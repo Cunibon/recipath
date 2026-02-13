@@ -1,6 +1,5 @@
 import 'package:drift/drift.dart' as drift;
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:recipath/application_constants.dart';
 import 'package:recipath/common.dart';
 import 'package:recipath/drift/database.dart';
 
@@ -32,9 +31,6 @@ abstract class RecipeStatisticData with _$RecipeStatisticData {
         servings: data.servings,
         uploaded: data.uploaded,
       );
-
-  factory RecipeStatisticData.fromSupabase(Map<String, dynamic> data) =>
-      RecipeStatisticData.fromJson(data..[uploadedKey] = true);
 }
 
 extension RecipeStatisticDataFunctions on RecipeStatisticData {
@@ -47,6 +43,4 @@ extension RecipeStatisticDataFunctions on RecipeStatisticData {
         servings: drift.Value(servings),
         uploaded: drift.Value(uploaded),
       );
-
-  Map<String, dynamic> toSupabase() => toJson()..remove(uploadedKey);
 }

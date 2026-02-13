@@ -15,11 +15,11 @@ final fullTagRepoProvider = FullTagRepoNotifierProvider._();
 final class FullTagRepoNotifierProvider
     extends
         $FunctionalProvider<
-          SyncRepo<TagData>,
-          SyncRepo<TagData>,
-          SyncRepo<TagData>
+          LocalRepo<TagData>,
+          LocalRepo<TagData>,
+          LocalRepo<TagData>
         >
-    with $Provider<SyncRepo<TagData>> {
+    with $Provider<LocalRepo<TagData>> {
   FullTagRepoNotifierProvider._()
     : super(
         from: null,
@@ -36,23 +36,23 @@ final class FullTagRepoNotifierProvider
 
   @$internal
   @override
-  $ProviderElement<SyncRepo<TagData>> $createElement(
+  $ProviderElement<LocalRepo<TagData>> $createElement(
     $ProviderPointer pointer,
   ) => $ProviderElement(pointer);
 
   @override
-  SyncRepo<TagData> create(Ref ref) {
+  LocalRepo<TagData> create(Ref ref) {
     return fullTagRepoNotifier(ref);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(SyncRepo<TagData> value) {
+  Override overrideWithValue(LocalRepo<TagData> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<SyncRepo<TagData>>(value),
+      providerOverride: $SyncValueProvider<LocalRepo<TagData>>(value),
     );
   }
 }
 
 String _$fullTagRepoNotifierHash() =>
-    r'67c1790bbab67640c8c9cbfd82f05a8c3decb107';
+    r'21ba315fa298f06fd6ac95685b4e6a5b63a18995';

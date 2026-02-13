@@ -36,20 +36,6 @@ abstract class RecipeData with _$RecipeData {
     steps: [],
     uploaded: data.uploaded,
   );
-
-  factory RecipeData.fromSupabase(
-    Map<String, dynamic> data,
-    List<RecipeStepData> steps,
-  ) => RecipeData(
-    id: data["id"],
-    parent: data["parent"],
-    title: data["title"],
-    servings: data["servings"],
-    imageName: data["image_name"],
-    archived: data["archived"],
-    steps: steps,
-    uploaded: true,
-  );
 }
 
 extension RecipeDataFunctions on RecipeData {
@@ -74,15 +60,6 @@ extension RecipeDataFunctions on RecipeData {
 
     return stringBuffer.toString();
   }
-
-  Map<String, dynamic> toSupabase() => {
-    "id": id,
-    "parent": parent,
-    "title": title,
-    "servings": servings,
-    "image_name": imageName,
-    "archived": archived,
-  };
 
   RecipeData copyWithNewId({Map<String, String> groceryLookup = const {}}) {
     return copyWith(

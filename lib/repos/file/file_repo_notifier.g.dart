@@ -15,11 +15,11 @@ final fileRepoProvider = FileRepoNotifierProvider._();
 final class FileRepoNotifierProvider
     extends
         $FunctionalProvider<
-          SyncRepo<FileData>,
-          SyncRepo<FileData>,
-          SyncRepo<FileData>
+          LocalRepo<FileData>,
+          LocalRepo<FileData>,
+          LocalRepo<FileData>
         >
-    with $Provider<SyncRepo<FileData>> {
+    with $Provider<LocalRepo<FileData>> {
   FileRepoNotifierProvider._()
     : super(
         from: null,
@@ -36,22 +36,22 @@ final class FileRepoNotifierProvider
 
   @$internal
   @override
-  $ProviderElement<SyncRepo<FileData>> $createElement(
+  $ProviderElement<LocalRepo<FileData>> $createElement(
     $ProviderPointer pointer,
   ) => $ProviderElement(pointer);
 
   @override
-  SyncRepo<FileData> create(Ref ref) {
+  LocalRepo<FileData> create(Ref ref) {
     return fileRepoNotifier(ref);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(SyncRepo<FileData> value) {
+  Override overrideWithValue(LocalRepo<FileData> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<SyncRepo<FileData>>(value),
+      providerOverride: $SyncValueProvider<LocalRepo<FileData>>(value),
     );
   }
 }
 
-String _$fileRepoNotifierHash() => r'ad48675213ce22f8d12517b8c4ab27e7eb0a40ca';
+String _$fileRepoNotifierHash() => r'92595aef7a825ac3c7aeb0202cf0ee1bffd0ed2a';

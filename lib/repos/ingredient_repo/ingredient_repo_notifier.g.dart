@@ -13,13 +13,8 @@ part of 'ingredient_repo_notifier.dart';
 final ingredientRepoProvider = IngredientRepoNotifierProvider._();
 
 final class IngredientRepoNotifierProvider
-    extends
-        $FunctionalProvider<
-          Repo<IngredientData>,
-          Repo<IngredientData>,
-          Repo<IngredientData>
-        >
-    with $Provider<Repo<IngredientData>> {
+    extends $FunctionalProvider<Repo, Repo, Repo>
+    with $Provider<Repo> {
   IngredientRepoNotifierProvider._()
     : super(
         from: null,
@@ -36,23 +31,22 @@ final class IngredientRepoNotifierProvider
 
   @$internal
   @override
-  $ProviderElement<Repo<IngredientData>> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
+  $ProviderElement<Repo> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
 
   @override
-  Repo<IngredientData> create(Ref ref) {
+  Repo create(Ref ref) {
     return ingredientRepoNotifier(ref);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(Repo<IngredientData> value) {
+  Override overrideWithValue(Repo value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<Repo<IngredientData>>(value),
+      providerOverride: $SyncValueProvider<Repo>(value),
     );
   }
 }
 
 String _$ingredientRepoNotifierHash() =>
-    r'568b637d5f1fcdb60ef23a2a1cbb51dc8f0dc4ec';
+    r'8034a4e66691cb192f34ea5b98f9e362312181b8';

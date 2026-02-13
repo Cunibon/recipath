@@ -15,11 +15,11 @@ final recipeShoppingRepoProvider = RecipeShoppingRepoNotifierProvider._();
 final class RecipeShoppingRepoNotifierProvider
     extends
         $FunctionalProvider<
-          RecipeShoppingRepoDrift,
-          RecipeShoppingRepoDrift,
-          RecipeShoppingRepoDrift
+          LocalRepo<RecipeShoppingData>,
+          LocalRepo<RecipeShoppingData>,
+          LocalRepo<RecipeShoppingData>
         >
-    with $Provider<RecipeShoppingRepoDrift> {
+    with $Provider<LocalRepo<RecipeShoppingData>> {
   RecipeShoppingRepoNotifierProvider._()
     : super(
         from: null,
@@ -36,23 +36,25 @@ final class RecipeShoppingRepoNotifierProvider
 
   @$internal
   @override
-  $ProviderElement<RecipeShoppingRepoDrift> $createElement(
+  $ProviderElement<LocalRepo<RecipeShoppingData>> $createElement(
     $ProviderPointer pointer,
   ) => $ProviderElement(pointer);
 
   @override
-  RecipeShoppingRepoDrift create(Ref ref) {
+  LocalRepo<RecipeShoppingData> create(Ref ref) {
     return recipeShoppingRepoNotifier(ref);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(RecipeShoppingRepoDrift value) {
+  Override overrideWithValue(LocalRepo<RecipeShoppingData> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<RecipeShoppingRepoDrift>(value),
+      providerOverride: $SyncValueProvider<LocalRepo<RecipeShoppingData>>(
+        value,
+      ),
     );
   }
 }
 
 String _$recipeShoppingRepoNotifierHash() =>
-    r'29762bb69388090433a3765f8c8616c89c3ab18e';
+    r'4a50d0fc3a5559975e114346e9666a4858efeee4';

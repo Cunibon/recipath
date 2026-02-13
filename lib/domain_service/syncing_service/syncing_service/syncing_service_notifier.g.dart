@@ -13,13 +13,8 @@ part of 'syncing_service_notifier.dart';
 final syncingServiceProvider = SyncingServiceNotifierProvider._();
 
 final class SyncingServiceNotifierProvider
-    extends
-        $FunctionalProvider<
-          AsyncValue<SyncingService>,
-          SyncingService,
-          FutureOr<SyncingService>
-        >
-    with $FutureModifier<SyncingService>, $FutureProvider<SyncingService> {
+    extends $FunctionalProvider<SyncingService, SyncingService, SyncingService>
+    with $Provider<SyncingService> {
   SyncingServiceNotifierProvider._()
     : super(
         from: null,
@@ -36,15 +31,22 @@ final class SyncingServiceNotifierProvider
 
   @$internal
   @override
-  $FutureProviderElement<SyncingService> $createElement(
-    $ProviderPointer pointer,
-  ) => $FutureProviderElement(pointer);
+  $ProviderElement<SyncingService> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
 
   @override
-  FutureOr<SyncingService> create(Ref ref) {
+  SyncingService create(Ref ref) {
     return syncingServiceNotifier(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(SyncingService value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<SyncingService>(value),
+    );
   }
 }
 
 String _$syncingServiceNotifierHash() =>
-    r'6bfbacacb745613257d86c31a778ededc9699a2e';
+    r'ae91d6bbfda799902dea19a3215b7979b0ed1dff';

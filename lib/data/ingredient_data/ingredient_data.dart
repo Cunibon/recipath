@@ -1,6 +1,6 @@
+import 'package:drift/drift.dart' as drift;
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:intl/intl.dart';
-import 'package:recipath/application_constants.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/drift/database.dart';
@@ -15,6 +15,7 @@ abstract class IngredientData with _$IngredientData {
     required double amount,
     required UnitEnum unit,
     required String groceryId,
+    @Default(false) uploaded,
   }) = _IngredientData;
 
   factory IngredientData.fromJson(Map<String, Object?> json) =>
@@ -26,10 +27,8 @@ abstract class IngredientData with _$IngredientData {
         amount: data.amount,
         unit: $enumDecode(_$UnitEnumEnumMap, data.unit),
         groceryId: data.groceryId,
+        uploaded: data.uploaded,
       );
-
-  factory IngredientData.fromSupabase(Map<String, dynamic> data) =>
-      IngredientData.fromJson(data..[uploadedKey] = true);
 
   static List<IngredientData> aggregateIngredients(
     Map<String, GroceryData> groceries,
@@ -74,7 +73,6 @@ extension IngredientDataFunctions on IngredientData {
         amount: amount,
         unit: _$UnitEnumEnumMap[unit]!,
         groceryId: groceryId,
+        uploaded: drift.Value(uploaded),
       );
-
-  Map<String, dynamic> toSupabase() => toJson()..remove(uploadedKey);
 }

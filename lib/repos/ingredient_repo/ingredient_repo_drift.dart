@@ -1,9 +1,8 @@
 import 'package:drift/drift.dart';
-import 'package:recipath/data/ingredient_data/ingredient_data.dart';
 import 'package:recipath/drift/database.dart';
-import 'package:recipath/repos/repo.dart';
+import 'package:recipath/repos/abstract/repo.dart';
 
-class IngredientRepoDrift extends Repo<IngredientData> {
+class IngredientRepoDrift extends Repo {
   IngredientRepoDrift(super.db);
 
   @override
@@ -13,32 +12,7 @@ class IngredientRepoDrift extends Repo<IngredientData> {
   get baseQuery => db.select(table);
 
   @override
-  Future<Map<String, IngredientData>> get() async {
-    final rows = await baseQuery.get();
-    return {for (final row in rows) row.id: IngredientData.fromTableData(row)};
-  }
-
-  @override
-  Stream<Map<String, IngredientData>> stream() {
-    return baseQuery.watch().map((rows) {
-      return {
-        for (final row in rows) row.id: IngredientData.fromTableData(row),
-      };
-    });
-  }
-
-  @override
-  Future<void> add(IngredientData newData) async {
-    await db.into(table).insertOnConflictUpdate(newData.toTableCompanion());
-  }
-
-  @override
-  Future<void> delete(IngredientData toDelete) async {
-    await (db.delete(table)..where((t) => t.id.equals(toDelete.id))).go();
-  }
-
-  @override
-  Future<void> clear() async {
-    await db.delete(table).go();
+  Future<List<IngredientTableData>> getNotUploaded() async {
+    return (baseQuery..where((tbl) => tbl.uploaded.equals(false))).get();
   }
 }

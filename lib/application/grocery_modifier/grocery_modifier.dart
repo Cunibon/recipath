@@ -1,11 +1,11 @@
 import 'package:drift/drift.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/drift/database.dart';
-import 'package:recipath/repos/repo.dart';
+import 'package:recipath/repos/abstract/local_repo.dart';
 
 class GroceryModifier {
   GroceryModifier(this.repo);
-  final Repo<GroceryData> repo;
+  final LocalRepo<GroceryData> repo;
 
   Future<void> add(GroceryData newData) =>
       repo.add(newData.copyWith(uploaded: false));

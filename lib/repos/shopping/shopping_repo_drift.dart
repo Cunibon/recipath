@@ -2,9 +2,9 @@ import 'package:drift/drift.dart';
 import 'package:recipath/data/ingredient_data/ingredient_data.dart';
 import 'package:recipath/data/shopping_data/shopping_data.dart';
 import 'package:recipath/drift/database.dart';
-import 'package:recipath/repos/sync_repo.dart';
+import 'package:recipath/repos/abstract/local_repo.dart';
 
-class ShoppingRepoDrift extends SyncRepo<ShoppingData> {
+class ShoppingRepoDrift extends LocalRepo<ShoppingData> {
   ShoppingRepoDrift(super.db, {this.incluedDeleted = false});
   final bool incluedDeleted;
 
@@ -42,9 +42,14 @@ class ShoppingRepoDrift extends SyncRepo<ShoppingData> {
   }
 
   @override
-  Future<Map<String, ShoppingData>> getNotUploaded() async {
-    final rows = await (baseQuery..where(table.uploaded.equals(false))).get();
-    return mapResult(rows);
+  Future<List<ShoppingTableData>> getNotUploaded() async {
+    final query = db.select(table);
+
+    if (!incluedDeleted) {
+      query.where((tbl) => tbl.deleted.equals(false));
+    }
+
+    return await (query..where((tbl) => tbl.uploaded.equals(false))).get();
   }
 
   @override
@@ -63,26 +68,28 @@ class ShoppingRepoDrift extends SyncRepo<ShoppingData> {
     await db.transaction(() async {
       await db
           .into(db.ingredientTable)
-          .insertOnConflictUpdate(newData.ingredient.toTableCompanion());
+          .insertOnConflictUpdate(
+            newData.ingredient.copyWith(uploaded: false).toTableCompanion(),
+          );
 
       await db.into(table).insertOnConflictUpdate(newData.toTableCompanion());
     });
   }
 
   @override
-  Future<void> delete(ShoppingData toDelete) async {
-    await (db.delete(table)..where((t) => t.id.equals(toDelete.id))).go();
+  Future<void> delete(String id) async {
     await db.customStatement(
       'DELETE FROM ${db.ingredientTable.actualTableName} WHERE id = (SELECT ${table.ingredientId.name} FROM ${table.actualTableName} WHERE id = ?)',
-      [toDelete.id],
+      [id],
     );
+    await (db.delete(table)..where((t) => t.id.equals(id))).go();
   }
 
   @override
   Future<void> clear() async {
-    await db.delete(table).go();
     await db.customStatement(
       'DELETE FROM ${db.ingredientTable.actualTableName} WHERE id IN (SELECT ${table.ingredientId.name} FROM ${table.actualTableName})',
     );
+    await db.delete(table).go();
   }
 }

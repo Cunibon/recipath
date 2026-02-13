@@ -1,9 +1,9 @@
 import 'package:drift/drift.dart';
 import 'package:recipath/data/tag_data/tag_data.dart';
 import 'package:recipath/drift/database.dart';
-import 'package:recipath/repos/sync_repo.dart';
+import 'package:recipath/repos/abstract/local_repo.dart';
 
-class TagRepoDrift extends SyncRepo<TagData> {
+class TagRepoDrift extends LocalRepo<TagData> {
   TagRepoDrift(super.db, {this.incluedDeleted = false});
   final bool incluedDeleted;
 
@@ -21,10 +21,8 @@ class TagRepoDrift extends SyncRepo<TagData> {
   }
 
   @override
-  Future<Map<String, TagData>> getNotUploaded() async {
-    final rows = await (baseQuery..where((tbl) => tbl.uploaded.equals(false)))
-        .get();
-    return {for (final row in rows) row.id: TagData.fromTableData(row)};
+  Future<List<TagTableData>> getNotUploaded() async {
+    return await (baseQuery..where((tbl) => tbl.uploaded.equals(false))).get();
   }
 
   @override
@@ -46,8 +44,8 @@ class TagRepoDrift extends SyncRepo<TagData> {
   }
 
   @override
-  Future<void> delete(TagData toDelete) async {
-    await (db.delete(table)..where((t) => t.id.equals(toDelete.id))).go();
+  Future<void> delete(String id) async {
+    await (db.delete(table)..where((t) => t.id.equals(id))).go();
   }
 
   @override

@@ -45,7 +45,7 @@ void main() async {
 
   final currentUser = Supabase.instance.client.auth.currentUser;
   if (currentUser != null) {
-    Purchases.logIn(currentUser.id);
+    await Purchases.logIn(currentUser.id);
   }
 
   await initNotifications();
@@ -108,7 +108,7 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    ref.read(syncingServiceProvider.future);
+    ref.read(syncingServiceProvider);
 
     _intentSub = ReceiveSharingIntent.instance.getMediaStream().listen(
       (value) => goToImport(value),
@@ -126,7 +126,7 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.paused ||
         state == AppLifecycleState.resumed) {
-      ref.read(syncingServiceProvider).value?.sync();
+      ref.read(syncingServiceProvider).sync();
     }
   }
 

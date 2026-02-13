@@ -3,11 +3,11 @@ import 'package:random_string/random_string.dart';
 import 'package:recipath/data/ingredient_data/ingredient_data.dart';
 import 'package:recipath/data/storage_data/storage_data.dart';
 import 'package:recipath/drift/database.dart';
-import 'package:recipath/repos/repo.dart';
+import 'package:recipath/repos/abstract/local_repo.dart';
 
 class StorageModifier {
   StorageModifier(this.repo);
-  final Repo<StorageData> repo;
+  final LocalRepo<StorageData> repo;
 
   Future<void> addItem(IngredientData newData) async {
     final value = await repo.get();

@@ -1,7 +1,7 @@
 import 'package:recipath/data/recipe_statistic_data/recipe_statistic_data.dart';
-import 'package:recipath/repos/sync_repo.dart';
+import 'package:recipath/repos/abstract/local_repo.dart';
 
-abstract class RecipeStatisticsRepo extends SyncRepo<RecipeStatisticData> {
+abstract class RecipeStatisticsRepo extends LocalRepo<RecipeStatisticData> {
   RecipeStatisticsRepo(super.db);
 
   Future<Map<String, RecipeStatisticData>> getForId(String recipeId);

@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:drift/drift.dart' as drift;
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:random_string/random_string.dart';
-import 'package:recipath/application_constants.dart';
 import 'package:recipath/data/converters/color_converter.dart';
 import 'package:recipath/drift/database.dart';
 
@@ -32,9 +31,6 @@ abstract class TagData with _$TagData {
     deleted: data.deleted,
     uploaded: data.uploaded,
   );
-
-  factory TagData.fromSupabase(Map<String, dynamic> data) =>
-      TagData.fromJson(data..[uploadedKey] = true);
 }
 
 extension TagDataFunctions on TagData {
@@ -46,8 +42,6 @@ extension TagDataFunctions on TagData {
     deleted: drift.Value(deleted),
     uploaded: drift.Value(uploaded),
   );
-
-  Map<String, dynamic> toSupabase() => toJson()..remove(uploadedKey);
 
   TagData copyWithNewId() {
     return copyWith(id: randomAlphaNumeric(16));

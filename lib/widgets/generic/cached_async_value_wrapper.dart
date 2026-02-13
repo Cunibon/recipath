@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/l10n/app_localizations.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 class CachedAsyncValueWrapper<T> extends StatefulWidget {
   const CachedAsyncValueWrapper({
@@ -42,6 +43,11 @@ class _CachedAsyncValueWrapperState<T>
     if (lastState != null) {
       return widget.builder(lastState as T);
     } else if (widget.asyncState.hasError) {
+      Sentry.captureException(
+        widget.asyncState.error,
+        stackTrace: widget.asyncState.stackTrace,
+      );
+
       return widget.errorBuilder?.call(widget.asyncState.error) ??
           SizedBox(
             width: widget.width,

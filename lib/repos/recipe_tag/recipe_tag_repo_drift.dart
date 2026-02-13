@@ -1,9 +1,9 @@
 import 'package:drift/drift.dart';
 import 'package:recipath/data/recipe_tag_data/recipe_tag_data.dart';
 import 'package:recipath/drift/database.dart';
-import 'package:recipath/repos/sync_repo.dart';
+import 'package:recipath/repos/abstract/local_repo.dart';
 
-class RecipeTagRepoDrift extends SyncRepo<RecipeTagData> {
+class RecipeTagRepoDrift extends LocalRepo<RecipeTagData> {
   RecipeTagRepoDrift(super.db, {this.incluedDeleted = false});
   final bool incluedDeleted;
 
@@ -22,13 +22,8 @@ class RecipeTagRepoDrift extends SyncRepo<RecipeTagData> {
   }
 
   @override
-  Future<Map<String, RecipeTagData>> getNotUploaded() async {
-    final rows = await (baseQuery..where((tbl) => tbl.uploaded.equals(false)))
-        .get();
-    return {
-      for (final row in rows)
-        "${row.recipeId}_${row.tagId}": RecipeTagData.fromTableData(row),
-    };
+  Future<List<RecipeTagTableData>> getNotUploaded() async {
+    return await (baseQuery..where((tbl) => tbl.uploaded.equals(false))).get();
   }
 
   @override
@@ -56,11 +51,11 @@ class RecipeTagRepoDrift extends SyncRepo<RecipeTagData> {
   }
 
   @override
-  Future<void> delete(RecipeTagData toDelete) async {
+  Future<void> delete(String id) async {
+    final parts = id.split("_");
+
     await (db.delete(table)..where(
-          (t) =>
-              t.recipeId.equals(toDelete.recipeId) &
-              t.tagId.equals(toDelete.tagId),
+          (t) => t.recipeId.equals(parts.first) & t.tagId.equals(parts.last),
         ))
         .go();
   }

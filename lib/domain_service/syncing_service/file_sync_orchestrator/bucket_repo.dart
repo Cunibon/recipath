@@ -1,4 +1,5 @@
-import 'package:recipath/repos/sync_repo.dart';
+import 'package:recipath/data/file_data/file_data.dart';
+import 'package:recipath/repos/abstract/local_repo.dart';
 
 class BucketRepo {
   BucketRepo({
@@ -10,5 +11,5 @@ class BucketRepo {
   final String bucket;
   final String contentType;
 
-  final SyncRepo repo;
+  final LocalRepo<FileData> repo;
 }

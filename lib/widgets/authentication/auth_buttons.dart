@@ -43,10 +43,14 @@ class AuthButtons extends ConsumerWidget {
           ] else ...[
             TextButton.icon(
               onPressed: () async {
-                Purchases.logOut();
-                await ref.read(supabaseClientProvider).auth.signOut();
-                await (await ref.read(syncingServiceProvider.future)).reset();
-                await ref.read(databaseProvider).clear();
+                final supabaseclient = ref.read(supabaseClientProvider);
+                final syncingService = ref.read(syncingServiceProvider);
+                final database = ref.read(databaseProvider);
+
+                await Purchases.logOut();
+                await supabaseclient.auth.signOut();
+                await syncingService.reset();
+                await database.clear();
               },
               label: Text(localization.logout),
               icon: Icon(Icons.logout),

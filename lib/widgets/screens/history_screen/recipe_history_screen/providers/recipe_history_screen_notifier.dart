@@ -24,7 +24,8 @@ Future<Map<DateTime, List<HistoryData>>> recipeHistoryScreenNotifier(
 
     currentList.add(
       HistoryData(
-        date: statistics.startDate,
+        startDate: statistics.startDate,
+        endDate: statistics.endDate,
         recipeData: recipeMap[statistics.recipeId]!
             .adjustIngredientForPlannedServings(statistics.servings),
       ),

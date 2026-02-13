@@ -34,7 +34,7 @@ final class RevenueCustomerNotifierProvider
 }
 
 String _$revenueCustomerNotifierHash() =>
-    r'12950234fb93ee748a3546d866ed6eb11315e7d7';
+    r'488e19a77e59976206d40225b8f22a7cee0eaae2';
 
 abstract class _$RevenueCustomerNotifier extends $AsyncNotifier<CustomerInfo> {
   FutureOr<CustomerInfo> build();

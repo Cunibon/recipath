@@ -89,9 +89,14 @@ class RecipeRepoDrift extends RecipeRepo {
   }
 
   @override
-  Future<Map<String, RecipeData>> getNotUploaded() async {
-    final rows = await (baseQuery..where(table.uploaded.equals(false))).get();
-    return mapResult(rows);
+  Future<List<RecipeTableData>> getNotUploaded() async {
+    final query = db.select(table);
+
+    if (!incluedArchived) {
+      query.where((tbl) => tbl.archived.equals(false));
+    }
+
+    return (query..where((tbl) => tbl.uploaded.equals(false))).get();
   }
 
   @override
@@ -157,6 +162,7 @@ class RecipeRepoDrift extends RecipeRepo {
                 recipeId: newData.id,
                 minutes: Value(step.minutes),
                 index: i,
+                uploaded: Value(newData.uploaded),
               ),
             );
 
@@ -164,7 +170,11 @@ class RecipeRepoDrift extends RecipeRepo {
           final ingredient = step.ingredients[y];
           await db
               .into(db.ingredientTable)
-              .insertOnConflictUpdate(ingredient.toTableCompanion());
+              .insertOnConflictUpdate(
+                ingredient
+                    .copyWith(uploaded: newData.uploaded)
+                    .toTableCompanion(),
+              );
 
           await db
               .into(db.recipeStepIngredientTable)
@@ -173,6 +183,7 @@ class RecipeRepoDrift extends RecipeRepo {
                   stepId: step.id,
                   ingredientId: ingredient.id,
                   index: y,
+                  uploaded: Value(newData.uploaded),
                 ),
               );
         }
@@ -181,7 +192,7 @@ class RecipeRepoDrift extends RecipeRepo {
   }
 
   @override
-  Future<void> delete(RecipeData toDelete) async {
+  Future<void> delete(String id) async {
     await db.customStatement(
       '''
       DELETE FROM ${db.ingredientTable.actualTableName} 
@@ -194,9 +205,9 @@ class RecipeRepoDrift extends RecipeRepo {
       ON rs.${db.recipeStepTable.id.name} = rsi.${db.recipeStepIngredientTable.stepId.name}
       WHERE r.id = ?
       )''',
-      [toDelete.id],
+      [id],
     );
-    await (db.delete(table)..where((t) => t.id.equals(toDelete.id))).go();
+    await (db.delete(table)..where((t) => t.id.equals(id))).go();
   }
 
   @override

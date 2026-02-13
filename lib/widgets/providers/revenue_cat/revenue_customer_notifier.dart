@@ -18,4 +18,9 @@ class RevenueCustomerNotifier extends _$RevenueCustomerNotifier {
   }
 
   void setCustomer(CustomerInfo info) => state = AsyncValue.data(info);
+
+  Future<void> login(String userId) async {
+    final result = await Purchases.logIn(userId);
+    setCustomer(result.customerInfo);
+  }
 }

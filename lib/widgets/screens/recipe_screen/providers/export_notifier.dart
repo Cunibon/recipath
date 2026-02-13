@@ -72,17 +72,17 @@ class ExportNotifier extends _$ExportNotifier {
 
     final localization = await ref.read(appLocalizationsProvider.future);
 
-    late String titel;
+    late String title;
 
     if (recipes.length == 1) {
-      titel = normalizeFileName(recipes.first.title);
+      title = normalizeFileName(recipes.first.title);
     } else {
-      titel = localization.recipe;
+      title = localization.recipe;
     }
 
     final params = ShareParams(
       files: [xfile],
-      fileNameOverrides: ["$titel.$fileExtenstion"],
+      fileNameOverrides: ["$title.$fileExtenstion"],
       text: localization.downloadToImport,
     );
 
