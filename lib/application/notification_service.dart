@@ -16,8 +16,13 @@ Future<void> initNotifications() async {
   const androidSettings = AndroidInitializationSettings(
     '@drawable/ic_launcher_monochrome',
   );
+  const DarwinInitializationSettings darwinSettings =
+      DarwinInitializationSettings();
 
-  const settings = InitializationSettings(android: androidSettings);
+  const settings = InitializationSettings(
+    android: androidSettings,
+    iOS: darwinSettings,
+  );
 
   await notifications.initialize(
     settings,
