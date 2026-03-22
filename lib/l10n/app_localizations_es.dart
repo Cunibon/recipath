@@ -527,4 +527,13 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get createATokenHere => '¡Puedes crear un token aquí!';
+
+  @override
+  String get importFile => 'Import from file';
+
+  @override
+  String get importImage => 'Import from image';
+
+  @override
+  String get importUrl => 'Import from Url';
 }

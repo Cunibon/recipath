@@ -1073,6 +1073,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You can create a token here!'**
   String get createATokenHere;
+
+  /// No description provided for @importFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Import from file'**
+  String get importFile;
+
+  /// No description provided for @importImage.
+  ///
+  /// In en, this message translates to:
+  /// **'Import from image'**
+  String get importImage;
+
+  /// No description provided for @importUrl.
+  ///
+  /// In en, this message translates to:
+  /// **'Import from Url'**
+  String get importUrl;
 }
 
 class _AppLocalizationsDelegate

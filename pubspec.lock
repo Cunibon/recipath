@@ -185,6 +185,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.3.0"
+  beautiful_soup_dart:
+    dependency: transitive
+    description:
+      name: beautiful_soup_dart
+      sha256: "57e23946c85776dd9515a4e9a14263fff37dbedbd559bc4412bf565886e12b10"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -377,6 +385,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.7"
+  csslib:
+    dependency: transitive
+    description:
+      name: csslib
+      sha256: "09bad715f418841f976c77db72d5398dc1253c21fb9c0c7f0b0b985860b2d58e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2"
+  csv:
+    dependency: transitive
+    description:
+      name: csv
+      sha256: e122a402b966b93a4e98925da241ecb3d58d2e62c0aa6486b0c8de4bd405dad5
+      url: "https://pub.dev"
+    source: hosted
+    version: "7.2.0"
   custom_lint:
     dependency: "direct dev"
     description:
@@ -569,6 +593,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  flat_buffers:
+    dependency: transitive
+    description:
+      name: flat_buffers
+      sha256: "7c1de2d6eb5f3e61e5c50040841109f509deaaf2b12ec0d57b92456d9ea50345"
+      url: "https://pub.dev"
+    source: hosted
+    version: "25.9.23"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -917,6 +949,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.2"
+  html:
+    dependency: transitive
+    description:
+      name: html
+      sha256: "6d1264f2dffa1b1101c25a91dff0dc2daee4c18e87cd8538729773c073dbf602"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.15.6"
   http:
     dependency: "direct main"
     description:
@@ -1045,6 +1085,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.5"
+  iregexp:
+    dependency: transitive
+    description:
+      name: iregexp
+      sha256: c79119931b7ae9c0b6327adaa4495811813fcae7e6236ac68c15f45ca857d38b
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.0"
   jni:
     dependency: transitive
     description:
@@ -1061,6 +1109,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.9.0"
+  json_path:
+    dependency: transitive
+    description:
+      name: json_path
+      sha256: "99cef94ca7b604ad85b9442bc8852e55396f559c08c0ab961d10b90b730c326f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.9.0"
   json_serializable:
     dependency: "direct dev"
     description:
@@ -1093,6 +1149,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.3.1"
+  langchain_community:
+    dependency: "direct main"
+    description:
+      path: "packages/langchain_community"
+      ref: HEAD
+      resolved-ref: "7843832df43cb95946c65644d8eb2aeb172d732f"
+      url: "https://github.com/Cunibon/langchain_dart.git"
+    source: git
+    version: "0.4.0+2"
   langchain_core:
     dependency: transitive
     description:
@@ -1205,6 +1270,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.13.0"
+  math_expressions:
+    dependency: transitive
+    description:
+      name: math_expressions
+      sha256: "2e1ceb974c2b1893c809a68c7005f1b63f7324db0add800a0e792b1ac8ff9f03"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.0"
+  maybe_just_nothing:
+    dependency: transitive
+    description:
+      name: maybe_just_nothing
+      sha256: "57af3cacbbe57d5889a4479983755b76551db3c8862aa6335f57f50657945054"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.6.0"
   meta:
     dependency: transitive
     description:
@@ -1269,6 +1350,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.2"
+  objectbox:
+    dependency: transitive
+    description:
+      name: objectbox
+      sha256: ac1e1ef852f60ea0af01fddb28811c8aa169f2b1ae9284e91e7b822abe5ed603
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.2.0"
   objective_c:
     dependency: transitive
     description:
@@ -1517,6 +1606,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.2"
+  rfc_6901:
+    dependency: transitive
+    description:
+      name: rfc_6901
+      sha256: "6a43b1858dca2febaf93e15639aa6b0c49ccdfd7647775f15a499f872b018154"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.1"
   riverpod:
     dependency: transitive
     description:
@@ -1842,6 +1939,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.1.0"
+  tavily_dart:
+    dependency: transitive
+    description:
+      name: tavily_dart
+      sha256: fc673e92b636a7d53185fb395c6140e8c6e1c811f31bfe9bef4d7a5c22df2084
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.2"
   term_glyph:
     dependency: transitive
     description:

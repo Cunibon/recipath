@@ -2,7 +2,7 @@ import 'package:langchain/langchain.dart';
 import 'package:langchain_anthropic/langchain_anthropic.dart';
 import 'package:langchain_google/langchain_google.dart';
 import 'package:langchain_mistralai/langchain_mistralai.dart';
-import 'package:langchain_openai/langchain_openai.dart'; // Added for OpenAI/DeepSeek/Go
+import 'package:langchain_openai/langchain_openai.dart';
 import 'package:recipath/data/ai_provider/ai_provider_data.dart';
 import 'package:recipath/data/ai_provider_enum.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -37,10 +37,17 @@ BaseChatModel? aiModelNotifier(Ref ref, AiProviderData? provider) {
         defaultOptions: ChatMistralAIOptions(model: enumValue.defaultModel),
       );
 
-    case AiProviderEnum.opencodeGo:
+    case AiProviderEnum.moonshot:
       return ChatOpenAI(
         apiKey: token,
-        baseUrl: 'https://opencode.ai/zen/go/v1',
+        baseUrl: 'https://api.moonshot.cn/v1',
+        defaultOptions: ChatOpenAIOptions(model: enumValue.defaultModel),
+      );
+
+    case AiProviderEnum.deepSeek:
+      return ChatOpenAI(
+        apiKey: token,
+        baseUrl: 'https://api.deepseek.com',
         defaultOptions: ChatOpenAIOptions(model: enumValue.defaultModel),
       );
 

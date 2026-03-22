@@ -222,5 +222,8 @@
     "addAiTokenDescription": "Add an AI-Token to use AI features in the app",
     "selectAiProvider": "Select AI Provider",
     "addAiToken": "Add AI Token",
-    "createATokenHere": "You can create a token here!"
+    "createATokenHere": "You can create a token here!",
+    "importFile": "Import from file",
+    "importImage": "Import from image",
+    "importUrl": "Import from Url"
 }

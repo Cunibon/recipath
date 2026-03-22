@@ -25,7 +25,7 @@ class AiProviderNotifier extends _$AiProviderNotifier {
     final storage = ref.read(secureStorageProvider);
 
     if (data == null) {
-      await storage.write(key: aiTokenKey, value: null);
+      await storage.delete(key: aiTokenKey);
     } else {
       await storage.write(key: aiTokenKey, value: jsonEncode(data.toJson()));
     }

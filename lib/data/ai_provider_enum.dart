@@ -31,12 +31,21 @@ enum AiProviderEnum {
     handshakeOptions: ChatMistralAIOptions(maxTokens: 1),
   ),
 
-  @JsonValue("OpencodeGo")
-  opencodeGo(
-    displayName: 'OpencodeGo',
+  @JsonValue("Moonshot")
+  moonshot(
+    displayName: 'Moonshot Kimi',
     defaultModel: 'kimi-k2.5',
-    tokenUrl: 'https://opencode.ai/auth',
+    tokenUrl: 'https://platform.moonshot.cn/console/api-keys',
     handshakeOptions: ChatOpenAIOptions(maxTokens: 1),
+  ),
+
+  @JsonValue("DeepSeek")
+  deepSeek(
+    displayName: 'DeepSeek',
+    defaultModel: 'deepseek-chat',
+    tokenUrl: 'https://platform.deepseek.com/api_keys',
+    handshakeOptions: ChatOpenAIOptions(maxTokens: 1),
+    multimodal: false,
   ),
 
   @JsonValue("OpenAi")
@@ -51,11 +60,13 @@ enum AiProviderEnum {
   final String defaultModel;
   final String tokenUrl;
   final ChatModelOptions handshakeOptions;
+  final bool multimodal;
 
   const AiProviderEnum({
     required this.displayName,
     required this.defaultModel,
     required this.tokenUrl,
     required this.handshakeOptions,
+    this.multimodal = true,
   });
 }

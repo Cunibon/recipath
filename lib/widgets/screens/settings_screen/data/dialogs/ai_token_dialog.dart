@@ -117,10 +117,12 @@ class _AiTokenDialogState extends ConsumerState<AiTokenDialog> {
               await _handshake.run(ref, (transaction) async {
                 final model = transaction.get(aiModelProvider(providerData))!;
 
-                return await model.invoke(
+                final result = await model.invoke(
                   PromptValue.string("ping"),
                   options: providerData.provider.handshakeOptions,
                 );
+
+                return result;
               });
 
               if (context.mounted) {

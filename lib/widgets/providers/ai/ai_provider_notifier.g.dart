@@ -34,7 +34,7 @@ final class AiProviderNotifierProvider
 }
 
 String _$aiProviderNotifierHash() =>
-    r'df77494a7d2fe86d8edc5eb33b139cc8c83735cd';
+    r'a3f909fc67bb38837f5ffe43a4212d5ef1690008';
 
 abstract class _$AiProviderNotifier extends $AsyncNotifier<AiProviderData?> {
   FutureOr<AiProviderData?> build();
