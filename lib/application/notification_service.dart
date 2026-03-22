@@ -25,7 +25,7 @@ Future<void> initNotifications() async {
   );
 
   await notifications.initialize(
-    settings,
+    settings: settings,
     onDidReceiveNotificationResponse: (NotificationResponse response) {
       handleNotificationPayload(response.payload);
     },
