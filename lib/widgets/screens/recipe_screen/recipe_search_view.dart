@@ -8,7 +8,7 @@ import 'package:recipath/widgets/filtering/filter_button.dart';
 import 'package:recipath/widgets/filtering/filter_types.dart';
 import 'package:recipath/widgets/generic/empty_state.dart';
 import 'package:recipath/widgets/generic/searchable_list.dart';
-import 'package:recipath/widgets/providers/double_number_format_provider.dart';
+import 'package:recipath/widgets/providers/double_number_format_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/compact_recipe_item.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/quick_filter_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/recipe_screen_notifier.dart';

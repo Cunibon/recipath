@@ -155,5 +155,11 @@
     "destinations": "Reiseziele",
     "somethingUnexpected": "Ups, etwas Unerwartetes ist passiert",
     "selectOne": "Bitte wählen Sie einen Artikel aus",
-    "downloadToImport": "Laden Sie Recipath herunter:\nhttps://play.google.com/store/apps/details?id=com.cunibongames.recipath\n\nUm diese Rezepte zu importieren"
+    "downloadToImport": "Laden Sie Recipath herunter:\nhttps://play.google.com/store/apps/details?id=com.cunibongames.recipath\n\nUm diese Rezepte zu importieren",
+    "aiToken": "KI-Token",
+    "addAiTokenDescription": "Fügen Sie ein KI-Token hinzu, um KI-Funktionen in der App zu nutzen",
+    "aiProvider": "KI-Anbieter",
+    "selectAiProvider": "KI-Anbieter auswählen",
+    "addAiToken": "KI-Token hinzufügen",
+    "createATokenHere": "Sie können hier ein Token erstellen!"
 }

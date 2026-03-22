@@ -9,7 +9,7 @@ import 'package:recipath/widgets/generic/empty_state.dart';
 import 'package:recipath/widgets/generic/searchable_list.dart';
 import 'package:recipath/widgets/navigation/default_navigation_title.dart';
 import 'package:recipath/widgets/navigation/navigation_drawer_scaffold.dart';
-import 'package:recipath/widgets/providers/double_number_format_provider.dart';
+import 'package:recipath/widgets/providers/double_number_format_notifier.dart';
 import 'package:recipath/widgets/screens/grocery_screen/grocery_item.dart';
 import 'package:recipath/widgets/screens/grocery_screen/grocery_routes.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';

@@ -43,18 +43,12 @@ class _ModifyIngredientsDialogState
       ),
       actions: [
         TextButton(
-          style: TextButton.styleFrom(
-            textStyle: TextTheme.of(context).labelLarge,
-          ),
           child: Text(localization.actionCancel),
           onPressed: () {
             Navigator.pop(context, null);
           },
         ),
         TextButton(
-          style: TextButton.styleFrom(
-            textStyle: TextTheme.of(context).labelLarge,
-          ),
           child: Text(localization.actionContinue),
           onPressed: () {
             Navigator.pop(context, ingredientDataList);

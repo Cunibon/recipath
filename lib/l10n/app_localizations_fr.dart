@@ -510,4 +510,23 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get downloadToImport =>
       'Téléchargez Recipath:\nhttps://play.google.com/store/apps/details?id=com.cunibongames.recipath\n\nPour importer ces recettes';
+
+  @override
+  String get aiToken => 'Token IA';
+
+  @override
+  String get aiProvider => 'Fournisseur IA';
+
+  @override
+  String get addAiTokenDescription =>
+      'Ajoutez un token IA pour utiliser les fonctionnalités IA dans l\'application';
+
+  @override
+  String get selectAiProvider => 'Sélectionner le fournisseur IA';
+
+  @override
+  String get addAiToken => 'Ajouter un token IA';
+
+  @override
+  String get createATokenHere => 'Vous pouvez créer un token ici !';
 }

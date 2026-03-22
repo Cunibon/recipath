@@ -216,5 +216,11 @@
     "destinations": "Destinations",
     "somethingUnexpected": "Oops, something unexpected happened",
     "selectOne": "Please select at least one item",
-    "downloadToImport": "Download Recipath:\nhttps://play.google.com/store/apps/details?id=com.cunibongames.recipath\n\nTo import these recipes"
+    "downloadToImport": "Download Recipath:\nhttps://play.google.com/store/apps/details?id=com.cunibongames.recipath\n\nTo import these recipes",
+    "aiToken": "AI Token",
+    "aiProvider": "AI Provider",
+    "addAiTokenDescription": "Add an AI-Token to use AI features in the app",
+    "selectAiProvider": "Select AI Provider",
+    "addAiToken": "Add AI Token",
+    "createATokenHere": "You can create a token here!"
 }

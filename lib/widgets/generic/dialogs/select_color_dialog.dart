@@ -38,18 +38,12 @@ class _SelectColorDialogState extends State<SelectColorDialog> {
       ),
       actions: [
         TextButton(
-          style: TextButton.styleFrom(
-            textStyle: TextTheme.of(context).labelLarge,
-          ),
           child: Text(localization.discard),
           onPressed: () {
             Navigator.pop(context, null);
           },
         ),
         TextButton(
-          style: TextButton.styleFrom(
-            textStyle: TextTheme.of(context).labelLarge,
-          ),
           child: Text(localization.pick),
           onPressed: () {
             Navigator.pop(context, color);

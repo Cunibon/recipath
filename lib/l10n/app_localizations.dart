@@ -1037,6 +1037,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Download Recipath:\nhttps://play.google.com/store/apps/details?id=com.cunibongames.recipath\n\nTo import these recipes'**
   String get downloadToImport;
+
+  /// No description provided for @aiToken.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Token'**
+  String get aiToken;
+
+  /// No description provided for @aiProvider.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Provider'**
+  String get aiProvider;
+
+  /// No description provided for @addAiTokenDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Add an AI-Token to use AI features in the app'**
+  String get addAiTokenDescription;
+
+  /// No description provided for @selectAiProvider.
+  ///
+  /// In en, this message translates to:
+  /// **'Select AI Provider'**
+  String get selectAiProvider;
+
+  /// No description provided for @addAiToken.
+  ///
+  /// In en, this message translates to:
+  /// **'Add AI Token'**
+  String get addAiToken;
+
+  /// No description provided for @createATokenHere.
+  ///
+  /// In en, this message translates to:
+  /// **'You can create a token here!'**
+  String get createATokenHere;
 }
 
 class _AppLocalizationsDelegate

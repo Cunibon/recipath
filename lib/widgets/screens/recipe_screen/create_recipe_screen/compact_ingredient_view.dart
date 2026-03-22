@@ -5,7 +5,7 @@ import 'package:recipath/data/ingredient_data/ingredient_data.dart';
 import 'package:recipath/data/storage_data/storage_data.dart';
 import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/widgets/generic/highlight_search/highlightable_text.dart';
-import 'package:recipath/widgets/providers/double_number_format_provider.dart';
+import 'package:recipath/widgets/providers/double_number_format_notifier.dart';
 import 'package:recipath/widgets/screens/settings_screen/providers/storage_mode_provider.dart';
 
 class CompactIngredientView extends ConsumerWidget {

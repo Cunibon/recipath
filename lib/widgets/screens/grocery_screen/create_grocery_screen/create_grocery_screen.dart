@@ -14,7 +14,7 @@ import 'package:recipath/repos/storage/storage_repo_notifier.dart';
 import 'package:recipath/widgets/generic/dialogs/delete_confirmation_dialog.dart';
 import 'package:recipath/widgets/generic/information_dialog.dart';
 import 'package:recipath/widgets/generic/unsaved_changes_scope.dart';
-import 'package:recipath/widgets/providers/double_number_format_provider.dart';
+import 'package:recipath/widgets/providers/double_number_format_notifier.dart';
 import 'package:recipath/widgets/screens/grocery_screen/create_grocery_screen/grocery_form_fields.dart';
 import 'package:recipath/widgets/screens/grocery_screen/grocery_routes.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';

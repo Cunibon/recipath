@@ -31,11 +31,23 @@ class $AssetsSoundsGen {
   List<String> get values => [stepDone];
 }
 
+class $AssetsStructuredOutputGen {
+  const $AssetsStructuredOutputGen();
+
+  /// File path: assets/structured_output/recipe_schema.json
+  String get recipeSchema => 'assets/structured_output/recipe_schema.json';
+
+  /// List of all assets
+  List<String> get values => [recipeSchema];
+}
+
 class Assets {
   const Assets._();
 
   static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsSoundsGen sounds = $AssetsSoundsGen();
+  static const $AssetsStructuredOutputGen structuredOutput =
+      $AssetsStructuredOutputGen();
 }
 
 class AssetGenImage {

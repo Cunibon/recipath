@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'double_number_format_provider.dart';
+part of 'double_number_format_notifier.dart';
 
 // **************************************************************************
 // RiverpodGenerator
