@@ -1,0 +1,265 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "RecipeImportSchema",
+  "type": "object",
+  "description": "Full schema for BYOK Recipe Scanner. Captures recipe structure, timers, nutritional data, and accurate tags. CRITICAL: All string values must be valid JSON. Never use unescaped double-quote characters inside string values. Replace inch marks with the word 'inch' (e.g. write '1/4 inch strips' instead of using the double-quote character as an inch symbol).",
+  "required": [
+    "recipeData",
+    "groceryData",
+    "tagData"
+  ],
+  "properties": {
+    "recipeData": {
+      "type": "object",
+      "description": "A map where the key is a unique recipe ID (e.g. 'RECIPE_001') and the value is the recipe object.",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "steps",
+          "servings"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Must match the key of this object in the map."
+          },
+          "title": {
+            "type": "string"
+          },
+          "servings": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "steps": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "description",
+                "ingredients"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "Unique step ID."
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Plain text step description. NEVER use the double-quote character inside this value. Replace inch marks with the word 'inch' (e.g. '1/4 inch strips'). Escape any special JSON characters."
+                },
+                "minutes": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ],
+                  "description": "Duration of the step in minutes. Only set if the description implies a timer (e.g. 'Bake for 45 mins' = 45)."
+                },
+                "ingredients": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "id",
+                      "amount",
+                      "unit",
+                      "groceryId"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "description": "Unique ingredient ID."
+                      },
+                      "amount": {
+                        "type": "number"
+                      },
+                      "groceryId": {
+                        "type": "string",
+                        "description": "Must strictly match a key in 'groceryData'."
+                      },
+                      "unit": {
+                        "type": "string",
+                        "enum": [
+                          "Milliliter",
+                          "Liter",
+                          "Teaspoon",
+                          "Tablespoon",
+                          "Cup",
+                          "Gram",
+                          "Kilogram",
+                          "Ounce",
+                          "Pound",
+                          "Pinch",
+                          "Clove",
+                          "Can",
+                          "Piece"
+                        ]
+                      },
+                      "uploaded": {
+                        "type": "boolean",
+                        "default": false
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "groceryData": {
+      "type": "object",
+      "description": "A map where the key is a unique grocery ID (e.g. 'GROCERY_001'). Contains nutrition per 100g.",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "unit",
+          "normalAmount",
+          "conversionAmount",
+          "conversionUnit"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Must match the key of this object."
+          },
+          "name": {
+            "type": "string"
+          },
+          "normalAmount": {
+            "type": "number",
+            "const": 1.0
+          },
+          "unit": {
+            "type": "string",
+            "enum": [
+              "Milliliter",
+              "Liter",
+              "Teaspoon",
+              "Tablespoon",
+              "Cup",
+              "Gram",
+              "Kilogram",
+              "Ounce",
+              "Pound",
+              "Pinch",
+              "Clove",
+              "Can",
+              "Piece"
+            ]
+          },
+          "conversionAmount": {
+            "type": "number",
+            "description": "Density conversion: The equivalent amount in 'conversionUnit' for 1 unit of this item (e.g. 1 Cup Flour = 120g)."
+          },
+          "conversionUnit": {
+            "type": "string",
+            "description": "Target unit for the conversionAmount (usually swapping between Volume and Weight).",
+            "enum": [
+              "Milliliter",
+              "Liter",
+              "Teaspoon",
+              "Tablespoon",
+              "Cup",
+              "Gram",
+              "Kilogram",
+              "Ounce",
+              "Pound",
+              "Pinch",
+              "Clove",
+              "Can",
+              "Piece"
+            ]
+          },
+          "kcal": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Calories per 100g"
+          },
+          "fat": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Fat (g) per 100g"
+          },
+          "carbs": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Carbohydrates (g) per 100g"
+          },
+          "protein": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Protein (g) per 100g"
+          },
+          "fiber": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Fiber (g) per 100g"
+          },
+          "uploaded": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      }
+    },
+    "tagData": {
+      "type": "object",
+      "description": "A map where the KEY is the exact 'recipeID' from 'recipeData'. The VALUE is a list of tags for that recipe.",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "id",
+            "name",
+            "description",
+            "color"
+          ],
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string",
+              "description": "e.g. 'Main course', 'Vegetarian'. Must be accurate to the specific recipe."
+            },
+            "description": {
+              "type": "string",
+              "description": "Short plain text description of the tag. NEVER use the double-quote character inside this value. Replace inch marks with the word 'inch' (e.g. '1/4 inch strips'). Escape any special JSON characters."
+            },
+            "color": {
+              "type": "integer",
+              "description": "ARGB color value (e.g. 4291580529)."
+            },
+            "deleted": {
+              "type": "boolean",
+              "default": false
+            },
+            "uploaded": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        }
+      }
+    }
+  }
+}
