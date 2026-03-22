@@ -529,11 +529,11 @@ class AppLocalizationsEs extends AppLocalizations {
   String get createATokenHere => '¡Puedes crear un token aquí!';
 
   @override
-  String get importFile => 'Import from file';
+  String get importFile => 'Importar desde archivo';
 
   @override
-  String get importImage => 'Import from image';
+  String get importImage => 'Importar desde imagen';
 
   @override
-  String get importUrl => 'Import from Url';
+  String get importUrl => 'Importar desde URL';
 }

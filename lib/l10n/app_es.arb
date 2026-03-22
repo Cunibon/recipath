@@ -161,5 +161,8 @@
     "aiProvider": "Proveedor de IA",
     "selectAiProvider": "Seleccionar proveedor de IA",
     "addAiToken": "Agregar token de IA",
-    "createATokenHere": "¡Puedes crear un token aquí!"
+    "createATokenHere": "¡Puedes crear un token aquí!",
+    "importFile": "Importar desde archivo",
+    "importImage": "Importar desde imagen",
+    "importUrl": "Importar desde URL"
 }

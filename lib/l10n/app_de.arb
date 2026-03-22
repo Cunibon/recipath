@@ -161,5 +161,8 @@
     "aiProvider": "KI-Anbieter",
     "selectAiProvider": "KI-Anbieter auswählen",
     "addAiToken": "KI-Token hinzufügen",
-    "createATokenHere": "Sie können hier ein Token erstellen!"
+    "createATokenHere": "Sie können hier ein Token erstellen!",
+    "importFile": "Aus Datei importieren",
+    "importImage": "Aus Bild importieren",
+    "importUrl": "Aus URL importieren"
 }

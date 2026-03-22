@@ -531,11 +531,11 @@ class AppLocalizationsFr extends AppLocalizations {
   String get createATokenHere => 'Vous pouvez créer un token ici !';
 
   @override
-  String get importFile => 'Import from file';
+  String get importFile => 'Importer depuis un fichier';
 
   @override
-  String get importImage => 'Import from image';
+  String get importImage => 'Importer depuis une image';
 
   @override
-  String get importUrl => 'Import from Url';
+  String get importUrl => 'Importer depuis une URL';
 }
