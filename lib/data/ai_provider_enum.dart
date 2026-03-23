@@ -10,7 +10,7 @@ enum AiProviderEnum {
   @JsonValue("Google")
   google(
     displayName: 'Google Gemini',
-    defaultModel: 'gemini-3.1-pro',
+    defaultModel: 'gemini-2.5-flash',
     tokenUrl: 'https://aistudio.google.com/app/apikey',
     handshakeOptions: ChatGoogleGenerativeAIOptions(maxOutputTokens: 1),
   ),
@@ -18,7 +18,7 @@ enum AiProviderEnum {
   @JsonValue("Anthropic")
   anthropic(
     displayName: 'Anthropic Claude',
-    defaultModel: 'claude-opus-4.6',
+    defaultModel: 'claude-sonnet-4-6',
     tokenUrl: 'https://console.anthropic.com/settings/keys',
     handshakeOptions: ChatAnthropicOptions(maxTokens: 1),
   ),
@@ -26,7 +26,7 @@ enum AiProviderEnum {
   @JsonValue("Mistral")
   mistral(
     displayName: 'Mistral AI',
-    defaultModel: 'mistral-small-4',
+    defaultModel: 'mistral-small-latest',
     tokenUrl: 'https://console.mistral.ai/api-keys/',
     handshakeOptions: ChatMistralAIOptions(maxTokens: 1),
   ),
@@ -51,7 +51,7 @@ enum AiProviderEnum {
   @JsonValue("OpenAi")
   openAi(
     displayName: 'OpenAI',
-    defaultModel: 'gpt-4.5-preview',
+    defaultModel: 'gpt-4.1-mini',
     tokenUrl: 'https://platform.openai.com/api-keys',
     handshakeOptions: ChatOpenAIOptions(maxTokens: 1),
   );
