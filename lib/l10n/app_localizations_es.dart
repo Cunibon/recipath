@@ -455,10 +455,6 @@ class AppLocalizationsEs extends AppLocalizations {
   String get introduction => 'Introducción';
 
   @override
-  String get appIntroduction =>
-      '## Empezando\n\n### 1.Crear recetas\nPuedes crear recetas desde el primer momento.\n- Añade un título y quizás una imagen\n- Añade los pasos y sus respectivos ingredientes\n    - Los comestibles creados están disponibles para todas las recetas y se pueden encontrar en la pantalla Comestibles\n    - Los comestibles tienen una cantidad normal (en qué cantidad los comprarías) esto se usa para determinar cuántos de dicho ingrediente se deben comprar\n    - El pequeño código QR en la parte superior derecha puede ayudarte a ingresar rápidamente la mayoría de los valores\n- Save and you are ready to go\n\n### 2. Empezar a comprar\nAl deslizar una receta o hacer clic en el botón de compras en la parte superior, puede ingresar \"modo de compras\".\nPlanifique su próximo viaje de compras seleccionando las recetas que desea cocinar y agregando automáticamente todos los ingredientes a la pantalla de Compras.\n\nYou can also see all the recipes you added in the shopping history.\n\n### 3. Lleva un registro de lo que tienes\nTodo lo que marques en tu lista se agregará a tu pantalla de almacenamiento.\nPodrás consultarlo como referencia y tanto la pantalla de Compras como la de Recetas resaltarán los ingredientes que tienes en casa, haciéndote fácil ver qué puedes cocinar o qué necesitas comprar.\n\n### 4. Empezar a cocinar\nCuando esté listo para cocinar, haga clic en una receta e inicie el temporizador.\nUna vez que haya terminado, se registrará su tiempo y se mostrará un tiempo promedio para la receta en la pantalla Receta.';
-
-  @override
   String get nothingToSee => 'Nada que ver';
 
   @override
@@ -536,4 +532,8 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get importUrl => 'Importar desde URL';
+
+  @override
+  String get addAiUrlDescription =>
+      'Agrega la URL que quieres intentar importar';
 }

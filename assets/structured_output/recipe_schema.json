@@ -3,46 +3,32 @@
   "title": "RecipeImportSchema",
   "type": "object",
   "description": "Full schema for BYOK Recipe Scanner. Captures recipe structure, timers, nutritional data, and accurate tags. CRITICAL: All string values must be valid JSON. Never use unescaped double-quote characters inside string values. Replace inch marks with the word 'inch' (e.g. write '1/4 inch strips' instead of using the double-quote character as an inch symbol).",
-  "required": [
-    "recipeData",
-    "groceryData",
-    "tagData"
-  ],
+  "required": ["recipes", "groceries", "recipeTags"],
   "properties": {
-    "recipeData": {
-      "type": "object",
-      "description": "A map where the key is a unique recipe ID (e.g. 'RECIPE_001') and the value is the recipe object.",
-      "additionalProperties": {
+    "recipes": {
+      "type": "array",
+      "description": "List of recipes to import.",
+      "items": {
         "type": "object",
-        "required": [
-          "id",
-          "title",
-          "steps",
-          "servings"
-        ],
+        "required": ["id", "title", "steps", "servings"],
         "properties": {
           "id": {
             "type": "string",
-            "description": "Must match the key of this object in the map."
+            "description": "Unique recipe ID (e.g. 'RECIPE_001')."
           },
           "title": {
             "type": "string"
           },
           "servings": {
-            "type": [
-              "integer",
-              "null"
-            ]
+            "type": "integer",
+            "nullable": true,
+            "description": "Number of servings."
           },
           "steps": {
             "type": "array",
             "items": {
               "type": "object",
-              "required": [
-                "id",
-                "description",
-                "ingredients"
-              ],
+              "required": ["id", "description", "ingredients"],
               "properties": {
                 "id": {
                   "type": "string",
@@ -53,22 +39,15 @@
                   "description": "Plain text step description. NEVER use the double-quote character inside this value. Replace inch marks with the word 'inch' (e.g. '1/4 inch strips'). Escape any special JSON characters."
                 },
                 "minutes": {
-                  "type": [
-                    "integer",
-                    "null"
-                  ],
+                  "type": "integer",
+                  "nullable": true,
                   "description": "Duration of the step in minutes. Only set if the description implies a timer (e.g. 'Bake for 45 mins' = 45)."
                 },
                 "ingredients": {
                   "type": "array",
                   "items": {
                     "type": "object",
-                    "required": [
-                      "id",
-                      "amount",
-                      "unit",
-                      "groceryId"
-                    ],
+                    "required": ["id", "amount", "unit", "groceryId"],
                     "properties": {
                       "id": {
                         "type": "string",
@@ -79,7 +58,7 @@
                       },
                       "groceryId": {
                         "type": "string",
-                        "description": "Must strictly match a key in 'groceryData'."
+                        "description": "Must strictly match a grocery id in the 'groceries' array."
                       },
                       "unit": {
                         "type": "string",
@@ -100,8 +79,7 @@
                         ]
                       },
                       "uploaded": {
-                        "type": "boolean",
-                        "default": false
+                        "type": "boolean"
                       }
                     }
                   }
@@ -112,10 +90,10 @@
         }
       }
     },
-    "groceryData": {
-      "type": "object",
-      "description": "A map where the key is a unique grocery ID (e.g. 'GROCERY_001'). Contains nutrition per 100g.",
-      "additionalProperties": {
+    "groceries": {
+      "type": "array",
+      "description": "List of groceries referenced in recipes. Contains nutrition per 100g.",
+      "items": {
         "type": "object",
         "required": [
           "id",
@@ -128,14 +106,14 @@
         "properties": {
           "id": {
             "type": "string",
-            "description": "Must match the key of this object."
+            "description": "Unique grocery ID (e.g. 'GROCERY_001')."
           },
           "name": {
             "type": "string"
           },
           "normalAmount": {
             "type": "number",
-            "const": 1.0
+            "description": "Always set to 1. This represents the base amount for conversions."
           },
           "unit": {
             "type": "string",
@@ -179,83 +157,75 @@
             ]
           },
           "kcal": {
-            "type": [
-              "number",
-              "null"
-            ],
+            "type": "number",
+            "nullable": true,
             "description": "Calories per 100g"
           },
           "fat": {
-            "type": [
-              "number",
-              "null"
-            ],
+            "type": "number",
+            "nullable": true,
             "description": "Fat (g) per 100g"
           },
           "carbs": {
-            "type": [
-              "number",
-              "null"
-            ],
+            "type": "number",
+            "nullable": true,
             "description": "Carbohydrates (g) per 100g"
           },
           "protein": {
-            "type": [
-              "number",
-              "null"
-            ],
+            "type": "number",
+            "nullable": true,
             "description": "Protein (g) per 100g"
           },
           "fiber": {
-            "type": [
-              "number",
-              "null"
-            ],
+            "type": "number",
+            "nullable": true,
             "description": "Fiber (g) per 100g"
           },
           "uploaded": {
-            "type": "boolean",
-            "default": false
+            "type": "boolean"
           }
         }
       }
     },
-    "tagData": {
-      "type": "object",
-      "description": "A map where the KEY is the exact 'recipeID' from 'recipeData'. The VALUE is a list of tags for that recipe.",
-      "additionalProperties": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "required": [
-            "id",
-            "name",
-            "description",
-            "color"
-          ],
-          "properties": {
-            "id": {
-              "type": "string"
-            },
-            "name": {
-              "type": "string",
-              "description": "e.g. 'Main course', 'Vegetarian'. Must be accurate to the specific recipe."
-            },
-            "description": {
-              "type": "string",
-              "description": "Short plain text description of the tag. NEVER use the double-quote character inside this value. Replace inch marks with the word 'inch' (e.g. '1/4 inch strips'). Escape any special JSON characters."
-            },
-            "color": {
-              "type": "integer",
-              "description": "ARGB color value (e.g. 4291580529)."
-            },
-            "deleted": {
-              "type": "boolean",
-              "default": false
-            },
-            "uploaded": {
-              "type": "boolean",
-              "default": false
+    "recipeTags": {
+      "type": "array",
+      "description": "List of recipe-tag associations.",
+      "items": {
+        "type": "object",
+        "required": ["recipeId", "tags"],
+        "properties": {
+          "recipeId": {
+            "type": "string",
+            "description": "The ID of the recipe from the 'recipes' array."
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["id", "name", "description", "color"],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "e.g. 'Main course', 'Vegetarian'. Must be accurate to the specific recipe."
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Short plain text description of the tag. NEVER use the double-quote character inside this value. Replace inch marks with the word 'inch' (e.g. '1/4 inch strips'). Escape any special JSON characters."
+                },
+                "color": {
+                  "type": "integer",
+                  "description": "ARGB color value (e.g. 4291580529)."
+                },
+                "deleted": {
+                  "type": "boolean"
+                },
+                "uploaded": {
+                  "type": "boolean"
+                }
+              }
             }
           }
         }

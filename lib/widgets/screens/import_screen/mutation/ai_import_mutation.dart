@@ -7,18 +7,21 @@ import 'package:langchain_community/langchain_community.dart';
 import 'package:recipath/gen/assets.gen.dart';
 import 'package:recipath/widgets/providers/ai/ai_model_notifier.dart';
 import 'package:recipath/widgets/providers/ai/ai_provider_notifier.dart';
+import 'package:recipath/widgets/providers/locale_notifier.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
+import 'package:recipath/widgets/screens/tag_screen/providers/tag_notifier.dart';
 
 abstract class AiImportMutation {
-  static final mutation = Mutation<ChatResult?>();
+  static final mutation = Mutation<Map<String, dynamic>?>();
 
-  static Future<ChatResult?> runImageImport(
+  static Future<Map<String, dynamic>?> runImageImport(
     MutationTarget ref,
     Uint8List image,
   ) => mutation.run(ref, (tsx) async {
     final model = await _prepareModel(tsx);
+    if (model == null) return null;
 
-    return model?.invoke({
+    final result = await model.invoke({
       'input': [
         ChatMessageContent.text("Analyze this recipe image."),
         ChatMessageContent.image(
@@ -27,29 +30,73 @@ abstract class AiImportMutation {
         ),
       ],
     });
+
+    return _parseResult(result);
   });
 
-  static Future<ChatResult?> runUrlImport(
+  static Future<Map<String, dynamic>?> runUrlImport(
     MutationTarget ref,
     String url,
   ) => mutation.run(ref, (tsx) async {
     final model = await _prepareModel(tsx);
+    if (model == null) return null;
 
     final loader = WebBaseLoader([url]);
     final documents = await loader.load();
-
     final webpageText = documents.first.pageContent;
 
-    return await model?.invoke({
+    final result = await model.invoke({
       'input': [
         ChatMessageContent.text(
           "Analyze the following webpage content and extract the recipe: \n\n $webpageText",
         ),
       ],
     });
+
+    return _parseResult(result);
   });
 
-  static Future<RunnableSequence<Map<String, dynamic>, ChatResult>?>
+  static Map<String, dynamic> _parseResult(ChatResult result) {
+    final toolCalls = result.output.toolCalls;
+    if (toolCalls.isEmpty) return {};
+
+    final args = toolCalls.first.arguments;
+    final recipes = (args['recipes'] as List? ?? [])
+        .cast<Map<String, dynamic>>();
+    final groceries = (args['groceries'] as List? ?? [])
+        .cast<Map<String, dynamic>>();
+    final recipeTags = (args['recipeTags'] as List? ?? [])
+        .cast<Map<String, dynamic>>();
+
+    final recipeData = <String, dynamic>{};
+    for (final recipe in recipes) {
+      final id = recipe['id'] as String?;
+      if (id != null) recipeData[id] = recipe;
+    }
+
+    final groceryData = <String, dynamic>{};
+    for (final grocery in groceries) {
+      final id = grocery['id'] as String?;
+      if (id != null) groceryData[id] = grocery;
+    }
+
+    final tagData = <String, dynamic>{};
+    for (final rt in recipeTags) {
+      final recipeId = rt['recipeId'] as String?;
+      final tags = rt['tags'] as List?;
+      if (recipeId != null && tags != null) {
+        tagData[recipeId] = tags;
+      }
+    }
+
+    return {
+      'recipeData': recipeData,
+      'groceryData': groceryData,
+      'tagData': tagData,
+    };
+  }
+
+  static Future<Runnable<Map<String, dynamic>, RunnableOptions, ChatResult>?>
   _prepareModel(MutationTransaction tsx) async {
     final aiProvider = await tsx.get(aiProviderProvider.future);
     if (aiProvider == null) return null;
@@ -63,14 +110,24 @@ abstract class AiImportMutation {
     final jsonSchema = jsonDecode(jsonSchemaString);
 
     final groceries = await tsx.get(groceryProvider.future);
-
-    final buffer = StringBuffer();
+    final groceryBuffer = StringBuffer();
 
     for (final grocery in groceries.values) {
-      buffer.write("${grocery.name}, ");
+      groceryBuffer.write("${grocery.name}, ");
     }
+    final groceryList = groceryBuffer.toString();
 
-    final groceryList = buffer.toString();
+    final tags = await tsx.get(tagProvider.future);
+    final tagBuffer = StringBuffer();
+
+    for (final tag in tags.values) {
+      tagBuffer.write("${tag.name}, ");
+    }
+    final tagList = tagBuffer.toString();
+
+    final locale = tsx.get(localeProvider);
+    final userLanguage = locale.languageCode;
+
     final systemPrompt =
         '''
 You are a professional Recipe Digitization Assistant and kitchen assistant.
@@ -79,7 +136,15 @@ Your goal is to extract structured recipe data from the provided image or URL in
 
 The user has the following groceries available: $groceryList.
 When extracting recipes, prioritize using groceries the user already has; only create new groceries if necessary.
+
+The user has the following tags available: $tagList.
+When extracting recipes, prioritize using tags the user already has; only create new tags if necessary.
+New tags should have a unique color.
+
 You must respond with valid JSON matching the provided schema.
+
+The user's preferred language is: $userLanguage. Translate ALL recipe content (titles, steps, descriptions, grocery names, tag names) into $userLanguage. 
+The source may be in any language, but your output MUST be in $userLanguage.
 
 CRITICAL RULES:
 
@@ -88,9 +153,8 @@ JSON ONLY:
 - Do NOT include markdown, comments, or any extra text.
 
 SCHEMA CONSISTENCY:
-- Every "groceryId" used in "recipeData" MUST match a key in "groceryData".
-- Every "id" field MUST match its parent map key.
-- "tagData" keys MUST match recipe IDs from "recipeData".
+- Every "groceryId" used in recipe ingredients MUST match an "id" in the "groceries" array.
+- Every "recipeId" in "recipeTags" MUST match an "id" in the "recipes" array.
 
 STRING SAFETY:
 - NEVER use unescaped double quotes inside string values.
@@ -118,9 +182,9 @@ TIMERS:
 
 OUTPUT:
 - Return a single JSON object with:
-  - "recipeData"
-  - "groceryData"
-  - "tagData"
+  - "recipes": array of recipe objects
+  - "groceries": array of grocery objects
+  - "recipeTags": array of {recipeId, tags} objects
   ''';
 
     final tool = ToolSpec(
@@ -130,18 +194,24 @@ OUTPUT:
       strict: true,
     );
 
-    final promptTemplate = ChatPromptTemplate.fromTemplates([
-      (ChatMessageType.system, systemPrompt),
-      (ChatMessageType.human, '{input}'),
-    ]);
-
-    return promptTemplate.pipe(
-      mainModel.bind(
-        mainModel.defaultOptions.copyWith(
-          tools: [tool],
-          toolChoice: ChatToolChoice.forced(name: 'recipe_schema'),
-        ),
+    final toolModel = mainModel.bind(
+      mainModel.defaultOptions.copyWith(
+        tools: [tool],
+        toolChoice: ChatToolChoice.forced(name: 'recipe_schema'),
       ),
+    );
+
+    return Runnable.fromFunction<Map<String, dynamic>, ChatResult>(
+      invoke: (input, options) async {
+        final inputContent = input['input'] as List<ChatMessageContent>;
+        final messages = [
+          SystemChatMessage(content: systemPrompt),
+          HumanChatMessage(
+            content: ChatMessageContent.multiModal(inputContent),
+          ),
+        ];
+        return await toolModel.invoke(PromptValue.chat(messages));
+      },
     );
   }
 }

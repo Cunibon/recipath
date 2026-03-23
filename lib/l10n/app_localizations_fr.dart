@@ -455,10 +455,6 @@ class AppLocalizationsFr extends AppLocalizations {
   String get introduction => 'Introduction';
 
   @override
-  String get appIntroduction =>
-      '## Commencer\n\n### 1. Créer des recettes\nVous pouvez créer des recettes dès le départ.\n- Ajoutez un titre et peut-être une image\n- Ajoutez des étapes et leurs ingrédients respectifs\n    - Les courses créées sont disponibles pour toutes les recettes et peuvent être trouvées dans l\'écran Courses\n    - Les produits d\'épicerie ont une quantité normale (dans quelle quantité vous les achèteriez) qui est utilisée pour déterminer la quantité de cet ingrédient qui doit être achetée\n    - Vous pouvez également ajouter un taux de conversion et des nutriments, tous deux importants pour des données de tableau de bord précises.\n    - Le petit code QR en haut à droite peut vous aider à saisir rapidement la plupart des valeurs\n- Enregistrez et vous êtes prêt à partir\n\n### 2. Commencez vos achats\nEn faisant glisser une recette ou en cliquant sur le bouton d\'achat en haut, vous pouvez entrer \"mode achats\".\nPlanifiez votre prochain voyage de shopping en sélectionnant les recettes que vous souhaitez cuisiner, en ajoutant automatiquement tous les ingrédients à l\'écran Shopping.\n\nVous pouvez également voir toutes les recettes que vous avez ajoutées dans l\'historique des achats.\n\n### 3. Gardez une trace de ce que vous avez\nTout ce que vous cochez sur votre liste est ajouté à votre écran de stockage.\nVous pouvez le consulter comme référence et les écrans Shopping et Recette mettront en évidence les ingrédients que vous avez à la maison, ce qui vous permettra de voir facilement ce que vous pouvez cuisiner ou ce qui doit être acheté.\n\n### 4. Commencez à cuisiner\nLorsque vous êtes prêt à cuisiner, cliquez sur une recette et démarrez le minuteur.\nUne fois que vous avez terminé, votre temps sera enregistré, un temps moyen pour la recette sera affiché sur l\'écran Recette.';
-
-  @override
   String get nothingToSee => 'Rien à voir';
 
   @override
@@ -538,4 +534,8 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get importUrl => 'Importer depuis une URL';
+
+  @override
+  String get addAiUrlDescription =>
+      'Ajoutez l\'URL que vous souhaitez essayer d\'importer';
 }

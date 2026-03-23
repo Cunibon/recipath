@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/data/ai_provider/ai_provider_data.dart';
 import 'package:recipath/l10n/app_localizations.dart';
+import 'package:recipath/widgets/generic/dialogs/delete_confirmation_dialog.dart';
 import 'package:recipath/widgets/providers/ai/ai_provider_notifier.dart';
 import 'package:recipath/widgets/screens/settings_screen/data/dialogs/ai_token_dialog.dart';
 
@@ -31,7 +32,16 @@ class AiToken extends ConsumerWidget {
         ),
         if (providerData != null)
           IconButton(
-            onPressed: () => ref.read(aiProviderProvider.notifier).set(null),
+            onPressed: () async {
+              final result = await showDialog<bool>(
+                context: context,
+                builder: (context) => DeleteConfirmationDialog(),
+              );
+
+              if (result == true) {
+                ref.read(aiProviderProvider.notifier).set(null);
+              }
+            },
             icon: Icon(Icons.delete),
           ),
       ],

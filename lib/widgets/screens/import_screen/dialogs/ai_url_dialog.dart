@@ -28,7 +28,7 @@ class _AiUrlDialogState extends ConsumerState<AiUrlDialog> {
     final import = ref.watch(AiImportMutation.mutation);
 
     return AlertDialog(
-      title: Text(localization.addAiTokenDescription),
+      title: Text(localization.addAiUrlDescription),
       content: Form(
         key: formKey,
         child: Column(

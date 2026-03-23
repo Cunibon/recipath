@@ -1,10 +1,10 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:langchain/langchain.dart';
 import 'package:random_string/random_string.dart';
 import 'package:recipath/application/file_modifier.dart/file_modifier_notifier.dart';
 import 'package:recipath/helper/go_router_extension.dart';
@@ -26,107 +26,120 @@ class ImportScreen extends ConsumerWidget {
     final localization = AppLocalizations.of(context)!;
 
     final aiProvider = ref.watch(aiProviderProvider).value;
+    final import = ref.watch(AiImportMutation.mutation);
 
     return NavigationDrawerScaffold(
       titleBuilder: (title) =>
           DefaultNavigationTitle(title: title, syncState: SyncState.synced),
       body: Center(
-        child: Column(
-          mainAxisSize: .min,
-          children: [
-            TextButton.icon(
-              onPressed: () async {
-                FilePickerResult? result = await FilePicker.platform.pickFiles(
-                  type: FileType.custom,
-                  allowedExtensions: [".recipath"],
-                );
-
-                if (result != null && context.mounted) {
-                  context.goRelative(
-                    ImportRoutes.recipeImport.path,
-                    extra: result.files.single.path,
-                  );
-                }
-              },
-              icon: Icon(Icons.download),
-              label: Text(localization.importFile),
-            ),
-            if (aiProvider != null) ...[
-              if (aiProvider.provider.multimodal)
-                TextButton.icon(
-                  onPressed: () async {
-                    final xFile = await showDialog<XFile?>(
-                      context: context,
-                      builder: (context) => ImagePickerDialog(),
-                    );
-
-                    if (xFile != null) {
-                      final appDirectory = ref.watch(applicationPathProvider);
-                      final fileModifier = ref.watch(fileModifierProvider);
-                      final bytes = await xFile.readAsBytes();
-
-                      final compressed =
-                          await FlutterImageCompress.compressWithList(bytes);
-
-                      final result = await AiImportMutation.runImageImport(
-                        ref,
-                        compressed,
-                      );
-
-                      if (result != null) {
-                        final newFileName = randomAlphaNumeric(16);
-                        final file = File("${appDirectory.path}/$newFileName");
-
-                        await file.writeAsString(
-                          result.output.toolCalls.first.argumentsRaw,
-                        );
-                        await fileModifier.add(newFileName);
-
-                        if (context.mounted) {
-                          context.goRelative(
-                            ImportRoutes.recipeImport.path,
-                            extra: file.path,
+        child: import.isPending
+            ? CircularProgressIndicator()
+            : Column(
+                mainAxisSize: .min,
+                children: [
+                  TextButton.icon(
+                    onPressed: () async {
+                      FilePickerResult? result = await FilePicker.platform
+                          .pickFiles(
+                            type: FileType.custom,
+                            allowedExtensions: [".recipath"],
                           );
-                        }
+
+                      if (result != null && context.mounted) {
+                        context.goRelative(
+                          ImportRoutes.recipeImport.path,
+                          extra: result.files.single.path,
+                        );
                       }
-                    }
-                  },
-                  icon: Icon(Icons.auto_awesome),
-                  label: Text(localization.importImage),
-                ),
-              TextButton.icon(
-                onPressed: () async {
-                  final result = await showDialog<ChatResult>(
-                    context: context,
-                    builder: (context) => AiUrlDialog(),
-                  );
+                    },
+                    icon: Icon(Icons.download),
+                    label: Text(localization.importFile),
+                  ),
+                  if (aiProvider != null) ...[
+                    if (aiProvider.provider.multimodal)
+                      TextButton.icon(
+                        onPressed: () async {
+                          final xFile = await showDialog<XFile?>(
+                            context: context,
+                            builder: (context) => ImagePickerDialog(),
+                          );
 
-                  if (result != null) {
-                    final appDirectory = ref.watch(applicationPathProvider);
-                    final fileModifier = ref.watch(fileModifierProvider);
+                          if (xFile != null) {
+                            final appDirectory = ref.watch(
+                              applicationPathProvider,
+                            );
+                            final fileModifier = ref.watch(
+                              fileModifierProvider,
+                            );
+                            final bytes = await xFile.readAsBytes();
 
-                    final newFileName = randomAlphaNumeric(16);
-                    final file = File("${appDirectory.path}/$newFileName");
+                            final compressed =
+                                await FlutterImageCompress.compressWithList(
+                                  bytes,
+                                );
 
-                    await file.writeAsString(
-                      result.output.toolCalls.first.argumentsRaw,
-                    );
-                    await fileModifier.add(newFileName);
+                            final result =
+                                await AiImportMutation.runImageImport(
+                                  ref,
+                                  compressed,
+                                );
 
-                    if (context.mounted) {
-                      context.goRelative(
-                        ImportRoutes.recipeImport.path,
-                        extra: file.path,
-                      );
-                    }
-                  }
-                },
-                icon: Icon(Icons.auto_awesome),
-                label: Text(localization.importUrl),
+                            if (result != null) {
+                              final newFileName = randomAlphaNumeric(16);
+                              final file = File(
+                                "${appDirectory.path}/$newFileName",
+                              );
+
+                              await file.writeAsString(jsonEncode(result));
+                              await fileModifier.add(newFileName);
+
+                              if (context.mounted) {
+                                context.goRelative(
+                                  ImportRoutes.recipeImport.path,
+                                  extra: file.path,
+                                );
+                              }
+                            }
+                          }
+                        },
+                        icon: Icon(Icons.auto_awesome),
+                        label: Text(localization.importImage),
+                      ),
+                    TextButton.icon(
+                      onPressed: () async {
+                        final result = await showDialog<Map<String, dynamic>>(
+                          context: context,
+                          builder: (context) => AiUrlDialog(),
+                        );
+
+                        if (result != null) {
+                          final appDirectory = ref.watch(
+                            applicationPathProvider,
+                          );
+                          final fileModifier = ref.watch(fileModifierProvider);
+
+                          final newFileName = randomAlphaNumeric(16);
+                          final file = File(
+                            "${appDirectory.path}/$newFileName",
+                          );
+
+                          await file.writeAsString(jsonEncode(result));
+                          await fileModifier.add(newFileName);
+
+                          if (context.mounted) {
+                            context.goRelative(
+                              ImportRoutes.recipeImport.path,
+                              extra: file.path,
+                            );
+                          }
+                        }
+                      },
+                      icon: Icon(Icons.auto_awesome),
+                      label: Text(localization.importUrl),
+                    ),
+                  ],
+                ],
               ),
-            ],
-          ],
-        ),
       ),
     );
   }
