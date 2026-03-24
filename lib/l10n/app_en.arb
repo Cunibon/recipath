@@ -225,5 +225,6 @@
     "importFile": "Import from file",
     "importImage": "Import from image",
     "importUrl": "Import from Url",
-    "addAiUrlDescription": "Add Url you want to try to import"
+    "addAiUrlDescription": "Add Url you want to try to import",
+    "enterValidUrl": "Please enter a valid Url"
 }

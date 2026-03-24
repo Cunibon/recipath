@@ -536,4 +536,7 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get addAiUrlDescription =>
       'Agrega la URL que quieres intentar importar';
+
+  @override
+  String get enterValidUrl => 'Por favor ingrese una URL válida';
 }

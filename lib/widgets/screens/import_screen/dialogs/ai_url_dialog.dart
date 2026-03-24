@@ -42,6 +42,11 @@ class _AiUrlDialogState extends ConsumerState<AiUrlDialog> {
                 if (value == null) {
                   return localization.addAiToken;
                 }
+                final uri = Uri.tryParse(value);
+                if (uri == null) {
+                  return localization.enterValidUrl;
+                }
+
                 return null;
               },
             ),

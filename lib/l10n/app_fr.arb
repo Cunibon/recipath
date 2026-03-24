@@ -164,5 +164,6 @@
     "importFile": "Importer depuis un fichier",
     "importImage": "Importer depuis une image",
     "importUrl": "Importer depuis une URL",
-    "addAiUrlDescription": "Ajoutez l'URL que vous souhaitez essayer d'importer"
+    "addAiUrlDescription": "Ajoutez l'URL que vous souhaitez essayer d'importer",
+    "enterValidUrl": "Veuillez entrer une URL valide"
 }

@@ -1091,6 +1091,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Add Url you want to try to import'**
   String get addAiUrlDescription;
+
+  /// No description provided for @enterValidUrl.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid Url'**
+  String get enterValidUrl;
 }
 
 class _AppLocalizationsDelegate

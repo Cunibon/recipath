@@ -538,4 +538,7 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get addAiUrlDescription =>
       'Ajoutez l\'URL que vous souhaitez essayer d\'importer';
+
+  @override
+  String get enterValidUrl => 'Veuillez entrer une URL valide';
 }
