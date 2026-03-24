@@ -35,7 +35,7 @@ enum AiProviderEnum {
   moonshot(
     displayName: 'Moonshot Kimi',
     defaultModel: 'kimi-k2.5',
-    tokenUrl: 'https://platform.moonshot.cn/console/api-keys',
+    tokenUrl: 'https://platform.moonshot.ai/console/api-keys',
     handshakeOptions: ChatOpenAIOptions(maxTokens: 1),
   ),
 

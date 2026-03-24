@@ -43,7 +43,7 @@ BaseChatModel? aiModelNotifier(Ref ref, AiProviderData? provider) {
     case AiProviderEnum.moonshot:
       return ChatOpenAI(
         apiKey: token,
-        baseUrl: 'https://api.moonshot.cn/v1',
+        baseUrl: 'https://api.moonshot.ai/v1',
         defaultOptions: ChatOpenAIOptions(model: enumValue.defaultModel),
       );
 
