@@ -28,7 +28,10 @@ BaseChatModel? aiModelNotifier(Ref ref, AiProviderData? provider) {
     case AiProviderEnum.anthropic:
       return ChatAnthropic(
         apiKey: token,
-        defaultOptions: ChatAnthropicOptions(model: enumValue.defaultModel),
+        defaultOptions: ChatAnthropicOptions(
+          model: enumValue.defaultModel,
+          maxTokens: 16384,
+        ),
       );
 
     case AiProviderEnum.mistral:
