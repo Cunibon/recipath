@@ -99,7 +99,6 @@
           "id",
           "name",
           "unit",
-          "normalAmount",
           "conversionAmount",
           "conversionUnit"
         ],
@@ -110,10 +109,6 @@
           },
           "name": {
             "type": "string"
-          },
-          "normalAmount": {
-            "type": "number",
-            "description": "Always set to 1. This represents the base amount for conversions."
           },
           "unit": {
             "type": "string",
