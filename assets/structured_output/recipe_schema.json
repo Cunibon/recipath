@@ -36,12 +36,12 @@
                 },
                 "description": {
                   "type": "string",
-                  "description": "Plain text step description. NEVER use the double-quote character inside this value. Replace inch marks with the word 'inch' (e.g. '1/4 inch strips'). Escape any special JSON characters."
+                  "description": "Plain text step description. Each step should focus on a single coherent task — do not chain unrelated actions together. Break compound steps into multiple smaller steps. NEVER use the double-quote character inside this value. Replace inch marks with the word 'inch' (e.g. '1/4 inch strips'). Escape any special JSON characters."
                 },
                 "minutes": {
                   "type": "integer",
                   "nullable": true,
-                  "description": "Duration of the step in minutes. Only set if the description implies a timer (e.g. 'Bake for 45 mins' = 45)."
+                  "description": "Duration of the step in minutes. Only set for longer passive/unattended steps where the cook might walk away (e.g. baking, simmering, resting, marinating). Do NOT set for short active tasks like sauteing or stirring. Set to null if no timer is needed."
                 },
                 "ingredients": {
                   "type": "array",

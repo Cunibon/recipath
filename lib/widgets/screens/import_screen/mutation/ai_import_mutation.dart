@@ -180,9 +180,18 @@ UNIT CONVERSIONS:
   - 1 Cup Sugar ≈ 200g
   - 1 Cup Water/Milk ≈ 240g
 
+STEP SPLITTING:
+- Break compound steps into small, single-action steps.
+- Each step should focus on a single coherent task — do not chain unrelated actions together.
+- BAD: "Cut the onions and garlic, heat butter in a pan and saute them for 3 minutes, then add the bacon."
+- GOOD: Step 1: "Cut the onions and garlic." → Step 2: "Heat butter in a pan and saute the onions and garlic for 3 minutes." → Step 3: "Add the bacon and cook until golden brown."
+- When splitting, repeat ingredient context so each step makes sense on its own.
+
 TIMERS:
 - Convert all durations to minutes (e.g. 1.5 hours → 90).
-- If no time is implied, set "minutes": null.
+- Only set "minutes" for longer passive/unattended steps where the cook might walk away and needs a reminder (e.g. simmering, baking, resting, marinating).
+- Do NOT set "minutes" for short active tasks like "saute for 3 minutes" or "stir for 1 minute" — the cook is actively engaged and does not need a timer.
+- If no timer is needed, set "minutes": null.
 
 OUTPUT:
 - Return a single JSON object with:
