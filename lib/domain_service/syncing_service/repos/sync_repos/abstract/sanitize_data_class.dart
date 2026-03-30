@@ -6,7 +6,7 @@ extension SanitizeDataClass on DataClass {
   Map<String, dynamic> _sanitizeJson(Map<String, dynamic> json) {
     return json.map((key, value) {
       if (value is double && (value.isNaN || value.isInfinite)) {
-        return MapEntry(key, null);
+        return MapEntry(key, 0);
       }
       if (value is Map<String, dynamic>) {
         return MapEntry(key, _sanitizeJson(value));
