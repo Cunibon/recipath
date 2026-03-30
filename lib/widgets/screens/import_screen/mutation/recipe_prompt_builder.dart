@@ -28,7 +28,7 @@ abstract class RecipePromptBuilder {
     final groceryBuffer = StringBuffer();
 
     for (final grocery in groceries.values) {
-      groceryBuffer.write("${grocery.name}, ");
+      groceryBuffer.write("${grocery.name} ${grocery.unit.name}, ");
     }
     final groceryList = groceryBuffer.toString();
 
@@ -86,7 +86,6 @@ UNIT CONVERSIONS:
   - 1 Cup Water/Milk ≈ 240g
 
 STEP SPLITTING:
-- Break compound steps into small, single-action steps.
 - Each step should focus on a single coherent task — do not chain unrelated actions together.
 - BAD: "Cut the onions and garlic, heat butter in a pan and saute them for 3 minutes, then add the bacon."
 - GOOD: Step 1: "Cut the onions and garlic." → Step 2: "Heat butter in a pan and saute the onions and garlic for 3 minutes." → Step 3: "Add the bacon and cook until golden brown."

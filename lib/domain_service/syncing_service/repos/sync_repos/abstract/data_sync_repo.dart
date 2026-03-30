@@ -3,6 +3,7 @@ import 'package:recipath/application_constants.dart';
 import 'package:recipath/domain_service/syncing_service/repos/download_result.dart';
 import 'package:recipath/domain_service/syncing_service/syncing_keys.dart';
 import 'package:recipath/repos/abstract/repo.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class DataSyncRepo {
@@ -21,7 +22,19 @@ abstract class DataSyncRepo {
     final uploadJson = toUploadData
         .map((e) => e.toJson()..remove(uploadedKey))
         .toList();
-    await supabaseClient.from(supabaseTableName).upsert(uploadJson);
+
+    try {
+      await supabaseClient.from(supabaseTableName).upsert(uploadJson);
+    } catch (e) {
+      await Sentry.addBreadcrumb(
+        Breadcrumb(
+          message: "Error uploading $supabaseTableName",
+          level: .error,
+          data: {"length": toUploadData.length, "data": uploadJson},
+        ),
+      );
+    }
+
     return toUploadData.length;
   }
 
