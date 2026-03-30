@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:recipath/application_constants.dart';
 import 'package:recipath/domain_service/syncing_service/repos/download_result.dart';
+import 'package:recipath/domain_service/syncing_service/repos/sync_repos/abstract/sanitize_data_class.dart';
 import 'package:recipath/domain_service/syncing_service/syncing_keys.dart';
 import 'package:recipath/repos/abstract/repo.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
@@ -20,7 +21,7 @@ abstract class DataSyncRepo {
   Future<int> upload() async {
     final toUploadData = await repo.getNotUploaded();
     final uploadJson = toUploadData
-        .map((e) => e.toJson()..remove(uploadedKey))
+        .map((e) => e.sanitizedJson()..remove(uploadedKey))
         .toList();
 
     try {
