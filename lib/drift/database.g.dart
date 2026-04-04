@@ -2423,6 +2423,18 @@ class $TagTableTable extends TagTable
     type: DriftSqlType.int,
     requiredDuringInsert: true,
   );
+  static const VerificationMeta _tagTypeMeta = const VerificationMeta(
+    'tagType',
+  );
+  @override
+  late final GeneratedColumn<String> tagType = GeneratedColumn<String>(
+    'tag_type',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant("Recipe"),
+  );
   static const VerificationMeta _deletedMeta = const VerificationMeta(
     'deleted',
   );
@@ -2459,6 +2471,7 @@ class $TagTableTable extends TagTable
     name,
     description,
     color,
+    tagType,
     deleted,
     uploaded,
   ];
@@ -2506,6 +2519,12 @@ class $TagTableTable extends TagTable
     } else if (isInserting) {
       context.missing(_colorMeta);
     }
+    if (data.containsKey('tag_type')) {
+      context.handle(
+        _tagTypeMeta,
+        tagType.isAcceptableOrUnknown(data['tag_type']!, _tagTypeMeta),
+      );
+    }
     if (data.containsKey('deleted')) {
       context.handle(
         _deletedMeta,
@@ -2543,6 +2562,10 @@ class $TagTableTable extends TagTable
         DriftSqlType.int,
         data['${effectivePrefix}color'],
       )!,
+      tagType: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}tag_type'],
+      )!,
       deleted: attachedDatabase.typeMapping.read(
         DriftSqlType.bool,
         data['${effectivePrefix}deleted'],
@@ -2565,6 +2588,7 @@ class TagTableData extends DataClass implements Insertable<TagTableData> {
   final String name;
   final String description;
   final int color;
+  final String tagType;
   final bool deleted;
   final bool uploaded;
   const TagTableData({
@@ -2572,6 +2596,7 @@ class TagTableData extends DataClass implements Insertable<TagTableData> {
     required this.name,
     required this.description,
     required this.color,
+    required this.tagType,
     required this.deleted,
     required this.uploaded,
   });
@@ -2582,6 +2607,7 @@ class TagTableData extends DataClass implements Insertable<TagTableData> {
     map['name'] = Variable<String>(name);
     map['description'] = Variable<String>(description);
     map['color'] = Variable<int>(color);
+    map['tag_type'] = Variable<String>(tagType);
     map['deleted'] = Variable<bool>(deleted);
     map['uploaded'] = Variable<bool>(uploaded);
     return map;
@@ -2593,6 +2619,7 @@ class TagTableData extends DataClass implements Insertable<TagTableData> {
       name: Value(name),
       description: Value(description),
       color: Value(color),
+      tagType: Value(tagType),
       deleted: Value(deleted),
       uploaded: Value(uploaded),
     );
@@ -2608,6 +2635,7 @@ class TagTableData extends DataClass implements Insertable<TagTableData> {
       name: serializer.fromJson<String>(json['name']),
       description: serializer.fromJson<String>(json['description']),
       color: serializer.fromJson<int>(json['color']),
+      tagType: serializer.fromJson<String>(json['tag_type']),
       deleted: serializer.fromJson<bool>(json['deleted']),
       uploaded: serializer.fromJson<bool>(json['uploaded']),
     );
@@ -2620,6 +2648,7 @@ class TagTableData extends DataClass implements Insertable<TagTableData> {
       'name': serializer.toJson<String>(name),
       'description': serializer.toJson<String>(description),
       'color': serializer.toJson<int>(color),
+      'tag_type': serializer.toJson<String>(tagType),
       'deleted': serializer.toJson<bool>(deleted),
       'uploaded': serializer.toJson<bool>(uploaded),
     };
@@ -2630,6 +2659,7 @@ class TagTableData extends DataClass implements Insertable<TagTableData> {
     String? name,
     String? description,
     int? color,
+    String? tagType,
     bool? deleted,
     bool? uploaded,
   }) => TagTableData(
@@ -2637,6 +2667,7 @@ class TagTableData extends DataClass implements Insertable<TagTableData> {
     name: name ?? this.name,
     description: description ?? this.description,
     color: color ?? this.color,
+    tagType: tagType ?? this.tagType,
     deleted: deleted ?? this.deleted,
     uploaded: uploaded ?? this.uploaded,
   );
@@ -2648,6 +2679,7 @@ class TagTableData extends DataClass implements Insertable<TagTableData> {
           ? data.description.value
           : this.description,
       color: data.color.present ? data.color.value : this.color,
+      tagType: data.tagType.present ? data.tagType.value : this.tagType,
       deleted: data.deleted.present ? data.deleted.value : this.deleted,
       uploaded: data.uploaded.present ? data.uploaded.value : this.uploaded,
     );
@@ -2660,6 +2692,7 @@ class TagTableData extends DataClass implements Insertable<TagTableData> {
           ..write('name: $name, ')
           ..write('description: $description, ')
           ..write('color: $color, ')
+          ..write('tagType: $tagType, ')
           ..write('deleted: $deleted, ')
           ..write('uploaded: $uploaded')
           ..write(')'))
@@ -2668,7 +2701,7 @@ class TagTableData extends DataClass implements Insertable<TagTableData> {
 
   @override
   int get hashCode =>
-      Object.hash(id, name, description, color, deleted, uploaded);
+      Object.hash(id, name, description, color, tagType, deleted, uploaded);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -2677,6 +2710,7 @@ class TagTableData extends DataClass implements Insertable<TagTableData> {
           other.name == this.name &&
           other.description == this.description &&
           other.color == this.color &&
+          other.tagType == this.tagType &&
           other.deleted == this.deleted &&
           other.uploaded == this.uploaded);
 }
@@ -2686,6 +2720,7 @@ class TagTableCompanion extends UpdateCompanion<TagTableData> {
   final Value<String> name;
   final Value<String> description;
   final Value<int> color;
+  final Value<String> tagType;
   final Value<bool> deleted;
   final Value<bool> uploaded;
   final Value<int> rowid;
@@ -2694,6 +2729,7 @@ class TagTableCompanion extends UpdateCompanion<TagTableData> {
     this.name = const Value.absent(),
     this.description = const Value.absent(),
     this.color = const Value.absent(),
+    this.tagType = const Value.absent(),
     this.deleted = const Value.absent(),
     this.uploaded = const Value.absent(),
     this.rowid = const Value.absent(),
@@ -2703,6 +2739,7 @@ class TagTableCompanion extends UpdateCompanion<TagTableData> {
     required String name,
     required String description,
     required int color,
+    this.tagType = const Value.absent(),
     this.deleted = const Value.absent(),
     this.uploaded = const Value.absent(),
     this.rowid = const Value.absent(),
@@ -2715,6 +2752,7 @@ class TagTableCompanion extends UpdateCompanion<TagTableData> {
     Expression<String>? name,
     Expression<String>? description,
     Expression<int>? color,
+    Expression<String>? tagType,
     Expression<bool>? deleted,
     Expression<bool>? uploaded,
     Expression<int>? rowid,
@@ -2724,6 +2762,7 @@ class TagTableCompanion extends UpdateCompanion<TagTableData> {
       if (name != null) 'name': name,
       if (description != null) 'description': description,
       if (color != null) 'color': color,
+      if (tagType != null) 'tag_type': tagType,
       if (deleted != null) 'deleted': deleted,
       if (uploaded != null) 'uploaded': uploaded,
       if (rowid != null) 'rowid': rowid,
@@ -2735,6 +2774,7 @@ class TagTableCompanion extends UpdateCompanion<TagTableData> {
     Value<String>? name,
     Value<String>? description,
     Value<int>? color,
+    Value<String>? tagType,
     Value<bool>? deleted,
     Value<bool>? uploaded,
     Value<int>? rowid,
@@ -2744,6 +2784,7 @@ class TagTableCompanion extends UpdateCompanion<TagTableData> {
       name: name ?? this.name,
       description: description ?? this.description,
       color: color ?? this.color,
+      tagType: tagType ?? this.tagType,
       deleted: deleted ?? this.deleted,
       uploaded: uploaded ?? this.uploaded,
       rowid: rowid ?? this.rowid,
@@ -2765,6 +2806,9 @@ class TagTableCompanion extends UpdateCompanion<TagTableData> {
     if (color.present) {
       map['color'] = Variable<int>(color.value);
     }
+    if (tagType.present) {
+      map['tag_type'] = Variable<String>(tagType.value);
+    }
     if (deleted.present) {
       map['deleted'] = Variable<bool>(deleted.value);
     }
@@ -2784,6 +2828,7 @@ class TagTableCompanion extends UpdateCompanion<TagTableData> {
           ..write('name: $name, ')
           ..write('description: $description, ')
           ..write('color: $color, ')
+          ..write('tagType: $tagType, ')
           ..write('deleted: $deleted, ')
           ..write('uploaded: $uploaded, ')
           ..write('rowid: $rowid')
@@ -7677,6 +7722,7 @@ typedef $$TagTableTableCreateCompanionBuilder =
       required String name,
       required String description,
       required int color,
+      Value<String> tagType,
       Value<bool> deleted,
       Value<bool> uploaded,
       Value<int> rowid,
@@ -7687,6 +7733,7 @@ typedef $$TagTableTableUpdateCompanionBuilder =
       Value<String> name,
       Value<String> description,
       Value<int> color,
+      Value<String> tagType,
       Value<bool> deleted,
       Value<bool> uploaded,
       Value<int> rowid,
@@ -7741,6 +7788,11 @@ class $$TagTableTableFilterComposer
 
   ColumnFilters<int> get color => $composableBuilder(
     column: $table.color,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get tagType => $composableBuilder(
+    column: $table.tagType,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -7809,6 +7861,11 @@ class $$TagTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<String> get tagType => $composableBuilder(
+    column: $table.tagType,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<bool> get deleted => $composableBuilder(
     column: $table.deleted,
     builder: (column) => ColumnOrderings(column),
@@ -7842,6 +7899,9 @@ class $$TagTableTableAnnotationComposer
 
   GeneratedColumn<int> get color =>
       $composableBuilder(column: $table.color, builder: (column) => column);
+
+  GeneratedColumn<String> get tagType =>
+      $composableBuilder(column: $table.tagType, builder: (column) => column);
 
   GeneratedColumn<bool> get deleted =>
       $composableBuilder(column: $table.deleted, builder: (column) => column);
@@ -7907,6 +7967,7 @@ class $$TagTableTableTableManager
                 Value<String> name = const Value.absent(),
                 Value<String> description = const Value.absent(),
                 Value<int> color = const Value.absent(),
+                Value<String> tagType = const Value.absent(),
                 Value<bool> deleted = const Value.absent(),
                 Value<bool> uploaded = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
@@ -7915,6 +7976,7 @@ class $$TagTableTableTableManager
                 name: name,
                 description: description,
                 color: color,
+                tagType: tagType,
                 deleted: deleted,
                 uploaded: uploaded,
                 rowid: rowid,
@@ -7925,6 +7987,7 @@ class $$TagTableTableTableManager
                 required String name,
                 required String description,
                 required int color,
+                Value<String> tagType = const Value.absent(),
                 Value<bool> deleted = const Value.absent(),
                 Value<bool> uploaded = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
@@ -7933,6 +7996,7 @@ class $$TagTableTableTableManager
                 name: name,
                 description: description,
                 color: color,
+                tagType: tagType,
                 deleted: deleted,
                 uploaded: uploaded,
                 rowid: rowid,

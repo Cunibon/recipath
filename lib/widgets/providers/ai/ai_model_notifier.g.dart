@@ -74,7 +74,7 @@ final class AiModelNotifierProvider
   }
 }
 
-String _$aiModelNotifierHash() => r'678c7819519b61fe5f83278f36180dc30d5e11bb';
+String _$aiModelNotifierHash() => r'f469b16a9194df8ef459da47376576be7c01b3d6';
 
 final class AiModelNotifierFamily extends $Family
     with

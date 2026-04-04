@@ -5,6 +5,7 @@ import 'package:random_string/random_string.dart';
 import 'package:recipath/application/tag_modifier/tag_modifier_notifier.dart';
 import 'package:recipath/common.dart';
 import 'package:recipath/data/tag_data/tag_data.dart';
+import 'package:recipath/data/tag_data/tag_type_enum.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/generic/dialogs/delete_confirmation_dialog.dart';
 import 'package:recipath/widgets/generic/dialogs/select_color_dialog.dart';
@@ -39,6 +40,7 @@ class _CreateTagScreenState extends ConsumerState<CreateTagScreen> {
         name: "",
         description: "",
         color: getRandomColorBasedOnString(id),
+        tagType: TagTypeEnum.recipe,
       );
     } else {
       initialData = existingData;

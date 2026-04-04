@@ -9,6 +9,8 @@ class TagTable extends Table {
   TextColumn get name => text()();
   TextColumn get description => text()();
   IntColumn get color => integer()();
+  TextColumn get tagType => text().withDefault(const Constant("Recipe"))();
+
   BoolColumn get deleted => boolean().withDefault(const Constant(false))();
 
   BoolColumn get uploaded => boolean().withDefault(Constant(false))();
