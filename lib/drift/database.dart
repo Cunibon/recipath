@@ -9,6 +9,7 @@ import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:recipath/drift/tables/file_table.dart';
 import 'package:recipath/drift/tables/grocery_table.dart';
+import 'package:recipath/drift/tables/grocery_tag_table.dart';
 import 'package:recipath/drift/tables/ingredient_table.dart';
 import 'package:recipath/drift/tables/recipe_shopping_table.dart';
 import 'package:recipath/drift/tables/recipe_statistic_table.dart';
@@ -31,6 +32,7 @@ part 'database.g.dart';
     GroceryTable,
     TagTable,
     RecipeTagTable,
+    GroceryTagTable,
     ShoppingTable,
     StorageTable,
     RecipeStatisticTable,
@@ -42,7 +44,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase([QueryExecutor? executor]) : super(executor ?? _openConnection());
 
   @override
-  int get schemaVersion => 16;
+  int get schemaVersion => 17;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -53,16 +55,6 @@ class AppDatabase extends _$AppDatabase {
       await customStatement('PRAGMA foreign_keys = ON;');
     },
     onUpgrade: (m, from, to) async {
-      if (from < 10) {
-        await m.addColumn(groceryTable, groceryTable.barcode);
-      }
-      if (from < 11) {
-        await m.addColumn(recipeStatisticTable, recipeStatisticTable.servings);
-      }
-      if (from < 12) {
-        await m.createTable(tagTable);
-        await m.createTable(recipeTagTable);
-      }
       if (from < 13) {
         await m.addColumn(recipeTable, recipeTable.parent);
       }
@@ -74,6 +66,9 @@ class AppDatabase extends _$AppDatabase {
       }
       if (from < 16) {
         await m.addColumn(tagTable, tagTable.tagType);
+      }
+      if (from < 17) {
+        await m.createTable(groceryTagTable);
       }
     },
   );

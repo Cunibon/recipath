@@ -87,7 +87,7 @@ class RecipeOverviewScreen extends ConsumerWidget {
                       bottom: 4,
                     ),
                     child: TagList(
-                      selectedTags: data.tags,
+                      currentTags: data.tags,
                       onEdited: (newTags) async {
                         final added = newTags.difference(data.tags);
                         final removed = data.tags.difference(newTags);

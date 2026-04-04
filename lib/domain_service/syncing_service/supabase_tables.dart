@@ -8,6 +8,7 @@ abstract class SupabaseTables {
   static String storage = 'storage';
   static String tag = "tag";
   static String recipeTag = "recipe_tag";
+  static String groceryTag = "grocery_tag";
   static String recipeStatistic = 'recipe_statistic';
   static String recipeShopping = 'recipe_shopping';
 }

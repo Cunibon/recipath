@@ -543,5 +543,5 @@ class AppLocalizationsFr extends AppLocalizations {
   String get enterValidUrl => 'Veuillez entrer une URL valide';
 
   @override
-  String get tagType => 'Tag type';
+  String get tagType => 'Type d\'étiquette';
 }

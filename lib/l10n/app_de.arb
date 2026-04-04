@@ -165,5 +165,6 @@
     "importImage": "Aus Bild importieren",
     "importUrl": "Aus URL importieren",
     "addAiUrlDescription": "URL hinzufügen, die Sie importieren möchten",
-    "enterValidUrl": "Bitte geben Sie eine gültige URL ein"
+    "enterValidUrl": "Bitte geben Sie eine gültige URL ein",
+    "tagType": "Tag-Typ"
 }

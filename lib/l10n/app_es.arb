@@ -165,5 +165,6 @@
     "importImage": "Importar desde imagen",
     "importUrl": "Importar desde URL",
     "addAiUrlDescription": "Agrega la URL que quieres intentar importar",
-    "enterValidUrl": "Por favor ingrese una URL válida"
+    "enterValidUrl": "Por favor ingrese una URL válida",
+    "tagType": "Tipo de etiqueta"
 }

@@ -6,14 +6,14 @@ import 'package:recipath/widgets/tag/tag.dart';
 
 class TagList extends StatelessWidget {
   const TagList({
-    required this.selectedTags,
+    required this.currentTags,
     this.allTags,
     this.onTagTapped,
     this.onEdited,
     super.key,
   });
 
-  final Set<TagData> selectedTags;
+  final Set<TagData> currentTags;
   final Set<TagData>? allTags;
   final void Function(TagData tagData)? onTagTapped;
 
@@ -21,7 +21,7 @@ class TagList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final sortedTags = selectedTags.toList()
+    final sortedTags = currentTags.toList()
       ..sort((a, b) => a.name.compareTo(b.name));
 
     return Wrap(
@@ -41,7 +41,7 @@ class TagList extends StatelessWidget {
                 context: context,
                 builder: (context) => ChangeTagDialog(
                   allTags: allTags,
-                  selected: selectedTags.map((e) => e.id),
+                  selected: currentTags.map((e) => e.id),
                 ),
               );
 
