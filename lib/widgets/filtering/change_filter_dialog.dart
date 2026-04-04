@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipath/data/tag_data/tag_data.dart';
+import 'package:recipath/data/tag_data/tag_type_enum.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/filtering/quick_filter_button.dart';
 import 'package:recipath/widgets/filtering/quick_filter_data.dart';
@@ -7,13 +8,13 @@ import 'package:recipath/widgets/tag/tag_list.dart';
 
 class ChangeFilterDialog extends StatefulWidget {
   const ChangeFilterDialog({
-    this.allTags = const {},
+    required this.filterType,
     this.selectedTags = const {},
     this.quickFilters = const [],
     required this.onClear,
     super.key,
   });
-  final Set<TagData> allTags;
+  final TagTypeEnum filterType;
   final Set<TagData> selectedTags;
   final List<QuickFilterData> quickFilters;
 
@@ -77,7 +78,7 @@ class _ChangeFilterDialogState extends State<ChangeFilterDialog> {
               Divider(),
             ],
             TagList(
-              allTags: widget.allTags,
+              tagType: widget.filterType,
               currentTags: selectedTags,
               onTagTapped: (tagData) => setState(() {
                 selectedTags = Set.from(selectedTags..remove(tagData));

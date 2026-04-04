@@ -3,9 +3,9 @@ import 'package:recipath/data/ingredient_data/ingredient_data.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
 import 'package:recipath/data/recipe_step_data/recipe_step_data.dart';
 import 'package:recipath/drift/database.dart';
-import 'package:recipath/repos/recipe/recipe_repo.dart';
+import 'package:recipath/repos/abstract/tag_filtered_repo.dart';
 
-class RecipeRepoDrift extends RecipeRepo {
+class RecipeRepoDrift extends TagFilteredRepo<RecipeData> {
   RecipeRepoDrift(super.db, {this.incluedArchived = false});
   final bool incluedArchived;
 

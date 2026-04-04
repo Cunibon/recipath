@@ -89,6 +89,7 @@ class CompactRecipeItemContent extends ConsumerWidget {
               if (compactRecipeData.tags.isNotEmpty) ...[
                 Divider(),
                 TagList(
+                  tagType: .recipe,
                   currentTags: compactRecipeData.tags,
                   onTagTapped: onTagTapped,
                 ),

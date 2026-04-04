@@ -1,9 +1,9 @@
 import 'package:drift/drift.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/drift/database.dart';
-import 'package:recipath/repos/abstract/local_repo.dart';
+import 'package:recipath/repos/abstract/tag_filtered_repo.dart';
 
-class GroceryRepoDrift extends LocalRepo<GroceryData> {
+class GroceryRepoDrift extends TagFilteredRepo<GroceryData> {
   GroceryRepoDrift(super.db, {this.incluedArchived = false});
   final bool incluedArchived;
 
@@ -51,5 +51,33 @@ class GroceryRepoDrift extends LocalRepo<GroceryData> {
   @override
   Future<void> clear() async {
     await db.delete(table).go();
+  }
+
+  @override
+  Stream<Map<String, GroceryData>> streamFiltered(Set<String> tagDataFilters) {
+    final query = baseQuery;
+
+    query.where((tbl) => tbl.archived.equals(false));
+
+    if (tagDataFilters.isNotEmpty) {
+      final requiredTagIds = tagDataFilters;
+
+      final tagSubquery = db.selectOnly(db.groceryTagTable)
+        ..addColumns([db.groceryTagTable.groceryId])
+        ..where(db.groceryTagTable.tagId.isIn(requiredTagIds))
+        ..groupBy(
+          [db.groceryTagTable.groceryId],
+          having: db.groceryTagTable.tagId
+              .count(distinct: true)
+              .equals(requiredTagIds.length),
+        );
+      query.where((tbl) => tbl.id.isInQuery(tagSubquery));
+    }
+
+    return query.watch().map(
+      (event) => {
+        for (final row in event) row.id: GroceryData.fromTableData(row),
+      },
+    );
   }
 }

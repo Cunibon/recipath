@@ -2,22 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:random_string/random_string.dart';
+import 'package:recipath/application/gorcery_tag_modifier/grocery_tag_modifier_notifier.dart';
 import 'package:recipath/application/grocery_modifier/grocery_modifier_notifier.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
+import 'package:recipath/data/grocery_tag_data/grocery_tag_data.dart';
 import 'package:recipath/data/gtin_data/gtin_data.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
+import 'package:recipath/data/tag_data/tag_type_enum.dart';
 import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/l10n/app_localizations.dart';
-import 'package:recipath/repos/recipe/drift/recipe_repo_notifier.dart';
+import 'package:recipath/repos/recipe/recipe_repo_notifier.dart';
 import 'package:recipath/repos/shopping/shopping_repo_notifier.dart';
 import 'package:recipath/repos/storage/storage_repo_notifier.dart';
+import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/generic/dialogs/delete_confirmation_dialog.dart';
 import 'package:recipath/widgets/generic/information_dialog.dart';
 import 'package:recipath/widgets/generic/unsaved_changes_scope.dart';
 import 'package:recipath/widgets/providers/double_number_format_notifier.dart';
 import 'package:recipath/widgets/screens/grocery_screen/create_grocery_screen/grocery_form_fields.dart';
 import 'package:recipath/widgets/screens/grocery_screen/grocery_routes.dart';
+import 'package:recipath/widgets/screens/grocery_screen/providers/filtered_grocery_notifier.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
+import 'package:recipath/widgets/screens/grocery_screen/providers/tags_per_grocery_provider.dart';
+import 'package:recipath/widgets/tag/tag_list.dart';
 
 class CreateGroceryScreen extends ConsumerStatefulWidget {
   const CreateGroceryScreen({this.groceryId, super.key});
@@ -46,7 +53,7 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
   void initState() {
     super.initState();
     initialData =
-        ref.read(groceryProvider).value![widget.groceryId] ??
+        ref.read(filteredGroceryProvider).value?[widget.groceryId] ??
         GroceryData(
           id: randomAlphaNumeric(16),
           name: "",
@@ -279,18 +286,59 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
           key: formKey,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: GroceryFormFields(
-              updateData: (newData) => setState(() => data = newData),
-              nameController: nameController,
-              amountController: amountController,
-              conversionController: conversionController,
-              barcodeController: barcodeController,
-              kcalController: kcalController,
-              fatController: fatController,
-              carbsController: carbsController,
-              proteinController: proteinController,
-              fiberController: fiberController,
-              data: data,
+            child: Column(
+              crossAxisAlignment: .start,
+              children: [
+                GroceryFormFields(
+                  updateData: (newData) => setState(() => data = newData),
+                  nameController: nameController,
+                  amountController: amountController,
+                  conversionController: conversionController,
+                  barcodeController: barcodeController,
+                  kcalController: kcalController,
+                  fatController: fatController,
+                  carbsController: carbsController,
+                  proteinController: proteinController,
+                  fiberController: fiberController,
+                  data: data,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  child: CachedAsyncValueWrapper(
+                    asyncState: ref.watch(tagsPerGroceryProvider),
+
+                    builder: (data) {
+                      final tags = data[initialData.id] ?? {};
+                      return TagList(
+                        currentTags: tags,
+                        tagType: TagTypeEnum.grocery,
+                        onEdited: (newTags) async {
+                          final added = newTags.difference(tags);
+                          final removed = tags.difference(newTags);
+
+                          final modifier = ref.read(groceryTagModifierProvider);
+                          for (final addedTag in added) {
+                            modifier.add(
+                              GroceryTagData(
+                                groceryId: initialData.id,
+                                tagId: addedTag.id,
+                              ),
+                            );
+                          }
+                          for (final removedTag in removed) {
+                            modifier.delete(
+                              GroceryTagData(
+                                groceryId: initialData.id,
+                                tagId: removedTag.id,
+                              ),
+                            );
+                          }
+                        },
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
           ),
         ),

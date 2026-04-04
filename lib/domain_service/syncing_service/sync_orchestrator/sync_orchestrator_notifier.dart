@@ -14,7 +14,7 @@ import 'package:recipath/domain_service/syncing_service/sync_orchestrator/sync_o
 import 'package:recipath/repos/grocery/full_grocery_repo_notifier.dart';
 import 'package:recipath/repos/grocery_tag/full_grocery_tag_repo_notifier.dart';
 import 'package:recipath/repos/ingredient_repo/ingredient_repo_notifier.dart';
-import 'package:recipath/repos/recipe/drift/full_recipe_repo_notifier.dart';
+import 'package:recipath/repos/recipe/full_recipe_repo_notifier.dart';
 import 'package:recipath/repos/recipe_shopping/recipe_shopping_repo_notifier.dart';
 import 'package:recipath/repos/recipe_statistics/recipe_statistics_repo_notifier.dart';
 import 'package:recipath/repos/recipe_step_ingredient_repo/recipe_step_ingredient_repo_notifier.dart';

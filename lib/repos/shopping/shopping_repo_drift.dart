@@ -2,9 +2,9 @@ import 'package:drift/drift.dart';
 import 'package:recipath/data/ingredient_data/ingredient_data.dart';
 import 'package:recipath/data/shopping_data/shopping_data.dart';
 import 'package:recipath/drift/database.dart';
-import 'package:recipath/repos/abstract/local_repo.dart';
+import 'package:recipath/repos/abstract/tag_filtered_repo.dart';
 
-class ShoppingRepoDrift extends LocalRepo<ShoppingData> {
+class ShoppingRepoDrift extends TagFilteredRepo<ShoppingData> {
   ShoppingRepoDrift(super.db, {this.incluedDeleted = false});
   final bool incluedDeleted;
 
@@ -91,5 +91,32 @@ class ShoppingRepoDrift extends LocalRepo<ShoppingData> {
       'DELETE FROM ${db.ingredientTable.actualTableName} WHERE id IN (SELECT ${table.ingredientId.name} FROM ${table.actualTableName})',
     );
     await db.delete(table).go();
+  }
+
+  @override
+  Stream<Map<String, ShoppingData>> streamFiltered(Set<String> tagDataFilters) {
+    final query = baseQuery;
+
+    if (tagDataFilters.isNotEmpty) {
+      final requiredTagIds = tagDataFilters;
+
+      final grocerySubquery = db.selectOnly(db.groceryTagTable)
+        ..addColumns([db.groceryTagTable.groceryId])
+        ..where(db.groceryTagTable.tagId.isIn(requiredTagIds))
+        ..groupBy(
+          [db.groceryTagTable.groceryId],
+          having: db.groceryTagTable.tagId
+              .count(distinct: true)
+              .equals(requiredTagIds.length),
+        );
+
+      final ingredientSubquery = db.selectOnly(db.ingredientTable)
+        ..addColumns([db.ingredientTable.id])
+        ..where(db.ingredientTable.groceryId.isInQuery(grocerySubquery));
+
+      query.where(table.ingredientId.isInQuery(ingredientSubquery));
+    }
+
+    return query.watch().map(mapResult);
   }
 }

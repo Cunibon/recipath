@@ -4,7 +4,7 @@ import 'package:recipath/helper/go_router_extension.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/navigation/default_navigation_title.dart';
 import 'package:recipath/widgets/navigation/navigation_drawer_scaffold.dart';
-import 'package:recipath/widgets/screens/tag_screen/providers/tag_screen_notifier.dart';
+import 'package:recipath/widgets/screens/tag_screen/providers/typed_tag_notifier.dart';
 import 'package:recipath/widgets/screens/tag_screen/tag_routes.dart';
 import 'package:recipath/widgets/screens/tag_screen/tag_tabs.dart';
 
@@ -13,7 +13,7 @@ class TagScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(tagScreenProvider);
+    final state = ref.watch(typedTagProvider);
 
     return NavigationDrawerScaffold(
       titleBuilder: (title) => DefaultNavigationTitle(

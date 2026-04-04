@@ -16,7 +16,7 @@ final class TagFilterNotifierProvider
     extends $NotifierProvider<TagFilterNotifier, Set<String>> {
   TagFilterNotifierProvider._({
     required TagFilterNotifierFamily super.from,
-    required FilterTypes super.argument,
+    required TagTypeEnum super.argument,
   }) : super(
          retry: null,
          name: r'tagFilterProvider',
@@ -58,7 +58,7 @@ final class TagFilterNotifierProvider
   }
 }
 
-String _$tagFilterNotifierHash() => r'7d9f04955d8fa69969dc1798567f07282a815cc7';
+String _$tagFilterNotifierHash() => r'1ea49ac741e21dc46c45c952e552a677f582a599';
 
 final class TagFilterNotifierFamily extends $Family
     with
@@ -67,7 +67,7 @@ final class TagFilterNotifierFamily extends $Family
           Set<String>,
           Set<String>,
           Set<String>,
-          FilterTypes
+          TagTypeEnum
         > {
   TagFilterNotifierFamily._()
     : super(
@@ -78,7 +78,7 @@ final class TagFilterNotifierFamily extends $Family
         isAutoDispose: true,
       );
 
-  TagFilterNotifierProvider call(FilterTypes filterType) =>
+  TagFilterNotifierProvider call(TagTypeEnum filterType) =>
       TagFilterNotifierProvider._(argument: filterType, from: this);
 
   @override
@@ -86,10 +86,10 @@ final class TagFilterNotifierFamily extends $Family
 }
 
 abstract class _$TagFilterNotifier extends $Notifier<Set<String>> {
-  late final _$args = ref.$arg as FilterTypes;
-  FilterTypes get filterType => _$args;
+  late final _$args = ref.$arg as TagTypeEnum;
+  TagTypeEnum get filterType => _$args;
 
-  Set<String> build(FilterTypes filterType);
+  Set<String> build(TagTypeEnum filterType);
   @$mustCallSuper
   @override
   void runBuild() {

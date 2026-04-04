@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/application_constants.dart';
-import 'package:recipath/data/grocery_data/grocery_data.dart';
+import 'package:recipath/data/tag_data/tag_type_enum.dart';
 import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/helper/go_router_extension.dart';
 import 'package:recipath/l10n/app_localizations.dart';
+import 'package:recipath/widgets/filtering/tag_filter_notifier.dart';
 import 'package:recipath/widgets/generic/highlight_search/highlightable_text.dart';
 import 'package:recipath/widgets/providers/double_number_format_notifier.dart';
+import 'package:recipath/widgets/screens/grocery_screen/data/grocery_item_data.dart';
 import 'package:recipath/widgets/screens/grocery_screen/grocery_routes.dart';
+import 'package:recipath/widgets/tag/tag_list.dart';
 
 class GroceryItem extends ConsumerWidget {
   const GroceryItem({required this.data, super.key});
-  final GroceryData data;
+  final GroceryItemData data;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -23,29 +26,44 @@ class GroceryItem extends ConsumerWidget {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: .spaceBetween,
+        child: Column(
           crossAxisAlignment: .start,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            Row(
+              mainAxisAlignment: .spaceBetween,
+              crossAxisAlignment: .start,
               children: [
-                HighlightableText(
-                  data.name,
-                  style: TextTheme.of(context).titleMedium,
+                Column(
+                  crossAxisAlignment: .start,
+                  children: [
+                    HighlightableText(
+                      data.groceryData.name,
+                      style: TextTheme.of(context).titleMedium,
+                    ),
+                    HighlightableText(
+                      "${doubleNumberFormat.format(data.groceryData.normalAmount)}${unitLocalized[data.groceryData.unit]}",
+                    ),
+                  ],
                 ),
-                HighlightableText(
-                  "${doubleNumberFormat.format(data.normalAmount)}${unitLocalized[data.unit]}",
+                IconButton(
+                  onPressed: () => context.goRelative(
+                    GroceryRoutes.createGrocery.path,
+                    queryParameters: {idParameter: data.groceryData.id},
+                  ),
+                  icon: Icon(Icons.edit),
                 ),
               ],
             ),
-            IconButton(
-              onPressed: () => context.goRelative(
-                GroceryRoutes.createGrocery.path,
-                queryParameters: {idParameter: data.id},
+            if (data.tags.isNotEmpty) ...[
+              Divider(),
+              TagList(
+                currentTags: data.tags,
+                tagType: TagTypeEnum.grocery,
+                onTagTapped: (tagData) => ref
+                    .read(tagFilterProvider(TagTypeEnum.grocery).notifier)
+                    .toggleFilter(filter: tagData),
               ),
-              icon: Icon(Icons.edit),
-            ),
+            ],
           ],
         ),
       ),
