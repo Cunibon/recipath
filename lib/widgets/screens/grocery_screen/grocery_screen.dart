@@ -21,7 +21,7 @@ class GroceryScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncData = ref.watch(groceryProvider);
     final localization = AppLocalizations.of(context)!;
-    final unitLocalized = localizeUnits(context);
+    final unitLocalized = localizeUnits(localization);
 
     final doubleNumberFormat = ref.watch(doubleNumberFormatProvider);
 

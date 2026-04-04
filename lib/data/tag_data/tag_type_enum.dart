@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 
@@ -10,11 +9,7 @@ enum TagTypeEnum {
   grocery,
 }
 
-Map<TagTypeEnum, String> localizeUnits(BuildContext context) {
-  final localization = AppLocalizations.of(context)!;
-
-  return {
-    TagTypeEnum.recipe: localization.recipe,
-    TagTypeEnum.grocery: localization.grocery,
-  };
-}
+Map<TagTypeEnum, String> localizeTagType(AppLocalizations localization) => {
+  TagTypeEnum.recipe: localization.recipe,
+  TagTypeEnum.grocery: localization.grocery,
+};

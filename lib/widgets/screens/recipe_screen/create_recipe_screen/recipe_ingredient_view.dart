@@ -33,7 +33,7 @@ class _RecipeIngredientViewState extends ConsumerState<RecipeIngredientView> {
   @override
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context)!;
-    final localizedUnits = localizeUnits(context);
+    final localizedUnits = localizeUnits(localization);
 
     final listCopy = List<IngredientData>.from(widget.ingredients);
 
@@ -61,9 +61,9 @@ class _RecipeIngredientViewState extends ConsumerState<RecipeIngredientView> {
         children: [
           Text(
             expanded ? localization.collapse : localization.expand,
-            style: TextTheme.of(context).bodyLarge!.copyWith(
-              color: Theme.of(context).colorScheme.primary,
-            ),
+            style: TextTheme.of(
+              context,
+            ).bodyLarge!.copyWith(color: Theme.of(context).colorScheme.primary),
           ),
           Icon(
             expanded ? Icons.keyboard_arrow_down : Icons.keyboard_arrow_right,

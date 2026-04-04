@@ -1097,6 +1097,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please enter a valid Url'**
   String get enterValidUrl;
+
+  /// No description provided for @tagType.
+  ///
+  /// In en, this message translates to:
+  /// **'Tag type'**
+  String get tagType;
 }
 
 class _AppLocalizationsDelegate

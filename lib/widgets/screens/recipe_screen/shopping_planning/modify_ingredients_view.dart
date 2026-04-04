@@ -25,7 +25,7 @@ class ModifyIngredientsView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final localization = AppLocalizations.of(context)!;
-    final unitLocalized = localizeUnits(context);
+    final unitLocalized = localizeUnits(localization);
 
     final doubleNumberFormat = ref.watch(doubleNumberFormatProvider);
 

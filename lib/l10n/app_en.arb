@@ -226,5 +226,6 @@
     "importImage": "Import from image",
     "importUrl": "Import from Url",
     "addAiUrlDescription": "Add Url you want to try to import",
-    "enterValidUrl": "Please enter a valid Url"
+    "enterValidUrl": "Please enter a valid Url",
+    "tagType": "Tag type"
 }

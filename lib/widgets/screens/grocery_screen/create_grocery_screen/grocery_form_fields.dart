@@ -39,7 +39,7 @@ class GroceryFormFields extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final localization = AppLocalizations.of(context)!;
-    final localizedUnits = localizeUnits(context);
+    final localizedUnits = localizeUnits(localization);
 
     final unitType = UnitConversion.unitType(data.unit);
 

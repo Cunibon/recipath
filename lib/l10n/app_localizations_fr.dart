@@ -541,4 +541,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get enterValidUrl => 'Veuillez entrer une URL valide';
+
+  @override
+  String get tagType => 'Tag type';
 }

@@ -60,6 +60,7 @@ class _CreateTagScreenState extends ConsumerState<CreateTagScreen> {
   @override
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context)!;
+    final enumLocalization = localizeTagType(localization);
 
     return UnsavedChangesScope(
       canPop: data == initialData,
@@ -129,6 +130,22 @@ class _CreateTagScreenState extends ConsumerState<CreateTagScreen> {
                     onChanged: (value) => setState(
                       () => data = data.copyWith(description: value),
                     ),
+                  ),
+                  SizedBox(height: 10),
+                  DropdownButtonFormField(
+                    initialValue: data.tagType,
+                    decoration: InputDecoration(
+                      labelText: localization.tagType,
+                    ),
+                    items: [
+                      for (final tagType in TagTypeEnum.values)
+                        DropdownMenuItem(
+                          value: tagType,
+                          child: Text(enumLocalization[tagType]!),
+                        ),
+                    ],
+                    onChanged: (value) =>
+                        setState(() => data = data.copyWith(tagType: value!)),
                   ),
                   SizedBox(height: 16),
                   GestureDetector(
