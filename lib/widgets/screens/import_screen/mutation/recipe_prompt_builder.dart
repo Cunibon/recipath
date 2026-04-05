@@ -3,12 +3,13 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/experimental/mutation.dart';
 import 'package:langchain/langchain.dart';
+import 'package:recipath/data/tag_data/tag_type_enum.dart';
 import 'package:recipath/gen/assets.gen.dart';
 import 'package:recipath/widgets/providers/ai/ai_model_notifier.dart';
 import 'package:recipath/widgets/providers/ai/ai_provider_notifier.dart';
 import 'package:recipath/widgets/providers/locale_notifier.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
-import 'package:recipath/widgets/screens/tag_screen/providers/tag_notifier.dart';
+import 'package:recipath/widgets/screens/tag_screen/providers/typed_tag_notifier.dart';
 
 abstract class RecipePromptBuilder {
   static Future<Runnable<Map<String, dynamic>, RunnableOptions, ChatResult>?>
@@ -32,10 +33,11 @@ abstract class RecipePromptBuilder {
     }
     final groceryList = groceryBuffer.toString();
 
-    final tags = await tsx.get(tagProvider.future);
+    final typedTags = await tsx.get(typedTagProvider.future);
+    final recipeTags = typedTags[TagTypeEnum.recipe]!;
     final tagBuffer = StringBuffer();
 
-    for (final tag in tags.values) {
+    for (final tag in recipeTags.values) {
       tagBuffer.write("${tag.name}, ");
     }
     final tagList = tagBuffer.toString();
@@ -61,6 +63,7 @@ TAG MATCHING:
 The user has the following tags available: $tagList.
 When a tag matches an existing one, reuse it with its EXACT original name — do NOT translate or rename it.
 Only create new tags if no existing one matches. New tag names should be in $userLanguage.
+If an existing tag related to AI exists (e.g., "AI", "AI-generated", "AI-created"), apply it to this recipe.
 New tags should have a unique color.
 
 CRITICAL RULES:
