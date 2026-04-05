@@ -533,4 +533,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get tagType => 'Tag type';
+
+  @override
+  String get shareFile => 'Share file';
+
+  @override
+  String get sharePdf => 'Share PDF';
 }

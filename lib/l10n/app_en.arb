@@ -227,5 +227,7 @@
     "importUrl": "Import from Url",
     "addAiUrlDescription": "Add Url you want to try to import",
     "enterValidUrl": "Please enter a valid Url",
-    "tagType": "Tag type"
+    "tagType": "Tag type",
+    "shareFile": "Share file",
+    "sharePdf": "Share PDF"
 }

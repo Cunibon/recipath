@@ -542,4 +542,10 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get tagType => 'Tipo de etiqueta';
+
+  @override
+  String get shareFile => 'Compartir archivo';
+
+  @override
+  String get sharePdf => 'Compartir PDF';
 }

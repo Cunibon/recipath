@@ -13,14 +13,10 @@ enum Nutriments {
   final Color color;
 }
 
-Map<Nutriments, String> localizeNutriments(BuildContext context) {
-  final localization = AppLocalizations.of(context)!;
-
-  return {
-    Nutriments.kcal: localization.kcal,
-    Nutriments.fat: localization.fat,
-    Nutriments.carbs: localization.carbs,
-    Nutriments.protein: localization.protein,
-    Nutriments.fiber: localization.fiber,
-  };
-}
+Map<Nutriments, String> localizeNutriments(AppLocalizations localization) => {
+  Nutriments.kcal: localization.kcal,
+  Nutriments.fat: localization.fat,
+  Nutriments.carbs: localization.carbs,
+  Nutriments.protein: localization.protein,
+  Nutriments.fiber: localization.fiber,
+};

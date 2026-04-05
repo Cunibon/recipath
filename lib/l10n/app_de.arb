@@ -166,5 +166,7 @@
     "importUrl": "Aus URL importieren",
     "addAiUrlDescription": "URL hinzufügen, die Sie importieren möchten",
     "enterValidUrl": "Bitte geben Sie eine gültige URL ein",
-    "tagType": "Tag-Typ"
+    "tagType": "Tag-Typ",
+    "shareFile": "Datei teilen",
+    "sharePdf": "PDF teilen"
 }

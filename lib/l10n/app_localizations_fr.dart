@@ -544,4 +544,10 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get tagType => 'Type d\'étiquette';
+
+  @override
+  String get shareFile => 'Partager le fichier';
+
+  @override
+  String get sharePdf => 'Partager le PDF';
 }

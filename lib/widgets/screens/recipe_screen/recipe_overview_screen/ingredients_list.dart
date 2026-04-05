@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
+import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/ingredient_data/ingredient_data.dart';
 import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/l10n/app_localizations.dart';
@@ -11,15 +13,13 @@ class IngredientsList extends ConsumerWidget {
 
   final List<IngredientData> ingredients;
 
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final localization = AppLocalizations.of(context)!;
+  static String buildString({
+    required AppLocalizations localization,
+    required NumberFormat doubleNumberFormat,
+    required List<IngredientData> ingredients,
+    required Map<String, GroceryData> groceryMap,
+  }) {
     final unitLocalized = localizeUnits(localization);
-
-    final doubleNumberFormat = ref.watch(doubleNumberFormatProvider);
-
-    final groceryMap = ref.watch(groceryProvider).value!;
-
     final ingredientBuffer = StringBuffer();
 
     ingredientBuffer.writeln("${localization.ingredients}:");
@@ -30,6 +30,22 @@ class IngredientsList extends ConsumerWidget {
       );
     }
 
-    return Text(ingredientBuffer.toString().trimRight());
+    return ingredientBuffer.toString().trimRight();
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final localization = AppLocalizations.of(context)!;
+    final doubleNumberFormat = ref.watch(doubleNumberFormatProvider);
+    final groceryMap = ref.watch(groceryProvider).value!;
+
+    return Text(
+      buildString(
+        localization: localization,
+        doubleNumberFormat: doubleNumberFormat,
+        ingredients: ingredients,
+        groceryMap: groceryMap,
+      ),
+    );
   }
 }

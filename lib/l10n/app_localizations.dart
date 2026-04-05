@@ -1103,6 +1103,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Tag type'**
   String get tagType;
+
+  /// No description provided for @shareFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Share file'**
+  String get shareFile;
+
+  /// No description provided for @sharePdf.
+  ///
+  /// In en, this message translates to:
+  /// **'Share PDF'**
+  String get sharePdf;
 }
 
 class _AppLocalizationsDelegate

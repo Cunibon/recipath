@@ -166,5 +166,7 @@
     "importUrl": "Importer depuis une URL",
     "addAiUrlDescription": "Ajoutez l'URL que vous souhaitez essayer d'importer",
     "enterValidUrl": "Veuillez entrer une URL valide",
-    "tagType": "Type d'étiquette"
+    "tagType": "Type d'étiquette",
+    "shareFile": "Partager le fichier",
+    "sharePdf": "Partager le PDF"
 }
