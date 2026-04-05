@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/ingredient_data/ingredient_data.dart';
@@ -11,17 +12,25 @@ class PdfIngredientsList extends StatelessWidget {
     required this.ingredients,
     required this.groceries,
     required this.doubleNumberFormat,
+    required this.surfaceContainerColor,
+    required this.primaryColor,
   });
 
   final AppLocalizations localization;
-
   final List<IngredientData> ingredients;
   final Map<String, GroceryData> groceries;
   final NumberFormat doubleNumberFormat;
+  final PdfColor surfaceContainerColor;
+  final PdfColor primaryColor;
 
   @override
   Widget build(Context context) {
     return Container(
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: surfaceContainerColor,
+        borderRadius: BorderRadius.circular(6),
+      ),
       child: Text(
         IngredientsList.buildString(
           localization: localization,
@@ -29,6 +38,7 @@ class PdfIngredientsList extends StatelessWidget {
           ingredients: ingredients,
           groceryMap: groceries,
         ).replaceAll("●", "-"),
+        style: TextStyle(fontSize: 10),
       ),
     );
   }

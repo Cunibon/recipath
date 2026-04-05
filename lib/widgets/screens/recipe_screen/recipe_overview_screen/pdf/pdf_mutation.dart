@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart' as flutter;
 import 'package:flutter_riverpod/experimental/mutation.dart';
 import 'package:pdf/widgets.dart';
 import 'package:recipath/common.dart';
@@ -42,6 +43,7 @@ abstract class PdfMutation {
             groceries: groceriesAsync,
             localization: localization,
             doubleNumberFormat: doubleNumberFormat,
+            theme: flutter.ThemeData.light(),
           ),
         ],
       ),

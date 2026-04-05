@@ -13,27 +13,25 @@ class PdfRecipeStep extends StatelessWidget {
     required this.step,
     required this.groceries,
     required this.doubleNumberFormat,
+    required this.surfaceContainerColor,
+    required this.primaryColor,
   });
 
   final AppLocalizations localization;
-
   final int index;
   final RecipeStepData step;
   final Map<String, GroceryData> groceries;
   final NumberFormat doubleNumberFormat;
-
-  static final PdfColor grey400 = PdfColor.fromHex('#BDBDBD');
-  static final PdfColor blue700 = PdfColor.fromHex('#1976D2');
-  static final PdfColor orange700 = PdfColor.fromHex('#F57C00');
-  static final PdfColor white = PdfColor.fromHex('#FFFFFF');
+  final PdfColor surfaceContainerColor;
+  final PdfColor primaryColor;
 
   @override
   Widget build(Context context) {
     return Container(
-      padding: EdgeInsets.all(8),
+      padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
-        border: Border.all(color: grey400),
-        borderRadius: BorderRadius.circular(4),
+        color: surfaceContainerColor,
+        border: Border(left: BorderSide(color: primaryColor, width: 3)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,16 +39,18 @@ class PdfRecipeStep extends StatelessWidget {
           Row(
             children: [
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                width: 24,
+                height: 24,
+                alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  color: blue700,
-                  borderRadius: BorderRadius.circular(4),
+                  color: primaryColor,
+                  borderRadius: BorderRadius.circular(12),
                 ),
                 child: Text(
-                  '${localization.step} ${index + 1}',
+                  '${index + 1}',
                   style: TextStyle(
-                    color: white,
-                    fontSize: 12,
+                    color: PdfColors.white,
+                    fontSize: 11,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -58,32 +58,29 @@ class PdfRecipeStep extends StatelessWidget {
               if (step.minutes != null) ...[
                 SizedBox(width: 8),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                   decoration: BoxDecoration(
-                    color: orange700,
                     borderRadius: BorderRadius.circular(4),
                   ),
                   child: Text(
                     '${step.minutes} min',
-                    style: TextStyle(color: white, fontSize: 12),
+                    style: TextStyle(fontSize: 9),
                   ),
                 ),
               ],
             ],
           ),
-          SizedBox(height: 8),
-          Divider(),
-          SizedBox(height: 8),
-          Text(step.description, style: TextStyle(fontSize: 12)),
+          SizedBox(height: 6),
+          Text(step.description, style: TextStyle(fontSize: 11)),
           if (step.ingredients.isNotEmpty) ...[
-            SizedBox(height: 12),
-            Divider(),
             SizedBox(height: 8),
             PdfIngredientsList(
               localization: localization,
               ingredients: step.ingredients,
               groceries: groceries,
               doubleNumberFormat: doubleNumberFormat,
+              surfaceContainerColor: surfaceContainerColor,
+              primaryColor: primaryColor,
             ),
           ],
         ],
