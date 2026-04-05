@@ -34,6 +34,7 @@ abstract class DataSyncRepo {
           data: {"length": toUploadData.length, "data": uploadJson},
         ),
       );
+      rethrow;
     }
 
     return toUploadData.length;
