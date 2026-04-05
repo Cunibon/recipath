@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/application/storage_modifier/storage_modifier_notifier.dart';
 import 'package:recipath/data/ingredient_data/ingredient_data.dart';
+import 'package:recipath/data/tag_data/tag_type_enum.dart';
 import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/l10n/app_localizations.dart';
+import 'package:recipath/widgets/filtering/filter_button.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/generic/dialogs/clear_confirmation_dialog.dart';
 import 'package:recipath/widgets/generic/empty_state.dart';
@@ -74,6 +76,7 @@ class _StorageScreenState extends ConsumerState<StorageScreen> {
           ),
           sort: (a, b) => data.groceries[a.ingredient.groceryId]!.name
               .compareTo(data.groceries[b.ingredient.groceryId]!.name),
+          trailing: FilterButton(filterType: TagTypeEnum.grocery),
           emptyState: EmptyState(hint: localization.storageHint),
         ),
       ),

@@ -2,6 +2,7 @@ import 'package:random_string/random_string.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/ingredient_data/ingredient_data.dart';
 import 'package:recipath/data/storage_data/storage_data.dart';
+import 'package:recipath/widgets/screens/grocery_screen/providers/filtered_grocery_notifier.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 import 'package:recipath/widgets/screens/storage_screen/providers/storage_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -11,7 +12,7 @@ part 'storage_sceen_state_notifier.g.dart';
 @riverpod
 Future<StorageScreenState> storageScreenStateNotifier(Ref ref) async {
   final inStorage = await ref.watch(storageProvider.future);
-  final groceries = await ref.watch(groceryProvider.future);
+  final groceries = await ref.watch(filteredGroceryProvider.future);
 
   final storageData = groceries.values
       .map(

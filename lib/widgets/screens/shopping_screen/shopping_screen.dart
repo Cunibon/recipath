@@ -4,9 +4,11 @@ import 'package:go_router/go_router.dart';
 import 'package:recipath/application/shopping_modifier/shopping_modifier_notifier.dart';
 import 'package:recipath/data/ingredient_data/ingredient_data.dart';
 import 'package:recipath/data/shopping_data/shopping_data.dart';
+import 'package:recipath/data/tag_data/tag_type_enum.dart';
 import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/root_routes.dart';
+import 'package:recipath/widgets/filtering/filter_button.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/generic/dialogs/clear_confirmation_dialog.dart';
 import 'package:recipath/widgets/generic/empty_state.dart';
@@ -113,6 +115,7 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
               return a.done ? 1 : -1;
             }
           },
+          trailing: FilterButton(filterType: TagTypeEnum.grocery),
           emptyState: EmptyState(
             hint: localization.shoppingHint,
             onTap: () => context.go(RootRoutes.recipeRoute.path),

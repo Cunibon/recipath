@@ -14,9 +14,10 @@ import 'package:recipath/widgets/screens/tag_screen/providers/tag_notifier.dart'
 import 'package:recipath/widgets/tag/tag.dart';
 
 class CreateTagScreen extends ConsumerStatefulWidget {
-  const CreateTagScreen({this.tagId, super.key});
+  const CreateTagScreen({this.tagId, this.currentTagType, super.key});
 
   final String? tagId;
+  final TagTypeEnum? currentTagType;
 
   @override
   ConsumerState<CreateTagScreen> createState() => _CreateTagScreenState();
@@ -40,7 +41,7 @@ class _CreateTagScreenState extends ConsumerState<CreateTagScreen> {
         name: "",
         description: "",
         color: getRandomColorBasedOnString(id),
-        tagType: TagTypeEnum.recipe,
+        tagType: widget.currentTagType ?? TagTypeEnum.recipe,
       );
     } else {
       initialData = existingData;
