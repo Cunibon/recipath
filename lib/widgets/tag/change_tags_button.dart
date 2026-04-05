@@ -1,32 +1,58 @@
 import 'package:flutter/material.dart';
-import 'package:recipath/l10n/app_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:recipath/data/tag_data/tag_data.dart';
+import 'package:recipath/data/tag_data/tag_type_enum.dart';
+import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
+import 'package:recipath/widgets/screens/tag_screen/providers/typed_tag_notifier.dart';
+import 'package:recipath/widgets/tag/change_tag_dialog.dart';
 
-class ChangeTagsButton extends StatelessWidget {
-  const ChangeTagsButton({required this.onTap, super.key});
-  final void Function() onTap;
+class ChangeTagsButton extends ConsumerWidget {
+  const ChangeTagsButton({
+    required this.currentTags,
+    required this.tagType,
+    required this.onEdited,
+    required this.content,
+    super.key,
+  });
+
+  final Set<TagData> currentTags;
+  final TagTypeEnum tagType;
+
+  final void Function(Set<TagData> newTags) onEdited;
+
+  final Widget content;
 
   @override
-  Widget build(BuildContext context) {
-    final localization = AppLocalizations.of(context)!;
+  Widget build(BuildContext context, WidgetRef ref) {
+    return CachedAsyncValueWrapper(
+      asyncState: ref.watch(typedTagProvider),
+      builder: (data) => InkWell(
+        onTap: () async {
+          final result = await showDialog<Set<TagData>>(
+            context: context,
+            builder: (context) => Consumer(
+              builder: (context, ref, _) => ChangeTagDialog(
+                allTags: data[tagType]!.values.toSet(),
+                selected: currentTags.map((e) => e.id),
+              ),
+            ),
+          );
 
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(25),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.transparent,
-          borderRadius: BorderRadius.circular(25),
-          border: Border.all(
-            color: Theme.of(context).colorScheme.onSurface,
-            width: 2,
+          if (result != null) {
+            onEdited(result);
+          }
+        },
+        borderRadius: BorderRadius.circular(25),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.transparent,
+            borderRadius: BorderRadius.circular(25),
+            border: Border.all(
+              color: Theme.of(context).colorScheme.onSurface,
+              width: 2,
+            ),
           ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.only(right: 4),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [Icon(Icons.add), Text(localization.changeTags)],
-          ),
+          child: content,
         ),
       ),
     );

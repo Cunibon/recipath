@@ -4,7 +4,7 @@ import 'package:recipath/data/tag_data/tag_type_enum.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/filtering/quick_filter_button.dart';
 import 'package:recipath/widgets/filtering/quick_filter_data.dart';
-import 'package:recipath/widgets/tag/tag_list.dart';
+import 'package:recipath/widgets/tag/editable_tag_list.dart';
 
 class ChangeFilterDialog extends StatefulWidget {
   const ChangeFilterDialog({
@@ -77,9 +77,9 @@ class _ChangeFilterDialogState extends State<ChangeFilterDialog> {
               ),
               Divider(),
             ],
-            TagList(
-              tagType: widget.filterType,
+            EditableTagList(
               currentTags: selectedTags,
+              tagType: widget.filterType,
               onTagTapped: (tagData) => setState(() {
                 selectedTags = Set.from(selectedTags..remove(tagData));
               }),
