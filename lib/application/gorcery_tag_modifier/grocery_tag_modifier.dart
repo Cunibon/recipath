@@ -10,13 +10,13 @@ class GroceryTagModifier {
   Future<void> add(GroceryTagData newData) => repo.add(newData);
 
   Future<void> delete(GroceryTagData toDelete) =>
-      (repo.db.update(repo.db.recipeTagTable)..where(
+      (repo.db.update(repo.db.groceryTagTable)..where(
             (tbl) =>
-                tbl.recipeId.equals(toDelete.groceryId) &
+                tbl.groceryId.equals(toDelete.groceryId) &
                 tbl.tagId.equals(toDelete.tagId),
           ))
           .write(
-            RecipeTagTableCompanion(
+            GroceryTagTableCompanion(
               deleted: Value(true),
               uploaded: Value(false),
             ),
