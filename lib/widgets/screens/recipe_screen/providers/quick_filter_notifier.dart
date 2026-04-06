@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:localstorage/localstorage.dart';
+import 'package:recipath/data/tag_data/tag_type_enum.dart';
 import 'package:recipath/helper/local_storage_extension.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -10,12 +11,13 @@ part 'quick_filter_notifier.g.dart';
 
 @riverpod
 class QuickFilterNotifier extends _$QuickFilterNotifier {
-  static const quickFilterDataKey = "quickFilterDataKey";
+  static const quickFilterDataKey = "quickFilterDataKey_v2";
+
+  String get dataKey => "${quickFilterDataKey}_${filterType.name}";
 
   @override
-  Map<QuickFilters, bool> build() {
-    final data =
-        localStorage.get<Map<String, dynamic>>(quickFilterDataKey) ?? {};
+  Map<QuickFilters, bool> build(TagTypeEnum filterType) {
+    final data = localStorage.get<Map<String, dynamic>>(dataKey) ?? {};
 
     return data.map(
       (key, value) => MapEntry(
@@ -29,7 +31,7 @@ class QuickFilterNotifier extends _$QuickFilterNotifier {
     state[filter] = value;
 
     localStorage.setItem(
-      quickFilterDataKey,
+      dataKey,
       jsonEncode(
         state.map((key, value) => MapEntry(_$QuickFiltersEnumMap[key], value)),
       ),
@@ -38,7 +40,7 @@ class QuickFilterNotifier extends _$QuickFilterNotifier {
   }
 
   void clear() {
-    localStorage.removeItem(quickFilterDataKey);
+    localStorage.removeItem(dataKey);
     ref.invalidateSelf();
   }
 }
@@ -46,7 +48,8 @@ class QuickFilterNotifier extends _$QuickFilterNotifier {
 @JsonEnum(alwaysCreate: true)
 enum QuickFilters {
   running(icon: Icons.timer),
-  cookable(icon: Icons.restaurant);
+  cookable(icon: Icons.restaurant),
+  cluster(icon: Icons.blur_on);
 
   const QuickFilters({required this.icon});
   final IconData icon;

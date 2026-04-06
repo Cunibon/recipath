@@ -49,4 +49,4 @@ final class RecipeScreenNotifierProvider
 }
 
 String _$recipeScreenNotifierHash() =>
-    r'f720d58d64fb0920e823c5483debe894525a5c1b';
+    r'4ad728866c7568890977cc5732fbcf316cf60839';

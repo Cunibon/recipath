@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:localstorage/localstorage.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
 import 'package:recipath/data/recipe_step_data/recipe_step_data.dart';
+import 'package:recipath/data/tag_data/tag_type_enum.dart';
 import 'package:recipath/data/timer_data/timer_data.dart';
 import 'package:recipath/helper/local_storage_extension.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/quick_filter_notifier.dart';
@@ -39,7 +40,7 @@ class TimerNotifier extends _$TimerNotifier {
     state.remove(recipeId);
     if (state.isEmpty) {
       ref
-          .read(quickFilterProvider.notifier)
+          .read(quickFilterProvider(TagTypeEnum.recipe).notifier)
           .setFilter(filter: QuickFilters.running, value: false);
       cancelTimersNotification();
       for (final step

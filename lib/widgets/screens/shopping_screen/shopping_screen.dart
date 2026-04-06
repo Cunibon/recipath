@@ -9,16 +9,19 @@ import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/root_routes.dart';
 import 'package:recipath/widgets/filtering/filter_button.dart';
+import 'package:recipath/widgets/filtering/tag_filter_notifier.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
+import 'package:recipath/widgets/generic/clustered_searchable_list.dart';
 import 'package:recipath/widgets/generic/dialogs/clear_confirmation_dialog.dart';
 import 'package:recipath/widgets/generic/empty_state.dart';
-import 'package:recipath/widgets/generic/searchable_list.dart';
 import 'package:recipath/widgets/navigation/default_navigation_title.dart';
 import 'package:recipath/widgets/navigation/navigation_drawer_scaffold.dart';
 import 'package:recipath/widgets/providers/double_number_format_notifier.dart';
+import 'package:recipath/widgets/screens/recipe_screen/providers/quick_filter_notifier.dart';
 import 'package:recipath/widgets/screens/shopping_screen/add_ingredient_dialog.dart';
 import 'package:recipath/widgets/screens/shopping_screen/providers/shopping_screen_state_notifier.dart';
 import 'package:recipath/widgets/screens/shopping_screen/shopping_item.dart';
+import 'package:recipath/widgets/tag/tag.dart';
 
 class ShoppingScreen extends ConsumerStatefulWidget {
   const ShoppingScreen({super.key});
@@ -92,10 +95,36 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
       ),
       body: CachedAsyncValueWrapper(
         asyncState: screenState,
-        builder: (data) => SearchableList(
+        builder: (data) => ClusteredSearchableList(
           searchController: searchController,
           name: localization.items,
-          items: data.shoppingData.values.toList(),
+          clusters: [
+            for (final entry in data.clusteredData.entries)
+              ItemCluster(id: entry.key, items: entry.value.values.toList()),
+            ItemCluster(id: null, items: data.shoppingData.values.toList()),
+          ],
+          clusterToWidget: (clusterId) {
+            if (data.clusteredData.isEmpty) return SizedBox.shrink();
+
+            final tag = data.tags[clusterId];
+            if (tag != null) {
+              return Column(
+                crossAxisAlignment: .start,
+                children: [
+                  SizedBox(height: 8),
+                  GestureDetector(
+                    onTap: () => ref
+                        .read(tagFilterProvider(TagTypeEnum.grocery).notifier)
+                        .toggleFilter(filter: tag),
+                    child: Tag(text: tag.name, color: tag.color),
+                  ),
+                  Divider(),
+                ],
+              );
+            } else {
+              return Divider();
+            }
+          },
           toSearchable: (item) => item.toReadable(
             grocery: data.groceryMap[item.ingredient.groceryId]!,
             unitLocalized: unitLocalized,
@@ -115,7 +144,10 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
               return a.done ? 1 : -1;
             }
           },
-          trailing: FilterButton(filterType: TagTypeEnum.grocery),
+          trailing: FilterButton(
+            quickFilters: [QuickFilters.cluster],
+            filterType: TagTypeEnum.grocery,
+          ),
           emptyState: EmptyState(
             hint: localization.shoppingHint,
             onTap: () => context.go(RootRoutes.recipeRoute.path),

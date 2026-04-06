@@ -22,7 +22,7 @@ class FilterButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final tagState = ref.watch(tagProvider);
 
-    final quickFilterState = ref.watch(quickFilterProvider);
+    final quickFilterState = ref.watch(quickFilterProvider(filterType));
     final tagFilterState = ref.watch(tagFilterProvider(filterType));
 
     final filterActive =
@@ -38,7 +38,7 @@ class FilterButton extends ConsumerWidget {
             builder: (context) => ChangeFilterDialog(
               filterType: filterType,
               onClear: () {
-                ref.read(quickFilterProvider.notifier).clear();
+                ref.read(quickFilterProvider(filterType).notifier).clear();
                 ref.read(tagFilterProvider(filterType).notifier).clear();
                 context.pop();
               },
@@ -58,7 +58,9 @@ class FilterButton extends ConsumerWidget {
           );
 
           if (result != null) {
-            final quickFilerNotifier = ref.read(quickFilterProvider.notifier);
+            final quickFilerNotifier = ref.read(
+              quickFilterProvider(filterType).notifier,
+            );
             for (final quickFilter in result.quickFilters) {
               quickFilerNotifier.setFilter(
                 filter: quickFilter.quickFilter,
