@@ -7,14 +7,15 @@ import 'package:recipath/helper/go_router_extension.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/filtering/filter_button.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
+import 'package:recipath/widgets/generic/clustered_searchable_list.dart';
 import 'package:recipath/widgets/generic/empty_state.dart';
-import 'package:recipath/widgets/generic/searchable_list.dart';
 import 'package:recipath/widgets/navigation/default_navigation_title.dart';
 import 'package:recipath/widgets/navigation/navigation_drawer_scaffold.dart';
 import 'package:recipath/widgets/providers/double_number_format_notifier.dart';
 import 'package:recipath/widgets/screens/grocery_screen/grocery_item.dart';
 import 'package:recipath/widgets/screens/grocery_screen/grocery_routes.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_screen_notifier.dart';
+import 'package:recipath/widgets/tag/tag_cluster_header.dart';
 
 class GroceryScreen extends ConsumerWidget {
   const GroceryScreen({super.key});
@@ -31,7 +32,10 @@ class GroceryScreen extends ConsumerWidget {
       titleBuilder: (title) => DefaultNavigationTitle(
         title: title,
         syncState:
-            asyncData.value?.any((e) => e.groceryData.uploaded == false) == true
+            asyncData.value?.groceries.any(
+                  (e) => e.groceryData.uploaded == false,
+                ) ==
+                true
             ? SyncState.unsynced
             : SyncState.synced,
       ),
@@ -42,16 +46,35 @@ class GroceryScreen extends ConsumerWidget {
       body: CachedAsyncValueWrapper(
         asyncState: asyncData,
         builder: (data) {
-          return SearchableList(
+          return ClusteredSearchableList(
             name: localization.grocery,
             trailing: FilterButton(filterType: TagTypeEnum.grocery),
-            items: data,
-            toSearchable: (item) => item.groceryData.toReadable(
+            clusters: [
+              for (final entry in data.clusteredData.entries)
+                ItemCluster(id: entry.key, items: entry.value),
+              ItemCluster(id: null, items: data.groceries),
+            ],
+            itemToSearchable: (item) => item.groceryData.toReadable(
               unitLocalized: unitLocalized,
               doubleNumberFormat: doubleNumberFormat,
             ),
-            toWidget: (item) => GroceryItem(data: item),
-            sort: (a, b) => a.groceryData.name.compareTo(b.groceryData.name),
+            clusterToWidget: (clusterId) {
+              if (data.clusteredData.isEmpty) return SizedBox.shrink();
+
+              return TagClusterHeader(tagId: clusterId);
+            },
+            itemToWidget: (item) => GroceryItem(data: item),
+            sortItems: (a, b) =>
+                a.groceryData.name.compareTo(b.groceryData.name),
+            sortClusters: (a, b) {
+              if (a == null) {
+                return 1;
+              } else if (b == null) {
+                return -1;
+              } else {
+                return data.tags[a]!.name.compareTo(data.tags[b]!.name);
+              }
+            },
             emptyState: EmptyState(
               hint: localization.createGroceryHint,
               onTap: () => context.goRelative(GroceryRoutes.createGrocery.path),

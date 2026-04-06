@@ -15,13 +15,13 @@ final groceryScreenProvider = GroceryScreenNotifierProvider._();
 final class GroceryScreenNotifierProvider
     extends
         $FunctionalProvider<
-          AsyncValue<List<GroceryItemData>>,
-          List<GroceryItemData>,
-          FutureOr<List<GroceryItemData>>
+          AsyncValue<GroceryScreenState>,
+          GroceryScreenState,
+          FutureOr<GroceryScreenState>
         >
     with
-        $FutureModifier<List<GroceryItemData>>,
-        $FutureProvider<List<GroceryItemData>> {
+        $FutureModifier<GroceryScreenState>,
+        $FutureProvider<GroceryScreenState> {
   GroceryScreenNotifierProvider._()
     : super(
         from: null,
@@ -38,15 +38,15 @@ final class GroceryScreenNotifierProvider
 
   @$internal
   @override
-  $FutureProviderElement<List<GroceryItemData>> $createElement(
+  $FutureProviderElement<GroceryScreenState> $createElement(
     $ProviderPointer pointer,
   ) => $FutureProviderElement(pointer);
 
   @override
-  FutureOr<List<GroceryItemData>> create(Ref ref) {
+  FutureOr<GroceryScreenState> create(Ref ref) {
     return groceryScreenNotifier(ref);
   }
 }
 
 String _$groceryScreenNotifierHash() =>
-    r'39de1303d4ffa50dff9e0e6f038eea1ca98e389c';
+    r'e8d3533265bd14afc02eeb1c8f739c75913e4ca2';
