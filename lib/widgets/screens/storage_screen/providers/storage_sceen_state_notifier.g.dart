@@ -49,4 +49,4 @@ final class StorageScreenStateNotifierProvider
 }
 
 String _$storageScreenStateNotifierHash() =>
-    r'ccf47fe83dd563f0461504c7875ffcab88309e61';
+    r'bcaf1803ddf39f13444dc953aa46686365ebb497';

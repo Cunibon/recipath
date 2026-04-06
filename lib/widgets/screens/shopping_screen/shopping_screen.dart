@@ -9,7 +9,6 @@ import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/root_routes.dart';
 import 'package:recipath/widgets/filtering/filter_button.dart';
-import 'package:recipath/widgets/filtering/tag_filter_notifier.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/generic/clustered_searchable_list.dart';
 import 'package:recipath/widgets/generic/dialogs/clear_confirmation_dialog.dart';
@@ -21,7 +20,7 @@ import 'package:recipath/widgets/screens/recipe_screen/providers/quick_filter_no
 import 'package:recipath/widgets/screens/shopping_screen/add_ingredient_dialog.dart';
 import 'package:recipath/widgets/screens/shopping_screen/providers/shopping_screen_state_notifier.dart';
 import 'package:recipath/widgets/screens/shopping_screen/shopping_item.dart';
-import 'package:recipath/widgets/tag/tag.dart';
+import 'package:recipath/widgets/tag/tag_cluster_header.dart';
 
 class ShoppingScreen extends ConsumerStatefulWidget {
   const ShoppingScreen({super.key});
@@ -106,24 +105,7 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
           clusterToWidget: (clusterId) {
             if (data.clusteredData.isEmpty) return SizedBox.shrink();
 
-            final tag = data.tags[clusterId];
-            if (tag != null) {
-              return Column(
-                crossAxisAlignment: .start,
-                children: [
-                  SizedBox(height: 8),
-                  GestureDetector(
-                    onTap: () => ref
-                        .read(tagFilterProvider(TagTypeEnum.grocery).notifier)
-                        .toggleFilter(filter: tag),
-                    child: Tag(text: tag.name, color: tag.color),
-                  ),
-                  Divider(),
-                ],
-              );
-            } else {
-              return Divider();
-            }
+            return TagClusterHeader(tagId: clusterId);
           },
           sortClusters: (a, b) {
             if (a == null) {

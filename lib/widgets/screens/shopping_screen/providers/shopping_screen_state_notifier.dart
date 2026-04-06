@@ -16,10 +16,9 @@ part 'shopping_screen_state_notifier.g.dart';
 @riverpod
 Future<ShoppingScreenState> shoppingScreenStateNotifier(Ref ref) async {
   final quickFilters = ref.watch(quickFilterProvider(TagTypeEnum.grocery));
+  final cluster = quickFilters[QuickFilters.cluster] ?? false;
 
   final fullShoppingData = await ref.watch(filteredShoppingProvider.future);
-
-  final cluster = quickFilters[QuickFilters.cluster] ?? false;
 
   final Map<String, ShoppingData> shoppingData = {};
   final Map<String, Map<String, ShoppingData>> clusteredData = {};
