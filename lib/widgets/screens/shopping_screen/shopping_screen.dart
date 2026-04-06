@@ -125,17 +125,26 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
               return Divider();
             }
           },
-          toSearchable: (item) => item.toReadable(
+          sortClusters: (a, b) {
+            if (a == null) {
+              return 1;
+            } else if (b == null) {
+              return -1;
+            } else {
+              return data.tags[a]!.name.compareTo(data.tags[b]!.name);
+            }
+          },
+          itemToSearchable: (item) => item.toReadable(
             grocery: data.groceryMap[item.ingredient.groceryId]!,
             unitLocalized: unitLocalized,
             doubleNumberFormat: doubleNumberFormat,
           ),
-          toWidget: (item) => ShoppingItem(
+          itemToWidget: (item) => ShoppingItem(
             key: Key("${item.id} ${item.count}"),
             data: item,
             storageData: data.storage[item.ingredient.groceryId]?.ingredient,
           ),
-          sort: (a, b) {
+          sortItems: (a, b) {
             if (a.done == b.done) {
               return data.groceryMap[a.ingredient.groceryId]!.name.compareTo(
                 data.groceryMap[b.ingredient.groceryId]!.name,

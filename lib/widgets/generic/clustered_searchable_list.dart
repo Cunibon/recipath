@@ -10,10 +10,11 @@ class ClusteredSearchableList<T, R> extends StatefulWidget {
     this.searchController,
     required this.name,
     required this.clusters,
-    required this.toSearchable,
-    required this.toWidget,
+    required this.itemToSearchable,
+    required this.itemToWidget,
     required this.clusterToWidget,
-    this.sort,
+    this.sortItems,
+    this.sortClusters,
     this.trailing,
     this.emptyState,
     this.listViewPadding = const EdgeInsets.only(bottom: 78),
@@ -25,10 +26,13 @@ class ClusteredSearchableList<T, R> extends StatefulWidget {
 
   final String name;
   final List<ItemCluster<T, R>> clusters;
-  final String Function(T item) toSearchable;
-  final Widget Function(T item) toWidget;
+
+  final String Function(T item) itemToSearchable;
+  final Widget Function(T item) itemToWidget;
   final Widget Function(R clusterId) clusterToWidget;
-  final int Function(T a, T b)? sort;
+
+  final int Function(T a, T b)? sortItems;
+  final int Function(R a, R b)? sortClusters;
 
   final Widget? trailing;
   final Widget? emptyState;
@@ -78,15 +82,24 @@ class _ClusteredSearchableListState<T, R>
   Map<R, List<({T item, String search})>> createSearchable(
     List<ItemCluster<T, R>> clusters,
   ) {
+    final List<ItemCluster<T, R>> clusterCopy;
+
+    if (widget.sortClusters != null) {
+      clusterCopy = List<ItemCluster<T, R>>.from(clusters);
+      clusterCopy.sort((a, b) => widget.sortClusters!(a.id, b.id));
+    } else {
+      clusterCopy = clusters;
+    }
+
     return {
-      for (final cluster in clusters)
+      for (final cluster in clusterCopy)
         cluster.id:
             cluster.items
                 .map<({T item, String search})>(
-                  (e) => (item: e, search: widget.toSearchable(e)),
+                  (e) => (item: e, search: widget.itemToSearchable(e)),
                 )
                 .toList()
-              ..sort((a, b) => widget.sort?.call(a.item, b.item) ?? 0),
+              ..sort((a, b) => widget.sortItems?.call(a.item, b.item) ?? 0),
     };
   }
 
@@ -130,7 +143,7 @@ class _ClusteredSearchableListState<T, R>
             SliverToBoxAdapter(child: widget.clusterToWidget(cluster.key)),
             SliverList(
               delegate: SliverChildBuilderDelegate(
-                (context, index) => widget.toWidget(cluster.value[index]),
+                (context, index) => widget.itemToWidget(cluster.value[index]),
                 childCount: cluster.value.length,
               ),
             ),
