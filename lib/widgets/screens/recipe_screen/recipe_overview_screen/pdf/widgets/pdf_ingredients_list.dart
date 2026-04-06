@@ -37,7 +37,7 @@ class PdfIngredientsList extends StatelessWidget {
           doubleNumberFormat: doubleNumberFormat,
           ingredients: ingredients,
           groceryMap: groceries,
-        ).replaceAll("●", "-"),
+        ),
         style: TextStyle(fontSize: 10),
       ),
     );

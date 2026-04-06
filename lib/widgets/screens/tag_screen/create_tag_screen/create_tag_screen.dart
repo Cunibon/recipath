@@ -145,8 +145,13 @@ class _CreateTagScreenState extends ConsumerState<CreateTagScreen> {
                           child: Text(enumLocalization[tagType]!),
                         ),
                     ],
-                    onChanged: (value) =>
-                        setState(() => data = data.copyWith(tagType: value!)),
+                    onChanged: widget.tagId == null
+                        ? (value) => setState(
+                            () => data = data.copyWith(
+                              tagType: value as TagTypeEnum,
+                            ),
+                          )
+                        : null,
                   ),
                   SizedBox(height: 16),
                   GestureDetector(

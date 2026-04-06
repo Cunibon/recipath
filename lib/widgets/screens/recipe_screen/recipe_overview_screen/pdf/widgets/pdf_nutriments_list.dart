@@ -44,7 +44,7 @@ class PdfNutrimentsList extends StatelessWidget {
           doubleNumberFormat: doubleNumberFormat,
           aggregatedNutriments: aggregatedNutriments,
           servings: servings,
-        ).replaceAll("●", "-"),
+        ),
         style: TextStyle(fontSize: 10),
       ),
     );

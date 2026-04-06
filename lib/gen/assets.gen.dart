@@ -11,6 +11,16 @@
 
 import 'package:flutter/widgets.dart';
 
+class $AssetsFontsGen {
+  const $AssetsFontsGen();
+
+  /// File path: assets/fonts/Roboto-VariableFont.ttf
+  String get robotoVariableFont => 'assets/fonts/Roboto-VariableFont.ttf';
+
+  /// List of all assets
+  List<String> get values => [robotoVariableFont];
+}
+
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
@@ -44,6 +54,7 @@ class $AssetsStructuredOutputGen {
 class Assets {
   const Assets._();
 
+  static const $AssetsFontsGen fonts = $AssetsFontsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsSoundsGen sounds = $AssetsSoundsGen();
   static const $AssetsStructuredOutputGen structuredOutput =

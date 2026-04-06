@@ -1,10 +1,12 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart' as flutter;
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/experimental/mutation.dart';
 import 'package:pdf/widgets.dart';
 import 'package:recipath/common.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
+import 'package:recipath/gen/assets.gen.dart';
 import 'package:recipath/providers/app_localizations_notifier.dart';
 import 'package:recipath/widgets/providers/double_number_format_notifier.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
@@ -31,7 +33,14 @@ abstract class PdfMutation {
     final groceriesAsync = await tsx.get(groceryProvider.future);
     final doubleNumberFormat = tsx.get(doubleNumberFormatProvider);
 
-    final pdf = Document(title: title);
+    final ttf = Font.ttf(
+      await rootBundle.load(Assets.fonts.robotoVariableFont),
+    );
+
+    final pdf = Document(
+      title: title,
+      theme: ThemeData.withFont(base: ttf, bold: ttf),
+    );
 
     pdf.addPage(
       MultiPage(
