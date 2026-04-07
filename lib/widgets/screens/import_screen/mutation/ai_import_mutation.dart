@@ -78,11 +78,11 @@ abstract class AiImportMutation {
     }
 
     final tagData = <String, dynamic>{};
-    for (final rt in recipeTags) {
-      final recipeId = rt['recipeId'] as String?;
-      final tags = rt['tags'] as List?;
+    for (final recipeTag in recipeTags) {
+      final recipeId = recipeTag['recipeId'] as String?;
+      final tags = recipeTag['tags'] as List?;
       if (recipeId != null && tags != null) {
-        tagData[recipeId] = tags;
+        tagData[recipeId] = tags.map((e) => e..["tagType"] = "Recipe").toList();
       }
     }
 
