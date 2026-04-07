@@ -11,6 +11,10 @@ class GroceryTagSyncRepo extends DeletableDataDownloadRepo {
   $GroceryTagTableTable get driftTable => repo.db.groceryTagTable;
 
   @override
+  String getDeletedId(Map<String, dynamic> data) =>
+      "${data["grocery_id"]}_${data["tag_id"]}";
+
+  @override
   GroceryTagTableData fromJson(Map<String, dynamic> json) =>
       GroceryTagTableData.fromJson(json);
 }

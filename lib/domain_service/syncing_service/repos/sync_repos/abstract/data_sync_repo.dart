@@ -25,7 +25,9 @@ abstract class DataSyncRepo {
         .toList();
 
     try {
-      await supabaseClient.from(supabaseTableName).upsert(uploadJson);
+      if (toUploadData.isNotEmpty) {
+        await supabaseClient.from(supabaseTableName).upsert(uploadJson);
+      }
     } catch (e) {
       await Sentry.addBreadcrumb(
         Breadcrumb(
