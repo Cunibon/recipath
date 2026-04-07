@@ -39,11 +39,10 @@ class ImportScreen extends ConsumerWidget {
                 children: [
                   TextButton.icon(
                     onPressed: () async {
-                      FilePickerResult? result = await FilePicker.platform
-                          .pickFiles(
-                            type: FileType.custom,
-                            allowedExtensions: [".recipath"],
-                          );
+                      FilePickerResult? result = await FilePicker.pickFiles(
+                        type: FileType.custom,
+                        allowedExtensions: [".recipath"],
+                      );
 
                       if (result != null && context.mounted) {
                         context.goRelative(
