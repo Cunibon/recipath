@@ -139,15 +139,19 @@ class _ClusteredSearchableListState<T, R>
     } else {
       child = CustomScrollView(
         slivers: [
-          for (var cluster in clusters.entries) ...[
-            SliverToBoxAdapter(child: widget.clusterToWidget(cluster.key)),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) => widget.itemToWidget(cluster.value[index]),
-                childCount: cluster.value.length,
-              ),
+          for (var cluster in clusters.entries)
+            SliverMainAxisGroup(
+              slivers: [
+                PinnedHeaderSliver(child: widget.clusterToWidget(cluster.key)),
+                SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) =>
+                        widget.itemToWidget(cluster.value[index]),
+                    childCount: cluster.value.length,
+                  ),
+                ),
+              ],
             ),
-          ],
         ],
       );
     }

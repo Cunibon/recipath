@@ -13,28 +13,31 @@ class TagClusterHeader extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return CachedAsyncValueWrapper(
-      asyncState: ref.watch(tagProvider),
-      builder: (data) {
-        final tag = data[tagId];
-        if (tag != null) {
-          return Column(
-            crossAxisAlignment: .start,
-            children: [
-              SizedBox(height: 8),
-              GestureDetector(
-                onTap: () => ref
-                    .read(tagFilterProvider(TagTypeEnum.grocery).notifier)
-                    .toggleFilter(filter: tag),
-                child: Tag(text: tag.name, color: tag.color),
-              ),
-              Divider(),
-            ],
-          );
-        } else {
-          return Divider();
-        }
-      },
+    return ColoredBox(
+      color: ColorScheme.of(context).surface,
+      child: CachedAsyncValueWrapper(
+        asyncState: ref.watch(tagProvider),
+        builder: (data) {
+          final tag = data[tagId];
+          if (tag != null) {
+            return Column(
+              crossAxisAlignment: .start,
+              children: [
+                SizedBox(height: 8),
+                GestureDetector(
+                  onTap: () => ref
+                      .read(tagFilterProvider(TagTypeEnum.grocery).notifier)
+                      .toggleFilter(filter: tag),
+                  child: Tag(text: tag.name, color: tag.color),
+                ),
+                Divider(),
+              ],
+            );
+          } else {
+            return Divider();
+          }
+        },
+      ),
     );
   }
 }
