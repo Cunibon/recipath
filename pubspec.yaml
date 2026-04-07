@@ -91,7 +91,8 @@ flutter:
     - assets/images/empty.png
     - assets/sounds/step_done.wav
     - assets/structured_output/recipe_schema.json
-    - assets/fonts/Roboto-VariableFont.ttf
+    - assets/fonts/Roboto-Regular.ttf
+    - assets/fonts/Roboto-Bold.ttf
 
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a

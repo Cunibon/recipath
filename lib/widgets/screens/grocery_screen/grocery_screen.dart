@@ -15,6 +15,7 @@ import 'package:recipath/widgets/providers/double_number_format_notifier.dart';
 import 'package:recipath/widgets/screens/grocery_screen/grocery_item.dart';
 import 'package:recipath/widgets/screens/grocery_screen/grocery_routes.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_screen_notifier.dart';
+import 'package:recipath/widgets/screens/recipe_screen/providers/quick_filter_notifier.dart';
 import 'package:recipath/widgets/tag/tag_cluster_header.dart';
 
 class GroceryScreen extends ConsumerWidget {
@@ -48,7 +49,10 @@ class GroceryScreen extends ConsumerWidget {
         builder: (data) {
           return ClusteredSearchableList(
             name: localization.grocery,
-            trailing: FilterButton(filterType: TagTypeEnum.grocery),
+            trailing: FilterButton(
+              filterType: TagTypeEnum.grocery,
+              quickFilters: [QuickFilters.cluster],
+            ),
             clusters: [
               for (final entry in data.clusteredData.entries)
                 ItemCluster(id: entry.key, items: entry.value),

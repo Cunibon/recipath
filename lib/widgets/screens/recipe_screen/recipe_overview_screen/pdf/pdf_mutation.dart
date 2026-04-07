@@ -33,13 +33,12 @@ abstract class PdfMutation {
     final groceriesAsync = await tsx.get(groceryProvider.future);
     final doubleNumberFormat = tsx.get(doubleNumberFormatProvider);
 
-    final ttf = Font.ttf(
-      await rootBundle.load(Assets.fonts.robotoVariableFont),
-    );
+    final regular = Font.ttf(await rootBundle.load(Assets.fonts.robotoRegular));
+    final bold = Font.ttf(await rootBundle.load(Assets.fonts.robotoBold));
 
     final pdf = Document(
       title: title,
-      theme: ThemeData.withFont(base: ttf, bold: ttf),
+      theme: ThemeData.withFont(base: regular, bold: bold),
     );
 
     pdf.addPage(

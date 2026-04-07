@@ -14,11 +14,14 @@ import 'package:flutter/widgets.dart';
 class $AssetsFontsGen {
   const $AssetsFontsGen();
 
-  /// File path: assets/fonts/Roboto-VariableFont.ttf
-  String get robotoVariableFont => 'assets/fonts/Roboto-VariableFont.ttf';
+  /// File path: assets/fonts/Roboto-Bold.ttf
+  String get robotoBold => 'assets/fonts/Roboto-Bold.ttf';
+
+  /// File path: assets/fonts/Roboto-Regular.ttf
+  String get robotoRegular => 'assets/fonts/Roboto-Regular.ttf';
 
   /// List of all assets
-  List<String> get values => [robotoVariableFont];
+  List<String> get values => [robotoBold, robotoRegular];
 }
 
 class $AssetsImagesGen {
