@@ -47,4 +47,4 @@ final class SyncOrchestratorNotifierProvider
 }
 
 String _$syncOrchestratorNotifierHash() =>
-    r'd32df0345a2028eaad3506e97d50b03936ff7f5c';
+    r'0edfc0e212e91cdc4ed7c4b8c401414943c6b0af';

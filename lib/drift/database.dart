@@ -11,6 +11,7 @@ import 'package:recipath/drift/tables/file_table.dart';
 import 'package:recipath/drift/tables/grocery_table.dart';
 import 'package:recipath/drift/tables/grocery_tag_table.dart';
 import 'package:recipath/drift/tables/ingredient_table.dart';
+import 'package:recipath/drift/tables/quick_shopping_table.dart';
 import 'package:recipath/drift/tables/recipe_shopping_table.dart';
 import 'package:recipath/drift/tables/recipe_statistic_table.dart';
 import 'package:recipath/drift/tables/recipe_step_ingredient_table.dart';
@@ -34,6 +35,7 @@ part 'database.g.dart';
     RecipeTagTable,
     GroceryTagTable,
     ShoppingTable,
+    QuickShoppingTable,
     StorageTable,
     RecipeStatisticTable,
     RecipeShoppingTable,
@@ -44,7 +46,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase([QueryExecutor? executor]) : super(executor ?? _openConnection());
 
   @override
-  int get schemaVersion => 17;
+  int get schemaVersion => 18;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -69,6 +71,9 @@ class AppDatabase extends _$AppDatabase {
       }
       if (from < 17) {
         await m.createTable(groceryTagTable);
+      }
+      if (from < 18) {
+        await m.createTable(quickShoppingTable);
       }
     },
   );
