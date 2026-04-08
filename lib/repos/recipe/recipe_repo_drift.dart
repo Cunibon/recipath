@@ -90,13 +90,16 @@ class RecipeRepoDrift extends TagFilteredRepo<RecipeData> {
 
   @override
   Future<List<RecipeTableData>> getNotUploaded() async {
-    final query = db.select(table);
+    return await (db.select(
+      table,
+    )..where((tbl) => tbl.uploaded.equals(false))).get();
+  }
 
-    if (!incluedArchived) {
-      query.where((tbl) => tbl.archived.equals(false));
-    }
-
-    return (query..where((tbl) => tbl.uploaded.equals(false))).get();
+  @override
+  Stream<bool> hasNotUploaded() {
+    return (db.select(table)..where((tbl) => tbl.uploaded.equals(false)))
+        .watchSingleOrNull()
+        .map((e) => e != null);
   }
 
   @override

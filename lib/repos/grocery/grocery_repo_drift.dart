@@ -22,7 +22,16 @@ class GroceryRepoDrift extends TagFilteredRepo<GroceryData> {
 
   @override
   Future<List<GroceryTableData>> getNotUploaded() async {
-    return await (baseQuery..where((tbl) => tbl.uploaded.equals(false))).get();
+    return await (db.select(
+      table,
+    )..where((tbl) => tbl.uploaded.equals(false))).get();
+  }
+
+  @override
+  Stream<bool> hasNotUploaded() {
+    return (db.select(table)..where((tbl) => tbl.uploaded.equals(false)))
+        .watchSingleOrNull()
+        .map((e) => e != null);
   }
 
   @override

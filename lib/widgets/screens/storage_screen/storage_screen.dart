@@ -96,7 +96,7 @@ class _StorageScreenState extends ConsumerState<StorageScreen> {
               return data.tags[a]!.name.compareTo(data.tags[b]!.name);
             }
           },
-          trailing: FilterButton(
+          trailingSearch: FilterButton(
             filterType: TagTypeEnum.grocery,
             quickFilters: [QuickFilters.cluster],
           ),

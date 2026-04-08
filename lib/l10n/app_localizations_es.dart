@@ -548,4 +548,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get sharePdf => 'Compartir PDF';
+
+  @override
+  String get quickShopping => 'Compra rápida';
 }

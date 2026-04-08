@@ -229,5 +229,6 @@
     "enterValidUrl": "Please enter a valid Url",
     "tagType": "Tag type",
     "shareFile": "Share file",
-    "sharePdf": "Share PDF"
+    "sharePdf": "Share PDF",
+    "quickShopping": "Quick shopping"
 }

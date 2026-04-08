@@ -49,7 +49,7 @@ class GroceryScreen extends ConsumerWidget {
         builder: (data) {
           return ClusteredSearchableList(
             name: localization.grocery,
-            trailing: FilterButton(
+            trailingSearch: FilterButton(
               filterType: TagTypeEnum.grocery,
               quickFilters: [QuickFilters.cluster],
             ),

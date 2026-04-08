@@ -1115,6 +1115,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Share PDF'**
   String get sharePdf;
+
+  /// No description provided for @quickShopping.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick shopping'**
+  String get quickShopping;
 }
 
 class _AppLocalizationsDelegate
