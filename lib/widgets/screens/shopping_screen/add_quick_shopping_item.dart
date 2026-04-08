@@ -18,6 +18,22 @@ class _AddQuickShoppingItemState extends ConsumerState<AddQuickShoppingItem> {
   final formkey = GlobalKey<FormState>();
   final descriptionController = TextEditingController();
 
+  Future<void> addNew() async {
+    if (formkey.currentState?.validate() == true) {
+      await ref
+          .read(quickShoppingModifierProvider)
+          .add(
+            QuickShoppingData(
+              id: randomAlphaNumeric(16),
+              done: false,
+              description: descriptionController.text,
+            ),
+          );
+
+      descriptionController.text = "";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context)!;
@@ -44,6 +60,7 @@ class _AddQuickShoppingItemState extends ConsumerState<AddQuickShoppingItem> {
                   decoration: InputDecoration(
                     labelText: localization.description,
                   ),
+                  onFieldSubmitted: (_) => addNew(),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return localization.addDescription;
@@ -52,24 +69,7 @@ class _AddQuickShoppingItemState extends ConsumerState<AddQuickShoppingItem> {
                   },
                 ),
               ),
-              IconButton(
-                onPressed: () async {
-                  if (formkey.currentState?.validate() == true) {
-                    ref
-                        .read(quickShoppingModifierProvider)
-                        .add(
-                          QuickShoppingData(
-                            id: randomAlphaNumeric(16),
-                            done: false,
-                            description: descriptionController.text,
-                          ),
-                        );
-
-                    descriptionController.text = "";
-                  }
-                },
-                icon: Icon(Icons.add),
-              ),
+              IconButton(onPressed: () => addNew(), icon: Icon(Icons.add)),
             ],
           ),
         ),
