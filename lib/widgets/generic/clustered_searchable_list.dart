@@ -15,7 +15,8 @@ class ClusteredSearchableList<T, R> extends StatefulWidget {
     required this.clusterToWidget,
     this.sortItems,
     this.sortClusters,
-    this.trailing,
+    this.trailingSearch,
+    this.trailingList,
     this.emptyState,
     this.listViewPadding = const EdgeInsets.only(bottom: 78),
     super.key,
@@ -34,8 +35,9 @@ class ClusteredSearchableList<T, R> extends StatefulWidget {
   final int Function(T a, T b)? sortItems;
   final int Function(R a, R b)? sortClusters;
 
-  final Widget? trailing;
+  final Widget? trailingSearch;
   final Widget? emptyState;
+  final Widget? trailingList;
   final EdgeInsets listViewPadding;
 
   @override
@@ -139,19 +141,30 @@ class _ClusteredSearchableListState<T, R>
     } else {
       child = CustomScrollView(
         slivers: [
-          for (var cluster in clusters.entries)
-            SliverMainAxisGroup(
+          SliverPadding(
+            padding: widget.listViewPadding,
+            sliver: SliverMainAxisGroup(
               slivers: [
-                PinnedHeaderSliver(child: widget.clusterToWidget(cluster.key)),
-                SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) =>
-                        widget.itemToWidget(cluster.value[index]),
-                    childCount: cluster.value.length,
+                for (var cluster in clusters.entries)
+                  SliverMainAxisGroup(
+                    slivers: [
+                      PinnedHeaderSliver(
+                        child: widget.clusterToWidget(cluster.key),
+                      ),
+                      SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          (context, index) =>
+                              widget.itemToWidget(cluster.value[index]),
+                          childCount: cluster.value.length,
+                        ),
+                      ),
+                    ],
                   ),
-                ),
+                if (widget.trailingList != null)
+                  SliverToBoxAdapter(child: widget.trailingList),
               ],
             ),
+          ),
         ],
       );
     }
@@ -173,7 +186,7 @@ class _ClusteredSearchableListState<T, R>
                   onChanged: (value) => setState(() => search = value),
                 ),
               ),
-              ?widget.trailing,
+              ?widget.trailingSearch,
             ],
           ),
           Expanded(child: child),

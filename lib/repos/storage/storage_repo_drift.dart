@@ -45,13 +45,16 @@ class StorageRepoDrift extends LocalRepo<StorageData> {
 
   @override
   Future<List<StorageTableData>> getNotUploaded() async {
-    final query = db.select(table);
+    return await (db.select(
+      table,
+    )..where((tbl) => tbl.uploaded.equals(false))).get();
+  }
 
-    if (!incluedDeleted) {
-      query.where((tbl) => tbl.deleted.equals(false));
-    }
-
-    return await (query..where((tbl) => tbl.uploaded.equals(false))).get();
+  @override
+  Stream<bool> hasNotUploaded() {
+    return (db.select(table)..where((tbl) => tbl.uploaded.equals(false)))
+        .watchSingleOrNull()
+        .map((e) => e != null);
   }
 
   @override

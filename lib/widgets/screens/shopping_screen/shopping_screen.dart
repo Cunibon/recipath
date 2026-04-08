@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:recipath/application/shopping_modifier/shopping_modifier_notifier.dart';
 import 'package:recipath/data/ingredient_data/ingredient_data.dart';
-import 'package:recipath/data/shopping_data/shopping_data.dart';
 import 'package:recipath/data/tag_data/tag_type_enum.dart';
 import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/l10n/app_localizations.dart';
@@ -18,7 +17,12 @@ import 'package:recipath/widgets/navigation/navigation_drawer_scaffold.dart';
 import 'package:recipath/widgets/providers/double_number_format_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/quick_filter_notifier.dart';
 import 'package:recipath/widgets/screens/shopping_screen/add_ingredient_dialog.dart';
+import 'package:recipath/widgets/screens/shopping_screen/add_quick_shopping_item.dart';
+import 'package:recipath/widgets/screens/shopping_screen/data/shopping_item_data.dart';
+import 'package:recipath/widgets/screens/shopping_screen/providers/quick_shopping_not_uploaded_notifier.dart';
+import 'package:recipath/widgets/screens/shopping_screen/providers/shopping_not_uploaded_notifier.dart';
 import 'package:recipath/widgets/screens/shopping_screen/providers/shopping_screen_state_notifier.dart';
+import 'package:recipath/widgets/screens/shopping_screen/quick_shopping_item.dart';
 import 'package:recipath/widgets/screens/shopping_screen/shopping_item.dart';
 import 'package:recipath/widgets/tag/tag_cluster_header.dart';
 
@@ -38,6 +42,12 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
     super.dispose();
   }
 
+  int getSortPriority(String type) {
+    if (type == ShoppingTypeEnum.normal.name) return 1;
+    if (type == ShoppingTypeEnum.quick.name) return 2;
+    return 0;
+  }
+
   @override
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context)!;
@@ -51,10 +61,8 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
       titleBuilder: (title) => DefaultNavigationTitle(
         title: title,
         syncState:
-            screenState.value?.shoppingData.values.any(
-                  (e) => e.uploaded == false,
-                ) ==
-                true
+            (ref.watch(shoppingNotUploadedProvider).value ?? true) ||
+                ref.watch(quickShoppingNotUploadedProvider).value == true
             ? SyncState.unsynced
             : SyncState.synced,
       ),
@@ -99,46 +107,67 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
           name: localization.items,
           clusters: [
             for (final entry in data.clusteredData.entries)
-              ItemCluster(id: entry.key, items: entry.value.values.toList()),
-            ItemCluster(id: null, items: data.shoppingData.values.toList()),
+              ItemCluster(id: entry.key, items: entry.value),
           ],
           clusterToWidget: (clusterId) {
-            if (data.clusteredData.isEmpty) return SizedBox.shrink();
+            if (data.clusteredData.length == 1 &&
+                (clusterId == ShoppingTypeEnum.normal.name ||
+                    clusterId == ShoppingTypeEnum.quick.name)) {
+              return SizedBox.shrink();
+            }
 
             return TagClusterHeader(tagId: clusterId);
           },
           sortClusters: (a, b) {
-            if (a == null) {
-              return 1;
-            } else if (b == null) {
-              return -1;
-            } else {
-              return data.tags[a]!.name.compareTo(data.tags[b]!.name);
+            int priorityA = getSortPriority(a);
+            int priorityB = getSortPriority(b);
+
+            if (priorityA != priorityB) {
+              return priorityA.compareTo(priorityB);
             }
+
+            return data.tags[a]!.name.compareTo(data.tags[b]!.name);
           },
-          itemToSearchable: (item) => item.toReadable(
-            grocery: data.groceryMap[item.ingredient.groceryId]!,
-            unitLocalized: unitLocalized,
-            doubleNumberFormat: doubleNumberFormat,
-          ),
-          itemToWidget: (item) => ShoppingItem(
-            key: Key("${item.id} ${item.count}"),
-            data: item,
-            storageData: data.storage[item.ingredient.groceryId]?.ingredient,
-          ),
+          itemToSearchable: (item) => switch (item) {
+            ShoppingItemData() => item.toReadable(
+              grocery: data.groceryMap[item.data.ingredient.groceryId]!,
+              unitLocalized: unitLocalized,
+              doubleNumberFormat: doubleNumberFormat,
+            ),
+            QuickShoppingItemData() => item.toReadable(),
+          },
+          itemToWidget: (item) => switch (item) {
+            ShoppingItemData() => ShoppingItem(
+              key: Key("${item.data.id} ${item.data.count}"),
+              data: item.data,
+              storageData:
+                  data.storage[item.data.ingredient.groceryId]?.ingredient,
+            ),
+            QuickShoppingItemData() => QuickShoppingItem(data: item.data),
+          },
           sortItems: (a, b) {
             if (a.done == b.done) {
-              return data.groceryMap[a.ingredient.groceryId]!.name.compareTo(
-                data.groceryMap[b.ingredient.groceryId]!.name,
-              );
+              final aString = switch (a) {
+                ShoppingItemData() =>
+                  data.groceryMap[a.data.ingredient.groceryId]!.name,
+                QuickShoppingItemData() => a.data.description,
+              };
+              final bString = switch (a) {
+                ShoppingItemData() =>
+                  data.groceryMap[a.data.ingredient.groceryId]!.name,
+                QuickShoppingItemData() => a.data.description,
+              };
+
+              return aString.compareTo(bString);
             } else {
               return a.done ? 1 : -1;
             }
           },
-          trailing: FilterButton(
+          trailingSearch: FilterButton(
             quickFilters: [QuickFilters.cluster],
             filterType: TagTypeEnum.grocery,
           ),
+          trailingList: AddQuickShoppingItem(),
           emptyState: EmptyState(
             hint: localization.shoppingHint,
             onTap: () => context.go(RootRoutes.recipeRoute.path),

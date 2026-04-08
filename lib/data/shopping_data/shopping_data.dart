@@ -1,10 +1,6 @@
 import 'package:drift/drift.dart' as drift;
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:intl/intl.dart';
-import 'package:random_string/random_string.dart';
-import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/ingredient_data/ingredient_data.dart';
-import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/drift/database.dart';
 
 part 'shopping_data.freezed.dart';
@@ -38,13 +34,6 @@ abstract class ShoppingData with _$ShoppingData {
 }
 
 extension ShoppingDataFunctions on ShoppingData {
-  String toReadable({
-    required GroceryData grocery,
-    required Map<UnitEnum, String> unitLocalized,
-    required NumberFormat doubleNumberFormat,
-  }) =>
-      "${count}x ${grocery.toReadable(unitLocalized: unitLocalized, doubleNumberFormat: doubleNumberFormat)} (${doubleNumberFormat.format(ingredient.amount)}${unitLocalized[grocery.unit]})";
-
   ShoppingTableCompanion toTableCompanion() => ShoppingTableCompanion.insert(
     id: id,
     done: done,
@@ -53,14 +42,4 @@ extension ShoppingDataFunctions on ShoppingData {
     deleted: drift.Value(deleted),
     uploaded: drift.Value(uploaded),
   );
-
-  ShoppingData copyWithNewId({Map<String, String> groceryLookup = const {}}) {
-    return copyWith(
-      id: randomAlphaNumeric(16),
-      ingredient: ingredient.copyWith(
-        id: randomAlphaNumeric(16),
-        groceryId: groceryLookup[ingredient.groceryId] ?? ingredient.groceryId,
-      ),
-    );
-  }
 }

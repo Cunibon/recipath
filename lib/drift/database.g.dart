@@ -3901,6 +3901,378 @@ class ShoppingTableCompanion extends UpdateCompanion<ShoppingTableData> {
   }
 }
 
+class $QuickShoppingTableTable extends QuickShoppingTable
+    with TableInfo<$QuickShoppingTableTable, QuickShoppingTableData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $QuickShoppingTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _doneMeta = const VerificationMeta('done');
+  @override
+  late final GeneratedColumn<bool> done = GeneratedColumn<bool>(
+    'done',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("done" IN (0, 1))',
+    ),
+  );
+  static const VerificationMeta _descriptionMeta = const VerificationMeta(
+    'description',
+  );
+  @override
+  late final GeneratedColumn<String> description = GeneratedColumn<String>(
+    'description',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _deletedMeta = const VerificationMeta(
+    'deleted',
+  );
+  @override
+  late final GeneratedColumn<bool> deleted = GeneratedColumn<bool>(
+    'deleted',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("deleted" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
+  static const VerificationMeta _uploadedMeta = const VerificationMeta(
+    'uploaded',
+  );
+  @override
+  late final GeneratedColumn<bool> uploaded = GeneratedColumn<bool>(
+    'uploaded',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("uploaded" IN (0, 1))',
+    ),
+    defaultValue: Constant(false),
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    done,
+    description,
+    deleted,
+    uploaded,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'quick_shopping_table';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<QuickShoppingTableData> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('done')) {
+      context.handle(
+        _doneMeta,
+        done.isAcceptableOrUnknown(data['done']!, _doneMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_doneMeta);
+    }
+    if (data.containsKey('description')) {
+      context.handle(
+        _descriptionMeta,
+        description.isAcceptableOrUnknown(
+          data['description']!,
+          _descriptionMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_descriptionMeta);
+    }
+    if (data.containsKey('deleted')) {
+      context.handle(
+        _deletedMeta,
+        deleted.isAcceptableOrUnknown(data['deleted']!, _deletedMeta),
+      );
+    }
+    if (data.containsKey('uploaded')) {
+      context.handle(
+        _uploadedMeta,
+        uploaded.isAcceptableOrUnknown(data['uploaded']!, _uploadedMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  QuickShoppingTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return QuickShoppingTableData(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      done: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}done'],
+      )!,
+      description: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}description'],
+      )!,
+      deleted: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}deleted'],
+      )!,
+      uploaded: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}uploaded'],
+      )!,
+    );
+  }
+
+  @override
+  $QuickShoppingTableTable createAlias(String alias) {
+    return $QuickShoppingTableTable(attachedDatabase, alias);
+  }
+}
+
+class QuickShoppingTableData extends DataClass
+    implements Insertable<QuickShoppingTableData> {
+  final String id;
+  final bool done;
+  final String description;
+  final bool deleted;
+  final bool uploaded;
+  const QuickShoppingTableData({
+    required this.id,
+    required this.done,
+    required this.description,
+    required this.deleted,
+    required this.uploaded,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['done'] = Variable<bool>(done);
+    map['description'] = Variable<String>(description);
+    map['deleted'] = Variable<bool>(deleted);
+    map['uploaded'] = Variable<bool>(uploaded);
+    return map;
+  }
+
+  QuickShoppingTableCompanion toCompanion(bool nullToAbsent) {
+    return QuickShoppingTableCompanion(
+      id: Value(id),
+      done: Value(done),
+      description: Value(description),
+      deleted: Value(deleted),
+      uploaded: Value(uploaded),
+    );
+  }
+
+  factory QuickShoppingTableData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return QuickShoppingTableData(
+      id: serializer.fromJson<String>(json['id']),
+      done: serializer.fromJson<bool>(json['done']),
+      description: serializer.fromJson<String>(json['description']),
+      deleted: serializer.fromJson<bool>(json['deleted']),
+      uploaded: serializer.fromJson<bool>(json['uploaded']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'done': serializer.toJson<bool>(done),
+      'description': serializer.toJson<String>(description),
+      'deleted': serializer.toJson<bool>(deleted),
+      'uploaded': serializer.toJson<bool>(uploaded),
+    };
+  }
+
+  QuickShoppingTableData copyWith({
+    String? id,
+    bool? done,
+    String? description,
+    bool? deleted,
+    bool? uploaded,
+  }) => QuickShoppingTableData(
+    id: id ?? this.id,
+    done: done ?? this.done,
+    description: description ?? this.description,
+    deleted: deleted ?? this.deleted,
+    uploaded: uploaded ?? this.uploaded,
+  );
+  QuickShoppingTableData copyWithCompanion(QuickShoppingTableCompanion data) {
+    return QuickShoppingTableData(
+      id: data.id.present ? data.id.value : this.id,
+      done: data.done.present ? data.done.value : this.done,
+      description: data.description.present
+          ? data.description.value
+          : this.description,
+      deleted: data.deleted.present ? data.deleted.value : this.deleted,
+      uploaded: data.uploaded.present ? data.uploaded.value : this.uploaded,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('QuickShoppingTableData(')
+          ..write('id: $id, ')
+          ..write('done: $done, ')
+          ..write('description: $description, ')
+          ..write('deleted: $deleted, ')
+          ..write('uploaded: $uploaded')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, done, description, deleted, uploaded);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is QuickShoppingTableData &&
+          other.id == this.id &&
+          other.done == this.done &&
+          other.description == this.description &&
+          other.deleted == this.deleted &&
+          other.uploaded == this.uploaded);
+}
+
+class QuickShoppingTableCompanion
+    extends UpdateCompanion<QuickShoppingTableData> {
+  final Value<String> id;
+  final Value<bool> done;
+  final Value<String> description;
+  final Value<bool> deleted;
+  final Value<bool> uploaded;
+  final Value<int> rowid;
+  const QuickShoppingTableCompanion({
+    this.id = const Value.absent(),
+    this.done = const Value.absent(),
+    this.description = const Value.absent(),
+    this.deleted = const Value.absent(),
+    this.uploaded = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  QuickShoppingTableCompanion.insert({
+    required String id,
+    required bool done,
+    required String description,
+    this.deleted = const Value.absent(),
+    this.uploaded = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       done = Value(done),
+       description = Value(description);
+  static Insertable<QuickShoppingTableData> custom({
+    Expression<String>? id,
+    Expression<bool>? done,
+    Expression<String>? description,
+    Expression<bool>? deleted,
+    Expression<bool>? uploaded,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (done != null) 'done': done,
+      if (description != null) 'description': description,
+      if (deleted != null) 'deleted': deleted,
+      if (uploaded != null) 'uploaded': uploaded,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  QuickShoppingTableCompanion copyWith({
+    Value<String>? id,
+    Value<bool>? done,
+    Value<String>? description,
+    Value<bool>? deleted,
+    Value<bool>? uploaded,
+    Value<int>? rowid,
+  }) {
+    return QuickShoppingTableCompanion(
+      id: id ?? this.id,
+      done: done ?? this.done,
+      description: description ?? this.description,
+      deleted: deleted ?? this.deleted,
+      uploaded: uploaded ?? this.uploaded,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (done.present) {
+      map['done'] = Variable<bool>(done.value);
+    }
+    if (description.present) {
+      map['description'] = Variable<String>(description.value);
+    }
+    if (deleted.present) {
+      map['deleted'] = Variable<bool>(deleted.value);
+    }
+    if (uploaded.present) {
+      map['uploaded'] = Variable<bool>(uploaded.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('QuickShoppingTableCompanion(')
+          ..write('id: $id, ')
+          ..write('done: $done, ')
+          ..write('description: $description, ')
+          ..write('deleted: $deleted, ')
+          ..write('uploaded: $uploaded, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 class $StorageTableTable extends StorageTable
     with TableInfo<$StorageTableTable, StorageTableData> {
   @override
@@ -5198,6 +5570,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     this,
   );
   late final $ShoppingTableTable shoppingTable = $ShoppingTableTable(this);
+  late final $QuickShoppingTableTable quickShoppingTable =
+      $QuickShoppingTableTable(this);
   late final $StorageTableTable storageTable = $StorageTableTable(this);
   late final $RecipeStatisticTableTable recipeStatisticTable =
       $RecipeStatisticTableTable(this);
@@ -5248,6 +5622,10 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     'shopping_uploaded',
     'CREATE INDEX shopping_uploaded ON shopping_table (uploaded)',
   );
+  late final Index quickShoppingUploaded = Index(
+    'quick_shopping_uploaded',
+    'CREATE INDEX quick_shopping_uploaded ON quick_shopping_table (uploaded)',
+  );
   late final Index storageUploaded = Index(
     'storage_uploaded',
     'CREATE INDEX storage_uploaded ON storage_table (uploaded)',
@@ -5286,6 +5664,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     recipeTagTable,
     groceryTagTable,
     shoppingTable,
+    quickShoppingTable,
     storageTable,
     recipeStatisticTable,
     recipeShoppingTable,
@@ -5301,6 +5680,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     groceryTagUploaded,
     shoppingIngredientId,
     shoppingUploaded,
+    quickShoppingUploaded,
     storageUploaded,
     recipeStatisticsRecipeId,
     recipeStatisticsUploaded,
@@ -9759,6 +10139,221 @@ typedef $$ShoppingTableTableProcessedTableManager =
       ShoppingTableData,
       PrefetchHooks Function({bool ingredientId})
     >;
+typedef $$QuickShoppingTableTableCreateCompanionBuilder =
+    QuickShoppingTableCompanion Function({
+      required String id,
+      required bool done,
+      required String description,
+      Value<bool> deleted,
+      Value<bool> uploaded,
+      Value<int> rowid,
+    });
+typedef $$QuickShoppingTableTableUpdateCompanionBuilder =
+    QuickShoppingTableCompanion Function({
+      Value<String> id,
+      Value<bool> done,
+      Value<String> description,
+      Value<bool> deleted,
+      Value<bool> uploaded,
+      Value<int> rowid,
+    });
+
+class $$QuickShoppingTableTableFilterComposer
+    extends Composer<_$AppDatabase, $QuickShoppingTableTable> {
+  $$QuickShoppingTableTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get done => $composableBuilder(
+    column: $table.done,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get description => $composableBuilder(
+    column: $table.description,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get deleted => $composableBuilder(
+    column: $table.deleted,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get uploaded => $composableBuilder(
+    column: $table.uploaded,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$QuickShoppingTableTableOrderingComposer
+    extends Composer<_$AppDatabase, $QuickShoppingTableTable> {
+  $$QuickShoppingTableTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get done => $composableBuilder(
+    column: $table.done,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get description => $composableBuilder(
+    column: $table.description,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get deleted => $composableBuilder(
+    column: $table.deleted,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get uploaded => $composableBuilder(
+    column: $table.uploaded,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$QuickShoppingTableTableAnnotationComposer
+    extends Composer<_$AppDatabase, $QuickShoppingTableTable> {
+  $$QuickShoppingTableTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<bool> get done =>
+      $composableBuilder(column: $table.done, builder: (column) => column);
+
+  GeneratedColumn<String> get description => $composableBuilder(
+    column: $table.description,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<bool> get deleted =>
+      $composableBuilder(column: $table.deleted, builder: (column) => column);
+
+  GeneratedColumn<bool> get uploaded =>
+      $composableBuilder(column: $table.uploaded, builder: (column) => column);
+}
+
+class $$QuickShoppingTableTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $QuickShoppingTableTable,
+          QuickShoppingTableData,
+          $$QuickShoppingTableTableFilterComposer,
+          $$QuickShoppingTableTableOrderingComposer,
+          $$QuickShoppingTableTableAnnotationComposer,
+          $$QuickShoppingTableTableCreateCompanionBuilder,
+          $$QuickShoppingTableTableUpdateCompanionBuilder,
+          (
+            QuickShoppingTableData,
+            BaseReferences<
+              _$AppDatabase,
+              $QuickShoppingTableTable,
+              QuickShoppingTableData
+            >,
+          ),
+          QuickShoppingTableData,
+          PrefetchHooks Function()
+        > {
+  $$QuickShoppingTableTableTableManager(
+    _$AppDatabase db,
+    $QuickShoppingTableTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$QuickShoppingTableTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$QuickShoppingTableTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$QuickShoppingTableTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<bool> done = const Value.absent(),
+                Value<String> description = const Value.absent(),
+                Value<bool> deleted = const Value.absent(),
+                Value<bool> uploaded = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => QuickShoppingTableCompanion(
+                id: id,
+                done: done,
+                description: description,
+                deleted: deleted,
+                uploaded: uploaded,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required bool done,
+                required String description,
+                Value<bool> deleted = const Value.absent(),
+                Value<bool> uploaded = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => QuickShoppingTableCompanion.insert(
+                id: id,
+                done: done,
+                description: description,
+                deleted: deleted,
+                uploaded: uploaded,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$QuickShoppingTableTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $QuickShoppingTableTable,
+      QuickShoppingTableData,
+      $$QuickShoppingTableTableFilterComposer,
+      $$QuickShoppingTableTableOrderingComposer,
+      $$QuickShoppingTableTableAnnotationComposer,
+      $$QuickShoppingTableTableCreateCompanionBuilder,
+      $$QuickShoppingTableTableUpdateCompanionBuilder,
+      (
+        QuickShoppingTableData,
+        BaseReferences<
+          _$AppDatabase,
+          $QuickShoppingTableTable,
+          QuickShoppingTableData
+        >,
+      ),
+      QuickShoppingTableData,
+      PrefetchHooks Function()
+    >;
 typedef $$StorageTableTableCreateCompanionBuilder =
     StorageTableCompanion Function({
       required String id,
@@ -10913,6 +11508,8 @@ class $AppDatabaseManager {
       $$GroceryTagTableTableTableManager(_db, _db.groceryTagTable);
   $$ShoppingTableTableTableManager get shoppingTable =>
       $$ShoppingTableTableTableManager(_db, _db.shoppingTable);
+  $$QuickShoppingTableTableTableManager get quickShoppingTable =>
+      $$QuickShoppingTableTableTableManager(_db, _db.quickShoppingTable);
   $$StorageTableTableTableManager get storageTable =>
       $$StorageTableTableTableManager(_db, _db.storageTable);
   $$RecipeStatisticTableTableTableManager get recipeStatisticTable =>

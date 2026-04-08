@@ -168,5 +168,6 @@
     "enterValidUrl": "Veuillez entrer une URL valide",
     "tagType": "Type d'étiquette",
     "shareFile": "Partager le fichier",
-    "sharePdf": "Partager le PDF"
+    "sharePdf": "Partager le PDF",
+    "quickShopping": "Achat rapide"
 }
