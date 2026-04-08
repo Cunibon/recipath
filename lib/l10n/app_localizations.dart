@@ -1121,6 +1121,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Quick shopping'**
   String get quickShopping;
+
+  /// No description provided for @addOtherItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Add other item'**
+  String get addOtherItem;
 }
 
 class _AppLocalizationsDelegate

@@ -230,5 +230,6 @@
     "tagType": "Tag type",
     "shareFile": "Share file",
     "sharePdf": "Share PDF",
-    "quickShopping": "Quick shopping"
+    "quickShopping": "Quick shopping",
+    "addOtherItem": "Add other item"
 }

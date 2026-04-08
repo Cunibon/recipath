@@ -58,7 +58,7 @@ class _AddQuickShoppingItemState extends ConsumerState<AddQuickShoppingItem> {
                 child: TextFormField(
                   controller: descriptionController,
                   decoration: InputDecoration(
-                    labelText: localization.description,
+                    labelText: localization.addOtherItem,
                   ),
                   onFieldSubmitted: (_) => addNew(),
                   validator: (value) {

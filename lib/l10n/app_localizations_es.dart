@@ -551,4 +551,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get quickShopping => 'Compra rápida';
+
+  @override
+  String get addOtherItem => 'Agregar otro artículo';
 }

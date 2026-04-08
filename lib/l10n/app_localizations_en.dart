@@ -542,4 +542,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get quickShopping => 'Quick shopping';
+
+  @override
+  String get addOtherItem => 'Add other item';
 }

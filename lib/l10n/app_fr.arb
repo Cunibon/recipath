@@ -169,5 +169,6 @@
     "tagType": "Type d'étiquette",
     "shareFile": "Partager le fichier",
     "sharePdf": "Partager le PDF",
-    "quickShopping": "Achat rapide"
+    "quickShopping": "Achat rapide",
+    "addOtherItem": "Ajouter un autre article"
 }

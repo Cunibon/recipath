@@ -169,5 +169,6 @@
     "tagType": "Tag-Typ",
     "shareFile": "Datei teilen",
     "sharePdf": "PDF teilen",
-    "quickShopping": "Schnelleinkauf"
+    "quickShopping": "Schnelleinkauf",
+    "addOtherItem": "Anderen Artikel hinzufügen"
 }
