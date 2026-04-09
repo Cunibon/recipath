@@ -40,12 +40,12 @@ BaseChatModel? aiModelNotifier(Ref ref, AiProviderData? provider) {
         defaultOptions: ChatMistralAIOptions(model: enumValue.defaultModel),
       );
 
-    case AiProviderEnum.moonshot:
-      return ChatOpenAI(
-        apiKey: token,
-        baseUrl: 'https://api.moonshot.ai/v1',
-        defaultOptions: ChatOpenAIOptions(model: enumValue.defaultModel),
-      );
+    // case AiProviderEnum.moonshot:
+    //   return ChatOpenAI(
+    //     apiKey: token,
+    //     baseUrl: 'https://api.moonshot.ai/v1',
+    //     defaultOptions: ChatOpenAIOptions(model: enumValue.defaultModel),
+    //   );
 
     case AiProviderEnum.deepSeek:
       return ChatOpenAI(

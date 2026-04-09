@@ -31,13 +31,13 @@ enum AiProviderEnum {
     handshakeOptions: ChatMistralAIOptions(maxTokens: 1),
   ),
 
-  @JsonValue("Moonshot")
-  moonshot(
-    displayName: 'Moonshot Kimi',
-    defaultModel: 'kimi-k2',
-    tokenUrl: 'https://platform.moonshot.ai/console/api-keys',
-    handshakeOptions: ChatOpenAIOptions(maxTokens: 1),
-  ),
+  // @JsonValue("Moonshot")
+  // moonshot(
+  //   displayName: 'Moonshot Kimi',
+  //   defaultModel: 'kimi-k2',
+  //   tokenUrl: 'https://platform.moonshot.ai/console/api-keys',
+  //   handshakeOptions: ChatOpenAIOptions(maxTokens: 1),
+  // ),
 
   @JsonValue("DeepSeek")
   deepSeek(

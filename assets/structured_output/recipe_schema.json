@@ -134,7 +134,7 @@
           },
           "conversionUnit": {
             "type": "string",
-            "description": "Target unit for the conversionAmount (usually swapping between Volume and Weight).",
+            "description": "Target unit for the conversionAmount. MUST be a different type than 'unit': if unit is Volume (Milliliter, Liter, Teaspoon, Tablespoon, Cup), conversionUnit MUST be Weight (Gram, Kilogram, Ounce, Pound). If unit is Weight, conversionUnit MUST be Volume. Miscellaneous units (Pinch, Clove, Can, Piece) default to Gram for conversion.",
             "enum": [
               "Milliliter",
               "Liter",
@@ -144,11 +144,7 @@
               "Gram",
               "Kilogram",
               "Ounce",
-              "Pound",
-              "Pinch",
-              "Clove",
-              "Can",
-              "Piece"
+              "Pound"
             ]
           },
           "kcal": {

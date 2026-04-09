@@ -22,7 +22,6 @@ const _$AiProviderEnumEnumMap = {
   AiProviderEnum.google: 'Google',
   AiProviderEnum.anthropic: 'Anthropic',
   AiProviderEnum.mistral: 'Mistral',
-  AiProviderEnum.moonshot: 'Moonshot',
   AiProviderEnum.deepSeek: 'DeepSeek',
   AiProviderEnum.openAi: 'OpenAi',
 };
