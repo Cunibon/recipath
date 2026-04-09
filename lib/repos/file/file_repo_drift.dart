@@ -21,7 +21,9 @@ class FileRepoDrift extends LocalRepo<FileData> {
 
   @override
   Stream<bool> hasNotUploaded() {
-    return (db.select(table)..where((tbl) => tbl.uploaded.equals(false)))
+    return (db.select(table)
+          ..where((tbl) => tbl.uploaded.equals(false))
+          ..limit(1))
         .watchSingleOrNull()
         .map((e) => e != null);
   }
