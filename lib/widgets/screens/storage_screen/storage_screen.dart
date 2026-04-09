@@ -14,6 +14,7 @@ import 'package:recipath/widgets/navigation/default_navigation_title.dart';
 import 'package:recipath/widgets/navigation/navigation_drawer_scaffold.dart';
 import 'package:recipath/widgets/providers/double_number_format_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/quick_filter_notifier.dart';
+import 'package:recipath/widgets/screens/storage_screen/providers/storage_not_uploaded_notifier.dart';
 import 'package:recipath/widgets/screens/storage_screen/providers/storage_sceen_state_notifier.dart';
 import 'package:recipath/widgets/screens/storage_screen/storage_item.dart';
 import 'package:recipath/widgets/tag/tag_cluster_header.dart';
@@ -38,11 +39,7 @@ class _StorageScreenState extends ConsumerState<StorageScreen> {
     return NavigationDrawerScaffold(
       titleBuilder: (title) => DefaultNavigationTitle(
         title: title,
-        syncState:
-            screenState.value?.inStorage.values.any(
-                  (e) => e.uploaded == false,
-                ) ==
-                true
+        syncState: ref.watch(storageNotUploadedProvider).value ?? false
             ? SyncState.unsynced
             : SyncState.synced,
       ),

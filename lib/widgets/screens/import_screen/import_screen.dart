@@ -29,8 +29,7 @@ class ImportScreen extends ConsumerWidget {
     final import = ref.watch(AiImportMutation.mutation);
 
     return NavigationDrawerScaffold(
-      titleBuilder: (title) =>
-          DefaultNavigationTitle(title: title, syncState: SyncState.synced),
+      titleBuilder: (title) => DefaultNavigationTitle(title: title),
       body: Center(
         child: import.isPending
             ? CircularProgressIndicator()

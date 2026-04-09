@@ -14,6 +14,7 @@ import 'package:recipath/widgets/navigation/navigation_drawer_scaffold.dart';
 import 'package:recipath/widgets/providers/double_number_format_notifier.dart';
 import 'package:recipath/widgets/screens/grocery_screen/grocery_item.dart';
 import 'package:recipath/widgets/screens/grocery_screen/grocery_routes.dart';
+import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_not_uploaded_notifier.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_screen_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/quick_filter_notifier.dart';
 import 'package:recipath/widgets/tag/tag_cluster_header.dart';
@@ -32,11 +33,7 @@ class GroceryScreen extends ConsumerWidget {
     return NavigationDrawerScaffold(
       titleBuilder: (title) => DefaultNavigationTitle(
         title: title,
-        syncState:
-            asyncData.value?.groceries.any(
-                  (e) => e.groceryData.uploaded == false,
-                ) ==
-                true
+        syncState: ref.watch(groceryNotUploadedProvider).value ?? false
             ? SyncState.unsynced
             : SyncState.synced,
       ),

@@ -26,12 +26,7 @@ Future<RecipeScreenState> recipeScreenNotifier(Ref ref) async {
   final onlyShowCookable = quickFilters[QuickFilters.cookable] ?? false;
 
   final recipeList = <CompactRecipeItemData>[];
-  bool synced = true;
-
   for (final recipe in recipes.values) {
-    if (recipe.uploaded == false) {
-      synced = false;
-    }
     final averageTime = await ref.watch(
       averageRecipeTimeProvider(recipe.id).future,
     );
@@ -71,21 +66,12 @@ Future<RecipeScreenState> recipeScreenNotifier(Ref ref) async {
     }
   }
 
-  return RecipeScreenState(
-    synced: synced,
-    recipe: recipeList,
-    grocery: groceries,
-  );
+  return RecipeScreenState(recipe: recipeList, grocery: groceries);
 }
 
 class RecipeScreenState {
-  RecipeScreenState({
-    required this.synced,
-    required this.recipe,
-    required this.grocery,
-  });
+  RecipeScreenState({required this.recipe, required this.grocery});
 
-  final bool synced;
   final List<CompactRecipeItemData> recipe;
   final Map<String, GroceryData> grocery;
 }

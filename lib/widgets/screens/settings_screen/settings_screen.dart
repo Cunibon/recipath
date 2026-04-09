@@ -20,8 +20,7 @@ class SettingsScreen extends StatelessWidget {
     final localization = AppLocalizations.of(context)!;
 
     return NavigationDrawerScaffold(
-      titleBuilder: (title) =>
-          DefaultNavigationTitle(title: title, syncState: SyncState.synced),
+      titleBuilder: (title) => DefaultNavigationTitle(title: title),
       body: SingleChildScrollView(
         child: Column(
           spacing: 8,

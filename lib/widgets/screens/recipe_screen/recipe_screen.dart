@@ -7,6 +7,7 @@ import 'package:recipath/widgets/navigation/navigation_drawer_scaffold.dart';
 import 'package:recipath/widgets/screens/recipe_screen/export/cancel_export.dart';
 import 'package:recipath/widgets/screens/recipe_screen/export/finish_export.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/export_notifier.dart';
+import 'package:recipath/widgets/screens/recipe_screen/providers/recipe_not_uploaded_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/recipe_screen_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/shopping_planning_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/recipe_routes.dart';
@@ -26,7 +27,7 @@ class RecipeScreen extends ConsumerWidget {
     return NavigationDrawerScaffold(
       titleBuilder: (title) => DefaultNavigationTitle(
         title: title,
-        syncState: screenState.value?.synced == false
+        syncState: ref.watch(recipeNotUploadedProvider).value ?? false
             ? SyncState.unsynced
             : SyncState.synced,
       ),

@@ -25,8 +25,7 @@ class HistoryScreen extends ConsumerWidget {
     final dateTheme = TextTheme.of(context).titleLarge;
 
     return NavigationDrawerScaffold(
-      titleBuilder: (title) =>
-          DefaultNavigationTitle(title: title, syncState: SyncState.synced),
+      titleBuilder: (title) => DefaultNavigationTitle(title: title),
       body: CachedAsyncValueWrapper(
         asyncState: asyncData,
         builder: (data) {

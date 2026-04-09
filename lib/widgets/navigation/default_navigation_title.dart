@@ -8,7 +8,7 @@ enum SyncState { synced, unsynced }
 class DefaultNavigationTitle extends ConsumerWidget {
   const DefaultNavigationTitle({
     required this.title,
-    required this.syncState,
+    this.syncState = .synced,
     super.key,
   });
   final String title;
