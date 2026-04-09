@@ -7,6 +7,7 @@ import 'package:recipath/data/recipe_data/recipe_data.dart';
 import 'package:recipath/data/recipe_statistic_data/recipe_statistic_data.dart';
 import 'package:recipath/data/storage_data/storage_data.dart';
 import 'package:recipath/data/timer_data/timer_data.dart';
+import 'package:recipath/helper/ref_extension.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/recipe_notifier.dart';
@@ -30,7 +31,7 @@ class FinishRecipeButton extends ConsumerWidget {
     final localization = AppLocalizations.of(context)!;
 
     return FloatingActionButton.extended(
-      onPressed: () async {
+      onPressed: () => ref.run((tsx) async {
         final recipeDateRange = DateTimeRange(
           start: timerData.startTime,
           end: DateTime.now(),
@@ -46,18 +47,18 @@ class FinishRecipeButton extends ConsumerWidget {
 
         if (durationResponse == null) return;
 
-        ref.read(timerProvider.notifier).stop(recipeId);
+        tsx.get(timerProvider.notifier).stop(recipeId);
 
         if (durationResponse.duration == null) return;
 
-        final recipe = ref
-            .read(recipeProvider.select((value) => value.value?[recipeId]))!
+        final recipe = tsx
+            .get(recipeProvider.select((value) => value.value?[recipeId]))!
             .adjustIngredientForPlannedServings(timerData.servings);
-        final groceries = ref.read(groceryProvider).value!;
+        final groceries = await tsx.get(groceryProvider.future);
         final ingredients = recipe.getIngredients(groceries);
 
-        ref
-            .read(recipeStatisticsModifierProvider)
+        tsx
+            .get(recipeStatisticsModifierProvider)
             .add(
               RecipeStatisticData(
                 id: randomAlphaNumeric(16),
@@ -69,14 +70,14 @@ class FinishRecipeButton extends ConsumerWidget {
             );
 
         final ingredientsInStorage = Map<String, StorageData>.from(
-          ref.read(storageProvider).value!,
+          tsx.get(storageProvider).value!,
         );
         final availableIngredients = ingredients.where(
           (e) => ingredientsInStorage.keys.contains(e.groceryId),
         );
 
         for (final storageItem in availableIngredients) {
-          ref.read(storageModifierProvider).subtractItem(storageItem);
+          tsx.get(storageModifierProvider).subtractItem(storageItem);
         }
 
         if (context.mounted) {
@@ -89,7 +90,7 @@ class FinishRecipeButton extends ConsumerWidget {
             ),
           );
         }
-      },
+      }),
       label: Row(
         children: [
           CountUpTimer(startTime: timerData.startTime),
