@@ -198,8 +198,9 @@ class RecipeRepoDrift extends TagFilteredRepo<RecipeData> {
 
   @override
   Future<void> delete(String id) async {
-    await db.customStatement(
-      '''
+    db.transaction(() async {
+      await db.customStatement(
+        '''
       DELETE FROM ${db.ingredientTable.actualTableName} 
       WHERE id IN 
       (SELECT rsi.${db.recipeStepIngredientTable.ingredientId.name} 
@@ -210,14 +211,17 @@ class RecipeRepoDrift extends TagFilteredRepo<RecipeData> {
       ON rs.${db.recipeStepTable.id.name} = rsi.${db.recipeStepIngredientTable.stepId.name}
       WHERE r.id = ?
       )''',
-      [id],
-    );
-    await (db.delete(table)..where((t) => t.id.equals(id))).go();
+        [id],
+      );
+      db.notifyUpdates({TableUpdate.onTable(db.ingredientTable)});
+      await (db.delete(table)..where((t) => t.id.equals(id))).go();
+    });
   }
 
   @override
   Future<void> clear() async {
-    await db.customStatement('''
+    db.transaction(() async {
+      await db.customStatement('''
       DELETE FROM ${db.ingredientTable.actualTableName} 
       WHERE id IN 
       (SELECT rsi.${db.recipeStepIngredientTable.ingredientId.name} 
@@ -227,6 +231,8 @@ class RecipeRepoDrift extends TagFilteredRepo<RecipeData> {
       LEFT JOIN ${db.recipeStepIngredientTable.actualTableName} AS rsi
       ON rs.${db.recipeStepTable.id.name} = rsi.${db.recipeStepIngredientTable.stepId.name}
       )''');
-    await db.delete(table).go();
+      db.notifyUpdates({TableUpdate.onTable(db.ingredientTable)});
+      await db.delete(table).go();
+    });
   }
 }
