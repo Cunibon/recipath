@@ -45,6 +45,12 @@ class GroceryFormFields extends ConsumerWidget {
 
     final doubleNumberFormat = ref.watch(doubleNumberFormatProvider);
 
+    final conversionUnits = switch (unitType) {
+      UnitType.volume => UnitConversion.weightToGram.keys,
+      UnitType.weight => UnitConversion.volumeToMl.keys,
+      UnitType.misc => [UnitEnum.g],
+    };
+
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -194,24 +200,20 @@ class GroceryFormFields extends ConsumerWidget {
                         decoration: InputDecoration(
                           labelText: localization.unit,
                         ),
-                        initialValue: data.conversionUnit,
+                        initialValue:
+                            conversionUnits.contains(data.conversionUnit)
+                            ? data.conversionUnit
+                            : conversionUnits.first,
                         validator: (value) =>
                             value == null ? localization.addUnit : null,
-                        items:
-                            (switch (unitType) {
-                                  UnitType.volume =>
-                                    UnitConversion.weightToGram.keys,
-                                  UnitType.weight =>
-                                    UnitConversion.volumeToMl.keys,
-                                  UnitType.misc => [UnitEnum.g],
-                                })
-                                .map(
-                                  (e) => DropdownMenuItem(
-                                    value: e,
-                                    child: Text(e.name),
-                                  ),
-                                )
-                                .toList(),
+                        items: conversionUnits
+                            .map(
+                              (e) => DropdownMenuItem(
+                                value: e,
+                                child: Text(localizedUnits[e]!),
+                              ),
+                            )
+                            .toList(),
                         onChanged: (value) {
                           if (value != null) {
                             final newAmount = UnitConversion.convert(
