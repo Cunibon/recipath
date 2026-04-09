@@ -61,8 +61,8 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
       titleBuilder: (title) => DefaultNavigationTitle(
         title: title,
         syncState:
-            (ref.watch(shoppingNotUploadedProvider).value ?? true) ||
-                ref.watch(quickShoppingNotUploadedProvider).value == true
+            (ref.watch(shoppingNotUploadedProvider).value ?? false) ||
+                (ref.watch(quickShoppingNotUploadedProvider).value ?? false)
             ? SyncState.unsynced
             : SyncState.synced,
       ),
@@ -167,10 +167,18 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
             quickFilters: [QuickFilters.cluster],
             filterType: TagTypeEnum.grocery,
           ),
-          trailingList: AddQuickShoppingItem(),
-          emptyState: EmptyState(
-            hint: localization.shoppingHint,
-            onTap: () => context.go(RootRoutes.recipeRoute.path),
+          trailingList: data.tagFiltersActive ? null : AddQuickShoppingItem(),
+          emptyState: Center(
+            child: Column(
+              mainAxisSize: .min,
+              children: [
+                EmptyState(
+                  hint: localization.shoppingHint,
+                  onTap: () => context.go(RootRoutes.recipeRoute.path),
+                ),
+                if (!data.tagFiltersActive) AddQuickShoppingItem(),
+              ],
+            ),
           ),
         ),
       ),

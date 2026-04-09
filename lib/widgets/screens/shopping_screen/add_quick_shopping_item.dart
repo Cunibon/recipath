@@ -43,11 +43,11 @@ class _AddQuickShoppingItemState extends ConsumerState<AddQuickShoppingItem> {
     return Form(
       key: formkey,
       child: Padding(
-        padding: const EdgeInsets.all(4.0),
+        padding: const EdgeInsets.all(6.0),
         child: DottedBorder(
           options: RoundedRectDottedBorderOptions(
-            color: ColorScheme.of(context).surfaceContainerLowest,
-            strokeWidth: 2,
+            color: ColorScheme.of(context).surfaceContainer,
+            strokeWidth: 4,
             dashPattern: [8, 4],
             radius: radius,
             padding: EdgeInsets.all(8),

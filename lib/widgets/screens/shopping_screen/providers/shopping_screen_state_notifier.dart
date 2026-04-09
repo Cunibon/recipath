@@ -1,7 +1,9 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/storage_data/storage_data.dart';
 import 'package:recipath/data/tag_data/tag_data.dart';
 import 'package:recipath/data/tag_data/tag_type_enum.dart';
+import 'package:recipath/widgets/filtering/tag_filter_notifier.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/tags_per_grocery_provider.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/quick_filter_notifier.dart';
@@ -18,6 +20,10 @@ part 'shopping_screen_state_notifier.g.dart';
 Future<ShoppingScreenState> shoppingScreenStateNotifier(Ref ref) async {
   final quickFilters = ref.watch(quickFilterProvider(TagTypeEnum.grocery));
   final cluster = quickFilters[QuickFilters.cluster] ?? false;
+
+  final tagFiltersActive = ref.watch(
+    tagFilterProvider(TagTypeEnum.grocery).select((e) => e.isNotEmpty),
+  );
 
   final shoppingData = await ref.watch(filteredShoppingProvider.future);
   final quickShoppingData = await ref.watch(quickShoppingProvider.future);
@@ -62,7 +68,7 @@ Future<ShoppingScreenState> shoppingScreenStateNotifier(Ref ref) async {
     ]);
   }
 
-  if (quickShoppingData.isNotEmpty) {
+  if (quickShoppingData.isNotEmpty && !tagFiltersActive) {
     final quickShoppingList = clusteredData.putIfAbsent(
       ShoppingTypeEnum.quick.name,
       () => [],
@@ -78,6 +84,7 @@ Future<ShoppingScreenState> shoppingScreenStateNotifier(Ref ref) async {
     groceryMap: await ref.watch(groceryProvider.future),
     storage: await ref.watch(storageProvider.future),
     tags: await ref.watch(tagProvider.future),
+    tagFiltersActive: tagFiltersActive,
   );
 }
 
@@ -87,10 +94,12 @@ class ShoppingScreenState {
     required this.groceryMap,
     required this.storage,
     required this.tags,
+    required this.tagFiltersActive,
   });
 
   final Map<String, List<BaseShoppingItemData>> clusteredData;
   final Map<String, GroceryData> groceryMap;
   final Map<String, StorageData> storage;
   final Map<String, TagData> tags;
+  final bool tagFiltersActive;
 }
