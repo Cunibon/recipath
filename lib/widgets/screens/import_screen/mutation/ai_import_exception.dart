@@ -28,13 +28,10 @@ class AiImportException implements Exception {
   };
 
   static AiImportException classify(Object error) {
-    // LangChain core exceptions (e.g. OutputParserException)
     if (error is LangChainException) {
       return const AiImportException(AiImportErrorType.parseError);
     }
 
-    // Provider SDK exceptions (Anthropic, OpenAI, Mistral, Google)
-    // all expose an int `code` field for HTTP status
     final code = _extractStatusCode(error);
     if (code != null) {
       if (code == 429) {
@@ -44,11 +41,13 @@ class AiImportException implements Exception {
         return const AiImportException(AiImportErrorType.authError);
       }
       if (code >= 500) {
-        return AiImportException(AiImportErrorType.serverError, statusCode: code);
+        return AiImportException(
+          AiImportErrorType.serverError,
+          statusCode: code,
+        );
       }
     }
 
-    // Network-level failures (SocketException, ClientException, etc.)
     final typeName = error.runtimeType.toString();
     if (typeName.contains('SocketException') ||
         typeName.contains('ClientException') ||
@@ -71,7 +70,6 @@ class AiImportException implements Exception {
 
   static int? _extractStatusCode(Object error) {
     try {
-      // All provider SDK client exceptions expose `int? code`
       return (error as dynamic).code as int?;
     } catch (_) {
       return null;
