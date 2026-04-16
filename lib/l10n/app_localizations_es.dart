@@ -554,4 +554,27 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get addOtherItem => 'Agregar otro artículo';
+
+  @override
+  String aiErrorServer(int code) {
+    return 'Error del servidor ($code). Por favor, inténtelo de nuevo más tarde.';
+  }
+
+  @override
+  String get aiErrorAuth =>
+      'Autenticación fallida. Por favor, verifique su token de IA.';
+
+  @override
+  String get aiErrorRateLimit =>
+      'Demasiadas solicitudes. Por favor, espere e inténtelo de nuevo.';
+
+  @override
+  String get aiErrorNetwork =>
+      'No se pudo conectar al servicio de IA. Verifique su conexión a internet.';
+
+  @override
+  String get aiErrorUrlLoad => 'No se pudo cargar el contenido de la URL.';
+
+  @override
+  String get aiErrorParse => 'No se pudo procesar la respuesta de la IA.';
 }

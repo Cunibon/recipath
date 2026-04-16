@@ -170,5 +170,11 @@
     "shareFile": "Datei teilen",
     "sharePdf": "PDF teilen",
     "quickShopping": "Schnelleinkauf",
-    "addOtherItem": "Anderen Artikel hinzufügen"
+    "addOtherItem": "Anderen Artikel hinzufügen",
+    "aiErrorServer": "Serverfehler ({code}). Bitte versuchen Sie es später erneut.",
+    "aiErrorAuth": "Authentifizierung fehlgeschlagen. Bitte überprüfen Sie Ihr KI-Token.",
+    "aiErrorRateLimit": "Zu viele Anfragen. Bitte warten Sie und versuchen Sie es erneut.",
+    "aiErrorNetwork": "Verbindung zum KI-Dienst nicht möglich. Überprüfen Sie Ihre Internetverbindung.",
+    "aiErrorUrlLoad": "Inhalt der URL konnte nicht geladen werden.",
+    "aiErrorParse": "Die KI-Antwort konnte nicht verarbeitet werden."
 }

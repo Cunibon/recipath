@@ -170,5 +170,11 @@
     "shareFile": "Compartir archivo",
     "sharePdf": "Compartir PDF",
     "quickShopping": "Compra rápida",
-    "addOtherItem": "Agregar otro artículo"
+    "addOtherItem": "Agregar otro artículo",
+    "aiErrorServer": "Error del servidor ({code}). Por favor, inténtelo de nuevo más tarde.",
+    "aiErrorAuth": "Autenticación fallida. Por favor, verifique su token de IA.",
+    "aiErrorRateLimit": "Demasiadas solicitudes. Por favor, espere e inténtelo de nuevo.",
+    "aiErrorNetwork": "No se pudo conectar al servicio de IA. Verifique su conexión a internet.",
+    "aiErrorUrlLoad": "No se pudo cargar el contenido de la URL.",
+    "aiErrorParse": "No se pudo procesar la respuesta de la IA."
 }

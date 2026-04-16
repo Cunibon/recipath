@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
+import 'package:flutter_riverpod/experimental/mutation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:random_string/random_string.dart';
 import 'package:recipath/application/file_modifier.dart/file_modifier_notifier.dart';
@@ -15,6 +16,7 @@ import 'package:recipath/widgets/navigation/navigation_drawer_scaffold.dart';
 import 'package:recipath/widgets/providers/ai/ai_provider_notifier.dart';
 import 'package:recipath/widgets/screens/import_screen/dialogs/ai_url_dialog.dart';
 import 'package:recipath/widgets/screens/import_screen/import_routes.dart';
+import 'package:recipath/widgets/screens/import_screen/mutation/ai_import_exception.dart';
 import 'package:recipath/widgets/screens/import_screen/mutation/ai_import_mutation.dart';
 import 'package:recipath/widgets/screens/recipe_screen/create_recipe_screen/dialogs/image_picker_dialog.dart';
 
@@ -36,6 +38,18 @@ class ImportScreen extends ConsumerWidget {
             : Column(
                 mainAxisSize: .min,
                 children: [
+                  if (import case MutationError(:final error))
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 16.0),
+                      child: Text(
+                        error is AiImportException
+                            ? error.localizedMessage(localization)
+                            : localization.somethingWentWrong,
+                        style: TextTheme.of(context).bodyMedium?.copyWith(
+                          color: ColorScheme.of(context).error,
+                        ),
+                      ),
+                    ),
                   TextButton.icon(
                     onPressed: () async {
                       FilePickerResult? result = await FilePicker.pickFiles(

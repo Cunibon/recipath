@@ -231,5 +231,18 @@
     "shareFile": "Share file",
     "sharePdf": "Share PDF",
     "quickShopping": "Quick shopping",
-    "addOtherItem": "Add other item"
+    "addOtherItem": "Add other item",
+    "aiErrorServer": "Server error ({code}). Please try again later.",
+    "@aiErrorServer": {
+        "placeholders": {
+            "code": {
+                "type": "int"
+            }
+        }
+    },
+    "aiErrorAuth": "Authentication failed. Please check your AI token.",
+    "aiErrorRateLimit": "Too many requests. Please wait and try again.",
+    "aiErrorNetwork": "Could not connect to the AI service. Check your internet connection.",
+    "aiErrorUrlLoad": "Could not load content from the URL.",
+    "aiErrorParse": "Could not process the AI response."
 }

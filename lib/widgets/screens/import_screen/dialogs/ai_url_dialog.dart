@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/experimental/mutation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/l10n/app_localizations.dart';
+import 'package:recipath/widgets/screens/import_screen/mutation/ai_import_exception.dart';
 import 'package:recipath/widgets/screens/import_screen/mutation/ai_import_mutation.dart';
 
 class AiUrlDialog extends ConsumerStatefulWidget {
@@ -50,11 +51,13 @@ class _AiUrlDialogState extends ConsumerState<AiUrlDialog> {
                 return null;
               },
             ),
-            if (import is MutationError)
+            if (import case MutationError(:final error))
               Padding(
                 padding: const EdgeInsets.only(top: 8.0),
                 child: Text(
-                  localization.somethingWentWrong,
+                  error is AiImportException
+                      ? error.localizedMessage(localization)
+                      : localization.somethingWentWrong,
                   style: TextTheme.of(
                     context,
                   ).bodyMedium?.copyWith(color: ColorScheme.of(context).error),

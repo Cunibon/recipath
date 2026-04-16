@@ -553,4 +553,27 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get addOtherItem => 'Anderen Artikel hinzufügen';
+
+  @override
+  String aiErrorServer(int code) {
+    return 'Serverfehler ($code). Bitte versuchen Sie es später erneut.';
+  }
+
+  @override
+  String get aiErrorAuth =>
+      'Authentifizierung fehlgeschlagen. Bitte überprüfen Sie Ihr KI-Token.';
+
+  @override
+  String get aiErrorRateLimit =>
+      'Zu viele Anfragen. Bitte warten Sie und versuchen Sie es erneut.';
+
+  @override
+  String get aiErrorNetwork =>
+      'Verbindung zum KI-Dienst nicht möglich. Überprüfen Sie Ihre Internetverbindung.';
+
+  @override
+  String get aiErrorUrlLoad => 'Inhalt der URL konnte nicht geladen werden.';
+
+  @override
+  String get aiErrorParse => 'Die KI-Antwort konnte nicht verarbeitet werden.';
 }

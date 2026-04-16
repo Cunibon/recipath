@@ -1127,6 +1127,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Add other item'**
   String get addOtherItem;
+
+  /// No description provided for @aiErrorServer.
+  ///
+  /// In en, this message translates to:
+  /// **'Server error ({code}). Please try again later.'**
+  String aiErrorServer(int code);
+
+  /// No description provided for @aiErrorAuth.
+  ///
+  /// In en, this message translates to:
+  /// **'Authentication failed. Please check your AI token.'**
+  String get aiErrorAuth;
+
+  /// No description provided for @aiErrorRateLimit.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many requests. Please wait and try again.'**
+  String get aiErrorRateLimit;
+
+  /// No description provided for @aiErrorNetwork.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not connect to the AI service. Check your internet connection.'**
+  String get aiErrorNetwork;
+
+  /// No description provided for @aiErrorUrlLoad.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load content from the URL.'**
+  String get aiErrorUrlLoad;
+
+  /// No description provided for @aiErrorParse.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not process the AI response.'**
+  String get aiErrorParse;
 }
 
 class _AppLocalizationsDelegate

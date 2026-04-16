@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/experimental/mutation.dart';
 import 'package:langchain/langchain.dart';
+import 'package:recipath/widgets/screens/import_screen/mutation/ai_import_exception.dart';
 import 'package:recipath/widgets/screens/import_screen/mutation/recipe_content_extractor.dart';
 import 'package:recipath/widgets/screens/import_screen/mutation/recipe_prompt_builder.dart';
 
@@ -16,19 +17,28 @@ abstract class AiImportMutation {
     final model = await RecipePromptBuilder.build(tsx);
     if (model == null) return null;
 
-    final result = await model.invoke({
-      'input': [
-        ChatMessageContent.text(
-          "Extract the recipe from this image, including all ingredients and steps.",
-        ),
-        ChatMessageContent.image(
-          data: base64Encode(image),
-          mimeType: 'image/jpeg',
-        ),
-      ],
-    });
+    final ChatResult result;
+    try {
+      result = await model.invoke({
+        'input': [
+          ChatMessageContent.text(
+            "Extract the recipe from this image, including all ingredients and steps.",
+          ),
+          ChatMessageContent.image(
+            data: base64Encode(image),
+            mimeType: 'image/jpeg',
+          ),
+        ],
+      });
+    } catch (e) {
+      throw AiImportException.classify(e);
+    }
 
-    return _parseResult(result);
+    try {
+      return _parseResult(result);
+    } catch (e) {
+      throw const AiImportException(AiImportErrorType.parseError);
+    }
   });
 
   static Future<Map<String, dynamic>?> runUrlImport(
@@ -38,17 +48,31 @@ abstract class AiImportMutation {
     final model = await RecipePromptBuilder.build(tsx);
     if (model == null) return null;
 
-    final recipeContent = await RecipeContentExtractor.extract(url);
+    final String recipeContent;
+    try {
+      recipeContent = await RecipeContentExtractor.extract(url);
+    } catch (e) {
+      throw AiImportException.classifyUrlError(e);
+    }
 
-    final result = await model.invoke({
-      'input': [
-        ChatMessageContent.text(
-          "Extract the recipe from the following content:\n\n$recipeContent",
-        ),
-      ],
-    });
+    final ChatResult result;
+    try {
+      result = await model.invoke({
+        'input': [
+          ChatMessageContent.text(
+            "Extract the recipe from the following content:\n\n$recipeContent",
+          ),
+        ],
+      });
+    } catch (e) {
+      throw AiImportException.classify(e);
+    }
 
-    return _parseResult(result);
+    try {
+      return _parseResult(result);
+    } catch (e) {
+      throw const AiImportException(AiImportErrorType.parseError);
+    }
   });
 
   static Map<String, dynamic> _parseResult(ChatResult result) {
