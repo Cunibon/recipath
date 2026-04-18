@@ -14,8 +14,9 @@ enum AiImportErrorType {
 class AiImportException implements Exception {
   final AiImportErrorType type;
   final int? statusCode;
+  final Object error;
 
-  const AiImportException(this.type, {this.statusCode});
+  const AiImportException(this.type, this.error, {this.statusCode});
 
   String localizedMessage(AppLocalizations l) => switch (type) {
     AiImportErrorType.serverError => l.aiErrorServer(statusCode ?? 500),
@@ -29,20 +30,21 @@ class AiImportException implements Exception {
 
   static AiImportException classify(Object error) {
     if (error is LangChainException) {
-      return const AiImportException(AiImportErrorType.parseError);
+      return AiImportException(AiImportErrorType.parseError, error);
     }
 
     final code = _extractStatusCode(error);
     if (code != null) {
       if (code == 429) {
-        return const AiImportException(AiImportErrorType.rateLimited);
+        return AiImportException(AiImportErrorType.rateLimited, error);
       }
       if (code == 401 || code == 403) {
-        return const AiImportException(AiImportErrorType.authError);
+        return AiImportException(AiImportErrorType.authError, error);
       }
       if (code >= 500) {
         return AiImportException(
           AiImportErrorType.serverError,
+          error,
           statusCode: code,
         );
       }
@@ -53,17 +55,17 @@ class AiImportException implements Exception {
         typeName.contains('ClientException') ||
         typeName.contains('TimeoutException') ||
         typeName.contains('HandshakeException')) {
-      return const AiImportException(AiImportErrorType.networkError);
+      return AiImportException(AiImportErrorType.networkError, error);
     }
 
-    return const AiImportException(AiImportErrorType.unknown);
+    return AiImportException(AiImportErrorType.unknown, error);
   }
 
   static AiImportException classifyUrlError(Object error) {
     final classified = classify(error);
     if (classified.type == AiImportErrorType.unknown ||
         classified.type == AiImportErrorType.networkError) {
-      return const AiImportException(AiImportErrorType.urlLoadError);
+      return AiImportException(AiImportErrorType.urlLoadError, error);
     }
     return classified;
   }
@@ -74,5 +76,10 @@ class AiImportException implements Exception {
     } catch (_) {
       return null;
     }
+  }
+
+  @override
+  String toString() {
+    return "$type, $statusCode: $error";
   }
 }

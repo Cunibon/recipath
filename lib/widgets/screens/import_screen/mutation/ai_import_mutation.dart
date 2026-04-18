@@ -37,7 +37,7 @@ abstract class AiImportMutation {
     try {
       return _parseResult(result);
     } catch (e) {
-      throw const AiImportException(AiImportErrorType.parseError);
+      throw AiImportException(AiImportErrorType.parseError, e);
     }
   });
 
@@ -71,7 +71,7 @@ abstract class AiImportMutation {
     try {
       return _parseResult(result);
     } catch (e) {
-      throw const AiImportException(AiImportErrorType.parseError);
+      throw AiImportException(AiImportErrorType.parseError, e);
     }
   });
 
