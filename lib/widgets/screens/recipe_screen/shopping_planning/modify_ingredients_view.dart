@@ -7,7 +7,7 @@ import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/generic/empty_state.dart';
 import 'package:recipath/widgets/generic/ingredient_item.dart';
 import 'package:recipath/widgets/generic/searchable_list.dart';
-import 'package:recipath/widgets/providers/double_number_format_provider.dart';
+import 'package:recipath/widgets/providers/double_number_format_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/create_recipe_screen/providers/grocey_storage_notifier.dart';
 import 'package:recipath/widgets/screens/settings_screen/providers/storage_mode_provider.dart';
 
@@ -25,7 +25,7 @@ class ModifyIngredientsView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final localization = AppLocalizations.of(context)!;
-    final unitLocalized = localizeUnits(context);
+    final unitLocalized = localizeUnits(localization);
 
     final doubleNumberFormat = ref.watch(doubleNumberFormatProvider);
 

@@ -9,9 +9,13 @@ import 'package:recipath/widgets/screens/tag_screen/providers/tag_notifier.dart'
 import 'package:recipath/widgets/tag/tag.dart';
 
 class ChangeTagDialog extends ConsumerStatefulWidget {
-  const ChangeTagDialog({this.allTags, this.selected = const [], super.key});
+  const ChangeTagDialog({
+    required this.allTags,
+    this.selected = const [],
+    super.key,
+  });
 
-  final Set<TagData>? allTags;
+  final Set<TagData> allTags;
   final Iterable<String> selected;
 
   @override
@@ -25,9 +29,7 @@ class _ChangeTagDialogState extends ConsumerState<ChangeTagDialog> {
   @override
   void initState() {
     super.initState();
-    tagList =
-        widget.allTags?.toList() ??
-        ref.read(tagProvider).value!.values.toList();
+    tagList = widget.allTags.toList();
     selected.addAll(widget.selected);
   }
 

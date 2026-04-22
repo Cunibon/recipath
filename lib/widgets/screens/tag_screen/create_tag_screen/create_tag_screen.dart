@@ -5,6 +5,7 @@ import 'package:random_string/random_string.dart';
 import 'package:recipath/application/tag_modifier/tag_modifier_notifier.dart';
 import 'package:recipath/common.dart';
 import 'package:recipath/data/tag_data/tag_data.dart';
+import 'package:recipath/data/tag_data/tag_type_enum.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/generic/dialogs/delete_confirmation_dialog.dart';
 import 'package:recipath/widgets/generic/dialogs/select_color_dialog.dart';
@@ -13,9 +14,10 @@ import 'package:recipath/widgets/screens/tag_screen/providers/tag_notifier.dart'
 import 'package:recipath/widgets/tag/tag.dart';
 
 class CreateTagScreen extends ConsumerStatefulWidget {
-  const CreateTagScreen({this.tagId, super.key});
+  const CreateTagScreen({this.tagId, this.currentTagType, super.key});
 
   final String? tagId;
+  final TagTypeEnum? currentTagType;
 
   @override
   ConsumerState<CreateTagScreen> createState() => _CreateTagScreenState();
@@ -39,6 +41,7 @@ class _CreateTagScreenState extends ConsumerState<CreateTagScreen> {
         name: "",
         description: "",
         color: getRandomColorBasedOnString(id),
+        tagType: widget.currentTagType ?? TagTypeEnum.recipe,
       );
     } else {
       initialData = existingData;
@@ -58,6 +61,7 @@ class _CreateTagScreenState extends ConsumerState<CreateTagScreen> {
   @override
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context)!;
+    final enumLocalization = localizeTagType(localization);
 
     return UnsavedChangesScope(
       canPop: data == initialData,
@@ -127,6 +131,27 @@ class _CreateTagScreenState extends ConsumerState<CreateTagScreen> {
                     onChanged: (value) => setState(
                       () => data = data.copyWith(description: value),
                     ),
+                  ),
+                  SizedBox(height: 10),
+                  DropdownButtonFormField(
+                    initialValue: data.tagType,
+                    decoration: InputDecoration(
+                      labelText: localization.tagType,
+                    ),
+                    items: [
+                      for (final tagType in TagTypeEnum.values)
+                        DropdownMenuItem(
+                          value: tagType,
+                          child: Text(enumLocalization[tagType]!),
+                        ),
+                    ],
+                    onChanged: widget.tagId == null
+                        ? (value) => setState(
+                            () => data = data.copyWith(
+                              tagType: value as TagTypeEnum,
+                            ),
+                          )
+                        : null,
                   ),
                   SizedBox(height: 16),
                   GestureDetector(

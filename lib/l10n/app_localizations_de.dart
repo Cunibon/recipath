@@ -453,10 +453,6 @@ class AppLocalizationsDe extends AppLocalizations {
   String get introduction => 'Einleitung';
 
   @override
-  String get appIntroduction =>
-      '## Erste Schritte\n\n### 1. Rezepte erstellen\nDu kannst sofort mit dem Erstellen von Rezepten beginnen.\n- Füge einen Titel und eventuell ein Bild hinzu\n- Füge Schritte und die jeweiligen Zutaten hinzu\n    - Erstellte Lebensmittel sind für alle Rezepte verfügbar und können im Lebensmittel-Bildschirm gefunden werden\n    - Lebensmittel haben eine Standardmenge (in der Menge, in der du sie kaufen würdest), diese wird verwendet, um zu berechnen, wie viel von einer Zutat gekauft werden muss\n    - Du kannst auch eine Umrechnungsrate und Nährwerte hinzufügen, beides ist wichtig für genaue Dashboard-Daten\n    - Der kleine QR-Code oben rechts hilft dir, die meisten Werte schnell einzutragen\n- Speichere und du bist startklar\n\n### 2. Einkaufen beginnen\nDurch Wischen eines Rezepts oder Klicken auf die Einkaufsschaltfläche oben kannst du in den \"Einkaufsmodus\" wechseln.\nPlane deinen nächsten Einkauf, indem du die Rezepte auswählst, die du kochen möchtest; alle Zutaten werden automatisch in die Einkaufsliste übernommen.\n\nDu kannst auch alle hinzugefügten Rezepte in dem Einkaufsverlauf sehen.\n\n### 3. Behalte den Überblick\nAlles, was du von deiner Liste abhakst, wird in deinem Vorrat gespeichert.\nDu kannst ihn als Referenz verwenden und sowohl der Einkaufs- als auch der Rezeptbildschirm markieren Zutaten, die du im Vorrat hast, sodass du leicht sehen kannst, was du kochen kannst oder was gekauft werden muss.\n\n### 4. Kochen beginnen\nWenn du bereit zum Kochen bist, klicke auf ein Rezept und starte den Timer.\nSobald du fertig bist, wird deine Zeit aufgezeichnet und eine Durchschnittszeit für das Rezept auf dem Rezeptbildschirm angezeigt.';
-
-  @override
   String get nothingToSee => 'Nichts zu sehen';
 
   @override
@@ -507,4 +503,77 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get downloadToImport =>
       'Laden Sie Recipath herunter:\nhttps://play.google.com/store/apps/details?id=com.cunibongames.recipath\n\nUm diese Rezepte zu importieren';
+
+  @override
+  String get aiToken => 'KI-Token';
+
+  @override
+  String get aiProvider => 'KI-Anbieter';
+
+  @override
+  String get addAiTokenDescription =>
+      'Fügen Sie ein KI-Token hinzu, um KI-Funktionen in der App zu nutzen';
+
+  @override
+  String get selectAiProvider => 'KI-Anbieter auswählen';
+
+  @override
+  String get addAiToken => 'KI-Token hinzufügen';
+
+  @override
+  String get createATokenHere => 'Sie können hier ein Token erstellen!';
+
+  @override
+  String get importFile => 'Aus Datei importieren';
+
+  @override
+  String get importImage => 'Aus Bild importieren';
+
+  @override
+  String get importUrl => 'Aus URL importieren';
+
+  @override
+  String get addAiUrlDescription =>
+      'URL hinzufügen, die Sie importieren möchten';
+
+  @override
+  String get enterValidUrl => 'Bitte geben Sie eine gültige URL ein';
+
+  @override
+  String get tagType => 'Tag-Typ';
+
+  @override
+  String get shareFile => 'Datei teilen';
+
+  @override
+  String get sharePdf => 'PDF teilen';
+
+  @override
+  String get quickShopping => 'Schnelleinkauf';
+
+  @override
+  String get addOtherItem => 'Anderen Artikel hinzufügen';
+
+  @override
+  String aiErrorServer(int code) {
+    return 'Serverfehler ($code). Bitte versuchen Sie es später erneut.';
+  }
+
+  @override
+  String get aiErrorAuth =>
+      'Authentifizierung fehlgeschlagen. Bitte überprüfen Sie Ihr KI-Token.';
+
+  @override
+  String get aiErrorRateLimit =>
+      'Zu viele Anfragen. Bitte warten Sie und versuchen Sie es erneut.';
+
+  @override
+  String get aiErrorNetwork =>
+      'Verbindung zum KI-Dienst nicht möglich. Überprüfen Sie Ihre Internetverbindung.';
+
+  @override
+  String get aiErrorUrlLoad => 'Inhalt der URL konnte nicht geladen werden.';
+
+  @override
+  String get aiErrorParse => 'Die KI-Antwort konnte nicht verarbeitet werden.';
 }

@@ -1,5 +1,6 @@
 import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
+import 'package:recipath/data/tag_data/tag_type_enum.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/create_recipe_screen/providers/grocey_storage_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/data/compact_recipe_item_data.dart';
@@ -19,18 +20,13 @@ Future<RecipeScreenState> recipeScreenNotifier(Ref ref) async {
   final storage = await ref.watch(groceryStorageProvider.future);
   final timers = ref.watch(timerProvider);
 
-  final quickFilters = ref.watch(quickFilterProvider);
+  final quickFilters = ref.watch(quickFilterProvider(TagTypeEnum.recipe));
 
   final onlyShowRunning = quickFilters[QuickFilters.running] ?? false;
   final onlyShowCookable = quickFilters[QuickFilters.cookable] ?? false;
 
   final recipeList = <CompactRecipeItemData>[];
-  bool synced = true;
-
   for (final recipe in recipes.values) {
-    if (recipe.uploaded == false) {
-      synced = false;
-    }
     final averageTime = await ref.watch(
       averageRecipeTimeProvider(recipe.id).future,
     );
@@ -70,21 +66,12 @@ Future<RecipeScreenState> recipeScreenNotifier(Ref ref) async {
     }
   }
 
-  return RecipeScreenState(
-    synced: synced,
-    recipe: recipeList,
-    grocery: groceries,
-  );
+  return RecipeScreenState(recipe: recipeList, grocery: groceries);
 }
 
 class RecipeScreenState {
-  RecipeScreenState({
-    required this.synced,
-    required this.recipe,
-    required this.grocery,
-  });
+  RecipeScreenState({required this.recipe, required this.grocery});
 
-  final bool synced;
   final List<CompactRecipeItemData> recipe;
   final Map<String, GroceryData> grocery;
 }

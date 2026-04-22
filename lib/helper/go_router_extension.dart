@@ -12,10 +12,7 @@ extension GoRouterRelative on BuildContext {
 
     final uri = Uri(
       path: '$basePath/$relativePath',
-      queryParameters: {
-        ...state.uri.queryParameters,
-        if (queryParameters != null) ...queryParameters,
-      },
+      queryParameters: queryParameters,
     );
 
     GoRouter.of(this).go(uri.toString(), extra: extra);

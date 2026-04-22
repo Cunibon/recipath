@@ -1,5 +1,7 @@
 import 'package:recipath/domain_service/syncing_service/repos/sync_repos/grocery_sync_repo.dart';
+import 'package:recipath/domain_service/syncing_service/repos/sync_repos/grocery_tag_sync_repo.dart';
 import 'package:recipath/domain_service/syncing_service/repos/sync_repos/ingredient_sync_repo.dart';
+import 'package:recipath/domain_service/syncing_service/repos/sync_repos/quick_shopping_sync_repo.dart';
 import 'package:recipath/domain_service/syncing_service/repos/sync_repos/recipe_shopping_sync_repo.dart';
 import 'package:recipath/domain_service/syncing_service/repos/sync_repos/recipe_statistic_sync_repo.dart';
 import 'package:recipath/domain_service/syncing_service/repos/sync_repos/recipe_step_ingredient_sync_repo.dart';
@@ -11,8 +13,10 @@ import 'package:recipath/domain_service/syncing_service/repos/sync_repos/storage
 import 'package:recipath/domain_service/syncing_service/repos/sync_repos/tag_sync_repo.dart';
 import 'package:recipath/domain_service/syncing_service/sync_orchestrator/sync_orchestartor.dart';
 import 'package:recipath/repos/grocery/full_grocery_repo_notifier.dart';
+import 'package:recipath/repos/grocery_tag/full_grocery_tag_repo_notifier.dart';
 import 'package:recipath/repos/ingredient_repo/ingredient_repo_notifier.dart';
-import 'package:recipath/repos/recipe/drift/full_recipe_repo_notifier.dart';
+import 'package:recipath/repos/quick_shopping/full_quick_shopping_repo_notifier.dart';
+import 'package:recipath/repos/recipe/full_recipe_repo_notifier.dart';
 import 'package:recipath/repos/recipe_shopping/recipe_shopping_repo_notifier.dart';
 import 'package:recipath/repos/recipe_statistics/recipe_statistics_repo_notifier.dart';
 import 'package:recipath/repos/recipe_step_ingredient_repo/recipe_step_ingredient_repo_notifier.dart';
@@ -35,6 +39,7 @@ Future<SyncOrchestrator> syncOrchestratorNotifier(Ref ref) async {
   final groceryRepo = ref.watch(fullGroceryRepoProvider);
   final ingredientRepo = ref.watch(ingredientRepoProvider);
   final shoppingRepo = ref.watch(fullShoppingRepoProvider);
+  final quickShoppingRepo = ref.watch(fullQuickShoppingRepoProvider);
 
   final recipeRepo = ref.watch(fullRecipeRepoProvider);
   final recipeStepRepo = ref.watch(recipeStepRepoProvider);
@@ -42,6 +47,7 @@ Future<SyncOrchestrator> syncOrchestratorNotifier(Ref ref) async {
 
   final tagRepo = ref.watch(fullTagRepoProvider);
   final recipeTagRepo = ref.watch(fullRecipeTagRepoProvider);
+  final groceryTagRepo = ref.watch(fullGroceryTagRepoProvider);
 
   final storageRepo = ref.watch(fullStorageRepoProvider);
 
@@ -64,6 +70,10 @@ Future<SyncOrchestrator> syncOrchestratorNotifier(Ref ref) async {
           repo: recipeStepRepo,
         ),
         RecipeTagSyncRepo(supabaseClient: supabaseClient, repo: recipeTagRepo),
+        GroceryTagSyncRepo(
+          supabaseClient: supabaseClient,
+          repo: groceryTagRepo,
+        ),
         RecipeStatisticSyncRepo(
           supabaseClient: supabaseClient,
           repo: recipeStatisticRepo,
@@ -76,6 +86,10 @@ Future<SyncOrchestrator> syncOrchestratorNotifier(Ref ref) async {
     ],
     [
       ShoppingSyncRepo(supabaseClient: supabaseClient, repo: shoppingRepo),
+      QuickShoppingSyncRepo(
+        supabaseClient: supabaseClient,
+        repo: quickShoppingRepo,
+      ),
       if (pro) ...[
         RecipeStepIngredientSyncRepo(
           supabaseClient: supabaseClient,

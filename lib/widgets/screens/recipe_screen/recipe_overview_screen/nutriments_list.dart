@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/ingredient_data/ingredient_data.dart';
 import 'package:recipath/l10n/app_localizations.dart';
-import 'package:recipath/widgets/providers/double_number_format_provider.dart';
+import 'package:recipath/widgets/providers/double_number_format_notifier.dart';
 import 'package:recipath/widgets/screens/dashboard_screen/charts/kcal_chart/providers/nutriment_enum.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 
@@ -13,15 +14,10 @@ class NutrimentsList extends ConsumerWidget {
   final List<IngredientData> ingredients;
   final int? servings;
 
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final localization = AppLocalizations.of(context)!;
-    final localizedNutriments = localizeNutriments(context);
-
-    final doubleNumberFormat = ref.watch(doubleNumberFormatProvider);
-
-    final groceryMap = ref.watch(groceryProvider).value!;
-
+  static Map<Nutriments, double> aggregateNutriments(
+    List<IngredientData> ingredients,
+    Map<String, GroceryData> groceryMap,
+  ) {
     final Map<Nutriments, double> aggregatedNutriments = {};
 
     for (final ingredient in ingredients) {
@@ -49,6 +45,17 @@ class NutrimentsList extends ConsumerWidget {
       }
     }
 
+    return aggregatedNutriments;
+  }
+
+  static String buildString({
+    required AppLocalizations localization,
+    required NumberFormat doubleNumberFormat,
+    required Map<Nutriments, double> aggregatedNutriments,
+    required int? servings,
+  }) {
+    final localizedNutriments = localizeNutriments(localization);
+
     final nutrimentBuffer = StringBuffer();
 
     nutrimentBuffer.writeln("${localization.nutriments}:");
@@ -64,11 +71,33 @@ class NutrimentsList extends ConsumerWidget {
 
       for (final entry in aggregatedNutriments.entries) {
         nutrimentBuffer.writeln(
-          "● ${localizedNutriments[entry.key]}: ${doubleNumberFormat.format(entry.value / servings!)}",
+          "● ${localizedNutriments[entry.key]}: ${doubleNumberFormat.format(entry.value / servings)}",
         );
       }
     }
 
-    return Text(nutrimentBuffer.toString().trimRight());
+    return nutrimentBuffer.toString().trimRight();
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final localization = AppLocalizations.of(context)!;
+    final doubleNumberFormat = ref.watch(doubleNumberFormatProvider);
+
+    final groceryMap = ref.watch(groceryProvider).value!;
+
+    final Map<Nutriments, double> aggregatedNutriments = aggregateNutriments(
+      ingredients,
+      groceryMap,
+    );
+
+    return Text(
+      buildString(
+        localization: localization,
+        doubleNumberFormat: doubleNumberFormat,
+        aggregatedNutriments: aggregatedNutriments,
+        servings: servings,
+      ),
+    );
   }
 }

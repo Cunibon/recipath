@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/application/storage_modifier/storage_modifier_notifier.dart';
 import 'package:recipath/data/storage_data/storage_data.dart';
 import 'package:recipath/widgets/generic/ingredient_item.dart';
-import 'package:recipath/widgets/providers/double_number_format_provider.dart';
+import 'package:recipath/widgets/providers/double_number_format_notifier.dart';
 
 class StorageItem extends ConsumerWidget {
   const StorageItem({required this.data, super.key});

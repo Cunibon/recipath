@@ -38,10 +38,10 @@ Future<void> showTimersRunningNotification() async {
     );
 
     await notifications.show(
-      _timersNotificationId,
-      localizations.timersRunningHeader,
-      localizations.timersRunningDescription,
-      details,
+      id: _timersNotificationId,
+      title: localizations.timersRunningHeader,
+      body: localizations.timersRunningDescription,
+      notificationDetails: details,
     );
   }
 }
@@ -73,11 +73,11 @@ Future<void> scheduleStepNotification({
     );
 
     await notifications.zonedSchedule(
-      id,
-      localizations.stepTimerFinishedTitle,
-      localizations.stepTimerFinishedBody(index + 1, recipe.title),
-      tz.TZDateTime.from(scheduledAt, tz.local),
-      const NotificationDetails(
+      id: id,
+      title: localizations.stepTimerFinishedTitle,
+      body: localizations.stepTimerFinishedBody(index + 1, recipe.title),
+      scheduledDate: tz.TZDateTime.from(scheduledAt, tz.local),
+      notificationDetails: const NotificationDetails(
         android: AndroidNotificationDetails(
           'step_timer_channel',
           'Step timer notification',
@@ -95,5 +95,5 @@ Future<void> scheduleStepNotification({
 }
 
 Future<void> cancelNotification(int id) async {
-  await notifications.cancel(id);
+  await notifications.cancel(id: id);
 }

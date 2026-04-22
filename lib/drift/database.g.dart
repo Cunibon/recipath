@@ -2423,6 +2423,18 @@ class $TagTableTable extends TagTable
     type: DriftSqlType.int,
     requiredDuringInsert: true,
   );
+  static const VerificationMeta _tagTypeMeta = const VerificationMeta(
+    'tagType',
+  );
+  @override
+  late final GeneratedColumn<String> tagType = GeneratedColumn<String>(
+    'tag_type',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant("Recipe"),
+  );
   static const VerificationMeta _deletedMeta = const VerificationMeta(
     'deleted',
   );
@@ -2459,6 +2471,7 @@ class $TagTableTable extends TagTable
     name,
     description,
     color,
+    tagType,
     deleted,
     uploaded,
   ];
@@ -2506,6 +2519,12 @@ class $TagTableTable extends TagTable
     } else if (isInserting) {
       context.missing(_colorMeta);
     }
+    if (data.containsKey('tag_type')) {
+      context.handle(
+        _tagTypeMeta,
+        tagType.isAcceptableOrUnknown(data['tag_type']!, _tagTypeMeta),
+      );
+    }
     if (data.containsKey('deleted')) {
       context.handle(
         _deletedMeta,
@@ -2543,6 +2562,10 @@ class $TagTableTable extends TagTable
         DriftSqlType.int,
         data['${effectivePrefix}color'],
       )!,
+      tagType: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}tag_type'],
+      )!,
       deleted: attachedDatabase.typeMapping.read(
         DriftSqlType.bool,
         data['${effectivePrefix}deleted'],
@@ -2565,6 +2588,7 @@ class TagTableData extends DataClass implements Insertable<TagTableData> {
   final String name;
   final String description;
   final int color;
+  final String tagType;
   final bool deleted;
   final bool uploaded;
   const TagTableData({
@@ -2572,6 +2596,7 @@ class TagTableData extends DataClass implements Insertable<TagTableData> {
     required this.name,
     required this.description,
     required this.color,
+    required this.tagType,
     required this.deleted,
     required this.uploaded,
   });
@@ -2582,6 +2607,7 @@ class TagTableData extends DataClass implements Insertable<TagTableData> {
     map['name'] = Variable<String>(name);
     map['description'] = Variable<String>(description);
     map['color'] = Variable<int>(color);
+    map['tag_type'] = Variable<String>(tagType);
     map['deleted'] = Variable<bool>(deleted);
     map['uploaded'] = Variable<bool>(uploaded);
     return map;
@@ -2593,6 +2619,7 @@ class TagTableData extends DataClass implements Insertable<TagTableData> {
       name: Value(name),
       description: Value(description),
       color: Value(color),
+      tagType: Value(tagType),
       deleted: Value(deleted),
       uploaded: Value(uploaded),
     );
@@ -2608,6 +2635,7 @@ class TagTableData extends DataClass implements Insertable<TagTableData> {
       name: serializer.fromJson<String>(json['name']),
       description: serializer.fromJson<String>(json['description']),
       color: serializer.fromJson<int>(json['color']),
+      tagType: serializer.fromJson<String>(json['tag_type']),
       deleted: serializer.fromJson<bool>(json['deleted']),
       uploaded: serializer.fromJson<bool>(json['uploaded']),
     );
@@ -2620,6 +2648,7 @@ class TagTableData extends DataClass implements Insertable<TagTableData> {
       'name': serializer.toJson<String>(name),
       'description': serializer.toJson<String>(description),
       'color': serializer.toJson<int>(color),
+      'tag_type': serializer.toJson<String>(tagType),
       'deleted': serializer.toJson<bool>(deleted),
       'uploaded': serializer.toJson<bool>(uploaded),
     };
@@ -2630,6 +2659,7 @@ class TagTableData extends DataClass implements Insertable<TagTableData> {
     String? name,
     String? description,
     int? color,
+    String? tagType,
     bool? deleted,
     bool? uploaded,
   }) => TagTableData(
@@ -2637,6 +2667,7 @@ class TagTableData extends DataClass implements Insertable<TagTableData> {
     name: name ?? this.name,
     description: description ?? this.description,
     color: color ?? this.color,
+    tagType: tagType ?? this.tagType,
     deleted: deleted ?? this.deleted,
     uploaded: uploaded ?? this.uploaded,
   );
@@ -2648,6 +2679,7 @@ class TagTableData extends DataClass implements Insertable<TagTableData> {
           ? data.description.value
           : this.description,
       color: data.color.present ? data.color.value : this.color,
+      tagType: data.tagType.present ? data.tagType.value : this.tagType,
       deleted: data.deleted.present ? data.deleted.value : this.deleted,
       uploaded: data.uploaded.present ? data.uploaded.value : this.uploaded,
     );
@@ -2660,6 +2692,7 @@ class TagTableData extends DataClass implements Insertable<TagTableData> {
           ..write('name: $name, ')
           ..write('description: $description, ')
           ..write('color: $color, ')
+          ..write('tagType: $tagType, ')
           ..write('deleted: $deleted, ')
           ..write('uploaded: $uploaded')
           ..write(')'))
@@ -2668,7 +2701,7 @@ class TagTableData extends DataClass implements Insertable<TagTableData> {
 
   @override
   int get hashCode =>
-      Object.hash(id, name, description, color, deleted, uploaded);
+      Object.hash(id, name, description, color, tagType, deleted, uploaded);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -2677,6 +2710,7 @@ class TagTableData extends DataClass implements Insertable<TagTableData> {
           other.name == this.name &&
           other.description == this.description &&
           other.color == this.color &&
+          other.tagType == this.tagType &&
           other.deleted == this.deleted &&
           other.uploaded == this.uploaded);
 }
@@ -2686,6 +2720,7 @@ class TagTableCompanion extends UpdateCompanion<TagTableData> {
   final Value<String> name;
   final Value<String> description;
   final Value<int> color;
+  final Value<String> tagType;
   final Value<bool> deleted;
   final Value<bool> uploaded;
   final Value<int> rowid;
@@ -2694,6 +2729,7 @@ class TagTableCompanion extends UpdateCompanion<TagTableData> {
     this.name = const Value.absent(),
     this.description = const Value.absent(),
     this.color = const Value.absent(),
+    this.tagType = const Value.absent(),
     this.deleted = const Value.absent(),
     this.uploaded = const Value.absent(),
     this.rowid = const Value.absent(),
@@ -2703,6 +2739,7 @@ class TagTableCompanion extends UpdateCompanion<TagTableData> {
     required String name,
     required String description,
     required int color,
+    this.tagType = const Value.absent(),
     this.deleted = const Value.absent(),
     this.uploaded = const Value.absent(),
     this.rowid = const Value.absent(),
@@ -2715,6 +2752,7 @@ class TagTableCompanion extends UpdateCompanion<TagTableData> {
     Expression<String>? name,
     Expression<String>? description,
     Expression<int>? color,
+    Expression<String>? tagType,
     Expression<bool>? deleted,
     Expression<bool>? uploaded,
     Expression<int>? rowid,
@@ -2724,6 +2762,7 @@ class TagTableCompanion extends UpdateCompanion<TagTableData> {
       if (name != null) 'name': name,
       if (description != null) 'description': description,
       if (color != null) 'color': color,
+      if (tagType != null) 'tag_type': tagType,
       if (deleted != null) 'deleted': deleted,
       if (uploaded != null) 'uploaded': uploaded,
       if (rowid != null) 'rowid': rowid,
@@ -2735,6 +2774,7 @@ class TagTableCompanion extends UpdateCompanion<TagTableData> {
     Value<String>? name,
     Value<String>? description,
     Value<int>? color,
+    Value<String>? tagType,
     Value<bool>? deleted,
     Value<bool>? uploaded,
     Value<int>? rowid,
@@ -2744,6 +2784,7 @@ class TagTableCompanion extends UpdateCompanion<TagTableData> {
       name: name ?? this.name,
       description: description ?? this.description,
       color: color ?? this.color,
+      tagType: tagType ?? this.tagType,
       deleted: deleted ?? this.deleted,
       uploaded: uploaded ?? this.uploaded,
       rowid: rowid ?? this.rowid,
@@ -2765,6 +2806,9 @@ class TagTableCompanion extends UpdateCompanion<TagTableData> {
     if (color.present) {
       map['color'] = Variable<int>(color.value);
     }
+    if (tagType.present) {
+      map['tag_type'] = Variable<String>(tagType.value);
+    }
     if (deleted.present) {
       map['deleted'] = Variable<bool>(deleted.value);
     }
@@ -2784,6 +2828,7 @@ class TagTableCompanion extends UpdateCompanion<TagTableData> {
           ..write('name: $name, ')
           ..write('description: $description, ')
           ..write('color: $color, ')
+          ..write('tagType: $tagType, ')
           ..write('deleted: $deleted, ')
           ..write('uploaded: $uploaded, ')
           ..write('rowid: $rowid')
@@ -3105,6 +3150,328 @@ class RecipeTagTableCompanion extends UpdateCompanion<RecipeTagTableData> {
   String toString() {
     return (StringBuffer('RecipeTagTableCompanion(')
           ..write('recipeId: $recipeId, ')
+          ..write('tagId: $tagId, ')
+          ..write('deleted: $deleted, ')
+          ..write('uploaded: $uploaded, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $GroceryTagTableTable extends GroceryTagTable
+    with TableInfo<$GroceryTagTableTable, GroceryTagTableData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $GroceryTagTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _groceryIdMeta = const VerificationMeta(
+    'groceryId',
+  );
+  @override
+  late final GeneratedColumn<String> groceryId = GeneratedColumn<String>(
+    'grocery_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES grocery_table (id) ON DELETE CASCADE',
+    ),
+  );
+  static const VerificationMeta _tagIdMeta = const VerificationMeta('tagId');
+  @override
+  late final GeneratedColumn<String> tagId = GeneratedColumn<String>(
+    'tag_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES tag_table (id) ON DELETE CASCADE',
+    ),
+  );
+  static const VerificationMeta _deletedMeta = const VerificationMeta(
+    'deleted',
+  );
+  @override
+  late final GeneratedColumn<bool> deleted = GeneratedColumn<bool>(
+    'deleted',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("deleted" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
+  static const VerificationMeta _uploadedMeta = const VerificationMeta(
+    'uploaded',
+  );
+  @override
+  late final GeneratedColumn<bool> uploaded = GeneratedColumn<bool>(
+    'uploaded',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("uploaded" IN (0, 1))',
+    ),
+    defaultValue: Constant(false),
+  );
+  @override
+  List<GeneratedColumn> get $columns => [groceryId, tagId, deleted, uploaded];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'grocery_tag_table';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<GroceryTagTableData> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('grocery_id')) {
+      context.handle(
+        _groceryIdMeta,
+        groceryId.isAcceptableOrUnknown(data['grocery_id']!, _groceryIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_groceryIdMeta);
+    }
+    if (data.containsKey('tag_id')) {
+      context.handle(
+        _tagIdMeta,
+        tagId.isAcceptableOrUnknown(data['tag_id']!, _tagIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_tagIdMeta);
+    }
+    if (data.containsKey('deleted')) {
+      context.handle(
+        _deletedMeta,
+        deleted.isAcceptableOrUnknown(data['deleted']!, _deletedMeta),
+      );
+    }
+    if (data.containsKey('uploaded')) {
+      context.handle(
+        _uploadedMeta,
+        uploaded.isAcceptableOrUnknown(data['uploaded']!, _uploadedMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {groceryId, tagId};
+  @override
+  GroceryTagTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return GroceryTagTableData(
+      groceryId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}grocery_id'],
+      )!,
+      tagId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}tag_id'],
+      )!,
+      deleted: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}deleted'],
+      )!,
+      uploaded: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}uploaded'],
+      )!,
+    );
+  }
+
+  @override
+  $GroceryTagTableTable createAlias(String alias) {
+    return $GroceryTagTableTable(attachedDatabase, alias);
+  }
+}
+
+class GroceryTagTableData extends DataClass
+    implements Insertable<GroceryTagTableData> {
+  final String groceryId;
+  final String tagId;
+  final bool deleted;
+  final bool uploaded;
+  const GroceryTagTableData({
+    required this.groceryId,
+    required this.tagId,
+    required this.deleted,
+    required this.uploaded,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['grocery_id'] = Variable<String>(groceryId);
+    map['tag_id'] = Variable<String>(tagId);
+    map['deleted'] = Variable<bool>(deleted);
+    map['uploaded'] = Variable<bool>(uploaded);
+    return map;
+  }
+
+  GroceryTagTableCompanion toCompanion(bool nullToAbsent) {
+    return GroceryTagTableCompanion(
+      groceryId: Value(groceryId),
+      tagId: Value(tagId),
+      deleted: Value(deleted),
+      uploaded: Value(uploaded),
+    );
+  }
+
+  factory GroceryTagTableData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return GroceryTagTableData(
+      groceryId: serializer.fromJson<String>(json['grocery_id']),
+      tagId: serializer.fromJson<String>(json['tag_id']),
+      deleted: serializer.fromJson<bool>(json['deleted']),
+      uploaded: serializer.fromJson<bool>(json['uploaded']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'grocery_id': serializer.toJson<String>(groceryId),
+      'tag_id': serializer.toJson<String>(tagId),
+      'deleted': serializer.toJson<bool>(deleted),
+      'uploaded': serializer.toJson<bool>(uploaded),
+    };
+  }
+
+  GroceryTagTableData copyWith({
+    String? groceryId,
+    String? tagId,
+    bool? deleted,
+    bool? uploaded,
+  }) => GroceryTagTableData(
+    groceryId: groceryId ?? this.groceryId,
+    tagId: tagId ?? this.tagId,
+    deleted: deleted ?? this.deleted,
+    uploaded: uploaded ?? this.uploaded,
+  );
+  GroceryTagTableData copyWithCompanion(GroceryTagTableCompanion data) {
+    return GroceryTagTableData(
+      groceryId: data.groceryId.present ? data.groceryId.value : this.groceryId,
+      tagId: data.tagId.present ? data.tagId.value : this.tagId,
+      deleted: data.deleted.present ? data.deleted.value : this.deleted,
+      uploaded: data.uploaded.present ? data.uploaded.value : this.uploaded,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('GroceryTagTableData(')
+          ..write('groceryId: $groceryId, ')
+          ..write('tagId: $tagId, ')
+          ..write('deleted: $deleted, ')
+          ..write('uploaded: $uploaded')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(groceryId, tagId, deleted, uploaded);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is GroceryTagTableData &&
+          other.groceryId == this.groceryId &&
+          other.tagId == this.tagId &&
+          other.deleted == this.deleted &&
+          other.uploaded == this.uploaded);
+}
+
+class GroceryTagTableCompanion extends UpdateCompanion<GroceryTagTableData> {
+  final Value<String> groceryId;
+  final Value<String> tagId;
+  final Value<bool> deleted;
+  final Value<bool> uploaded;
+  final Value<int> rowid;
+  const GroceryTagTableCompanion({
+    this.groceryId = const Value.absent(),
+    this.tagId = const Value.absent(),
+    this.deleted = const Value.absent(),
+    this.uploaded = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  GroceryTagTableCompanion.insert({
+    required String groceryId,
+    required String tagId,
+    this.deleted = const Value.absent(),
+    this.uploaded = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : groceryId = Value(groceryId),
+       tagId = Value(tagId);
+  static Insertable<GroceryTagTableData> custom({
+    Expression<String>? groceryId,
+    Expression<String>? tagId,
+    Expression<bool>? deleted,
+    Expression<bool>? uploaded,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (groceryId != null) 'grocery_id': groceryId,
+      if (tagId != null) 'tag_id': tagId,
+      if (deleted != null) 'deleted': deleted,
+      if (uploaded != null) 'uploaded': uploaded,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  GroceryTagTableCompanion copyWith({
+    Value<String>? groceryId,
+    Value<String>? tagId,
+    Value<bool>? deleted,
+    Value<bool>? uploaded,
+    Value<int>? rowid,
+  }) {
+    return GroceryTagTableCompanion(
+      groceryId: groceryId ?? this.groceryId,
+      tagId: tagId ?? this.tagId,
+      deleted: deleted ?? this.deleted,
+      uploaded: uploaded ?? this.uploaded,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (groceryId.present) {
+      map['grocery_id'] = Variable<String>(groceryId.value);
+    }
+    if (tagId.present) {
+      map['tag_id'] = Variable<String>(tagId.value);
+    }
+    if (deleted.present) {
+      map['deleted'] = Variable<bool>(deleted.value);
+    }
+    if (uploaded.present) {
+      map['uploaded'] = Variable<bool>(uploaded.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('GroceryTagTableCompanion(')
+          ..write('groceryId: $groceryId, ')
           ..write('tagId: $tagId, ')
           ..write('deleted: $deleted, ')
           ..write('uploaded: $uploaded, ')
@@ -3526,6 +3893,378 @@ class ShoppingTableCompanion extends UpdateCompanion<ShoppingTableData> {
           ..write('done: $done, ')
           ..write('count: $count, ')
           ..write('ingredientId: $ingredientId, ')
+          ..write('deleted: $deleted, ')
+          ..write('uploaded: $uploaded, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $QuickShoppingTableTable extends QuickShoppingTable
+    with TableInfo<$QuickShoppingTableTable, QuickShoppingTableData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $QuickShoppingTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _doneMeta = const VerificationMeta('done');
+  @override
+  late final GeneratedColumn<bool> done = GeneratedColumn<bool>(
+    'done',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("done" IN (0, 1))',
+    ),
+  );
+  static const VerificationMeta _descriptionMeta = const VerificationMeta(
+    'description',
+  );
+  @override
+  late final GeneratedColumn<String> description = GeneratedColumn<String>(
+    'description',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _deletedMeta = const VerificationMeta(
+    'deleted',
+  );
+  @override
+  late final GeneratedColumn<bool> deleted = GeneratedColumn<bool>(
+    'deleted',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("deleted" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
+  static const VerificationMeta _uploadedMeta = const VerificationMeta(
+    'uploaded',
+  );
+  @override
+  late final GeneratedColumn<bool> uploaded = GeneratedColumn<bool>(
+    'uploaded',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("uploaded" IN (0, 1))',
+    ),
+    defaultValue: Constant(false),
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    done,
+    description,
+    deleted,
+    uploaded,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'quick_shopping_table';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<QuickShoppingTableData> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('done')) {
+      context.handle(
+        _doneMeta,
+        done.isAcceptableOrUnknown(data['done']!, _doneMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_doneMeta);
+    }
+    if (data.containsKey('description')) {
+      context.handle(
+        _descriptionMeta,
+        description.isAcceptableOrUnknown(
+          data['description']!,
+          _descriptionMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_descriptionMeta);
+    }
+    if (data.containsKey('deleted')) {
+      context.handle(
+        _deletedMeta,
+        deleted.isAcceptableOrUnknown(data['deleted']!, _deletedMeta),
+      );
+    }
+    if (data.containsKey('uploaded')) {
+      context.handle(
+        _uploadedMeta,
+        uploaded.isAcceptableOrUnknown(data['uploaded']!, _uploadedMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  QuickShoppingTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return QuickShoppingTableData(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      done: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}done'],
+      )!,
+      description: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}description'],
+      )!,
+      deleted: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}deleted'],
+      )!,
+      uploaded: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}uploaded'],
+      )!,
+    );
+  }
+
+  @override
+  $QuickShoppingTableTable createAlias(String alias) {
+    return $QuickShoppingTableTable(attachedDatabase, alias);
+  }
+}
+
+class QuickShoppingTableData extends DataClass
+    implements Insertable<QuickShoppingTableData> {
+  final String id;
+  final bool done;
+  final String description;
+  final bool deleted;
+  final bool uploaded;
+  const QuickShoppingTableData({
+    required this.id,
+    required this.done,
+    required this.description,
+    required this.deleted,
+    required this.uploaded,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['done'] = Variable<bool>(done);
+    map['description'] = Variable<String>(description);
+    map['deleted'] = Variable<bool>(deleted);
+    map['uploaded'] = Variable<bool>(uploaded);
+    return map;
+  }
+
+  QuickShoppingTableCompanion toCompanion(bool nullToAbsent) {
+    return QuickShoppingTableCompanion(
+      id: Value(id),
+      done: Value(done),
+      description: Value(description),
+      deleted: Value(deleted),
+      uploaded: Value(uploaded),
+    );
+  }
+
+  factory QuickShoppingTableData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return QuickShoppingTableData(
+      id: serializer.fromJson<String>(json['id']),
+      done: serializer.fromJson<bool>(json['done']),
+      description: serializer.fromJson<String>(json['description']),
+      deleted: serializer.fromJson<bool>(json['deleted']),
+      uploaded: serializer.fromJson<bool>(json['uploaded']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'done': serializer.toJson<bool>(done),
+      'description': serializer.toJson<String>(description),
+      'deleted': serializer.toJson<bool>(deleted),
+      'uploaded': serializer.toJson<bool>(uploaded),
+    };
+  }
+
+  QuickShoppingTableData copyWith({
+    String? id,
+    bool? done,
+    String? description,
+    bool? deleted,
+    bool? uploaded,
+  }) => QuickShoppingTableData(
+    id: id ?? this.id,
+    done: done ?? this.done,
+    description: description ?? this.description,
+    deleted: deleted ?? this.deleted,
+    uploaded: uploaded ?? this.uploaded,
+  );
+  QuickShoppingTableData copyWithCompanion(QuickShoppingTableCompanion data) {
+    return QuickShoppingTableData(
+      id: data.id.present ? data.id.value : this.id,
+      done: data.done.present ? data.done.value : this.done,
+      description: data.description.present
+          ? data.description.value
+          : this.description,
+      deleted: data.deleted.present ? data.deleted.value : this.deleted,
+      uploaded: data.uploaded.present ? data.uploaded.value : this.uploaded,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('QuickShoppingTableData(')
+          ..write('id: $id, ')
+          ..write('done: $done, ')
+          ..write('description: $description, ')
+          ..write('deleted: $deleted, ')
+          ..write('uploaded: $uploaded')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, done, description, deleted, uploaded);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is QuickShoppingTableData &&
+          other.id == this.id &&
+          other.done == this.done &&
+          other.description == this.description &&
+          other.deleted == this.deleted &&
+          other.uploaded == this.uploaded);
+}
+
+class QuickShoppingTableCompanion
+    extends UpdateCompanion<QuickShoppingTableData> {
+  final Value<String> id;
+  final Value<bool> done;
+  final Value<String> description;
+  final Value<bool> deleted;
+  final Value<bool> uploaded;
+  final Value<int> rowid;
+  const QuickShoppingTableCompanion({
+    this.id = const Value.absent(),
+    this.done = const Value.absent(),
+    this.description = const Value.absent(),
+    this.deleted = const Value.absent(),
+    this.uploaded = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  QuickShoppingTableCompanion.insert({
+    required String id,
+    required bool done,
+    required String description,
+    this.deleted = const Value.absent(),
+    this.uploaded = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       done = Value(done),
+       description = Value(description);
+  static Insertable<QuickShoppingTableData> custom({
+    Expression<String>? id,
+    Expression<bool>? done,
+    Expression<String>? description,
+    Expression<bool>? deleted,
+    Expression<bool>? uploaded,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (done != null) 'done': done,
+      if (description != null) 'description': description,
+      if (deleted != null) 'deleted': deleted,
+      if (uploaded != null) 'uploaded': uploaded,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  QuickShoppingTableCompanion copyWith({
+    Value<String>? id,
+    Value<bool>? done,
+    Value<String>? description,
+    Value<bool>? deleted,
+    Value<bool>? uploaded,
+    Value<int>? rowid,
+  }) {
+    return QuickShoppingTableCompanion(
+      id: id ?? this.id,
+      done: done ?? this.done,
+      description: description ?? this.description,
+      deleted: deleted ?? this.deleted,
+      uploaded: uploaded ?? this.uploaded,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (done.present) {
+      map['done'] = Variable<bool>(done.value);
+    }
+    if (description.present) {
+      map['description'] = Variable<String>(description.value);
+    }
+    if (deleted.present) {
+      map['deleted'] = Variable<bool>(deleted.value);
+    }
+    if (uploaded.present) {
+      map['uploaded'] = Variable<bool>(uploaded.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('QuickShoppingTableCompanion(')
+          ..write('id: $id, ')
+          ..write('done: $done, ')
+          ..write('description: $description, ')
           ..write('deleted: $deleted, ')
           ..write('uploaded: $uploaded, ')
           ..write('rowid: $rowid')
@@ -4827,7 +5566,12 @@ abstract class _$AppDatabase extends GeneratedDatabase {
       $RecipeStepIngredientTableTable(this);
   late final $TagTableTable tagTable = $TagTableTable(this);
   late final $RecipeTagTableTable recipeTagTable = $RecipeTagTableTable(this);
+  late final $GroceryTagTableTable groceryTagTable = $GroceryTagTableTable(
+    this,
+  );
   late final $ShoppingTableTable shoppingTable = $ShoppingTableTable(this);
+  late final $QuickShoppingTableTable quickShoppingTable =
+      $QuickShoppingTableTable(this);
   late final $StorageTableTable storageTable = $StorageTableTable(this);
   late final $RecipeStatisticTableTable recipeStatisticTable =
       $RecipeStatisticTableTable(this);
@@ -4866,6 +5610,10 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     'recipeTag_uploaded',
     'CREATE INDEX recipeTag_uploaded ON recipe_tag_table (uploaded)',
   );
+  late final Index groceryTagUploaded = Index(
+    'groceryTag_uploaded',
+    'CREATE INDEX groceryTag_uploaded ON grocery_tag_table (uploaded)',
+  );
   late final Index shoppingIngredientId = Index(
     'shopping_ingredientId',
     'CREATE INDEX shopping_ingredientId ON shopping_table (ingredient_id)',
@@ -4873,6 +5621,10 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final Index shoppingUploaded = Index(
     'shopping_uploaded',
     'CREATE INDEX shopping_uploaded ON shopping_table (uploaded)',
+  );
+  late final Index quickShoppingUploaded = Index(
+    'quick_shopping_uploaded',
+    'CREATE INDEX quick_shopping_uploaded ON quick_shopping_table (uploaded)',
   );
   late final Index storageUploaded = Index(
     'storage_uploaded',
@@ -4910,7 +5662,9 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     recipeStepIngredientTable,
     tagTable,
     recipeTagTable,
+    groceryTagTable,
     shoppingTable,
+    quickShoppingTable,
     storageTable,
     recipeStatisticTable,
     recipeShoppingTable,
@@ -4923,8 +5677,10 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     groceryUploaded,
     tagUploaded,
     recipeTagUploaded,
+    groceryTagUploaded,
     shoppingIngredientId,
     shoppingUploaded,
+    quickShoppingUploaded,
     storageUploaded,
     recipeStatisticsRecipeId,
     recipeStatisticsUploaded,
@@ -4963,6 +5719,20 @@ abstract class _$AppDatabase extends GeneratedDatabase {
         limitUpdateKind: UpdateKind.delete,
       ),
       result: [TableUpdate('recipe_tag_table', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'grocery_table',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('grocery_tag_table', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'tag_table',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('grocery_tag_table', kind: UpdateKind.delete)],
     ),
     WritePropagation(
       on: TableUpdateQuery.onTableName(
@@ -6184,6 +6954,29 @@ final class $$GroceryTableTableReferences
       manager.$state.copyWith(prefetchedData: cache),
     );
   }
+
+  static MultiTypedResultKey<$GroceryTagTableTable, List<GroceryTagTableData>>
+  _groceryTagTableRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.groceryTagTable,
+    aliasName: $_aliasNameGenerator(
+      db.groceryTable.id,
+      db.groceryTagTable.groceryId,
+    ),
+  );
+
+  $$GroceryTagTableTableProcessedTableManager get groceryTagTableRefs {
+    final manager = $$GroceryTagTableTableTableManager(
+      $_db,
+      $_db.groceryTagTable,
+    ).filter((f) => f.groceryId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _groceryTagTableRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
 }
 
 class $$GroceryTableTableFilterComposer
@@ -6281,6 +7074,31 @@ class $$GroceryTableTableFilterComposer
           }) => $$IngredientTableTableFilterComposer(
             $db: $db,
             $table: $db.ingredientTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> groceryTagTableRefs(
+    Expression<bool> Function($$GroceryTagTableTableFilterComposer f) f,
+  ) {
+    final $$GroceryTagTableTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.groceryTagTable,
+      getReferencedColumn: (t) => t.groceryId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$GroceryTagTableTableFilterComposer(
+            $db: $db,
+            $table: $db.groceryTagTable,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
             $removeJoinBuilderFromRootComposer:
@@ -6452,6 +7270,31 @@ class $$GroceryTableTableAnnotationComposer
     );
     return f(composer);
   }
+
+  Expression<T> groceryTagTableRefs<T extends Object>(
+    Expression<T> Function($$GroceryTagTableTableAnnotationComposer a) f,
+  ) {
+    final $$GroceryTagTableTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.groceryTagTable,
+      getReferencedColumn: (t) => t.groceryId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$GroceryTagTableTableAnnotationComposer(
+            $db: $db,
+            $table: $db.groceryTagTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$GroceryTableTableTableManager
@@ -6467,7 +7310,10 @@ class $$GroceryTableTableTableManager
           $$GroceryTableTableUpdateCompanionBuilder,
           (GroceryTableData, $$GroceryTableTableReferences),
           GroceryTableData,
-          PrefetchHooks Function({bool ingredientTableRefs})
+          PrefetchHooks Function({
+            bool ingredientTableRefs,
+            bool groceryTagTableRefs,
+          })
         > {
   $$GroceryTableTableTableManager(_$AppDatabase db, $GroceryTableTable table)
     : super(
@@ -6556,38 +7402,63 @@ class $$GroceryTableTableTableManager
                 ),
               )
               .toList(),
-          prefetchHooksCallback: ({ingredientTableRefs = false}) {
-            return PrefetchHooks(
-              db: db,
-              explicitlyWatchedTables: [
-                if (ingredientTableRefs) db.ingredientTable,
-              ],
-              addJoins: null,
-              getPrefetchedDataCallback: (items) async {
-                return [
-                  if (ingredientTableRefs)
-                    await $_getPrefetchedData<
-                      GroceryTableData,
-                      $GroceryTableTable,
-                      IngredientTableData
-                    >(
-                      currentTable: table,
-                      referencedTable: $$GroceryTableTableReferences
-                          ._ingredientTableRefsTable(db),
-                      managerFromTypedResult: (p0) =>
-                          $$GroceryTableTableReferences(
-                            db,
-                            table,
-                            p0,
-                          ).ingredientTableRefs,
-                      referencedItemsForCurrentItem: (item, referencedItems) =>
-                          referencedItems.where((e) => e.groceryId == item.id),
-                      typedResults: items,
-                    ),
-                ];
+          prefetchHooksCallback:
+              ({ingredientTableRefs = false, groceryTagTableRefs = false}) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [
+                    if (ingredientTableRefs) db.ingredientTable,
+                    if (groceryTagTableRefs) db.groceryTagTable,
+                  ],
+                  addJoins: null,
+                  getPrefetchedDataCallback: (items) async {
+                    return [
+                      if (ingredientTableRefs)
+                        await $_getPrefetchedData<
+                          GroceryTableData,
+                          $GroceryTableTable,
+                          IngredientTableData
+                        >(
+                          currentTable: table,
+                          referencedTable: $$GroceryTableTableReferences
+                              ._ingredientTableRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$GroceryTableTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).ingredientTableRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.groceryId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                      if (groceryTagTableRefs)
+                        await $_getPrefetchedData<
+                          GroceryTableData,
+                          $GroceryTableTable,
+                          GroceryTagTableData
+                        >(
+                          currentTable: table,
+                          referencedTable: $$GroceryTableTableReferences
+                              ._groceryTagTableRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$GroceryTableTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).groceryTagTableRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.groceryId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                    ];
+                  },
+                );
               },
-            );
-          },
         ),
       );
 }
@@ -6604,7 +7475,10 @@ typedef $$GroceryTableTableProcessedTableManager =
       $$GroceryTableTableUpdateCompanionBuilder,
       (GroceryTableData, $$GroceryTableTableReferences),
       GroceryTableData,
-      PrefetchHooks Function({bool ingredientTableRefs})
+      PrefetchHooks Function({
+        bool ingredientTableRefs,
+        bool groceryTagTableRefs,
+      })
     >;
 typedef $$IngredientTableTableCreateCompanionBuilder =
     IngredientTableCompanion Function({
@@ -7677,6 +8551,7 @@ typedef $$TagTableTableCreateCompanionBuilder =
       required String name,
       required String description,
       required int color,
+      Value<String> tagType,
       Value<bool> deleted,
       Value<bool> uploaded,
       Value<int> rowid,
@@ -7687,6 +8562,7 @@ typedef $$TagTableTableUpdateCompanionBuilder =
       Value<String> name,
       Value<String> description,
       Value<int> color,
+      Value<String> tagType,
       Value<bool> deleted,
       Value<bool> uploaded,
       Value<int> rowid,
@@ -7709,6 +8585,26 @@ final class $$TagTableTableReferences
     ).filter((f) => f.tagId.id.sqlEquals($_itemColumn<String>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_recipeTagTableRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$GroceryTagTableTable, List<GroceryTagTableData>>
+  _groceryTagTableRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.groceryTagTable,
+    aliasName: $_aliasNameGenerator(db.tagTable.id, db.groceryTagTable.tagId),
+  );
+
+  $$GroceryTagTableTableProcessedTableManager get groceryTagTableRefs {
+    final manager = $$GroceryTagTableTableTableManager(
+      $_db,
+      $_db.groceryTagTable,
+    ).filter((f) => f.tagId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _groceryTagTableRefsTable($_db),
+    );
     return ProcessedTableManager(
       manager.$state.copyWith(prefetchedData: cache),
     );
@@ -7744,6 +8640,11 @@ class $$TagTableTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
+  ColumnFilters<String> get tagType => $composableBuilder(
+    column: $table.tagType,
+    builder: (column) => ColumnFilters(column),
+  );
+
   ColumnFilters<bool> get deleted => $composableBuilder(
     column: $table.deleted,
     builder: (column) => ColumnFilters(column),
@@ -7770,6 +8671,31 @@ class $$TagTableTableFilterComposer
           }) => $$RecipeTagTableTableFilterComposer(
             $db: $db,
             $table: $db.recipeTagTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> groceryTagTableRefs(
+    Expression<bool> Function($$GroceryTagTableTableFilterComposer f) f,
+  ) {
+    final $$GroceryTagTableTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.groceryTagTable,
+      getReferencedColumn: (t) => t.tagId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$GroceryTagTableTableFilterComposer(
+            $db: $db,
+            $table: $db.groceryTagTable,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
             $removeJoinBuilderFromRootComposer:
@@ -7809,6 +8735,11 @@ class $$TagTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<String> get tagType => $composableBuilder(
+    column: $table.tagType,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<bool> get deleted => $composableBuilder(
     column: $table.deleted,
     builder: (column) => ColumnOrderings(column),
@@ -7843,6 +8774,9 @@ class $$TagTableTableAnnotationComposer
   GeneratedColumn<int> get color =>
       $composableBuilder(column: $table.color, builder: (column) => column);
 
+  GeneratedColumn<String> get tagType =>
+      $composableBuilder(column: $table.tagType, builder: (column) => column);
+
   GeneratedColumn<bool> get deleted =>
       $composableBuilder(column: $table.deleted, builder: (column) => column);
 
@@ -7873,6 +8807,31 @@ class $$TagTableTableAnnotationComposer
     );
     return f(composer);
   }
+
+  Expression<T> groceryTagTableRefs<T extends Object>(
+    Expression<T> Function($$GroceryTagTableTableAnnotationComposer a) f,
+  ) {
+    final $$GroceryTagTableTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.groceryTagTable,
+      getReferencedColumn: (t) => t.tagId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$GroceryTagTableTableAnnotationComposer(
+            $db: $db,
+            $table: $db.groceryTagTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$TagTableTableTableManager
@@ -7888,7 +8847,10 @@ class $$TagTableTableTableManager
           $$TagTableTableUpdateCompanionBuilder,
           (TagTableData, $$TagTableTableReferences),
           TagTableData,
-          PrefetchHooks Function({bool recipeTagTableRefs})
+          PrefetchHooks Function({
+            bool recipeTagTableRefs,
+            bool groceryTagTableRefs,
+          })
         > {
   $$TagTableTableTableManager(_$AppDatabase db, $TagTableTable table)
     : super(
@@ -7907,6 +8869,7 @@ class $$TagTableTableTableManager
                 Value<String> name = const Value.absent(),
                 Value<String> description = const Value.absent(),
                 Value<int> color = const Value.absent(),
+                Value<String> tagType = const Value.absent(),
                 Value<bool> deleted = const Value.absent(),
                 Value<bool> uploaded = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
@@ -7915,6 +8878,7 @@ class $$TagTableTableTableManager
                 name: name,
                 description: description,
                 color: color,
+                tagType: tagType,
                 deleted: deleted,
                 uploaded: uploaded,
                 rowid: rowid,
@@ -7925,6 +8889,7 @@ class $$TagTableTableTableManager
                 required String name,
                 required String description,
                 required int color,
+                Value<String> tagType = const Value.absent(),
                 Value<bool> deleted = const Value.absent(),
                 Value<bool> uploaded = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
@@ -7933,6 +8898,7 @@ class $$TagTableTableTableManager
                 name: name,
                 description: description,
                 color: color,
+                tagType: tagType,
                 deleted: deleted,
                 uploaded: uploaded,
                 rowid: rowid,
@@ -7945,37 +8911,63 @@ class $$TagTableTableTableManager
                 ),
               )
               .toList(),
-          prefetchHooksCallback: ({recipeTagTableRefs = false}) {
-            return PrefetchHooks(
-              db: db,
-              explicitlyWatchedTables: [
-                if (recipeTagTableRefs) db.recipeTagTable,
-              ],
-              addJoins: null,
-              getPrefetchedDataCallback: (items) async {
-                return [
-                  if (recipeTagTableRefs)
-                    await $_getPrefetchedData<
-                      TagTableData,
-                      $TagTableTable,
-                      RecipeTagTableData
-                    >(
-                      currentTable: table,
-                      referencedTable: $$TagTableTableReferences
-                          ._recipeTagTableRefsTable(db),
-                      managerFromTypedResult: (p0) => $$TagTableTableReferences(
-                        db,
-                        table,
-                        p0,
-                      ).recipeTagTableRefs,
-                      referencedItemsForCurrentItem: (item, referencedItems) =>
-                          referencedItems.where((e) => e.tagId == item.id),
-                      typedResults: items,
-                    ),
-                ];
+          prefetchHooksCallback:
+              ({recipeTagTableRefs = false, groceryTagTableRefs = false}) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [
+                    if (recipeTagTableRefs) db.recipeTagTable,
+                    if (groceryTagTableRefs) db.groceryTagTable,
+                  ],
+                  addJoins: null,
+                  getPrefetchedDataCallback: (items) async {
+                    return [
+                      if (recipeTagTableRefs)
+                        await $_getPrefetchedData<
+                          TagTableData,
+                          $TagTableTable,
+                          RecipeTagTableData
+                        >(
+                          currentTable: table,
+                          referencedTable: $$TagTableTableReferences
+                              ._recipeTagTableRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$TagTableTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).recipeTagTableRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.tagId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                      if (groceryTagTableRefs)
+                        await $_getPrefetchedData<
+                          TagTableData,
+                          $TagTableTable,
+                          GroceryTagTableData
+                        >(
+                          currentTable: table,
+                          referencedTable: $$TagTableTableReferences
+                              ._groceryTagTableRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$TagTableTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).groceryTagTableRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.tagId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                    ];
+                  },
+                );
               },
-            );
-          },
         ),
       );
 }
@@ -7992,7 +8984,10 @@ typedef $$TagTableTableProcessedTableManager =
       $$TagTableTableUpdateCompanionBuilder,
       (TagTableData, $$TagTableTableReferences),
       TagTableData,
-      PrefetchHooks Function({bool recipeTagTableRefs})
+      PrefetchHooks Function({
+        bool recipeTagTableRefs,
+        bool groceryTagTableRefs,
+      })
     >;
 typedef $$RecipeTagTableTableCreateCompanionBuilder =
     RecipeTagTableCompanion Function({
@@ -8395,6 +9390,409 @@ typedef $$RecipeTagTableTableProcessedTableManager =
       RecipeTagTableData,
       PrefetchHooks Function({bool recipeId, bool tagId})
     >;
+typedef $$GroceryTagTableTableCreateCompanionBuilder =
+    GroceryTagTableCompanion Function({
+      required String groceryId,
+      required String tagId,
+      Value<bool> deleted,
+      Value<bool> uploaded,
+      Value<int> rowid,
+    });
+typedef $$GroceryTagTableTableUpdateCompanionBuilder =
+    GroceryTagTableCompanion Function({
+      Value<String> groceryId,
+      Value<String> tagId,
+      Value<bool> deleted,
+      Value<bool> uploaded,
+      Value<int> rowid,
+    });
+
+final class $$GroceryTagTableTableReferences
+    extends
+        BaseReferences<
+          _$AppDatabase,
+          $GroceryTagTableTable,
+          GroceryTagTableData
+        > {
+  $$GroceryTagTableTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $GroceryTableTable _groceryIdTable(_$AppDatabase db) =>
+      db.groceryTable.createAlias(
+        $_aliasNameGenerator(db.groceryTagTable.groceryId, db.groceryTable.id),
+      );
+
+  $$GroceryTableTableProcessedTableManager get groceryId {
+    final $_column = $_itemColumn<String>('grocery_id')!;
+
+    final manager = $$GroceryTableTableTableManager(
+      $_db,
+      $_db.groceryTable,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_groceryIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static $TagTableTable _tagIdTable(_$AppDatabase db) =>
+      db.tagTable.createAlias(
+        $_aliasNameGenerator(db.groceryTagTable.tagId, db.tagTable.id),
+      );
+
+  $$TagTableTableProcessedTableManager get tagId {
+    final $_column = $_itemColumn<String>('tag_id')!;
+
+    final manager = $$TagTableTableTableManager(
+      $_db,
+      $_db.tagTable,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_tagIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$GroceryTagTableTableFilterComposer
+    extends Composer<_$AppDatabase, $GroceryTagTableTable> {
+  $$GroceryTagTableTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<bool> get deleted => $composableBuilder(
+    column: $table.deleted,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get uploaded => $composableBuilder(
+    column: $table.uploaded,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$GroceryTableTableFilterComposer get groceryId {
+    final $$GroceryTableTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.groceryId,
+      referencedTable: $db.groceryTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$GroceryTableTableFilterComposer(
+            $db: $db,
+            $table: $db.groceryTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$TagTableTableFilterComposer get tagId {
+    final $$TagTableTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.tagId,
+      referencedTable: $db.tagTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TagTableTableFilterComposer(
+            $db: $db,
+            $table: $db.tagTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$GroceryTagTableTableOrderingComposer
+    extends Composer<_$AppDatabase, $GroceryTagTableTable> {
+  $$GroceryTagTableTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<bool> get deleted => $composableBuilder(
+    column: $table.deleted,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get uploaded => $composableBuilder(
+    column: $table.uploaded,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$GroceryTableTableOrderingComposer get groceryId {
+    final $$GroceryTableTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.groceryId,
+      referencedTable: $db.groceryTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$GroceryTableTableOrderingComposer(
+            $db: $db,
+            $table: $db.groceryTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$TagTableTableOrderingComposer get tagId {
+    final $$TagTableTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.tagId,
+      referencedTable: $db.tagTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TagTableTableOrderingComposer(
+            $db: $db,
+            $table: $db.tagTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$GroceryTagTableTableAnnotationComposer
+    extends Composer<_$AppDatabase, $GroceryTagTableTable> {
+  $$GroceryTagTableTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<bool> get deleted =>
+      $composableBuilder(column: $table.deleted, builder: (column) => column);
+
+  GeneratedColumn<bool> get uploaded =>
+      $composableBuilder(column: $table.uploaded, builder: (column) => column);
+
+  $$GroceryTableTableAnnotationComposer get groceryId {
+    final $$GroceryTableTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.groceryId,
+      referencedTable: $db.groceryTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$GroceryTableTableAnnotationComposer(
+            $db: $db,
+            $table: $db.groceryTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$TagTableTableAnnotationComposer get tagId {
+    final $$TagTableTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.tagId,
+      referencedTable: $db.tagTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TagTableTableAnnotationComposer(
+            $db: $db,
+            $table: $db.tagTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$GroceryTagTableTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $GroceryTagTableTable,
+          GroceryTagTableData,
+          $$GroceryTagTableTableFilterComposer,
+          $$GroceryTagTableTableOrderingComposer,
+          $$GroceryTagTableTableAnnotationComposer,
+          $$GroceryTagTableTableCreateCompanionBuilder,
+          $$GroceryTagTableTableUpdateCompanionBuilder,
+          (GroceryTagTableData, $$GroceryTagTableTableReferences),
+          GroceryTagTableData,
+          PrefetchHooks Function({bool groceryId, bool tagId})
+        > {
+  $$GroceryTagTableTableTableManager(
+    _$AppDatabase db,
+    $GroceryTagTableTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$GroceryTagTableTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$GroceryTagTableTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$GroceryTagTableTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> groceryId = const Value.absent(),
+                Value<String> tagId = const Value.absent(),
+                Value<bool> deleted = const Value.absent(),
+                Value<bool> uploaded = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => GroceryTagTableCompanion(
+                groceryId: groceryId,
+                tagId: tagId,
+                deleted: deleted,
+                uploaded: uploaded,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String groceryId,
+                required String tagId,
+                Value<bool> deleted = const Value.absent(),
+                Value<bool> uploaded = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => GroceryTagTableCompanion.insert(
+                groceryId: groceryId,
+                tagId: tagId,
+                deleted: deleted,
+                uploaded: uploaded,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$GroceryTagTableTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({groceryId = false, tagId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (groceryId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.groceryId,
+                                referencedTable:
+                                    $$GroceryTagTableTableReferences
+                                        ._groceryIdTable(db),
+                                referencedColumn:
+                                    $$GroceryTagTableTableReferences
+                                        ._groceryIdTable(db)
+                                        .id,
+                              )
+                              as T;
+                    }
+                    if (tagId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.tagId,
+                                referencedTable:
+                                    $$GroceryTagTableTableReferences
+                                        ._tagIdTable(db),
+                                referencedColumn:
+                                    $$GroceryTagTableTableReferences
+                                        ._tagIdTable(db)
+                                        .id,
+                              )
+                              as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$GroceryTagTableTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $GroceryTagTableTable,
+      GroceryTagTableData,
+      $$GroceryTagTableTableFilterComposer,
+      $$GroceryTagTableTableOrderingComposer,
+      $$GroceryTagTableTableAnnotationComposer,
+      $$GroceryTagTableTableCreateCompanionBuilder,
+      $$GroceryTagTableTableUpdateCompanionBuilder,
+      (GroceryTagTableData, $$GroceryTagTableTableReferences),
+      GroceryTagTableData,
+      PrefetchHooks Function({bool groceryId, bool tagId})
+    >;
 typedef $$ShoppingTableTableCreateCompanionBuilder =
     ShoppingTableCompanion Function({
       required String id,
@@ -8740,6 +10138,221 @@ typedef $$ShoppingTableTableProcessedTableManager =
       (ShoppingTableData, $$ShoppingTableTableReferences),
       ShoppingTableData,
       PrefetchHooks Function({bool ingredientId})
+    >;
+typedef $$QuickShoppingTableTableCreateCompanionBuilder =
+    QuickShoppingTableCompanion Function({
+      required String id,
+      required bool done,
+      required String description,
+      Value<bool> deleted,
+      Value<bool> uploaded,
+      Value<int> rowid,
+    });
+typedef $$QuickShoppingTableTableUpdateCompanionBuilder =
+    QuickShoppingTableCompanion Function({
+      Value<String> id,
+      Value<bool> done,
+      Value<String> description,
+      Value<bool> deleted,
+      Value<bool> uploaded,
+      Value<int> rowid,
+    });
+
+class $$QuickShoppingTableTableFilterComposer
+    extends Composer<_$AppDatabase, $QuickShoppingTableTable> {
+  $$QuickShoppingTableTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get done => $composableBuilder(
+    column: $table.done,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get description => $composableBuilder(
+    column: $table.description,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get deleted => $composableBuilder(
+    column: $table.deleted,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get uploaded => $composableBuilder(
+    column: $table.uploaded,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$QuickShoppingTableTableOrderingComposer
+    extends Composer<_$AppDatabase, $QuickShoppingTableTable> {
+  $$QuickShoppingTableTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get done => $composableBuilder(
+    column: $table.done,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get description => $composableBuilder(
+    column: $table.description,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get deleted => $composableBuilder(
+    column: $table.deleted,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get uploaded => $composableBuilder(
+    column: $table.uploaded,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$QuickShoppingTableTableAnnotationComposer
+    extends Composer<_$AppDatabase, $QuickShoppingTableTable> {
+  $$QuickShoppingTableTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<bool> get done =>
+      $composableBuilder(column: $table.done, builder: (column) => column);
+
+  GeneratedColumn<String> get description => $composableBuilder(
+    column: $table.description,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<bool> get deleted =>
+      $composableBuilder(column: $table.deleted, builder: (column) => column);
+
+  GeneratedColumn<bool> get uploaded =>
+      $composableBuilder(column: $table.uploaded, builder: (column) => column);
+}
+
+class $$QuickShoppingTableTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $QuickShoppingTableTable,
+          QuickShoppingTableData,
+          $$QuickShoppingTableTableFilterComposer,
+          $$QuickShoppingTableTableOrderingComposer,
+          $$QuickShoppingTableTableAnnotationComposer,
+          $$QuickShoppingTableTableCreateCompanionBuilder,
+          $$QuickShoppingTableTableUpdateCompanionBuilder,
+          (
+            QuickShoppingTableData,
+            BaseReferences<
+              _$AppDatabase,
+              $QuickShoppingTableTable,
+              QuickShoppingTableData
+            >,
+          ),
+          QuickShoppingTableData,
+          PrefetchHooks Function()
+        > {
+  $$QuickShoppingTableTableTableManager(
+    _$AppDatabase db,
+    $QuickShoppingTableTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$QuickShoppingTableTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$QuickShoppingTableTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$QuickShoppingTableTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<bool> done = const Value.absent(),
+                Value<String> description = const Value.absent(),
+                Value<bool> deleted = const Value.absent(),
+                Value<bool> uploaded = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => QuickShoppingTableCompanion(
+                id: id,
+                done: done,
+                description: description,
+                deleted: deleted,
+                uploaded: uploaded,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required bool done,
+                required String description,
+                Value<bool> deleted = const Value.absent(),
+                Value<bool> uploaded = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => QuickShoppingTableCompanion.insert(
+                id: id,
+                done: done,
+                description: description,
+                deleted: deleted,
+                uploaded: uploaded,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$QuickShoppingTableTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $QuickShoppingTableTable,
+      QuickShoppingTableData,
+      $$QuickShoppingTableTableFilterComposer,
+      $$QuickShoppingTableTableOrderingComposer,
+      $$QuickShoppingTableTableAnnotationComposer,
+      $$QuickShoppingTableTableCreateCompanionBuilder,
+      $$QuickShoppingTableTableUpdateCompanionBuilder,
+      (
+        QuickShoppingTableData,
+        BaseReferences<
+          _$AppDatabase,
+          $QuickShoppingTableTable,
+          QuickShoppingTableData
+        >,
+      ),
+      QuickShoppingTableData,
+      PrefetchHooks Function()
     >;
 typedef $$StorageTableTableCreateCompanionBuilder =
     StorageTableCompanion Function({
@@ -9891,8 +11504,12 @@ class $AppDatabaseManager {
       $$TagTableTableTableManager(_db, _db.tagTable);
   $$RecipeTagTableTableTableManager get recipeTagTable =>
       $$RecipeTagTableTableTableManager(_db, _db.recipeTagTable);
+  $$GroceryTagTableTableTableManager get groceryTagTable =>
+      $$GroceryTagTableTableTableManager(_db, _db.groceryTagTable);
   $$ShoppingTableTableTableManager get shoppingTable =>
       $$ShoppingTableTableTableManager(_db, _db.shoppingTable);
+  $$QuickShoppingTableTableTableManager get quickShoppingTable =>
+      $$QuickShoppingTableTableTableManager(_db, _db.quickShoppingTable);
   $$StorageTableTableTableManager get storageTable =>
       $$StorageTableTableTableManager(_db, _db.storageTable);
   $$RecipeStatisticTableTableTableManager get recipeStatisticTable =>

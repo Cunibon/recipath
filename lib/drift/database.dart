@@ -9,7 +9,9 @@ import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:recipath/drift/tables/file_table.dart';
 import 'package:recipath/drift/tables/grocery_table.dart';
+import 'package:recipath/drift/tables/grocery_tag_table.dart';
 import 'package:recipath/drift/tables/ingredient_table.dart';
+import 'package:recipath/drift/tables/quick_shopping_table.dart';
 import 'package:recipath/drift/tables/recipe_shopping_table.dart';
 import 'package:recipath/drift/tables/recipe_statistic_table.dart';
 import 'package:recipath/drift/tables/recipe_step_ingredient_table.dart';
@@ -31,7 +33,9 @@ part 'database.g.dart';
     GroceryTable,
     TagTable,
     RecipeTagTable,
+    GroceryTagTable,
     ShoppingTable,
+    QuickShoppingTable,
     StorageTable,
     RecipeStatisticTable,
     RecipeShoppingTable,
@@ -42,7 +46,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase([QueryExecutor? executor]) : super(executor ?? _openConnection());
 
   @override
-  int get schemaVersion => 15;
+  int get schemaVersion => 18;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -53,56 +57,6 @@ class AppDatabase extends _$AppDatabase {
       await customStatement('PRAGMA foreign_keys = ON;');
     },
     onUpgrade: (m, from, to) async {
-      if (from < 2) {
-        await m.addColumn(recipeTable, recipeTable.archived);
-        await m.createTable(recipeStatisticTable);
-      }
-      if (from < 3) {
-        await m.addColumn(groceryTable, groceryTable.kcal);
-      }
-      if (from < 4) {
-        await m.addColumn(groceryTable, groceryTable.fat);
-        await m.addColumn(groceryTable, groceryTable.carbs);
-        await m.addColumn(groceryTable, groceryTable.protein);
-        await m.addColumn(groceryTable, groceryTable.fiber);
-      }
-      if (from < 5) {
-        await m.addColumn(recipeTable, recipeTable.servings);
-      }
-      if (from < 6) {
-        await m.createTable(recipeShoppingTable);
-      }
-      if (from < 7) {
-        await m.addColumn(groceryTable, groceryTable.uploaded);
-        await m.addColumn(recipeShoppingTable, recipeShoppingTable.uploaded);
-        await m.addColumn(recipeStatisticTable, recipeStatisticTable.uploaded);
-        await m.addColumn(
-          recipeStepIngredientTable,
-          recipeStepIngredientTable.uploaded,
-        );
-        await m.addColumn(recipeStepTable, recipeStepTable.uploaded);
-        await m.addColumn(recipeTable, recipeTable.uploaded);
-        await m.addColumn(shoppingTable, shoppingTable.uploaded);
-        await m.addColumn(storageTable, storageTable.uploaded);
-      }
-      if (from < 8) {
-        await m.addColumn(groceryTable, groceryTable.archived);
-        await m.addColumn(shoppingTable, shoppingTable.deleted);
-        await m.addColumn(storageTable, storageTable.deleted);
-      }
-      if (from < 9) {
-        await m.createTable(fileTable);
-      }
-      if (from < 10) {
-        await m.addColumn(groceryTable, groceryTable.barcode);
-      }
-      if (from < 11) {
-        await m.addColumn(recipeStatisticTable, recipeStatisticTable.servings);
-      }
-      if (from < 12) {
-        await m.createTable(tagTable);
-        await m.createTable(recipeTagTable);
-      }
       if (from < 13) {
         await m.addColumn(recipeTable, recipeTable.parent);
       }
@@ -111,6 +65,15 @@ class AppDatabase extends _$AppDatabase {
       }
       if (from < 15) {
         await m.addColumn(ingredientTable, ingredientTable.uploaded);
+      }
+      if (from < 16) {
+        await m.addColumn(tagTable, tagTable.tagType);
+      }
+      if (from < 17) {
+        await m.createTable(groceryTagTable);
+      }
+      if (from < 18) {
+        await m.createTable(quickShoppingTable);
       }
     },
   );

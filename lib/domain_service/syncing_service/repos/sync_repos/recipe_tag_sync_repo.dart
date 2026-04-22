@@ -11,6 +11,10 @@ class RecipeTagSyncRepo extends DeletableDataDownloadRepo {
   $RecipeTagTableTable get driftTable => repo.db.recipeTagTable;
 
   @override
+  String getDeletedId(Map<String, dynamic> data) =>
+      "${data["recipe_id"]}_${data["tag_id"]}";
+
+  @override
   RecipeTagTableData fromJson(Map<String, dynamic> json) =>
       RecipeTagTableData.fromJson(json);
 }

@@ -1,27 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/data/tag_data/tag_data.dart';
-import 'package:recipath/widgets/tag/change_tag_dialog.dart';
-import 'package:recipath/widgets/tag/change_tags_button.dart';
 import 'package:recipath/widgets/tag/tag.dart';
 
-class TagList extends StatelessWidget {
+class TagList extends ConsumerWidget {
   const TagList({
-    required this.selectedTags,
-    this.allTags,
+    required this.currentTags,
     this.onTagTapped,
-    this.onEdited,
+    this.trailing,
     super.key,
   });
 
-  final Set<TagData> selectedTags;
-  final Set<TagData>? allTags;
+  final Set<TagData> currentTags;
   final void Function(TagData tagData)? onTagTapped;
 
-  final void Function(Set<TagData> newTags)? onEdited;
+  final Widget? trailing;
 
   @override
-  Widget build(BuildContext context) {
-    final sortedTags = selectedTags.toList()
+  Widget build(BuildContext context, WidgetRef ref) {
+    final sortedTags = currentTags.toList()
       ..sort((a, b) => a.name.compareTo(b.name));
 
     return Wrap(
@@ -34,22 +31,7 @@ class TagList extends StatelessWidget {
             child: Tag(text: e.name, color: e.color),
           ),
         ),
-        if (onEdited != null)
-          ChangeTagsButton(
-            onTap: () async {
-              final result = await showDialog<Set<TagData>>(
-                context: context,
-                builder: (context) => ChangeTagDialog(
-                  allTags: allTags,
-                  selected: selectedTags.map((e) => e.id),
-                ),
-              );
-
-              if (result != null) {
-                onEdited!(result);
-              }
-            },
-          ),
+        ?trailing,
       ],
     );
   }

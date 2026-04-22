@@ -25,8 +25,7 @@ class HistoryScreen extends ConsumerWidget {
     final dateTheme = TextTheme.of(context).titleLarge;
 
     return NavigationDrawerScaffold(
-      titleBuilder: (title) =>
-          DefaultNavigationTitle(title: title, syncState: SyncState.synced),
+      titleBuilder: (title) => DefaultNavigationTitle(title: title),
       body: CachedAsyncValueWrapper(
         asyncState: asyncData,
         builder: (data) {
@@ -39,20 +38,37 @@ class HistoryScreen extends ConsumerWidget {
             );
           }
 
-          return ListView.builder(
-            itemCount: entries.length,
-            itemBuilder: (context, index) {
-              final entry = entries[index];
-
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(dateFormat.format(entry.key), style: dateTheme),
-                  Divider(),
-                  for (final item in entry.value) HistoryRecipeItem(data: item),
-                ],
-              );
-            },
+          return CustomScrollView(
+            slivers: [
+              for (var cluster in entries)
+                SliverMainAxisGroup(
+                  slivers: [
+                    PinnedHeaderSliver(
+                      child: ColoredBox(
+                        color: ColorScheme.of(context).surface,
+                        child: Column(
+                          crossAxisAlignment: .start,
+                          children: [
+                            SizedBox(height: 8),
+                            Text(
+                              dateFormat.format(cluster.key),
+                              style: dateTheme,
+                            ),
+                            Divider(),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (context, index) =>
+                            HistoryRecipeItem(data: cluster.value[index]),
+                        childCount: cluster.value.length,
+                      ),
+                    ),
+                  ],
+                ),
+            ],
           );
         },
       ),

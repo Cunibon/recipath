@@ -5,9 +5,11 @@ abstract class SupabaseTables {
   static String recipeStep = 'recipe_step';
   static String recipe = 'recipe';
   static String shopping = 'shopping';
+  static String quickShopping = 'quick_shopping';
   static String storage = 'storage';
   static String tag = "tag";
   static String recipeTag = "recipe_tag";
+  static String groceryTag = "grocery_tag";
   static String recipeStatistic = 'recipe_statistic';
   static String recipeShopping = 'recipe_shopping';
 }

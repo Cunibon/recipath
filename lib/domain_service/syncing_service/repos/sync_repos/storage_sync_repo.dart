@@ -1,3 +1,4 @@
+import 'package:recipath/application_constants.dart';
 import 'package:recipath/domain_service/syncing_service/repos/sync_repos/abstract/deletable_data_sync_repo.dart';
 import 'package:recipath/domain_service/syncing_service/supabase_tables.dart';
 import 'package:recipath/drift/database.dart';
@@ -9,6 +10,9 @@ class StorageSyncRepo extends DeletableDataDownloadRepo {
   String get supabaseTableName => SupabaseTables.storage;
   @override
   $StorageTableTable get driftTable => repo.db.storageTable;
+
+  @override
+  String getDeletedId(Map<String, dynamic> data) => data[idParameter];
 
   @override
   StorageTableData fromJson(Map<String, dynamic> json) =>

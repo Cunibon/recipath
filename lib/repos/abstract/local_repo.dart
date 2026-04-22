@@ -8,4 +8,6 @@ abstract class LocalRepo<T> extends Repo {
   Future<void> add(T newData);
   Future<void> delete(String id);
   Future<void> clear();
+
+  Stream<bool> hasNotUploaded();
 }

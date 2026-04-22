@@ -10,6 +10,8 @@ abstract class DeletableDataDownloadRepo extends DataSyncRepo {
     required super.supabaseClient,
   }) : super(repo: repo);
 
+  String getDeletedId(Map<String, dynamic> data);
+
   @override
   Future<DownloadResult> download(DateTime lastSync) async {
     var supabaseQuery = supabaseClient
@@ -28,7 +30,7 @@ abstract class DeletableDataDownloadRepo extends DataSyncRepo {
 
     for (final data in supabaseData) {
       if (data[deletedKey] == true) {
-        (repo as LocalRepo).delete(data[idParameter]);
+        await (repo as LocalRepo).delete(getDeletedId(data));
       } else {
         await repo.db
             .into(driftTable)

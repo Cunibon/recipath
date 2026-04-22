@@ -3,7 +3,7 @@ const supabaseKey = String.fromEnvironment('SUPABASE_KEY');
 const revenueCatPublicKey = String.fromEnvironment('REVENUECAT_PUBLIC_KEY');
 const sentryUrl = String.fromEnvironment('SENTRY_URL');
 
-const String fileExtenstion = "recipath";
+const String fileExtension = "recipath";
 
 const List<String> dataKeys = [recipeDataKey, groceryDataKey, tagDataKey];
 

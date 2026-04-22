@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:recipath/data/tag_data/tag_type_enum.dart';
 import 'package:recipath/root_routes.dart';
-import 'package:recipath/widgets/filtering/filter_types.dart';
 import 'package:recipath/widgets/filtering/tag_filter_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/compact_recipe_item_content.dart';
 import 'package:recipath/widgets/screens/recipe_screen/data/compact_recipe_item_data.dart';
@@ -63,7 +63,7 @@ class CompactRecipeItem extends ConsumerWidget {
             compactRecipeData: compactRecipeData,
             trailingTitle: trailing,
             onTagTapped: (tagData) => ref
-                .read(tagFilterProvider(FilterTypes.recipe).notifier)
+                .read(tagFilterProvider(TagTypeEnum.recipe).notifier)
                 .toggleFilter(filter: tagData),
           ),
         ),

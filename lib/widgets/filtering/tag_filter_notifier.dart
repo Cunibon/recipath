@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:localstorage/localstorage.dart';
 import 'package:recipath/data/tag_data/tag_data.dart';
+import 'package:recipath/data/tag_data/tag_type_enum.dart';
 import 'package:recipath/helper/local_storage_extension.dart';
-import 'package:recipath/widgets/filtering/filter_types.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'tag_filter_notifier.g.dart';
@@ -12,13 +12,11 @@ part 'tag_filter_notifier.g.dart';
 class TagFilterNotifier extends _$TagFilterNotifier {
   static const tagFilterDataKey = "tagFilterDataKey";
 
+  String get dataKey => "${tagFilterDataKey}_${filterType.name}";
+
   @override
-  Set<String> build(FilterTypes filterType) {
-    final data =
-        localStorage.get<List<dynamic>>(
-          "$tagFilterDataKey${filterType.name}",
-        ) ??
-        [];
+  Set<String> build(TagTypeEnum filterType) {
+    final data = localStorage.get<List<dynamic>>(dataKey) ?? [];
 
     return data.cast<String>().toSet();
   }
@@ -40,15 +38,12 @@ class TagFilterNotifier extends _$TagFilterNotifier {
   }
 
   void _saveState() {
-    localStorage.setItem(
-      "$tagFilterDataKey${filterType.name}",
-      jsonEncode(state.toList()),
-    );
+    localStorage.setItem(dataKey, jsonEncode(state.toList()));
     ref.invalidateSelf();
   }
 
   void clear() {
-    localStorage.removeItem("$tagFilterDataKey${filterType.name}");
+    localStorage.removeItem(dataKey);
     ref.invalidateSelf();
   }
 }

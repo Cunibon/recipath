@@ -22,18 +22,12 @@ class TwoOptionDialog extends StatelessWidget {
       content: content,
       actions: [
         TextButton(
-          style: TextButton.styleFrom(
-            textStyle: TextTheme.of(context).labelLarge,
-          ),
           child: Text(disagree),
           onPressed: () {
             Navigator.pop(context, false);
           },
         ),
         TextButton(
-          style: TextButton.styleFrom(
-            textStyle: TextTheme.of(context).labelLarge,
-          ),
           child: Text(agree),
           onPressed: () {
             Navigator.pop(context, true);

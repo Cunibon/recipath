@@ -25,7 +25,7 @@ Future<void> initNotifications() async {
   );
 
   await notifications.initialize(
-    settings,
+    settings: settings,
     onDidReceiveNotificationResponse: (NotificationResponse response) {
       handleNotificationPayload(response.payload);
     },
@@ -53,9 +53,12 @@ Future<void> initNotifications() async {
   await androidPlugin?.createNotificationChannel(stepTimerChannel);
 
   tz.initializeTimeZones();
-  tz.setLocalLocation(
-    tz.getLocation((await FlutterTimezone.getLocalTimezone()).identifier),
-  );
+  final timeZoneInfo = await FlutterTimezone.getLocalTimezone();
+  try {
+    tz.setLocalLocation(tz.getLocation(timeZoneInfo.identifier));
+  } catch (e) {
+    tz.setLocalLocation(tz.UTC);
+  }
 
   final NotificationAppLaunchDetails? launchDetails = await notifications
       .getNotificationAppLaunchDetails();

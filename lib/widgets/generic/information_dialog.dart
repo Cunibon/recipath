@@ -11,9 +11,6 @@ class InformationDialog extends StatelessWidget {
       content: Text(message, style: TextTheme.of(context).bodyLarge),
       actions: [
         TextButton(
-          style: TextButton.styleFrom(
-            textStyle: TextTheme.of(context).labelLarge,
-          ),
           child: const Text('Okay'),
           onPressed: () {
             Navigator.of(context).pop();

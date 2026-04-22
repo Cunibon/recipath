@@ -17,7 +17,7 @@ import 'package:recipath/widgets/screens/recipe_screen/recipe_overview_screen/re
 import 'package:recipath/widgets/screens/recipe_screen/recipe_overview_screen/recipe_step.dart';
 import 'package:recipath/widgets/screens/recipe_screen/recipe_overview_screen/share_recipe_button.dart';
 import 'package:recipath/widgets/screens/recipe_screen/recipe_routes.dart';
-import 'package:recipath/widgets/tag/tag_list.dart';
+import 'package:recipath/widgets/tag/editable_tag_list.dart';
 
 class RecipeOverviewScreen extends ConsumerWidget {
   const RecipeOverviewScreen({required this.recipeId, super.key});
@@ -86,8 +86,9 @@ class RecipeOverviewScreen extends ConsumerWidget {
                       right: 4,
                       bottom: 4,
                     ),
-                    child: TagList(
-                      selectedTags: data.tags,
+                    child: EditableTagList(
+                      tagType: .recipe,
+                      currentTags: data.tags,
                       onEdited: (newTags) async {
                         final added = newTags.difference(data.tags);
                         final removed = data.tags.difference(newTags);

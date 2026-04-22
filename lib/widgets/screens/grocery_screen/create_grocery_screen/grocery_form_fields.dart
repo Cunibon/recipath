@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/l10n/app_localizations.dart';
-import 'package:recipath/widgets/providers/double_number_format_provider.dart';
+import 'package:recipath/widgets/providers/double_number_format_notifier.dart';
 import 'package:recipath/widgets/screens/grocery_screen/create_grocery_screen/double_input_field.dart';
 
 class GroceryFormFields extends ConsumerWidget {
@@ -39,11 +39,17 @@ class GroceryFormFields extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final localization = AppLocalizations.of(context)!;
-    final localizedUnits = localizeUnits(context);
+    final localizedUnits = localizeUnits(localization);
 
     final unitType = UnitConversion.unitType(data.unit);
 
     final doubleNumberFormat = ref.watch(doubleNumberFormatProvider);
+
+    final conversionUnits = switch (unitType) {
+      UnitType.volume => UnitConversion.weightToGram.keys,
+      UnitType.weight => UnitConversion.volumeToMl.keys,
+      UnitType.misc => [UnitEnum.g],
+    };
 
     return SingleChildScrollView(
       child: Column(
@@ -185,33 +191,29 @@ class GroceryFormFields extends ConsumerWidget {
                 child: unitType == UnitType.misc
                     ? Text(
                         "g",
-                        style: TextTheme.of(context).bodyLarge!.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: TextTheme.of(
+                          context,
+                        ).bodyLarge!.copyWith(fontWeight: FontWeight.bold),
                       )
                     : DropdownButtonFormField(
                         isExpanded: true,
                         decoration: InputDecoration(
                           labelText: localization.unit,
                         ),
-                        initialValue: data.conversionUnit,
+                        initialValue:
+                            conversionUnits.contains(data.conversionUnit)
+                            ? data.conversionUnit
+                            : conversionUnits.first,
                         validator: (value) =>
                             value == null ? localization.addUnit : null,
-                        items:
-                            (switch (unitType) {
-                                  UnitType.volume =>
-                                    UnitConversion.weightToGram.keys,
-                                  UnitType.weight =>
-                                    UnitConversion.volumeToMl.keys,
-                                  UnitType.misc => [UnitEnum.g],
-                                })
-                                .map(
-                                  (e) => DropdownMenuItem(
-                                    value: e,
-                                    child: Text(e.name),
-                                  ),
-                                )
-                                .toList(),
+                        items: conversionUnits
+                            .map(
+                              (e) => DropdownMenuItem(
+                                value: e,
+                                child: Text(localizedUnits[e]!),
+                              ),
+                            )
+                            .toList(),
                         onChanged: (value) {
                           if (value != null) {
                             final newAmount = UnitConversion.convert(

@@ -45,13 +45,18 @@ class StorageRepoDrift extends LocalRepo<StorageData> {
 
   @override
   Future<List<StorageTableData>> getNotUploaded() async {
-    final query = db.select(table);
+    return await (db.select(
+      table,
+    )..where((tbl) => tbl.uploaded.equals(false))).get();
+  }
 
-    if (!incluedDeleted) {
-      query.where((tbl) => tbl.deleted.equals(false));
-    }
-
-    return await (query..where((tbl) => tbl.uploaded.equals(false))).get();
+  @override
+  Stream<bool> hasNotUploaded() {
+    return (db.select(table)
+          ..where((tbl) => tbl.uploaded.equals(false))
+          ..limit(1))
+        .watchSingleOrNull()
+        .map((e) => e != null);
   }
 
   @override
@@ -80,18 +85,24 @@ class StorageRepoDrift extends LocalRepo<StorageData> {
 
   @override
   Future<void> delete(String id) async {
-    await db.customStatement(
-      'DELETE FROM ${db.ingredientTable.actualTableName} WHERE id = (SELECT ${table.ingredientId.name} FROM ${table.actualTableName} WHERE id = ?)',
-      [id],
-    );
-    await (db.delete(table)..where((t) => t.id.equals(id))).go();
+    db.transaction(() async {
+      await db.customStatement(
+        'DELETE FROM ${db.ingredientTable.actualTableName} WHERE id = (SELECT ${table.ingredientId.name} FROM ${table.actualTableName} WHERE id = ?)',
+        [id],
+      );
+      db.notifyUpdates({TableUpdate.onTable(db.ingredientTable)});
+      await (db.delete(table)..where((t) => t.id.equals(id))).go();
+    });
   }
 
   @override
   Future<void> clear() async {
-    await db.customStatement(
-      'DELETE FROM ${db.ingredientTable.actualTableName} WHERE id IN (SELECT ${table.ingredientId.name} FROM ${table.actualTableName})',
-    );
-    await db.delete(table).go();
+    db.transaction(() async {
+      await db.customStatement(
+        'DELETE FROM ${db.ingredientTable.actualTableName} WHERE id IN (SELECT ${table.ingredientId.name} FROM ${table.actualTableName})',
+      );
+      db.notifyUpdates({TableUpdate.onTable(db.ingredientTable)});
+      await db.delete(table).go();
+    });
   }
 }

@@ -82,7 +82,7 @@ class ExportNotifier extends _$ExportNotifier {
 
     final params = ShareParams(
       files: [xfile],
-      fileNameOverrides: ["$title.$fileExtenstion"],
+      fileNameOverrides: ["$title.$fileExtension"],
       text: localization.downloadToImport,
     );
 

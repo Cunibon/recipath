@@ -15,11 +15,11 @@ final fullGroceryRepoProvider = FullGroceryRepoNotifierProvider._();
 final class FullGroceryRepoNotifierProvider
     extends
         $FunctionalProvider<
-          LocalRepo<GroceryData>,
-          LocalRepo<GroceryData>,
-          LocalRepo<GroceryData>
+          TagFilteredRepo<GroceryData>,
+          TagFilteredRepo<GroceryData>,
+          TagFilteredRepo<GroceryData>
         >
-    with $Provider<LocalRepo<GroceryData>> {
+    with $Provider<TagFilteredRepo<GroceryData>> {
   FullGroceryRepoNotifierProvider._()
     : super(
         from: null,
@@ -36,23 +36,23 @@ final class FullGroceryRepoNotifierProvider
 
   @$internal
   @override
-  $ProviderElement<LocalRepo<GroceryData>> $createElement(
+  $ProviderElement<TagFilteredRepo<GroceryData>> $createElement(
     $ProviderPointer pointer,
   ) => $ProviderElement(pointer);
 
   @override
-  LocalRepo<GroceryData> create(Ref ref) {
+  TagFilteredRepo<GroceryData> create(Ref ref) {
     return fullGroceryRepoNotifier(ref);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(LocalRepo<GroceryData> value) {
+  Override overrideWithValue(TagFilteredRepo<GroceryData> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<LocalRepo<GroceryData>>(value),
+      providerOverride: $SyncValueProvider<TagFilteredRepo<GroceryData>>(value),
     );
   }
 }
 
 String _$fullGroceryRepoNotifierHash() =>
-    r'24789c1ce82cb17174513a322f6621d682e07358';
+    r'7fa80a8708cd442d2b54e61a6efa8ef5dad0ed07';

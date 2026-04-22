@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/generic/expandable.dart';
-import 'package:recipath/widgets/providers/double_number_format_provider.dart';
+import 'package:recipath/widgets/providers/double_number_format_notifier.dart';
 import 'package:recipath/widgets/screens/dashboard_screen/charts/async_chart.dart';
 import 'package:recipath/widgets/screens/dashboard_screen/charts/base_chart.dart';
 import 'package:recipath/widgets/screens/dashboard_screen/charts/kcal_chart/nutrition_legend.dart';

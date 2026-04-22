@@ -11,6 +11,19 @@
 
 import 'package:flutter/widgets.dart';
 
+class $AssetsFontsGen {
+  const $AssetsFontsGen();
+
+  /// File path: assets/fonts/Roboto-Bold.ttf
+  String get robotoBold => 'assets/fonts/Roboto-Bold.ttf';
+
+  /// File path: assets/fonts/Roboto-Regular.ttf
+  String get robotoRegular => 'assets/fonts/Roboto-Regular.ttf';
+
+  /// List of all assets
+  List<String> get values => [robotoBold, robotoRegular];
+}
+
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
@@ -31,11 +44,24 @@ class $AssetsSoundsGen {
   List<String> get values => [stepDone];
 }
 
+class $AssetsStructuredOutputGen {
+  const $AssetsStructuredOutputGen();
+
+  /// File path: assets/structured_output/recipe_schema.json
+  String get recipeSchema => 'assets/structured_output/recipe_schema.json';
+
+  /// List of all assets
+  List<String> get values => [recipeSchema];
+}
+
 class Assets {
   const Assets._();
 
+  static const $AssetsFontsGen fonts = $AssetsFontsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsSoundsGen sounds = $AssetsSoundsGen();
+  static const $AssetsStructuredOutputGen structuredOutput =
+      $AssetsStructuredOutputGen();
 }
 
 class AssetGenImage {

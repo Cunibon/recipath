@@ -14,7 +14,18 @@ class FileRepoDrift extends LocalRepo<FileData> {
 
   @override
   Future<List<FileTableData>> getNotUploaded() async {
-    return await (baseQuery..where((tbl) => tbl.uploaded.equals(false))).get();
+    return await (db.select(
+      table,
+    )..where((tbl) => tbl.uploaded.equals(false))).get();
+  }
+
+  @override
+  Stream<bool> hasNotUploaded() {
+    return (db.select(table)
+          ..where((tbl) => tbl.uploaded.equals(false))
+          ..limit(1))
+        .watchSingleOrNull()
+        .map((e) => e != null);
   }
 
   @override

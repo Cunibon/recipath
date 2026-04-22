@@ -36,7 +36,7 @@ class _DurationPickerDialogState extends State<DurationPickerDialog> {
     final localization = AppLocalizations.of(context)!;
 
     return AlertDialog(
-      title: Text(widget.title, style: TextTheme.of(context).labelLarge),
+      title: Text(widget.title),
       content: DurationPicker(
         duration: duration,
         onChange: (val) {
@@ -45,18 +45,12 @@ class _DurationPickerDialogState extends State<DurationPickerDialog> {
       ),
       actions: [
         TextButton(
-          style: TextButton.styleFrom(
-            textStyle: TextTheme.of(context).labelLarge,
-          ),
           child: Text(localization.cancelTimer),
           onPressed: () {
             Navigator.of(context).pop(DurationPickerResponse());
           },
         ),
         TextButton(
-          style: TextButton.styleFrom(
-            textStyle: TextTheme.of(context).labelLarge,
-          ),
           child: Text(localization.done),
           onPressed: () {
             Navigator.of(

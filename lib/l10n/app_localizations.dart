@@ -942,12 +942,6 @@ abstract class AppLocalizations {
   /// **'Introduction'**
   String get introduction;
 
-  /// No description provided for @appIntroduction.
-  ///
-  /// In en, this message translates to:
-  /// **'## Getting Started\n\n### 1. Create recipes\nYou can create recipes right off the bat.\n- Add a title and maybe an image\n- Add steps and their respective ingredients\n    - Groceries created are available for all recipes and can be found in the Groceries Screen\n    - Groceries have a normal amount (in what quantity you would buy them) this is used to determine how many of said ingredient needs to be bought\n    - You can also add a conversion rate and Nutriments, both of which are important for accurate dashboard data\n    - The little QR code at the top right can help you quickly enter most values\n- Save and you are ready to go\n\n### 2. Start shopping\nBy swiping a recipe or clicking the shopping button at the top you can enter \"shopping mode\".\nPlan your next shopping trip by selecting the recipes you want to cook, automatically adding all ingredients to the Shopping screen.\n\nYou can also see all the recipes you added in the shopping history.\n\n### 3. Keep track of what you have\nEverything you tick off your list is added to your Storage Screen.\nYou can check it as a reference and both the Shopping and Recipe screen will highlight ingredients you have at home, making it easy to see what you can cook or what needs to be bought.\n\n### 4. Start cooking\nWhen you are ready to cook, click on a recipe and start the timer.\nOnce you are done your time will be recorded, an average time for the recipe will be displayed on the Recipe screen.'**
-  String get appIntroduction;
-
   /// No description provided for @nothingToSee.
   ///
   /// In en, this message translates to:
@@ -1037,6 +1031,138 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Download Recipath:\nhttps://play.google.com/store/apps/details?id=com.cunibongames.recipath\n\nTo import these recipes'**
   String get downloadToImport;
+
+  /// No description provided for @aiToken.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Token'**
+  String get aiToken;
+
+  /// No description provided for @aiProvider.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Provider'**
+  String get aiProvider;
+
+  /// No description provided for @addAiTokenDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Add an AI-Token to use AI features in the app'**
+  String get addAiTokenDescription;
+
+  /// No description provided for @selectAiProvider.
+  ///
+  /// In en, this message translates to:
+  /// **'Select AI Provider'**
+  String get selectAiProvider;
+
+  /// No description provided for @addAiToken.
+  ///
+  /// In en, this message translates to:
+  /// **'Add AI Token'**
+  String get addAiToken;
+
+  /// No description provided for @createATokenHere.
+  ///
+  /// In en, this message translates to:
+  /// **'You can create a token here!'**
+  String get createATokenHere;
+
+  /// No description provided for @importFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Import from file'**
+  String get importFile;
+
+  /// No description provided for @importImage.
+  ///
+  /// In en, this message translates to:
+  /// **'Import from image'**
+  String get importImage;
+
+  /// No description provided for @importUrl.
+  ///
+  /// In en, this message translates to:
+  /// **'Import from Url'**
+  String get importUrl;
+
+  /// No description provided for @addAiUrlDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Url you want to try to import'**
+  String get addAiUrlDescription;
+
+  /// No description provided for @enterValidUrl.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid Url'**
+  String get enterValidUrl;
+
+  /// No description provided for @tagType.
+  ///
+  /// In en, this message translates to:
+  /// **'Tag type'**
+  String get tagType;
+
+  /// No description provided for @shareFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Share file'**
+  String get shareFile;
+
+  /// No description provided for @sharePdf.
+  ///
+  /// In en, this message translates to:
+  /// **'Share PDF'**
+  String get sharePdf;
+
+  /// No description provided for @quickShopping.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick shopping'**
+  String get quickShopping;
+
+  /// No description provided for @addOtherItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Add other item'**
+  String get addOtherItem;
+
+  /// No description provided for @aiErrorServer.
+  ///
+  /// In en, this message translates to:
+  /// **'Server error ({code}). Please try again later.'**
+  String aiErrorServer(int code);
+
+  /// No description provided for @aiErrorAuth.
+  ///
+  /// In en, this message translates to:
+  /// **'Authentication failed. Please check your AI token.'**
+  String get aiErrorAuth;
+
+  /// No description provided for @aiErrorRateLimit.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many requests. Please wait and try again.'**
+  String get aiErrorRateLimit;
+
+  /// No description provided for @aiErrorNetwork.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not connect to the AI service. Check your internet connection.'**
+  String get aiErrorNetwork;
+
+  /// No description provided for @aiErrorUrlLoad.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load content from the URL.'**
+  String get aiErrorUrlLoad;
+
+  /// No description provided for @aiErrorParse.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not process the AI response.'**
+  String get aiErrorParse;
 }
 
 class _AppLocalizationsDelegate

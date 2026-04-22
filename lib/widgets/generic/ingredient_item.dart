@@ -5,7 +5,7 @@ import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/generic/focus_form_field.dart';
 import 'package:recipath/widgets/generic/highlight_search/highlightable_text.dart';
-import 'package:recipath/widgets/providers/double_number_format_provider.dart';
+import 'package:recipath/widgets/providers/double_number_format_notifier.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 
 class IngredientItem extends ConsumerWidget {
@@ -26,7 +26,7 @@ class IngredientItem extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final localization = AppLocalizations.of(context)!;
-    final unitLocalized = localizeUnits(context);
+    final unitLocalized = localizeUnits(localization);
 
     final doubleNumberFormat = ref.watch(doubleNumberFormatProvider);
 

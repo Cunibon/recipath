@@ -7,6 +7,7 @@ import 'package:recipath/widgets/screens/settings_screen/appearance/locale_picke
 import 'package:recipath/widgets/screens/settings_screen/appearance/material_you_toggle.dart';
 import 'package:recipath/widgets/screens/settings_screen/appearance/storage_toggle.dart';
 import 'package:recipath/widgets/screens/settings_screen/auth/manage_supscription_button.dart';
+import 'package:recipath/widgets/screens/settings_screen/data/ai_token.dart';
 import 'package:recipath/widgets/screens/settings_screen/data/privacy_policy.dart';
 import 'package:recipath/widgets/screens/settings_screen/providers/version_tag.dart';
 import 'package:recipath/widgets/screens/settings_screen/setting_section.dart';
@@ -19,8 +20,7 @@ class SettingsScreen extends StatelessWidget {
     final localization = AppLocalizations.of(context)!;
 
     return NavigationDrawerScaffold(
-      titleBuilder: (title) =>
-          DefaultNavigationTitle(title: title, syncState: SyncState.synced),
+      titleBuilder: (title) => DefaultNavigationTitle(title: title),
       body: SingleChildScrollView(
         child: Column(
           spacing: 8,
@@ -36,7 +36,7 @@ class SettingsScreen extends StatelessWidget {
             ),
             SettingSection(
               title: localization.data,
-              children: [PrivacyPolicy()],
+              children: [AiToken(), PrivacyPolicy()],
             ),
             SettingSection(
               title: localization.subscription,

@@ -7,16 +7,18 @@ import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/gtin_data/gtin_data.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
 import 'package:recipath/data/unit_enum.dart';
+import 'package:recipath/helper/ref_extension.dart';
 import 'package:recipath/l10n/app_localizations.dart';
-import 'package:recipath/repos/recipe/drift/recipe_repo_notifier.dart';
+import 'package:recipath/repos/recipe/recipe_repo_notifier.dart';
 import 'package:recipath/repos/shopping/shopping_repo_notifier.dart';
 import 'package:recipath/repos/storage/storage_repo_notifier.dart';
 import 'package:recipath/widgets/generic/dialogs/delete_confirmation_dialog.dart';
 import 'package:recipath/widgets/generic/information_dialog.dart';
 import 'package:recipath/widgets/generic/unsaved_changes_scope.dart';
-import 'package:recipath/widgets/providers/double_number_format_provider.dart';
+import 'package:recipath/widgets/providers/double_number_format_notifier.dart';
 import 'package:recipath/widgets/screens/grocery_screen/create_grocery_screen/grocery_form_fields.dart';
 import 'package:recipath/widgets/screens/grocery_screen/grocery_routes.dart';
+import 'package:recipath/widgets/screens/grocery_screen/providers/filtered_grocery_notifier.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 
 class CreateGroceryScreen extends ConsumerStatefulWidget {
@@ -46,7 +48,7 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
   void initState() {
     super.initState();
     initialData =
-        ref.read(groceryProvider).value![widget.groceryId] ??
+        ref.read(filteredGroceryProvider).value?[widget.groceryId] ??
         GroceryData(
           id: randomAlphaNumeric(16),
           name: "",
@@ -216,26 +218,24 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
             ),
             if (widget.groceryId != null)
               ElevatedButton.icon(
-                onPressed: () async {
-                  final groceries = ref.read(groceryProvider).value!;
+                onPressed: () => ref.run((tsx) async {
+                  final groceries = await tsx.get(groceryProvider.future);
 
-                  final recipes = await ref.read(recipeRepoProvider).get();
+                  final recipes = await tsx.get(recipeRepoProvider).get();
                   final recipesUsing = recipes.values.where(
                     (e) => e
                         .getIngredients(groceries)
                         .any((e) => e.groceryId == data.id),
                   );
 
-                  final shoppingItems = await ref
-                      .read(shoppingRepoProvider)
+                  final shoppingItems = await tsx
+                      .get(shoppingRepoProvider)
                       .get();
                   final shoppingUsing = shoppingItems.values.where(
                     (e) => e.ingredient.groceryId == data.id,
                   );
 
-                  final storageItems = await ref
-                      .read(storageRepoProvider)
-                      .get();
+                  final storageItems = await tsx.get(storageRepoProvider).get();
                   final storageUsing = storageItems.values.where(
                     (e) => e.ingredient.groceryId == data.id,
                   );
@@ -265,11 +265,11 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
                     );
 
                     if (context.mounted && result) {
-                      ref.read(groceryModifierProvider).archive(data);
+                      tsx.get(groceryModifierProvider).archive(data);
                       context.pop();
                     }
                   }
-                },
+                }),
                 icon: Icon(Icons.delete),
                 label: Text(localization.delete),
               ),

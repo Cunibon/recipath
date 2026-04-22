@@ -1,0 +1,52 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'double_number_format_notifier.dart';
+
+// **************************************************************************
+// RiverpodGenerator
+// **************************************************************************
+
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
+@ProviderFor(doubleNumberFormatNotifier)
+final doubleNumberFormatProvider = DoubleNumberFormatNotifierProvider._();
+
+final class DoubleNumberFormatNotifierProvider
+    extends $FunctionalProvider<NumberFormat, NumberFormat, NumberFormat>
+    with $Provider<NumberFormat> {
+  DoubleNumberFormatNotifierProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'doubleNumberFormatProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$doubleNumberFormatNotifierHash();
+
+  @$internal
+  @override
+  $ProviderElement<NumberFormat> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  NumberFormat create(Ref ref) {
+    return doubleNumberFormatNotifier(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(NumberFormat value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<NumberFormat>(value),
+    );
+  }
+}
+
+String _$doubleNumberFormatNotifierHash() =>
+    r'4121665b1fb4b325da93ad46fc35cae24c85704e';

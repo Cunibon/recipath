@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:recipath/data/tag_data/tag_data.dart';
+import 'package:recipath/data/tag_data/tag_type_enum.dart';
 import 'package:recipath/widgets/filtering/change_filter_dialog.dart';
-import 'package:recipath/widgets/filtering/filter_types.dart';
 import 'package:recipath/widgets/filtering/quick_filter_data.dart';
 import 'package:recipath/widgets/filtering/tag_filter_notifier.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
@@ -13,19 +12,17 @@ import 'package:recipath/widgets/screens/tag_screen/providers/tag_notifier.dart'
 class FilterButton extends ConsumerWidget {
   const FilterButton({
     required this.filterType,
-    this.allTags = const {},
     this.quickFilters = const [],
     super.key,
   });
-  final FilterTypes filterType;
-  final Set<TagData> allTags;
+  final TagTypeEnum filterType;
   final List<QuickFilters> quickFilters;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final tagState = ref.watch(tagProvider);
 
-    final quickFilterState = ref.watch(quickFilterProvider);
+    final quickFilterState = ref.watch(quickFilterProvider(filterType));
     final tagFilterState = ref.watch(tagFilterProvider(filterType));
 
     final filterActive =
@@ -39,8 +36,9 @@ class FilterButton extends ConsumerWidget {
           final result = await showDialog<ChangeFilterDialogState>(
             context: context,
             builder: (context) => ChangeFilterDialog(
+              filterType: filterType,
               onClear: () {
-                ref.read(quickFilterProvider.notifier).clear();
+                ref.read(quickFilterProvider(filterType).notifier).clear();
                 ref.read(tagFilterProvider(filterType).notifier).clear();
                 context.pop();
               },
@@ -56,12 +54,13 @@ class FilterButton extends ConsumerWidget {
                   .map((e) => tagLookup[e])
                   .nonNulls
                   .toSet(),
-              allTags: allTags,
             ),
           );
 
           if (result != null) {
-            final quickFilerNotifier = ref.read(quickFilterProvider.notifier);
+            final quickFilerNotifier = ref.read(
+              quickFilterProvider(filterType).notifier,
+            );
             for (final quickFilter in result.quickFilters) {
               quickFilerNotifier.setFilter(
                 filter: quickFilter.quickFilter,

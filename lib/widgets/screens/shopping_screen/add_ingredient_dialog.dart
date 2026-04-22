@@ -9,7 +9,7 @@ import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/generic/empty_state.dart';
 import 'package:recipath/widgets/generic/searchable_list.dart';
-import 'package:recipath/widgets/providers/double_number_format_provider.dart';
+import 'package:recipath/widgets/providers/double_number_format_notifier.dart';
 import 'package:recipath/widgets/screens/grocery_screen/grocery_routes.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 
@@ -54,7 +54,7 @@ class _AddIngredientDialogState extends ConsumerState<AddIngredientDialog> {
   @override
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context)!;
-    final unitLocalized = localizeUnits(context);
+    final unitLocalized = localizeUnits(localization);
 
     final doubleNumberFormat = ref.watch(doubleNumberFormatProvider);
 
