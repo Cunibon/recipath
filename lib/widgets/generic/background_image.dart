@@ -25,31 +25,33 @@ class BackgroundImage extends ConsumerWidget {
     ).surfaceContainer.withAlpha(220);
 
     return Stack(
+      alignment: .bottomCenter,
       children: [
-        SizedBox(
-          height: 400,
-          child: LocalImage(fileName: imageName!, fit: .cover),
-        ),
         Positioned(
-          bottom: 0,
+          top: 0,
           left: 0,
           right: 0,
-          child: Column(
-            children: [
-              if (hasImage)
-                Container(
-                  height: 25,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: .topCenter,
-                      end: .bottomCenter,
-                      colors: [backgroundColor.withAlpha(0), backgroundColor],
-                    ),
-                  ),
-                ),
-              ColoredBox(color: backgroundColor, child: child),
-            ],
+          child: SizedBox(
+            width: double.infinity,
+            height: 300,
+            child: LocalImage(fileName: imageName!, fit: .cover),
           ),
+        ),
+        Column(
+          children: [
+            SizedBox(height: 100),
+            Container(
+              height: 25,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: .topCenter,
+                  end: .bottomCenter,
+                  colors: [backgroundColor.withAlpha(0), backgroundColor],
+                ),
+              ),
+            ),
+            ColoredBox(color: backgroundColor, child: child),
+          ],
         ),
       ],
     );
