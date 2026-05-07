@@ -49,4 +49,4 @@ final class GroceryStorageNotifierProvider
 }
 
 String _$groceryStorageNotifierHash() =>
-    r'36542cdcaf5078da9f1d9239f85f02ac546eed7a';
+    r'635b631a5e547115eaac14ceed73fd2e63373222';

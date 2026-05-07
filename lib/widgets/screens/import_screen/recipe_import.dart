@@ -4,7 +4,6 @@ import 'package:recipath/widgets/screens/import_screen/data/recipe_import_screen
 import 'package:recipath/widgets/screens/import_screen/providers/import_data_notifier.dart';
 import 'package:recipath/widgets/screens/import_screen/providers/recipe_import_screen_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/compact_recipe_item_content.dart';
-import 'package:recipath/widgets/screens/recipe_screen/data/compact_recipe_item_data.dart';
 
 class RecipeImport extends ConsumerWidget {
   const RecipeImport({required this.data, super.key});
@@ -30,12 +29,9 @@ class RecipeImport extends ConsumerWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: CompactRecipeItemContent(
-                    compactRecipeData: CompactRecipeItemData(
-                      recipeData: recipe,
-                      averageTime: null,
-                      groceryMap: importData.groceries,
-                      tags: importData.tagsPerRecipe[recipe.id] ?? {},
-                    ),
+                    recipeData: recipe,
+                    groceryMap: importData.groceries,
+                    tags: importData.tagsPerRecipe[recipe.id] ?? {},
                     trailingTitle: Icon(
                       data.selectedRecipes.contains(recipe)
                           ? Icons.check_box

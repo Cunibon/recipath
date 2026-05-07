@@ -45,7 +45,7 @@ class ModifyIngredientsView extends ConsumerWidget {
           ),
           toWidget: (item) {
             final storageItem = ref.watch(storageModeProvider)
-                ? state.storage[item.groceryId]
+                ? state.storageMap[item.groceryId]
                 : null;
             final inStorage =
                 storageItem != null &&

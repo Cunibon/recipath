@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:recipath/common.dart';
 import 'package:recipath/root_routes.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/generic/empty_state.dart';
 import 'package:recipath/widgets/navigation/default_navigation_title.dart';
 import 'package:recipath/widgets/navigation/navigation_drawer_scaffold.dart';
-import 'package:recipath/widgets/screens/history_screen/data/history_data.dart';
-import 'package:recipath/widgets/screens/history_screen/history_recipe_item.dart';
+import 'package:recipath/widgets/screens/history_screen/data/history_screen_data.dart';
+import 'package:recipath/widgets/screens/history_screen/history_screen_content.dart';
 
 class HistoryScreen extends ConsumerWidget {
   const HistoryScreen({
@@ -17,59 +16,24 @@ class HistoryScreen extends ConsumerWidget {
     super.key,
   });
 
-  final AsyncValue<Map<DateTime, List<HistoryData>>> asyncData;
+  final AsyncValue<HistoryScreenData> asyncData;
   final String emptyHint;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final dateTheme = TextTheme.of(context).titleLarge;
-
     return NavigationDrawerScaffold(
       titleBuilder: (title) => DefaultNavigationTitle(title: title),
       body: CachedAsyncValueWrapper(
         asyncState: asyncData,
         builder: (data) {
-          final entries = data.entries.toList();
-
-          if (data.isEmpty) {
+          if (data.groupedHistoryData.isEmpty) {
             return EmptyState(
               hint: emptyHint,
               onTap: () => context.go(RootRoutes.recipeRoute.path),
             );
           }
 
-          return CustomScrollView(
-            slivers: [
-              for (var cluster in entries)
-                SliverMainAxisGroup(
-                  slivers: [
-                    PinnedHeaderSliver(
-                      child: ColoredBox(
-                        color: ColorScheme.of(context).surface,
-                        child: Column(
-                          crossAxisAlignment: .start,
-                          children: [
-                            SizedBox(height: 8),
-                            Text(
-                              dateFormat.format(cluster.key),
-                              style: dateTheme,
-                            ),
-                            Divider(),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (context, index) =>
-                            HistoryRecipeItem(data: cluster.value[index]),
-                        childCount: cluster.value.length,
-                      ),
-                    ),
-                  ],
-                ),
-            ],
-          );
+          return HistoryScreenContent(data: data);
         },
       ),
     );

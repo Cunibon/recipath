@@ -15,13 +15,13 @@ final recipeHistoryScreenProvider = RecipeHistoryScreenNotifierProvider._();
 final class RecipeHistoryScreenNotifierProvider
     extends
         $FunctionalProvider<
-          AsyncValue<Map<DateTime, List<HistoryData>>>,
-          Map<DateTime, List<HistoryData>>,
-          FutureOr<Map<DateTime, List<HistoryData>>>
+          AsyncValue<HistoryScreenData>,
+          HistoryScreenData,
+          FutureOr<HistoryScreenData>
         >
     with
-        $FutureModifier<Map<DateTime, List<HistoryData>>>,
-        $FutureProvider<Map<DateTime, List<HistoryData>>> {
+        $FutureModifier<HistoryScreenData>,
+        $FutureProvider<HistoryScreenData> {
   RecipeHistoryScreenNotifierProvider._()
     : super(
         from: null,
@@ -38,15 +38,15 @@ final class RecipeHistoryScreenNotifierProvider
 
   @$internal
   @override
-  $FutureProviderElement<Map<DateTime, List<HistoryData>>> $createElement(
+  $FutureProviderElement<HistoryScreenData> $createElement(
     $ProviderPointer pointer,
   ) => $FutureProviderElement(pointer);
 
   @override
-  FutureOr<Map<DateTime, List<HistoryData>>> create(Ref ref) {
+  FutureOr<HistoryScreenData> create(Ref ref) {
     return recipeHistoryScreenNotifier(ref);
   }
 }
 
 String _$recipeHistoryScreenNotifierHash() =>
-    r'71c98c8c231b08a594f7a849e00e09fdc9638b94';
+    r'f2f127a18d908e5928fc58152f12bb4d1556f1d3';

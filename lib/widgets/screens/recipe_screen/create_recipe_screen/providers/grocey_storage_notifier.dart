@@ -10,12 +10,12 @@ part 'grocey_storage_notifier.g.dart';
 Future<GroceryStorageState> groceryStorageNotifier(Ref ref) async =>
     GroceryStorageState(
       groceryMap: await ref.watch(groceryProvider.future),
-      storage: await ref.watch(storageProvider.future),
+      storageMap: await ref.watch(storageProvider.future),
     );
 
 class GroceryStorageState {
-  GroceryStorageState({required this.groceryMap, required this.storage});
+  GroceryStorageState({required this.groceryMap, required this.storageMap});
 
   final Map<String, GroceryData> groceryMap;
-  final Map<String, StorageData> storage;
+  final Map<String, StorageData> storageMap;
 }

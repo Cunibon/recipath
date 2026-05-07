@@ -90,7 +90,7 @@ class _RecipeIngredientViewState extends ConsumerState<RecipeIngredientView> {
               builder: (data) {
                 return CompactIngredientView(
                   ingredients: widget.ingredients,
-                  storageData: data.storage,
+                  storageData: data.storageMap,
                   groceryMap: data.groceryMap,
                 );
               },

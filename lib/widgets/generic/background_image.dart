@@ -1,0 +1,57 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:recipath/widgets/screens/recipe_screen/local_image.dart';
+
+class BackgroundImage extends ConsumerWidget {
+  const BackgroundImage({
+    super.key,
+    required this.imageName,
+    required this.child,
+  });
+
+  final String? imageName;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final hasImage = imageName != null;
+
+    if (!hasImage) {
+      return child;
+    }
+
+    final backgroundColor = ColorScheme.of(
+      context,
+    ).surfaceContainer.withAlpha(220);
+
+    return Stack(
+      children: [
+        SizedBox(
+          height: 400,
+          child: LocalImage(fileName: imageName!, fit: .cover),
+        ),
+        Positioned(
+          bottom: 0,
+          left: 0,
+          right: 0,
+          child: Column(
+            children: [
+              if (hasImage)
+                Container(
+                  height: 25,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: .topCenter,
+                      end: .bottomCenter,
+                      colors: [backgroundColor.withAlpha(0), backgroundColor],
+                    ),
+                  ),
+                ),
+              ColoredBox(color: backgroundColor, child: child),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}

@@ -1,71 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/common.dart';
-import 'package:recipath/data/recipe_data/recipe_data.dart';
-import 'package:recipath/l10n/app_localizations.dart';
-import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
-import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
+import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/widgets/screens/history_screen/data/history_data.dart';
-import 'package:recipath/widgets/screens/recipe_screen/create_recipe_screen/compact_ingredient_view.dart';
-import 'package:recipath/widgets/screens/recipe_screen/local_image.dart';
+import 'package:recipath/widgets/screens/recipe_screen/compact_recipe_item_content.dart';
 
 class HistoryRecipeItem extends ConsumerWidget {
-  const HistoryRecipeItem({required this.data, super.key});
+  const HistoryRecipeItem({
+    required this.data,
+    required this.groceryMap,
+    super.key,
+  });
   final HistoryData data;
+  final Map<String, GroceryData> groceryMap;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (data.recipeData.imageName != null)
-              Padding(
-                padding: const EdgeInsets.only(top: 12),
-                child: SizedBox(
-                  width: 100,
-                  child: LocalImage(fileName: data.recipeData.imageName!),
+        child: CompactRecipeItemContent(
+          recipeData: data.recipeData,
+          groceryMap: groceryMap,
+          trailingTitle: Row(
+            children: [
+              Text(timeFormat.format(data.startDate)),
+              if (data.endDate != null)
+                Text(
+                  " (${data.endDate!.difference(data.startDate).inMinutes}min)",
                 ),
-              ),
-            SizedBox(width: 8),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    crossAxisAlignment: .start,
-                    children: [
-                      Expanded(
-                        child: Text(
-                          data.recipeData.title.trim(),
-                          style: TextTheme.of(context).titleMedium!,
-                        ),
-                      ),
-                      Text(timeFormat.format(data.startDate)),
-                      if (data.endDate != null)
-                        Text(
-                          " (${data.endDate!.difference(data.startDate).inMinutes}min)",
-                        ),
-                    ],
-                  ),
-                  if (data.recipeData.servings != null)
-                    Text(
-                      "${AppLocalizations.of(context)!.servings}: ${data.recipeData.servings}",
-                    ),
-                  CachedAsyncValueWrapper(
-                    asyncState: ref.watch(groceryProvider),
-                    builder: (groceryData) => CompactIngredientView(
-                      ingredients: data.recipeData.getIngredients(groceryData),
-                      storageData: {},
-                      groceryMap: groceryData,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

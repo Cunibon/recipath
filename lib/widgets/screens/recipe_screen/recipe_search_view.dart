@@ -39,13 +39,17 @@ class RecipeSearchView extends ConsumerWidget {
       ),
       items: data.recipe,
       toSearchable: (item) => item.recipeData.toReadable(
-        groceries: data.grocery,
+        groceries: data.groceryMap,
         unitLocalized: unitLocalized,
         doubleNumberFormat: doubleNumberFormat,
       ),
       toWidget: (item) => Dismissible(
         key: Key(item.recipeData.id),
-        child: CompactRecipeItem(compactRecipeData: item),
+        child: CompactRecipeItem(
+          compactRecipeData: item,
+          groceryMap: data.groceryMap,
+          storageData: data.storageMap,
+        ),
         confirmDismiss: (direction) async {
           if (direction == DismissDirection.startToEnd) {
             ref

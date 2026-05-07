@@ -8,11 +8,13 @@ class LocalImage extends ConsumerWidget {
     required this.fileName,
     this.width,
     this.height,
+    this.fit,
     super.key,
   });
   final String fileName;
   final double? width;
   final double? height;
+  final BoxFit? fit;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -31,6 +33,7 @@ class LocalImage extends ConsumerWidget {
             value,
             width: width,
             height: height,
+            fit: fit,
             errorBuilder: (context, error, stackTrace) => SizedBox(
               width: 200,
               height: 150,
