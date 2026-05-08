@@ -4,7 +4,7 @@ import 'package:recipath/data/quick_shopping_data/quick_shopping_data.dart';
 import 'package:recipath/data/shopping_data/shopping_data.dart';
 import 'package:recipath/data/unit_enum.dart';
 
-enum ShoppingTypeEnum { normal, quick }
+enum ShoppingTypeEnum { normal, quick, done }
 
 sealed class BaseShoppingItemData {
   BaseShoppingItemData();

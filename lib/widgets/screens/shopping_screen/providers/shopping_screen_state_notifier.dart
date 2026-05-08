@@ -30,16 +30,17 @@ Future<ShoppingScreenState> shoppingScreenStateNotifier(Ref ref) async {
 
   final Map<String, List<BaseShoppingItemData>> clusteredData = {};
 
+  final doneList = clusteredData.putIfAbsent(
+    ShoppingTypeEnum.done.name,
+    () => [],
+  );
+
   if (cluster) {
     final tagLookup = await ref.watch(tagsPerGroceryProvider.future);
 
     for (final shoppingItem in shoppingData.values) {
       if (shoppingItem.done) {
-        final shoppingList = clusteredData.putIfAbsent(
-          ShoppingTypeEnum.normal.name,
-          () => [],
-        );
-        shoppingList.add(ShoppingItemData(data: shoppingItem));
+        doneList.add(ShoppingItemData(data: shoppingItem));
       } else {
         final tags = tagLookup[shoppingItem.ingredient.groceryId] ?? {};
 
@@ -62,10 +63,14 @@ Future<ShoppingScreenState> shoppingScreenStateNotifier(Ref ref) async {
       ShoppingTypeEnum.normal.name,
       () => [],
     );
-    shoppingList.addAll([
-      for (final shoppingItem in shoppingData.values)
-        ShoppingItemData(data: shoppingItem),
-    ]);
+    for (final shoppingItem in shoppingData.values) {
+      final data = ShoppingItemData(data: shoppingItem);
+      if (shoppingItem.done) {
+        doneList.add(data);
+      } else {
+        shoppingList.add(data);
+      }
+    }
   }
 
   if (quickShoppingData.isNotEmpty && !tagFiltersActive) {
@@ -73,10 +78,15 @@ Future<ShoppingScreenState> shoppingScreenStateNotifier(Ref ref) async {
       ShoppingTypeEnum.quick.name,
       () => [],
     );
-    quickShoppingList.addAll([
-      for (final shoppingItem in quickShoppingData.values)
-        QuickShoppingItemData(data: shoppingItem),
-    ]);
+
+    for (final shoppingItem in quickShoppingData.values) {
+      final data = QuickShoppingItemData(data: shoppingItem);
+      if (shoppingItem.done) {
+        doneList.add(data);
+      } else {
+        quickShoppingList.add(data);
+      }
+    }
   }
 
   return ShoppingScreenState(

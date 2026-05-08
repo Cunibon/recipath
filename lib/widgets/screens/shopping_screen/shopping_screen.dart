@@ -46,6 +46,7 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
   int getSortPriority(String type) {
     if (type == ShoppingTypeEnum.normal.name) return 1;
     if (type == ShoppingTypeEnum.quick.name) return 2;
+    if (type == ShoppingTypeEnum.done.name) return 3;
     return 0;
   }
 
@@ -113,7 +114,8 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
           clusterToWidget: (clusterId) {
             if (data.clusteredData.length == 1 &&
                 (clusterId == ShoppingTypeEnum.normal.name ||
-                    clusterId == ShoppingTypeEnum.quick.name)) {
+                    clusterId == ShoppingTypeEnum.quick.name ||
+                    clusterId == ShoppingTypeEnum.done.name)) {
               return SizedBox.shrink();
             }
 
@@ -147,22 +149,18 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
             QuickShoppingItemData() => QuickShoppingItem(data: item.data),
           },
           sortItems: (a, b) {
-            if (a.done == b.done) {
-              final aString = switch (a) {
-                ShoppingItemData() =>
-                  data.groceryMap[a.data.ingredient.groceryId]!.name,
-                QuickShoppingItemData() => a.data.description,
-              };
-              final bString = switch (a) {
-                ShoppingItemData() =>
-                  data.groceryMap[a.data.ingredient.groceryId]!.name,
-                QuickShoppingItemData() => a.data.description,
-              };
+            final aString = switch (a) {
+              ShoppingItemData() =>
+                data.groceryMap[a.data.ingredient.groceryId]!.name,
+              QuickShoppingItemData() => a.data.description,
+            };
+            final bString = switch (a) {
+              ShoppingItemData() =>
+                data.groceryMap[a.data.ingredient.groceryId]!.name,
+              QuickShoppingItemData() => a.data.description,
+            };
 
-              return aString.compareTo(bString);
-            } else {
-              return a.done ? 1 : -1;
-            }
+            return aString.compareTo(bString);
           },
           trailingSearch: FilterButton(
             quickFilters: [QuickFilters.cluster],
