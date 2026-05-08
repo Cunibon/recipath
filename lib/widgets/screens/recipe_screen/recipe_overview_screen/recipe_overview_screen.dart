@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/application/recipe_tag_modifier/recipe_tag_modifier_notifier.dart';
 import 'package:recipath/application_constants.dart';
+import 'package:recipath/common.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
 import 'package:recipath/data/recipe_tag_data/recipe_tag_data.dart';
 import 'package:recipath/helper/go_router_extension.dart';
@@ -64,6 +65,7 @@ class RecipeOverviewScreen extends ConsumerWidget {
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: SingleChildScrollView(
+              padding: edgeInsetsWithBottomPadding(context: context),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -195,7 +197,6 @@ class RecipeOverviewScreen extends ConsumerWidget {
                         ),
                       ),
                     ),
-                  SizedBox(height: 78),
                 ],
               ),
             ),

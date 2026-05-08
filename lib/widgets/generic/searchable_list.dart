@@ -15,7 +15,7 @@ class SearchableList<T> extends StatefulWidget {
     this.sort,
     this.trailing,
     this.emptyState,
-    this.listViewPadding = const EdgeInsets.only(bottom: 78),
+    this.listViewPadding,
     super.key,
   }) : assert(initialSearch == null || searchController == null);
 
@@ -30,7 +30,7 @@ class SearchableList<T> extends StatefulWidget {
 
   final Widget? trailing;
   final Widget? emptyState;
-  final EdgeInsets listViewPadding;
+  final EdgeInsets? listViewPadding;
 
   @override
   State<SearchableList<T>> createState() => _SearchableListState();

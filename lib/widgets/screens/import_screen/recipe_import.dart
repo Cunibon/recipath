@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:recipath/common.dart';
 import 'package:recipath/widgets/screens/import_screen/data/recipe_import_screen_state.dart';
 import 'package:recipath/widgets/screens/import_screen/providers/import_data_notifier.dart';
 import 'package:recipath/widgets/screens/import_screen/providers/recipe_import_screen_notifier.dart';
@@ -15,7 +16,7 @@ class RecipeImport extends ConsumerWidget {
     final importData = ref.watch(importDataProvider(data.path)).value!;
 
     return SingleChildScrollView(
-      padding: const EdgeInsets.only(bottom: 78),
+      padding: edgeInsetsWithBottomPadding(context: context),
       child: Column(
         children: [
           for (final recipe in importData.recipes)

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:recipath/common.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/tag_data/tag_type_enum.dart';
 import 'package:recipath/data/unit_enum.dart';
@@ -67,6 +68,7 @@ class GroceryScreen extends ConsumerWidget {
             itemToWidget: (item) => GroceryItem(data: item),
             sortItems: (a, b) =>
                 a.groceryData.name.compareTo(b.groceryData.name),
+            listViewPadding: edgeInsetsWithBottomPadding(context: context),
             sortClusters: (a, b) {
               if (a == null) {
                 return 1;

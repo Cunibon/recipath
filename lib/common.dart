@@ -58,3 +58,10 @@ DateTime dateTimeFromMillis(int millis) =>
     DateTime.fromMillisecondsSinceEpoch(millis);
 
 int dateTimeToMillis(DateTime dateTime) => dateTime.millisecondsSinceEpoch;
+
+EdgeInsets edgeInsetsWithBottomPadding({
+  EdgeInsets edgeInsets = const EdgeInsets.only(bottom: 78),
+  required BuildContext context,
+}) => edgeInsets.copyWith(
+  bottom: edgeInsets.bottom + MediaQuery.of(context).padding.bottom,
+);

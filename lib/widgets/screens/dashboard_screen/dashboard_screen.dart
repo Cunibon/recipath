@@ -63,7 +63,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         child: Icon(Icons.calendar_month),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.only(bottom: 78),
+        padding: edgeInsetsWithBottomPadding(context: context),
         child: Column(
           children: [
             RecipeChart(

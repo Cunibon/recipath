@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:recipath/common.dart';
 import 'package:recipath/data/tag_data/tag_data.dart';
 import 'package:recipath/widgets/screens/import_screen/dialogs/select_tag_dialog.dart';
 import 'package:recipath/widgets/screens/import_screen/providers/tag_import_screen_notifier.dart';
@@ -15,7 +16,7 @@ class TagImport extends ConsumerWidget {
     final tagScreenState = ref.watch(tagImportScreenProvider(filePath)).value!;
 
     return SingleChildScrollView(
-      padding: const EdgeInsets.only(bottom: 78),
+      padding: edgeInsetsWithBottomPadding(context: context),
       child: Column(
         children: [
           for (final entry in tagScreenState.mappedTags.entries)

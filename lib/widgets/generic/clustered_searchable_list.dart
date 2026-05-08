@@ -18,7 +18,7 @@ class ClusteredSearchableList<T, R> extends StatefulWidget {
     this.trailingSearch,
     this.trailingList,
     this.emptyState,
-    this.listViewPadding = const EdgeInsets.only(bottom: 78),
+    this.listViewPadding = const EdgeInsets.all(0),
     super.key,
   }) : assert(initialSearch == null || searchController == null);
 

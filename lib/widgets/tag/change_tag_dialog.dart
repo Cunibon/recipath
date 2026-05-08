@@ -89,7 +89,7 @@ class _ChangeTagDialogState extends ConsumerState<ChangeTagDialog> {
                     ),
                   ),
                 ),
-                listViewPadding: EdgeInsets.only(bottom: 100),
+                listViewPadding: EdgeInsets.only(bottom: 50),
                 emptyState: EmptyState(),
               ),
               Align(

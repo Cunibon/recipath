@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:recipath/common.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
 import 'package:recipath/data/tag_data/tag_type_enum.dart';
 import 'package:recipath/data/unit_enum.dart';
@@ -64,6 +65,7 @@ class RecipeSearchView extends ConsumerWidget {
           return false;
         },
       ),
+      listViewPadding: edgeInsetsWithBottomPadding(context: context),
       sort: (a, b) => a.recipeData.title.compareTo(b.recipeData.title),
       emptyState: EmptyState(
         hint: localization.createRecipeHint,
