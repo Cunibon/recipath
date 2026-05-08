@@ -43,6 +43,7 @@ class IngredientItem extends ConsumerWidget {
             SizedBox(
               width: 100,
               child: FocusFormField(
+                selectOnEnter: true,
                 initialValue: doubleNumberFormat.format(data.amount),
                 decoration: InputDecoration(labelText: localization.amount),
                 keyboardType: TextInputType.numberWithOptions(decimal: true),

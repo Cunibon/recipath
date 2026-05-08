@@ -117,6 +117,7 @@ class _CreateTagScreenState extends ConsumerState<CreateTagScreen> {
                 children: [
                   TextFormField(
                     controller: nameController,
+                    textCapitalization: .sentences,
                     decoration: InputDecoration(labelText: localization.name),
                     maxLength: 20,
                     onChanged: (value) => setState(
@@ -125,6 +126,7 @@ class _CreateTagScreenState extends ConsumerState<CreateTagScreen> {
                   ),
                   TextFormField(
                     controller: descriptionController,
+                    textCapitalization: .sentences,
                     decoration: InputDecoration(
                       labelText: localization.description,
                     ),

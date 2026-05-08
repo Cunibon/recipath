@@ -197,6 +197,7 @@ class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
                     children: [
                       Expanded(
                         child: TextFormField(
+                          textCapitalization: .sentences,
                           decoration: InputDecoration(
                             labelText: localization.title,
                           ),

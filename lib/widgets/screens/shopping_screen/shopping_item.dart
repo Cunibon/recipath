@@ -79,6 +79,7 @@ class ShoppingItem extends ConsumerWidget {
                   initialValue: data.count.toString(),
                   decoration: InputDecoration(labelText: localization.amount),
                   keyboardType: TextInputType.numberWithOptions(decimal: false),
+                  selectOnEnter: true,
                   onFocusLost: (value) {
                     final parsed = int.tryParse(value);
                     if (parsed != null) {

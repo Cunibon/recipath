@@ -6,6 +6,7 @@ class FocusFormField extends StatefulWidget {
     this.controller,
     this.initialValue,
     this.decoration = const InputDecoration(),
+    this.textCapitalization = .none,
     this.keyboardType,
     this.maxLength,
     this.maxLines = 1,
@@ -15,11 +16,13 @@ class FocusFormField extends StatefulWidget {
     this.onEditingComplete,
     this.onChanged,
     this.onFocusLost,
+    this.selectOnEnter = false,
   });
 
   final TextEditingController? controller;
   final String? initialValue;
   final InputDecoration? decoration;
+  final TextCapitalization textCapitalization;
   final TextInputType? keyboardType;
   final int? maxLength;
   final int? maxLines;
@@ -30,6 +33,7 @@ class FocusFormField extends StatefulWidget {
   final void Function(String value)? onChanged;
 
   final void Function(String value)? onFocusLost;
+  final bool selectOnEnter;
 
   @override
   State<FocusFormField> createState() => _FocusFormFieldState();
@@ -50,6 +54,11 @@ class _FocusFormFieldState extends State<FocusFormField> {
     _focusNode.addListener(() {
       if (!_focusNode.hasFocus) {
         widget.onFocusLost?.call(_controller.text);
+      } else if (widget.selectOnEnter) {
+        _controller.selection = TextSelection(
+          baseOffset: 0,
+          extentOffset: _controller.text.length,
+        );
       }
     });
   }
@@ -69,6 +78,7 @@ class _FocusFormFieldState extends State<FocusFormField> {
       focusNode: _focusNode,
       controller: _controller,
       decoration: widget.decoration,
+      textCapitalization: .sentences,
       keyboardType: widget.keyboardType,
       maxLength: widget.maxLength,
       maxLines: widget.maxLines,

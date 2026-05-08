@@ -22,7 +22,7 @@ class BackgroundImage extends ConsumerWidget {
 
     final backgroundColor = ColorScheme.of(
       context,
-    ).surfaceContainer.withAlpha(220);
+    ).surfaceContainer.withAlpha(230);
 
     return Stack(
       alignment: .bottomCenter,

@@ -72,6 +72,7 @@ class _IngredientItemState extends ConsumerState<RecipeIngredientItem> {
           flex: 3,
           child: FocusFormField(
             controller: amountController,
+            selectOnEnter: true,
             decoration: InputDecoration(labelText: localization.amount),
             keyboardType: TextInputType.numberWithOptions(decimal: true),
             validator: (value) =>

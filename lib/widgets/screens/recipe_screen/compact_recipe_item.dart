@@ -52,7 +52,7 @@ class CompactRecipeItem extends ConsumerWidget {
         children: [
           if (compactRecipeData.averageTime != null)
             Text(
-              " (Ø ${compactRecipeData.averageTime!.inMinutes.toString()}min)",
+              "(Ø ${compactRecipeData.averageTime!.inMinutes.toString()}min)",
             ),
           if (compactRecipeData.timerData != null)
             Icon(Icons.timer, color: Colors.amber, size: 20),
@@ -87,7 +87,7 @@ class CompactRecipeItem extends ConsumerWidget {
             groceryMap: groceryMap,
             storageData: storageData,
             tags: compactRecipeData.tags,
-            trailingTitle: trailing,
+            trailingTitle: Padding(padding: .only(left: 8), child: trailing),
             onTagTapped: (tagData) => ref
                 .read(tagFilterProvider(TagTypeEnum.recipe).notifier)
                 .toggleFilter(filter: tagData),

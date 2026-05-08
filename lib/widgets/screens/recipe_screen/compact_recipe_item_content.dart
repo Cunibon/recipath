@@ -41,6 +41,7 @@ class CompactRecipeItemContent extends ConsumerWidget {
         children: [
           Row(
             crossAxisAlignment: .start,
+            mainAxisAlignment: .spaceBetween,
             children: [
               Flexible(
                 child: HighlightableText(

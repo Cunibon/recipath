@@ -40,6 +40,7 @@ class QuickShoppingItem extends ConsumerWidget {
               Expanded(
                 child: FocusFormField(
                   key: Key(data.id),
+                  textCapitalization: .sentences,
                   initialValue: data.description,
                   decoration: InputDecoration(
                     labelText: localization.description,
@@ -47,7 +48,7 @@ class QuickShoppingItem extends ConsumerWidget {
                   onFocusLost: (value) {
                     if (value.isEmpty) {
                       ref.read(quickShoppingModifierProvider).deleteItem(data);
-                    } else {
+                    } else if (value != data.description) {
                       ref
                           .read(quickShoppingModifierProvider)
                           .updateItem(data.copyWith(description: value));

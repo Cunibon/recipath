@@ -55,6 +55,7 @@ class GroceryFormFields extends ConsumerWidget {
       child: Column(
         children: [
           TextFormField(
+            textCapitalization: .sentences,
             controller: nameController,
             decoration: InputDecoration(labelText: localization.name),
             validator: (value) =>
