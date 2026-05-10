@@ -20,39 +20,25 @@ class BackgroundImage extends ConsumerWidget {
       return child;
     }
 
-    final backgroundColor = ColorScheme.of(
-      context,
-    ).surfaceContainer.withAlpha(230);
-
-    return Stack(
-      alignment: .bottomCenter,
+    return Column(
       children: [
-        Positioned(
-          top: 0,
-          left: 0,
-          right: 0,
+        ShaderMask(
+          shaderCallback: (Rect bounds) {
+            return const LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Colors.white, Colors.transparent],
+              stops: [0.9, 1.0],
+            ).createShader(bounds);
+          },
+          blendMode: BlendMode.dstIn,
           child: SizedBox(
             width: double.infinity,
-            height: 300,
+            height: 200,
             child: LocalImage(fileName: imageName!, fit: .cover),
           ),
         ),
-        Column(
-          children: [
-            SizedBox(height: 100),
-            Container(
-              height: 25,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: .topCenter,
-                  end: .bottomCenter,
-                  colors: [backgroundColor.withAlpha(0), backgroundColor],
-                ),
-              ),
-            ),
-            ColoredBox(color: backgroundColor, child: child),
-          ],
-        ),
+        child,
       ],
     );
   }
