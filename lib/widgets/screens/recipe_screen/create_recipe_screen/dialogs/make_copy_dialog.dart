@@ -10,7 +10,7 @@ class MakeCopyDialog extends StatelessWidget {
     final localization = AppLocalizations.of(context)!;
 
     return TwoOptionDialog(
-      content: Text(localization.saveCopyContent),
+      title: localization.saveCopyContent,
       agree: localization.yes,
       disagree: localization.no,
     );

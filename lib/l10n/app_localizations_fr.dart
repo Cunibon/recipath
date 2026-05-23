@@ -18,7 +18,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get logout => 'Déconnexion';
 
   @override
-  String get reallyLogout => 'Do you really want to logout';
+  String get reallyLogout => 'Do you really want to logout?';
 
   @override
   String get eMail => 'E-Mail';
@@ -52,6 +52,12 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get passwordChanged => 'Password Successfuly changed';
+
+  @override
+  String get resetPassword => 'Reset password';
+
+  @override
+  String get reallyResetPassword => 'Do you really want to reset the password?';
 
   @override
   String get verifactionEMailSent => 'Un e-mail de vérification a été envoyé';

@@ -10,7 +10,7 @@ class DeleteConfirmationDialog extends StatelessWidget {
     final localization = AppLocalizations.of(context)!;
 
     return TwoOptionDialog(
-      content: Text(localization.reallyDelete),
+      title: localization.reallyDelete,
       agree: localization.yes,
       disagree: localization.no,
     );

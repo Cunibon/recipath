@@ -3,7 +3,7 @@
     "login": "Login",
     "register": "Register",
     "logout": "Logout",
-    "reallyLogout": "Do you really want to logout",
+    "reallyLogout": "Do you really want to logout?",
     "eMail": "E-Mail",
     "objectInvalid": "{object} invalid",
     "@objectInvalid": {
@@ -21,6 +21,8 @@
     "passwordLength": "Password needs to be at least 12 letters long",
     "changePassword": "Change password",
     "passwordChanged": "Password Successfuly changed",
+    "resetPassword": "Reset password",
+    "reallyResetPassword": "Do you really want to reset the password?",
     "verifactionEMailSent": "Verifaction E-Mail has been sent",
     "couldNotAuthenticate": "Could not authenticate user",
     "searchFor": "Search for {type}",

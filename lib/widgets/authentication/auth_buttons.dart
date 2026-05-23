@@ -5,7 +5,7 @@ import 'package:purchases_ui_flutter/purchases_ui_flutter.dart';
 import 'package:recipath/domain_service/syncing_service/syncing_service/syncing_service_notifier.dart';
 import 'package:recipath/drift/database_notifier.dart';
 import 'package:recipath/l10n/app_localizations.dart';
-import 'package:recipath/widgets/authentication/auth_dialog.dart';
+import 'package:recipath/widgets/authentication/dialogs/auth_dialog.dart';
 import 'package:recipath/widgets/authentication/dialogs/logout_dialog.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/providers/revenue_cat/revenue_pro_notifier.dart';

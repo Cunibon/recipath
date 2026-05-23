@@ -8,6 +8,7 @@ import 'package:recipath/widgets/screens/import_screen/import_routes.dart';
 import 'package:recipath/widgets/screens/import_screen/import_screen.dart';
 import 'package:recipath/widgets/screens/recipe_screen/recipe_routes.dart';
 import 'package:recipath/widgets/screens/recipe_screen/recipe_screen.dart';
+import 'package:recipath/widgets/screens/reset_password/reset_password_screen.dart';
 import 'package:recipath/widgets/screens/settings_screen/settings_screen.dart';
 import 'package:recipath/widgets/screens/shopping_screen/shopping_screen.dart';
 import 'package:recipath/widgets/screens/storage_screen/storage_screen.dart';
@@ -69,5 +70,11 @@ abstract class RootRoutes {
     path: "/import",
     builder: (context, state) => ImportScreen(),
     routes: [ImportRoutes.recipeImport],
+  );
+
+  static GoRoute resetPasswordRoute = GoRoute(
+    path: "/resetPassword",
+    builder: (context, state) => ResetPasswordScreen(),
+    routes: 
   );
 }

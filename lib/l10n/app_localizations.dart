@@ -123,7 +123,7 @@ abstract class AppLocalizations {
   /// No description provided for @reallyLogout.
   ///
   /// In en, this message translates to:
-  /// **'Do you really want to logout'**
+  /// **'Do you really want to logout?'**
   String get reallyLogout;
 
   /// No description provided for @eMail.
@@ -185,6 +185,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Password Successfuly changed'**
   String get passwordChanged;
+
+  /// No description provided for @resetPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset password'**
+  String get resetPassword;
+
+  /// No description provided for @reallyResetPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you really want to reset the password?'**
+  String get reallyResetPassword;
 
   /// No description provided for @verifactionEMailSent.
   ///

@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:recipath/common.dart';
 import 'package:recipath/l10n/app_localizations.dart';
+import 'package:recipath/root_routes.dart';
 import 'package:recipath/widgets/authentication/auth_mutation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -130,6 +131,10 @@ class _AuthDialogState extends ConsumerState<AuthDialog> {
         ),
       ),
       actions: [
+        TextButton(
+          onPressed: () => context.go(RootRoutes.resetPasswordRoute.path),
+          child: Text(localization.resetPassword),
+        ),
         ElevatedButton(
           onPressed: () async {
             if (formKey.currentState?.validate() == true) {

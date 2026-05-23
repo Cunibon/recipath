@@ -63,6 +63,7 @@ void main() async {
       RootRoutes.recipeShoppingRoute,
       RootRoutes.settingsRoute,
       RootRoutes.importRoute,
+      RootRoutes.resetPasswordRoute,
     ],
     initialLocation: RootRoutes.recipeRoute.path,
   );

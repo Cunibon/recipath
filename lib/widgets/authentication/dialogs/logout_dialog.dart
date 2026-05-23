@@ -10,7 +10,7 @@ class LogoutDialog extends StatelessWidget {
     final localization = AppLocalizations.of(context)!;
 
     return TwoOptionDialog(
-      content: Text(localization.reallyLogout),
+      title: localization.reallyLogout,
       agree: localization.yes,
       disagree: localization.no,
     );
