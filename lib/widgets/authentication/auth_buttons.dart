@@ -6,6 +6,7 @@ import 'package:recipath/domain_service/syncing_service/syncing_service/syncing_
 import 'package:recipath/drift/database_notifier.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/authentication/auth_dialog.dart';
+import 'package:recipath/widgets/authentication/dialogs/logout_dialog.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/providers/revenue_cat/revenue_pro_notifier.dart';
 import 'package:recipath/widgets/providers/supabase/supabase_client_notifier.dart';
@@ -43,14 +44,21 @@ class AuthButtons extends ConsumerWidget {
           ] else ...[
             TextButton.icon(
               onPressed: () async {
-                final supabaseclient = ref.read(supabaseClientProvider);
-                final syncingService = ref.read(syncingServiceProvider);
-                final database = ref.read(databaseProvider);
+                final result = await showDialog<bool>(
+                  context: context,
+                  builder: (context) => LogoutDialog(),
+                );
 
-                await Purchases.logOut();
-                await supabaseclient.auth.signOut();
-                await syncingService.reset();
-                await database.clear();
+                if (result == true) {
+                  final supabaseclient = ref.read(supabaseClientProvider);
+                  final syncingService = ref.read(syncingServiceProvider);
+                  final database = ref.read(databaseProvider);
+
+                  await Purchases.logOut();
+                  await supabaseclient.auth.signOut();
+                  await syncingService.reset();
+                  await database.clear();
+                }
               },
               label: Text(localization.logout),
               icon: Icon(Icons.logout),

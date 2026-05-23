@@ -18,6 +18,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get logout => 'Abmelden';
 
   @override
+  String get reallyLogout => 'Do you really want to logout';
+
+  @override
   String get eMail => 'E-Mail';
 
   @override
@@ -42,6 +45,12 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get passwordLength => 'Passwort muss mindestens 12 Zeichen lang sein';
+
+  @override
+  String get changePassword => 'Change password';
+
+  @override
+  String get passwordChanged => 'Password Successfuly changed';
 
   @override
   String get verifactionEMailSent => 'Bestätigungs-E-Mail wurde gesendet';

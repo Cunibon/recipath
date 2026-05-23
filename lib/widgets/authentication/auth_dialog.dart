@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/experimental/mutation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:recipath/common.dart';
-import 'package:recipath/domain_service/syncing_service/syncing_service/syncing_service_notifier.dart';
 import 'package:recipath/l10n/app_localizations.dart';
-import 'package:recipath/widgets/providers/revenue_cat/revenue_customer_notifier.dart';
-import 'package:recipath/widgets/providers/supabase/supabase_client_notifier.dart';
+import 'package:recipath/widgets/authentication/auth_mutation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthDialog extends ConsumerStatefulWidget {
@@ -23,9 +22,6 @@ class _AuthDialogState extends ConsumerState<AuthDialog> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  late bool loading = false;
-  String? errorMessage;
-
   @override
   void dispose() {
     emailController.dispose();
@@ -36,6 +32,33 @@ class _AuthDialogState extends ConsumerState<AuthDialog> {
   @override
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context)!;
+
+    final authStatus = ref.watch(authMutation.mutation);
+
+    Widget? errorWidget;
+
+    if (authStatus.hasError) {
+      final error = (authStatus as MutationError).error;
+
+      late String errorMessage;
+
+      if (error is AuthApiException) {
+        if (error.code == "invalid_credentials") {
+          errorMessage = localization.couldNotAuthenticate;
+        } else if (error.code == "verification_needed") {
+          errorMessage = localization.verifactionEMailSent;
+        }
+      } else {
+        errorMessage = localization.somethingWentWrong;
+      }
+
+      errorWidget = Text(
+        errorMessage,
+        style: TextTheme.of(
+          context,
+        ).bodyMedium?.copyWith(color: ColorScheme.of(context).error),
+      );
+    }
 
     return AlertDialog(
       title: Text(widget.isLogin ? localization.login : localization.register),
@@ -72,7 +95,7 @@ class _AuthDialogState extends ConsumerState<AuthDialog> {
                 obscureText: true,
                 decoration: InputDecoration(hintText: localization.password),
                 validator: (value) {
-                  if (value == null) {
+                  if (value == null || value.isEmpty) {
                     return localization.addPassword;
                   }
                   return null;
@@ -101,13 +124,7 @@ class _AuthDialogState extends ConsumerState<AuthDialog> {
                     }
                   },
                 ),
-              if (errorMessage != null)
-                Text(
-                  errorMessage!,
-                  style: TextTheme.of(
-                    context,
-                  ).bodyMedium?.copyWith(color: ColorScheme.of(context).error),
-                ),
+              ?errorWidget,
             ],
           ),
         ),
@@ -118,58 +135,23 @@ class _AuthDialogState extends ConsumerState<AuthDialog> {
             if (formKey.currentState?.validate() == true) {
               TextInput.finishAutofillContext();
 
-              setState(() {
-                loading = true;
-                errorMessage = null;
-              });
+              final response = await authMutation.run(
+                ref,
+                AuthInput(
+                  email: emailController.text,
+                  password: passwordController.text,
+                  isLogin: widget.isLogin,
+                ),
+              );
 
-              final supabaseClient = ref.read(supabaseClientProvider);
-
-              try {
-                late AuthResponse response;
-                if (widget.isLogin) {
-                  response = await supabaseClient.auth.signInWithPassword(
-                    email: emailController.text,
-                    password: passwordController.text,
-                  );
-                } else {
-                  response = await supabaseClient.auth.signUp(
-                    email: emailController.text,
-                    password: passwordController.text,
-                  );
-                }
-
-                if (response.session != null) {
-                  await ref
-                      .read(revenueCustomerProvider.notifier)
-                      .login(response.user!.id);
-                  await ref.read(syncingServiceProvider).reset();
-                  if (context.mounted) {
-                    context.pop();
-                  }
-                } else {
-                  setState(() {
-                    errorMessage = localization.verifactionEMailSent;
-                  });
-                }
-              } catch (e) {
-                if (e is AuthApiException) {
-                  if (e.code == "invalid_credentials") {
-                    setState(() {
-                      errorMessage = localization.couldNotAuthenticate;
-                    });
-                  }
-                }
-              } finally {
+              if (response.session != null) {
                 if (context.mounted) {
-                  setState(() {
-                    loading = false;
-                  });
+                  context.pop();
                 }
               }
             }
           },
-          child: loading
+          child: authStatus is MutationPending
               ? SizedBox(
                   height: 20,
                   width: 20,

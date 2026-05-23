@@ -120,6 +120,12 @@ abstract class AppLocalizations {
   /// **'Logout'**
   String get logout;
 
+  /// No description provided for @reallyLogout.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you really want to logout'**
+  String get reallyLogout;
+
   /// No description provided for @eMail.
   ///
   /// In en, this message translates to:
@@ -167,6 +173,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Password needs to be at least 12 letters long'**
   String get passwordLength;
+
+  /// No description provided for @changePassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Change password'**
+  String get changePassword;
+
+  /// No description provided for @passwordChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Password Successfuly changed'**
+  String get passwordChanged;
 
   /// No description provided for @verifactionEMailSent.
   ///

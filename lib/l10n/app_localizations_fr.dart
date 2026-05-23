@@ -18,6 +18,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get logout => 'Déconnexion';
 
   @override
+  String get reallyLogout => 'Do you really want to logout';
+
+  @override
   String get eMail => 'E-Mail';
 
   @override
@@ -43,6 +46,12 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get passwordLength =>
       'Le mot de passe doit comporter au moins 12 lettres';
+
+  @override
+  String get changePassword => 'Change password';
+
+  @override
+  String get passwordChanged => 'Password Successfuly changed';
 
   @override
   String get verifactionEMailSent => 'Un e-mail de vérification a été envoyé';
