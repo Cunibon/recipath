@@ -76,10 +76,7 @@ class _RecipeIngredientViewState extends ConsumerState<RecipeIngredientView> {
               scrollController: widget.controller,
               shrinkWrap: true,
               children: items,
-              onReorder: (int oldIndex, int newIndex) {
-                if (oldIndex < newIndex) {
-                  newIndex -= 1;
-                }
+              onReorderItem: (oldIndex, newIndex) {
                 final item = listCopy.removeAt(oldIndex);
                 listCopy.insert(newIndex, item);
                 widget.onChanged(listCopy);

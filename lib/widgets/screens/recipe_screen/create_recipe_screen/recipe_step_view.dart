@@ -52,10 +52,7 @@ class RecipeStepView extends StatelessWidget {
       scrollController: controller,
       shrinkWrap: true,
       children: items,
-      onReorder: (int oldIndex, int newIndex) {
-        if (oldIndex < newIndex) {
-          newIndex -= 1;
-        }
+      onReorderItem: (int oldIndex, int newIndex) {
         final item = listCopy.removeAt(oldIndex);
         listCopy.insert(newIndex, item);
         onChanged(listCopy);
