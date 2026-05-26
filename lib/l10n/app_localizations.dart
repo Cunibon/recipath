@@ -198,6 +198,12 @@ abstract class AppLocalizations {
   /// **'Do you really want to reset the password?'**
   String get reallyResetPassword;
 
+  /// No description provided for @resetMailSent.
+  ///
+  /// In en, this message translates to:
+  /// **'A verification code has been sent to your email.\nPlease enter it below.'**
+  String get resetMailSent;
+
   /// No description provided for @verifactionEMailSent.
   ///
   /// In en, this message translates to:

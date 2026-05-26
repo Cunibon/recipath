@@ -60,6 +60,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get reallyResetPassword => 'Do you really want to reset the password?';
 
   @override
+  String get resetMailSent =>
+      'A verification code has been sent to your email.\nPlease enter it below.';
+
+  @override
   String get verifactionEMailSent => 'Un e-mail de vérification a été envoyé';
 
   @override

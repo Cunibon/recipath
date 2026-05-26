@@ -23,6 +23,7 @@
     "passwordChanged": "Password Successfuly changed",
     "resetPassword": "Reset password",
     "reallyResetPassword": "Do you really want to reset the password?",
+    "resetMailSent": "A verification code has been sent to your email.\nPlease enter it below.",
     "verifactionEMailSent": "Verifaction E-Mail has been sent",
     "couldNotAuthenticate": "Could not authenticate user",
     "searchFor": "Search for {type}",

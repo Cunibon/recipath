@@ -4,6 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/root_routes.dart';
 import 'package:recipath/widgets/screens/reset_password/widgets/confirm_reset.dart';
+import 'package:recipath/widgets/screens/reset_password/widgets/reset_password.dart';
+import 'package:recipath/widgets/screens/reset_password/widgets/verify_reset.dart';
 
 enum ResetStage { confirm, verify, reset }
 
@@ -17,6 +19,7 @@ class ConfirmResetPasswordScreen extends ConsumerStatefulWidget {
 
 class _ResetPasswordScreenState
     extends ConsumerState<ConfirmResetPasswordScreen> {
+  String? email;
   ResetStage stage = .confirm;
 
   @override
@@ -33,18 +36,25 @@ class _ResetPasswordScreenState
           style: TextTheme.of(context).titleLarge,
         ),
       ),
-      body: Center(
-        child: switch (stage) {
-          .confirm => ConfirmReset(
-            onConfirm: () => setState(() => stage = .verify),
-          ),
-          .verify => ConfirmReset(
-            onConfirm: () => setState(() => stage = .verify),
-          ),
-          .reset => ConfirmReset(
-            onConfirm: () => setState(() => stage = .verify),
-          ),
-        },
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Center(
+          child: switch (stage) {
+            .confirm => ConfirmReset(
+              onConfirm: (email) => setState(() {
+                this.email = email;
+                stage = .verify;
+              }),
+            ),
+            .verify => VerifyReset(
+              email: email!,
+              onConfirm: () => setState(() => stage = .reset),
+            ),
+            .reset => ResetPassword(
+              onConfirm: () => context.go(RootRoutes.recipeRoute.path),
+            ),
+          },
+        ),
       ),
     );
   }

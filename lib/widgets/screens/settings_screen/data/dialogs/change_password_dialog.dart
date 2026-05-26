@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/experimental/mutation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:recipath/l10n/app_localizations.dart';
+import 'package:recipath/widgets/screens/reset_password/widgets/reset_password_content.dart';
 import 'package:recipath/widgets/screens/settings_screen/data/change_password_mutation.dart';
 
 class ChangePasswordDialog extends ConsumerStatefulWidget {
@@ -45,50 +46,9 @@ class _ChangePasswordDialogState extends ConsumerState<ChangePasswordDialog> {
       title: Text(localization.changePassword),
       content: Form(
         key: formKey,
-        child: AutofillGroup(
-          child: Column(
-            spacing: 8,
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TextFormField(
-                controller: passwordController,
-                autofillHints: const [AutofillHints.newPassword],
-                obscureText: true,
-                decoration: InputDecoration(hintText: localization.password),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return localization.addPassword;
-                  }
-                  return null;
-                },
-              ),
-
-              TextFormField(
-                obscureText: true,
-                autofillHints: const [AutofillHints.password],
-                decoration: InputDecoration(
-                  hintText: localization.repeatPassword,
-                ),
-                validator: (value) {
-                  if (value != null) {
-                    if (value.length >= 12) {
-                      if (passwordController.text == value) {
-                        return null;
-                      } else {
-                        return localization.passwordsDontMatch;
-                      }
-                    } else {
-                      return localization.passwordLength;
-                    }
-                  } else {
-                    return localization.addPassword;
-                  }
-                },
-              ),
-              ?errorWidget,
-            ],
-          ),
+        child: ResetPasswordContent(
+          errorWidget: errorWidget,
+          passwordController: passwordController,
         ),
       ),
       actions: [
