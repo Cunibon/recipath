@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/experimental/mutation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -43,23 +45,29 @@ class _VerifyResetState extends ConsumerState<VerifyReset> {
         ),
         ElevatedButton(
           onPressed: () async {
-            final response = await optAuthMutation.run(
-              ref,
-              (transaction) => transaction
+            final response = await optAuthMutation.run(ref, (
+              transaction,
+            ) async {
+              final response = await transaction
                   .get(supabaseClientProvider)
                   .auth
                   .verifyOTP(
                     email: widget.email,
                     token: otpController.text.trim(),
                     type: OtpType.recovery,
-                  ),
-            );
+                  );
+
+              if (response.session != null) {
+                await transaction
+                    .get(revenueCustomerProvider.notifier)
+                    .login(response.user!.id);
+                unawaited(transaction.get(syncingServiceProvider).reset());
+              }
+
+              return response;
+            });
 
             if (response.session != null) {
-              await ref
-                  .read(revenueCustomerProvider.notifier)
-                  .login(response.user!.id);
-              await ref.read(syncingServiceProvider).reset();
               widget.onConfirm();
             }
           },
