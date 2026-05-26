@@ -18,7 +18,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get logout => 'Abmelden';
 
   @override
-  String get reallyLogout => 'Do you really want to logout?';
+  String get reallyLogout => 'Möchten Sie sich wirklich abmelden?';
 
   @override
   String get eMail => 'E-Mail';
@@ -47,20 +47,21 @@ class AppLocalizationsDe extends AppLocalizations {
   String get passwordLength => 'Passwort muss mindestens 12 Zeichen lang sein';
 
   @override
-  String get changePassword => 'Change password';
+  String get changePassword => 'Passwort ändern';
 
   @override
-  String get passwordChanged => 'Password Successfuly changed';
+  String get passwordChanged => 'Passwort erfolgreich geändert';
 
   @override
-  String get resetPassword => 'Reset password';
+  String get resetPassword => 'Passwort zurücksetzen';
 
   @override
-  String get reallyResetPassword => 'Do you really want to reset the password?';
+  String get reallyResetPassword =>
+      'Möchten Sie das Passwort wirklich zurücksetzen?';
 
   @override
   String get resetMailSent =>
-      'A verification code has been sent to your email.\nPlease enter it below.';
+      'Ein Bestätigungscode wurde an Ihre E-Mail-Adresse gesendet.\nBitte geben Sie ihn unten ein.';
 
   @override
   String get verifactionEMailSent => 'Bestätigungs-E-Mail wurde gesendet';
