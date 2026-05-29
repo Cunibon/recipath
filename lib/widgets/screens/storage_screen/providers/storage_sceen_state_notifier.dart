@@ -7,7 +7,7 @@ import 'package:recipath/widgets/screens/grocery_screen/providers/filtered_groce
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/tags_per_grocery_provider.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/quick_filter_notifier.dart';
-import 'package:recipath/widgets/screens/shopping_screen/providers/shopping_notifier.dart';
+import 'package:recipath/widgets/screens/shopping_screen/providers/shopping_groceries_notifier.dart';
 import 'package:recipath/widgets/screens/storage_screen/providers/storage_notifier.dart';
 import 'package:recipath/widgets/screens/tag_screen/providers/tag_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -22,7 +22,7 @@ Future<StorageScreenState> storageScreenStateNotifier(Ref ref) async {
 
   final inStorage = await ref.watch(storageProvider.future);
   final groceries = await ref.watch(filteredGroceryProvider.future);
-  final shoppingData = await ref.watch(shoppingProvider.future);
+  final shoppingData = await ref.watch(shoppingGroceriesProvider.future);
 
   final Map<String?, List<StorageData>> clusteredData = {};
 
@@ -30,7 +30,7 @@ Future<StorageScreenState> storageScreenStateNotifier(Ref ref) async {
     final tagLookup = await ref.watch(tagsPerGroceryProvider.future);
 
     for (final grocery in groceries.values) {
-      if (shopping && !shoppingData.containsKey(grocery.id)) {
+      if (shopping && !shoppingData.contains(grocery.id)) {
         continue;
       }
 
@@ -54,7 +54,7 @@ Future<StorageScreenState> storageScreenStateNotifier(Ref ref) async {
     final clusteredStorage = clusteredData.putIfAbsent(null, () => []);
 
     for (final grocery in groceries.values) {
-      if (shopping && !shoppingData.containsKey(grocery.id)) {
+      if (shopping && !shoppingData.contains(grocery.id)) {
         continue;
       }
       clusteredStorage.add(
