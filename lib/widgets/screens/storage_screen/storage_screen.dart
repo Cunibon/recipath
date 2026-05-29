@@ -66,7 +66,6 @@ class _StorageScreenState extends ConsumerState<StorageScreen> {
           clusters: [
             for (final entry in data.clusteredData.entries)
               ItemCluster(id: entry.key, items: entry.value),
-            ItemCluster(id: null, items: data.storageData),
           ],
           clusterToWidget: (clusterId) {
             if (data.clusteredData.isEmpty) return SizedBox.shrink();
@@ -95,7 +94,7 @@ class _StorageScreenState extends ConsumerState<StorageScreen> {
           },
           trailingSearch: FilterButton(
             filterType: TagTypeEnum.grocery,
-            quickFilters: [QuickFilters.cluster],
+            quickFilters: [QuickFilters.cluster, QuickFilters.shopping],
           ),
           emptyState: EmptyState(hint: localization.storageHint),
         ),

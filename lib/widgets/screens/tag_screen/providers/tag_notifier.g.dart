@@ -15,13 +15,13 @@ final tagProvider = TagNotifierProvider._();
 final class TagNotifierProvider
     extends
         $FunctionalProvider<
-          AsyncValue<Map<String, TagData>>,
-          Map<String, TagData>,
-          Stream<Map<String, TagData>>
+          AsyncValue<IMap<String, TagData>>,
+          IMap<String, TagData>,
+          Stream<IMap<String, TagData>>
         >
     with
-        $FutureModifier<Map<String, TagData>>,
-        $StreamProvider<Map<String, TagData>> {
+        $FutureModifier<IMap<String, TagData>>,
+        $StreamProvider<IMap<String, TagData>> {
   TagNotifierProvider._()
     : super(
         from: null,
@@ -38,14 +38,14 @@ final class TagNotifierProvider
 
   @$internal
   @override
-  $StreamProviderElement<Map<String, TagData>> $createElement(
+  $StreamProviderElement<IMap<String, TagData>> $createElement(
     $ProviderPointer pointer,
   ) => $StreamProviderElement(pointer);
 
   @override
-  Stream<Map<String, TagData>> create(Ref ref) {
+  Stream<IMap<String, TagData>> create(Ref ref) {
     return tagNotifier(ref);
   }
 }
 
-String _$tagNotifierHash() => r'68fee921a6ea8fe838840ee0af868f18496fe45f';
+String _$tagNotifierHash() => r'50605f183510b6a64ee79ad2bad25bf8db5c4c3f';

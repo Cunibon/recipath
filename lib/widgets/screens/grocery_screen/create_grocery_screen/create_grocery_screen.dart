@@ -48,7 +48,7 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
   void initState() {
     super.initState();
     initialData =
-        ref.read(filteredGroceryProvider).value?[widget.groceryId] ??
+        ref.read(filteredGroceryProvider).value?[widget.groceryId ?? ""] ??
         GroceryData(
           id: randomAlphaNumeric(16),
           name: "",

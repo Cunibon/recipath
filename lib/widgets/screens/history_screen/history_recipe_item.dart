@@ -1,3 +1,4 @@
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/common.dart';
@@ -12,7 +13,7 @@ class HistoryRecipeItem extends ConsumerWidget {
     super.key,
   });
   final HistoryData data;
-  final Map<String, GroceryData> groceryMap;
+  final IMap<String, GroceryData> groceryMap;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

@@ -1,3 +1,4 @@
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:recipath/data/tag_data/tag_data.dart';
 import 'package:recipath/data/tag_data/tag_type_enum.dart';
 import 'package:recipath/widgets/screens/grocery_screen/data/grocery_item_data.dart';
@@ -70,5 +71,5 @@ class GroceryScreenState {
 
   final List<GroceryItemData> groceries;
   final Map<String, List<GroceryItemData>> clusteredData;
-  final Map<String, TagData> tags;
+  final IMap<String, TagData> tags;
 }

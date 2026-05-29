@@ -15,13 +15,13 @@ final groceryTagsProvider = GroceryTagsNotifierProvider._();
 final class GroceryTagsNotifierProvider
     extends
         $FunctionalProvider<
-          AsyncValue<Map<String, GroceryTagData>>,
-          Map<String, GroceryTagData>,
-          Stream<Map<String, GroceryTagData>>
+          AsyncValue<IMap<String, GroceryTagData>>,
+          IMap<String, GroceryTagData>,
+          Stream<IMap<String, GroceryTagData>>
         >
     with
-        $FutureModifier<Map<String, GroceryTagData>>,
-        $StreamProvider<Map<String, GroceryTagData>> {
+        $FutureModifier<IMap<String, GroceryTagData>>,
+        $StreamProvider<IMap<String, GroceryTagData>> {
   GroceryTagsNotifierProvider._()
     : super(
         from: null,
@@ -38,15 +38,15 @@ final class GroceryTagsNotifierProvider
 
   @$internal
   @override
-  $StreamProviderElement<Map<String, GroceryTagData>> $createElement(
+  $StreamProviderElement<IMap<String, GroceryTagData>> $createElement(
     $ProviderPointer pointer,
   ) => $StreamProviderElement(pointer);
 
   @override
-  Stream<Map<String, GroceryTagData>> create(Ref ref) {
+  Stream<IMap<String, GroceryTagData>> create(Ref ref) {
     return groceryTagsNotifier(ref);
   }
 }
 
 String _$groceryTagsNotifierHash() =>
-    r'5f83fee210096d4ce7fe79b4ce4c1d9b6d7999dd';
+    r'2542cb429cba98e24e51bde7873a84ab11694df9';

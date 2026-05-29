@@ -1,3 +1,4 @@
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -11,12 +12,12 @@ import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifi
 class NutrimentsList extends ConsumerWidget {
   const NutrimentsList({required this.ingredients, this.servings, super.key});
 
-  final List<IngredientData> ingredients;
+  final IList<IngredientData> ingredients;
   final int? servings;
 
   static Map<Nutriments, double> aggregateNutriments(
-    List<IngredientData> ingredients,
-    Map<String, GroceryData> groceryMap,
+    IList<IngredientData> ingredients,
+    IMap<String, GroceryData> groceryMap,
   ) {
     final Map<Nutriments, double> aggregatedNutriments = {};
 

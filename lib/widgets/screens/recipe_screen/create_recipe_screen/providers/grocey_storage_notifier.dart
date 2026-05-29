@@ -1,3 +1,4 @@
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/storage_data/storage_data.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
@@ -16,6 +17,6 @@ Future<GroceryStorageState> groceryStorageNotifier(Ref ref) async =>
 class GroceryStorageState {
   GroceryStorageState({required this.groceryMap, required this.storageMap});
 
-  final Map<String, GroceryData> groceryMap;
-  final Map<String, StorageData> storageMap;
+  final IMap<String, GroceryData> groceryMap;
+  final IMap<String, StorageData> storageMap;
 }

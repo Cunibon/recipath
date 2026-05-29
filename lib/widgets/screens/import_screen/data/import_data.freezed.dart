@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ImportData {
 
- List<RecipeData> get recipes; Map<String, GroceryData> get groceries; Map<String, Set<TagData>> get tagsPerRecipe;
+ List<RecipeData> get recipes; IMap<String, GroceryData> get groceries; IMap<String, Set<TagData>> get tagsPerRecipe;
 /// Create a copy of ImportData
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,12 +25,12 @@ $ImportDataCopyWith<ImportData> get copyWith => _$ImportDataCopyWithImpl<ImportD
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ImportData&&const DeepCollectionEquality().equals(other.recipes, recipes)&&const DeepCollectionEquality().equals(other.groceries, groceries)&&const DeepCollectionEquality().equals(other.tagsPerRecipe, tagsPerRecipe));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ImportData&&const DeepCollectionEquality().equals(other.recipes, recipes)&&(identical(other.groceries, groceries) || other.groceries == groceries)&&(identical(other.tagsPerRecipe, tagsPerRecipe) || other.tagsPerRecipe == tagsPerRecipe));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(recipes),const DeepCollectionEquality().hash(groceries),const DeepCollectionEquality().hash(tagsPerRecipe));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(recipes),groceries,tagsPerRecipe);
 
 @override
 String toString() {
@@ -45,7 +45,7 @@ abstract mixin class $ImportDataCopyWith<$Res>  {
   factory $ImportDataCopyWith(ImportData value, $Res Function(ImportData) _then) = _$ImportDataCopyWithImpl;
 @useResult
 $Res call({
- List<RecipeData> recipes, Map<String, GroceryData> groceries, Map<String, Set<TagData>> tagsPerRecipe
+ List<RecipeData> recipes, IMap<String, GroceryData> groceries, IMap<String, Set<TagData>> tagsPerRecipe
 });
 
 
@@ -66,8 +66,8 @@ class _$ImportDataCopyWithImpl<$Res>
   return _then(_self.copyWith(
 recipes: null == recipes ? _self.recipes : recipes // ignore: cast_nullable_to_non_nullable
 as List<RecipeData>,groceries: null == groceries ? _self.groceries : groceries // ignore: cast_nullable_to_non_nullable
-as Map<String, GroceryData>,tagsPerRecipe: null == tagsPerRecipe ? _self.tagsPerRecipe : tagsPerRecipe // ignore: cast_nullable_to_non_nullable
-as Map<String, Set<TagData>>,
+as IMap<String, GroceryData>,tagsPerRecipe: null == tagsPerRecipe ? _self.tagsPerRecipe : tagsPerRecipe // ignore: cast_nullable_to_non_nullable
+as IMap<String, Set<TagData>>,
   ));
 }
 
@@ -152,7 +152,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<RecipeData> recipes,  Map<String, GroceryData> groceries,  Map<String, Set<TagData>> tagsPerRecipe)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<RecipeData> recipes,  IMap<String, GroceryData> groceries,  IMap<String, Set<TagData>> tagsPerRecipe)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ImportData() when $default != null:
 return $default(_that.recipes,_that.groceries,_that.tagsPerRecipe);case _:
@@ -173,7 +173,7 @@ return $default(_that.recipes,_that.groceries,_that.tagsPerRecipe);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<RecipeData> recipes,  Map<String, GroceryData> groceries,  Map<String, Set<TagData>> tagsPerRecipe)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<RecipeData> recipes,  IMap<String, GroceryData> groceries,  IMap<String, Set<TagData>> tagsPerRecipe)  $default,) {final _that = this;
 switch (_that) {
 case _ImportData():
 return $default(_that.recipes,_that.groceries,_that.tagsPerRecipe);case _:
@@ -193,7 +193,7 @@ return $default(_that.recipes,_that.groceries,_that.tagsPerRecipe);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<RecipeData> recipes,  Map<String, GroceryData> groceries,  Map<String, Set<TagData>> tagsPerRecipe)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<RecipeData> recipes,  IMap<String, GroceryData> groceries,  IMap<String, Set<TagData>> tagsPerRecipe)?  $default,) {final _that = this;
 switch (_that) {
 case _ImportData() when $default != null:
 return $default(_that.recipes,_that.groceries,_that.tagsPerRecipe);case _:
@@ -208,7 +208,7 @@ return $default(_that.recipes,_that.groceries,_that.tagsPerRecipe);case _:
 
 
 class _ImportData implements ImportData {
-  const _ImportData({required final  List<RecipeData> recipes, required final  Map<String, GroceryData> groceries, required final  Map<String, Set<TagData>> tagsPerRecipe}): _recipes = recipes,_groceries = groceries,_tagsPerRecipe = tagsPerRecipe;
+  const _ImportData({required final  List<RecipeData> recipes, required this.groceries, required this.tagsPerRecipe}): _recipes = recipes;
   
 
  final  List<RecipeData> _recipes;
@@ -218,20 +218,8 @@ class _ImportData implements ImportData {
   return EqualUnmodifiableListView(_recipes);
 }
 
- final  Map<String, GroceryData> _groceries;
-@override Map<String, GroceryData> get groceries {
-  if (_groceries is EqualUnmodifiableMapView) return _groceries;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableMapView(_groceries);
-}
-
- final  Map<String, Set<TagData>> _tagsPerRecipe;
-@override Map<String, Set<TagData>> get tagsPerRecipe {
-  if (_tagsPerRecipe is EqualUnmodifiableMapView) return _tagsPerRecipe;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableMapView(_tagsPerRecipe);
-}
-
+@override final  IMap<String, GroceryData> groceries;
+@override final  IMap<String, Set<TagData>> tagsPerRecipe;
 
 /// Create a copy of ImportData
 /// with the given fields replaced by the non-null parameter values.
@@ -243,12 +231,12 @@ _$ImportDataCopyWith<_ImportData> get copyWith => __$ImportDataCopyWithImpl<_Imp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ImportData&&const DeepCollectionEquality().equals(other._recipes, _recipes)&&const DeepCollectionEquality().equals(other._groceries, _groceries)&&const DeepCollectionEquality().equals(other._tagsPerRecipe, _tagsPerRecipe));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ImportData&&const DeepCollectionEquality().equals(other._recipes, _recipes)&&(identical(other.groceries, groceries) || other.groceries == groceries)&&(identical(other.tagsPerRecipe, tagsPerRecipe) || other.tagsPerRecipe == tagsPerRecipe));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_recipes),const DeepCollectionEquality().hash(_groceries),const DeepCollectionEquality().hash(_tagsPerRecipe));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_recipes),groceries,tagsPerRecipe);
 
 @override
 String toString() {
@@ -263,7 +251,7 @@ abstract mixin class _$ImportDataCopyWith<$Res> implements $ImportDataCopyWith<$
   factory _$ImportDataCopyWith(_ImportData value, $Res Function(_ImportData) _then) = __$ImportDataCopyWithImpl;
 @override @useResult
 $Res call({
- List<RecipeData> recipes, Map<String, GroceryData> groceries, Map<String, Set<TagData>> tagsPerRecipe
+ List<RecipeData> recipes, IMap<String, GroceryData> groceries, IMap<String, Set<TagData>> tagsPerRecipe
 });
 
 
@@ -283,9 +271,9 @@ class __$ImportDataCopyWithImpl<$Res>
 @override @pragma('vm:prefer-inline') $Res call({Object? recipes = null,Object? groceries = null,Object? tagsPerRecipe = null,}) {
   return _then(_ImportData(
 recipes: null == recipes ? _self._recipes : recipes // ignore: cast_nullable_to_non_nullable
-as List<RecipeData>,groceries: null == groceries ? _self._groceries : groceries // ignore: cast_nullable_to_non_nullable
-as Map<String, GroceryData>,tagsPerRecipe: null == tagsPerRecipe ? _self._tagsPerRecipe : tagsPerRecipe // ignore: cast_nullable_to_non_nullable
-as Map<String, Set<TagData>>,
+as List<RecipeData>,groceries: null == groceries ? _self.groceries : groceries // ignore: cast_nullable_to_non_nullable
+as IMap<String, GroceryData>,tagsPerRecipe: null == tagsPerRecipe ? _self.tagsPerRecipe : tagsPerRecipe // ignore: cast_nullable_to_non_nullable
+as IMap<String, Set<TagData>>,
   ));
 }
 

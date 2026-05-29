@@ -1,4 +1,5 @@
 import 'package:drift/drift.dart';
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:recipath/data/tag_data/tag_data.dart';
 import 'package:recipath/drift/database.dart';
 import 'package:recipath/repos/abstract/local_repo.dart';
@@ -37,15 +38,15 @@ class TagRepoDrift extends LocalRepo<TagData> {
   }
 
   @override
-  Future<Map<String, TagData>> get() async {
+  Future<IMap<String, TagData>> get() async {
     final rows = await (baseQuery).get();
-    return {for (final row in rows) row.id: TagData.fromTableData(row)};
+    return {for (final row in rows) row.id: TagData.fromTableData(row)}.lock;
   }
 
   @override
-  Stream<Map<String, TagData>> stream() {
+  Stream<IMap<String, TagData>> stream() {
     return baseQuery.watch().map((rows) {
-      return {for (final row in rows) row.id: TagData.fromTableData(row)};
+      return {for (final row in rows) row.id: TagData.fromTableData(row)}.lock;
     });
   }
 

@@ -1,3 +1,4 @@
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter/material.dart';
 import 'package:recipath/data/recipe_step_data/recipe_step_data.dart';
 import 'package:recipath/widgets/screens/recipe_screen/create_recipe_screen/recipe_step_item.dart';
@@ -15,15 +16,13 @@ class RecipeStepView extends StatelessWidget {
   final Widget? header;
   final Widget? footer;
 
-  final List<RecipeStepData> steps;
-  final void Function(List<RecipeStepData> newSteps) onChanged;
+  final IList<RecipeStepData> steps;
+  final void Function(IList<RecipeStepData> newSteps) onChanged;
 
   final ScrollController? controller;
 
   @override
   Widget build(BuildContext context) {
-    final listCopy = List<RecipeStepData>.from(steps);
-
     final List<Widget> items = [];
     for (int i = 0; i < steps.length; i++) {
       final step = steps[i];
@@ -34,13 +33,10 @@ class RecipeStepView extends StatelessWidget {
           data: step,
           controller: controller,
           delete: () {
-            listCopy.removeAt(i);
-            onChanged(listCopy);
+            onChanged(steps.removeAt(i));
           },
           onChanged: (newStep) {
-            listCopy.removeAt(i);
-            listCopy.insert(i, newStep);
-            onChanged(listCopy);
+            onChanged(steps.replace(i, newStep));
           },
         ),
       );
@@ -53,9 +49,9 @@ class RecipeStepView extends StatelessWidget {
       shrinkWrap: true,
       children: items,
       onReorderItem: (int oldIndex, int newIndex) {
-        final item = listCopy.removeAt(oldIndex);
-        listCopy.insert(newIndex, item);
-        onChanged(listCopy);
+        final removedValue = Output<RecipeStepData>();
+        final removedList = steps.removeAt(oldIndex, removedValue);
+        onChanged(removedList.insert(newIndex, removedValue.value!));
       },
     );
   }

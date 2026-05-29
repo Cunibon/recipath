@@ -1,4 +1,5 @@
 import 'package:drift/drift.dart';
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:recipath/data/recipe_tag_data/recipe_tag_data.dart';
 import 'package:recipath/drift/database.dart';
 import 'package:recipath/repos/abstract/local_repo.dart';
@@ -38,21 +39,21 @@ class RecipeTagRepoDrift extends LocalRepo<RecipeTagData> {
   }
 
   @override
-  Future<Map<String, RecipeTagData>> get() async {
+  Future<IMap<String, RecipeTagData>> get() async {
     final rows = await baseQuery.get();
     return {
       for (final row in rows)
         "${row.recipeId}_${row.tagId}": RecipeTagData.fromTableData(row),
-    };
+    }.lock;
   }
 
   @override
-  Stream<Map<String, RecipeTagData>> stream() {
+  Stream<IMap<String, RecipeTagData>> stream() {
     return baseQuery.watch().map((rows) {
       return {
         for (final row in rows)
           "${row.recipeId}_${row.tagId}": RecipeTagData.fromTableData(row),
-      };
+      }.lock;
     });
   }
 

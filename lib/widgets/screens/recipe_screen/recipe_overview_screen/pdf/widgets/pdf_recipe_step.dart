@@ -1,3 +1,4 @@
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:intl/intl.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
@@ -20,7 +21,7 @@ class PdfRecipeStep extends StatelessWidget {
   final AppLocalizations localization;
   final int index;
   final RecipeStepData step;
-  final Map<String, GroceryData> groceries;
+  final IMap<String, GroceryData> groceries;
   final NumberFormat doubleNumberFormat;
   final PdfColor surfaceContainerColor;
   final PdfColor primaryColor;

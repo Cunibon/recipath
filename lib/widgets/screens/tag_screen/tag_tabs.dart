@@ -1,3 +1,4 @@
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter/material.dart';
 import 'package:recipath/common.dart';
 import 'package:recipath/data/tag_data/tag_data.dart';
@@ -16,7 +17,7 @@ class TagTabs extends StatelessWidget {
     super.key,
   });
 
-  final Map<TagTypeEnum, Map<String, TagData>> typedTags;
+  final IMap<TagTypeEnum, IMap<String, TagData>> typedTags;
 
   final TabController tabController;
 

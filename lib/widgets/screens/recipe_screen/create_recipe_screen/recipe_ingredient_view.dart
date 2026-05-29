@@ -1,3 +1,4 @@
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/data/ingredient_data/ingredient_data.dart';
@@ -17,7 +18,7 @@ class RecipeIngredientView extends ConsumerStatefulWidget {
     super.key,
   });
 
-  final List<IngredientData> ingredients;
+  final IList<IngredientData> ingredients;
   final void Function(List<IngredientData> newIngredients) onChanged;
 
   final ScrollController? controller;

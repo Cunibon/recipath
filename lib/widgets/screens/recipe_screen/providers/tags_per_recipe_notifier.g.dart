@@ -15,13 +15,13 @@ final tagsPerRecipeProvider = TagsPerRecipeNotifierProvider._();
 final class TagsPerRecipeNotifierProvider
     extends
         $FunctionalProvider<
-          AsyncValue<Map<String, Set<TagData>>>,
-          Map<String, Set<TagData>>,
-          FutureOr<Map<String, Set<TagData>>>
+          AsyncValue<IMap<String, Set<TagData>>>,
+          IMap<String, Set<TagData>>,
+          FutureOr<IMap<String, Set<TagData>>>
         >
     with
-        $FutureModifier<Map<String, Set<TagData>>>,
-        $FutureProvider<Map<String, Set<TagData>>> {
+        $FutureModifier<IMap<String, Set<TagData>>>,
+        $FutureProvider<IMap<String, Set<TagData>>> {
   TagsPerRecipeNotifierProvider._()
     : super(
         from: null,
@@ -38,15 +38,15 @@ final class TagsPerRecipeNotifierProvider
 
   @$internal
   @override
-  $FutureProviderElement<Map<String, Set<TagData>>> $createElement(
+  $FutureProviderElement<IMap<String, Set<TagData>>> $createElement(
     $ProviderPointer pointer,
   ) => $FutureProviderElement(pointer);
 
   @override
-  FutureOr<Map<String, Set<TagData>>> create(Ref ref) {
+  FutureOr<IMap<String, Set<TagData>>> create(Ref ref) {
     return tagsPerRecipeNotifier(ref);
   }
 }
 
 String _$tagsPerRecipeNotifierHash() =>
-    r'3ef4446e09afc7e76d6321bf9d07493bb3d67f49';
+    r'7498a2693fb7ba4d1cbe4b23dd484b39fd115f4f';

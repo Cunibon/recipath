@@ -1,3 +1,4 @@
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
@@ -10,7 +11,7 @@ part 'grocery_import_screen_notifier.g.dart';
 @riverpod
 class GroceryImportScreenNotifier extends _$GroceryImportScreenNotifier {
   @override
-  Future<Map<String, GroceryData?>> build(String path) async {
+  Future<IMap<String, GroceryData?>> build(String path) async {
     final recipeImportState = await ref.watch(
       recipeImportScreenProvider(path).future,
     );
@@ -44,13 +45,12 @@ class GroceryImportScreenNotifier extends _$GroceryImportScreenNotifier {
       }
     }
 
-    return groceries;
+    return groceries.lock;
   }
 
   void selectGrocery(String origin, GroceryData? groceryData) {
     final currentState = state.value!;
-    final currentLookup = Map<String, GroceryData?>.from(currentState);
 
-    state = AsyncValue.data(currentLookup..[origin] = groceryData);
+    state = AsyncValue.data(currentState.add(origin, groceryData));
   }
 }

@@ -10,6 +10,7 @@ const _$QuickFiltersEnumMap = {
   QuickFilters.running: 'running',
   QuickFilters.cookable: 'cookable',
   QuickFilters.cluster: 'cluster',
+  QuickFilters.shopping: 'shopping',
 };
 
 // **************************************************************************

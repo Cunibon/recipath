@@ -15,11 +15,13 @@ final recipeChartStatisticsProvider = RecipeChartStatisticsNotifierFamily._();
 final class RecipeChartStatisticsNotifierProvider
     extends
         $FunctionalProvider<
-          AsyncValue<Map<String, int>>,
-          Map<String, int>,
-          FutureOr<Map<String, int>>
+          AsyncValue<IMap<String, int>>,
+          IMap<String, int>,
+          FutureOr<IMap<String, int>>
         >
-    with $FutureModifier<Map<String, int>>, $FutureProvider<Map<String, int>> {
+    with
+        $FutureModifier<IMap<String, int>>,
+        $FutureProvider<IMap<String, int>> {
   RecipeChartStatisticsNotifierProvider._({
     required RecipeChartStatisticsNotifierFamily super.from,
     required DateTimeRange<DateTime> super.argument,
@@ -43,12 +45,12 @@ final class RecipeChartStatisticsNotifierProvider
 
   @$internal
   @override
-  $FutureProviderElement<Map<String, int>> $createElement(
+  $FutureProviderElement<IMap<String, int>> $createElement(
     $ProviderPointer pointer,
   ) => $FutureProviderElement(pointer);
 
   @override
-  FutureOr<Map<String, int>> create(Ref ref) {
+  FutureOr<IMap<String, int>> create(Ref ref) {
     final argument = this.argument as DateTimeRange<DateTime>;
     return recipeChartStatisticsNotifier(ref, argument);
   }
@@ -66,12 +68,12 @@ final class RecipeChartStatisticsNotifierProvider
 }
 
 String _$recipeChartStatisticsNotifierHash() =>
-    r'68767aa82be187afa4202fd55263d6893ae3fb38';
+    r'5d915f33c66cda56598e486ed4b8156c16b93a23';
 
 final class RecipeChartStatisticsNotifierFamily extends $Family
     with
         $FunctionalFamilyOverride<
-          FutureOr<Map<String, int>>,
+          FutureOr<IMap<String, int>>,
           DateTimeRange<DateTime>
         > {
   RecipeChartStatisticsNotifierFamily._()

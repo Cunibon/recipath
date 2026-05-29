@@ -1,3 +1,4 @@
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:intl/intl.dart';
 import 'package:random_string/random_string.dart';
@@ -18,7 +19,7 @@ abstract class RecipeData with _$RecipeData {
     required String title,
     int? servings,
     String? imageName,
-    required List<RecipeStepData> steps,
+    required IList<RecipeStepData> steps,
     @Default(false) bool archived,
     @Default(false) uploaded,
   }) = _RecipeData;
@@ -33,14 +34,14 @@ abstract class RecipeData with _$RecipeData {
     servings: data.servings,
     imageName: data.imageName,
     archived: data.archived,
-    steps: [],
+    steps: IList(),
     uploaded: data.uploaded,
   );
 }
 
 extension RecipeDataFunctions on RecipeData {
   String toReadable({
-    required Map<String, GroceryData> groceries,
+    required IMap<String, GroceryData> groceries,
     required Map<UnitEnum, String> unitLocalized,
     required NumberFormat doubleNumberFormat,
   }) {
@@ -77,10 +78,10 @@ extension RecipeDataFunctions on RecipeData {
                           ingredient.groceryId,
                     ),
                   )
-                  .toList(),
+                  .toIList(),
             ),
           )
-          .toList(),
+          .toIList(),
     );
   }
 
@@ -97,10 +98,10 @@ extension RecipeDataFunctions on RecipeData {
                     (ingredient) =>
                         ingredient.copyWith(amount: ingredient.amount * ratio),
                   )
-                  .toList(),
+                  .toIList(),
             ),
           )
-          .toList(),
+          .toIList(),
     );
   }
 
@@ -112,7 +113,7 @@ extension RecipeDataFunctions on RecipeData {
     return ingredients.difference(otherIngredients);
   }
 
-  List<IngredientData> getIngredients(Map<String, GroceryData> groceries) =>
+  IList<IngredientData> getIngredients(IMap<String, GroceryData> groceries) =>
       IngredientData.aggregateIngredients(
         groceries,
         steps.expand((e) => e.ingredients),

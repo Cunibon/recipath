@@ -15,13 +15,13 @@ final shoppingProvider = ShoppingNotifierProvider._();
 final class ShoppingNotifierProvider
     extends
         $FunctionalProvider<
-          AsyncValue<Map<String, ShoppingData>>,
-          Map<String, ShoppingData>,
-          Stream<Map<String, ShoppingData>>
+          AsyncValue<IMap<String, ShoppingData>>,
+          IMap<String, ShoppingData>,
+          Stream<IMap<String, ShoppingData>>
         >
     with
-        $FutureModifier<Map<String, ShoppingData>>,
-        $StreamProvider<Map<String, ShoppingData>> {
+        $FutureModifier<IMap<String, ShoppingData>>,
+        $StreamProvider<IMap<String, ShoppingData>> {
   ShoppingNotifierProvider._()
     : super(
         from: null,
@@ -38,14 +38,14 @@ final class ShoppingNotifierProvider
 
   @$internal
   @override
-  $StreamProviderElement<Map<String, ShoppingData>> $createElement(
+  $StreamProviderElement<IMap<String, ShoppingData>> $createElement(
     $ProviderPointer pointer,
   ) => $StreamProviderElement(pointer);
 
   @override
-  Stream<Map<String, ShoppingData>> create(Ref ref) {
+  Stream<IMap<String, ShoppingData>> create(Ref ref) {
     return shoppingNotifier(ref);
   }
 }
 
-String _$shoppingNotifierHash() => r'3d15f7de2a79d90c3675c58781c3b61ec8488c29';
+String _$shoppingNotifierHash() => r'95a8d8e79dfa29d4bf02e71589e0ea10de259b46';

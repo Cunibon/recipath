@@ -15,13 +15,13 @@ final quickShoppingProvider = QuickShoppingNotifierProvider._();
 final class QuickShoppingNotifierProvider
     extends
         $FunctionalProvider<
-          AsyncValue<Map<String, QuickShoppingData>>,
-          Map<String, QuickShoppingData>,
-          Stream<Map<String, QuickShoppingData>>
+          AsyncValue<IMap<String, QuickShoppingData>>,
+          IMap<String, QuickShoppingData>,
+          Stream<IMap<String, QuickShoppingData>>
         >
     with
-        $FutureModifier<Map<String, QuickShoppingData>>,
-        $StreamProvider<Map<String, QuickShoppingData>> {
+        $FutureModifier<IMap<String, QuickShoppingData>>,
+        $StreamProvider<IMap<String, QuickShoppingData>> {
   QuickShoppingNotifierProvider._()
     : super(
         from: null,
@@ -38,15 +38,15 @@ final class QuickShoppingNotifierProvider
 
   @$internal
   @override
-  $StreamProviderElement<Map<String, QuickShoppingData>> $createElement(
+  $StreamProviderElement<IMap<String, QuickShoppingData>> $createElement(
     $ProviderPointer pointer,
   ) => $StreamProviderElement(pointer);
 
   @override
-  Stream<Map<String, QuickShoppingData>> create(Ref ref) {
+  Stream<IMap<String, QuickShoppingData>> create(Ref ref) {
     return quickShoppingNotifier(ref);
   }
 }
 
 String _$quickShoppingNotifierHash() =>
-    r'268e8a67f5f4185e6aa449b88661a8e8f0bb5b9e';
+    r'7096e2062887770350fc540bcfbb1af3fa8f4b94';

@@ -15,13 +15,13 @@ final filteredRecipeProvider = FilteredRecipeNotifierProvider._();
 final class FilteredRecipeNotifierProvider
     extends
         $FunctionalProvider<
-          AsyncValue<Map<String, RecipeData>>,
-          Map<String, RecipeData>,
-          Stream<Map<String, RecipeData>>
+          AsyncValue<IMap<String, RecipeData>>,
+          IMap<String, RecipeData>,
+          Stream<IMap<String, RecipeData>>
         >
     with
-        $FutureModifier<Map<String, RecipeData>>,
-        $StreamProvider<Map<String, RecipeData>> {
+        $FutureModifier<IMap<String, RecipeData>>,
+        $StreamProvider<IMap<String, RecipeData>> {
   FilteredRecipeNotifierProvider._()
     : super(
         from: null,
@@ -38,15 +38,15 @@ final class FilteredRecipeNotifierProvider
 
   @$internal
   @override
-  $StreamProviderElement<Map<String, RecipeData>> $createElement(
+  $StreamProviderElement<IMap<String, RecipeData>> $createElement(
     $ProviderPointer pointer,
   ) => $StreamProviderElement(pointer);
 
   @override
-  Stream<Map<String, RecipeData>> create(Ref ref) {
+  Stream<IMap<String, RecipeData>> create(Ref ref) {
     return filteredRecipeNotifier(ref);
   }
 }
 
 String _$filteredRecipeNotifierHash() =>
-    r'a676ecc2f659eb938a8881f89c390b3173340b08';
+    r'305400d4caea4e284c9b6abfeca78cb265f1a9cb';

@@ -1,11 +1,11 @@
 import 'dart:io';
 
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter/material.dart' as flutter;
 import 'package:intl/intl.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
-import 'package:recipath/data/ingredient_data/ingredient_data.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/screens/recipe_screen/recipe_overview_screen/pdf/utils/color_extension.dart';
@@ -26,12 +26,9 @@ class PdfRecipeOverview extends StatelessWidget {
   final RecipeData recipe;
   final File? image;
   final AppLocalizations localization;
-  final Map<String, GroceryData> groceries;
+  final IMap<String, GroceryData> groceries;
   final NumberFormat doubleNumberFormat;
   final flutter.ThemeData theme;
-
-  List<IngredientData> get _aggregatedIngredients =>
-      recipe.getIngredients(groceries);
 
   PdfColor get _primaryColor => theme.colorScheme.primary.toPdfColor();
   PdfColor get _onPrimaryColor => theme.colorScheme.onPrimary.toPdfColor();
@@ -53,7 +50,7 @@ class PdfRecipeOverview extends StatelessWidget {
         PdfRecipeContent(
           image: image,
           localization: localization,
-          aggregatedIngredients: _aggregatedIngredients,
+          aggregatedIngredients: recipe.getIngredients(groceries),
           groceries: groceries,
           doubleNumberFormat: doubleNumberFormat,
           servings: recipe.servings,

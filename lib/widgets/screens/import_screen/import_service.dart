@@ -1,3 +1,4 @@
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:random_string/random_string.dart';
 import 'package:recipath/application/grocery_modifier/grocery_modifier.dart';
 import 'package:recipath/application/recipe_modifier/recipe_modifier.dart';
@@ -26,7 +27,7 @@ class ImportService {
 
   final ImportData importData;
   final RecipeImportScreenState recipeImportState;
-  final Map<String, GroceryData?> groceries;
+  final IMap<String, GroceryData?> groceries;
   final TagImportScreenState tagImportState;
 
   final RecipeModifier recipeModifier;
@@ -110,10 +111,10 @@ class ImportService {
             originalGrocery: originalGrocery,
             newGrocery: newGrocery,
           );
-        }).toList();
+        }).toIList();
 
         return step.copyWith(ingredients: fixedIngredients);
-      }).toList();
+      }).toIList();
 
       final newRecipe = recipe
           .copyWith(steps: fixedSteps)

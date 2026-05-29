@@ -1,4 +1,5 @@
 import 'package:drift/drift.dart' as drift;
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:intl/intl.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
@@ -30,8 +31,8 @@ abstract class IngredientData with _$IngredientData {
         uploaded: data.uploaded,
       );
 
-  static List<IngredientData> aggregateIngredients(
-    Map<String, GroceryData> groceries,
+  static IList<IngredientData> aggregateIngredients(
+    IMap<String, GroceryData> groceries,
     Iterable<IngredientData> ingredients,
   ) {
     final Map<String, IngredientData> ingredientsMap = {};
@@ -55,7 +56,7 @@ abstract class IngredientData with _$IngredientData {
             grocery.convertToNorm(ingredient.amount, ingredient.unit),
       );
     }
-    return ingredientsMap.values.toList();
+    return ingredientsMap.values.toIList();
   }
 }
 

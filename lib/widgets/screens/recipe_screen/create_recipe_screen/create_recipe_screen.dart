@@ -1,3 +1,4 @@
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -36,12 +37,12 @@ class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
   void initState() {
     super.initState();
     initalData =
-        ref.read(recipeProvider).value?[widget.recipeId] ??
+        ref.read(recipeProvider).value?[widget.recipeId ?? ""] ??
         RecipeData(
           id: randomAlphaNumeric(16),
           title: "",
           imageName: null,
-          steps: [],
+          steps: IList(),
         );
 
     data = initalData;
@@ -243,15 +244,14 @@ class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
                   ElevatedButton.icon(
                     onPressed: () => setState(
                       () => data = data.copyWith(
-                        steps: List.from(data.steps)
-                          ..add(
-                            RecipeStepData(
-                              id: randomAlphaNumeric(16),
-                              description: "",
-                              ingredients: [],
-                              minutes: null,
-                            ),
+                        steps: data.steps.add(
+                          RecipeStepData(
+                            id: randomAlphaNumeric(16),
+                            description: "",
+                            ingredients: IList(),
+                            minutes: null,
                           ),
+                        ),
                       ),
                     ),
                     icon: Icon(Icons.add),

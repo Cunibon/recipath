@@ -1,4 +1,5 @@
 import 'package:drift/drift.dart';
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:recipath/data/quick_shopping_data/quick_shopping_data.dart';
 import 'package:recipath/drift/database.dart';
 import 'package:recipath/repos/abstract/local_repo.dart';
@@ -38,19 +39,19 @@ class QuickShoppingRepoDrift extends LocalRepo<QuickShoppingData> {
   }
 
   @override
-  Future<Map<String, QuickShoppingData>> get() async {
+Future<IMap<String, QuickShoppingData>> get() async {
     final rows = await baseQuery.get();
     return {
       for (final row in rows) row.id: QuickShoppingData.fromTableData(row),
-    };
+    }.lock;
   }
 
-  @override
-  Stream<Map<String, QuickShoppingData>> stream() {
+@override
+  Stream<IMap<String, QuickShoppingData>> stream() {
     return baseQuery.watch().map((rows) {
       return {
         for (final row in rows) row.id: QuickShoppingData.fromTableData(row),
-      };
+      }.lock;
     });
   }
 

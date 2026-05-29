@@ -49,7 +49,8 @@ class QuickFilterNotifier extends _$QuickFilterNotifier {
 enum QuickFilters {
   running(icon: Icons.timer),
   cookable(icon: Icons.restaurant),
-  cluster(icon: Icons.blur_on);
+  cluster(icon: Icons.blur_on),
+  shopping(icon: Icons.shopping_basket);
 
   const QuickFilters({required this.icon});
   final IconData icon;

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:intl/intl.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
@@ -23,8 +24,8 @@ class PdfRecipeContent extends StatelessWidget {
 
   final File? image;
   final AppLocalizations localization;
-  final List<IngredientData> aggregatedIngredients;
-  final Map<String, GroceryData> groceries;
+  final IList<IngredientData> aggregatedIngredients;
+  final IMap<String, GroceryData> groceries;
   final NumberFormat doubleNumberFormat;
   final int? servings;
   final PdfColor surfaceContainerColor;

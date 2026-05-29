@@ -1,3 +1,4 @@
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
 import 'package:recipath/data/storage_data/storage_data.dart';
@@ -80,6 +81,6 @@ class RecipeScreenState {
   });
 
   final List<CompactRecipeItemData> recipe;
-  final Map<String, GroceryData> groceryMap;
-  final Map<String, StorageData> storageMap;
+  final IMap<String, GroceryData> groceryMap;
+  final IMap<String, StorageData> storageMap;
 }

@@ -1,3 +1,4 @@
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
@@ -17,10 +18,10 @@ class CompactIngredientView extends ConsumerWidget {
     super.key,
   });
 
-  final List<IngredientData> ingredients;
+  final IList<IngredientData> ingredients;
 
-  final Map<String, StorageData> storageData;
-  final Map<String, GroceryData> groceryMap;
+  final IMap<String, StorageData> storageData;
+  final IMap<String, GroceryData> groceryMap;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

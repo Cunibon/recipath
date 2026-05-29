@@ -1,4 +1,5 @@
 import 'package:drift/drift.dart';
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:recipath/data/ingredient_data/ingredient_data.dart';
 import 'package:recipath/data/shopping_data/shopping_data.dart';
 import 'package:recipath/drift/database.dart';
@@ -26,7 +27,7 @@ class ShoppingRepoDrift extends TagFilteredRepo<ShoppingData> {
     return query;
   }
 
-  Map<String, ShoppingData> mapResult(List<TypedResult> rows) {
+  IMap<String, ShoppingData> mapResult(List<TypedResult> rows) {
     final Map<String, ShoppingData> shoppingById = {};
 
     for (final row in rows) {
@@ -38,7 +39,7 @@ class ShoppingRepoDrift extends TagFilteredRepo<ShoppingData> {
         IngredientData.fromTableData(ingredientRow),
       );
     }
-    return shoppingById;
+    return shoppingById.lock;
   }
 
   @override
@@ -58,13 +59,13 @@ class ShoppingRepoDrift extends TagFilteredRepo<ShoppingData> {
   }
 
   @override
-  Future<Map<String, ShoppingData>> get() async {
+  Future<IMap<String, ShoppingData>> get() async {
     final rows = await baseQuery.get();
     return mapResult(rows);
   }
 
   @override
-  Stream<Map<String, ShoppingData>> stream() {
+  Stream<IMap<String, ShoppingData>> stream() {
     return baseQuery.watch().map(mapResult);
   }
 
@@ -105,7 +106,7 @@ class ShoppingRepoDrift extends TagFilteredRepo<ShoppingData> {
   }
 
   @override
-  Stream<Map<String, ShoppingData>> streamFiltered(Set<String> tagDataFilters) {
+  Stream<IMap<String, ShoppingData>> streamFiltered(Set<String> tagDataFilters) {
     final query = baseQuery;
 
     if (tagDataFilters.isNotEmpty) {

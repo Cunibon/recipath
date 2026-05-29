@@ -1,3 +1,4 @@
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
@@ -16,7 +17,7 @@ class CompactRecipeItemContent extends ConsumerWidget {
     required this.recipeData,
     this.servings,
     required this.groceryMap,
-    this.storageData = const {},
+    this.storageData = const IMap.empty(),
     this.tags = const {},
     this.trailingTitle,
     this.onTagTapped,
@@ -24,8 +25,8 @@ class CompactRecipeItemContent extends ConsumerWidget {
 
   final RecipeData recipeData;
   final int? servings;
-  final Map<String, GroceryData> groceryMap;
-  final Map<String, StorageData> storageData;
+  final IMap<String, GroceryData> groceryMap;
+  final IMap<String, StorageData> storageData;
   final Set<TagData> tags;
 
   final Widget? trailingTitle;

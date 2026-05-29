@@ -1,3 +1,4 @@
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -11,13 +12,13 @@ import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifi
 class IngredientsList extends ConsumerWidget {
   const IngredientsList({required this.ingredients, super.key});
 
-  final List<IngredientData> ingredients;
+  final IList<IngredientData> ingredients;
 
   static String buildString({
     required AppLocalizations localization,
     required NumberFormat doubleNumberFormat,
-    required List<IngredientData> ingredients,
-    required Map<String, GroceryData> groceryMap,
+    required IList<IngredientData> ingredients,
+    required IMap<String, GroceryData> groceryMap,
   }) {
     final unitLocalized = localizeUnits(localization);
     final ingredientBuffer = StringBuffer();

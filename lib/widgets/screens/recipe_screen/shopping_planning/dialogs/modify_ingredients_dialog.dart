@@ -1,3 +1,4 @@
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/data/ingredient_data/ingredient_data.dart';
@@ -7,7 +8,7 @@ import 'package:recipath/widgets/screens/recipe_screen/shopping_planning/modify_
 class ModifyIngredientsDialog extends ConsumerStatefulWidget {
   const ModifyIngredientsDialog({required this.ingredientDataList, super.key});
 
-  final List<IngredientData> ingredientDataList;
+  final IList<IngredientData> ingredientDataList;
 
   @override
   ConsumerState<ModifyIngredientsDialog> createState() =>
@@ -22,7 +23,7 @@ class _ModifyIngredientsDialogState
   void initState() {
     super.initState();
 
-    ingredientDataList = widget.ingredientDataList;
+    ingredientDataList = widget.ingredientDataList.unlock;
   }
 
   @override

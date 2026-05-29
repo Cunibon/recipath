@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart' as drift;
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:random_string/random_string.dart';
+import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/ingredient_data/ingredient_data.dart';
 import 'package:recipath/drift/database.dart';
 
@@ -27,6 +28,16 @@ abstract class StorageData with _$StorageData {
     ingredient: ingredientData,
     deleted: data.deleted,
     uploaded: data.uploaded,
+  );
+
+  factory StorageData.fromGrocery(GroceryData grocery) => StorageData(
+    id: randomAlphaNumeric(16),
+    ingredient: IngredientData(
+      id: randomAlphaNumeric(16),
+      amount: 0,
+      unit: grocery.unit,
+      groceryId: grocery.id,
+    ),
   );
 }
 

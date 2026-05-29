@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$RecipeStepData {
 
- String get id; String get description; List<IngredientData> get ingredients; int? get minutes;
+ String get id; String get description; IList<IngredientData> get ingredients; int? get minutes;
 /// Create a copy of RecipeStepData
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $RecipeStepDataCopyWith<$Res>  {
   factory $RecipeStepDataCopyWith(RecipeStepData value, $Res Function(RecipeStepData) _then) = _$RecipeStepDataCopyWithImpl;
 @useResult
 $Res call({
- String id, String description, List<IngredientData> ingredients, int? minutes
+ String id, String description, IList<IngredientData> ingredients, int? minutes
 });
 
 
@@ -70,7 +70,7 @@ class _$RecipeStepDataCopyWithImpl<$Res>
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,ingredients: null == ingredients ? _self.ingredients : ingredients // ignore: cast_nullable_to_non_nullable
-as List<IngredientData>,minutes: freezed == minutes ? _self.minutes : minutes // ignore: cast_nullable_to_non_nullable
+as IList<IngredientData>,minutes: freezed == minutes ? _self.minutes : minutes // ignore: cast_nullable_to_non_nullable
 as int?,
   ));
 }
@@ -156,7 +156,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String description,  List<IngredientData> ingredients,  int? minutes)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String description,  IList<IngredientData> ingredients,  int? minutes)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _RecipeStepData() when $default != null:
 return $default(_that.id,_that.description,_that.ingredients,_that.minutes);case _:
@@ -177,7 +177,7 @@ return $default(_that.id,_that.description,_that.ingredients,_that.minutes);case
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String description,  List<IngredientData> ingredients,  int? minutes)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String description,  IList<IngredientData> ingredients,  int? minutes)  $default,) {final _that = this;
 switch (_that) {
 case _RecipeStepData():
 return $default(_that.id,_that.description,_that.ingredients,_that.minutes);case _:
@@ -197,7 +197,7 @@ return $default(_that.id,_that.description,_that.ingredients,_that.minutes);case
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String description,  List<IngredientData> ingredients,  int? minutes)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String description,  IList<IngredientData> ingredients,  int? minutes)?  $default,) {final _that = this;
 switch (_that) {
 case _RecipeStepData() when $default != null:
 return $default(_that.id,_that.description,_that.ingredients,_that.minutes);case _:
@@ -212,18 +212,12 @@ return $default(_that.id,_that.description,_that.ingredients,_that.minutes);case
 @JsonSerializable()
 
 class _RecipeStepData implements RecipeStepData {
-  const _RecipeStepData({required this.id, required this.description, required final  List<IngredientData> ingredients, required this.minutes}): _ingredients = ingredients;
+  const _RecipeStepData({required this.id, required this.description, required this.ingredients, required this.minutes});
   factory _RecipeStepData.fromJson(Map<String, dynamic> json) => _$RecipeStepDataFromJson(json);
 
 @override final  String id;
 @override final  String description;
- final  List<IngredientData> _ingredients;
-@override List<IngredientData> get ingredients {
-  if (_ingredients is EqualUnmodifiableListView) return _ingredients;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_ingredients);
-}
-
+@override final  IList<IngredientData> ingredients;
 @override final  int? minutes;
 
 /// Create a copy of RecipeStepData
@@ -239,12 +233,12 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RecipeStepData&&(identical(other.id, id) || other.id == id)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other._ingredients, _ingredients)&&(identical(other.minutes, minutes) || other.minutes == minutes));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RecipeStepData&&(identical(other.id, id) || other.id == id)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other.ingredients, ingredients)&&(identical(other.minutes, minutes) || other.minutes == minutes));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,description,const DeepCollectionEquality().hash(_ingredients),minutes);
+int get hashCode => Object.hash(runtimeType,id,description,const DeepCollectionEquality().hash(ingredients),minutes);
 
 @override
 String toString() {
@@ -259,7 +253,7 @@ abstract mixin class _$RecipeStepDataCopyWith<$Res> implements $RecipeStepDataCo
   factory _$RecipeStepDataCopyWith(_RecipeStepData value, $Res Function(_RecipeStepData) _then) = __$RecipeStepDataCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String description, List<IngredientData> ingredients, int? minutes
+ String id, String description, IList<IngredientData> ingredients, int? minutes
 });
 
 
@@ -280,8 +274,8 @@ class __$RecipeStepDataCopyWithImpl<$Res>
   return _then(_RecipeStepData(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
-as String,ingredients: null == ingredients ? _self._ingredients : ingredients // ignore: cast_nullable_to_non_nullable
-as List<IngredientData>,minutes: freezed == minutes ? _self.minutes : minutes // ignore: cast_nullable_to_non_nullable
+as String,ingredients: null == ingredients ? _self.ingredients : ingredients // ignore: cast_nullable_to_non_nullable
+as IList<IngredientData>,minutes: freezed == minutes ? _self.minutes : minutes // ignore: cast_nullable_to_non_nullable
 as int?,
   ));
 }

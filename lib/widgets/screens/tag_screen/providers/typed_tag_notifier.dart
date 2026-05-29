@@ -1,3 +1,4 @@
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:recipath/data/tag_data/tag_data.dart';
 import 'package:recipath/data/tag_data/tag_type_enum.dart';
 import 'package:recipath/widgets/screens/tag_screen/providers/tag_notifier.dart';
@@ -6,7 +7,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'typed_tag_notifier.g.dart';
 
 @riverpod
-Future<Map<TagTypeEnum, Map<String, TagData>>> typedTagNotifier(Ref ref) async {
+Future<IMap<TagTypeEnum, IMap<String, TagData>>> typedTagNotifier(Ref ref) async {
   final tags = await ref.watch(tagProvider.future);
 
   final typedTags = <TagTypeEnum, Map<String, TagData>>{
@@ -17,5 +18,5 @@ Future<Map<TagTypeEnum, Map<String, TagData>>> typedTagNotifier(Ref ref) async {
     typedTags[tag.tagType]![tag.id] = tag;
   }
 
-  return typedTags;
+  return typedTags.map((key, value) => MapEntry(key, value.lock)).lock;
 }

@@ -1,4 +1,5 @@
 import 'package:drift/drift.dart';
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:recipath/data/grocery_tag_data/grocery_tag_data.dart';
 import 'package:recipath/drift/database.dart';
 import 'package:recipath/repos/abstract/local_repo.dart';
@@ -38,21 +39,21 @@ class GroceryTagRepoDrift extends LocalRepo<GroceryTagData> {
   }
 
   @override
-  Future<Map<String, GroceryTagData>> get() async {
+  Future<IMap<String, GroceryTagData>> get() async {
     final rows = await baseQuery.get();
     return {
       for (final row in rows)
         "${row.groceryId}_${row.tagId}": GroceryTagData.fromTableData(row),
-    };
+    }.lock;
   }
 
   @override
-  Stream<Map<String, GroceryTagData>> stream() {
+  Stream<IMap<String, GroceryTagData>> stream() {
     return baseQuery.watch().map((rows) {
       return {
         for (final row in rows)
           "${row.groceryId}_${row.tagId}": GroceryTagData.fromTableData(row),
-      };
+      }.lock;
     });
   }
 

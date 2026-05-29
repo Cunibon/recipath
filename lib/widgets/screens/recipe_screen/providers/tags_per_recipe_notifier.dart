@@ -1,3 +1,4 @@
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:recipath/data/tag_data/tag_data.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/recipe_tags_notifier.dart';
 import 'package:recipath/widgets/screens/tag_screen/providers/tag_notifier.dart';
@@ -6,7 +7,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'tags_per_recipe_notifier.g.dart';
 
 @riverpod
-Future<Map<String, Set<TagData>>> tagsPerRecipeNotifier(Ref ref) async {
+Future<IMap<String, Set<TagData>>> tagsPerRecipeNotifier(Ref ref) async {
   final tags = await ref.watch(tagProvider.future);
   final recipeTags = await ref.watch(recipeTagsProvider.future);
 
@@ -18,5 +19,5 @@ Future<Map<String, Set<TagData>>> tagsPerRecipeNotifier(Ref ref) async {
       tagSet.add(tags[recipeTag.tagId]!);
     }
   }
-  return tagLookup;
+  return tagLookup.toIMap();
 }

@@ -1,4 +1,5 @@
 import 'package:drift/drift.dart';
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:recipath/data/file_data/file_data.dart';
 import 'package:recipath/drift/database.dart';
 import 'package:recipath/repos/abstract/local_repo.dart';
@@ -29,17 +30,15 @@ class FileRepoDrift extends LocalRepo<FileData> {
   }
 
   @override
-  Future<Map<String, FileData>> get() async {
+  Future<IMap<String, FileData>> get() async {
     final rows = await baseQuery.get();
-    return {for (final row in rows) row.fileName: FileData.fromTableData(row)};
+    return {for (final row in rows) row.fileName: FileData.fromTableData(row)}.lock;
   }
 
   @override
-  Stream<Map<String, FileData>> stream() {
+  Stream<IMap<String, FileData>> stream() {
     return baseQuery.watch().map(
-      (rows) => {
-        for (final row in rows) row.fileName: FileData.fromTableData(row),
-      },
+      (rows) => {for (final row in rows) row.fileName: FileData.fromTableData(row)}.lock,
     );
   }
 

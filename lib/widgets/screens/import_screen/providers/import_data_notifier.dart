@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:recipath/application_constants.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
@@ -41,7 +42,7 @@ Future<ImportData> importDataNotifier(Ref ref, String path) async {
 
   return ImportData(
     recipes: recipeList,
-    groceries: groceryMap,
-    tagsPerRecipe: tagsPerRecipe,
+    groceries: groceryMap.lock,
+    tagsPerRecipe: tagsPerRecipe.toIMap(),
   );
 }

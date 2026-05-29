@@ -1,3 +1,4 @@
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/storage_data/storage_data.dart';
@@ -108,8 +109,8 @@ class ShoppingScreenState {
   });
 
   final Map<String, List<BaseShoppingItemData>> clusteredData;
-  final Map<String, GroceryData> groceryMap;
-  final Map<String, StorageData> storage;
-  final Map<String, TagData> tags;
+  final IMap<String, GroceryData> groceryMap;
+  final IMap<String, StorageData> storage;
+  final IMap<String, TagData> tags;
   final bool tagFiltersActive;
 }

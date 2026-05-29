@@ -1,4 +1,5 @@
 import 'package:drift/drift.dart';
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:random_string/random_string.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/ingredient_data/ingredient_data.dart';
@@ -12,7 +13,7 @@ class ShoppingModifier {
 
   Future<void> addItems(
     Iterable<IngredientData> newData,
-    Map<String, GroceryData> groceryMap,
+    IMap<String, GroceryData> groceryMap,
   ) async {
     final currentShoppingData = await repo.get();
 

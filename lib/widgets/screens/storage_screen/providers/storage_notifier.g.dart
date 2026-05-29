@@ -15,13 +15,13 @@ final storageProvider = StorageNotifierProvider._();
 final class StorageNotifierProvider
     extends
         $FunctionalProvider<
-          AsyncValue<Map<String, StorageData>>,
-          Map<String, StorageData>,
-          Stream<Map<String, StorageData>>
+          AsyncValue<IMap<String, StorageData>>,
+          IMap<String, StorageData>,
+          Stream<IMap<String, StorageData>>
         >
     with
-        $FutureModifier<Map<String, StorageData>>,
-        $StreamProvider<Map<String, StorageData>> {
+        $FutureModifier<IMap<String, StorageData>>,
+        $StreamProvider<IMap<String, StorageData>> {
   StorageNotifierProvider._()
     : super(
         from: null,
@@ -38,14 +38,14 @@ final class StorageNotifierProvider
 
   @$internal
   @override
-  $StreamProviderElement<Map<String, StorageData>> $createElement(
+  $StreamProviderElement<IMap<String, StorageData>> $createElement(
     $ProviderPointer pointer,
   ) => $StreamProviderElement(pointer);
 
   @override
-  Stream<Map<String, StorageData>> create(Ref ref) {
+  Stream<IMap<String, StorageData>> create(Ref ref) {
     return storageNotifier(ref);
   }
 }
 
-String _$storageNotifierHash() => r'3ac4e68ea5761a336220eac4432e1519166c69b3';
+String _$storageNotifierHash() => r'478b7eb70a65e1db1edb3b228723679c6d731274';

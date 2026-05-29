@@ -15,13 +15,13 @@ final typedTagProvider = TypedTagNotifierProvider._();
 final class TypedTagNotifierProvider
     extends
         $FunctionalProvider<
-          AsyncValue<Map<TagTypeEnum, Map<String, TagData>>>,
-          Map<TagTypeEnum, Map<String, TagData>>,
-          FutureOr<Map<TagTypeEnum, Map<String, TagData>>>
+          AsyncValue<IMap<TagTypeEnum, IMap<String, TagData>>>,
+          IMap<TagTypeEnum, IMap<String, TagData>>,
+          FutureOr<IMap<TagTypeEnum, IMap<String, TagData>>>
         >
     with
-        $FutureModifier<Map<TagTypeEnum, Map<String, TagData>>>,
-        $FutureProvider<Map<TagTypeEnum, Map<String, TagData>>> {
+        $FutureModifier<IMap<TagTypeEnum, IMap<String, TagData>>>,
+        $FutureProvider<IMap<TagTypeEnum, IMap<String, TagData>>> {
   TypedTagNotifierProvider._()
     : super(
         from: null,
@@ -38,14 +38,13 @@ final class TypedTagNotifierProvider
 
   @$internal
   @override
-  $FutureProviderElement<Map<TagTypeEnum, Map<String, TagData>>> $createElement(
-    $ProviderPointer pointer,
-  ) => $FutureProviderElement(pointer);
+  $FutureProviderElement<IMap<TagTypeEnum, IMap<String, TagData>>>
+  $createElement($ProviderPointer pointer) => $FutureProviderElement(pointer);
 
   @override
-  FutureOr<Map<TagTypeEnum, Map<String, TagData>>> create(Ref ref) {
+  FutureOr<IMap<TagTypeEnum, IMap<String, TagData>>> create(Ref ref) {
     return typedTagNotifier(ref);
   }
 }
 
-String _$typedTagNotifierHash() => r'ff8de40ed3b318159e8affcdfa14a26d252c2cb8';
+String _$typedTagNotifierHash() => r'2b63fb1c092d017fb2e307aac8438c68ece68ec1';

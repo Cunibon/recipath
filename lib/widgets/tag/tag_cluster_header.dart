@@ -18,7 +18,7 @@ class TagClusterHeader extends ConsumerWidget {
       child: CachedAsyncValueWrapper(
         asyncState: ref.watch(tagProvider),
         builder: (data) {
-          final tag = data[tagId];
+          final tag = data[tagId ?? ""];
           if (tag != null) {
             return Column(
               crossAxisAlignment: .start,

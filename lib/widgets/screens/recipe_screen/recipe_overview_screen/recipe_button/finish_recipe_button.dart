@@ -5,7 +5,6 @@ import 'package:recipath/application/recipe_statistics_modifier%20copy/recipe_st
 import 'package:recipath/application/storage_modifier/storage_modifier_notifier.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
 import 'package:recipath/data/recipe_statistic_data/recipe_statistic_data.dart';
-import 'package:recipath/data/storage_data/storage_data.dart';
 import 'package:recipath/data/timer_data/timer_data.dart';
 import 'package:recipath/helper/ref_extension.dart';
 import 'package:recipath/l10n/app_localizations.dart';
@@ -69,9 +68,7 @@ class FinishRecipeButton extends ConsumerWidget {
               ),
             );
 
-        final ingredientsInStorage = Map<String, StorageData>.from(
-          tsx.get(storageProvider).value!,
-        );
+        final ingredientsInStorage = tsx.get(storageProvider).value!;
         final availableIngredients = ingredients.where(
           (e) => ingredientsInStorage.keys.contains(e.groceryId),
         );

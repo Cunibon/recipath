@@ -1,4 +1,5 @@
 import 'package:drift/drift.dart';
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:recipath/application_constants.dart';
 import 'package:recipath/data/recipe_statistic_data/recipe_statistic_data.dart';
 import 'package:recipath/drift/database.dart';
@@ -38,24 +39,24 @@ class RecipeStatisticsRepoDrift extends RecipeStatisticsRepo {
   }
 
   @override
-  Future<Map<String, RecipeStatisticData>> get() async {
+  Future<IMap<String, RecipeStatisticData>> get() async {
     final rows = await baseQuery.get();
     return {
       for (final row in rows) row.id: RecipeStatisticData.fromTableData(row),
-    };
+    }.lock;
   }
 
   @override
-  Stream<Map<String, RecipeStatisticData>> stream() {
+  Stream<IMap<String, RecipeStatisticData>> stream() {
     return baseQuery.watch().map((rows) {
       return {
         for (final row in rows) row.id: RecipeStatisticData.fromTableData(row),
-      };
+      }.lock;
     });
   }
 
   @override
-  Future<Map<String, RecipeStatisticData>> getForId(String recipeId) async {
+  Future<IMap<String, RecipeStatisticData>> getForId(String recipeId) async {
     final result = await db
         .customSelect(
           '''
@@ -85,7 +86,7 @@ class RecipeStatisticsRepoDrift extends RecipeStatisticsRepo {
         row.read<String>('id'): RecipeStatisticData.fromTableData(
           RecipeStatisticTableData.fromJson(row.data..[uploadedKey] = true),
         ),
-    };
+    }.lock;
   }
 
   @override
@@ -111,7 +112,7 @@ class RecipeStatisticsRepoDrift extends RecipeStatisticsRepo {
   }
 
   @override
-  Future<Map<String, int>> getRecipeCountBetween({
+  Future<IMap<String, int>> getRecipeCountBetween({
     required DateTime startDate,
     required DateTime endDate,
   }) async {
@@ -137,7 +138,7 @@ class RecipeStatisticsRepoDrift extends RecipeStatisticsRepo {
       final count = row.data['count'] as int;
       result[recipeId] = count;
     }
-    return result;
+    return result.lock;
   }
 
   @override

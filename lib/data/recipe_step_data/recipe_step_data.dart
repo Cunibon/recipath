@@ -1,3 +1,4 @@
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:recipath/data/ingredient_data/ingredient_data.dart';
 import 'package:recipath/drift/database.dart';
@@ -10,7 +11,7 @@ abstract class RecipeStepData with _$RecipeStepData {
   const factory RecipeStepData({
     required String id,
     required String description,
-    required List<IngredientData> ingredients,
+    required IList<IngredientData> ingredients,
     required int? minutes,
   }) = _RecipeStepData;
 
@@ -20,7 +21,7 @@ abstract class RecipeStepData with _$RecipeStepData {
   factory RecipeStepData.fromTable(RecipeStepTableData data) => RecipeStepData(
     id: data.id,
     description: data.description,
-    ingredients: [],
+    ingredients: IList(),
     minutes: data.minutes,
   );
 }

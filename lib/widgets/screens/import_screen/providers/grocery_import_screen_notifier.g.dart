@@ -16,7 +16,7 @@ final class GroceryImportScreenNotifierProvider
     extends
         $AsyncNotifierProvider<
           GroceryImportScreenNotifier,
-          Map<String, GroceryData?>
+          IMap<String, GroceryData?>
         > {
   GroceryImportScreenNotifierProvider._({
     required GroceryImportScreenNotifierFamily super.from,
@@ -56,15 +56,15 @@ final class GroceryImportScreenNotifierProvider
 }
 
 String _$groceryImportScreenNotifierHash() =>
-    r'8e91ff19d4d6fdd6ebb3c837ea31e919b181bed7';
+    r'44daf014c6a2d11790874a0f1f3f84c4d70fc084';
 
 final class GroceryImportScreenNotifierFamily extends $Family
     with
         $ClassFamilyOverride<
           GroceryImportScreenNotifier,
-          AsyncValue<Map<String, GroceryData?>>,
-          Map<String, GroceryData?>,
-          FutureOr<Map<String, GroceryData?>>,
+          AsyncValue<IMap<String, GroceryData?>>,
+          IMap<String, GroceryData?>,
+          FutureOr<IMap<String, GroceryData?>>,
           String
         > {
   GroceryImportScreenNotifierFamily._()
@@ -84,28 +84,28 @@ final class GroceryImportScreenNotifierFamily extends $Family
 }
 
 abstract class _$GroceryImportScreenNotifier
-    extends $AsyncNotifier<Map<String, GroceryData?>> {
+    extends $AsyncNotifier<IMap<String, GroceryData?>> {
   late final _$args = ref.$arg as String;
   String get path => _$args;
 
-  FutureOr<Map<String, GroceryData?>> build(String path);
+  FutureOr<IMap<String, GroceryData?>> build(String path);
   @$mustCallSuper
   @override
   void runBuild() {
     final ref =
         this.ref
             as $Ref<
-              AsyncValue<Map<String, GroceryData?>>,
-              Map<String, GroceryData?>
+              AsyncValue<IMap<String, GroceryData?>>,
+              IMap<String, GroceryData?>
             >;
     final element =
         ref.element
             as $ClassProviderElement<
               AnyNotifier<
-                AsyncValue<Map<String, GroceryData?>>,
-                Map<String, GroceryData?>
+                AsyncValue<IMap<String, GroceryData?>>,
+                IMap<String, GroceryData?>
               >,
-              AsyncValue<Map<String, GroceryData?>>,
+              AsyncValue<IMap<String, GroceryData?>>,
               Object?,
               Object?
             >;

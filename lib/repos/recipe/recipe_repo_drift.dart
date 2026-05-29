@@ -1,4 +1,5 @@
 import 'package:drift/drift.dart';
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:recipath/data/ingredient_data/ingredient_data.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
 import 'package:recipath/data/recipe_step_data/recipe_step_data.dart';
@@ -43,7 +44,7 @@ class RecipeRepoDrift extends TagFilteredRepo<RecipeData> {
     return query;
   }
 
-  Map<String, RecipeData> mapResult(List<TypedResult> rows) {
+  IMap<String, RecipeData> mapResult(List<TypedResult> rows) {
     final Map<String, RecipeData> recipesById = {};
 
     for (final row in rows) {
@@ -60,7 +61,7 @@ class RecipeRepoDrift extends TagFilteredRepo<RecipeData> {
         if (recipe.steps.lastOrNull?.id != stepRow.id) {
           recipeStep = RecipeStepData.fromTable(stepRow);
           recipesById[recipe.id] = recipesById[recipe.id]!.copyWith(
-            steps: [...recipesById[recipe.id]!.steps, recipeStep],
+            steps: [...recipesById[recipe.id]!.steps, recipeStep].lock,
           );
         } else {
           recipeStep = recipe.steps.last;
@@ -70,22 +71,21 @@ class RecipeRepoDrift extends TagFilteredRepo<RecipeData> {
 
         if (ingredientRow != null) {
           recipesById[recipe.id] = recipesById[recipe.id]!.copyWith(
-            steps: List.from(recipesById[recipe.id]!.steps)
-              ..removeLast()
-              ..add(
-                recipeStep.copyWith(
-                  ingredients: [
-                    ...recipeStep.ingredients,
-                    IngredientData.fromTableData(ingredientRow),
-                  ],
-                ),
+            steps: recipesById[recipe.id]!.steps.replace(
+              recipesById[recipe.id]!.steps.length - 1,
+              recipeStep.copyWith(
+                ingredients: [
+                  ...recipeStep.ingredients,
+                  IngredientData.fromTableData(ingredientRow),
+                ].lock,
               ),
+            ),
           );
         }
       }
     }
 
-    return recipesById;
+    return recipesById.lock;
   }
 
   @override
@@ -105,18 +105,18 @@ class RecipeRepoDrift extends TagFilteredRepo<RecipeData> {
   }
 
   @override
-  Future<Map<String, RecipeData>> get() async {
+  Future<IMap<String, RecipeData>> get() async {
     final rows = await baseQuery.get();
     return mapResult(rows);
   }
 
   @override
-  Stream<Map<String, RecipeData>> stream() {
+  Stream<IMap<String, RecipeData>> stream() {
     return baseQuery.watch().map(mapResult);
   }
 
   @override
-  Stream<Map<String, RecipeData>> streamFiltered(Set<String> tagDataFilters) {
+  Stream<IMap<String, RecipeData>> streamFiltered(Set<String> tagDataFilters) {
     final query = baseQuery;
 
     query.where(table.archived.equals(false));

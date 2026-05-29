@@ -1,4 +1,5 @@
 import 'package:drift/drift.dart';
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:recipath/data/ingredient_data/ingredient_data.dart';
 import 'package:recipath/data/storage_data/storage_data.dart';
 import 'package:recipath/drift/database.dart';
@@ -26,7 +27,7 @@ class StorageRepoDrift extends LocalRepo<StorageData> {
     return query;
   }
 
-  Map<String, StorageData> mapResult(List<TypedResult> rows) {
+  IMap<String, StorageData> mapResult(List<TypedResult> rows) {
     final Map<String, StorageData> storageById = {};
 
     for (final row in rows) {
@@ -40,7 +41,7 @@ class StorageRepoDrift extends LocalRepo<StorageData> {
         ingredient,
       );
     }
-    return storageById;
+    return storageById.lock;
   }
 
   @override
@@ -60,13 +61,13 @@ class StorageRepoDrift extends LocalRepo<StorageData> {
   }
 
   @override
-  Future<Map<String, StorageData>> get() async {
+  Future<IMap<String, StorageData>> get() async {
     final rows = await baseQuery.get();
     return mapResult(rows);
   }
 
   @override
-  Stream<Map<String, StorageData>> stream() {
+  Stream<IMap<String, StorageData>> stream() {
     return baseQuery.watch().map(mapResult);
   }
 

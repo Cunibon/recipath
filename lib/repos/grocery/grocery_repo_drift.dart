@@ -1,4 +1,5 @@
 import 'package:drift/drift.dart';
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/drift/database.dart';
 import 'package:recipath/repos/abstract/tag_filtered_repo.dart';
@@ -37,15 +38,15 @@ class GroceryRepoDrift extends TagFilteredRepo<GroceryData> {
   }
 
   @override
-  Future<Map<String, GroceryData>> get() async {
+  Future<IMap<String, GroceryData>> get() async {
     final rows = await baseQuery.get();
-    return {for (final row in rows) row.id: GroceryData.fromTableData(row)};
+    return {for (final row in rows) row.id: GroceryData.fromTableData(row)}.lock;
   }
 
   @override
-  Stream<Map<String, GroceryData>> stream() {
+  Stream<IMap<String, GroceryData>> stream() {
     return baseQuery.watch().map((rows) {
-      return {for (final row in rows) row.id: GroceryData.fromTableData(row)};
+      return {for (final row in rows) row.id: GroceryData.fromTableData(row)}.lock;
     });
   }
 
@@ -65,7 +66,7 @@ class GroceryRepoDrift extends TagFilteredRepo<GroceryData> {
   }
 
   @override
-  Stream<Map<String, GroceryData>> streamFiltered(Set<String> tagDataFilters) {
+  Stream<IMap<String, GroceryData>> streamFiltered(Set<String> tagDataFilters) {
     final query = baseQuery;
 
     query.where((tbl) => tbl.archived.equals(false));
@@ -86,9 +87,7 @@ class GroceryRepoDrift extends TagFilteredRepo<GroceryData> {
     }
 
     return query.watch().map(
-      (event) => {
-        for (final row in event) row.id: GroceryData.fromTableData(row),
-      },
+      (event) => {for (final row in event) row.id: GroceryData.fromTableData(row)}.lock,
     );
   }
 }
