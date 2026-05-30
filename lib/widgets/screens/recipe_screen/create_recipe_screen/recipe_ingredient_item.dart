@@ -70,12 +70,11 @@ class _IngredientItemState extends ConsumerState<RecipeIngredientItem> {
         ),
         Flexible(
           flex: 3,
-          child: ExpressionInputField(
-            evaluator: RealEvaluator(),
+          child: FocusInputField(
             controller: amountController,
             selectOnEnter: true,
             decoration: InputDecoration(labelText: localization.amount),
-            keyboardType: TextInputType.visiblePassword,
+            keyboardType: TextInputType.numberWithOptions(decimal: true),
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return localization.addAmount;

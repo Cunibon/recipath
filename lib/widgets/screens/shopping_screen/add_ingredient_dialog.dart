@@ -141,13 +141,14 @@ class _AddIngredientDialogState extends ConsumerState<AddIngredientDialog> {
                       children: [
                         SizedBox(
                           width: 100,
-                          child: ExpressionInputField(
-                            evaluator: RealEvaluator(),
+                          child: FocusInputField(
                             controller: amountController,
                             decoration: InputDecoration(
                               labelText: localization.amount,
                             ),
-                            keyboardType: TextInputType.visiblePassword,
+                            keyboardType: TextInputType.numberWithOptions(
+                              decimal: true,
+                            ),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return localization.addAmount;
