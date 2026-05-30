@@ -4,9 +4,9 @@ import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/ingredient_data/ingredient_data.dart';
 import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/l10n/app_localizations.dart';
-import 'package:recipath/widgets/generic/focus_form_field.dart';
 import 'package:recipath/widgets/providers/double_number_format_notifier.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
+import 'package:smart_input_fields/smart_input_fields.dart';
 
 class RecipeIngredientItem extends ConsumerStatefulWidget {
   const RecipeIngredientItem({
@@ -70,17 +70,25 @@ class _IngredientItemState extends ConsumerState<RecipeIngredientItem> {
         ),
         Flexible(
           flex: 3,
-          child: FocusFormField(
+          child: ExpressionInputField(
+            evaluator: RealEvaluator(),
             controller: amountController,
             selectOnEnter: true,
             decoration: InputDecoration(labelText: localization.amount),
-            keyboardType: TextInputType.numberWithOptions(decimal: true),
-            validator: (value) =>
-                value == null ||
-                    value.isEmpty ||
-                    doubleNumberFormat.tryParse(value) == 0
-                ? localization.addAmount
-                : null,
+            keyboardType: TextInputType.visiblePassword,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return localization.addAmount;
+              }
+
+              final newValue = doubleNumberFormat.tryParse(value);
+
+              if (newValue == 0 || newValue == null) {
+                return localization.addAmount;
+              }
+
+              return null;
+            },
             onFocusLost: (value) {
               final parsed = doubleNumberFormat.tryParse(value);
 

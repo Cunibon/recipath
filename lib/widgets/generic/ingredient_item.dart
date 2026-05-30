@@ -3,10 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/data/ingredient_data/ingredient_data.dart';
 import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/l10n/app_localizations.dart';
-import 'package:recipath/widgets/generic/focus_form_field.dart';
 import 'package:recipath/widgets/generic/highlight_search/highlightable_text.dart';
 import 'package:recipath/widgets/providers/double_number_format_notifier.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
+import 'package:smart_input_fields/smart_input_fields.dart';
 
 class IngredientItem extends ConsumerWidget {
   const IngredientItem({
@@ -42,7 +42,7 @@ class IngredientItem extends ConsumerWidget {
           children: [
             SizedBox(
               width: 100,
-              child: FocusFormField(
+              child: FocusInputField(
                 selectOnEnter: true,
                 initialValue: doubleNumberFormat.format(data.amount),
                 decoration: InputDecoration(labelText: localization.amount),

@@ -1835,6 +1835,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  smart_input_fields:
+    dependency: "direct main"
+    description:
+      name: smart_input_fields
+      sha256: f33fb3060162b9d348f63f51f2949076d3ba5216d9b52f7bf8eb3b2b13bd4f28
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.3"
   source_gen:
     dependency: transitive
     description:
@@ -2260,5 +2268,5 @@ packages:
     source: hosted
     version: "2.1.0"
 sdks:
-  dart: ">=3.11.0 <4.0.0"
+  dart: ">=3.12.0 <4.0.0"
   flutter: ">=3.38.4"

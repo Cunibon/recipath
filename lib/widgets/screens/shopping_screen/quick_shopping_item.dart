@@ -4,7 +4,7 @@ import 'package:recipath/application/quick_shopping_modifier/quick_shopping_modi
 import 'package:recipath/data/quick_shopping_data/quick_shopping_data.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/generic/dialogs/delete_confirmation_dialog.dart';
-import 'package:recipath/widgets/generic/focus_form_field.dart';
+import 'package:smart_input_fields/smart_input_fields.dart';
 
 class QuickShoppingItem extends ConsumerWidget {
   const QuickShoppingItem({required this.data, super.key});
@@ -38,7 +38,7 @@ class QuickShoppingItem extends ConsumerWidget {
                 ),
               ),
               Expanded(
-                child: FocusFormField(
+                child: FocusInputField(
                   key: Key(data.id),
                   textCapitalization: .sentences,
                   initialValue: data.description,
