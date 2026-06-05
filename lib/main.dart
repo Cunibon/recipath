@@ -18,6 +18,7 @@ import 'package:recipath/common.dart';
 import 'package:recipath/domain_service/syncing_service/syncing_service/syncing_service_notifier.dart';
 import 'package:recipath/drift/database.dart';
 import 'package:recipath/drift/database_notifier.dart';
+import 'package:recipath/helper/sentry_provider_observer.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/providers/application_path_provider.dart';
 import 'package:recipath/root_routes.dart';
@@ -73,6 +74,7 @@ void main() async {
       databaseProvider.overrideWith((ref) => db),
       applicationPathProvider.overrideWith((ref) => applicationPath),
     ],
+    observers: [SentryProviderObserver()],
     child: SentryWidget(child: MyApp(router: goRouter)),
   );
 
