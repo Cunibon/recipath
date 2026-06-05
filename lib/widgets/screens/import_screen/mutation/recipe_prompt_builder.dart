@@ -94,6 +94,12 @@ STEP SPLITTING:
 - GOOD: Step 1: "Cut the onions and garlic." → Step 2: "Heat butter in a pan and saute the onions and garlic for 3 minutes." → Step 3: "Add the bacon and cook until golden brown."
 - When splitting, repeat ingredient context so each step makes sense on its own.
 
+STEP DESCRIPTIONS:
+- Do NOT include units or amounts in the step description text. Each step already has its ingredients linked with their amounts, so repeating them is redundant and breaks when servings are adjusted.
+- BAD: "Add 200g of flour and 100ml of milk to the bowl."
+- GOOD: "Add the flour and milk to the bowl."
+- Refer to ingredients by name only, without quantities or units.
+
 TIMERS:
 - Convert all durations to minutes (e.g. 1.5 hours → 90).
 - Only set "minutes" for longer passive/unattended steps where the cook might walk away and needs a reminder (e.g. simmering, baking, resting, marinating).
