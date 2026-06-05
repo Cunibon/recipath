@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gal/gal.dart';
 import 'package:go_router/go_router.dart';
+import 'package:recipath/l10n/app_localizations.dart';
+import 'package:recipath/widgets/screens/recipe_screen/local_image.dart';
+import 'package:recipath/widgets/screens/recipe_screen/providers/local_file_notifier.dart';
 
-class ImageViewer extends StatelessWidget {
-  const ImageViewer({required this.child, super.key});
+class ImageViewer extends ConsumerWidget {
+  const ImageViewer({required this.fileName, super.key});
 
-  final Widget child;
+  final String fileName;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final localization = AppLocalizations.of(context)!;
+    final child = LocalImage(fileName: fileName);
+
     return GestureDetector(
       onTap: () => showDialog(
         context: context,
@@ -24,13 +32,54 @@ class ImageViewer extends StatelessWidget {
               Align(
                 alignment: .topRight,
                 child: SafeArea(
-                  child: IconButton(
-                    icon: const Icon(
-                      Icons.close,
-                      color: Colors.white,
-                      size: 30,
-                    ),
-                    onPressed: () => context.pop(),
+                  child: Row(
+                    mainAxisSize: .min,
+                    children: [
+                      IconButton(
+                        icon: const Icon(
+                          Icons.download,
+                          color: Colors.white,
+                          size: 30,
+                        ),
+                        onPressed: () async {
+                          final file = ref.read(localFileProvider(fileName));
+
+                          try {
+                            await Gal.putImageBytes(
+                              await file.readAsBytes(),
+                              name: "$fileName.jpg",
+                            );
+
+                            if (context.mounted) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(localization.imageSaved),
+                                ),
+                              );
+                            }
+                          } catch (e) {
+                            if (context.mounted) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    localization.somethingWentWrong,
+                                  ),
+                                ),
+                              );
+                            }
+                            rethrow;
+                          }
+                        },
+                      ),
+                      IconButton(
+                        icon: const Icon(
+                          Icons.close,
+                          color: Colors.white,
+                          size: 30,
+                        ),
+                        onPressed: () => context.pop(),
+                      ),
+                    ],
                   ),
                 ),
               ),

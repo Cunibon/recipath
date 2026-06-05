@@ -542,6 +542,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get importImage => 'Import from image';
 
   @override
+  String get imageSaved => 'Image saved';
+
+  @override
   String get importUrl => 'Import from Url';
 
   @override

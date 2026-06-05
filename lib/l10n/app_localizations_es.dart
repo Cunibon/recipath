@@ -551,6 +551,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get importImage => 'Importar desde imagen';
 
   @override
+  String get imageSaved => 'Image saved';
+
+  @override
   String get importUrl => 'Importar desde URL';
 
   @override

@@ -1116,6 +1116,12 @@ abstract class AppLocalizations {
   /// **'Import from image'**
   String get importImage;
 
+  /// No description provided for @imageSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Image saved'**
+  String get imageSaved;
+
   /// No description provided for @importUrl.
   ///
   /// In en, this message translates to:

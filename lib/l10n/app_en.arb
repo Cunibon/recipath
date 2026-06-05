@@ -230,6 +230,7 @@
     "createATokenHere": "You can create a token here!",
     "importFile": "Import from file",
     "importImage": "Import from image",
+    "imageSaved": "Image saved",
     "importUrl": "Import from Url",
     "addAiUrlDescription": "Add Url you want to try to import",
     "enterValidUrl": "Please enter a valid Url",
