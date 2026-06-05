@@ -550,7 +550,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get importImage => 'Aus Bild importieren';
 
   @override
-  String get imageSaved => 'Image saved';
+  String get imageSaved => 'Bild gespeichert';
 
   @override
   String get importUrl => 'Aus URL importieren';

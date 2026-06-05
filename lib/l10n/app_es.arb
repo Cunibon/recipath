@@ -169,6 +169,7 @@
     "createATokenHere": "¡Puedes crear un token aquí!",
     "importFile": "Importar desde archivo",
     "importImage": "Importar desde imagen",
+    "imageSaved": "Imagen guardada",
     "importUrl": "Importar desde URL",
     "addAiUrlDescription": "Agrega la URL que quieres intentar importar",
     "enterValidUrl": "Por favor ingrese una URL válida",
