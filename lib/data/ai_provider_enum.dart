@@ -31,10 +31,14 @@ enum AiProviderEnum {
     handshakeOptions: ChatMistralAIOptions(maxTokens: 1),
   ),
 
+  // kimi-k2.6 supports disabling thinking mode via thinking: {type: "disabled"},
+  // which resolves the prior structured output issue. However, the `thinking`
+  // parameter isn't supported by openai_dart yet, so forced tool_choice may
+  // still fail while thinking is enabled. Re-enable once langchain supports it.
   // @JsonValue("Moonshot")
   // moonshot(
   //   displayName: 'Moonshot Kimi',
-  //   defaultModel: 'kimi-k2.5',
+  //   defaultModel: 'kimi-k2.6',
   //   tokenUrl: 'https://platform.moonshot.ai/console/api-keys',
   //   handshakeOptions: ChatOpenAIOptions(maxTokens: 1),
   // ),
@@ -42,7 +46,7 @@ enum AiProviderEnum {
   @JsonValue("DeepSeek")
   deepSeek(
     displayName: 'DeepSeek',
-    defaultModel: 'deepseek-chat',
+    defaultModel: 'deepseek-v4-flash',
     tokenUrl: 'https://platform.deepseek.com/api_keys',
     handshakeOptions: ChatOpenAIOptions(maxTokens: 1),
     multimodal: false,
@@ -51,7 +55,7 @@ enum AiProviderEnum {
   @JsonValue("OpenAi")
   openAi(
     displayName: 'OpenAI',
-    defaultModel: 'gpt-4.1-mini',
+    defaultModel: 'gpt-5.4-mini',
     tokenUrl: 'https://platform.openai.com/api-keys',
     handshakeOptions: ChatOpenAIOptions(maxTokens: 1),
   );
