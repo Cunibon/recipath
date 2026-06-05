@@ -88,6 +88,13 @@ UNIT CONVERSIONS:
   - 1 Cup Sugar ≈ 200g
   - 1 Cup Water/Milk ≈ 240g
 
+INGREDIENT DEDUPLICATION (critical):
+- Each ingredient should appear in ONLY ONE step's ingredients array — the step where it is first added or prepared.
+- NEVER list the same ingredient with its full amount in multiple steps. This causes incorrect totals (e.g. 800g chicken in two steps = 160g total, which is wrong).
+- If an ingredient is mentioned in a later step but was already added earlier, do NOT include it again. The step description can still refer to it by name, but it must not appear in that step's ingredients array.
+- Example: If a recipe uses 800g chicken breast — Step 1 "Cut the chicken breast into pieces" includes 800g chicken in its ingredients. Step 2 "Marinate the chicken with garlic, ginger, and yogurt" does NOT include chicken in its ingredients (it was already added in Step 1). Only new ingredients like garlic, ginger, and yogurt belong to Step 2.
+- Exception: If a recipe genuinely uses separate portions of the same ingredient at different stages (e.g. 200g flour for batter + 50g flour for dusting), list each portion in its respective step. The amounts across all steps must sum to the correct total for that ingredient.
+
 STEP SPLITTING:
 - Each step should focus on a single coherent task — do not chain unrelated actions together.
 - BAD: "Cut the onions and garlic, heat butter in a pan and saute them for 3 minutes, then add the bacon."
