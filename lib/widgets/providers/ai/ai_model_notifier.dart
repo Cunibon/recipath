@@ -41,13 +41,13 @@ BaseChatModel? aiModelNotifier(Ref ref, AiProviderData? provider) {
         defaultOptions: ChatMistralAIOptions(model: enumValue.defaultModel),
       );
 
-    case AiProviderEnum.deepSeek:
-      return ChatOpenAI(
-        apiKey: token,
-        baseUrl: 'https://api.deepseek.com/beta',
-        defaultOptions: ChatOpenAIOptions(model: enumValue.defaultModel),
-        client: ThinkingDisabledClient(),
-      );
+    // case AiProviderEnum.deepSeek:
+    //   return ChatOpenAI(
+    //     apiKey: token,
+    //     baseUrl: 'https://api.deepseek.com/beta',
+    //     defaultOptions: ChatOpenAIOptions(model: enumValue.defaultModel),
+    //     client: ThinkingDisabledClient(),
+    //   );
 
     case AiProviderEnum.moonshot:
       return ChatOpenAI(

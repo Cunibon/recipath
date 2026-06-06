@@ -39,14 +39,15 @@ enum AiProviderEnum {
     handshakeOptions: ChatOpenAIOptions(maxTokens: 1),
   ),
 
-  @JsonValue("DeepSeek")
-  deepSeek(
-    displayName: 'DeepSeek',
-    defaultModel: 'deepseek-v4-flash',
-    tokenUrl: 'https://platform.deepseek.com/api_keys',
-    handshakeOptions: ChatOpenAIOptions(maxTokens: 1),
-    multimodal: false,
-  ),
+  // Tools dont return values after V4 release
+  // @JsonValue("DeepSeek")
+  // deepSeek(
+  //   displayName: 'DeepSeek',
+  //   defaultModel: 'deepseek-v4-flash',
+  //   tokenUrl: 'https://platform.deepseek.com/api_keys',
+  //   handshakeOptions: ChatOpenAIOptions(maxTokens: 1),
+  //   multimodal: false,
+  // ),
 
   @JsonValue("OpenAi")
   openAi(
@@ -67,6 +68,7 @@ enum AiProviderEnum {
     required this.defaultModel,
     required this.tokenUrl,
     required this.handshakeOptions,
+    // ignore: unused_element_parameter
     this.multimodal = true,
   });
 }
