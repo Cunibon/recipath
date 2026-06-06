@@ -19,17 +19,15 @@ abstract class AiImportMutation {
 
     final ChatResult result;
     try {
-      result = await model.invoke({
-        'input': [
-          ChatMessageContent.text(
-            "Extract the recipe from this image, including all ingredients and steps.",
-          ),
-          ChatMessageContent.image(
-            data: base64Encode(image),
-            mimeType: 'image/jpeg',
-          ),
-        ],
-      });
+      result = await model.invoke([
+        ChatMessageContent.text(
+          "Extract the recipe from this image, including all ingredients and steps.",
+        ),
+        ChatMessageContent.image(
+          data: base64Encode(image),
+          mimeType: 'image/jpeg',
+        ),
+      ]);
     } catch (e) {
       throw AiImportException.classify(e);
     }
@@ -57,13 +55,11 @@ abstract class AiImportMutation {
 
     final ChatResult result;
     try {
-      result = await model.invoke({
-        'input': [
-          ChatMessageContent.text(
-            "Extract the recipe from the following content:\n\n$recipeContent",
-          ),
-        ],
-      });
+      result = await model.invoke([
+        ChatMessageContent.text(
+          "Extract the recipe from the following content:\n\n$recipeContent",
+        ),
+      ]);
     } catch (e) {
       throw AiImportException.classify(e);
     }

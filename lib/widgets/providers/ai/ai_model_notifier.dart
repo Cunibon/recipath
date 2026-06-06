@@ -44,8 +44,9 @@ BaseChatModel? aiModelNotifier(Ref ref, AiProviderData? provider) {
     case AiProviderEnum.deepSeek:
       return ChatOpenAI(
         apiKey: token,
-        baseUrl: 'https://api.deepseek.com',
+        baseUrl: 'https://api.deepseek.com/beta',
         defaultOptions: ChatOpenAIOptions(model: enumValue.defaultModel),
+        client: ThinkingDisabledClient(),
       );
 
     case AiProviderEnum.moonshot:

@@ -42,7 +42,7 @@ enum AiProviderEnum {
   @JsonValue("DeepSeek")
   deepSeek(
     displayName: 'DeepSeek',
-    defaultModel: 'deepseek-chat',
+    defaultModel: 'deepseek-v4-flash',
     tokenUrl: 'https://platform.deepseek.com/api_keys',
     handshakeOptions: ChatOpenAIOptions(maxTokens: 1),
     multimodal: false,

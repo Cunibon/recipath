@@ -12,7 +12,9 @@ import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifi
 import 'package:recipath/widgets/screens/tag_screen/providers/typed_tag_notifier.dart';
 
 abstract class RecipePromptBuilder {
-  static Future<Runnable<Map<String, dynamic>, RunnableOptions, ChatResult>?>
+  static Future<
+    Runnable<List<ChatMessageContent>, RunnableOptions, ChatResult>?
+  >
   build(MutationTransaction tsx) async {
     final aiProvider = await tsx.get(aiProviderProvider.future);
     if (aiProvider == null) return null;
@@ -128,14 +130,11 @@ TIMERS:
       ),
     );
 
-    return Runnable.fromFunction<Map<String, dynamic>, ChatResult>(
+    return Runnable.fromFunction<List<ChatMessageContent>, ChatResult>(
       invoke: (input, options) async {
-        final inputContent = input['input'] as List<ChatMessageContent>;
         final messages = [
           SystemChatMessage(content: systemPrompt),
-          HumanChatMessage(
-            content: ChatMessageContent.multiModal(inputContent),
-          ),
+          HumanChatMessage(content: ChatMessageContent.multiModal(input)),
         ];
         return await toolModel.invoke(PromptValue.chat(messages));
       },
