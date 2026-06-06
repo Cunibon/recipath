@@ -5,6 +5,7 @@ import 'package:langchain_mistralai/langchain_mistralai.dart';
 import 'package:langchain_openai/langchain_openai.dart';
 import 'package:recipath/data/ai_provider/ai_provider_data.dart';
 import 'package:recipath/data/ai_provider_enum.dart';
+import 'package:recipath/data/thinking_disabled_client.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'ai_model_notifier.g.dart';
@@ -40,18 +41,19 @@ BaseChatModel? aiModelNotifier(Ref ref, AiProviderData? provider) {
         defaultOptions: ChatMistralAIOptions(model: enumValue.defaultModel),
       );
 
-    // case AiProviderEnum.moonshot:
-    //   return ChatOpenAI(
-    //     apiKey: token,
-    //     baseUrl: 'https://api.moonshot.ai/v1',
-    //     defaultOptions: ChatOpenAIOptions(model: enumValue.defaultModel),
-    //   );
-
     case AiProviderEnum.deepSeek:
       return ChatOpenAI(
         apiKey: token,
         baseUrl: 'https://api.deepseek.com',
         defaultOptions: ChatOpenAIOptions(model: enumValue.defaultModel),
+      );
+
+    case AiProviderEnum.moonshot:
+      return ChatOpenAI(
+        apiKey: token,
+        baseUrl: 'https://api.moonshot.ai/v1',
+        defaultOptions: ChatOpenAIOptions(model: enumValue.defaultModel),
+        client: ThinkingDisabledClient(),
       );
 
     case AiProviderEnum.openAi:
