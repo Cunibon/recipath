@@ -58,7 +58,7 @@ final class TagFilterNotifierProvider
   }
 }
 
-String _$tagFilterNotifierHash() => r'4432a99793365563af899e9b30482147c1febcba';
+String _$tagFilterNotifierHash() => r'a124cfeb767c7e05cc37ca70bc24d7a416bee6a5';
 
 final class TagFilterNotifierFamily extends $Family
     with

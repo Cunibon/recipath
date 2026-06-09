@@ -12,11 +12,11 @@ part 'tag_filter_notifier.g.dart';
 class TagFilterNotifier extends _$TagFilterNotifier {
   static const tagFilterDataKey = "tagFilterDataKey";
 
-  String get dataKey => "${tagFilterDataKey}_${filterType.name}";
+  String get _dataKey => "${tagFilterDataKey}_${filterType.name}";
 
   @override
   Set<String> build(TagTypeEnum filterType) {
-    final data = localStorage.get<List<dynamic>>(dataKey) ?? [];
+    final data = localStorage.get<List<dynamic>>(_dataKey) ?? [];
 
     return data.cast<String>().toSet();
   }
@@ -38,12 +38,12 @@ class TagFilterNotifier extends _$TagFilterNotifier {
   }
 
   void _saveState() {
-    localStorage.setItem(dataKey, jsonEncode(state.toList()));
+    localStorage.setItem(_dataKey, jsonEncode(state.toList()));
     ref.invalidateSelf();
   }
 
   void clear() {
-    localStorage.removeItem(dataKey);
+    localStorage.removeItem(_dataKey);
     ref.invalidateSelf();
   }
 }

@@ -21,7 +21,7 @@ final class RecipeStepIngredientNotifierProvider
         argument: null,
         retry: null,
         name: r'recipeStepIngredientProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -49,4 +49,4 @@ final class RecipeStepIngredientNotifierProvider
 }
 
 String _$recipeStepIngredientNotifierHash() =>
-    r'11b73f8401d49b249d7ca2f35e60fe8949f7d950';
+    r'407e7ece6049e3db053c994e7258ce984186d0aa';

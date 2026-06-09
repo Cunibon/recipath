@@ -27,7 +27,7 @@ class ShareRecipeButton extends ConsumerWidget {
           await notifier.export();
           notifier.clear();
         } else if (shareType == ShareType.pdf) {
-          await PdfMutation.runPdfExport(ref, recipe);
+          await pdfMutation.run(ref, recipe);
         }
       },
       icon: Icon(Icons.share),

@@ -70,7 +70,7 @@ final class QuickFilterNotifierProvider
 }
 
 String _$quickFilterNotifierHash() =>
-    r'cd57bd8cc242b2cf54a0962c2cfc0b298811bc5e';
+    r'cb3258cb9f7d1ea91d7ef0d9e9d0d5f7f2ca8836';
 
 final class QuickFilterNotifierFamily extends $Family
     with

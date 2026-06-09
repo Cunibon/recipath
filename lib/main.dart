@@ -1,6 +1,7 @@
-// ignore_for_file: scoped_providers_should_specify_dependencies
 // Copyright (c) 2025 Michael Neufeld
 // Licensed under the MIT License. See LICENSE file in the project root for details.
+
+// ignore_for_file: riverpod_lint/scoped_providers_should_specify_dependencies
 
 import 'dart:async';
 

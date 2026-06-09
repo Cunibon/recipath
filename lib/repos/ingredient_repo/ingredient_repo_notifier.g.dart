@@ -21,7 +21,7 @@ final class IngredientRepoNotifierProvider
         argument: null,
         retry: null,
         name: r'ingredientRepoProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -49,4 +49,4 @@ final class IngredientRepoNotifierProvider
 }
 
 String _$ingredientRepoNotifierHash() =>
-    r'8034a4e66691cb192f34ea5b98f9e362312181b8';
+    r'88f3105c4737b0c8bc3f4719073fdcad50ecf963';

@@ -26,7 +26,7 @@ class _AiUrlDialogState extends ConsumerState<AiUrlDialog> {
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context)!;
 
-    final import = ref.watch(AiImportMutation.mutation);
+    final import = ref.watch(aiUrlImportMutation);
 
     return AlertDialog(
       title: Text(localization.addAiUrlDescription),
@@ -79,7 +79,7 @@ class _AiUrlDialogState extends ConsumerState<AiUrlDialog> {
               : Text(localization.actionContinue),
           onPressed: () async {
             if (formKey.currentState?.validate() == true) {
-              final result = await AiImportMutation.runUrlImport(
+              final result = await aiUrlImportMutation.run(
                 ref,
                 urlController.text,
               );

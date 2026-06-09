@@ -28,7 +28,7 @@ class ImportScreen extends ConsumerWidget {
     final localization = AppLocalizations.of(context)!;
 
     final aiProvider = ref.watch(aiProviderProvider).value;
-    final import = ref.watch(AiImportMutation.mutation);
+    final import = ref.watch(aiImageImportMutation);
 
     return NavigationDrawerScaffold(
       titleBuilder: (title) => DefaultNavigationTitle(title: title),
@@ -90,11 +90,10 @@ class ImportScreen extends ConsumerWidget {
                                   bytes,
                                 );
 
-                            final result =
-                                await AiImportMutation.runImageImport(
-                                  ref,
-                                  compressed,
-                                );
+                            final result = await aiImageImportMutation.run(
+                              ref,
+                              compressed,
+                            );
 
                             if (result != null) {
                               final newFileName = randomAlphaNumeric(16);

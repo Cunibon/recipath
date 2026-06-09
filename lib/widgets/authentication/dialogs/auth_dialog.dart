@@ -34,7 +34,7 @@ class _AuthDialogState extends ConsumerState<AuthDialog> {
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context)!;
 
-    final authStatus = ref.watch(authMutation.mutation);
+    final authStatus = ref.watch(authMutation);
 
     Widget? errorWidget;
 

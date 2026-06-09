@@ -21,7 +21,7 @@ final class RecipeStepRepoNotifierProvider
         argument: null,
         retry: null,
         name: r'recipeStepRepoProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -49,4 +49,4 @@ final class RecipeStepRepoNotifierProvider
 }
 
 String _$recipeStepRepoNotifierHash() =>
-    r'482839f2397dbf6e67647665b4b8d48f29dd6086';
+    r'9c68c90ad85b921ef9f1687964719168633cc3a8';

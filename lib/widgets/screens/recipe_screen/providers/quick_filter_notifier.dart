@@ -13,11 +13,11 @@ part 'quick_filter_notifier.g.dart';
 class QuickFilterNotifier extends _$QuickFilterNotifier {
   static const quickFilterDataKey = "quickFilterDataKey_v2";
 
-  String get dataKey => "${quickFilterDataKey}_${filterType.name}";
+  String get _dataKey => "${quickFilterDataKey}_${filterType.name}";
 
   @override
   Map<QuickFilters, bool> build(TagTypeEnum filterType) {
-    final data = localStorage.get<Map<String, dynamic>>(dataKey) ?? {};
+    final data = localStorage.get<Map<String, dynamic>>(_dataKey) ?? {};
 
     return data.map(
       (key, value) => MapEntry(
@@ -31,7 +31,7 @@ class QuickFilterNotifier extends _$QuickFilterNotifier {
     state[filter] = value;
 
     localStorage.setItem(
-      dataKey,
+      _dataKey,
       jsonEncode(
         state.map((key, value) => MapEntry(_$QuickFiltersEnumMap[key], value)),
       ),
@@ -40,7 +40,7 @@ class QuickFilterNotifier extends _$QuickFilterNotifier {
   }
 
   void clear() {
-    localStorage.removeItem(dataKey);
+    localStorage.removeItem(_dataKey);
     ref.invalidateSelf();
   }
 }

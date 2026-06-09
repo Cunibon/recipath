@@ -1,5 +1,5 @@
+import 'package:bound_mutation/bound_mutation.dart';
 import 'package:recipath/domain_service/syncing_service/syncing_service/syncing_service_notifier.dart';
-import 'package:recipath/helper/bound_mutation.dart';
 import 'package:recipath/widgets/providers/revenue_cat/revenue_customer_notifier.dart';
 import 'package:recipath/widgets/providers/supabase/supabase_client_notifier.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';

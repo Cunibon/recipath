@@ -5,7 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'recipe_step_repo_notifier.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 Repo recipeStepRepoNotifier(Ref ref) {
   final db = ref.watch(databaseProvider);
   return RecipeStepRepoDrift(db);

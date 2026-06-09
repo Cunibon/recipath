@@ -5,7 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'ingredient_repo_notifier.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 Repo ingredientRepoNotifier(Ref ref) {
   final db = ref.watch(databaseProvider);
   return IngredientRepoDrift(db);
