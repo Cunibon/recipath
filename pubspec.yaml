@@ -40,12 +40,12 @@ dependencies:
   logger: ^2.6.1
   flutter_image_compress: ^2.4.0
   dynamic_color: ^1.8.1
-  purchases_flutter: ^10.0.2
+  purchases_flutter: ^10.4.1
   flutter_localizations:
     sdk: flutter
   flutter_launcher_icons: ^0.14.4
   package_info_plus: ^9.0.0
-  purchases_ui_flutter: ^10.0.2
+  purchases_ui_flutter: ^10.4.1
   flutter_colorpicker: ^1.1.0
   wakelock_plus: ^1.4.0
   flutter_local_notifications: ^21.0.0
