@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/l10n/app_localizations.dart';
@@ -34,7 +36,7 @@ class SettingsScreen extends ConsumerWidget {
               children: [
                 LocalePicker(),
                 DarkModeToggle(),
-                MaterialYouToggle(),
+                if (Platform.isAndroid) MaterialYouToggle(),
                 StorageToggle(),
               ],
             ),
