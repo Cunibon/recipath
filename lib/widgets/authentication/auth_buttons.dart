@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:purchases_ui_flutter/purchases_ui_flutter.dart';
@@ -54,7 +55,9 @@ class AuthButtons extends ConsumerWidget {
                   final syncingService = ref.read(syncingServiceProvider);
                   final database = ref.read(databaseProvider);
 
-                  await Purchases.logOut();
+                  try {
+                    await Purchases.logOut();
+                  } on PlatformException catch (_) {}
                   await supabaseclient.auth.signOut();
                   await syncingService.reset();
                   await database.clear();

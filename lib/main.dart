@@ -42,11 +42,13 @@ void main() async {
   if (kDebugMode) {
     await Purchases.setLogLevel(LogLevel.debug);
   }
-  await Purchases.configure(PurchasesConfiguration(revenueCatPublicKey));
+  if (revenueCatPublicKey.isNotEmpty) {
+    await Purchases.configure(PurchasesConfiguration(revenueCatPublicKey));
 
-  final currentUser = Supabase.instance.client.auth.currentUser;
-  if (currentUser != null) {
-    await Purchases.logIn(currentUser.id);
+    final currentUser = Supabase.instance.client.auth.currentUser;
+    if (currentUser != null) {
+      await Purchases.logIn(currentUser.id);
+    }
   }
 
   await initNotifications();

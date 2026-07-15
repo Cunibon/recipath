@@ -2,8 +2,13 @@ import 'dart:io';
 
 const supabaseUrl = String.fromEnvironment('SUPABASE_URL');
 const supabaseKey = String.fromEnvironment('SUPABASE_KEY');
-const revenueCatPublicKey = String.fromEnvironment('REVENUECAT_PUBLIC_KEY');
 const sentryUrl = String.fromEnvironment('SENTRY_URL');
+
+const _revenueCatAppleKey = String.fromEnvironment('REVENUECAT_APPLE_KEY');
+const _revenueCatAndroidKey = String.fromEnvironment('REVENUECAT_ANDROID_KEY');
+
+String get revenueCatPublicKey =>
+    Platform.isIOS ? _revenueCatAppleKey : _revenueCatAndroidKey;
 
 const playStoreUrl =
     "https://play.google.com/store/apps/details?id=com.cunibongames.recipath";
