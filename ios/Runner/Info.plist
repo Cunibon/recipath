@@ -89,9 +89,9 @@
 		</dict>
 	</array>
 	<key>LSSupportsOpeningDocumentsInPlace</key>
-	<true/>
+	<false/>
 	<key>FlutterDeepLinkingEnabled</key>
-	<true/>
+	<false/>
 	<key>AppGroupId</key>
 	<string>$(CUSTOM_GROUP_ID)</string>
 	<key>CFBundleURLTypes</key>

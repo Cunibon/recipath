@@ -3,7 +3,9 @@
 // Licensed under the MIT License. See LICENSE file in the project root for details.
 
 import 'dart:async';
+import 'dart:io';
 
+import 'package:app_links/app_links.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -100,13 +102,20 @@ class MyApp extends ConsumerStatefulWidget {
 
 class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
   late StreamSubscription _intentSub;
+  StreamSubscription? _fileOpenSub;
 
-  void goToImport(List<SharedMediaFile> value) {
-    if (value.isNotEmpty && context.mounted) {
+  void goToImportPath(String path) {
+    if (context.mounted) {
       widget.router.go(
         "${RootRoutes.importRoute.path}/${ImportRoutes.recipeImport.path}",
-        extra: value.first.path,
+        extra: path,
       );
+    }
+  }
+
+  void goToImport(List<SharedMediaFile> value) {
+    if (value.isNotEmpty) {
+      goToImportPath(value.first.path);
     }
   }
 
@@ -124,6 +133,24 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
       ReceiveSharingIntent.instance.reset();
     });
 
+    if (Platform.isIOS) {
+      final appLinks = AppLinks();
+      Uri? lastHandled;
+
+      void handleFileUri(Uri uri) {
+        if (uri.isScheme('file') && uri != lastHandled) {
+          lastHandled = uri;
+          goToImportPath(uri.toFilePath());
+        }
+      }
+
+      _fileOpenSub = appLinks.uriLinkStream.listen(handleFileUri);
+
+      appLinks.getInitialLink().then((uri) {
+        if (uri != null) handleFileUri(uri);
+      });
+    }
+
     WidgetsBinding.instance.addObserver(this);
   }
 
@@ -138,6 +165,7 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
   @override
   void dispose() {
     _intentSub.cancel();
+    _fileOpenSub?.cancel();
     super.dispose();
   }
 
