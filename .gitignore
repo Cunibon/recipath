@@ -91,3 +91,5 @@ android/app/build/
 # Firebase configs (not currently used; safety net)
 **/GoogleService-Info.plist
 **/google-services.json
+# Generated store screenshots (flutter test --update-goldens test/screenshots)
+/metadata/

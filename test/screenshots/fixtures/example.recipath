@@ -1,0 +1,1386 @@
+{
+    "recipeData": {
+        "3xiMVfMOXMgTgkY3": {
+            "id": "3xiMVfMOXMgTgkY3",
+            "parent": null,
+            "title": "Chicken teriyaki",
+            "servings": 2,
+            "imageName": "Yn48AEPTKTU757R9",
+            "steps": [
+                {
+                    "id": "3185682228n64052",
+                    "description": "Start cooking rice",
+                    "ingredients": [
+                        {
+                            "id": "534q78Do916qf545",
+                            "amount": 200.0,
+                            "unit": "Gram",
+                            "groceryId": "GvLQBVC6ljl72FHD",
+                            "uploaded": true
+                        }
+                    ],
+                    "minutes": null
+                },
+                {
+                    "id": "xDG059T02877X88p",
+                    "description": "In a small mixing bowl (or liquid measuring cup) whisk together soy sauce, water, honey, brown sugar, rice vinegar, sesame oil, ginger, garlic and cornstarch.",
+                    "ingredients": [
+                        {
+                            "id": "812Ny7IPEH75T04X",
+                            "amount": 40.0,
+                            "unit": "Milliliter",
+                            "groceryId": "jLWkriP76Li6Toco",
+                            "uploaded": true
+                        },
+                        {
+                            "id": "fTntrsWxdCziftsl",
+                            "amount": 75.0,
+                            "unit": "Milliliter",
+                            "groceryId": "L3X13EZROLIX4VJZ",
+                            "uploaded": true
+                        },
+                        {
+                            "id": "9686I6J49085oF23",
+                            "amount": 1.5,
+                            "unit": "Tablespoon",
+                            "groceryId": "EP77z1713615D4O7",
+                            "uploaded": true
+                        },
+                        {
+                            "id": "5oKOYEB8OBQE8KID",
+                            "amount": 2.0,
+                            "unit": "Tablespoon",
+                            "groceryId": "14063K60082XQ888",
+                            "uploaded": true
+                        },
+                        {
+                            "id": "02D54919410J7W4G",
+                            "amount": 1.0,
+                            "unit": "Tablespoon",
+                            "groceryId": "Jkd5251sYexc1mg9",
+                            "uploaded": true
+                        },
+                        {
+                            "id": "XBSPVPgTWA2QGYYE",
+                            "amount": 2.0,
+                            "unit": "Tablespoon",
+                            "groceryId": "391835139988s652",
+                            "uploaded": true
+                        },
+                        {
+                            "id": "02u5Z89960gi3477",
+                            "amount": 0.25,
+                            "unit": "Teaspoon",
+                            "groceryId": "47287962g9141043",
+                            "uploaded": true
+                        },
+                        {
+                            "id": "36745Pq945Vf58xZ",
+                            "amount": 2.0,
+                            "unit": "Clove",
+                            "groceryId": "g191p811P404r944",
+                            "uploaded": true
+                        },
+                        {
+                            "id": "8Fs4042o0i86r63m",
+                            "amount": 0.1,
+                            "unit": "Piece",
+                            "groceryId": "F3XSB6fX0ClGkWd3",
+                            "uploaded": true
+                        },
+                        {
+                            "id": "YP5l0YPFQ1upA577",
+                            "amount": 2.0,
+                            "unit": "Piece",
+                            "groceryId": "0585245674761108",
+                            "uploaded": true
+                        }
+                    ],
+                    "minutes": null
+                },
+                {
+                    "id": "YPC6aK7xej4C3uN5",
+                    "description": "Heat olive oil in a 12-inch non-stick skillet over medium-high heat.",
+                    "ingredients": [
+                        {
+                            "id": "dku0nqBrw8os1Lbj",
+                            "amount": 10.0,
+                            "unit": "Milliliter",
+                            "groceryId": "18633G1BA1517612",
+                            "uploaded": true
+                        }
+                    ],
+                    "minutes": null
+                },
+                {
+                    "id": "ua1t02Tl9nr7r2i8",
+                    "description": "Add in chicken and let brown on bottom.",
+                    "ingredients": [
+                        {
+                            "id": "rUPjtlaBFRoTtCXE",
+                            "amount": 400.0,
+                            "unit": "Gram",
+                            "groceryId": "7m70497d03062300",
+                            "uploaded": true
+                        }
+                    ],
+                    "minutes": null
+                },
+                {
+                    "id": "BJRKLEMT1VCBP3DI",
+                    "description": "Stir the sauce in with the cooked chicken and continue to cook and toss until sauce has thickened, about 30 - 60 seconds longer.",
+                    "ingredients": [],
+                    "minutes": null
+                },
+                {
+                    "id": "E01D19N0U8405R13",
+                    "description": "Serve warm garnished with green onions and sesame seeds if desired.",
+                    "ingredients": [
+                        {
+                            "id": "q8rRq64ac0dVbkJ4",
+                            "amount": 2.0,
+                            "unit": "Piece",
+                            "groceryId": "0585245674761108",
+                            "uploaded": true
+                        }
+                    ],
+                    "minutes": null
+                }
+            ],
+            "archived": false,
+            "uploaded": true
+        },
+        "51181844xn138375": {
+            "id": "51181844xn138375",
+            "parent": null,
+            "title": "Fried bananas",
+            "servings": 20,
+            "imageName": "9B5N6On35WUAZZE1",
+            "steps": [
+                {
+                    "id": "QEYYVU88I37PPC12",
+                    "description": "Put flour, baking powder, salt and sugar into a mixing bowl and combine. Add water and stir into a thick batter (the water can vary by 1-2 tbsp depending on the flour).",
+                    "ingredients": [
+                        {
+                            "id": "Vd1497yJ33VGg381",
+                            "amount": 80.0,
+                            "unit": "Gram",
+                            "groceryId": "3773648786a07325",
+                            "uploaded": true
+                        },
+                        {
+                            "id": "0033985661711140",
+                            "amount": 0.5,
+                            "unit": "Piece",
+                            "groceryId": "8w7vi6o63pNd644s",
+                            "uploaded": true
+                        },
+                        {
+                            "id": "6LB3i030uBfra2fZ",
+                            "amount": 1.0,
+                            "unit": "Gram",
+                            "groceryId": "je66Cea7hZm1h1ui",
+                            "uploaded": true
+                        },
+                        {
+                            "id": "EYYjKEG1BIDDWKJM",
+                            "amount": 1.0,
+                            "unit": "Tablespoon",
+                            "groceryId": "1195uvBI6HLPTSpR",
+                            "uploaded": true
+                        },
+                        {
+                            "id": "U43tc9jp92eMhYle",
+                            "amount": 8.0,
+                            "unit": "Tablespoon",
+                            "groceryId": "L3X13EZROLIX4VJZ",
+                            "uploaded": true
+                        }
+                    ],
+                    "minutes": null
+                },
+                {
+                    "id": "61N6KU24FYhy6r13",
+                    "description": "Cut the bananas into thick slices, dip them piece by piece into the batter and put them straight into a pan or deep fryer with hot oil. Fry for about 2 minutes until golden brown.",
+                    "ingredients": [
+                        {
+                            "id": "e10458D0408U6941",
+                            "amount": 2.0,
+                            "unit": "Piece",
+                            "groceryId": "4941219780l32531",
+                            "uploaded": true
+                        }
+                    ],
+                    "minutes": null
+                },
+                {
+                    "id": "Xy4VQ49R4X93dHx7",
+                    "description": "Let them drain briefly on kitchen paper, then plate, drizzle with honey and enjoy.",
+                    "ingredients": [
+                        {
+                            "id": "1349125761y25386",
+                            "amount": 10.0,
+                            "unit": "Gram",
+                            "groceryId": "391835139988s652",
+                            "uploaded": true
+                        }
+                    ],
+                    "minutes": null
+                }
+            ],
+            "archived": false,
+            "uploaded": true
+        },
+        "G1094418838291j3": {
+            "id": "G1094418838291j3",
+            "parent": "x7b485r4U5d2v4kz",
+            "title": "Cottage Cheese Baked Ziti / Pasta",
+            "servings": 6,
+            "imageName": "N314G46G1SX0WA9X",
+            "steps": [
+                {
+                    "id": "3b2T29w4R3rwdCgG",
+                    "description": "Arrange a rack in upper third of oven; preheat to 210C.\n\nIn a large (at least 30cm), high-sided, ovenproof skillet over medium-high heat, heat oil. ",
+                    "ingredients": [
+                        {
+                            "id": "2541Q255019993B9",
+                            "amount": 2.0,
+                            "unit": "Tablespoon",
+                            "groceryId": "18633G1BA1517612",
+                            "uploaded": true
+                        }
+                    ],
+                    "minutes": null
+                },
+                {
+                    "id": "1yz619Qjcn8v8l12",
+                    "description": "Cook beef, breaking up into large pieces, until browned, 3 to 5 minutes. Stir in red pepper flakes (if using) and cook, stirring, until warmed through, about 1 minute.",
+                    "ingredients": [
+                        {
+                            "id": "eCiov43177L4Y401",
+                            "amount": 500.0,
+                            "unit": "Gram",
+                            "groceryId": "JYH08E6LIMNAQQNE",
+                            "uploaded": true
+                        }
+                    ],
+                    "minutes": null
+                },
+                {
+                    "id": "h6jerxzuspV1cqwq",
+                    "description": "Add marinara; season with 1 tsp. salt. Bring to a simmer and cook, stirring occasionally, until slightly thickened, about 10 minutes.",
+                    "ingredients": [
+                        {
+                            "id": "452O0960X0803Z95",
+                            "amount": 1200.0,
+                            "unit": "Gram",
+                            "groceryId": "ohptfaxdfcFafeon",
+                            "uploaded": true
+                        },
+                        {
+                            "id": "yIseovezbqLasurx",
+                            "amount": 1.0,
+                            "unit": "Teaspoon",
+                            "groceryId": "je66Cea7hZm1h1ui",
+                            "uploaded": true
+                        }
+                    ],
+                    "minutes": 10
+                },
+                {
+                    "id": "z36z1P1f3E703ci1",
+                    "description": "Meanwhile, in a medium bowl, combine cottage cheese, garlic powder, half of Parmesan, and half of parsley, mashing the curds as you stir; season with salt and black pepper.",
+                    "ingredients": [
+                        {
+                            "id": "3x2f971k349k1H7z",
+                            "amount": 200.0,
+                            "unit": "Gram",
+                            "groceryId": "851C847779057837",
+                            "uploaded": true
+                        },
+                        {
+                            "id": "ig1bJbaW4zaC7Z05",
+                            "amount": 30.0,
+                            "unit": "Gram",
+                            "groceryId": "xs9uhpapU4pIr44K",
+                            "uploaded": true
+                        },
+                        {
+                            "id": "323689306r40HNXj",
+                            "amount": 5.0,
+                            "unit": "Gram",
+                            "groceryId": "PGWPFR5VJL3JU71u",
+                            "uploaded": true
+                        },
+                        {
+                            "id": "Wqe4CjJ4oi9362Gm",
+                            "amount": 5.0,
+                            "unit": "Gram",
+                            "groceryId": "je66Cea7hZm1h1ui",
+                            "uploaded": true
+                        },
+                        {
+                            "id": "O0R94D1Q9X2LJvB4",
+                            "amount": 5.0,
+                            "unit": "Gram",
+                            "groceryId": "mVHGC0t7IQdZ2R0L",
+                            "uploaded": true
+                        }
+                    ],
+                    "minutes": null
+                },
+                {
+                    "id": "3178120210085251",
+                    "description": "Add ziti and water to skillet and bring to a simmer. Cook, stirring so pasta doesn’t stick to bottom of skillet, until well combined, about 2 minutes. ",
+                    "ingredients": [
+                        {
+                            "id": "1885e967027F3766",
+                            "amount": 500.0,
+                            "unit": "Gram",
+                            "groceryId": "0RV4M6MA2HTW1JZ8",
+                            "uploaded": true
+                        },
+                        {
+                            "id": "NTJGIX2cLBUnMAY6",
+                            "amount": 500.0,
+                            "unit": "Milliliter",
+                            "groceryId": "L3X13EZROLIX4VJZ",
+                            "uploaded": true
+                        }
+                    ],
+                    "minutes": null
+                },
+                {
+                    "id": "u8KpxfQaGh3IC97U",
+                    "description": "Remove skillet from heat, then fold in half of cottage cheese mixture and half of mozzarella, making sure to leave some pockets of cheese throughout.",
+                    "ingredients": [
+                        {
+                            "id": "l582z2s45p9pm80h",
+                            "amount": 125.0,
+                            "unit": "Gram",
+                            "groceryId": "08188l50628o8s0v",
+                            "uploaded": true
+                        }
+                    ],
+                    "minutes": null
+                },
+                {
+                    "id": "88nzg79v44urjv08",
+                    "description": "Dollop pasta with remaining cottage cheese mixture. Sprinkle remaining mozzarella and Parmesan over.",
+                    "ingredients": [
+                        {
+                            "id": "494kx8o688Sh4751",
+                            "amount": 125.0,
+                            "unit": "Gram",
+                            "groceryId": "08188l50628o8s0v",
+                            "uploaded": true
+                        },
+                        {
+                            "id": "avurEa29p3qNdUjc",
+                            "amount": 30.0,
+                            "unit": "Gram",
+                            "groceryId": "xs9uhpapU4pIr44K",
+                            "uploaded": true
+                        }
+                    ],
+                    "minutes": null
+                },
+                {
+                    "id": "L460KQIE28i9005u",
+                    "description": "Transfer to oven and bake until pasta is tender and bubbling, and cheese is golden and browned in spots, 25 - 30 minutes. Let cool 5 minutes. Top with remaining parsley.",
+                    "ingredients": [],
+                    "minutes": 25
+                }
+            ],
+            "archived": false,
+            "uploaded": true
+        },
+        "VTDVeRiWS4dMxu3G": {
+            "id": "VTDVeRiWS4dMxu3G",
+            "parent": null,
+            "title": "Bolognese",
+            "servings": 8,
+            "imageName": "U8RX8Y0848P5A874",
+            "steps": [
+                {
+                    "id": "1K926Cr131e6x21H",
+                    "description": "Dice the onion and sauté it in olive oil. Sprinkle a little sugar over it for a slight sweetness.",
+                    "ingredients": [
+                        {
+                            "id": "Md27PRn9IClnsJHn",
+                            "amount": 0.5,
+                            "unit": "Piece",
+                            "groceryId": "4LLMMDJQD3ZAIgNS",
+                            "uploaded": true
+                        },
+                        {
+                            "id": "3203Yp3991nT07W9",
+                            "amount": 10.0,
+                            "unit": "Milliliter",
+                            "groceryId": "18633G1BA1517612",
+                            "uploaded": true
+                        },
+                        {
+                            "id": "1c51PB63q4006d2i",
+                            "amount": 2.0,
+                            "unit": "Teaspoon",
+                            "groceryId": "1195uvBI6HLPTSpR",
+                            "uploaded": true
+                        }
+                    ],
+                    "minutes": null
+                },
+                {
+                    "id": "9161528l66077887",
+                    "description": "Add the ground beef and brown everything together.",
+                    "ingredients": [
+                        {
+                            "id": "587n92179r7v1856",
+                            "amount": 500.0,
+                            "unit": "Gram",
+                            "groceryId": "JYH08E6LIMNAQQNE",
+                            "uploaded": true
+                        }
+                    ],
+                    "minutes": null
+                },
+                {
+                    "id": "4158gr4630exg269",
+                    "description": "Stir in the tomato paste and let it fry for another few minutes.",
+                    "ingredients": [
+                        {
+                            "id": "KPw4bHnQHeqgVSbZ",
+                            "amount": 50.0,
+                            "unit": "Gram",
+                            "groceryId": "v8ak1mpJ0h1q1k6y",
+                            "uploaded": true
+                        }
+                    ],
+                    "minutes": null
+                },
+                {
+                    "id": "MMWSQGplTgjLKlZV",
+                    "description": "Add the tomato passata and season everything.",
+                    "ingredients": [
+                        {
+                            "id": "A0727S3g3s797e9e",
+                            "amount": 1500.0,
+                            "unit": "Gram",
+                            "groceryId": "12VfA5a0p33QMAS3",
+                            "uploaded": true
+                        },
+                        {
+                            "id": "486019079296845e",
+                            "amount": 50.0,
+                            "unit": "Gram",
+                            "groceryId": "je66Cea7hZm1h1ui",
+                            "uploaded": true
+                        },
+                        {
+                            "id": "BNLM2hSTlxr8Pnhe",
+                            "amount": 10.0,
+                            "unit": "Gram",
+                            "groceryId": "mVHGC0t7IQdZ2R0L",
+                            "uploaded": true
+                        },
+                        {
+                            "id": "HbYHFiTzTKRIJihM",
+                            "amount": 10.0,
+                            "unit": "Gram",
+                            "groceryId": "EXx72oOAEr3pOQSW",
+                            "uploaded": true
+                        }
+                    ],
+                    "minutes": null
+                },
+                {
+                    "id": "Vvd6nWz99y38aRsJ",
+                    "description": "Let everything simmer until it thickens.",
+                    "ingredients": [],
+                    "minutes": null
+                },
+                {
+                    "id": "tIower8qfhbyg50z",
+                    "description": "Serve with pasta, Parmesan and basil.",
+                    "ingredients": [],
+                    "minutes": null
+                }
+            ],
+            "archived": false,
+            "uploaded": true
+        }
+    },
+    "groceryData": {
+        "GvLQBVC6ljl72FHD": {
+            "id": "GvLQBVC6ljl72FHD",
+            "name": "Rice",
+            "normalAmount": 1000.0,
+            "unit": "Gram",
+            "conversionAmount": 1000.0,
+            "conversionUnit": "Milliliter",
+            "barcode": null,
+            "kcal": 346.0,
+            "fat": 1.1,
+            "carbs": 75.3,
+            "protein": 8.3,
+            "fiber": 0.7,
+            "archived": false,
+            "uploaded": true
+        },
+        "jLWkriP76Li6Toco": {
+            "id": "jLWkriP76Li6Toco",
+            "name": "Soy sauce",
+            "normalAmount": 500.0,
+            "unit": "Milliliter",
+            "conversionAmount": 500.0,
+            "conversionUnit": "Gram",
+            "barcode": null,
+            "kcal": 95.0,
+            "fat": null,
+            "carbs": null,
+            "protein": null,
+            "fiber": null,
+            "archived": false,
+            "uploaded": true
+        },
+        "L3X13EZROLIX4VJZ": {
+            "id": "L3X13EZROLIX4VJZ",
+            "name": "Water",
+            "normalAmount": 1000.0,
+            "unit": "Milliliter",
+            "conversionAmount": 1000.0,
+            "conversionUnit": "Gram",
+            "barcode": null,
+            "kcal": null,
+            "fat": null,
+            "carbs": null,
+            "protein": null,
+            "fiber": null,
+            "archived": false,
+            "uploaded": true
+        },
+        "EP77z1713615D4O7": {
+            "id": "EP77z1713615D4O7",
+            "name": "Brown sugar",
+            "normalAmount": 500.0,
+            "unit": "Gram",
+            "conversionAmount": 530.0,
+            "conversionUnit": "Milliliter",
+            "barcode": null,
+            "kcal": 396.0,
+            "fat": 0.0,
+            "carbs": 99.0,
+            "protein": 0.0,
+            "fiber": null,
+            "archived": false,
+            "uploaded": true
+        },
+        "14063K60082XQ888": {
+            "id": "14063K60082XQ888",
+            "name": "Cornstarch",
+            "normalAmount": 400.0,
+            "unit": "Gram",
+            "conversionAmount": 400.0,
+            "conversionUnit": "Milliliter",
+            "barcode": null,
+            "kcal": 349.0,
+            "fat": 0.1,
+            "carbs": 86.0,
+            "protein": 0.4,
+            "fiber": 1.0,
+            "archived": false,
+            "uploaded": true
+        },
+        "Jkd5251sYexc1mg9": {
+            "id": "Jkd5251sYexc1mg9",
+            "name": "Rice vinegar",
+            "normalAmount": 610.0,
+            "unit": "Milliliter",
+            "conversionAmount": 610.0,
+            "conversionUnit": "Gram",
+            "barcode": null,
+            "kcal": 17.0,
+            "fat": null,
+            "carbs": null,
+            "protein": null,
+            "fiber": null,
+            "archived": false,
+            "uploaded": true
+        },
+        "391835139988s652": {
+            "id": "391835139988s652",
+            "name": "Honey",
+            "normalAmount": 500.0,
+            "unit": "Gram",
+            "conversionAmount": 357.0,
+            "conversionUnit": "Milliliter",
+            "barcode": null,
+            "kcal": 300.0,
+            "fat": null,
+            "carbs": null,
+            "protein": null,
+            "fiber": null,
+            "archived": false,
+            "uploaded": true
+        },
+        "47287962g9141043": {
+            "id": "47287962g9141043",
+            "name": "Sesame oil",
+            "normalAmount": 250.0,
+            "unit": "Gram",
+            "conversionAmount": 230.0,
+            "conversionUnit": "Milliliter",
+            "barcode": null,
+            "kcal": 828.0,
+            "fat": 92.0,
+            "carbs": 0.5,
+            "protein": 0.5,
+            "fiber": null,
+            "archived": false,
+            "uploaded": true
+        },
+        "g191p811P404r944": {
+            "id": "g191p811P404r944",
+            "name": "Garlic",
+            "normalAmount": 12.0,
+            "unit": "Clove",
+            "conversionAmount": 12.0,
+            "conversionUnit": "Clove",
+            "barcode": null,
+            "kcal": 4.0,
+            "fat": null,
+            "carbs": null,
+            "protein": null,
+            "fiber": null,
+            "archived": false,
+            "uploaded": true
+        },
+        "F3XSB6fX0ClGkWd3": {
+            "id": "F3XSB6fX0ClGkWd3",
+            "name": "Ginger",
+            "normalAmount": 1.0,
+            "unit": "Piece",
+            "conversionAmount": 1.0,
+            "conversionUnit": "Piece",
+            "barcode": null,
+            "kcal": null,
+            "fat": null,
+            "carbs": null,
+            "protein": null,
+            "fiber": null,
+            "archived": false,
+            "uploaded": true
+        },
+        "0585245674761108": {
+            "id": "0585245674761108",
+            "name": "Spring onion",
+            "normalAmount": 10.0,
+            "unit": "Piece",
+            "conversionAmount": 140.0,
+            "conversionUnit": "Piece",
+            "barcode": null,
+            "kcal": 33.0,
+            "fat": 0.2,
+            "carbs": 4.8,
+            "protein": 1.9,
+            "fiber": 3.0,
+            "archived": false,
+            "uploaded": true
+        },
+        "18633G1BA1517612": {
+            "id": "18633G1BA1517612",
+            "name": "Olive oil",
+            "normalAmount": 750.0,
+            "unit": "Milliliter",
+            "conversionAmount": 682.5,
+            "conversionUnit": "Gram",
+            "barcode": null,
+            "kcal": 828.0,
+            "fat": 92.0,
+            "carbs": 0.0,
+            "protein": 0.0,
+            "fiber": 0.0,
+            "archived": false,
+            "uploaded": true
+        },
+        "7m70497d03062300": {
+            "id": "7m70497d03062300",
+            "name": "Chicken",
+            "normalAmount": 400.0,
+            "unit": "Gram",
+            "conversionAmount": 400.0,
+            "conversionUnit": "Milliliter",
+            "barcode": null,
+            "kcal": 107.0,
+            "fat": 1.7,
+            "carbs": 0.0,
+            "protein": 23.0,
+            "fiber": null,
+            "archived": false,
+            "uploaded": true
+        },
+        "3773648786a07325": {
+            "id": "3773648786a07325",
+            "name": "Flour",
+            "normalAmount": 1000.0,
+            "unit": "Gram",
+            "conversionAmount": 1670.0,
+            "conversionUnit": "Milliliter",
+            "barcode": null,
+            "kcal": 339.0,
+            "fat": 1.0,
+            "carbs": 69.0,
+            "protein": 11.5,
+            "fiber": 4.0,
+            "archived": false,
+            "uploaded": true
+        },
+        "8w7vi6o63pNd644s": {
+            "id": "8w7vi6o63pNd644s",
+            "name": "Baking powder",
+            "normalAmount": 10.0,
+            "unit": "Piece",
+            "conversionAmount": 0.0,
+            "conversionUnit": "Piece",
+            "barcode": null,
+            "kcal": 126.0,
+            "fat": 0.5,
+            "carbs": 30.0,
+            "protein": 0.5,
+            "fiber": 0.5,
+            "archived": false,
+            "uploaded": true
+        },
+        "je66Cea7hZm1h1ui": {
+            "id": "je66Cea7hZm1h1ui",
+            "name": "Salt",
+            "normalAmount": 500.0,
+            "unit": "Gram",
+            "conversionAmount": 417.0,
+            "conversionUnit": "Milliliter",
+            "barcode": null,
+            "kcal": 0.0,
+            "fat": null,
+            "carbs": null,
+            "protein": null,
+            "fiber": null,
+            "archived": false,
+            "uploaded": true
+        },
+        "1195uvBI6HLPTSpR": {
+            "id": "1195uvBI6HLPTSpR",
+            "name": "Sugar",
+            "normalAmount": 1000.0,
+            "unit": "Gram",
+            "conversionAmount": 1176.0,
+            "conversionUnit": "Milliliter",
+            "barcode": null,
+            "kcal": 353.0,
+            "fat": 0.5,
+            "carbs": 78.0,
+            "protein": 8.2,
+            "fiber": 1.6,
+            "archived": false,
+            "uploaded": true
+        },
+        "4941219780l32531": {
+            "id": "4941219780l32531",
+            "name": "Bananas",
+            "normalAmount": 5.0,
+            "unit": "Piece",
+            "conversionAmount": 0.0,
+            "conversionUnit": "Piece",
+            "barcode": null,
+            "kcal": 88.0,
+            "fat": 0.3,
+            "carbs": 21.3,
+            "protein": 0.7,
+            "fiber": 2.0,
+            "archived": false,
+            "uploaded": true
+        },
+        "JYH08E6LIMNAQQNE": {
+            "id": "JYH08E6LIMNAQQNE",
+            "name": "Ground beef",
+            "normalAmount": 500.0,
+            "unit": "Gram",
+            "conversionAmount": 500.0,
+            "conversionUnit": "Milliliter",
+            "barcode": null,
+            "kcal": 234.0,
+            "fat": 18.0,
+            "carbs": 0.0,
+            "protein": 18.0,
+            "fiber": 0.0,
+            "archived": false,
+            "uploaded": true
+        },
+        "ohptfaxdfcFafeon": {
+            "id": "ohptfaxdfcFafeon",
+            "name": "Basil tomato sauce",
+            "normalAmount": 400.0,
+            "unit": "Gram",
+            "conversionAmount": 380.0,
+            "conversionUnit": "Milliliter",
+            "barcode": "8076809513722",
+            "kcal": 268.0,
+            "fat": 0.3,
+            "carbs": 7.6,
+            "protein": 1.6,
+            "fiber": 1.9,
+            "archived": false,
+            "uploaded": true
+        },
+        "851C847779057837": {
+            "id": "851C847779057837",
+            "name": "Cottage cheese",
+            "normalAmount": 200.0,
+            "unit": "Gram",
+            "conversionAmount": 200.0,
+            "conversionUnit": "Milliliter",
+            "barcode": "4056489089797",
+            "kcal": 270.0,
+            "fat": 26.0,
+            "carbs": 3.0,
+            "protein": 6.0,
+            "fiber": null,
+            "archived": false,
+            "uploaded": true
+        },
+        "xs9uhpapU4pIr44K": {
+            "id": "xs9uhpapU4pIr44K",
+            "name": "Parmesan",
+            "normalAmount": 200.0,
+            "unit": "Gram",
+            "conversionAmount": 200.0,
+            "conversionUnit": "Milliliter",
+            "barcode": null,
+            "kcal": 398.0,
+            "fat": 29.0,
+            "carbs": 0.0,
+            "protein": 33.0,
+            "fiber": null,
+            "archived": false,
+            "uploaded": true
+        },
+        "PGWPFR5VJL3JU71u": {
+            "id": "PGWPFR5VJL3JU71u",
+            "name": "Garlic salt",
+            "normalAmount": 70.0,
+            "unit": "Gram",
+            "conversionAmount": 70.0,
+            "conversionUnit": "Milliliter",
+            "barcode": null,
+            "kcal": null,
+            "fat": null,
+            "carbs": null,
+            "protein": null,
+            "fiber": null,
+            "archived": false,
+            "uploaded": true
+        },
+        "mVHGC0t7IQdZ2R0L": {
+            "id": "mVHGC0t7IQdZ2R0L",
+            "name": "Pepper",
+            "normalAmount": 50.0,
+            "unit": "Gram",
+            "conversionAmount": 83.0,
+            "conversionUnit": "Milliliter",
+            "barcode": null,
+            "kcal": 0.0,
+            "fat": null,
+            "carbs": null,
+            "protein": null,
+            "fiber": null,
+            "archived": false,
+            "uploaded": true
+        },
+        "0RV4M6MA2HTW1JZ8": {
+            "id": "0RV4M6MA2HTW1JZ8",
+            "name": "Penne",
+            "normalAmount": 1000.0,
+            "unit": "Gram",
+            "conversionAmount": 1000.0,
+            "conversionUnit": "Milliliter",
+            "barcode": null,
+            "kcal": 357.0,
+            "fat": 1.4,
+            "carbs": 72.0,
+            "protein": 12.5,
+            "fiber": 3.2,
+            "archived": false,
+            "uploaded": true
+        },
+        "08188l50628o8s0v": {
+            "id": "08188l50628o8s0v",
+            "name": "Shredded mozzarella",
+            "normalAmount": 250.0,
+            "unit": "Gram",
+            "conversionAmount": 250.0,
+            "conversionUnit": "Milliliter",
+            "barcode": null,
+            "kcal": 314.0,
+            "fat": 23.5,
+            "carbs": 2.8,
+            "protein": 22.8,
+            "fiber": null,
+            "archived": false,
+            "uploaded": true
+        },
+        "4LLMMDJQD3ZAIgNS": {
+            "id": "4LLMMDJQD3ZAIgNS",
+            "name": "Onion",
+            "normalAmount": 3.0,
+            "unit": "Piece",
+            "conversionAmount": 330.0,
+            "conversionUnit": "Piece",
+            "barcode": null,
+            "kcal": 35.0,
+            "fat": 0.3,
+            "carbs": 6.7,
+            "protein": 1.2,
+            "fiber": 1.8,
+            "archived": false,
+            "uploaded": true
+        },
+        "v8ak1mpJ0h1q1k6y": {
+            "id": "v8ak1mpJ0h1q1k6y",
+            "name": "Tomato paste",
+            "normalAmount": 200.0,
+            "unit": "Gram",
+            "conversionAmount": 167.0,
+            "conversionUnit": "Milliliter",
+            "barcode": null,
+            "kcal": 111.0,
+            "fat": 0.7,
+            "carbs": 17.8,
+            "protein": 5.5,
+            "fiber": 2.6,
+            "archived": false,
+            "uploaded": true
+        },
+        "12VfA5a0p33QMAS3": {
+            "id": "12VfA5a0p33QMAS3",
+            "name": "Tomato passata",
+            "normalAmount": 700.0,
+            "unit": "Gram",
+            "conversionAmount": 700.0,
+            "conversionUnit": "Milliliter",
+            "barcode": null,
+            "kcal": 42.0,
+            "fat": 0.2,
+            "carbs": 7.0,
+            "protein": 2.1,
+            "fiber": null,
+            "archived": false,
+            "uploaded": true
+        },
+        "EXx72oOAEr3pOQSW": {
+            "id": "EXx72oOAEr3pOQSW",
+            "name": "Paprika",
+            "normalAmount": 50.0,
+            "unit": "Gram",
+            "conversionAmount": 50.0,
+            "conversionUnit": "Milliliter",
+            "barcode": null,
+            "kcal": null,
+            "fat": null,
+            "carbs": null,
+            "protein": null,
+            "fiber": null,
+            "archived": false,
+            "uploaded": true
+        }
+    },
+    "tagData": {
+        "3xiMVfMOXMgTgkY3": [
+            {
+                "id": "wQeXQdYF1eLQEQTN",
+                "name": "Main course",
+                "description": "Big meal for hungry boys",
+                "tagType": "Recipe",
+                "color": 4291580529,
+                "deleted": false,
+                "uploaded": true
+            },
+            {
+                "id": "04008M61C8415TS9",
+                "name": "Asian",
+                "description": "Tasty eastern food",
+                "tagType": "Recipe",
+                "color": 4291837476,
+                "deleted": false,
+                "uploaded": true
+            },
+            {
+                "id": "t635zh645QQ7tdpu",
+                "name": "Meat",
+                "description": "Hearty and filling",
+                "tagType": "Recipe",
+                "color": 4287649302,
+                "deleted": false,
+                "uploaded": true
+            },
+            {
+                "id": "ccgbghw26fxq7kai",
+                "name": "⭐",
+                "description": "Favourites",
+                "tagType": "Recipe",
+                "color": 4294180897,
+                "deleted": false,
+                "uploaded": true
+            }
+        ],
+        "51181844xn138375": [
+            {
+                "id": "wtqyn5z88zh8a451",
+                "name": "Dessert",
+                "description": "Sweets",
+                "tagType": "Recipe",
+                "color": 4292388341,
+                "deleted": false,
+                "uploaded": true
+            },
+            {
+                "id": "ccgbghw26fxq7kai",
+                "name": "⭐",
+                "description": "Favourites",
+                "tagType": "Recipe",
+                "color": 4294180897,
+                "deleted": false,
+                "uploaded": true
+            }
+        ],
+        "G1094418838291j3": [
+            {
+                "id": "04008M61C8415TS9",
+                "name": "Asian",
+                "description": "Tasty eastern food",
+                "tagType": "Recipe",
+                "color": 4291837476,
+                "deleted": false,
+                "uploaded": true
+            },
+            {
+                "id": "wQeXQdYF1eLQEQTN",
+                "name": "Main course",
+                "description": "Big meal for hungry boys",
+                "tagType": "Recipe",
+                "color": 4291580529,
+                "deleted": false,
+                "uploaded": true
+            },
+            {
+                "id": "t635zh645QQ7tdpu",
+                "name": "Meat",
+                "description": "Hearty and filling",
+                "tagType": "Recipe",
+                "color": 4287649302,
+                "deleted": false,
+                "uploaded": true
+            },
+            {
+                "id": "ccgbghw26fxq7kai",
+                "name": "⭐",
+                "description": "Favourites",
+                "tagType": "Recipe",
+                "color": 4294180897,
+                "deleted": false,
+                "uploaded": true
+            }
+        ],
+        "VTDVeRiWS4dMxu3G": [
+            {
+                "id": "8V866J0L573C05X4",
+                "name": "Italian",
+                "description": "Pasta, pizza e amore",
+                "tagType": "Recipe",
+                "color": 4280792104,
+                "deleted": false,
+                "uploaded": true
+            },
+            {
+                "id": "wQeXQdYF1eLQEQTN",
+                "name": "Main course",
+                "description": "Big meal for hungry boys",
+                "tagType": "Recipe",
+                "color": 4291580529,
+                "deleted": false,
+                "uploaded": true
+            },
+            {
+                "id": "t635zh645QQ7tdpu",
+                "name": "Meat",
+                "description": "Hearty and filling",
+                "tagType": "Recipe",
+                "color": 4287649302,
+                "deleted": false,
+                "uploaded": true
+            },
+            {
+                "id": "ccgbghw26fxq7kai",
+                "name": "⭐",
+                "description": "Favourites",
+                "tagType": "Recipe",
+                "color": 4294180897,
+                "deleted": false,
+                "uploaded": true
+            }
+        ]
+    },
+    "groceryTagData": {
+        "3773648786a07325": [
+            {
+                "id": "tagBaking0000001",
+                "name": "Baking",
+                "description": "For cakes and cookies",
+                "tagType": "Grocery",
+                "color": 4288776319,
+                "deleted": false,
+                "uploaded": true
+            }
+        ],
+        "8w7vi6o63pNd644s": [
+            {
+                "id": "tagBaking0000001",
+                "name": "Baking",
+                "description": "For cakes and cookies",
+                "tagType": "Grocery",
+                "color": 4288776319,
+                "deleted": false,
+                "uploaded": true
+            }
+        ],
+        "1195uvBI6HLPTSpR": [
+            {
+                "id": "tagBaking0000001",
+                "name": "Baking",
+                "description": "For cakes and cookies",
+                "tagType": "Grocery",
+                "color": 4288776319,
+                "deleted": false,
+                "uploaded": true
+            }
+        ],
+        "EP77z1713615D4O7": [
+            {
+                "id": "tagBaking0000001",
+                "name": "Baking",
+                "description": "For cakes and cookies",
+                "tagType": "Grocery",
+                "color": 4288776319,
+                "deleted": false,
+                "uploaded": true
+            }
+        ],
+        "14063K60082XQ888": [
+            {
+                "id": "tagBaking0000001",
+                "name": "Baking",
+                "description": "For cakes and cookies",
+                "tagType": "Grocery",
+                "color": 4288776319,
+                "deleted": false,
+                "uploaded": true
+            }
+        ],
+        "391835139988s652": [
+            {
+                "id": "tagBaking0000001",
+                "name": "Baking",
+                "description": "For cakes and cookies",
+                "tagType": "Grocery",
+                "color": 4288776319,
+                "deleted": false,
+                "uploaded": true
+            }
+        ],
+        "851C847779057837": [
+            {
+                "id": "tagDairy00000001",
+                "name": "Dairy",
+                "description": "Keep refrigerated",
+                "tagType": "Grocery",
+                "color": 4283417591,
+                "deleted": false,
+                "uploaded": true
+            }
+        ],
+        "xs9uhpapU4pIr44K": [
+            {
+                "id": "tagDairy00000001",
+                "name": "Dairy",
+                "description": "Keep refrigerated",
+                "tagType": "Grocery",
+                "color": 4283417591,
+                "deleted": false,
+                "uploaded": true
+            }
+        ],
+        "08188l50628o8s0v": [
+            {
+                "id": "tagDairy00000001",
+                "name": "Dairy",
+                "description": "Keep refrigerated",
+                "tagType": "Grocery",
+                "color": 4283417591,
+                "deleted": false,
+                "uploaded": true
+            }
+        ],
+        "7m70497d03062300": [
+            {
+                "id": "tagMeat000000001",
+                "name": "Meat",
+                "description": "Protein for the pan",
+                "tagType": "Grocery",
+                "color": 4293227379,
+                "deleted": false,
+                "uploaded": true
+            }
+        ],
+        "JYH08E6LIMNAQQNE": [
+            {
+                "id": "tagMeat000000001",
+                "name": "Meat",
+                "description": "Protein for the pan",
+                "tagType": "Grocery",
+                "color": 4293227379,
+                "deleted": false,
+                "uploaded": true
+            }
+        ],
+        "g191p811P404r944": [
+            {
+                "id": "tagVegetables001",
+                "name": "Vegetables",
+                "description": "Fresh from the garden",
+                "tagType": "Grocery",
+                "color": 4284922730,
+                "deleted": false,
+                "uploaded": true
+            }
+        ],
+        "F3XSB6fX0ClGkWd3": [
+            {
+                "id": "tagVegetables001",
+                "name": "Vegetables",
+                "description": "Fresh from the garden",
+                "tagType": "Grocery",
+                "color": 4284922730,
+                "deleted": false,
+                "uploaded": true
+            }
+        ],
+        "0585245674761108": [
+            {
+                "id": "tagVegetables001",
+                "name": "Vegetables",
+                "description": "Fresh from the garden",
+                "tagType": "Grocery",
+                "color": 4284922730,
+                "deleted": false,
+                "uploaded": true
+            }
+        ],
+        "4LLMMDJQD3ZAIgNS": [
+            {
+                "id": "tagVegetables001",
+                "name": "Vegetables",
+                "description": "Fresh from the garden",
+                "tagType": "Grocery",
+                "color": 4284922730,
+                "deleted": false,
+                "uploaded": true
+            }
+        ],
+        "je66Cea7hZm1h1ui": [
+            {
+                "id": "tagSpices0000001",
+                "name": "Spices",
+                "description": "Adds a kick to any dish",
+                "tagType": "Grocery",
+                "color": 4294930499,
+                "deleted": false,
+                "uploaded": true
+            }
+        ],
+        "mVHGC0t7IQdZ2R0L": [
+            {
+                "id": "tagSpices0000001",
+                "name": "Spices",
+                "description": "Adds a kick to any dish",
+                "tagType": "Grocery",
+                "color": 4294930499,
+                "deleted": false,
+                "uploaded": true
+            }
+        ],
+        "EXx72oOAEr3pOQSW": [
+            {
+                "id": "tagSpices0000001",
+                "name": "Spices",
+                "description": "Adds a kick to any dish",
+                "tagType": "Grocery",
+                "color": 4294930499,
+                "deleted": false,
+                "uploaded": true
+            }
+        ],
+        "PGWPFR5VJL3JU71u": [
+            {
+                "id": "tagSpices0000001",
+                "name": "Spices",
+                "description": "Adds a kick to any dish",
+                "tagType": "Grocery",
+                "color": 4294930499,
+                "deleted": false,
+                "uploaded": true
+            }
+        ],
+        "jLWkriP76Li6Toco": [
+            {
+                "id": "tagSauces0000001",
+                "name": "Sauces",
+                "description": "Tomatoes and more",
+                "tagType": "Grocery",
+                "color": 4290406600,
+                "deleted": false,
+                "uploaded": true
+            }
+        ],
+        "ohptfaxdfcFafeon": [
+            {
+                "id": "tagSauces0000001",
+                "name": "Sauces",
+                "description": "Tomatoes and more",
+                "tagType": "Grocery",
+                "color": 4290406600,
+                "deleted": false,
+                "uploaded": true
+            }
+        ],
+        "v8ak1mpJ0h1q1k6y": [
+            {
+                "id": "tagSauces0000001",
+                "name": "Sauces",
+                "description": "Tomatoes and more",
+                "tagType": "Grocery",
+                "color": 4290406600,
+                "deleted": false,
+                "uploaded": true
+            }
+        ],
+        "12VfA5a0p33QMAS3": [
+            {
+                "id": "tagSauces0000001",
+                "name": "Sauces",
+                "description": "Tomatoes and more",
+                "tagType": "Grocery",
+                "color": 4290406600,
+                "deleted": false,
+                "uploaded": true
+            }
+        ]
+    }
+}
