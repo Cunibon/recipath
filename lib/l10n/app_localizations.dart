@@ -180,6 +180,24 @@ abstract class AppLocalizations {
   /// **'Change password'**
   String get changePassword;
 
+  /// No description provided for @deleteAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete account'**
+  String get deleteAccount;
+
+  /// No description provided for @reallyDeleteAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you really want to delete your account?'**
+  String get reallyDeleteAccount;
+
+  /// No description provided for @deleteAccountWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'You will be taken to a website to request deletion. This permanently deletes your account and your synced data.'**
+  String get deleteAccountWarning;
+
   /// No description provided for @passwordChanged.
   ///
   /// In en, this message translates to:

@@ -50,6 +50,17 @@ class AppLocalizationsEn extends AppLocalizations {
   String get changePassword => 'Change password';
 
   @override
+  String get deleteAccount => 'Delete account';
+
+  @override
+  String get reallyDeleteAccount =>
+      'Do you really want to delete your account?';
+
+  @override
+  String get deleteAccountWarning =>
+      'You will be taken to a website to request deletion. This permanently deletes your account and your synced data.';
+
+  @override
   String get passwordChanged => 'Password Successfuly changed';
 
   @override

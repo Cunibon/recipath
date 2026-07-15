@@ -51,6 +51,17 @@ class AppLocalizationsFr extends AppLocalizations {
   String get changePassword => 'Changer le mot de passe';
 
   @override
+  String get deleteAccount => 'Supprimer le compte';
+
+  @override
+  String get reallyDeleteAccount =>
+      'Voulez-vous vraiment supprimer votre compte ?';
+
+  @override
+  String get deleteAccountWarning =>
+      'Vous serez redirigé vers un site web pour demander la suppression. Cela supprime définitivement votre compte et vos données synchronisées.';
+
+  @override
   String get passwordChanged => 'Mot de passe modifié avec succès';
 
   @override

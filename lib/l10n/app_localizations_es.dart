@@ -50,6 +50,16 @@ class AppLocalizationsEs extends AppLocalizations {
   String get changePassword => 'Cambiar contraseña';
 
   @override
+  String get deleteAccount => 'Eliminar cuenta';
+
+  @override
+  String get reallyDeleteAccount => '¿Realmente quieres eliminar tu cuenta?';
+
+  @override
+  String get deleteAccountWarning =>
+      'Se te llevará a un sitio web para solicitar la eliminación. Esto elimina permanentemente tu cuenta y tus datos sincronizados.';
+
+  @override
   String get passwordChanged => 'Contraseña cambiada exitosamente';
 
   @override
