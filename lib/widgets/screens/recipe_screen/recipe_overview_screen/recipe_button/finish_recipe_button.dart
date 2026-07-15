@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:random_string/random_string.dart';
-import 'package:recipath/application/recipe_statistics_modifier%20copy/recipe_statistics_modifier_notifier.dart';
+import 'package:recipath/application/recipe_statistics_modifier/recipe_statistics_modifier_notifier.dart';
 import 'package:recipath/application/storage_modifier/storage_modifier_notifier.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
 import 'package:recipath/data/recipe_statistic_data/recipe_statistic_data.dart';
