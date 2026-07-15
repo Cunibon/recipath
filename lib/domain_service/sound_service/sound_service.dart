@@ -5,7 +5,7 @@ class SoundService {
     ..audioCache.prefix = ""
     ..setAudioContext(
       AudioContext(
-        iOS: AudioContextIOS(category: .ambient, options: {.mixWithOthers}),
+        iOS: AudioContextIOS(category: .playback, options: {.mixWithOthers}),
         android: AudioContextAndroid(
           audioFocus: .none,
           contentType: .sonification,
