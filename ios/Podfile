@@ -36,6 +36,10 @@ target 'Runner' do
   target 'ShareRecipe' do
     inherit! :search_paths
   end
+
+  target 'RunnerTests' do
+    inherit! :search_paths
+  end
 end
 
 post_install do |installer|
