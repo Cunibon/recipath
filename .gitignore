@@ -48,3 +48,46 @@ sentry.properties
 
 # FVM Version Cache
 .fvm/
+
+# Apple signing & release artifacts — never commit
+*.p12
+*.cer
+*.certSigningRequest
+*.mobileprovision
+*.provisionprofile
+*.p8
+ExportOptions.plist
+*.ipa
+*.xcarchive
+*.dSYM
+*.dSYM.zip
+**/DerivedData/
+**/xcuserdata/
+
+# fastlane artifacts
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output/
+fastlane/README.md
+fastlane/.env*
+
+# Secret-injection files (--dart-define-from-file)
+.env
+.env.*
+!.env.example
+env.json
+dart_defines.json
+
+# Android release signing (safety net; android/.gitignore covers in-dir)
+key.properties
+*.jks
+*.keystore
+
+# Gradle output under android/ (root /build/ does not cover it)
+android/build/
+android/app/build/
+
+# Firebase configs (not currently used; safety net)
+**/GoogleService-Info.plist
+**/google-services.json
