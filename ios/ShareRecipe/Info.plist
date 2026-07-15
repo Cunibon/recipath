@@ -4,6 +4,8 @@
   <dict>
     <key>AppGroupId</key>
     <string>$(CUSTOM_GROUP_ID)</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>NSExtension</key>
 	<dict>
 		<key>NSExtensionAttributes</key>
