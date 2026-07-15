@@ -11,13 +11,7 @@ import 'package:timezone/timezone.dart' as tz;
 const int _timersNotificationId = 1001;
 
 Future<void> showTimersRunningNotification() async {
-  final androidPlugin = notifications
-      .resolvePlatformSpecificImplementation<
-        AndroidFlutterLocalNotificationsPlugin
-      >();
-
-  final permission =
-      await androidPlugin?.requestNotificationsPermission() ?? false;
+  final permission = await requestNotificationPermission();
 
   if (permission) {
     final androidDetails = AndroidNotificationDetails(
@@ -31,7 +25,17 @@ Future<void> showTimersRunningNotification() async {
       category: AndroidNotificationCategory.service,
     );
 
-    final details = NotificationDetails(android: androidDetails);
+    const darwinDetails = DarwinNotificationDetails(
+      presentBanner: false,
+      presentList: true,
+      presentSound: false,
+      interruptionLevel: InterruptionLevel.passive,
+    );
+
+    final details = NotificationDetails(
+      android: androidDetails,
+      iOS: darwinDetails,
+    );
 
     final localizations = await AppLocalizations.delegate.load(
       WidgetsBinding.instance.platformDispatcher.locale,
@@ -56,15 +60,14 @@ Future<void> scheduleStepNotification({
   required RecipeData recipe,
   required DateTime scheduledAt,
 }) async {
-  final androidPlugin = notifications
-      .resolvePlatformSpecificImplementation<
-        AndroidFlutterLocalNotificationsPlugin
-      >();
-
-  final notificationPermission =
-      await androidPlugin?.requestNotificationsPermission() ?? false;
+  final notificationPermission = await requestNotificationPermission();
 
   if (notificationPermission) {
+    final androidPlugin = notifications
+        .resolvePlatformSpecificImplementation<
+          AndroidFlutterLocalNotificationsPlugin
+        >();
+
     final exactPermission =
         await androidPlugin?.requestExactAlarmsPermission() ?? false;
 
@@ -84,6 +87,10 @@ Future<void> scheduleStepNotification({
           importance: Importance.max,
           priority: Priority.high,
           visibility: NotificationVisibility.public,
+        ),
+        iOS: DarwinNotificationDetails(
+          presentSound: true,
+          interruptionLevel: InterruptionLevel.timeSensitive,
         ),
       ),
       payload: jsonEncode({recipeIdKey: recipe.id}),

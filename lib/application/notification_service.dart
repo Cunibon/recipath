@@ -17,7 +17,11 @@ Future<void> initNotifications() async {
     '@drawable/ic_launcher_monochrome',
   );
   const DarwinInitializationSettings darwinSettings =
-      DarwinInitializationSettings();
+      DarwinInitializationSettings(
+        requestAlertPermission: false,
+        requestBadgePermission: false,
+        requestSoundPermission: false,
+      );
 
   const settings = InitializationSettings(
     android: androidSettings,
@@ -70,6 +74,31 @@ Future<void> initNotifications() async {
       () => handleNotificationPayload(payload),
     );
   }
+}
+
+Future<bool> requestNotificationPermission() async {
+  final androidPlugin = notifications
+      .resolvePlatformSpecificImplementation<
+        AndroidFlutterLocalNotificationsPlugin
+      >();
+  if (androidPlugin != null) {
+    return await androidPlugin.requestNotificationsPermission() ?? false;
+  }
+
+  final iosPlugin = notifications
+      .resolvePlatformSpecificImplementation<
+        IOSFlutterLocalNotificationsPlugin
+      >();
+  if (iosPlugin != null) {
+    return await iosPlugin.requestPermissions(
+          alert: true,
+          badge: true,
+          sound: true,
+        ) ??
+        false;
+  }
+
+  return false;
 }
 
 void handleNotificationPayload(String? payload) {
