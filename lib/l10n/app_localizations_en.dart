@@ -513,8 +513,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get selectOne => 'Please select at least one item';
 
   @override
-  String get downloadToImport =>
-      'Download Recipath:\nhttps://play.google.com/store/apps/details?id=com.cunibongames.recipath\n\nTo import these recipes';
+  String downloadToImport(String storeLink) {
+    return 'Download ReciPath:\n$storeLink\n\nTo import these recipes';
+  }
 
   @override
   String get aiToken => 'AI Token';

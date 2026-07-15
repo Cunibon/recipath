@@ -1065,8 +1065,8 @@ abstract class AppLocalizations {
   /// No description provided for @downloadToImport.
   ///
   /// In en, this message translates to:
-  /// **'Download Recipath:\nhttps://play.google.com/store/apps/details?id=com.cunibongames.recipath\n\nTo import these recipes'**
-  String get downloadToImport;
+  /// **'Download ReciPath:\n{storeLink}\n\nTo import these recipes'**
+  String downloadToImport(String storeLink);
 
   /// No description provided for @aiToken.
   ///

@@ -3,6 +3,12 @@ import 'package:intl/intl.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
+Rect? sharePopoverAnchor() {
+  final renderObject = navigatorKey.currentContext?.findRenderObject();
+  if (renderObject is! RenderBox || !renderObject.hasSize) return null;
+  return renderObject.localToGlobal(Offset.zero) & renderObject.size;
+}
+
 Color getRandomColorBasedOnString(String string) {
   // A simple hash function to convert the string to a hash code
   int hash = string.hashCode;

@@ -83,7 +83,8 @@ class ExportNotifier extends _$ExportNotifier {
     final params = ShareParams(
       files: [xfile],
       fileNameOverrides: ["$title.$fileExtension"],
-      text: localization.downloadToImport,
+      text: localization.downloadToImport(storeUrl),
+      sharePositionOrigin: sharePopoverAnchor(),
     );
 
     await SharePlus.instance.share(params);

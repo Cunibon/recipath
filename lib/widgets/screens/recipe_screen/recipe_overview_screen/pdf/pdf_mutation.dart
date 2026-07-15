@@ -61,6 +61,7 @@ abstract class PdfMutation {
     final params = ShareParams(
       files: [xfile],
       fileNameOverrides: ["$title.pdf"],
+      sharePositionOrigin: sharePopoverAnchor(),
     );
 
     await SharePlus.instance.share(params);
