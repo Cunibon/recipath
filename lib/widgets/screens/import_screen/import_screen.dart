@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/experimental/mutation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:random_string/random_string.dart';
 import 'package:recipath/application/file_modifier.dart/file_modifier_notifier.dart';
+import 'package:recipath/application_constants.dart';
 import 'package:recipath/helper/go_router_extension.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/providers/application_path_provider.dart';
@@ -54,7 +55,7 @@ class ImportScreen extends ConsumerWidget {
                     onPressed: () async {
                       FilePickerResult? result = await FilePicker.pickFiles(
                         type: FileType.custom,
-                        allowedExtensions: [".recipath"],
+                        allowedExtensions: [fileExtension],
                       );
 
                       if (result != null && context.mounted) {
