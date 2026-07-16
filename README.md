@@ -35,7 +35,7 @@ Upgrade to **Pro** to sync all your recipes, images, charts etc.
 ## Getting Started
 
 ### 1. Install
-Compile or [download the app](https://play.google.com/store/apps/details?id=com.cunibongames.recipath)
+Compile or download the app for [Android](https://play.google.com/store/apps/details?id=com.cunibongames.recipath) or [iOS](https://apps.apple.com/app/id6791212568)
 
 ### 2. Create recipes
 You can create recipes right off the bat. 
