@@ -234,6 +234,12 @@ abstract class AppLocalizations {
   /// **'Could not authenticate user'**
   String get couldNotAuthenticate;
 
+  /// No description provided for @userAlreadyExists.
+  ///
+  /// In en, this message translates to:
+  /// **'An account with this E-Mail already exists'**
+  String get userAlreadyExists;
+
   /// No description provided for @searchFor.
   ///
   /// In en, this message translates to:

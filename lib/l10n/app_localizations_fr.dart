@@ -83,6 +83,9 @@ class AppLocalizationsFr extends AppLocalizations {
       'Impossible d\'authentifier l\'utilisateur';
 
   @override
+  String get userAlreadyExists => 'Un compte avec cet e-mail existe déjà';
+
+  @override
   String searchFor(String type) {
     return 'Rechercher $type';
   }

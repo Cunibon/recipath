@@ -41,9 +41,16 @@ final authMutation = BoundMutation<AuthResponse, AuthInput>((
         .login(response.user!.id);
     await transaction.get(syncingServiceProvider).reset();
   } else {
+    final identities = response.user?.identities;
+    if (identities == null || identities.isEmpty) {
+      throw AuthApiException(
+        "User already exists",
+        code: "user_already_exists",
+      );
+    }
     throw AuthApiException(
       "Verification needed",
-      statusCode: "verification_needed",
+      code: "verification_needed",
     );
   }
 

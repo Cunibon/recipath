@@ -29,6 +29,7 @@
     "resetMailSent": "A verification code has been sent to your email.\nPlease enter it below.",
     "verifactionEMailSent": "Verifaction E-Mail has been sent",
     "couldNotAuthenticate": "Could not authenticate user",
+    "userAlreadyExists": "An account with this E-Mail already exists",
     "searchFor": "Search for {type}",
     "@searchFor": {
         "placeholders": {

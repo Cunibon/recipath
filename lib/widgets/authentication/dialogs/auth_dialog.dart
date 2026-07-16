@@ -41,16 +41,17 @@ class _AuthDialogState extends ConsumerState<AuthDialog> {
     if (authStatus.hasError) {
       final error = (authStatus as MutationError).error;
 
-      late String errorMessage;
+      String errorMessage = localization.somethingWentWrong;
 
       if (error is AuthApiException) {
         if (error.code == "invalid_credentials") {
           errorMessage = localization.couldNotAuthenticate;
         } else if (error.code == "verification_needed") {
           errorMessage = localization.verifactionEMailSent;
+        } else if (error.code == "user_already_exists" ||
+            error.code == "email_exists") {
+          errorMessage = localization.userAlreadyExists;
         }
-      } else {
-        errorMessage = localization.somethingWentWrong;
       }
 
       errorWidget = Text(

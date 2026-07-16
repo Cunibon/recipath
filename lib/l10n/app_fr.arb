@@ -22,6 +22,7 @@
     "resetMailSent": "Un code de vérification a été envoyé à votre adresse e-mail.\nVeuillez le saisir ci-dessous.",
     "verifactionEMailSent": "Un e-mail de vérification a été envoyé",
     "couldNotAuthenticate": "Impossible d'authentifier l'utilisateur",
+    "userAlreadyExists": "Un compte avec cet e-mail existe déjà",
     "searchFor": "Rechercher {type}",
     "changeSearchForResults": "Modifiez votre recherche pour voir d'autres résultats",
     "clearAllItems": "Effacer tous les éléments?",

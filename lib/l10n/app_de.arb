@@ -22,6 +22,7 @@
     "resetMailSent": "Ein Bestätigungscode wurde an Ihre E-Mail-Adresse gesendet.\nBitte geben Sie ihn unten ein.",
     "verifactionEMailSent": "Bestätigungs-E-Mail wurde gesendet",
     "couldNotAuthenticate": "Benutzer konnte nicht authentifiziert werden",
+    "userAlreadyExists": "Ein Konto mit dieser E-Mail existiert bereits",
     "searchFor": "Suche nach {type}",
     "changeSearchForResults": "Ändern Sie Ihre Suche, um andere Ergebnisse anzuzeigen",
     "clearAllItems": "Alle Elemente löschen?",

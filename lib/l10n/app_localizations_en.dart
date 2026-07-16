@@ -80,6 +80,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get couldNotAuthenticate => 'Could not authenticate user';
 
   @override
+  String get userAlreadyExists => 'An account with this E-Mail already exists';
+
+  @override
   String searchFor(String type) {
     return 'Search for $type';
   }

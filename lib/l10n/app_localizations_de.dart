@@ -81,6 +81,10 @@ class AppLocalizationsDe extends AppLocalizations {
       'Benutzer konnte nicht authentifiziert werden';
 
   @override
+  String get userAlreadyExists =>
+      'Ein Konto mit dieser E-Mail existiert bereits';
+
+  @override
   String searchFor(String type) {
     return 'Suche nach $type';
   }
