@@ -14,7 +14,7 @@ enum MarketingTarget {
   ),
   iphone(
     platform: TargetPlatform.iOS,
-    resolution: Size(1320, 2868),
+    resolution: Size(1284, 2778),
     pixelRatio: 3,
     goldenSubFolder: 'iphoneScreenshots/',
   ),

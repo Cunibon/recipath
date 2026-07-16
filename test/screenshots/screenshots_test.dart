@@ -85,7 +85,7 @@ void main() {
         await captureScreen(
           tester,
           target: target,
-          title: 'Tag groceries\nand recipes for\nquick sorting',
+          title: 'Tag groceries\nand recipes',
           initialLocation: '/tag',
           goldenFileName: 'tags',
         );
