@@ -403,6 +403,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get privacyPolicy => 'Datenschutzerklärung';
 
   @override
+  String get termsOfUse => 'Nutzungsbedingungen';
+
+  @override
   String get darkMode => 'Dunkelmodus';
 
   @override

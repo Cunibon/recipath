@@ -15,6 +15,7 @@ import 'package:recipath/widgets/screens/settings_screen/data/ai_token.dart';
 import 'package:recipath/widgets/screens/settings_screen/data/change_password.dart';
 import 'package:recipath/widgets/screens/settings_screen/data/delete_account.dart';
 import 'package:recipath/widgets/screens/settings_screen/data/privacy_policy.dart';
+import 'package:recipath/widgets/screens/settings_screen/data/terms_of_use.dart';
 import 'package:recipath/widgets/screens/settings_screen/providers/version_tag.dart';
 import 'package:recipath/widgets/screens/settings_screen/setting_section.dart';
 
@@ -45,6 +46,7 @@ class SettingsScreen extends ConsumerWidget {
               children: [
                 AiToken(),
                 PrivacyPolicy(),
+                if (Platform.isIOS) TermsOfUse(),
                 if (ref.watch(supabaseUserProvider) != null) ...[
                   ChangePassword(),
                   DeleteAccount(),

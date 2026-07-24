@@ -405,6 +405,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get privacyPolicy => 'Política de privacidad';
 
   @override
+  String get termsOfUse => 'Términos de uso';
+
+  @override
   String get darkMode => 'Modo oscuro';
 
   @override
