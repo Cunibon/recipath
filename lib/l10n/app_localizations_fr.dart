@@ -12,7 +12,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get login => 'Se connecter';
 
   @override
-  String get register => 'Registre';
+  String get register => 'S\'inscrire';
 
   @override
   String get logout => 'Déconnexion';
@@ -131,7 +131,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get no => 'Non';
 
   @override
-  String get actionContinue => 'Continuar';
+  String get actionContinue => 'Continuer';
 
   @override
   String get actionCancel => 'Annuler';
@@ -143,7 +143,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get apply => 'Appliquer';
 
   @override
-  String get discard => 'Annuler';
+  String get discard => 'Abandonner';
 
   @override
   String get filter => 'Filtrer';
@@ -196,7 +196,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get storage => 'Stockage';
 
   @override
-  String get groceries => 'Épiceries';
+  String get groceries => 'Aliments';
 
   @override
   String get tags => 'Étiquettes';
@@ -205,7 +205,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get dashboard => 'Tableau de bord';
 
   @override
-  String get cookingHistory => 'Histoire de la cuisine';
+  String get cookingHistory => 'Historique de cuisine';
 
   @override
   String get shoppingHistory => 'Historique des achats';
@@ -217,13 +217,13 @@ class AppLocalizationsFr extends AppLocalizations {
   String get recipeUsage => 'Utilisation de la recette';
 
   @override
-  String get groceryUsage => 'Utilisation à l\'épicerie';
+  String get groceryUsage => 'Utilisation des aliments';
 
   @override
   String get nutriments => 'Nutriments';
 
   @override
-  String get grocery => 'Épicerie';
+  String get grocery => 'Aliment';
 
   @override
   String cantDeleteGroceryMessage(int recipes, int shopping, int storage) {
@@ -231,10 +231,10 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get createGrocery => 'Créer une épicerie';
+  String get createGrocery => 'Créer un aliment';
 
   @override
-  String get createTag => 'Créer une balise';
+  String get createTag => 'Créer une étiquette';
 
   @override
   String get save => 'Sauvegarder';
@@ -259,10 +259,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get addName => 'Ajouter un nom';
 
   @override
-  String get normalAmount => 'Montant normal';
+  String get normalAmount => 'Quantité normale';
 
   @override
-  String get addNormalAmount => 'ajouter le montant normal';
+  String get addNormalAmount => 'Ajouter la quantité normale';
 
   @override
   String get unit => 'Unité';
@@ -271,16 +271,16 @@ class AppLocalizationsFr extends AppLocalizations {
   String get addUnit => 'Ajouter une unité';
 
   @override
-  String get conversionAmount => 'Montant de conversion';
+  String get conversionAmount => 'Quantité de conversion';
 
   @override
-  String get addConversionAmount => 'Ajouter le montant de la conversion';
+  String get addConversionAmount => 'Ajouter la quantité de conversion';
 
   @override
   String get addRealNumber => 'Ajouter un nombre réel';
 
   @override
-  String get scanGrocery => 'Scanner l\'épicerie';
+  String get scanGrocery => 'Scanner un aliment';
 
   @override
   String couldNotFindBarcode(String barcode) {
@@ -324,16 +324,16 @@ class AppLocalizationsFr extends AppLocalizations {
   String get addStep => 'Ajouter une étape';
 
   @override
-  String get amount => 'Montant';
+  String get amount => 'Quantité';
 
   @override
-  String get addAmount => 'Ajouter un montant';
+  String get addAmount => 'Ajouter une quantité';
 
   @override
   String get expand => 'Développer';
 
   @override
-  String get collapse => 'Effondrement';
+  String get collapse => 'Réduire';
 
   @override
   String objectDescription(String object) {
@@ -414,7 +414,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get storageMode => 'Mode inventaire';
 
   @override
-  String get clear => 'Claire';
+  String get clear => 'Effacer';
 
   @override
   String get items => 'Articles';
@@ -435,10 +435,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get kcal => 'Kilocalories';
 
   @override
-  String get fat => 'Graisse';
+  String get fat => 'Lipides';
 
   @override
-  String get carbs => 'Crabes';
+  String get carbs => 'Glucides';
 
   @override
   String get protein => 'Protéine';
@@ -453,10 +453,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get liter => 'l';
 
   @override
-  String get teaspoon => 'tsp';
+  String get teaspoon => 'c. à c.';
 
   @override
-  String get tablespoon => 'tbsp';
+  String get tablespoon => 'c. à s.';
 
   @override
   String get cup => 'tasse';
@@ -474,16 +474,16 @@ class AppLocalizationsFr extends AppLocalizations {
   String get pound => 'lb';
 
   @override
-  String get pinch => 'pincer';
+  String get pinch => 'pincée';
 
   @override
-  String get clove => 'clou de girofle';
+  String get clove => 'gousse';
 
   @override
-  String get can => 'peut';
+  String get can => 'boîte';
 
   @override
-  String get piece => 'morceau';
+  String get piece => 'pièce';
 
   @override
   String get version => 'Version';

@@ -9,10 +9,10 @@ class AppLocalizationsEs extends AppLocalizations {
   AppLocalizationsEs([String locale = 'es']) : super(locale);
 
   @override
-  String get login => 'Acceso';
+  String get login => 'Iniciar sesión';
 
   @override
-  String get register => 'Registro';
+  String get register => 'Registrarse';
 
   @override
   String get logout => 'Cerrar sesión';
@@ -195,7 +195,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get storage => 'Almacenamiento';
 
   @override
-  String get groceries => 'Comestibles';
+  String get groceries => 'Alimentos';
 
   @override
   String get tags => 'Etiquetas';
@@ -204,7 +204,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get dashboard => 'Panel';
 
   @override
-  String get cookingHistory => 'Historia de la cocina';
+  String get cookingHistory => 'Historial de cocina';
 
   @override
   String get shoppingHistory => 'Historial de compras';
@@ -216,13 +216,13 @@ class AppLocalizationsEs extends AppLocalizations {
   String get recipeUsage => 'Uso de recetas';
 
   @override
-  String get groceryUsage => 'Uso de comestibles';
+  String get groceryUsage => 'Uso de alimentos';
 
   @override
-  String get nutriments => 'Nutrimentos';
+  String get nutriments => 'Nutrientes';
 
   @override
-  String get grocery => 'Tienda de comestibles';
+  String get grocery => 'Alimento';
 
   @override
   String cantDeleteGroceryMessage(int recipes, int shopping, int storage) {
@@ -230,19 +230,19 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String get createGrocery => 'crear tienda de comestibles';
+  String get createGrocery => 'Crear alimento';
 
   @override
   String get createTag => 'Crear etiqueta';
 
   @override
-  String get save => 'Ahorrar';
+  String get save => 'Guardar';
 
   @override
   String get copy => 'Copiar';
 
   @override
-  String get saveCopy => 'guardar copia';
+  String get saveCopy => 'Guardar copia';
 
   @override
   String get saveCopyContent => '¿Quieres guardar una copia de esta receta?';
@@ -275,10 +275,10 @@ class AppLocalizationsEs extends AppLocalizations {
   String get addConversionAmount => 'Agregar cantidad de conversión';
 
   @override
-  String get addRealNumber => 'Sumar numero real';
+  String get addRealNumber => 'Agregar un número real';
 
   @override
-  String get scanGrocery => 'Escanear comestibles';
+  String get scanGrocery => 'Escanear alimento';
 
   @override
   String couldNotFindBarcode(String barcode) {
@@ -302,13 +302,13 @@ class AppLocalizationsEs extends AppLocalizations {
   String get done => 'Hecho';
 
   @override
-  String get takePicture => 'tomar foto';
+  String get takePicture => 'Tomar foto';
 
   @override
   String get addPictureFromGallery => 'Añadir una imagen de la galería';
 
   @override
-  String get createRecipe => 'crear receta';
+  String get createRecipe => 'Crear receta';
 
   @override
   String get title => 'Título';
@@ -332,7 +332,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get expand => 'Expandir';
 
   @override
-  String get collapse => 'colapsar';
+  String get collapse => 'Contraer';
 
   @override
   String objectDescription(String object) {
@@ -390,7 +390,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get appearance => 'Apariencia';
 
   @override
-  String get data => 'datos';
+  String get data => 'Datos';
 
   @override
   String get importData => 'Importar datos';
@@ -414,7 +414,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get storageMode => 'Modo inventario';
 
   @override
-  String get clear => 'Claro';
+  String get clear => 'Borrar';
 
   @override
   String get items => 'Elementos';
@@ -435,7 +435,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get kcal => 'Calorías';
 
   @override
-  String get fat => 'Gordo';
+  String get fat => 'Grasas';
 
   @override
   String get carbs => 'Carbohidratos';
@@ -453,10 +453,10 @@ class AppLocalizationsEs extends AppLocalizations {
   String get liter => 'l';
 
   @override
-  String get teaspoon => 'cucharadita';
+  String get teaspoon => 'cdta.';
 
   @override
-  String get tablespoon => 'cucharada';
+  String get tablespoon => 'cda.';
 
   @override
   String get cup => 'taza';
@@ -474,16 +474,16 @@ class AppLocalizationsEs extends AppLocalizations {
   String get pound => 'lb';
 
   @override
-  String get pinch => 'pellizco';
+  String get pinch => 'pizca';
 
   @override
-  String get clove => 'clavo';
+  String get clove => 'diente';
 
   @override
-  String get can => 'clavo';
+  String get can => 'lata';
 
   @override
-  String get piece => 'pedazo';
+  String get piece => 'pieza';
 
   @override
   String get version => 'Versión';
