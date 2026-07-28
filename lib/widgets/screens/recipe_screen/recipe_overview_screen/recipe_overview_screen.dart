@@ -70,8 +70,11 @@ class RecipeOverviewScreen extends ConsumerWidget {
                     Center(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 4),
-                        child: ImageViewer(
-                          fileName: data.recipeData.imageName!,
+                        child: ConstrainedBox(
+                          constraints: BoxConstraints(maxHeight: 500),
+                          child: ImageViewer(
+                            fileName: data.recipeData.imageName!,
+                          ),
                         ),
                       ),
                     ),

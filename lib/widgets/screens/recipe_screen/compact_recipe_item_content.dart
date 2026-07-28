@@ -6,8 +6,8 @@ import 'package:recipath/data/recipe_data/recipe_data.dart';
 import 'package:recipath/data/storage_data/storage_data.dart';
 import 'package:recipath/data/tag_data/tag_data.dart';
 import 'package:recipath/l10n/app_localizations.dart';
-import 'package:recipath/widgets/generic/background_image.dart';
 import 'package:recipath/widgets/generic/highlight_search/highlightable_text.dart';
+import 'package:recipath/widgets/generic/reactive_image.dart';
 import 'package:recipath/widgets/screens/recipe_screen/create_recipe_screen/compact_ingredient_view.dart';
 import 'package:recipath/widgets/tag/tag_list.dart';
 
@@ -35,7 +35,7 @@ class CompactRecipeItemContent extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return BackgroundImage(
+    return ReactiveImage(
       imageName: recipeData.imageName,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
