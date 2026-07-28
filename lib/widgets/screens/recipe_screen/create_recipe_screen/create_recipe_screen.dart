@@ -220,11 +220,15 @@ class CreateRecipeScreenState extends ConsumerState<CreateRecipeScreen> {
                             labelText: localization.servings,
                           ),
                           keyboardType: TextInputType.number,
-                          validator: (value) => value?.isEmpty == false
-                              ? int.tryParse(value!) == null
-                                    ? localization.addRealNumber
-                                    : null
-                              : null,
+                          validator: (value) {
+                            final newServings = int.tryParse(value!);
+
+                            if (newServings == null) return null;
+
+                            return newServings.isNegative || newServings == 0
+                                ? localization.addRealNumber
+                                : null;
+                          },
                           onChanged: (value) {
                             final parsed = int.tryParse(value);
                             setState(
