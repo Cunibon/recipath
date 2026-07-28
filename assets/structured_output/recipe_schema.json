@@ -108,7 +108,8 @@
             "description": "Unique grocery ID (e.g. 'GROCERY_001')."
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "description": "Plain ingredient name only, e.g. 'Butter'. NEVER include the unit, an amount, or a unit in parentheses or brackets — the unit belongs in the separate 'unit' field. BAD: 'Butter (g)', 'Butter g', 'Flour (grams)', '200g Butter'. When reusing one of the user's existing groceries, copy its name exactly as given."
           },
           "unit": {
             "type": "string",

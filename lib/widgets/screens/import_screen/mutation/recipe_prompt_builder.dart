@@ -28,21 +28,22 @@ abstract class RecipePromptBuilder {
     final jsonSchema = jsonDecode(jsonSchemaString);
 
     final groceries = await tsx.get(groceryProvider.future);
-    final groceryBuffer = StringBuffer();
-
-    for (final grocery in groceries.values) {
-      groceryBuffer.write("${grocery.name} ${grocery.unit.name}, ");
-    }
-    final groceryList = groceryBuffer.toString();
+    final groceryList = groceries.values.isEmpty
+        ? "(none — every grocery you output will be new)"
+        : groceries.values
+              .map(
+                (grocery) => jsonEncode({
+                  "name": grocery.name,
+                  "unit": grocery.toJson()["unit"],
+                }),
+              )
+              .join("\n");
 
     final typedTags = await tsx.get(typedTagProvider.future);
     final recipeTags = typedTags[TagTypeEnum.recipe]!;
-    final tagBuffer = StringBuffer();
-
-    for (final tag in recipeTags.values) {
-      tagBuffer.write("${tag.name}, ");
-    }
-    final tagList = tagBuffer.toString();
+    final tagList = recipeTags.values.isEmpty
+        ? "(none — every tag you output will be new)"
+        : recipeTags.values.map((tag) => tag.name).join(", ");
 
     final locale = tsx.get(localeProvider);
     final userLanguage = locale.languageCode;
@@ -57,9 +58,19 @@ The user's preferred language is: $userLanguage. Translate recipe titles, steps,
 The source may be in any language, but your output MUST be in $userLanguage.
 
 GROCERY MATCHING (highest priority):
-The user has the following groceries available: $groceryList.
-When a recipe ingredient matches an existing grocery, you MUST reuse it with its EXACT original name — do NOT translate or rename it.
+The user already has the groceries listed below, one JSON object per line. "name" is the full grocery name and "unit" is only the unit the user tracks that grocery in — the unit is a separate field, it is NOT part of the name.
+
+$groceryList
+
+When a recipe ingredient matches one of these groceries, you MUST reuse it and copy its "name" value character for character, without translating, renaming, reformatting, or appending anything.
 Only create a new grocery if no existing one matches. New grocery names should be in $userLanguage.
+
+GROCERY NAME FORMAT (critical):
+- The "name" field holds the plain ingredient name and nothing else. The unit goes into the separate "unit" field and must NEVER appear inside the name.
+- Never append a unit, an amount, or a unit in brackets or parentheses to a name. A name with a unit in it never matches the user's grocery, which breaks the import.
+- BAD: "Butter (g)", "Butter (Gram)", "Butter [g]", "Butter, g", "Butter g", "200g Butter", "Flour (grams)", "Milk (ml)"
+- GOOD: "Butter", "Flour", "Milk"
+- Keep a parenthesis in a name ONLY when it is part of an existing grocery's exact name from the list above (e.g. "Milk (3.5%)").
 
 TAG MATCHING:
 The user has the following tags available: $tagList.
@@ -72,6 +83,7 @@ CRITICAL RULES:
 
 SCHEMA CONSISTENCY:
 - Every "groceryId" used in recipe ingredients MUST match an "id" in the "groceries" array.
+- When you reuse an existing grocery, set its "unit" to the unit listed for it above.
 - Every "recipeId" in "recipeTags" MUST match an "id" in the "recipes" array.
 
 TAGGING LOGIC:
