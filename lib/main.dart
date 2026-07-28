@@ -39,7 +39,7 @@ void main() async {
 
   final applicationPath = await getApplicationSupportDirectory();
 
-  await Supabase.initialize(url: supabaseUrl, anonKey: supabaseKey);
+  await Supabase.initialize(url: supabaseUrl, publishableKey: supabaseKey);
 
   if (kDebugMode) {
     await Purchases.setLogLevel(LogLevel.debug);

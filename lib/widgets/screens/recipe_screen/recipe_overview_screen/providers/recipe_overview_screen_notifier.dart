@@ -1,7 +1,10 @@
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
 import 'package:recipath/data/tag_data/tag_data.dart';
 import 'package:recipath/data/timer_data/timer_data.dart';
+import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/recipe_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/tags_per_recipe_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/timer_notifier.dart';
@@ -26,11 +29,14 @@ class RecipeOverviewScreenNotifier extends _$RecipeOverviewScreenNotifier {
       tagsPerRecipeProvider.select((data) => data.value?[recipeId]),
     );
 
+    final groceries = await ref.watch(groceryProvider.future);
+
     return RecipeOverviewScreenState(
       originalData: originalData,
       recipeData: recipeData,
       timer: timer,
       tags: tags ?? {},
+      groceries: groceries,
     );
   }
 
@@ -45,6 +51,7 @@ class RecipeOverviewScreenNotifier extends _$RecipeOverviewScreenNotifier {
         recipeData: recipeData,
         timer: state.value!.timer,
         tags: state.value!.tags,
+        groceries: state.value!.groceries,
       ),
     );
   }
@@ -56,10 +63,12 @@ class RecipeOverviewScreenState {
     required this.recipeData,
     required this.timer,
     required this.tags,
+    required this.groceries,
   });
 
   final RecipeData originalData;
   final RecipeData recipeData;
   final TimerData? timer;
   final Set<TagData> tags;
+  final IMap<String, GroceryData> groceries;
 }

@@ -9,7 +9,6 @@ import 'package:recipath/helper/go_router_extension.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/generic/image_viewer.dart';
-import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/recipe_overview_screen/ingredients_list.dart';
 import 'package:recipath/widgets/screens/recipe_screen/recipe_overview_screen/nutriments_list.dart';
 import 'package:recipath/widgets/screens/recipe_screen/recipe_overview_screen/providers/recipe_overview_screen_notifier.dart';
@@ -29,12 +28,11 @@ class RecipeOverviewScreen extends ConsumerWidget {
     final localization = AppLocalizations.of(context)!;
 
     final state = ref.watch(recipeOverviewScreenProvider(recipeId));
-    final groceries = ref.watch(groceryProvider).value!;
 
     return CachedAsyncValueWrapper(
       asyncState: state,
       builder: (data) {
-        final ingredients = data.recipeData.getIngredients(groceries);
+        final ingredients = data.recipeData.getIngredients(data.groceries);
 
         return Scaffold(
           appBar: AppBar(

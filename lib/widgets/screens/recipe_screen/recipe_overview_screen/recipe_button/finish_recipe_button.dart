@@ -68,7 +68,7 @@ class FinishRecipeButton extends ConsumerWidget {
               ),
             );
 
-        final ingredientsInStorage = tsx.get(storageProvider).value!;
+        final ingredientsInStorage = await tsx.get(storageProvider.future);
         final availableIngredients = ingredients.where(
           (e) => ingredientsInStorage.keys.contains(e.groceryId),
         );

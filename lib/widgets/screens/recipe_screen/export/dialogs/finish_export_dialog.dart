@@ -12,7 +12,7 @@ class FinishExportDialog extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final localization = AppLocalizations.of(context)!;
     final recipeMap = ref.watch(recipeProvider).value;
-    final export = ref.watch(exportProvider)!;
+    final export = ref.watch(exportProvider) ?? [];
 
     final recipes = export.map((e) => recipeMap?[e]).nonNulls;
 
