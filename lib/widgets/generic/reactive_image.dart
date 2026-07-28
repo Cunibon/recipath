@@ -21,7 +21,7 @@ class ReactiveImage extends ConsumerWidget {
     }
 
     final width = MediaQuery.sizeOf(context).width;
-    final wide = width >= 820;
+    final wide = width >= 800;
 
     return Flex(
       direction: wide ? .horizontal : .vertical,
