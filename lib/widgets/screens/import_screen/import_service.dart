@@ -18,7 +18,8 @@ class ImportService {
     required this.importData,
     required this.recipeImportState,
     required this.groceries,
-    required this.tagImportState,
+    required this.recipeTagImportState,
+    required this.groceryTagImportState,
     required this.recipeModifier,
     required this.groceryModifier,
     required this.tagModifier,
@@ -28,7 +29,8 @@ class ImportService {
   final ImportData importData;
   final RecipeImportScreenState recipeImportState;
   final IMap<String, GroceryData?> groceries;
-  final TagImportScreenState tagImportState;
+  final TagImportScreenState recipeTagImportState;
+  final TagImportScreenState groceryTagImportState;
 
   final RecipeModifier recipeModifier;
   final GroceryModifier groceryModifier;
@@ -64,11 +66,14 @@ class ImportService {
   Future<void> import() async {
     final tagMapping = <String, String>{};
 
-    for (final entry in tagImportState.mappedTags.entries) {
+    for (final entry in [
+      ...recipeTagImportState.mappedTags.entries,
+      ...groceryTagImportState.mappedTags.entries,
+    ]) {
       late String id;
 
       if (entry.value == null) {
-        final original = tagImportState.tagLookup[entry.key]!;
+        final original = recipeTagImportState.tagLookup[entry.key]!;
         final copy = original.copyWith(id: randomAlphaNumeric(16));
         await tagModifier.add(copy);
         id = copy.id;

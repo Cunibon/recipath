@@ -7,25 +7,25 @@ import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/generic/info_text.dart';
 import 'package:recipath/widgets/screens/import_screen/dialogs/confirm_creation_dialog.dart';
 import 'package:recipath/widgets/screens/import_screen/providers/import_service_notifier.dart';
-import 'package:recipath/widgets/screens/import_screen/providers/tag_import_screen_notifier.dart';
-import 'package:recipath/widgets/screens/import_screen/tag_import.dart';
+import 'package:recipath/widgets/screens/import_screen/providers/recipe_tag_import_screen_notifier.dart';
+import 'package:recipath/widgets/screens/import_screen/recipe_tag_import.dart';
 
-class TagImportScreen extends ConsumerStatefulWidget {
-  const TagImportScreen({required this.filePath, super.key});
+class RecipeTagImportScreen extends ConsumerStatefulWidget {
+  const RecipeTagImportScreen({required this.filePath, super.key});
 
   final String filePath;
 
   @override
-  ConsumerState<TagImportScreen> createState() => _TagImportScreenState();
+  ConsumerState<RecipeTagImportScreen> createState() => _TagImportScreenState();
 }
 
-class _TagImportScreenState extends ConsumerState<TagImportScreen> {
+class _TagImportScreenState extends ConsumerState<RecipeTagImportScreen> {
   late bool loading = false;
 
   @override
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context)!;
-    final state = ref.watch(tagImportScreenProvider(widget.filePath));
+    final state = ref.watch(recipeTagImportScreenProvider(widget.filePath));
 
     return Scaffold(
       appBar: AppBar(
@@ -36,7 +36,7 @@ class _TagImportScreenState extends ConsumerState<TagImportScreen> {
         actions: [
           IconButton(
             onPressed: () => ref
-                .read(tagImportScreenProvider(widget.filePath).notifier)
+                .read(recipeTagImportScreenProvider(widget.filePath).notifier)
                 .refresh(),
             icon: Icon(Icons.refresh),
           ),
@@ -89,7 +89,7 @@ class _TagImportScreenState extends ConsumerState<TagImportScreen> {
             crossAxisAlignment: .start,
             children: [
               InfoText(text: localization.tagImportInfo),
-              Expanded(child: TagImport(filePath: widget.filePath)),
+              Expanded(child: RecipeTagImport(filePath: widget.filePath)),
             ],
           ),
         ),

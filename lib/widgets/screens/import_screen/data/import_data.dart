@@ -12,5 +12,6 @@ abstract class ImportData with _$ImportData {
     required List<RecipeData> recipes,
     required IMap<String, GroceryData> groceries,
     required IMap<String, Set<TagData>> tagsPerRecipe,
+    required IMap<String, Set<TagData>> tagsPerGrocery,
   }) = _ImportData;
 }

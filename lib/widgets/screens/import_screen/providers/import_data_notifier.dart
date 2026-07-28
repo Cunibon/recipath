@@ -19,11 +19,13 @@ Future<ImportData> importDataNotifier(Ref ref, String path) async {
 
   final groceryData = data[groceryDataKey];
   final recipeData = data[recipeDataKey];
-  final tagData = data[tagDataKey];
+  final recipeTagData = data[recipeTagDataKey] ?? data[tagDataKey];
+  final groceryTagData = data[groceryTagDataKey];
 
   final groceryMap = <String, GroceryData>{};
   final recipeList = <RecipeData>[];
   final tagsPerRecipe = <String, Set<TagData>>{};
+  final tagsPerGrocery = <String, Set<TagData>>{};
 
   for (final data in groceryData.values) {
     final parsed = GroceryData.fromJson(data);
@@ -34,8 +36,14 @@ Future<ImportData> importDataNotifier(Ref ref, String path) async {
     recipeList.add(RecipeData.fromJson(data));
   }
 
-  for (final data in tagData.entries) {
+  for (final data in recipeTagData.entries) {
     tagsPerRecipe[data.key] = {
+      for (final tagData in data.value) TagData.fromJson(tagData),
+    };
+  }
+
+  for (final data in groceryTagData.entries) {
+    tagsPerGrocery[data.key] = {
       for (final tagData in data.value) TagData.fromJson(tagData),
     };
   }
@@ -44,5 +52,6 @@ Future<ImportData> importDataNotifier(Ref ref, String path) async {
     recipes: recipeList,
     groceries: groceryMap.lock,
     tagsPerRecipe: tagsPerRecipe.toIMap(),
+    tagsPerGrocery: tagsPerGrocery.toIMap(),
   );
 }

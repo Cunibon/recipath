@@ -5,10 +5,10 @@ import 'package:recipath/widgets/screens/import_screen/providers/recipe_import_s
 import 'package:recipath/widgets/screens/tag_screen/providers/tag_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'tag_import_screen_notifier.g.dart';
+part 'recipe_tag_import_screen_notifier.g.dart';
 
 @riverpod
-class TagImportScreenNotifier extends _$TagImportScreenNotifier {
+class RecipeTagImportScreenNotifier extends _$RecipeTagImportScreenNotifier {
   @override
   Future<TagImportScreenState> build(String path) async {
     final recipeImportState = await ref.watch(

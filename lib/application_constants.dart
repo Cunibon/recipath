@@ -23,7 +23,10 @@ const List<String> dataKeys = [recipeDataKey, groceryDataKey, tagDataKey];
 
 const String recipeDataKey = "recipeData";
 const String groceryDataKey = "groceryData";
+@Deprecated("Use [recipeTagDataKey] instead")
 const String tagDataKey = "tagData";
+const String recipeTagDataKey = "recipeTagData";
+const String groceryTagDataKey = "groceryTagData";
 
 const String idParameter = "id";
 

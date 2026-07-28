@@ -54,9 +54,7 @@ class $AssetsStructuredOutputGen {
   List<String> get values => [recipeSchema];
 }
 
-class Assets {
-  const Assets._();
-
+abstract final class Assets {
   static const $AssetsFontsGen fonts = $AssetsFontsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsSoundsGen sounds = $AssetsSoundsGen();

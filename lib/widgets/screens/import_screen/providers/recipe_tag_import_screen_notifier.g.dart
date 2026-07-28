@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'tag_import_screen_notifier.dart';
+part of 'recipe_tag_import_screen_notifier.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,40 +9,43 @@ part of 'tag_import_screen_notifier.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(TagImportScreenNotifier)
-final tagImportScreenProvider = TagImportScreenNotifierFamily._();
+@ProviderFor(RecipeTagImportScreenNotifier)
+final recipeTagImportScreenProvider = RecipeTagImportScreenNotifierFamily._();
 
-final class TagImportScreenNotifierProvider
+final class RecipeTagImportScreenNotifierProvider
     extends
-        $AsyncNotifierProvider<TagImportScreenNotifier, TagImportScreenState> {
-  TagImportScreenNotifierProvider._({
-    required TagImportScreenNotifierFamily super.from,
+        $AsyncNotifierProvider<
+          RecipeTagImportScreenNotifier,
+          TagImportScreenState
+        > {
+  RecipeTagImportScreenNotifierProvider._({
+    required RecipeTagImportScreenNotifierFamily super.from,
     required String super.argument,
   }) : super(
          retry: null,
-         name: r'tagImportScreenProvider',
+         name: r'recipeTagImportScreenProvider',
          isAutoDispose: true,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
 
   @override
-  String debugGetCreateSourceHash() => _$tagImportScreenNotifierHash();
+  String debugGetCreateSourceHash() => _$recipeTagImportScreenNotifierHash();
 
   @override
   String toString() {
-    return r'tagImportScreenProvider'
+    return r'recipeTagImportScreenProvider'
         ''
         '($argument)';
   }
 
   @$internal
   @override
-  TagImportScreenNotifier create() => TagImportScreenNotifier();
+  RecipeTagImportScreenNotifier create() => RecipeTagImportScreenNotifier();
 
   @override
   bool operator ==(Object other) {
-    return other is TagImportScreenNotifierProvider &&
+    return other is RecipeTagImportScreenNotifierProvider &&
         other.argument == argument;
   }
 
@@ -52,35 +55,35 @@ final class TagImportScreenNotifierProvider
   }
 }
 
-String _$tagImportScreenNotifierHash() =>
-    r'11d1a00cdc348c892cb06b1cc3d0add4e69d6acd';
+String _$recipeTagImportScreenNotifierHash() =>
+    r'f2c9be9a2f90cf60f612953495b791081416a6c4';
 
-final class TagImportScreenNotifierFamily extends $Family
+final class RecipeTagImportScreenNotifierFamily extends $Family
     with
         $ClassFamilyOverride<
-          TagImportScreenNotifier,
+          RecipeTagImportScreenNotifier,
           AsyncValue<TagImportScreenState>,
           TagImportScreenState,
           FutureOr<TagImportScreenState>,
           String
         > {
-  TagImportScreenNotifierFamily._()
+  RecipeTagImportScreenNotifierFamily._()
     : super(
         retry: null,
-        name: r'tagImportScreenProvider',
+        name: r'recipeTagImportScreenProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
         isAutoDispose: true,
       );
 
-  TagImportScreenNotifierProvider call(String path) =>
-      TagImportScreenNotifierProvider._(argument: path, from: this);
+  RecipeTagImportScreenNotifierProvider call(String path) =>
+      RecipeTagImportScreenNotifierProvider._(argument: path, from: this);
 
   @override
-  String toString() => r'tagImportScreenProvider';
+  String toString() => r'recipeTagImportScreenProvider';
 }
 
-abstract class _$TagImportScreenNotifier
+abstract class _$RecipeTagImportScreenNotifier
     extends $AsyncNotifier<TagImportScreenState> {
   late final _$args = ref.$arg as String;
   String get path => _$args;
