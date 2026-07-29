@@ -52,7 +52,14 @@ class TagImportScreenNotifier extends _$TagImportScreenNotifier {
 
     for (final tag in tags) {
       tagLookup[tag.id] = tag;
-      mappedTags[tag.id] = localTagNameLookup[tag.name.trim().toLowerCase()];
+
+      final nameHit = localTagNameLookup[tag.name.trim().toLowerCase()];
+
+      if (nameHit?.tagType == tag.tagType) {
+        mappedTags[tag.id] = nameHit;
+      } else {
+        mappedTags[tag.id] = null;
+      }
     }
 
     return TagImportScreenState(tagLookup: tagLookup, mappedTags: mappedTags);

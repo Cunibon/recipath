@@ -22,7 +22,7 @@ class GroceryImportScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          localization.importData,
+          localization.importGrocery,
           style: TextTheme.of(context).titleLarge,
         ),
       ),

@@ -396,6 +396,18 @@ class AppLocalizationsEs extends AppLocalizations {
   String get importData => 'Importar datos';
 
   @override
+  String get importRecipe => 'Importar receta';
+
+  @override
+  String get importGrocery => 'Importar alimento';
+
+  @override
+  String get importRecipeTag => 'Importar etiqueta de receta';
+
+  @override
+  String get importGroceryTag => 'Importar etiqueta de alimento';
+
+  @override
   String get selectFileToImport => 'Seleccione un archivo para importar.';
 
   @override

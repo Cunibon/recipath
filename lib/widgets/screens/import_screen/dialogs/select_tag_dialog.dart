@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:recipath/data/tag_data/tag_data.dart';
+import 'package:recipath/data/tag_data/tag_type_enum.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/generic/empty_state.dart';
 import 'package:recipath/widgets/generic/searchable_list.dart';
-import 'package:recipath/widgets/screens/tag_screen/providers/tag_notifier.dart';
+import 'package:recipath/widgets/screens/tag_screen/providers/typed_tag_notifier.dart';
 import 'package:recipath/widgets/tag/tag.dart';
 
 class SelectTagDialog extends ConsumerStatefulWidget {
-  const SelectTagDialog({super.key});
+  const SelectTagDialog({required this.tagType, super.key});
+
+  final TagTypeEnum tagType;
 
   @override
   ConsumerState<SelectTagDialog> createState() => _SelectTagDialogState();
@@ -29,9 +32,9 @@ class _SelectTagDialogState extends ConsumerState<SelectTagDialog> {
         child: ConstrainedBox(
           constraints: BoxConstraints(maxHeight: 500),
           child: CachedAsyncValueWrapper(
-            asyncState: ref.watch(tagProvider),
+            asyncState: ref.watch(typedTagProvider),
             builder: (data) {
-              final tagList = data.values.toList();
+              final tagList = data[widget.tagType]?.values.toList() ?? [];
               return Stack(
                 children: [
                   SearchableList(

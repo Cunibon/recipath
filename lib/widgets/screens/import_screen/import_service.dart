@@ -73,7 +73,9 @@ class ImportService {
       late String id;
 
       if (entry.value == null) {
-        final original = recipeTagImportState.tagLookup[entry.key]!;
+        final original =
+            (recipeTagImportState.tagLookup[entry.key] ??
+            groceryTagImportState.tagLookup[entry.key])!;
         final copy = original.copyWith(id: randomAlphaNumeric(16));
         await tagModifier.add(copy);
         id = copy.id;

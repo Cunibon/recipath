@@ -30,7 +30,7 @@ class TagImport extends ConsumerWidget {
               onTap: () async {
                 final result = await showDialog<TagData>(
                   context: context,
-                  builder: (context) => SelectTagDialog(),
+                  builder: (context) => SelectTagDialog(tagType: tagType),
                 );
 
                 if (result != null) {

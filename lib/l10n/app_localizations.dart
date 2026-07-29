@@ -816,6 +816,30 @@ abstract class AppLocalizations {
   /// **'Import data'**
   String get importData;
 
+  /// No description provided for @importRecipe.
+  ///
+  /// In en, this message translates to:
+  /// **'Import Recipe'**
+  String get importRecipe;
+
+  /// No description provided for @importGrocery.
+  ///
+  /// In en, this message translates to:
+  /// **'Import Grocery'**
+  String get importGrocery;
+
+  /// No description provided for @importRecipeTag.
+  ///
+  /// In en, this message translates to:
+  /// **'Import Recipe Tag'**
+  String get importRecipeTag;
+
+  /// No description provided for @importGroceryTag.
+  ///
+  /// In en, this message translates to:
+  /// **'Import Grocery Tag'**
+  String get importGroceryTag;
+
   /// No description provided for @selectFileToImport.
   ///
   /// In en, this message translates to:

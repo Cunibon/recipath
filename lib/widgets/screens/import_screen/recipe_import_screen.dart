@@ -21,7 +21,7 @@ class RecipeImportScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          localization.importData,
+          localization.importRecipe,
           style: TextTheme.of(context).titleLarge,
         ),
       ),

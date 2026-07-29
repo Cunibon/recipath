@@ -32,7 +32,7 @@ class _GroceryTagImportScreenState
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          localization.importData,
+          localization.importGroceryTag,
           style: TextTheme.of(context).titleLarge,
         ),
         actions: [
