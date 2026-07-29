@@ -209,6 +209,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.2"
+  bound_mutation:
+    dependency: "direct main"
+    description:
+      name: bound_mutation
+      sha256: "15ae3c2b7f27cdd6914d7c97d21d7484e313223d7c28166ee97e4168e9fa88e0"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.3"
   build:
     dependency: transitive
     description:

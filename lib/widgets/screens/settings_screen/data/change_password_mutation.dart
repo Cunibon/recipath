@@ -1,4 +1,4 @@
-import 'package:recipath/helper/bound_mutation.dart';
+import 'package:bound_mutation/bound_mutation.dart';
 import 'package:recipath/widgets/providers/supabase/supabase_client_notifier.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 

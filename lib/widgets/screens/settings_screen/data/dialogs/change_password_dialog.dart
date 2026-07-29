@@ -29,7 +29,7 @@ class _ChangePasswordDialogState extends ConsumerState<ChangePasswordDialog> {
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context)!;
 
-    final changeStatus = ref.watch(changePasswordMutation.mutation);
+    final changeStatus = ref.watch(changePasswordMutation);
 
     Widget? errorWidget;
 

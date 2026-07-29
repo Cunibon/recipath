@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/widgets/screens/recipe_screen/export/dialogs/finish_export_dialog.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/export_notifier.dart';
+import 'package:recipath/widgets/screens/recipe_screen/providers/export_recipe_mutation.dart';
 
 class FinishExport extends ConsumerWidget {
   const FinishExport({super.key});
@@ -17,7 +18,7 @@ class FinishExport extends ConsumerWidget {
 
         if (result == true) {
           final notifier = ref.read(exportProvider.notifier);
-          await notifier.export();
+          await exportRecipeMutation.run(ref, null);
           notifier.clear();
         }
       },

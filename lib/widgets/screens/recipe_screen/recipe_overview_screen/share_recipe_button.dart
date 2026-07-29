@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/export_notifier.dart';
+import 'package:recipath/widgets/screens/recipe_screen/providers/export_recipe_mutation.dart';
 import 'package:recipath/widgets/screens/recipe_screen/recipe_overview_screen/pdf/pdf_mutation.dart';
 import 'package:recipath/widgets/screens/recipe_screen/recipe_overview_screen/share_type_dialog.dart';
 
@@ -24,7 +25,7 @@ class ShareRecipeButton extends ConsumerWidget {
 
           notifier.clear();
           notifier.toggleRecipe(recipe);
-          await notifier.export();
+          await exportRecipeMutation.run(ref, null);
           notifier.clear();
         } else if (shareType == ShareType.pdf) {
           await PdfMutation.runPdfExport(ref, recipe);

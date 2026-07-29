@@ -70,6 +70,7 @@ dependencies:
   fast_immutable_collections: ^11.2.0
   smart_input_fields: ^0.0.3
   gal: ^2.3.2
+  bound_mutation: ^1.0.3
 
 dependency_overrides:
   googleai_dart: 3.0.0
