@@ -16,7 +16,7 @@ class TagImport extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final tagScreenState = ref
-        .watch(tagImportScreenProvider(filePath, .recipe))
+        .watch(tagImportScreenProvider(filePath, tagType))
         .value!;
 
     return SingleChildScrollView(
@@ -35,15 +35,15 @@ class TagImport extends ConsumerWidget {
 
                 if (result != null) {
                   ref
-                      .read(tagImportScreenProvider(filePath, .recipe).notifier)
+                      .read(tagImportScreenProvider(filePath, tagType).notifier)
                       .selectTag(entry.key, result);
                 }
               },
               clear: () => ref
-                  .read(tagImportScreenProvider(filePath, .recipe).notifier)
+                  .read(tagImportScreenProvider(filePath, tagType).notifier)
                   .selectTag(entry.key, null),
               delete: () => ref
-                  .read(tagImportScreenProvider(filePath, .recipe).notifier)
+                  .read(tagImportScreenProvider(filePath, tagType).notifier)
                   .delete(entry.key),
             ),
         ],
