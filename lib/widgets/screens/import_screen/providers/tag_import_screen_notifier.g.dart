@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'recipe_tag_import_screen_notifier.dart';
+part of 'tag_import_screen_notifier.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,43 +9,40 @@ part of 'recipe_tag_import_screen_notifier.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(RecipeTagImportScreenNotifier)
-final recipeTagImportScreenProvider = RecipeTagImportScreenNotifierFamily._();
+@ProviderFor(TagImportScreenNotifier)
+final tagImportScreenProvider = TagImportScreenNotifierFamily._();
 
-final class RecipeTagImportScreenNotifierProvider
+final class TagImportScreenNotifierProvider
     extends
-        $AsyncNotifierProvider<
-          RecipeTagImportScreenNotifier,
-          TagImportScreenState
-        > {
-  RecipeTagImportScreenNotifierProvider._({
-    required RecipeTagImportScreenNotifierFamily super.from,
-    required String super.argument,
+        $AsyncNotifierProvider<TagImportScreenNotifier, TagImportScreenState> {
+  TagImportScreenNotifierProvider._({
+    required TagImportScreenNotifierFamily super.from,
+    required (String, TagTypeEnum) super.argument,
   }) : super(
          retry: null,
-         name: r'recipeTagImportScreenProvider',
+         name: r'tagImportScreenProvider',
          isAutoDispose: true,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
 
   @override
-  String debugGetCreateSourceHash() => _$recipeTagImportScreenNotifierHash();
+  String debugGetCreateSourceHash() => _$tagImportScreenNotifierHash();
 
   @override
   String toString() {
-    return r'recipeTagImportScreenProvider'
+    return r'tagImportScreenProvider'
         ''
-        '($argument)';
+        '$argument';
   }
 
   @$internal
   @override
-  RecipeTagImportScreenNotifier create() => RecipeTagImportScreenNotifier();
+  TagImportScreenNotifier create() => TagImportScreenNotifier();
 
   @override
   bool operator ==(Object other) {
-    return other is RecipeTagImportScreenNotifierProvider &&
+    return other is TagImportScreenNotifierProvider &&
         other.argument == argument;
   }
 
@@ -55,40 +52,41 @@ final class RecipeTagImportScreenNotifierProvider
   }
 }
 
-String _$recipeTagImportScreenNotifierHash() =>
-    r'f2c9be9a2f90cf60f612953495b791081416a6c4';
+String _$tagImportScreenNotifierHash() =>
+    r'e65e586c6e17c959a7928de8a9b0fb0bccf73a84';
 
-final class RecipeTagImportScreenNotifierFamily extends $Family
+final class TagImportScreenNotifierFamily extends $Family
     with
         $ClassFamilyOverride<
-          RecipeTagImportScreenNotifier,
+          TagImportScreenNotifier,
           AsyncValue<TagImportScreenState>,
           TagImportScreenState,
           FutureOr<TagImportScreenState>,
-          String
+          (String, TagTypeEnum)
         > {
-  RecipeTagImportScreenNotifierFamily._()
+  TagImportScreenNotifierFamily._()
     : super(
         retry: null,
-        name: r'recipeTagImportScreenProvider',
+        name: r'tagImportScreenProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
         isAutoDispose: true,
       );
 
-  RecipeTagImportScreenNotifierProvider call(String path) =>
-      RecipeTagImportScreenNotifierProvider._(argument: path, from: this);
+  TagImportScreenNotifierProvider call(String path, TagTypeEnum tagType) =>
+      TagImportScreenNotifierProvider._(argument: (path, tagType), from: this);
 
   @override
-  String toString() => r'recipeTagImportScreenProvider';
+  String toString() => r'tagImportScreenProvider';
 }
 
-abstract class _$RecipeTagImportScreenNotifier
+abstract class _$TagImportScreenNotifier
     extends $AsyncNotifier<TagImportScreenState> {
-  late final _$args = ref.$arg as String;
-  String get path => _$args;
+  late final _$args = ref.$arg as (String, TagTypeEnum);
+  String get path => _$args.$1;
+  TagTypeEnum get tagType => _$args.$2;
 
-  FutureOr<TagImportScreenState> build(String path);
+  FutureOr<TagImportScreenState> build(String path, TagTypeEnum tagType);
   @$mustCallSuper
   @override
   void runBuild() {
@@ -106,6 +104,6 @@ abstract class _$RecipeTagImportScreenNotifier
               Object?,
               Object?
             >;
-    element.handleCreate(ref, () => build(_$args));
+    element.handleCreate(ref, () => build(_$args.$1, _$args.$2));
   }
 }

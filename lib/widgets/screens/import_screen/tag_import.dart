@@ -2,19 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/common.dart';
 import 'package:recipath/data/tag_data/tag_data.dart';
+import 'package:recipath/data/tag_data/tag_type_enum.dart';
 import 'package:recipath/widgets/screens/import_screen/dialogs/select_tag_dialog.dart';
-import 'package:recipath/widgets/screens/import_screen/providers/recipe_tag_import_screen_notifier.dart';
+import 'package:recipath/widgets/screens/import_screen/providers/tag_import_screen_notifier.dart';
 import 'package:recipath/widgets/screens/import_screen/tag_import_item.dart';
 
-class RecipeTagImport extends ConsumerWidget {
-  const RecipeTagImport({required this.filePath, super.key});
+class TagImport extends ConsumerWidget {
+  const TagImport({required this.filePath, required this.tagType, super.key});
 
   final String filePath;
+  final TagTypeEnum tagType;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final tagScreenState = ref
-        .watch(recipeTagImportScreenProvider(filePath))
+        .watch(tagImportScreenProvider(filePath, .recipe))
         .value!;
 
     return SingleChildScrollView(
@@ -33,15 +35,15 @@ class RecipeTagImport extends ConsumerWidget {
 
                 if (result != null) {
                   ref
-                      .read(recipeTagImportScreenProvider(filePath).notifier)
+                      .read(tagImportScreenProvider(filePath, .recipe).notifier)
                       .selectTag(entry.key, result);
                 }
               },
               clear: () => ref
-                  .read(recipeTagImportScreenProvider(filePath).notifier)
+                  .read(tagImportScreenProvider(filePath, .recipe).notifier)
                   .selectTag(entry.key, null),
               delete: () => ref
-                  .read(recipeTagImportScreenProvider(filePath).notifier)
+                  .read(tagImportScreenProvider(filePath, .recipe).notifier)
                   .delete(entry.key),
             ),
         ],

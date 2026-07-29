@@ -1,28 +1,52 @@
 import 'package:recipath/data/tag_data/tag_data.dart';
+import 'package:recipath/data/tag_data/tag_type_enum.dart';
 import 'package:recipath/widgets/screens/import_screen/data/tag_import_screen_state.dart';
+import 'package:recipath/widgets/screens/import_screen/providers/grocery_import_screen_notifier.dart';
 import 'package:recipath/widgets/screens/import_screen/providers/import_data_notifier.dart';
 import 'package:recipath/widgets/screens/import_screen/providers/recipe_import_screen_notifier.dart';
 import 'package:recipath/widgets/screens/tag_screen/providers/tag_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'recipe_tag_import_screen_notifier.g.dart';
+part 'tag_import_screen_notifier.g.dart';
 
 @riverpod
-class RecipeTagImportScreenNotifier extends _$RecipeTagImportScreenNotifier {
+class TagImportScreenNotifier extends _$TagImportScreenNotifier {
   @override
-  Future<TagImportScreenState> build(String path) async {
-    final recipeImportState = await ref.watch(
-      recipeImportScreenProvider(path).future,
-    );
+  Future<TagImportScreenState> build(String path, TagTypeEnum tagType) async {
     final importData = await ref.watch(importDataProvider(path).future);
 
     final localTagNameLookup = (await ref.watch(
       tagProvider.future,
     )).map((key, value) => MapEntry(value.name.trim().toLowerCase(), value));
 
-    final tags = recipeImportState.selectedRecipes
-        .expand((element) => importData.tagsPerRecipe[element.id]!)
-        .toSet();
+    late Set<TagData> tags;
+
+    switch (tagType) {
+      case .recipe:
+        final recipeImportState = await ref.watch(
+          recipeImportScreenProvider(path).future,
+        );
+        tags = recipeImportState.selectedRecipes
+            .expand((element) => importData.tagsPerRecipe[element.id]!)
+            .toSet();
+        break;
+      case .grocery:
+        tags = {};
+
+        final groceryImportState = await ref.watch(
+          groceryImportScreenProvider(path).future,
+        );
+        for (final entry in groceryImportState.entries) {
+          if (entry.value == null) {
+            final groceryTags = importData.tagsPerGrocery[entry.key];
+            if (groceryTags != null) {
+              tags.addAll(groceryTags);
+            }
+          }
+        }
+        break;
+    }
+
     final tagLookup = <String, TagData>{};
     final mappedTags = <String, TagData?>{};
 

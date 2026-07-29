@@ -12,10 +12,10 @@ part 'grocery_import_screen_notifier.g.dart';
 class GroceryImportScreenNotifier extends _$GroceryImportScreenNotifier {
   @override
   Future<IMap<String, GroceryData?>> build(String path) async {
+    final importData = await ref.watch(importDataProvider(path).future);
     final recipeImportState = await ref.watch(
       recipeImportScreenProvider(path).future,
     );
-    final importData = await ref.watch(importDataProvider(path).future);
 
     final localGroceries = await ref.watch(groceryProvider.future);
 

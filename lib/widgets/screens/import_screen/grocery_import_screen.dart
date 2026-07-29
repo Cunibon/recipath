@@ -42,7 +42,10 @@ class GroceryImportScreen extends ConsumerWidget {
           }
 
           if (context.mounted) {
-            context.goRelative(ImportRoutes.tagImport.path, extra: filePath);
+            context.goRelative(
+              ImportRoutes.recipeTagImport.path,
+              extra: filePath,
+            );
           }
         },
         child: Icon(Icons.arrow_forward),
