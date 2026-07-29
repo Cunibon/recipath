@@ -1,10 +1,12 @@
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:random_string/random_string.dart';
+import 'package:recipath/application/gorcery_tag_modifier/grocery_tag_modifier.dart';
 import 'package:recipath/application/grocery_modifier/grocery_modifier.dart';
 import 'package:recipath/application/recipe_modifier/recipe_modifier.dart';
 import 'package:recipath/application/recipe_tag_modifier/recipe_tag_modifier.dart';
 import 'package:recipath/application/tag_modifier/tag_modifier.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
+import 'package:recipath/data/grocery_tag_data/grocery_tag_data.dart';
 import 'package:recipath/data/ingredient_data/ingredient_data.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
 import 'package:recipath/data/recipe_tag_data/recipe_tag_data.dart';
@@ -24,6 +26,7 @@ class ImportService {
     required this.groceryModifier,
     required this.tagModifier,
     required this.recipeTagModifier,
+    required this.groceryTagModifier,
   });
 
   final ImportData importData;
@@ -36,6 +39,7 @@ class ImportService {
   final GroceryModifier groceryModifier;
   final TagModifier tagModifier;
   final RecipeTagModifier recipeTagModifier;
+  final GroceryTagModifier groceryTagModifier;
 
   IngredientData _fixIngredient({
     required IngredientData ingredient,
@@ -95,6 +99,15 @@ class ImportService {
         final copy = original.copyWith(id: randomAlphaNumeric(16));
         await groceryModifier.add(copy);
         grocery = copy;
+
+        final groceryTags = importData.tagsPerGrocery[original.id] ?? {};
+        for (final tag in groceryTags) {
+          if (tagMapping.containsKey(tag.id)) {
+            await groceryTagModifier.add(
+              GroceryTagData(groceryId: copy.id, tagId: tagMapping[tag.id]!),
+            );
+          }
+        }
       } else {
         grocery = entry.value!;
       }

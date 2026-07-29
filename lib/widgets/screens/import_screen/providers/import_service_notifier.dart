@@ -1,3 +1,4 @@
+import 'package:recipath/application/gorcery_tag_modifier/grocery_tag_modifier_notifier.dart';
 import 'package:recipath/application/grocery_modifier/grocery_modifier_notifier.dart';
 import 'package:recipath/application/recipe_modifier/recipe_modifier_notifier.dart';
 import 'package:recipath/application/recipe_tag_modifier/recipe_tag_modifier_notifier.dart';
@@ -29,4 +30,5 @@ Future<ImportService> importServiceNotifier(Ref ref, String path) async =>
       groceryModifier: ref.watch(groceryModifierProvider),
       tagModifier: ref.watch(tagModifierProvider),
       recipeTagModifier: ref.watch(recipeTagModifierProvider),
+      groceryTagModifier: ref.watch(groceryTagModifierProvider),
     );

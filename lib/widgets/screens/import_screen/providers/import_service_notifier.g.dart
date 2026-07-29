@@ -65,7 +65,7 @@ final class ImportServiceNotifierProvider
 }
 
 String _$importServiceNotifierHash() =>
-    r'09706cfe9c1dc96fa571014ba6aacbe5e3085d41';
+    r'696af7450d120cb57d5460a78eeaf0512e1e3fde';
 
 final class ImportServiceNotifierFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<ImportService>, String> {
