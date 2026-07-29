@@ -4,10 +4,12 @@ import 'package:recipath/data/tag_data/tag_type_enum.dart';
 import 'package:recipath/widgets/screens/tag_screen/providers/tag_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'typed_tag_notifier.g.dart';
+part 'tag_by_type_notifier.g.dart';
 
 @riverpod
-Future<IMap<TagTypeEnum, IMap<String, TagData>>> typedTagNotifier(Ref ref) async {
+Future<IMap<TagTypeEnum, IMap<String, TagData>>> tagByTypeNotifier(
+  Ref ref,
+) async {
   final tags = await ref.watch(tagProvider.future);
 
   final typedTags = <TagTypeEnum, Map<String, TagData>>{

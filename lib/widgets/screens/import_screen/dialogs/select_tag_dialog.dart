@@ -7,7 +7,7 @@ import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/generic/empty_state.dart';
 import 'package:recipath/widgets/generic/searchable_list.dart';
-import 'package:recipath/widgets/screens/tag_screen/providers/typed_tag_notifier.dart';
+import 'package:recipath/widgets/screens/tag_screen/providers/tag_by_type_notifier.dart';
 import 'package:recipath/widgets/tag/tag.dart';
 
 class SelectTagDialog extends ConsumerStatefulWidget {
@@ -32,7 +32,7 @@ class _SelectTagDialogState extends ConsumerState<SelectTagDialog> {
         child: ConstrainedBox(
           constraints: BoxConstraints(maxHeight: 500),
           child: CachedAsyncValueWrapper(
-            asyncState: ref.watch(typedTagProvider),
+            asyncState: ref.watch(tagByTypeProvider),
             builder: (data) {
               final tagList = data[widget.tagType]?.values.toList() ?? [];
               return Stack(

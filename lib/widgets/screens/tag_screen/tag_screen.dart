@@ -5,8 +5,8 @@ import 'package:recipath/helper/go_router_extension.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/navigation/default_navigation_title.dart';
 import 'package:recipath/widgets/navigation/navigation_drawer_scaffold.dart';
+import 'package:recipath/widgets/screens/tag_screen/providers/tag_by_type_notifier.dart';
 import 'package:recipath/widgets/screens/tag_screen/providers/tag_not_uploaded_notifier.dart';
-import 'package:recipath/widgets/screens/tag_screen/providers/typed_tag_notifier.dart';
 import 'package:recipath/widgets/screens/tag_screen/tag_routes.dart';
 import 'package:recipath/widgets/screens/tag_screen/tag_tabs.dart';
 
@@ -26,7 +26,7 @@ class _TagScreenState extends ConsumerState<TagScreen>
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(typedTagProvider);
+    final state = ref.watch(tagByTypeProvider);
 
     return NavigationDrawerScaffold(
       titleBuilder: (title) => DefaultNavigationTitle(

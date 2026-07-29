@@ -9,7 +9,7 @@ import 'package:recipath/widgets/providers/ai/ai_model_notifier.dart';
 import 'package:recipath/widgets/providers/ai/ai_provider_notifier.dart';
 import 'package:recipath/widgets/providers/locale_notifier.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
-import 'package:recipath/widgets/screens/tag_screen/providers/typed_tag_notifier.dart';
+import 'package:recipath/widgets/screens/tag_screen/providers/tag_by_type_notifier.dart';
 
 abstract class RecipePromptBuilder {
   static Future<
@@ -39,7 +39,7 @@ abstract class RecipePromptBuilder {
               )
               .join("\n");
 
-    final typedTags = await tsx.get(typedTagProvider.future);
+    final typedTags = await tsx.get(tagByTypeProvider.future);
     final recipeTags = typedTags[TagTypeEnum.recipe]!;
     final tagList = recipeTags.values.isEmpty
         ? "(none — every tag you output will be new)"

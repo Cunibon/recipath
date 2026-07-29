@@ -4,7 +4,7 @@ import 'package:recipath/widgets/screens/import_screen/data/tag_import_screen_st
 import 'package:recipath/widgets/screens/import_screen/providers/grocery_import_screen_notifier.dart';
 import 'package:recipath/widgets/screens/import_screen/providers/import_data_notifier.dart';
 import 'package:recipath/widgets/screens/import_screen/providers/recipe_import_screen_notifier.dart';
-import 'package:recipath/widgets/screens/tag_screen/providers/tag_notifier.dart';
+import 'package:recipath/widgets/screens/tag_screen/providers/tag_by_type_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'tag_import_screen_notifier.g.dart';
@@ -14,10 +14,16 @@ class TagImportScreenNotifier extends _$TagImportScreenNotifier {
   @override
   Future<TagImportScreenState> build(String path, TagTypeEnum tagType) async {
     final importData = await ref.watch(importDataProvider(path).future);
+    final localTagsByType = await ref.watch(tagByTypeProvider.future);
 
-    final localTagNameLookup = (await ref.watch(
-      tagProvider.future,
-    )).map((key, value) => MapEntry(value.name.trim().toLowerCase(), value));
+    final localTagByTypeNameLookup = localTagsByType.map(
+      (key, value) => MapEntry(
+        key,
+        value.map(
+          (key, value) => MapEntry(value.name.trim().toLowerCase(), value),
+        ),
+      ),
+    );
 
     late Set<TagData> tags;
 
@@ -53,13 +59,8 @@ class TagImportScreenNotifier extends _$TagImportScreenNotifier {
     for (final tag in tags) {
       tagLookup[tag.id] = tag;
 
-      final nameHit = localTagNameLookup[tag.name.trim().toLowerCase()];
-
-      if (nameHit?.tagType == tag.tagType) {
-        mappedTags[tag.id] = nameHit;
-      } else {
-        mappedTags[tag.id] = null;
-      }
+      mappedTags[tag.id] =
+          localTagByTypeNameLookup[tag.tagType]?[tag.name.trim().toLowerCase()];
     }
 
     return TagImportScreenState(tagLookup: tagLookup, mappedTags: mappedTags);

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'typed_tag_notifier.dart';
+part of 'tag_by_type_notifier.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,10 +9,10 @@ part of 'typed_tag_notifier.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(typedTagNotifier)
-final typedTagProvider = TypedTagNotifierProvider._();
+@ProviderFor(tagByTypeNotifier)
+final tagByTypeProvider = TagByTypeNotifierProvider._();
 
-final class TypedTagNotifierProvider
+final class TagByTypeNotifierProvider
     extends
         $FunctionalProvider<
           AsyncValue<IMap<TagTypeEnum, IMap<String, TagData>>>,
@@ -22,19 +22,19 @@ final class TypedTagNotifierProvider
     with
         $FutureModifier<IMap<TagTypeEnum, IMap<String, TagData>>>,
         $FutureProvider<IMap<TagTypeEnum, IMap<String, TagData>>> {
-  TypedTagNotifierProvider._()
+  TagByTypeNotifierProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'typedTagProvider',
+        name: r'tagByTypeProvider',
         isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$typedTagNotifierHash();
+  String debugGetCreateSourceHash() => _$tagByTypeNotifierHash();
 
   @$internal
   @override
@@ -43,8 +43,8 @@ final class TypedTagNotifierProvider
 
   @override
   FutureOr<IMap<TagTypeEnum, IMap<String, TagData>>> create(Ref ref) {
-    return typedTagNotifier(ref);
+    return tagByTypeNotifier(ref);
   }
 }
 
-String _$typedTagNotifierHash() => r'2b63fb1c092d017fb2e307aac8438c68ece68ec1';
+String _$tagByTypeNotifierHash() => r'47c15a16d25f14f5ffe0f119499987b728b3dc7d';

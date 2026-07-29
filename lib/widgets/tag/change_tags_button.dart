@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/data/tag_data/tag_data.dart';
 import 'package:recipath/data/tag_data/tag_type_enum.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
-import 'package:recipath/widgets/screens/tag_screen/providers/typed_tag_notifier.dart';
+import 'package:recipath/widgets/screens/tag_screen/providers/tag_by_type_notifier.dart';
 import 'package:recipath/widgets/tag/change_tag_dialog.dart';
 
 class ChangeTagsButton extends ConsumerWidget {
@@ -25,7 +25,7 @@ class ChangeTagsButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return CachedAsyncValueWrapper(
-      asyncState: ref.watch(typedTagProvider),
+      asyncState: ref.watch(tagByTypeProvider),
       builder: (data) => InkWell(
         onTap: () async {
           final result = await showDialog<Set<TagData>>(
