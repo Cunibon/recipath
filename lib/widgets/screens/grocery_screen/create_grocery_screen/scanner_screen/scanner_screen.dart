@@ -42,6 +42,15 @@ class _ScannerScreenState extends State<ScannerScreen> {
     return checkDigit == digits.last;
   }
 
+  Future<void> showCannotFindDialog({
+    required AppLocalizations localization,
+    required String barcode,
+  }) => showDialog(
+    context: context,
+    builder: (context) =>
+        InformationDialog(message: localization.couldNotFindBarcode(barcode)),
+  );
+
   @override
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context)!;
@@ -93,15 +102,18 @@ class _ScannerScreenState extends State<ScannerScreen> {
                       goRouter.pop(gtin);
                       foundGTIN = true;
                     } else {
-                      await showDialog(
-                        context: context,
-                        builder: (context) => InformationDialog(
-                          message: localization.couldNotFindBarcode(barcode),
-                        ),
+                      await showCannotFindDialog(
+                        localization: localization,
+                        barcode: barcode,
                       );
                     }
                   }
                 }
+              } catch (e) {
+                await showCannotFindDialog(
+                  localization: localization,
+                  barcode: barcode,
+                );
               } finally {
                 if (context.mounted) {
                   setState(() {
