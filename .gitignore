@@ -93,3 +93,6 @@ android/app/build/
 **/google-services.json
 # Generated store screenshots (flutter test --update-goldens test/screenshots)
 /metadata/
+
+# AI live-test tokens
+test/ai/tokens.local.json
