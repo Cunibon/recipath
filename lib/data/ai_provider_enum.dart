@@ -5,21 +5,24 @@ enum AiProviderEnum {
   @JsonValue("Google")
   google(
     displayName: 'Google Gemini',
-    defaultModel: 'gemini-2.5-flash',
+    defaultModel: 'gemini-3.5-flash-lite',
     tokenUrl: 'https://aistudio.google.com/app/apikey',
     namespace: 'googleai',
     handshakeConfig: {
-      'maxOutputTokens': 1,
-      'thinkingConfig': {'thinkingBudget': 0},
+      'maxOutputTokens': 512,
+      'thinkingConfig': {'thinkingLevel': 'minimal'},
     },
-    requestConfig: {'temperature': 0, 'maxOutputTokens': 65536},
+    requestConfig: {
+      'maxOutputTokens': 65536,
+      'thinkingConfig': {'thinkingLevel': 'minimal'},
+    },
   ),
 
   @JsonValue("Anthropic")
   anthropic(
     displayName: 'Anthropic Claude',
     defaultModel: 'claude-sonnet-4-6',
-    tokenUrl: 'https://console.anthropic.com/settings/keys',
+    tokenUrl: 'https://platform.claude.com/settings/keys',
     namespace: 'anthropic',
     handshakeConfig: {'maxTokens': 1},
     requestConfig: {'maxTokens': 16384, 'temperature': 0},
@@ -40,12 +43,12 @@ enum AiProviderEnum {
   moonshot(
     displayName: 'Moonshot Kimi',
     defaultModel: 'kimi-k2.6',
-    tokenUrl: 'https://platform.moonshot.ai/console/api-keys',
+    tokenUrl: 'https://platform.kimi.ai/console/api-keys',
     namespace: 'moonshot',
     baseUrl: 'https://api.moonshot.ai/v1',
-    disableThinking: true,
+    thinkingDisableModelPrefix: 'kimi-k2.6',
     handshakeConfig: {'maxTokens': 1},
-    requestConfig: {'maxTokens': 16384, 'temperature': 0},
+    requestConfig: {'maxTokens': 16384},
   ),
 
   @JsonValue("OpenAi")
@@ -67,7 +70,7 @@ enum AiProviderEnum {
     required this.handshakeConfig,
     required this.requestConfig,
     this.baseUrl,
-    this.disableThinking = false,
+    this.thinkingDisableModelPrefix,
     // ignore: unused_element_parameter
     this.multimodal = true,
   });
@@ -77,8 +80,12 @@ enum AiProviderEnum {
   final String tokenUrl;
   final String namespace;
   final String? baseUrl;
-  final bool disableThinking;
+  final String? thinkingDisableModelPrefix;
   final Map<String, dynamic> handshakeConfig;
   final Map<String, dynamic> requestConfig;
   final bool multimodal;
+
+  bool shouldDisableThinking(String model) =>
+      thinkingDisableModelPrefix != null &&
+      model.startsWith(thinkingDisableModelPrefix!);
 }

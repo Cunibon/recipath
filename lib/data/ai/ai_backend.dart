@@ -61,7 +61,8 @@ class AiBackend {
       case AiProviderEnum.mistral:
       case AiProviderEnum.moonshot:
       case AiProviderEnum.openAi:
-        final owned = httpClient == null && provider.disableThinking
+        final owned =
+            httpClient == null && provider.shouldDisableThinking(modelName)
             ? ThinkingDisabledClient()
             : null;
         final plugin = openai_plugin.openAI(
