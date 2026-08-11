@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:recipath/application/quick_shopping_modifier/quick_shopping_modifier_notifier.dart';
 import 'package:recipath/application/shopping_modifier/shopping_modifier_notifier.dart';
 import 'package:recipath/common.dart';
 import 'package:recipath/data/ingredient_data/ingredient_data.dart';
@@ -78,6 +79,7 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
 
             if (result == true) {
               ref.read(shoppingModifierProvider).clear();
+              ref.read(quickShoppingModifierProvider).clear();
             }
           },
           icon: Icon(Icons.clear_all),
