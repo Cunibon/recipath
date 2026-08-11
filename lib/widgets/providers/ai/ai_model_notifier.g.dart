@@ -13,13 +13,8 @@ part of 'ai_model_notifier.dart';
 final aiModelProvider = AiModelNotifierFamily._();
 
 final class AiModelNotifierProvider
-    extends
-        $FunctionalProvider<
-          BaseChatModel<ChatModelOptions>?,
-          BaseChatModel<ChatModelOptions>?,
-          BaseChatModel<ChatModelOptions>?
-        >
-    with $Provider<BaseChatModel<ChatModelOptions>?> {
+    extends $FunctionalProvider<AiBackend?, AiBackend?, AiBackend?>
+    with $Provider<AiBackend?> {
   AiModelNotifierProvider._({
     required AiModelNotifierFamily super.from,
     required AiProviderData? super.argument,
@@ -43,23 +38,20 @@ final class AiModelNotifierProvider
 
   @$internal
   @override
-  $ProviderElement<BaseChatModel<ChatModelOptions>?> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
+  $ProviderElement<AiBackend?> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
 
   @override
-  BaseChatModel<ChatModelOptions>? create(Ref ref) {
+  AiBackend? create(Ref ref) {
     final argument = this.argument as AiProviderData?;
     return aiModelNotifier(ref, argument);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(BaseChatModel<ChatModelOptions>? value) {
+  Override overrideWithValue(AiBackend? value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<BaseChatModel<ChatModelOptions>?>(
-        value,
-      ),
+      providerOverride: $SyncValueProvider<AiBackend?>(value),
     );
   }
 
@@ -74,14 +66,10 @@ final class AiModelNotifierProvider
   }
 }
 
-String _$aiModelNotifierHash() => r'fb0e04355f78480e0052e8117649aa45e28a8dd1';
+String _$aiModelNotifierHash() => r'e227bc1ed9be746e2b7fee428b591b8df58fae70';
 
 final class AiModelNotifierFamily extends $Family
-    with
-        $FunctionalFamilyOverride<
-          BaseChatModel<ChatModelOptions>?,
-          AiProviderData?
-        > {
+    with $FunctionalFamilyOverride<AiBackend?, AiProviderData?> {
   AiModelNotifierFamily._()
     : super(
         retry: null,

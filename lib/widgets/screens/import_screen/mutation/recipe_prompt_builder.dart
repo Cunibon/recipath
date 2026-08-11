@@ -2,7 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/experimental/mutation.dart';
-import 'package:langchain/langchain.dart';
+import 'package:recipath/data/ai/ai_backend.dart';
+import 'package:recipath/data/ai/recipe_schema.dart';
 import 'package:recipath/data/tag_data/tag_type_enum.dart';
 import 'package:recipath/gen/assets.gen.dart';
 import 'package:recipath/widgets/providers/ai/ai_model_notifier.dart';
@@ -10,22 +11,31 @@ import 'package:recipath/widgets/providers/ai/ai_provider_notifier.dart';
 import 'package:recipath/widgets/providers/locale_notifier.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 import 'package:recipath/widgets/screens/tag_screen/providers/tag_by_type_notifier.dart';
+import 'package:schemantic/schemantic.dart';
+
+class RecipePrompt {
+  const RecipePrompt({
+    required this.backend,
+    required this.systemPrompt,
+    required this.outputSchema,
+  });
+
+  final AiBackend backend;
+  final String systemPrompt;
+  final SchemanticType<Map<String, dynamic>> outputSchema;
+}
 
 abstract class RecipePromptBuilder {
-  static Future<
-    Runnable<List<ChatMessageContent>, RunnableOptions, ChatResult>?
-  >
-  build(MutationTransaction tsx) async {
+  static Future<RecipePrompt?> build(MutationTransaction tsx) async {
     final aiProvider = await tsx.get(aiProviderProvider.future);
     if (aiProvider == null) return null;
 
-    final mainModel = tsx.get(aiModelProvider(aiProvider));
-    if (mainModel == null) return null;
+    final backend = tsx.get(aiModelProvider(aiProvider));
+    if (backend == null) return null;
 
     final jsonSchemaString = await rootBundle.loadString(
       Assets.structuredOutput.recipeSchema,
     );
-    final jsonSchema = jsonDecode(jsonSchemaString);
 
     final groceries = await tsx.get(groceryProvider.future);
     final groceryList = groceries.values.isEmpty
@@ -128,28 +138,10 @@ TIMERS:
 - If no timer is needed, set "minutes": null.
   ''';
 
-    final tool = ToolSpec(
-      name: 'recipe_schema',
-      description: 'Structured data for the import of recipes',
-      inputJsonSchema: jsonSchema,
-      strict: true,
-    );
-
-    final toolModel = mainModel.bind(
-      mainModel.defaultOptions.copyWith(
-        tools: [tool],
-        toolChoice: ChatToolChoice.forced(name: 'recipe_schema'),
-      ),
-    );
-
-    return Runnable.fromFunction<List<ChatMessageContent>, ChatResult>(
-      invoke: (input, options) async {
-        final messages = [
-          SystemChatMessage(content: systemPrompt),
-          HumanChatMessage(content: ChatMessageContent.multiModal(input)),
-        ];
-        return await toolModel.invoke(PromptValue.chat(messages));
-      },
+    return RecipePrompt(
+      backend: backend,
+      systemPrompt: systemPrompt,
+      outputSchema: RecipeSchema.wrap(RecipeSchema.decode(jsonSchemaString)),
     );
   }
 }

@@ -3,34 +3,39 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class ThinkingDisabledClient extends http.BaseClient {
-  ThinkingDisabledClient();
+  ThinkingDisabledClient({http.Client? inner}) : _inner = inner ?? http.Client();
 
-  final _inner = http.Client();
+  final http.Client _inner;
 
   @override
   Future<http.StreamedResponse> send(http.BaseRequest request) async {
-    if (request.method != 'post') {
+    if (request.method.toUpperCase() != 'POST' ||
+        !request.url.path.endsWith('/chat/completions')) {
       return _inner.send(request);
     }
 
-    final bodyBytes = await request.finalize().toBytes();
+    final bytes = await request.finalize().toBytes();
+    var body = bytes;
 
     try {
-      final json = jsonDecode(utf8.decode(bodyBytes)) as Map<String, dynamic>;
-      json['thinking'] = {'type': 'disabled'};
-      final newBody = utf8.encode(jsonEncode(json));
-
-      final newRequest = http.Request(request.method, request.url);
-      newRequest.bodyBytes = newBody;
-      newRequest.headers.addAll(request.headers);
-      newRequest.headers['Content-Length'] = newBody.length.toString();
-
-      return _inner.send(newRequest);
+      final json = jsonDecode(utf8.decode(bytes)) as Map<String, dynamic>;
+      json['thinking'] = const {'type': 'disabled'};
+      body = utf8.encode(jsonEncode(json));
     } catch (_) {
-      final newRequest = http.Request(request.method, request.url);
-      newRequest.bodyBytes = bodyBytes;
-      newRequest.headers.addAll(request.headers);
-      return _inner.send(newRequest);
+      body = bytes;
     }
+
+    final rebuilt = http.Request(request.method, request.url)
+      ..bodyBytes = body
+      ..followRedirects = request.followRedirects
+      ..maxRedirects = request.maxRedirects
+      ..persistentConnection = request.persistentConnection;
+    rebuilt.headers.addAll(request.headers);
+    rebuilt.headers['Content-Length'] = body.length.toString();
+
+    return _inner.send(rebuilt);
   }
+
+  @override
+  void close() => _inner.close();
 }

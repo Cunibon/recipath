@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/experimental/mutation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:langchain/langchain.dart';
+import 'package:genkit/genkit.dart';
 import 'package:recipath/data/ai_provider/ai_provider_data.dart';
 import 'package:recipath/data/ai_provider_enum.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/providers/ai/ai_model_notifier.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-final _handshake = Mutation<ChatResult>();
+final _handshake = Mutation<GenerateResponseHelper>();
 
 class AiTokenDialog extends ConsumerStatefulWidget {
   const AiTokenDialog({required this.providerData, super.key});
@@ -115,14 +115,9 @@ class _AiTokenDialogState extends ConsumerState<AiTokenDialog> {
               );
 
               await _handshake.run(ref, (transaction) async {
-                final model = transaction.get(aiModelProvider(providerData))!;
+                final backend = transaction.get(aiModelProvider(providerData))!;
 
-                final result = await model.invoke(
-                  PromptValue.string("ping"),
-                  options: providerData.provider.handshakeOptions,
-                );
-
-                return result;
+                return await backend.handshake();
               });
 
               if (context.mounted) {

@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/experimental/mutation.dart';
-import 'package:langchain/langchain.dart';
+import 'package:genkit/genkit.dart';
 import 'package:recipath/widgets/screens/import_screen/mutation/ai_import_exception.dart';
 import 'package:recipath/widgets/screens/import_screen/mutation/recipe_content_extractor.dart';
 import 'package:recipath/widgets/screens/import_screen/mutation/recipe_prompt_builder.dart';
@@ -14,37 +14,29 @@ abstract class AiImportMutation {
     MutationTarget ref,
     Uint8List image,
   ) => mutation.run(ref, (tsx) async {
-    final model = await RecipePromptBuilder.build(tsx);
-    if (model == null) return null;
+    final prompt = await RecipePromptBuilder.build(tsx);
+    if (prompt == null) return null;
 
-    final ChatResult result;
-    try {
-      result = await model.invoke([
-        ChatMessageContent.text(
-          "Extract the recipe from this image, including all ingredients and steps.",
+    return _run(prompt, [
+      TextPart(
+        text:
+            "Extract the recipe from this image, including all ingredients and steps.",
+      ),
+      MediaPart(
+        media: Media(
+          contentType: 'image/jpeg',
+          url: 'data:image/jpeg;base64,${base64Encode(image)}',
         ),
-        ChatMessageContent.image(
-          data: base64Encode(image),
-          mimeType: 'image/jpeg',
-        ),
-      ]);
-    } catch (e) {
-      throw AiImportException.classify(e);
-    }
-
-    try {
-      return _parseResult(result);
-    } catch (e) {
-      throw AiImportException(AiImportErrorType.parseError, e);
-    }
+      ),
+    ]);
   });
 
   static Future<Map<String, dynamic>?> runUrlImport(
     MutationTarget ref,
     String url,
   ) => mutation.run(ref, (tsx) async {
-    final model = await RecipePromptBuilder.build(tsx);
-    if (model == null) return null;
+    final prompt = await RecipePromptBuilder.build(tsx);
+    if (prompt == null) return null;
 
     final String recipeContent;
     try {
@@ -53,29 +45,39 @@ abstract class AiImportMutation {
       throw AiImportException.classifyUrlError(e);
     }
 
-    final ChatResult result;
+    return _run(prompt, [
+      TextPart(
+        text: "Extract the recipe from the following content:\n\n$recipeContent",
+      ),
+    ]);
+  });
+
+  static Future<Map<String, dynamic>> _run(
+    RecipePrompt prompt,
+    List<Part> userContent,
+  ) async {
+    final GenerateResponseHelper result;
     try {
-      result = await model.invoke([
-        ChatMessageContent.text(
-          "Extract the recipe from the following content:\n\n$recipeContent",
-        ),
-      ]);
+      result = await prompt.backend.generate(
+        systemPrompt: prompt.systemPrompt,
+        userContent: userContent,
+        outputSchema: prompt.outputSchema,
+      );
     } catch (e) {
       throw AiImportException.classify(e);
     }
 
     try {
-      return _parseResult(result);
+      return parseResult(result);
     } catch (e) {
       throw AiImportException(AiImportErrorType.parseError, e);
     }
-  });
+  }
 
-  static Map<String, dynamic> _parseResult(ChatResult result) {
-    final toolCalls = result.output.toolCalls;
-    if (toolCalls.isEmpty) return {};
+  static Map<String, dynamic> parseResult(GenerateResponseHelper result) {
+    final args = result.jsonOutput as Map<String, dynamic>?;
+    if (args == null) return {};
 
-    final args = toolCalls.first.arguments;
     final recipes = (args['recipes'] as List? ?? [])
         .cast<Map<String, dynamic>>();
     final groceries = (args['groceries'] as List? ?? [])

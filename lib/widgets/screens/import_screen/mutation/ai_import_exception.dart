@@ -1,4 +1,4 @@
-import 'package:langchain/langchain.dart';
+import 'package:genkit/genkit.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 
 enum AiImportErrorType {
@@ -29,32 +29,40 @@ class AiImportException implements Exception {
   };
 
   static AiImportException classify(Object error) {
-    if (error is LangChainException) {
+    if (error is FormatException) {
       return AiImportException(AiImportErrorType.parseError, error);
     }
 
-    final code = _extractStatusCode(error);
-    if (code != null) {
-      if (code == 429) {
-        return AiImportException(AiImportErrorType.rateLimited, error);
+    if (error is GenkitException) {
+      final inner = error.underlyingException;
+      if (inner != null && _looksLikeNetwork(inner)) {
+        return AiImportException(AiImportErrorType.networkError, error);
       }
-      if (code == 401 || code == 403) {
-        return AiImportException(AiImportErrorType.authError, error);
-      }
-      if (code >= 500) {
-        return AiImportException(
+
+      return switch (error.status) {
+        StatusCodes.RESOURCE_EXHAUSTED => AiImportException(
+          AiImportErrorType.rateLimited,
+          error,
+        ),
+        StatusCodes.UNAUTHENTICATED ||
+        StatusCodes.PERMISSION_DENIED ||
+        StatusCodes.INVALID_ARGUMENT => AiImportException(
+          AiImportErrorType.authError,
+          error,
+        ),
+        StatusCodes.INTERNAL ||
+        StatusCodes.UNAVAILABLE ||
+        StatusCodes.DEADLINE_EXCEEDED ||
+        StatusCodes.UNKNOWN => AiImportException(
           AiImportErrorType.serverError,
           error,
-          statusCode: code,
-        );
-      }
+          statusCode: error.status.httpStatus,
+        ),
+        _ => AiImportException(AiImportErrorType.unknown, error),
+      };
     }
 
-    final typeName = error.runtimeType.toString();
-    if (typeName.contains('SocketException') ||
-        typeName.contains('ClientException') ||
-        typeName.contains('TimeoutException') ||
-        typeName.contains('HandshakeException')) {
+    if (_looksLikeNetwork(error)) {
       return AiImportException(AiImportErrorType.networkError, error);
     }
 
@@ -70,12 +78,13 @@ class AiImportException implements Exception {
     return classified;
   }
 
-  static int? _extractStatusCode(Object error) {
-    try {
-      return (error as dynamic).code as int?;
-    } catch (_) {
-      return null;
-    }
+  static bool _looksLikeNetwork(Object error) {
+    final typeName = error.runtimeType.toString();
+    return typeName.contains('SocketException') ||
+        typeName.contains('ClientException') ||
+        typeName.contains('ConnectionException') ||
+        typeName.contains('TimeoutException') ||
+        typeName.contains('HandshakeException');
   }
 
   @override

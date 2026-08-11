@@ -55,25 +55,19 @@ dependencies:
   timezone: ^0.11.0
   flutter_timezone: ^5.0.1
   audioplayers: ^6.5.1
-  langchain: ^0.8.1
-  langchain_anthropic: ^0.3.1
-  langchain_google: ^0.7.1+2
-  langchain_mistralai: ^0.3.1+1
   flutter_secure_storage: ^10.0.0
-  langchain_openai: ^0.8.1+1
-  langchain_community:
-    git:
-      url: https://github.com/Cunibon/langchain_dart.git
-      path: packages/langchain_community
+  genkit: ^0.15.1
+  genkit_openai: ^0.3.7
+  genkit_anthropic: ^0.2.11
+  genkit_google_genai: ^0.2.12
+  schemantic: ^0.2.2
+  html: ^0.15.6
   pdf: ^3.12.0
   dotted_border: ^3.1.0
   fast_immutable_collections: ^11.2.0
   smart_input_fields: ^0.0.3
   gal: ^2.3.2
   bound_mutation: ^1.0.3
-
-dependency_overrides:
-  googleai_dart: 3.0.0
 
 dev_dependencies:
   sentry_dart_plugin: ^3.1.1

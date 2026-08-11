@@ -1,7 +1,7 @@
 import 'dart:convert';
 
+import 'package:html/parser.dart' as html_parser;
 import 'package:http/http.dart' as http;
-import 'package:langchain_community/langchain_community.dart';
 
 abstract class RecipeContentExtractor {
   static final _jsonLdPattern = RegExp(
@@ -13,17 +13,27 @@ abstract class RecipeContentExtractor {
   /// Falls back to plain webpage text if no structured data is found.
   static Future<String> extract(String url) async {
     final response = await http.get(Uri.parse(url));
-    final html = response.body;
+    final html = utf8.decode(response.bodyBytes, allowMalformed: true);
 
     final recipeJsonLd = _tryExtractRecipeJsonLd(html);
     if (recipeJsonLd != null) {
       return 'Structured recipe data (JSON-LD):\n\n$recipeJsonLd';
     }
 
-    // Fall back to plain text extraction
-    final loader = WebBaseLoader([url]);
-    final documents = await loader.load();
-    return documents.first.pageContent;
+    final body = html_parser.parse(html).body;
+    if (body == null) return '';
+
+    for (final element in body.querySelectorAll(
+      'script, style, noscript, template, svg',
+    )) {
+      element.remove();
+    }
+
+    return body.text
+        .split('\n')
+        .map((line) => line.trim())
+        .where((line) => line.isNotEmpty)
+        .join('\n');
   }
 
   /// Searches HTML for JSON-LD blocks containing a Recipe schema.
