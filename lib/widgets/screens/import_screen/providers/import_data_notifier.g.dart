@@ -64,7 +64,7 @@ final class ImportDataNotifierProvider
 }
 
 String _$importDataNotifierHash() =>
-    r'53594a6eabc9eadba279f76a3abcf3913b90a803';
+    r'8011112ba3d26e8b7a8380f466059ae3f6ef8066';
 
 final class ImportDataNotifierFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<ImportData>, String> {

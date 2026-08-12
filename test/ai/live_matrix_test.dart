@@ -7,6 +7,7 @@ import 'dart:typed_data';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:recipath/data/ai_provider_enum.dart';
+import 'package:recipath/helper/ref_extension.dart';
 import 'package:recipath/widgets/screens/import_screen/mutation/ai_import_mutation.dart';
 import 'package:recipath/widgets/screens/import_screen/mutation/recipe_content_extractor.dart';
 
@@ -87,9 +88,7 @@ void main() {
         stopwatch.stop();
 
         expect(result, isNotNull, reason: 'mutation returned no result');
-        printOnFailure(
-          const JsonEncoder.withIndent('  ').convert(result),
-        );
+        printOnFailure(const JsonEncoder.withIndent('  ').convert(result));
 
         assertRecipeImportInvariants(result!, allowedUnits: allowedUnits);
         assertExistingGroceriesReused(result, world.groceryNames);
@@ -101,29 +100,47 @@ void main() {
         );
       }
 
-      test('url import', () async {
-        final server = await RecipePageServer.serve(sampleRecipe);
-        addTearDown(server.stop);
+      test(
+        'url import',
+        () async {
+          final server = await RecipePageServer.serve(sampleRecipe);
+          addTearDown(server.stop);
 
-        await check(
-          AiImportMutation.runUrlImport(world.container, server.url),
-        );
-      }, skip: skip, timeout: const Timeout(Duration(minutes: 3)));
+          await check(
+            world.container.run(
+              (tsx) => AiImportMutation.runUrlPrompt(tsx, server.url),
+            ),
+          );
+        },
+        skip: skip,
+        timeout: const Timeout(Duration(minutes: 3)),
+      );
 
-      test('url import (json-ld)', () async {
-        final server = await RecipePageServer.serveHtml(sampleJsonLdPage);
-        addTearDown(server.stop);
+      test(
+        'url import (json-ld)',
+        () async {
+          final server = await RecipePageServer.serveHtml(sampleJsonLdPage);
+          addTearDown(server.stop);
 
-        await check(
-          AiImportMutation.runUrlImport(world.container, server.url),
-        );
-      }, skip: skip, timeout: const Timeout(Duration(minutes: 3)));
+          await check(
+            world.container.run(
+              (tsx) => AiImportMutation.runUrlPrompt(tsx, server.url),
+            ),
+          );
+        },
+        skip: skip,
+        timeout: const Timeout(Duration(minutes: 3)),
+      );
 
-      test('image import', () async {
-        await check(
-          AiImportMutation.runImageImport(world.container, recipeImage),
-        );
-      },
+      test(
+        'image import',
+        () async {
+          await check(
+            world.container.run(
+              (tsx) => AiImportMutation.runImagePrompt(tsx, recipeImage),
+            ),
+          );
+        },
         skip: provider.multimodal ? skip : 'provider is not multimodal',
         timeout: const Timeout(Duration(minutes: 3)),
       );

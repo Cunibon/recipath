@@ -1,23 +1,57 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/experimental/mutation.dart';
 import 'package:genkit/genkit.dart';
+import 'package:random_string/random_string.dart';
+import 'package:recipath/helper/ref_extension.dart';
+import 'package:recipath/providers/application_path_provider.dart';
+import 'package:recipath/providers/go_router.dart';
+import 'package:recipath/root_routes.dart';
+import 'package:recipath/widgets/screens/import_screen/import_routes.dart';
 import 'package:recipath/widgets/screens/import_screen/mutation/ai_import_exception.dart';
 import 'package:recipath/widgets/screens/import_screen/mutation/recipe_content_extractor.dart';
 import 'package:recipath/widgets/screens/import_screen/mutation/recipe_prompt_builder.dart';
 
 abstract class AiImportMutation {
-  static final mutation = Mutation<Map<String, dynamic>?>();
+  static final mutation = Mutation();
 
-  static Future<Map<String, dynamic>?> runImageImport(
-    MutationTarget ref,
+  static Future<void> import({
+    required MutationTarget ref,
+    required Map<String, dynamic> result,
+  }) => ref.run((tsx) async {
+    final appDirectory = tsx.get(applicationPathProvider);
+
+    final newFileName = randomAlphaNumeric(16);
+    final file = File("${appDirectory.path}/$newFileName");
+
+    await file.writeAsString(jsonEncode(result));
+
+    tsx
+        .get(goRouterProvider)
+        .go(
+          "${RootRoutes.importRoute.path}/${ImportRoutes.recipeImport.path}",
+          extra: file.path,
+        );
+  });
+
+  static Future<void> runImageImport(MutationTarget ref, Uint8List image) =>
+      mutation.run(ref, (transaction) async {
+        final result = await runImagePrompt(transaction, image);
+        if (result != null) {
+          await import(ref: ref, result: result);
+        }
+      });
+
+  static Future<Map<String, dynamic>?> runImagePrompt(
+    MutationTransaction tsx,
     Uint8List image,
-  ) => mutation.run(ref, (tsx) async {
+  ) async {
     final prompt = await RecipePromptBuilder.build(tsx);
     if (prompt == null) return null;
 
-    return _run(prompt, [
+    return _runPrompt(prompt, [
       TextPart(
         text:
             "Extract the recipe from this image, including all ingredients and steps.",
@@ -29,12 +63,20 @@ abstract class AiImportMutation {
         ),
       ),
     ]);
-  });
+  }
 
-  static Future<Map<String, dynamic>?> runUrlImport(
-    MutationTarget ref,
+  static Future<void> runUrlImport(MutationTarget ref, String url) =>
+      mutation.run(ref, (transaction) async {
+        final result = await runUrlPrompt(transaction, url);
+        if (result != null) {
+          await import(ref: ref, result: result);
+        }
+      });
+
+  static Future<Map<String, dynamic>?> runUrlPrompt(
+    MutationTransaction tsx,
     String url,
-  ) => mutation.run(ref, (tsx) async {
+  ) async {
     final prompt = await RecipePromptBuilder.build(tsx);
     if (prompt == null) return null;
 
@@ -45,14 +87,15 @@ abstract class AiImportMutation {
       throw AiImportException.classifyUrlError(e);
     }
 
-    return _run(prompt, [
+    return _runPrompt(prompt, [
       TextPart(
-        text: "Extract the recipe from the following content:\n\n$recipeContent",
+        text:
+            "Extract the recipe from the following content:\n\n$recipeContent",
       ),
     ]);
-  });
+  }
 
-  static Future<Map<String, dynamic>> _run(
+  static Future<Map<String, dynamic>> _runPrompt(
     RecipePrompt prompt,
     List<Part> userContent,
   ) async {
@@ -68,13 +111,13 @@ abstract class AiImportMutation {
     }
 
     try {
-      return parseResult(result);
+      return _parseResult(result);
     } catch (e) {
       throw AiImportException(AiImportErrorType.parseError, e);
     }
   }
 
-  static Map<String, dynamic> parseResult(GenerateResponseHelper result) {
+  static Map<String, dynamic> _parseResult(GenerateResponseHelper result) {
     final args = result.jsonOutput as Map<String, dynamic>?;
     if (args == null) return {};
 

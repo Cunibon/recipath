@@ -9,20 +9,19 @@ import 'package:app_links/app_links.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:receive_sharing_intent/receive_sharing_intent.dart';
 import 'package:recipath/application/notification_service.dart';
 import 'package:recipath/application_constants.dart';
-import 'package:recipath/common.dart';
 import 'package:recipath/domain_service/syncing_service/syncing_service/syncing_service_notifier.dart';
 import 'package:recipath/drift/database.dart';
 import 'package:recipath/drift/database_notifier.dart';
 import 'package:recipath/helper/sentry_provider_observer.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/providers/application_path_provider.dart';
+import 'package:recipath/providers/go_router.dart';
 import 'package:recipath/root_routes.dart';
 import 'package:recipath/widgets/providers/locale_notifier.dart';
 import 'package:recipath/widgets/providers/theme_data_notifier.dart';
@@ -55,31 +54,13 @@ void main() async {
 
   await initNotifications();
 
-  final goRouter = GoRouter(
-    navigatorKey: navigatorKey,
-    routes: [
-      RootRoutes.recipeRoute,
-      RootRoutes.groceriesRoute,
-      RootRoutes.shoppingRoute,
-      RootRoutes.storageRoute,
-      RootRoutes.tagRoute,
-      RootRoutes.dashboardRoute,
-      RootRoutes.recipeHistoryRoute,
-      RootRoutes.recipeShoppingRoute,
-      RootRoutes.settingsRoute,
-      RootRoutes.importRoute,
-      RootRoutes.resetPasswordRoute,
-    ],
-    initialLocation: RootRoutes.recipeRoute.path,
-  );
-
   final app = ProviderScope(
     overrides: [
       databaseProvider.overrideWith((ref) => db),
       applicationPathProvider.overrideWith((ref) => applicationPath),
     ],
     observers: [SentryProviderObserver()],
-    child: SentryWidget(child: MyApp(router: goRouter)),
+    child: SentryWidget(child: MyApp()),
   );
 
   if (kDebugMode) {
@@ -92,9 +73,7 @@ void main() async {
 }
 
 class MyApp extends ConsumerStatefulWidget {
-  const MyApp({required this.router, super.key});
-
-  final GoRouter router;
+  const MyApp({super.key});
 
   @override
   ConsumerState<MyApp> createState() => _MyAppState();
@@ -106,10 +85,12 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
 
   void goToImportPath(String path) {
     if (context.mounted) {
-      widget.router.go(
-        "${RootRoutes.importRoute.path}/${ImportRoutes.recipeImport.path}",
-        extra: path,
-      );
+      ref
+          .read(goRouterProvider)
+          .go(
+            "${RootRoutes.importRoute.path}/${ImportRoutes.recipeImport.path}",
+            extra: path,
+          );
     }
   }
 
@@ -181,7 +162,7 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
           : Locale('en'),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      routerConfig: widget.router,
+      routerConfig: ref.watch(goRouterProvider),
       theme: themeData,
     );
   }

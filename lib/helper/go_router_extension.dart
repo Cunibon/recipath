@@ -1,13 +1,22 @@
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
-extension GoRouterRelative on BuildContext {
+extension ContextGoRelative on BuildContext {
+  void goRelative(
+    String relativePath, {
+    Map<String, String?>? queryParameters,
+    Object? extra,
+  }) => GoRouter.of(
+    this,
+  ).goRelative(relativePath, queryParameters: queryParameters, extra: extra);
+}
+
+extension GoRouterRelative on GoRouter {
   void goRelative(
     String relativePath, {
     Map<String, String?>? queryParameters,
     Object? extra,
   }) {
-    final state = GoRouterState.of(this);
     final basePath = state.uri.path;
 
     final uri = Uri(
@@ -15,6 +24,6 @@ extension GoRouterRelative on BuildContext {
       queryParameters: queryParameters,
     );
 
-    GoRouter.of(this).go(uri.toString(), extra: extra);
+    go(uri.toString(), extra: extra);
   }
 }
