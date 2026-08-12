@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:recipath/application/gorcery_tag_modifier/grocery_tag_modifier_notifier.dart';
+import 'package:recipath/application/grocery_tag_modifier/grocery_tag_modifier_notifier.dart';
 import 'package:recipath/application_constants.dart';
 import 'package:recipath/data/grocery_tag_data/grocery_tag_data.dart';
 import 'package:recipath/data/tag_data/tag_type_enum.dart';
