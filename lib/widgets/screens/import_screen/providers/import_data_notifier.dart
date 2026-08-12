@@ -20,7 +20,7 @@ Future<ImportData> importDataNotifier(Ref ref, String path) async {
   final groceryData = data[groceryDataKey];
   final recipeData = data[recipeDataKey];
   final recipeTagData = data[recipeTagDataKey] ?? data[tagDataKey];
-  final groceryTagData = data[groceryTagDataKey];
+  final groceryTagData = data[groceryTagDataKey] ?? const {};
 
   final groceryMap = <String, GroceryData>{};
   final recipeList = <RecipeData>[];
