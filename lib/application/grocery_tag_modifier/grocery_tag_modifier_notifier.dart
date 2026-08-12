@@ -1,4 +1,4 @@
-import 'package:recipath/application/gorcery_tag_modifier/grocery_tag_modifier.dart';
+import 'package:recipath/application/grocery_tag_modifier/grocery_tag_modifier.dart';
 import 'package:recipath/repos/grocery_tag/grocery_tag_repo_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
