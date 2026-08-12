@@ -13,6 +13,7 @@ import 'package:recipath/widgets/screens/import_screen/mutation/recipe_content_e
 import 'support/import_world.dart';
 import 'support/invariants.dart';
 import 'support/recipe_card.dart';
+import 'support/recipe_page_server.dart';
 import 'support/tokens.dart';
 
 void main() {
@@ -72,7 +73,7 @@ void main() {
 
       setUp(() async {
         if (token == null) return;
-        world = await setUpImportWorld(provider: provider, token: token);
+        world = await ImportWorld.create(provider: provider, token: token);
       });
 
       tearDown(() async {
