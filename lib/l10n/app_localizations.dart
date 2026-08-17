@@ -258,11 +258,29 @@ abstract class AppLocalizations {
   /// **'Clear all items?'**
   String get clearAllItems;
 
-  /// No description provided for @clearAllContent.
+  /// No description provided for @clearAllItemsContent.
   ///
   /// In en, this message translates to:
   /// **'Do you really want clear all items?\nThere is no way to get them back.'**
-  String get clearAllContent;
+  String get clearAllItemsContent;
+
+  /// No description provided for @clearAllData.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear all data'**
+  String get clearAllData;
+
+  /// No description provided for @clearAllDataTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear all data?'**
+  String get clearAllDataTitle;
+
+  /// No description provided for @clearAllDataContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you really want clear all local data?\nThere is no way to get it back.'**
+  String get clearAllDataContent;
 
   /// No description provided for @recipeImportInfo.
   ///

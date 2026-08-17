@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:purchases_ui_flutter/purchases_ui_flutter.dart';
-import 'package:recipath/domain_service/syncing_service/syncing_service/syncing_service_notifier.dart';
-import 'package:recipath/drift/database_notifier.dart';
 import 'package:recipath/l10n/app_localizations.dart';
+import 'package:recipath/widgets/authentication/auth_mutation.dart';
 import 'package:recipath/widgets/authentication/dialogs/auth_dialog.dart';
 import 'package:recipath/widgets/authentication/dialogs/logout_dialog.dart';
+import 'package:recipath/widgets/authentication/reset_state_mutation.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/providers/revenue_cat/revenue_pro_notifier.dart';
-import 'package:recipath/widgets/providers/supabase/supabase_client_notifier.dart';
 import 'package:recipath/widgets/providers/supabase/supabase_user_notifier.dart';
 
 class AuthButtons extends ConsumerWidget {
@@ -43,29 +40,24 @@ class AuthButtons extends ConsumerWidget {
               icon: Icon(Icons.person_add),
             ),
           ] else ...[
-            TextButton.icon(
-              onPressed: () async {
-                final result = await showDialog<bool>(
-                  context: context,
-                  builder: (context) => LogoutDialog(),
-                );
+            if (ref.watch(authMutation).isPending ||
+                ref.watch(resetStateMutation).isPending)
+              CircularProgressIndicator()
+            else
+              TextButton.icon(
+                onPressed: () async {
+                  final result = await showDialog<bool>(
+                    context: context,
+                    builder: (context) => LogoutDialog(),
+                  );
 
-                if (result == true) {
-                  final supabaseclient = ref.read(supabaseClientProvider);
-                  final syncingService = ref.read(syncingServiceProvider);
-                  final database = ref.read(databaseProvider);
-
-                  try {
-                    await Purchases.logOut();
-                  } on PlatformException catch (_) {}
-                  await supabaseclient.auth.signOut();
-                  await syncingService.reset();
-                  await database.clear();
-                }
-              },
-              label: Text(localization.logout),
-              icon: Icon(Icons.logout),
-            ),
+                  if (result == true) {
+                    resetStateMutation.run(ref, null);
+                  }
+                },
+                label: Text(localization.logout),
+                icon: Icon(Icons.logout),
+              ),
             Text(user.email ?? ""),
             if (!pro)
               Padding(

@@ -23,7 +23,7 @@ class DeleteAccount extends StatelessWidget {
           );
         }
       },
-      icon: Icon(Icons.delete_forever),
+      icon: Icon(Icons.person_off),
       label: Text(AppLocalizations.of(context)!.deleteAccount),
     );
   }

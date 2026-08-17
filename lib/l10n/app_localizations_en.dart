@@ -95,8 +95,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get clearAllItems => 'Clear all items?';
 
   @override
-  String get clearAllContent =>
+  String get clearAllItemsContent =>
       'Do you really want clear all items?\nThere is no way to get them back.';
+
+  @override
+  String get clearAllData => 'Clear all data';
+
+  @override
+  String get clearAllDataTitle => 'Clear all data?';
+
+  @override
+  String get clearAllDataContent =>
+      'Do you really want clear all local data?\nThere is no way to get it back.';
 
   @override
   String get recipeImportInfo => 'Select the recipes you want to import.';

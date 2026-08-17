@@ -97,8 +97,18 @@ class AppLocalizationsDe extends AppLocalizations {
   String get clearAllItems => 'Alle Elemente löschen?';
 
   @override
-  String get clearAllContent =>
+  String get clearAllItemsContent =>
       'Möchten Sie wirklich alle Elemente löschen?\nEs gibt keine Möglichkeit, sie wiederherzustellen.';
+
+  @override
+  String get clearAllData => 'Alle Daten löschen';
+
+  @override
+  String get clearAllDataTitle => 'Alle Daten löschen?';
+
+  @override
+  String get clearAllDataContent =>
+      'Möchten Sie wirklich alle lokalen Daten löschen?\nEs gibt keine Möglichkeit, sie wiederherzustellen.';
 
   @override
   String get recipeImportInfo =>

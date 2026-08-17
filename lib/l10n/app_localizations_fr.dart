@@ -98,8 +98,18 @@ class AppLocalizationsFr extends AppLocalizations {
   String get clearAllItems => 'Effacer tous les éléments?';
 
   @override
-  String get clearAllContent =>
+  String get clearAllItemsContent =>
       'Voulez-vous vraiment effacer tous les éléments ?\nIl n\'y a aucun moyen de les récupérer.';
+
+  @override
+  String get clearAllData => 'Effacer toutes les données';
+
+  @override
+  String get clearAllDataTitle => 'Effacer toutes les données ?';
+
+  @override
+  String get clearAllDataContent =>
+      'Voulez-vous vraiment effacer toutes les données locales ?\nIl n\'y a aucun moyen de les récupérer.';
 
   @override
   String get recipeImportInfo =>
