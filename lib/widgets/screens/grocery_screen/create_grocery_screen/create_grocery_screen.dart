@@ -5,8 +5,10 @@ import 'package:random_string/random_string.dart';
 import 'package:recipath/application/grocery_modifier/grocery_modifier_notifier.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/gtin_data/gtin_data.dart';
+import 'package:recipath/data/open_food_facts_account/open_food_facts_account_data.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
 import 'package:recipath/data/unit_enum.dart';
+import 'package:recipath/domain_service/open_food_facts_service/open_food_facts_service.dart';
 import 'package:recipath/helper/ref_extension.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/repos/recipe/recipe_repo_notifier.dart';
@@ -16,10 +18,13 @@ import 'package:recipath/widgets/generic/dialogs/delete_confirmation_dialog.dart
 import 'package:recipath/widgets/generic/information_dialog.dart';
 import 'package:recipath/widgets/generic/unsaved_changes_scope.dart';
 import 'package:recipath/widgets/providers/double_number_format_notifier.dart';
+import 'package:recipath/widgets/providers/open_food_facts/open_food_facts_account_notifier.dart';
 import 'package:recipath/widgets/screens/grocery_screen/create_grocery_screen/grocery_form_fields.dart';
 import 'package:recipath/widgets/screens/grocery_screen/grocery_routes.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/filtered_grocery_notifier.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
+import 'package:recipath/widgets/screens/settings_screen/data/dialogs/open_food_facts_account_dialog.dart';
+import 'package:recipath/widgets/screens/settings_screen/providers/package_info_provider.dart';
 
 class CreateGroceryScreen extends ConsumerStatefulWidget {
   const CreateGroceryScreen({this.groceryId, super.key});
@@ -43,6 +48,84 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
   final fiberController = TextEditingController();
   late GroceryData initialData;
   late GroceryData data;
+  bool contributeToOpenFoodFacts = false;
+  bool isSaving = false;
+
+  Future<void> uploadToOpenFoodFacts(AppLocalizations localization) async {
+    if (!contributeToOpenFoodFacts ||
+        data.barcode == null ||
+        data.barcode!.trim().isEmpty) {
+      return;
+    }
+
+    OpenFoodFactsAccountData? account;
+
+    try {
+      account = await ref.read(openFoodFactsAccountProvider.future);
+
+      if (account == null && mounted) {
+        final configuredAccount = await showDialog<OpenFoodFactsAccountData>(
+          context: context,
+          builder: (context) => const OpenFoodFactsAccountDialog(),
+        );
+
+        if (configuredAccount != null) {
+          await ref
+              .read(openFoodFactsAccountProvider.notifier)
+              .set(configuredAccount);
+          account = configuredAccount;
+        }
+      }
+
+      if (account == null) return;
+
+      final packageInfo = await ref.read(packageInfoProvider.future);
+      final success = await OpenFoodFactsService.uploadProduct(
+        grocery: data,
+        userId: account.username,
+        password: account.password,
+        appVersion: packageInfo.version,
+        appUuid: account.appUuid,
+      );
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              success
+                  ? localization.uploadedToOpenFoodFactsSuccess
+                  : localization.uploadedToOpenFoodFactsFailed,
+            ),
+          ),
+        );
+      }
+    } catch (_) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(localization.uploadedToOpenFoodFactsFailed)),
+        );
+      }
+    }
+  }
+
+  Future<void> saveGrocery(AppLocalizations localization) async {
+    if (isSaving || formKey.currentState?.validate() != true) return;
+
+    setState(() => isSaving = true);
+
+    try {
+      await uploadToOpenFoodFacts(localization);
+      await ref.read(groceryModifierProvider).add(data);
+
+      if (mounted) {
+        context.pop(data);
+      }
+    } finally {
+      if (mounted) {
+        setState(() => isSaving = false);
+      }
+    }
+  }
 
   @override
   void initState() {
@@ -193,6 +276,7 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
                   }
                   setState(() {
                     data = newData;
+                    contributeToOpenFoodFacts = gtin.name.trim().isEmpty;
                   });
                 }
               },
@@ -205,14 +289,7 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             ElevatedButton.icon(
-              onPressed: () async {
-                if (formKey.currentState?.validate() == true) {
-                  await ref.read(groceryModifierProvider).add(data);
-                  if (context.mounted) {
-                    context.pop(data);
-                  }
-                }
-              },
+              onPressed: isSaving ? null : () => saveGrocery(localization),
               icon: Icon(Icons.save),
               label: Text(localization.save),
             ),
@@ -291,6 +368,9 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
               proteinController: proteinController,
               fiberController: fiberController,
               data: data,
+              contributeToOpenFoodFacts: contributeToOpenFoodFacts,
+              onContributeChanged: (val) =>
+                  setState(() => contributeToOpenFoodFacts = val),
             ),
           ),
         ),

@@ -292,6 +292,10 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get couldNotReachOpenFoodFacts =>
+      'Could not reach Open Food Facts. Please check your connection and try again.';
+
+  @override
   String get servings => 'Servings';
 
   @override
@@ -630,4 +634,49 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get aiErrorParse => 'Could not process the AI response.';
+
+  @override
+  String get contributeToOpenFoodFacts => 'Contribute to Open Food Facts';
+
+  @override
+  String get contributeToOpenFoodFactsDescription =>
+      'Upload this grocery\'s data to the public Open Food Facts database';
+
+  @override
+  String get uploadedToOpenFoodFactsSuccess =>
+      'Product contributed to Open Food Facts successfully!';
+
+  @override
+  String get uploadedToOpenFoodFactsFailed =>
+      'Could not upload to Open Food Facts. Please check your credentials.';
+
+  @override
+  String get addManuallyAndContribute =>
+      'Product was not found. Would you like to enter details manually and contribute it to Open Food Facts?';
+
+  @override
+  String get addManually => 'Add manually';
+
+  @override
+  String get openFoodFactsAccount => 'Open Food Facts account';
+
+  @override
+  String get openFoodFactsAccountDescription =>
+      'Connect your Open Food Facts account to contribute products to the public database';
+
+  @override
+  String get openFoodFactsUsername => 'Username';
+
+  @override
+  String get openFoodFactsUsernameRequired => 'Please enter your username';
+
+  @override
+  String get openFoodFactsPassword => 'Password';
+
+  @override
+  String get openFoodFactsPasswordRequired => 'Please enter your password';
+
+  @override
+  String get registerOnOpenFoodFacts =>
+      'Don\'t have an account? Register on OpenFoodFacts.org';
 }

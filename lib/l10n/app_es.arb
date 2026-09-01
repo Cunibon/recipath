@@ -88,6 +88,7 @@
     "addRealNumber": "Agregar un número real",
     "scanGrocery": "Escanear alimento",
     "couldNotFindBarcode": "No se pudo encontrar el producto para el código: {barcode}",
+    "couldNotReachOpenFoodFacts": "No se pudo conectar con Open Food Facts. Compruebe su conexión e inténtelo de nuevo.",
     "servings": "Porciones",
     "addedItemsToShopping": "¡Artículos añadidos a la lista de compras!",
     "recipe": "Receta",
@@ -195,5 +196,18 @@
     "aiErrorRateLimit": "Demasiadas solicitudes. Por favor, espere e inténtelo de nuevo.",
     "aiErrorNetwork": "No se pudo conectar al servicio de IA. Verifique su conexión a internet.",
     "aiErrorUrlLoad": "No se pudo cargar el contenido de la URL.",
-    "aiErrorParse": "No se pudo procesar la respuesta de la IA."
+    "aiErrorParse": "No se pudo procesar la respuesta de la IA.",
+    "contributeToOpenFoodFacts": "Contribuir a Open Food Facts",
+    "contributeToOpenFoodFactsDescription": "Subir los datos de este producto a la base de datos pública de Open Food Facts",
+    "uploadedToOpenFoodFactsSuccess": "¡Producto contribuido a Open Food Facts con éxito!",
+    "uploadedToOpenFoodFactsFailed": "No se pudo subir a Open Food Facts. Por favor verifique sus credenciales.",
+    "addManuallyAndContribute": "No se encontró el producto. ¿Desea ingresar los detalles manualmente y contribuir a Open Food Facts?",
+    "addManually": "Agregar manualmente",
+    "openFoodFactsAccount": "Cuenta de Open Food Facts",
+    "openFoodFactsAccountDescription": "Conecte su cuenta de Open Food Facts para contribuir productos a la base de datos pública",
+    "openFoodFactsUsername": "Nombre de usuario",
+    "openFoodFactsUsernameRequired": "Por favor ingrese su nombre de usuario",
+    "openFoodFactsPassword": "Contraseña",
+    "openFoodFactsPasswordRequired": "Por favor ingrese su contraseña",
+    "registerOnOpenFoodFacts": "¿No tiene una cuenta? Regístrese en OpenFoodFacts.org"
 }

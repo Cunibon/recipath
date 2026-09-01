@@ -296,6 +296,10 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
+  String get couldNotReachOpenFoodFacts =>
+      'No se pudo conectar con Open Food Facts. Compruebe su conexión e inténtelo de nuevo.';
+
+  @override
   String get servings => 'Porciones';
 
   @override
@@ -640,4 +644,50 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get aiErrorParse => 'No se pudo procesar la respuesta de la IA.';
+
+  @override
+  String get contributeToOpenFoodFacts => 'Contribuir a Open Food Facts';
+
+  @override
+  String get contributeToOpenFoodFactsDescription =>
+      'Subir los datos de este producto a la base de datos pública de Open Food Facts';
+
+  @override
+  String get uploadedToOpenFoodFactsSuccess =>
+      '¡Producto contribuido a Open Food Facts con éxito!';
+
+  @override
+  String get uploadedToOpenFoodFactsFailed =>
+      'No se pudo subir a Open Food Facts. Por favor verifique sus credenciales.';
+
+  @override
+  String get addManuallyAndContribute =>
+      'No se encontró el producto. ¿Desea ingresar los detalles manualmente y contribuir a Open Food Facts?';
+
+  @override
+  String get addManually => 'Agregar manualmente';
+
+  @override
+  String get openFoodFactsAccount => 'Cuenta de Open Food Facts';
+
+  @override
+  String get openFoodFactsAccountDescription =>
+      'Conecte su cuenta de Open Food Facts para contribuir productos a la base de datos pública';
+
+  @override
+  String get openFoodFactsUsername => 'Nombre de usuario';
+
+  @override
+  String get openFoodFactsUsernameRequired =>
+      'Por favor ingrese su nombre de usuario';
+
+  @override
+  String get openFoodFactsPassword => 'Contraseña';
+
+  @override
+  String get openFoodFactsPasswordRequired => 'Por favor ingrese su contraseña';
+
+  @override
+  String get registerOnOpenFoodFacts =>
+      '¿No tiene una cuenta? Regístrese en OpenFoodFacts.org';
 }

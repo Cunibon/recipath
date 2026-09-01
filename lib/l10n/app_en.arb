@@ -132,6 +132,7 @@
             }
         }
     },
+    "couldNotReachOpenFoodFacts": "Could not reach Open Food Facts. Please check your connection and try again.",
     "servings": "Servings",
     "addedItemsToShopping": "Added items to shopping list!",
     "recipe": "Recipe",
@@ -270,5 +271,18 @@
     "aiErrorRateLimit": "Too many requests. Please wait and try again.",
     "aiErrorNetwork": "Could not connect to the AI service. Check your internet connection.",
     "aiErrorUrlLoad": "Could not load content from the URL.",
-    "aiErrorParse": "Could not process the AI response."
+    "aiErrorParse": "Could not process the AI response.",
+    "contributeToOpenFoodFacts": "Contribute to Open Food Facts",
+    "contributeToOpenFoodFactsDescription": "Upload this grocery's data to the public Open Food Facts database",
+    "uploadedToOpenFoodFactsSuccess": "Product contributed to Open Food Facts successfully!",
+    "uploadedToOpenFoodFactsFailed": "Could not upload to Open Food Facts. Please check your credentials.",
+    "addManuallyAndContribute": "Product was not found. Would you like to enter details manually and contribute it to Open Food Facts?",
+    "addManually": "Add manually",
+    "openFoodFactsAccount": "Open Food Facts account",
+    "openFoodFactsAccountDescription": "Connect your Open Food Facts account to contribute products to the public database",
+    "openFoodFactsUsername": "Username",
+    "openFoodFactsUsernameRequired": "Please enter your username",
+    "openFoodFactsPassword": "Password",
+    "openFoodFactsPasswordRequired": "Please enter your password",
+    "registerOnOpenFoodFacts": "Don't have an account? Register on OpenFoodFacts.org"
 }

@@ -630,6 +630,12 @@ abstract class AppLocalizations {
   /// **'Could not find product for code: {barcode}'**
   String couldNotFindBarcode(String barcode);
 
+  /// No description provided for @couldNotReachOpenFoodFacts.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not reach Open Food Facts. Please check your connection and try again.'**
+  String get couldNotReachOpenFoodFacts;
+
   /// No description provided for @servings.
   ///
   /// In en, this message translates to:
@@ -1277,6 +1283,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Could not process the AI response.'**
   String get aiErrorParse;
+
+  /// No description provided for @contributeToOpenFoodFacts.
+  ///
+  /// In en, this message translates to:
+  /// **'Contribute to Open Food Facts'**
+  String get contributeToOpenFoodFacts;
+
+  /// No description provided for @contributeToOpenFoodFactsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload this grocery\'s data to the public Open Food Facts database'**
+  String get contributeToOpenFoodFactsDescription;
+
+  /// No description provided for @uploadedToOpenFoodFactsSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Product contributed to Open Food Facts successfully!'**
+  String get uploadedToOpenFoodFactsSuccess;
+
+  /// No description provided for @uploadedToOpenFoodFactsFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not upload to Open Food Facts. Please check your credentials.'**
+  String get uploadedToOpenFoodFactsFailed;
+
+  /// No description provided for @addManuallyAndContribute.
+  ///
+  /// In en, this message translates to:
+  /// **'Product was not found. Would you like to enter details manually and contribute it to Open Food Facts?'**
+  String get addManuallyAndContribute;
+
+  /// No description provided for @addManually.
+  ///
+  /// In en, this message translates to:
+  /// **'Add manually'**
+  String get addManually;
+
+  /// No description provided for @openFoodFactsAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Food Facts account'**
+  String get openFoodFactsAccount;
+
+  /// No description provided for @openFoodFactsAccountDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect your Open Food Facts account to contribute products to the public database'**
+  String get openFoodFactsAccountDescription;
+
+  /// No description provided for @openFoodFactsUsername.
+  ///
+  /// In en, this message translates to:
+  /// **'Username'**
+  String get openFoodFactsUsername;
+
+  /// No description provided for @openFoodFactsUsernameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your username'**
+  String get openFoodFactsUsernameRequired;
+
+  /// No description provided for @openFoodFactsPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get openFoodFactsPassword;
+
+  /// No description provided for @openFoodFactsPasswordRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your password'**
+  String get openFoodFactsPasswordRequired;
+
+  /// No description provided for @registerOnOpenFoodFacts.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t have an account? Register on OpenFoodFacts.org'**
+  String get registerOnOpenFoodFacts;
 }
 
 class _AppLocalizationsDelegate
