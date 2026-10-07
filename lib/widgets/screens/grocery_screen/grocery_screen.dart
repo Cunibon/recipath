@@ -1,5 +1,5 @@
-import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:recipath/common.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/tag_data/tag_type_enum.dart';
@@ -54,7 +54,8 @@ class GroceryScreen extends ConsumerWidget {
             clusters: [
               for (final entry in data.clusteredData.entries)
                 ItemCluster(id: entry.key, items: entry.value),
-              ItemCluster(id: null, items: data.groceries),
+              if (data.groceries.isNotEmpty)
+                ItemCluster(id: null, items: data.groceries),
             ],
             itemToSearchable: (item) => item.groceryData.toReadable(
               unitLocalized: unitLocalized,

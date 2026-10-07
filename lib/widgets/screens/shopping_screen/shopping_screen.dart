@@ -1,6 +1,6 @@
-import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:recipath/application/quick_shopping_modifier/quick_shopping_modifier_notifier.dart';
 import 'package:recipath/application/shopping_modifier/shopping_modifier_notifier.dart';
 import 'package:recipath/common.dart';
@@ -165,8 +165,8 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
             return aString.compareTo(bString);
           },
           trailingSearch: FilterButton(
-            quickFilters: [QuickFilters.cluster],
             filterType: TagTypeEnum.grocery,
+            quickFilters: [QuickFilters.cluster],
           ),
           listViewPadding: edgeInsetsWithBottomPadding(context: context),
           trailingList: data.tagFiltersActive ? null : AddQuickShoppingItem(),

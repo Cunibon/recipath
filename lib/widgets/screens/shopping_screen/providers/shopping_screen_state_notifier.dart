@@ -91,7 +91,7 @@ Future<ShoppingScreenState> shoppingScreenStateNotifier(Ref ref) async {
   }
 
   return ShoppingScreenState(
-    clusteredData: clusteredData,
+    clusteredData: clusteredData..removeWhere((key, value) => value.isEmpty),
     groceryMap: await ref.watch(groceryProvider.future),
     storage: await ref.watch(storageProvider.future),
     tags: await ref.watch(tagProvider.future),

@@ -3,6 +3,7 @@ import 'package:material_ui/material_ui.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/generic/empty_state.dart';
 import 'package:recipath/widgets/generic/highlight_search/highlight_scope.dart';
+import 'package:recipath/widgets/generic/search_text_field.dart';
 
 class ClusteredSearchableList<T, R> extends StatefulWidget {
   const ClusteredSearchableList({
@@ -176,7 +177,7 @@ class _ClusteredSearchableListState<T, R>
           Row(
             children: [
               Expanded(
-                child: TextField(
+                child: SearchTextField(
                   controller: controller,
                   decoration: InputDecoration(
                     labelText: AppLocalizations.of(
