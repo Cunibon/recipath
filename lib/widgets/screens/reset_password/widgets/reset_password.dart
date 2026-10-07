@@ -1,8 +1,9 @@
-import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/experimental/mutation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:recipath/l10n/app_localizations.dart';
+import 'package:recipath/widgets/screens/reset_password/widgets/change_password_error.dart';
 import 'package:recipath/widgets/screens/reset_password/widgets/reset_password_content.dart';
 import 'package:recipath/widgets/screens/settings_screen/data/change_password_mutation.dart';
 
@@ -30,16 +31,9 @@ class _ResetPasswordState extends ConsumerState<ResetPassword> {
     final localization = AppLocalizations.of(context)!;
     final changeStatus = ref.watch(changePasswordMutation);
 
-    Widget? errorWidget;
-
-    if (changeStatus.hasError) {
-      errorWidget = Text(
-        localization.somethingWentWrong,
-        style: TextTheme.of(
-          context,
-        ).bodyMedium?.copyWith(color: ColorScheme.of(context).error),
-      );
-    }
+    final errorWidget = changeStatus.hasError
+        ? ChangePasswordError(error: (changeStatus as MutationError).error)
+        : null;
 
     return Column(
       spacing: 8,

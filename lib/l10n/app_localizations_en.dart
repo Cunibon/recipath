@@ -360,6 +360,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get somethingWentWrong => 'Something went wrong :(';
 
   @override
+  String get samePassword =>
+      'New password should be different from the old password';
+
+  @override
+  String get weakPassword =>
+      'This password is too weak. Please choose a stronger one';
+
+  @override
+  String get reauthenticationNeeded =>
+      'For security reasons, please log in again before changing your password';
+
+  @override
+  String get tooManyRequests =>
+      'Too many attempts. Please wait a moment and try again';
+
+  @override
   String get howLongDidTheRecipeTake => 'How long did the recipe take?';
 
   @override

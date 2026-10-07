@@ -762,6 +762,30 @@ abstract class AppLocalizations {
   /// **'Something went wrong :('**
   String get somethingWentWrong;
 
+  /// No description provided for @samePassword.
+  ///
+  /// In en, this message translates to:
+  /// **'New password should be different from the old password'**
+  String get samePassword;
+
+  /// No description provided for @weakPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'This password is too weak. Please choose a stronger one'**
+  String get weakPassword;
+
+  /// No description provided for @reauthenticationNeeded.
+  ///
+  /// In en, this message translates to:
+  /// **'For security reasons, please log in again before changing your password'**
+  String get reauthenticationNeeded;
+
+  /// No description provided for @tooManyRequests.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many attempts. Please wait a moment and try again'**
+  String get tooManyRequests;
+
   /// No description provided for @howLongDidTheRecipeTake.
   ///
   /// In en, this message translates to:

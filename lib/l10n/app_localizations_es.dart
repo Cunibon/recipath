@@ -365,6 +365,22 @@ class AppLocalizationsEs extends AppLocalizations {
   String get somethingWentWrong => 'Algo salió mal :(';
 
   @override
+  String get samePassword =>
+      'La nueva contraseña debe ser diferente de la anterior';
+
+  @override
+  String get weakPassword =>
+      'Esta contraseña es demasiado débil. Elige una más segura';
+
+  @override
+  String get reauthenticationNeeded =>
+      'Por motivos de seguridad, vuelve a iniciar sesión antes de cambiar tu contraseña';
+
+  @override
+  String get tooManyRequests =>
+      'Demasiados intentos. Espera un momento e inténtalo de nuevo';
+
+  @override
   String get howLongDidTheRecipeTake =>
       '¿Cuanto tiempo te tomo hacer la receta?';
 
