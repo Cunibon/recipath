@@ -81,7 +81,9 @@ void assertRecipeImportInvariants(
 Set<String> allowedUnitsFromAsset() {
   final schema =
       jsonDecode(
-            File('assets/structured_output/recipe_schema.json').readAsStringSync(),
+            File(
+              'assets/structured_output/recipe_schema.json',
+            ).readAsStringSync(),
           )
           as Map<String, dynamic>;
   final groceries = schema['properties']['groceries'] as Map<String, dynamic>;
@@ -109,7 +111,8 @@ String summarize(
   final steps = recipeData.values.fold<int>(
     0,
     (total, recipe) =>
-        total + ((recipe as Map<String, dynamic>)['steps'] as List? ?? []).length,
+        total +
+        ((recipe as Map<String, dynamic>)['steps'] as List? ?? []).length,
   );
 
   return '${recipeData.length} recipe(s), $steps steps, '

@@ -40,13 +40,17 @@ class GroceryRepoDrift extends TagFilteredRepo<GroceryData> {
   @override
   Future<IMap<String, GroceryData>> get() async {
     final rows = await baseQuery.get();
-    return {for (final row in rows) row.id: GroceryData.fromTableData(row)}.lock;
+    return {
+      for (final row in rows) row.id: GroceryData.fromTableData(row),
+    }.lock;
   }
 
   @override
   Stream<IMap<String, GroceryData>> stream() {
     return baseQuery.watch().map((rows) {
-      return {for (final row in rows) row.id: GroceryData.fromTableData(row)}.lock;
+      return {
+        for (final row in rows) row.id: GroceryData.fromTableData(row),
+      }.lock;
     });
   }
 
@@ -87,7 +91,9 @@ class GroceryRepoDrift extends TagFilteredRepo<GroceryData> {
     }
 
     return query.watch().map(
-      (event) => {for (final row in event) row.id: GroceryData.fromTableData(row)}.lock,
+      (event) => {
+        for (final row in event) row.id: GroceryData.fromTableData(row),
+      }.lock,
     );
   }
 }

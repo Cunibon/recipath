@@ -67,9 +67,8 @@ class ImportWorld {
         applicationPathProvider.overrideWith((ref) => appDir),
         supabaseUserProvider.overrideWithValue(null),
         aiProviderProvider.overrideWith(
-          () => StubAiProvider(
-            AiProviderData(token: token, provider: provider),
-          ),
+          () =>
+              StubAiProvider(AiProviderData(token: token, provider: provider)),
         ),
       ],
     );

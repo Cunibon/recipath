@@ -87,7 +87,9 @@ class MarketingFrame extends StatelessWidget {
             bottom: -139,
             left: 0,
             right: 0,
-            child: Center(child: PhoneFrame(statusBar: statusBar, child: child)),
+            child: Center(
+              child: PhoneFrame(statusBar: statusBar, child: child),
+            ),
           ),
         ],
       ),

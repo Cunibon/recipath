@@ -3,7 +3,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class ThinkingDisabledClient extends http.BaseClient {
-  ThinkingDisabledClient({http.Client? inner}) : _inner = inner ?? http.Client();
+  ThinkingDisabledClient({http.Client? inner})
+    : _inner = inner ?? http.Client();
 
   final http.Client _inner;
 

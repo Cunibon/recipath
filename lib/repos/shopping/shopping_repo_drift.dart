@@ -106,7 +106,9 @@ class ShoppingRepoDrift extends TagFilteredRepo<ShoppingData> {
   }
 
   @override
-  Stream<IMap<String, ShoppingData>> streamFiltered(Set<String> tagDataFilters) {
+  Stream<IMap<String, ShoppingData>> streamFiltered(
+    Set<String> tagDataFilters,
+  ) {
     final query = baseQuery;
 
     if (tagDataFilters.isNotEmpty) {

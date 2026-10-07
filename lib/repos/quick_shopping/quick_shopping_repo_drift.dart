@@ -39,14 +39,14 @@ class QuickShoppingRepoDrift extends LocalRepo<QuickShoppingData> {
   }
 
   @override
-Future<IMap<String, QuickShoppingData>> get() async {
+  Future<IMap<String, QuickShoppingData>> get() async {
     final rows = await baseQuery.get();
     return {
       for (final row in rows) row.id: QuickShoppingData.fromTableData(row),
     }.lock;
   }
 
-@override
+  @override
   Stream<IMap<String, QuickShoppingData>> stream() {
     return baseQuery.watch().map((rows) {
       return {
