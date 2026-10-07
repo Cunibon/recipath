@@ -49,7 +49,7 @@ class GroceryScreen extends ConsumerWidget {
             name: localization.grocery,
             trailingSearch: FilterButton(
               filterType: TagTypeEnum.grocery,
-              quickFilters: [QuickFilters.cluster],
+              quickFilters: [QuickFilters.cluster, QuickFilters.unused],
             ),
             clusters: [
               for (final entry in data.clusteredData.entries)

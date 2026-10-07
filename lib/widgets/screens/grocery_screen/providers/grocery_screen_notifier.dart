@@ -1,9 +1,11 @@
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
+import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/tag_data/tag_data.dart';
 import 'package:recipath/data/tag_data/tag_type_enum.dart';
 import 'package:recipath/widgets/screens/grocery_screen/data/grocery_item_data.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/filtered_grocery_notifier.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/tags_per_grocery_provider.dart';
+import 'package:recipath/widgets/screens/grocery_screen/providers/used_grocery_ids_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/quick_filter_notifier.dart';
 import 'package:recipath/widgets/screens/tag_screen/providers/tag_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -14,8 +16,18 @@ part 'grocery_screen_notifier.g.dart';
 Future<GroceryScreenState> groceryScreenNotifier(Ref ref) async {
   final quickFilters = ref.watch(quickFilterProvider(TagTypeEnum.grocery));
   final cluster = quickFilters[QuickFilters.cluster] ?? false;
+  final unused = quickFilters[QuickFilters.unused] ?? false;
 
   final fullGroceryData = await ref.watch(filteredGroceryProvider.future);
+  final Iterable<GroceryData> visibleGroceries;
+  if (unused) {
+    final usedGroceryIds = await ref.watch(usedGroceryIdsProvider.future);
+    visibleGroceries = fullGroceryData.values.where(
+      (grocery) => !usedGroceryIds.contains(grocery.id),
+    );
+  } else {
+    visibleGroceries = fullGroceryData.values;
+  }
 
   final List<GroceryItemData> groceryData = [];
   final Map<String, List<GroceryItemData>> clusteredData = {};
@@ -23,7 +35,7 @@ Future<GroceryScreenState> groceryScreenNotifier(Ref ref) async {
   final tagLookup = await ref.watch(tagsPerGroceryProvider.future);
 
   if (cluster) {
-    for (final grocery in fullGroceryData.values) {
+    for (final grocery in visibleGroceries) {
       final tags = tagLookup[grocery.id] ?? {};
 
       if (tags.isEmpty) {
@@ -47,7 +59,7 @@ Future<GroceryScreenState> groceryScreenNotifier(Ref ref) async {
     }
   } else {
     groceryData.addAll([
-      for (final grocery in fullGroceryData.values)
+      for (final grocery in visibleGroceries)
         GroceryItemData(
           groceryData: grocery,
           tags: tagLookup[grocery.id] ?? {},

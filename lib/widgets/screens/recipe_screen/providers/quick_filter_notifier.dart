@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:material_ui/material_ui.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:localstorage/localstorage.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:recipath/data/tag_data/tag_type_enum.dart';
 import 'package:recipath/helper/local_storage_extension.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -50,6 +50,7 @@ enum QuickFilters {
   running(icon: Icons.timer),
   cookable(icon: Icons.restaurant),
   cluster(icon: Icons.blur_on),
+  unused(icon: Icons.cleaning_services),
   shopping(icon: Icons.shopping_basket);
 
   const QuickFilters({required this.icon});
