@@ -4,8 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/storage_data/storage_data.dart';
-import 'package:recipath/data/tag_data/tag_type_enum.dart';
 import 'package:recipath/root_routes.dart';
+import 'package:recipath/widgets/filtering/filter_type_enum.dart';
 import 'package:recipath/widgets/filtering/tag_filter_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/average_time_text.dart';
 import 'package:recipath/widgets/screens/recipe_screen/compact_recipe_item_content.dart';
@@ -89,7 +89,7 @@ class CompactRecipeItem extends ConsumerWidget {
             tags: compactRecipeData.tags,
             trailingTitle: Padding(padding: .only(left: 8), child: trailing),
             onTagTapped: (tagData) => ref
-                .read(tagFilterProvider(TagTypeEnum.recipe).notifier)
+                .read(tagFilterProvider(FilterTypeEnum.recipe).notifier)
                 .toggleFilter(filter: tagData),
           ),
         ),

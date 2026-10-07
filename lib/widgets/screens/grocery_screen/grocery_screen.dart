@@ -2,11 +2,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:recipath/common.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
-import 'package:recipath/data/tag_data/tag_type_enum.dart';
 import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/helper/go_router_extension.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/filtering/filter_button.dart';
+import 'package:recipath/widgets/filtering/filter_type_enum.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/generic/clustered_searchable_list.dart';
 import 'package:recipath/widgets/generic/empty_state.dart';
@@ -48,7 +48,7 @@ class GroceryScreen extends ConsumerWidget {
           return ClusteredSearchableList(
             name: localization.grocery,
             trailingSearch: FilterButton(
-              filterType: TagTypeEnum.grocery,
+              filterType: FilterTypeEnum.grocery,
               quickFilters: [QuickFilters.cluster, QuickFilters.unused],
             ),
             clusters: [
@@ -64,7 +64,10 @@ class GroceryScreen extends ConsumerWidget {
             clusterToWidget: (clusterId) {
               if (data.clusteredData.isEmpty) return SizedBox.shrink();
 
-              return TagClusterHeader(tagId: clusterId);
+              return TagClusterHeader(
+                tagId: clusterId,
+                filterType: FilterTypeEnum.grocery,
+              );
             },
             itemToWidget: (item) => GroceryItem(data: item),
             sortItems: (a, b) =>

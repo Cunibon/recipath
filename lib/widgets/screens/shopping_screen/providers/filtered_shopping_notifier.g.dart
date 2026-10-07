@@ -49,4 +49,4 @@ final class FilteredShoppingNotifierProvider
 }
 
 String _$filteredShoppingNotifierHash() =>
-    r'ab38f4f3e099313bc5fb1b04957511aa5735af55';
+    r'23daa40cd90fda9dab74196d7045967be0843b5e';

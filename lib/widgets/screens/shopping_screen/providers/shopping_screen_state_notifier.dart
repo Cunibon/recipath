@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/storage_data/storage_data.dart';
 import 'package:recipath/data/tag_data/tag_data.dart';
-import 'package:recipath/data/tag_data/tag_type_enum.dart';
+import 'package:recipath/widgets/filtering/filter_type_enum.dart';
 import 'package:recipath/widgets/filtering/tag_filter_notifier.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/tags_per_grocery_provider.dart';
@@ -19,11 +19,11 @@ part 'shopping_screen_state_notifier.g.dart';
 
 @riverpod
 Future<ShoppingScreenState> shoppingScreenStateNotifier(Ref ref) async {
-  final quickFilters = ref.watch(quickFilterProvider(TagTypeEnum.grocery));
+  final quickFilters = ref.watch(quickFilterProvider(FilterTypeEnum.shopping));
   final cluster = quickFilters[QuickFilters.cluster] ?? false;
 
   final tagFiltersActive = ref.watch(
-    tagFilterProvider(TagTypeEnum.grocery).select((e) => e.isNotEmpty),
+    tagFilterProvider(FilterTypeEnum.shopping).select((e) => e.isNotEmpty),
   );
 
   final shoppingData = await ref.watch(filteredShoppingProvider.future);

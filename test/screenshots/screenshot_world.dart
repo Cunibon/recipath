@@ -10,7 +10,7 @@ import 'package:localstorage/localstorage.dart';
 import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
-import 'package:recipath/data/tag_data/tag_type_enum.dart';
+import 'package:recipath/widgets/filtering/filter_type_enum.dart';
 import 'package:recipath/domain_service/syncing_service/supabase_buckets.dart';
 import 'package:recipath/drift/database.dart';
 import 'package:recipath/drift/database_notifier.dart';
@@ -107,10 +107,16 @@ Future<void> _initializeLocalStorage(Directory appDir) async {
   localStorage.clear();
   localStorage.setItem(LocaleNotifier.localKey, 'en');
   localStorage.set(DarkModeNotifier.darkModeKey, true);
-  localStorage.set(
-    '${QuickFilterNotifier.quickFilterDataKey}_${TagTypeEnum.grocery.name}',
-    {QuickFilters.cluster.name: true},
-  );
+  for (final filterType in [
+    FilterTypeEnum.grocery,
+    FilterTypeEnum.shopping,
+    FilterTypeEnum.storage,
+  ]) {
+    localStorage.set(
+      '${QuickFilterNotifier.quickFilterDataKey}_${filterType.name}',
+      {QuickFilters.cluster.name: true},
+    );
+  }
 }
 
 Future<void> _copyFixtureImages(Directory appDir) async {
@@ -129,10 +135,18 @@ Future<List<ProviderSubscription<Object?>>> _warmUpProviders(
 ) async {
   final subscriptions = <ProviderSubscription<Object?>>[
     container.listen(recipeProvider, (_, _) {}),
-    container.listen(filteredGroceryProvider, (_, _) {}),
+    container.listen(
+      filteredGroceryProvider(FilterTypeEnum.grocery),
+      (_, _) {},
+    ),
+    container.listen(
+      filteredGroceryProvider(FilterTypeEnum.storage),
+      (_, _) {},
+    ),
   ];
   await container.read(recipeProvider.future);
-  await container.read(filteredGroceryProvider.future);
+  await container.read(filteredGroceryProvider(FilterTypeEnum.grocery).future);
+  await container.read(filteredGroceryProvider(FilterTypeEnum.storage).future);
 
   for (final recipe in recipes) {
     final imageName = recipe.imageName;

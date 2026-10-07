@@ -2,10 +2,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:recipath/application/storage_modifier/storage_modifier_notifier.dart';
 import 'package:recipath/data/ingredient_data/ingredient_data.dart';
-import 'package:recipath/data/tag_data/tag_type_enum.dart';
 import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/filtering/filter_button.dart';
+import 'package:recipath/widgets/filtering/filter_type_enum.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/generic/clustered_searchable_list.dart';
 import 'package:recipath/widgets/generic/dialogs/clear_confirmation_dialog.dart';
@@ -70,7 +70,10 @@ class _StorageScreenState extends ConsumerState<StorageScreen> {
           clusterToWidget: (clusterId) {
             if (data.clusteredData.isEmpty) return SizedBox.shrink();
 
-            return TagClusterHeader(tagId: clusterId);
+            return TagClusterHeader(
+              tagId: clusterId,
+              filterType: FilterTypeEnum.storage,
+            );
           },
           itemToSearchable: (item) => item.ingredient.toReadable(
             grocery: data.groceries[item.ingredient.groceryId]!,
@@ -93,7 +96,7 @@ class _StorageScreenState extends ConsumerState<StorageScreen> {
             }
           },
           trailingSearch: FilterButton(
-            filterType: TagTypeEnum.grocery,
+            filterType: FilterTypeEnum.storage,
             quickFilters: [
               QuickFilters.cluster,
               QuickFilters.shopping,

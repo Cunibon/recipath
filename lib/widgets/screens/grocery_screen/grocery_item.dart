@@ -7,6 +7,7 @@ import 'package:recipath/data/tag_data/tag_type_enum.dart';
 import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/helper/go_router_extension.dart';
 import 'package:recipath/l10n/app_localizations.dart';
+import 'package:recipath/widgets/filtering/filter_type_enum.dart';
 import 'package:recipath/widgets/filtering/tag_filter_notifier.dart';
 import 'package:recipath/widgets/generic/highlight_search/highlightable_text.dart';
 import 'package:recipath/widgets/providers/double_number_format_notifier.dart';
@@ -60,7 +61,7 @@ class GroceryItem extends ConsumerWidget {
             CompactEditableTagList(
               currentTags: data.tags,
               onTagTapped: (tagData) => ref
-                  .read(tagFilterProvider(TagTypeEnum.grocery).notifier)
+                  .read(tagFilterProvider(FilterTypeEnum.grocery).notifier)
                   .toggleFilter(filter: tagData),
               tagType: TagTypeEnum.grocery,
               onEdited: (newTags) async {

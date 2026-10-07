@@ -18,6 +18,7 @@ import 'package:recipath/widgets/generic/unsaved_changes_scope.dart';
 import 'package:recipath/widgets/providers/double_number_format_notifier.dart';
 import 'package:recipath/widgets/screens/grocery_screen/create_grocery_screen/grocery_form_fields.dart';
 import 'package:recipath/widgets/screens/grocery_screen/grocery_routes.dart';
+import 'package:recipath/widgets/filtering/filter_type_enum.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/filtered_grocery_notifier.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 
@@ -48,7 +49,9 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
   void initState() {
     super.initState();
     initialData =
-        ref.read(filteredGroceryProvider).value?[widget.groceryId ?? ""] ??
+        ref
+            .read(filteredGroceryProvider(FilterTypeEnum.grocery))
+            .value?[widget.groceryId ?? ""] ??
         GroceryData(
           id: randomAlphaNumeric(16),
           name: "",

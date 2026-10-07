@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:material_ui/material_ui.dart';
-import 'package:recipath/data/tag_data/tag_type_enum.dart';
+import 'package:recipath/widgets/filtering/filter_type_enum.dart';
 import 'package:recipath/helper/local_storage_extension.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -16,7 +16,7 @@ class QuickFilterNotifier extends _$QuickFilterNotifier {
   String get _dataKey => "${quickFilterDataKey}_${filterType.name}";
 
   @override
-  Map<QuickFilters, bool> build(TagTypeEnum filterType) {
+  Map<QuickFilters, bool> build(FilterTypeEnum filterType) {
     final data = localStorage.get<Map<String, dynamic>>(_dataKey) ?? {};
 
     return data.map(

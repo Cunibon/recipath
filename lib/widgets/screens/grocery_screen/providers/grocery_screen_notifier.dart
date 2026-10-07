@@ -1,7 +1,7 @@
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/tag_data/tag_data.dart';
-import 'package:recipath/data/tag_data/tag_type_enum.dart';
+import 'package:recipath/widgets/filtering/filter_type_enum.dart';
 import 'package:recipath/widgets/screens/grocery_screen/data/grocery_item_data.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/filtered_grocery_notifier.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/tags_per_grocery_provider.dart';
@@ -14,11 +14,13 @@ part 'grocery_screen_notifier.g.dart';
 
 @riverpod
 Future<GroceryScreenState> groceryScreenNotifier(Ref ref) async {
-  final quickFilters = ref.watch(quickFilterProvider(TagTypeEnum.grocery));
+  final quickFilters = ref.watch(quickFilterProvider(FilterTypeEnum.grocery));
   final cluster = quickFilters[QuickFilters.cluster] ?? false;
   final unused = quickFilters[QuickFilters.unused] ?? false;
 
-  final fullGroceryData = await ref.watch(filteredGroceryProvider.future);
+  final fullGroceryData = await ref.watch(
+    filteredGroceryProvider(FilterTypeEnum.grocery).future,
+  );
   final Iterable<GroceryData> visibleGroceries;
   if (unused) {
     final usedGroceryIds = await ref.watch(usedGroceryIdsProvider.future);

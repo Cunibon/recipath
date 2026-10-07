@@ -2,7 +2,7 @@ import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/storage_data/storage_data.dart';
 import 'package:recipath/data/tag_data/tag_data.dart';
-import 'package:recipath/data/tag_data/tag_type_enum.dart';
+import 'package:recipath/widgets/filtering/filter_type_enum.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/filtered_grocery_notifier.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/tags_per_grocery_provider.dart';
@@ -16,13 +16,15 @@ part 'storage_sceen_state_notifier.g.dart';
 
 @riverpod
 Future<StorageScreenState> storageScreenStateNotifier(Ref ref) async {
-  final quickFilters = ref.watch(quickFilterProvider(TagTypeEnum.grocery));
+  final quickFilters = ref.watch(quickFilterProvider(FilterTypeEnum.storage));
   final cluster = quickFilters[QuickFilters.cluster] ?? false;
   final shopping = quickFilters[QuickFilters.shopping] ?? false;
   final available = quickFilters[QuickFilters.available] ?? false;
 
   final inStorage = await ref.watch(storageProvider.future);
-  final groceries = await ref.watch(filteredGroceryProvider.future);
+  final groceries = await ref.watch(
+    filteredGroceryProvider(FilterTypeEnum.storage).future,
+  );
   final shoppingData = await ref.watch(shoppingGroceriesProvider.future);
 
   final Map<String?, List<StorageData>> clusteredData = {};

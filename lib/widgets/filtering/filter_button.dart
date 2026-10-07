@@ -1,7 +1,7 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:recipath/data/tag_data/tag_type_enum.dart';
+import 'package:recipath/widgets/filtering/filter_type_enum.dart';
 import 'package:recipath/widgets/filtering/change_filter_dialog.dart';
 import 'package:recipath/widgets/filtering/quick_filter_data.dart';
 import 'package:recipath/widgets/filtering/tag_filter_notifier.dart';
@@ -15,7 +15,7 @@ class FilterButton extends ConsumerWidget {
     this.quickFilters = const [],
     super.key,
   });
-  final TagTypeEnum filterType;
+  final FilterTypeEnum filterType;
   final List<QuickFilters> quickFilters;
 
   @override
