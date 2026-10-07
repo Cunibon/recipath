@@ -78,6 +78,7 @@ fastlane/.env*
 !.env.example
 env.json
 dart_defines.json
+config.env
 
 # Android release signing (safety net; android/.gitignore covers in-dir)
 key.properties
