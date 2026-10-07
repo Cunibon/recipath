@@ -29,16 +29,21 @@ $StorageDataCopyWith<StorageData> get copyWith => _$StorageDataCopyWithImpl<Stor
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StorageData&&(identical(other.id, id) || other.id == id)&&(identical(other.ingredient, ingredient) || other.ingredient == ingredient)&&(identical(other.deleted, deleted) || other.deleted == deleted)&&(identical(other.uploaded, uploaded) || other.uploaded == uploaded));
+  final _this = this as StorageData;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StorageData&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.ingredient, _this.ingredient) || other.ingredient == _this.ingredient)&&(identical(other.deleted, _this.deleted) || other.deleted == _this.deleted)&&(identical(other.uploaded, _this.uploaded) || other.uploaded == _this.uploaded));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,ingredient,deleted,uploaded);
+int get hashCode {
+  final _this = this as StorageData;
+  return Object.hash(runtimeType,_this.id,_this.ingredient,_this.deleted,_this.uploaded);
+}
 
 @override
 String toString() {
-  return 'StorageData(id: $id, ingredient: $ingredient, deleted: $deleted, uploaded: $uploaded)';
+  final _this = this as StorageData;
+  return 'StorageData(id: ${_this.id}, ingredient: ${_this.ingredient}, deleted: ${_this.deleted}, uploaded: ${_this.uploaded})';
 }
 
 
@@ -243,16 +248,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StorageData&&(identical(other.id, id) || other.id == id)&&(identical(other.ingredient, ingredient) || other.ingredient == ingredient)&&(identical(other.deleted, deleted) || other.deleted == deleted)&&(identical(other.uploaded, uploaded) || other.uploaded == uploaded));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _StorageData&&(identical(other.id, id) || other.id == id)&&(identical(other.ingredient, ingredient) || other.ingredient == ingredient)&&(identical(other.deleted, deleted) || other.deleted == deleted)&&(identical(other.uploaded, uploaded) || other.uploaded == uploaded));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,ingredient,deleted,uploaded);
+int get hashCode {
+    return Object.hash(runtimeType,id,ingredient,deleted,uploaded);
+}
 
 @override
 String toString() {
-  return 'StorageData(id: $id, ingredient: $ingredient, deleted: $deleted, uploaded: $uploaded)';
+    return 'StorageData(id: $id, ingredient: $ingredient, deleted: $deleted, uploaded: $uploaded)';
 }
 
 

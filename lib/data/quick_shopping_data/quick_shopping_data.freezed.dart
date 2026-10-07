@@ -29,16 +29,21 @@ $QuickShoppingDataCopyWith<QuickShoppingData> get copyWith => _$QuickShoppingDat
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is QuickShoppingData&&(identical(other.id, id) || other.id == id)&&(identical(other.done, done) || other.done == done)&&(identical(other.description, description) || other.description == description)&&(identical(other.deleted, deleted) || other.deleted == deleted)&&(identical(other.uploaded, uploaded) || other.uploaded == uploaded));
+  final _this = this as QuickShoppingData;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is QuickShoppingData&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.done, _this.done) || other.done == _this.done)&&(identical(other.description, _this.description) || other.description == _this.description)&&(identical(other.deleted, _this.deleted) || other.deleted == _this.deleted)&&(identical(other.uploaded, _this.uploaded) || other.uploaded == _this.uploaded));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,done,description,deleted,uploaded);
+int get hashCode {
+  final _this = this as QuickShoppingData;
+  return Object.hash(runtimeType,_this.id,_this.done,_this.description,_this.deleted,_this.uploaded);
+}
 
 @override
 String toString() {
-  return 'QuickShoppingData(id: $id, done: $done, description: $description, deleted: $deleted, uploaded: $uploaded)';
+  final _this = this as QuickShoppingData;
+  return 'QuickShoppingData(id: ${_this.id}, done: ${_this.done}, description: ${_this.description}, deleted: ${_this.deleted}, uploaded: ${_this.uploaded})';
 }
 
 
@@ -236,16 +241,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _QuickShoppingData&&(identical(other.id, id) || other.id == id)&&(identical(other.done, done) || other.done == done)&&(identical(other.description, description) || other.description == description)&&(identical(other.deleted, deleted) || other.deleted == deleted)&&(identical(other.uploaded, uploaded) || other.uploaded == uploaded));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _QuickShoppingData&&(identical(other.id, id) || other.id == id)&&(identical(other.done, done) || other.done == done)&&(identical(other.description, description) || other.description == description)&&(identical(other.deleted, deleted) || other.deleted == deleted)&&(identical(other.uploaded, uploaded) || other.uploaded == uploaded));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,done,description,deleted,uploaded);
+int get hashCode {
+    return Object.hash(runtimeType,id,done,description,deleted,uploaded);
+}
 
 @override
 String toString() {
-  return 'QuickShoppingData(id: $id, done: $done, description: $description, deleted: $deleted, uploaded: $uploaded)';
+    return 'QuickShoppingData(id: $id, done: $done, description: $description, deleted: $deleted, uploaded: $uploaded)';
 }
 
 

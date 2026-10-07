@@ -11,6 +11,7 @@ const _$QuickFiltersEnumMap = {
   QuickFilters.cookable: 'cookable',
   QuickFilters.cluster: 'cluster',
   QuickFilters.unused: 'unused',
+  QuickFilters.available: 'available',
   QuickFilters.shopping: 'shopping',
 };
 

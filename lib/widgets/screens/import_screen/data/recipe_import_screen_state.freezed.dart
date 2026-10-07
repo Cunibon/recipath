@@ -26,16 +26,21 @@ $RecipeImportScreenStateCopyWith<RecipeImportScreenState> get copyWith => _$Reci
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RecipeImportScreenState&&(identical(other.path, path) || other.path == path)&&const DeepCollectionEquality().equals(other.selectedRecipes, selectedRecipes));
+  final _this = this as RecipeImportScreenState;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RecipeImportScreenState&&(identical(other.path, _this.path) || other.path == _this.path)&&const DeepCollectionEquality().equals(other.selectedRecipes, _this.selectedRecipes));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,path,const DeepCollectionEquality().hash(selectedRecipes));
+int get hashCode {
+  final _this = this as RecipeImportScreenState;
+  return Object.hash(runtimeType,_this.path,const DeepCollectionEquality().hash(_this.selectedRecipes));
+}
 
 @override
 String toString() {
-  return 'RecipeImportScreenState(path: $path, selectedRecipes: $selectedRecipes)';
+  final _this = this as RecipeImportScreenState;
+  return 'RecipeImportScreenState(path: ${_this.path}, selectedRecipes: ${_this.selectedRecipes})';
 }
 
 
@@ -230,16 +235,18 @@ _$RecipeImportScreenStateCopyWith<_RecipeImportScreenState> get copyWith => __$R
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RecipeImportScreenState&&(identical(other.path, path) || other.path == path)&&const DeepCollectionEquality().equals(other._selectedRecipes, _selectedRecipes));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _RecipeImportScreenState&&(identical(other.path, path) || other.path == path)&&const DeepCollectionEquality().equals(other.selectedRecipes, _selectedRecipes));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,path,const DeepCollectionEquality().hash(_selectedRecipes));
+int get hashCode {
+    return Object.hash(runtimeType,path,const DeepCollectionEquality().hash(_selectedRecipes));
+}
 
 @override
 String toString() {
-  return 'RecipeImportScreenState(path: $path, selectedRecipes: $selectedRecipes)';
+    return 'RecipeImportScreenState(path: $path, selectedRecipes: $selectedRecipes)';
 }
 
 

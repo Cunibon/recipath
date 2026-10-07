@@ -1,5 +1,5 @@
-import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:recipath/application/storage_modifier/storage_modifier_notifier.dart';
 import 'package:recipath/data/ingredient_data/ingredient_data.dart';
 import 'package:recipath/data/tag_data/tag_type_enum.dart';
@@ -94,7 +94,11 @@ class _StorageScreenState extends ConsumerState<StorageScreen> {
           },
           trailingSearch: FilterButton(
             filterType: TagTypeEnum.grocery,
-            quickFilters: [QuickFilters.cluster, QuickFilters.shopping],
+            quickFilters: [
+              QuickFilters.cluster,
+              QuickFilters.shopping,
+              QuickFilters.available,
+            ],
           ),
           emptyState: EmptyState(hint: localization.storageHint),
         ),

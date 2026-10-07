@@ -19,6 +19,7 @@ Future<StorageScreenState> storageScreenStateNotifier(Ref ref) async {
   final quickFilters = ref.watch(quickFilterProvider(TagTypeEnum.grocery));
   final cluster = quickFilters[QuickFilters.cluster] ?? false;
   final shopping = quickFilters[QuickFilters.shopping] ?? false;
+  final available = quickFilters[QuickFilters.available] ?? false;
 
   final inStorage = await ref.watch(storageProvider.future);
   final groceries = await ref.watch(filteredGroceryProvider.future);
@@ -34,19 +35,19 @@ Future<StorageScreenState> storageScreenStateNotifier(Ref ref) async {
         continue;
       }
 
+      final storage = inStorage[grocery.id];
+      if (available && storage == null) {
+        continue;
+      }
+      final entry = storage ?? StorageData.fromGrocery(grocery);
+
       final tags = tagLookup[grocery.id] ?? {};
 
       if (tags.isEmpty) {
-        final clusteredStorage = clusteredData.putIfAbsent(null, () => []);
-        clusteredStorage.add(
-          inStorage[grocery.id] ?? StorageData.fromGrocery(grocery),
-        );
+        clusteredData.putIfAbsent(null, () => []).add(entry);
       } else {
         for (final tag in tags) {
-          final clusteredStorage = clusteredData.putIfAbsent(tag.id, () => []);
-          clusteredStorage.add(
-            inStorage[grocery.id] ?? StorageData.fromGrocery(grocery),
-          );
+          clusteredData.putIfAbsent(tag.id, () => []).add(entry);
         }
       }
     }
@@ -57,9 +58,12 @@ Future<StorageScreenState> storageScreenStateNotifier(Ref ref) async {
       if (shopping && !shoppingData.contains(grocery.id)) {
         continue;
       }
-      clusteredStorage.add(
-        inStorage[grocery.id] ?? StorageData.fromGrocery(grocery),
-      );
+
+      final storage = inStorage[grocery.id];
+      if (available && storage == null) {
+        continue;
+      }
+      clusteredStorage.add(storage ?? StorageData.fromGrocery(grocery));
     }
   }
 

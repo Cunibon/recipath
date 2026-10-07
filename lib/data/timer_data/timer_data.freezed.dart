@@ -29,16 +29,21 @@ $TimerDataCopyWith<TimerData> get copyWith => _$TimerDataCopyWithImpl<TimerData>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TimerData&&(identical(other.startTime, startTime) || other.startTime == startTime)&&(identical(other.servings, servings) || other.servings == servings)&&const DeepCollectionEquality().equals(other.runningSteps, runningSteps));
+  final _this = this as TimerData;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TimerData&&(identical(other.startTime, _this.startTime) || other.startTime == _this.startTime)&&(identical(other.servings, _this.servings) || other.servings == _this.servings)&&const DeepCollectionEquality().equals(other.runningSteps, _this.runningSteps));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,startTime,servings,const DeepCollectionEquality().hash(runningSteps));
+int get hashCode {
+  final _this = this as TimerData;
+  return Object.hash(runtimeType,_this.startTime,_this.servings,const DeepCollectionEquality().hash(_this.runningSteps));
+}
 
 @override
 String toString() {
-  return 'TimerData(startTime: $startTime, servings: $servings, runningSteps: $runningSteps)';
+  final _this = this as TimerData;
+  return 'TimerData(startTime: ${_this.startTime}, servings: ${_this.servings}, runningSteps: ${_this.runningSteps})';
 }
 
 
@@ -238,16 +243,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TimerData&&(identical(other.startTime, startTime) || other.startTime == startTime)&&(identical(other.servings, servings) || other.servings == servings)&&const DeepCollectionEquality().equals(other._runningSteps, _runningSteps));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _TimerData&&(identical(other.startTime, startTime) || other.startTime == startTime)&&(identical(other.servings, servings) || other.servings == servings)&&const DeepCollectionEquality().equals(other.runningSteps, _runningSteps));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,startTime,servings,const DeepCollectionEquality().hash(_runningSteps));
+int get hashCode {
+    return Object.hash(runtimeType,startTime,servings,const DeepCollectionEquality().hash(_runningSteps));
+}
 
 @override
 String toString() {
-  return 'TimerData(startTime: $startTime, servings: $servings, runningSteps: $runningSteps)';
+    return 'TimerData(startTime: $startTime, servings: $servings, runningSteps: $runningSteps)';
 }
 
 

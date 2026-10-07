@@ -29,16 +29,21 @@ $RecipeStepDataCopyWith<RecipeStepData> get copyWith => _$RecipeStepDataCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RecipeStepData&&(identical(other.id, id) || other.id == id)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other.ingredients, ingredients)&&(identical(other.minutes, minutes) || other.minutes == minutes));
+  final _this = this as RecipeStepData;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RecipeStepData&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.description, _this.description) || other.description == _this.description)&&const DeepCollectionEquality().equals(other.ingredients, _this.ingredients)&&(identical(other.minutes, _this.minutes) || other.minutes == _this.minutes));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,description,const DeepCollectionEquality().hash(ingredients),minutes);
+int get hashCode {
+  final _this = this as RecipeStepData;
+  return Object.hash(runtimeType,_this.id,_this.description,const DeepCollectionEquality().hash(_this.ingredients),_this.minutes);
+}
 
 @override
 String toString() {
-  return 'RecipeStepData(id: $id, description: $description, ingredients: $ingredients, minutes: $minutes)';
+  final _this = this as RecipeStepData;
+  return 'RecipeStepData(id: ${_this.id}, description: ${_this.description}, ingredients: ${_this.ingredients}, minutes: ${_this.minutes})';
 }
 
 
@@ -234,16 +239,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RecipeStepData&&(identical(other.id, id) || other.id == id)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other.ingredients, ingredients)&&(identical(other.minutes, minutes) || other.minutes == minutes));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _RecipeStepData&&(identical(other.id, id) || other.id == id)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other.ingredients, ingredients)&&(identical(other.minutes, minutes) || other.minutes == minutes));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,description,const DeepCollectionEquality().hash(ingredients),minutes);
+int get hashCode {
+    return Object.hash(runtimeType,id,description,const DeepCollectionEquality().hash(ingredients),minutes);
+}
 
 @override
 String toString() {
-  return 'RecipeStepData(id: $id, description: $description, ingredients: $ingredients, minutes: $minutes)';
+    return 'RecipeStepData(id: $id, description: $description, ingredients: $ingredients, minutes: $minutes)';
 }
 
 

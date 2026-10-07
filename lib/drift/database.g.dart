@@ -6277,7 +6277,7 @@ class $$RecipeTableTableTableManager
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
-                  e.readTable(table),
+                  e.readTable<$RecipeTableTable, RecipeTableData>(table),
                   $$RecipeTableTableReferences(db, table, e),
                 ),
               )
@@ -6779,7 +6779,9 @@ class $$RecipeStepTableTableTableManager
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
-                  e.readTable(table),
+                  e.readTable<$RecipeStepTableTable, RecipeStepTableData>(
+                    table,
+                  ),
                   $$RecipeStepTableTableReferences(db, table, e),
                 ),
               )
@@ -7375,7 +7377,7 @@ class $$GroceryTableTableTableManager
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
-                  e.readTable(table),
+                  e.readTable<$GroceryTableTable, GroceryTableData>(table),
                   $$GroceryTableTableReferences(db, table, e),
                 ),
               )
@@ -7943,7 +7945,9 @@ class $$IngredientTableTableTableManager
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
-                  e.readTable(table),
+                  e.readTable<$IngredientTableTable, IngredientTableData>(
+                    table,
+                  ),
                   $$IngredientTableTableReferences(db, table, e),
                 ),
               )
@@ -8423,7 +8427,10 @@ class $$RecipeStepIngredientTableTableTableManager
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
-                  e.readTable(table),
+                  e.readTable<
+                    $RecipeStepIngredientTableTable,
+                    RecipeStepIngredientTableData
+                  >(table),
                   $$RecipeStepIngredientTableTableReferences(db, table, e),
                 ),
               )
@@ -8868,7 +8875,7 @@ class $$TagTableTableTableManager
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
-                  e.readTable(table),
+                  e.readTable<$TagTableTable, TagTableData>(table),
                   $$TagTableTableReferences(db, table, e),
                 ),
               )
@@ -9269,7 +9276,7 @@ class $$RecipeTagTableTableTableManager
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
-                  e.readTable(table),
+                  e.readTable<$RecipeTagTableTable, RecipeTagTableData>(table),
                   $$RecipeTagTableTableReferences(db, table, e),
                 ),
               )
@@ -9666,7 +9673,9 @@ class $$GroceryTagTableTableTableManager
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
-                  e.readTable(table),
+                  e.readTable<$GroceryTagTableTable, GroceryTagTableData>(
+                    table,
+                  ),
                   $$GroceryTagTableTableReferences(db, table, e),
                 ),
               )
@@ -10025,7 +10034,7 @@ class $$ShoppingTableTableTableManager
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
-                  e.readTable(table),
+                  e.readTable<$ShoppingTableTable, ShoppingTableData>(table),
                   $$ShoppingTableTableReferences(db, table, e),
                 ),
               )
@@ -10276,7 +10285,18 @@ class $$QuickShoppingTableTableTableManager
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable<$QuickShoppingTableTable, QuickShoppingTableData>(
+                    table,
+                  ),
+                  BaseReferences<
+                    _$AppDatabase,
+                    $QuickShoppingTableTable,
+                    QuickShoppingTableData
+                  >(db, table, e),
+                ),
+              )
               .toList(),
           prefetchHooksCallback: null,
         ),
@@ -10540,7 +10560,7 @@ class $$StorageTableTableTableManager
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
-                  e.readTable(table),
+                  e.readTable<$StorageTableTable, StorageTableData>(table),
                   $$StorageTableTableReferences(db, table, e),
                 ),
               )
@@ -10893,7 +10913,10 @@ class $$RecipeStatisticTableTableTableManager
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
-                  e.readTable(table),
+                  e.readTable<
+                    $RecipeStatisticTableTable,
+                    RecipeStatisticTableData
+                  >(table),
                   $$RecipeStatisticTableTableReferences(db, table, e),
                 ),
               )
@@ -11210,7 +11233,10 @@ class $$RecipeShoppingTableTableTableManager
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
-                  e.readTable(table),
+                  e.readTable<
+                    $RecipeShoppingTableTable,
+                    RecipeShoppingTableData
+                  >(table),
                   $$RecipeShoppingTableTableReferences(db, table, e),
                 ),
               )
@@ -11395,7 +11421,16 @@ class $$FileTableTableTableManager
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable<$FileTableTable, FileTableData>(table),
+                  BaseReferences<_$AppDatabase, $FileTableTable, FileTableData>(
+                    db,
+                    table,
+                    e,
+                  ),
+                ),
+              )
               .toList(),
           prefetchHooksCallback: null,
         ),

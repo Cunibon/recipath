@@ -29,16 +29,21 @@ $RecipeStatisticDataCopyWith<RecipeStatisticData> get copyWith => _$RecipeStatis
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RecipeStatisticData&&(identical(other.id, id) || other.id == id)&&(identical(other.startDate, startDate) || other.startDate == startDate)&&(identical(other.endDate, endDate) || other.endDate == endDate)&&(identical(other.recipeId, recipeId) || other.recipeId == recipeId)&&(identical(other.servings, servings) || other.servings == servings)&&(identical(other.uploaded, uploaded) || other.uploaded == uploaded));
+  final _this = this as RecipeStatisticData;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RecipeStatisticData&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.startDate, _this.startDate) || other.startDate == _this.startDate)&&(identical(other.endDate, _this.endDate) || other.endDate == _this.endDate)&&(identical(other.recipeId, _this.recipeId) || other.recipeId == _this.recipeId)&&(identical(other.servings, _this.servings) || other.servings == _this.servings)&&(identical(other.uploaded, _this.uploaded) || other.uploaded == _this.uploaded));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,startDate,endDate,recipeId,servings,uploaded);
+int get hashCode {
+  final _this = this as RecipeStatisticData;
+  return Object.hash(runtimeType,_this.id,_this.startDate,_this.endDate,_this.recipeId,_this.servings,_this.uploaded);
+}
 
 @override
 String toString() {
-  return 'RecipeStatisticData(id: $id, startDate: $startDate, endDate: $endDate, recipeId: $recipeId, servings: $servings, uploaded: $uploaded)';
+  final _this = this as RecipeStatisticData;
+  return 'RecipeStatisticData(id: ${_this.id}, startDate: ${_this.startDate}, endDate: ${_this.endDate}, recipeId: ${_this.recipeId}, servings: ${_this.servings}, uploaded: ${_this.uploaded})';
 }
 
 
@@ -238,16 +243,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RecipeStatisticData&&(identical(other.id, id) || other.id == id)&&(identical(other.startDate, startDate) || other.startDate == startDate)&&(identical(other.endDate, endDate) || other.endDate == endDate)&&(identical(other.recipeId, recipeId) || other.recipeId == recipeId)&&(identical(other.servings, servings) || other.servings == servings)&&(identical(other.uploaded, uploaded) || other.uploaded == uploaded));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _RecipeStatisticData&&(identical(other.id, id) || other.id == id)&&(identical(other.startDate, startDate) || other.startDate == startDate)&&(identical(other.endDate, endDate) || other.endDate == endDate)&&(identical(other.recipeId, recipeId) || other.recipeId == recipeId)&&(identical(other.servings, servings) || other.servings == servings)&&(identical(other.uploaded, uploaded) || other.uploaded == uploaded));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,startDate,endDate,recipeId,servings,uploaded);
+int get hashCode {
+    return Object.hash(runtimeType,id,startDate,endDate,recipeId,servings,uploaded);
+}
 
 @override
 String toString() {
-  return 'RecipeStatisticData(id: $id, startDate: $startDate, endDate: $endDate, recipeId: $recipeId, servings: $servings, uploaded: $uploaded)';
+    return 'RecipeStatisticData(id: $id, startDate: $startDate, endDate: $endDate, recipeId: $recipeId, servings: $servings, uploaded: $uploaded)';
 }
 
 

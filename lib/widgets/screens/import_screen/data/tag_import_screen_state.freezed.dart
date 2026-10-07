@@ -26,16 +26,21 @@ $TagImportScreenStateCopyWith<TagImportScreenState> get copyWith => _$TagImportS
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TagImportScreenState&&const DeepCollectionEquality().equals(other.tagLookup, tagLookup)&&const DeepCollectionEquality().equals(other.mappedTags, mappedTags));
+  final _this = this as TagImportScreenState;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TagImportScreenState&&const DeepCollectionEquality().equals(other.tagLookup, _this.tagLookup)&&const DeepCollectionEquality().equals(other.mappedTags, _this.mappedTags));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(tagLookup),const DeepCollectionEquality().hash(mappedTags));
+int get hashCode {
+  final _this = this as TagImportScreenState;
+  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.tagLookup),const DeepCollectionEquality().hash(_this.mappedTags));
+}
 
 @override
 String toString() {
-  return 'TagImportScreenState(tagLookup: $tagLookup, mappedTags: $mappedTags)';
+  final _this = this as TagImportScreenState;
+  return 'TagImportScreenState(tagLookup: ${_this.tagLookup}, mappedTags: ${_this.mappedTags})';
 }
 
 
@@ -236,16 +241,18 @@ _$TagImportScreenStateCopyWith<_TagImportScreenState> get copyWith => __$TagImpo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TagImportScreenState&&const DeepCollectionEquality().equals(other._tagLookup, _tagLookup)&&const DeepCollectionEquality().equals(other._mappedTags, _mappedTags));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _TagImportScreenState&&const DeepCollectionEquality().equals(other.tagLookup, _tagLookup)&&const DeepCollectionEquality().equals(other.mappedTags, _mappedTags));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_tagLookup),const DeepCollectionEquality().hash(_mappedTags));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_tagLookup),const DeepCollectionEquality().hash(_mappedTags));
+}
 
 @override
 String toString() {
-  return 'TagImportScreenState(tagLookup: $tagLookup, mappedTags: $mappedTags)';
+    return 'TagImportScreenState(tagLookup: $tagLookup, mappedTags: $mappedTags)';
 }
 
 

@@ -51,6 +51,7 @@ enum QuickFilters {
   cookable(icon: Icons.restaurant),
   cluster(icon: Icons.blur_on),
   unused(icon: Icons.cleaning_services),
+  available(icon: Icons.shelves),
   shopping(icon: Icons.shopping_basket);
 
   const QuickFilters({required this.icon});

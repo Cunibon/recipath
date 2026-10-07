@@ -26,16 +26,21 @@ $ImportDataCopyWith<ImportData> get copyWith => _$ImportDataCopyWithImpl<ImportD
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ImportData&&const DeepCollectionEquality().equals(other.recipes, recipes)&&(identical(other.groceries, groceries) || other.groceries == groceries)&&(identical(other.tagsPerRecipe, tagsPerRecipe) || other.tagsPerRecipe == tagsPerRecipe)&&(identical(other.tagsPerGrocery, tagsPerGrocery) || other.tagsPerGrocery == tagsPerGrocery));
+  final _this = this as ImportData;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ImportData&&const DeepCollectionEquality().equals(other.recipes, _this.recipes)&&(identical(other.groceries, _this.groceries) || other.groceries == _this.groceries)&&(identical(other.tagsPerRecipe, _this.tagsPerRecipe) || other.tagsPerRecipe == _this.tagsPerRecipe)&&(identical(other.tagsPerGrocery, _this.tagsPerGrocery) || other.tagsPerGrocery == _this.tagsPerGrocery));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(recipes),groceries,tagsPerRecipe,tagsPerGrocery);
+int get hashCode {
+  final _this = this as ImportData;
+  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.recipes),_this.groceries,_this.tagsPerRecipe,_this.tagsPerGrocery);
+}
 
 @override
 String toString() {
-  return 'ImportData(recipes: $recipes, groceries: $groceries, tagsPerRecipe: $tagsPerRecipe, tagsPerGrocery: $tagsPerGrocery)';
+  final _this = this as ImportData;
+  return 'ImportData(recipes: ${_this.recipes}, groceries: ${_this.groceries}, tagsPerRecipe: ${_this.tagsPerRecipe}, tagsPerGrocery: ${_this.tagsPerGrocery})';
 }
 
 
@@ -234,16 +239,18 @@ _$ImportDataCopyWith<_ImportData> get copyWith => __$ImportDataCopyWithImpl<_Imp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ImportData&&const DeepCollectionEquality().equals(other._recipes, _recipes)&&(identical(other.groceries, groceries) || other.groceries == groceries)&&(identical(other.tagsPerRecipe, tagsPerRecipe) || other.tagsPerRecipe == tagsPerRecipe)&&(identical(other.tagsPerGrocery, tagsPerGrocery) || other.tagsPerGrocery == tagsPerGrocery));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ImportData&&const DeepCollectionEquality().equals(other.recipes, _recipes)&&(identical(other.groceries, groceries) || other.groceries == groceries)&&(identical(other.tagsPerRecipe, tagsPerRecipe) || other.tagsPerRecipe == tagsPerRecipe)&&(identical(other.tagsPerGrocery, tagsPerGrocery) || other.tagsPerGrocery == tagsPerGrocery));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_recipes),groceries,tagsPerRecipe,tagsPerGrocery);
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_recipes),groceries,tagsPerRecipe,tagsPerGrocery);
+}
 
 @override
 String toString() {
-  return 'ImportData(recipes: $recipes, groceries: $groceries, tagsPerRecipe: $tagsPerRecipe, tagsPerGrocery: $tagsPerGrocery)';
+    return 'ImportData(recipes: $recipes, groceries: $groceries, tagsPerRecipe: $tagsPerRecipe, tagsPerGrocery: $tagsPerGrocery)';
 }
 
 
