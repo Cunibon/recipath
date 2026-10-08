@@ -12,6 +12,7 @@ import 'package:recipath/widgets/screens/settings_screen/appearance/material_you
 import 'package:recipath/widgets/screens/settings_screen/appearance/storage_toggle.dart';
 import 'package:recipath/widgets/screens/settings_screen/auth/manage_supscription_button.dart';
 import 'package:recipath/widgets/screens/settings_screen/data/ai_token.dart';
+import 'package:recipath/widgets/screens/settings_screen/data/open_food_facts_account.dart';
 import 'package:recipath/widgets/screens/settings_screen/data/change_password.dart';
 import 'package:recipath/widgets/screens/settings_screen/data/clear_all_data.dart';
 import 'package:recipath/widgets/screens/settings_screen/data/delete_account.dart';
@@ -46,6 +47,7 @@ class SettingsScreen extends ConsumerWidget {
               title: localization.data,
               children: [
                 AiToken(),
+                OpenFoodFactsAccount(),
                 PrivacyPolicy(),
                 if (Platform.isIOS) TermsOfUse(),
                 if (ref.watch(supabaseUserProvider) == null)

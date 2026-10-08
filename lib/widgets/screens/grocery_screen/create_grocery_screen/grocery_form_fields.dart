@@ -19,6 +19,8 @@ class GroceryFormFields extends ConsumerWidget {
     required this.proteinController,
     required this.fiberController,
     required this.data,
+    this.contributeToOpenFoodFacts = false,
+    this.onContributeChanged,
     super.key,
   });
 
@@ -35,6 +37,8 @@ class GroceryFormFields extends ConsumerWidget {
   final TextEditingController fiberController;
 
   final GroceryData data;
+  final bool contributeToOpenFoodFacts;
+  final ValueChanged<bool>? onContributeChanged;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -241,6 +245,22 @@ class GroceryFormFields extends ConsumerWidget {
             decoration: InputDecoration(labelText: "Barcode"),
             onChanged: (barcode) => updateData(data.copyWith(barcode: barcode)),
           ),
+          if (barcodeController.text.trim().isNotEmpty) ...[
+            SizedBox(height: 4),
+            SwitchListTile(
+              contentPadding: EdgeInsets.zero,
+              title: Text(
+                localization.contributeToOpenFoodFacts,
+                style: TextTheme.of(context).bodyMedium,
+              ),
+              subtitle: Text(
+                localization.contributeToOpenFoodFactsDescription,
+                style: TextTheme.of(context).bodySmall,
+              ),
+              value: contributeToOpenFoodFacts,
+              onChanged: onContributeChanged,
+            ),
+          ],
           DoubleInputField(
             controller: kcalController,
             labelText: "${localization.kcal}/100g",
