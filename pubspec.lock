@@ -469,10 +469,10 @@ packages:
     dependency: "direct main"
     description:
       name: duration_picker
-      sha256: e505a749c93f3218aa4194d339e5d5480d927df23a81f075b5282511f6ac11ab
+      sha256: "47fee02d86d05d90fd02e915757d2b61ae68bb0c43e1e41fb792e23fdd89bba0"
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.0"
+    version: "2.0.0"
   dynamic_color:
     dependency: "direct main"
     description:

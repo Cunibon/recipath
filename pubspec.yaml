@@ -33,7 +33,7 @@ dependencies:
   drift: ^2.28.0
   drift_flutter: ^0.3.1
   path: ^1.9.1
-  duration_picker: ^1.2.0
+  duration_picker: ^2.0.0
   fl_chart: ^1.0.0
   mobile_scanner: ^7.0.1
   http: ^1.4.0
