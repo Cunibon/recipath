@@ -5,8 +5,10 @@ import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:recipath/data/gtin_data/gtin_data.dart';
+import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/generic/information_dialog.dart';
+import 'package:recipath/widgets/generic/dialogs/two_option_dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ScannerScreen extends StatefulWidget {
@@ -42,14 +44,36 @@ class _ScannerScreenState extends State<ScannerScreen> {
     return checkDigit == digits.last;
   }
 
-  Future<void> showCannotFindDialog({
+  Future<void> handleProductNotFound({
     required AppLocalizations localization,
     required String barcode,
-  }) => showDialog(
-    context: context,
-    builder: (context) =>
-        InformationDialog(message: localization.couldNotFindBarcode(barcode)),
-  );
+    required GoRouter goRouter,
+  }) async {
+    final addManually = await showDialog<bool>(
+      context: context,
+      builder: (context) => TwoOptionDialog(
+        title: localization.couldNotFindBarcode(barcode),
+        content: Text(localization.addManuallyAndContribute),
+        agree: localization.addManually,
+        disagree: localization.no,
+      ),
+    );
+
+    if (addManually == true && mounted) {
+      foundGTIN = true;
+      goRouter.pop(
+        GTINData(barcode: barcode, name: '', amount: 100, unit: UnitEnum.g),
+      );
+    }
+  }
+
+  Future<void> showOpenFoodFactsError(AppLocalizations localization) async {
+    await showDialog<void>(
+      context: context,
+      builder: (context) =>
+          InformationDialog(message: localization.couldNotReachOpenFoodFacts),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,34 +115,44 @@ class _ScannerScreenState extends State<ScannerScreen> {
               final goRouter = GoRouter.of(context);
 
               try {
-                final response = await http.get(url);
+                final response = await http
+                    .get(url)
+                    .timeout(const Duration(seconds: 15));
 
                 if (context.mounted) {
-                  if (response.statusCode == 200) {
-                    final data = jsonDecode(response.body);
+                  if (response.statusCode != 200) {
+                    await showOpenFoodFactsError(localization);
+                    return;
+                  }
 
-                    final gtin = GTINData.fromAPI(barcode, data);
-                    if (gtin != null) {
-                      goRouter.pop(gtin);
-                      foundGTIN = true;
-                    } else {
-                      await showCannotFindDialog(
-                        localization: localization,
-                        barcode: barcode,
-                      );
-                    }
-                  } else {
-                    await showCannotFindDialog(
+                  final data = jsonDecode(response.body);
+                  if (data is! Map<String, dynamic>) {
+                    await showOpenFoodFactsError(localization);
+                    return;
+                  }
+
+                  if (data['status'] == 0 || data['product'] == null) {
+                    await handleProductNotFound(
                       localization: localization,
                       barcode: barcode,
+                      goRouter: goRouter,
                     );
+                    return;
                   }
+
+                  final gtin = GTINData.fromAPI(barcode, data);
+                  if (gtin == null) {
+                    await showOpenFoodFactsError(localization);
+                    return;
+                  }
+
+                  foundGTIN = true;
+                  goRouter.pop(gtin);
                 }
-              } catch (e) {
-                await showCannotFindDialog(
-                  localization: localization,
-                  barcode: barcode,
-                );
+              } catch (_) {
+                if (context.mounted) {
+                  await showOpenFoodFactsError(localization);
+                }
               } finally {
                 if (context.mounted) {
                   setState(() {
