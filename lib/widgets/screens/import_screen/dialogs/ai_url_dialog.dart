@@ -20,6 +20,19 @@ class _AiUrlDialogState extends ConsumerState<AiUrlDialog> {
     super.dispose();
   }
 
+  Uri? _parseUrl(String value) {
+    final trimmed = value.trim();
+    final uri = Uri.tryParse(
+      trimmed.contains('://') ? trimmed : 'https://$trimmed',
+    );
+    if (uri == null ||
+        !(uri.isScheme('http') || uri.isScheme('https')) ||
+        !uri.host.contains('.')) {
+      return null;
+    }
+    return uri;
+  }
+
   @override
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context)!;
@@ -39,8 +52,7 @@ class _AiUrlDialogState extends ConsumerState<AiUrlDialog> {
                 if (value == null) {
                   return localization.addAiToken;
                 }
-                final uri = Uri.tryParse(value);
-                if (uri == null) {
+                if (_parseUrl(value) == null) {
                   return localization.enterValidUrl;
                 }
 
@@ -61,7 +73,10 @@ class _AiUrlDialogState extends ConsumerState<AiUrlDialog> {
           child: Text(localization.actionContinue),
           onPressed: () async {
             if (formKey.currentState?.validate() == true) {
-              AiImportMutation.runUrlImport(ref, urlController.text);
+              AiImportMutation.runUrlImport(
+                ref,
+                _parseUrl(urlController.text)!.toString(),
+              );
 
               if (context.mounted) {
                 Navigator.pop(context);

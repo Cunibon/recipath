@@ -6,10 +6,10 @@ import 'package:recipath/data/ai_provider/ai_provider_data.dart';
 import 'package:recipath/data/ai_provider_enum.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/providers/ai/ai_model_notifier.dart';
-import 'package:recipath/widgets/screens/import_screen/mutation/ai_import_exception.dart';
+import 'package:recipath/data/ai/ai_import_exception.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-final _handshake = Mutation<GenerateResponseHelper>();
+final _handshake = Mutation<GenerateResult>();
 
 class AiTokenDialog extends ConsumerStatefulWidget {
   const AiTokenDialog({required this.providerData, super.key});
@@ -88,7 +88,7 @@ class _AiTokenDialogState extends ConsumerState<AiTokenDialog> {
               Padding(
                 padding: const EdgeInsets.only(top: 8.0),
                 child: Text(
-                  AiImportException.classify(
+                  AiImportException.classifyHandshake(
                     error,
                   ).localizedMessage(localization),
                   style: TextTheme.of(
@@ -117,11 +117,17 @@ class _AiTokenDialogState extends ConsumerState<AiTokenDialog> {
                 provider: selectedProvider!,
               );
 
-              await _handshake.run(ref, (transaction) async {
-                final backend = transaction.get(aiModelProvider(providerData))!;
+              try {
+                await _handshake.run(ref, (transaction) async {
+                  final backend = transaction.get(
+                    aiModelProvider(providerData),
+                  )!;
 
-                return await backend.handshake();
-              });
+                  return await backend.handshake();
+                });
+              } catch (_) {
+                return;
+              }
 
               if (context.mounted) {
                 Navigator.pop(context, providerData);

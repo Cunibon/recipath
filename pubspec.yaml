@@ -56,11 +56,11 @@ dependencies:
   flutter_timezone: ^5.0.1
   audioplayers: ^6.5.1
   flutter_secure_storage: ^11.0.0
-  genkit: ^0.15.1
-  genkit_openai: ^0.3.7
-  genkit_anthropic: ^0.2.11
-  genkit_google_genai: ^0.2.12
-  schemantic: ^0.2.2
+  genkit: ^1.0.0
+  genkit_openai: ^1.0.0
+  genkit_anthropic: ^1.0.0
+  genkit_google_genai: ^1.0.0
+  schemantic: ^1.0.0
   html: ^0.15.6
   pdf: ^3.12.0
   dotted_border: ^3.1.0

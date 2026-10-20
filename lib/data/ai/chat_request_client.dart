@@ -2,10 +2,11 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-class ThinkingDisabledClient extends http.BaseClient {
-  ThinkingDisabledClient({http.Client? inner})
+class ChatRequestClient extends http.BaseClient {
+  ChatRequestClient({required this.disableThinking, http.Client? inner})
     : _inner = inner ?? http.Client();
 
+  final bool disableThinking;
   final http.Client _inner;
 
   @override
@@ -20,7 +21,13 @@ class ThinkingDisabledClient extends http.BaseClient {
 
     try {
       final json = jsonDecode(utf8.decode(bytes)) as Map<String, dynamic>;
-      json['thinking'] = const {'type': 'disabled'};
+      if (disableThinking) {
+        json['thinking'] = const {'type': 'disabled'};
+      }
+      final responseFormat = json['response_format'];
+      if (responseFormat is Map && responseFormat['json_schema'] is Map) {
+        (responseFormat['json_schema'] as Map)['strict'] = true;
+      }
       body = utf8.encode(jsonEncode(json));
     } catch (_) {
       body = bytes;

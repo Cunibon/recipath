@@ -31,6 +31,7 @@ class ImportWorld {
     required this.groceries,
     required this.recipeTags,
     required this.subscriptions,
+    required this.appDir,
   });
 
   static const _localStorageBackingFile =
@@ -41,6 +42,7 @@ class ImportWorld {
   final IMap<String, GroceryData> groceries;
   final IMap<String, TagData> recipeTags;
   final List<ProviderSubscription<Object?>> subscriptions;
+  final Directory appDir;
 
   Set<String> get groceryNames =>
       groceries.values.map((grocery) => grocery.name.trim()).toSet();
@@ -88,6 +90,7 @@ class ImportWorld {
       groceries: groceries,
       recipeTags: typedTags[TagTypeEnum.recipe]!,
       subscriptions: subscriptions,
+      appDir: appDir,
     );
   }
 
@@ -97,5 +100,6 @@ class ImportWorld {
     }
     container.dispose();
     await db.close();
+    await appDir.delete(recursive: true);
   }
 }
