@@ -1,5 +1,5 @@
-import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/l10n/app_localizations.dart';
@@ -162,9 +162,26 @@ class GroceryFormFields extends ConsumerWidget {
                   },
                 ),
               ),
-              SizedBox(width: 8),
-              Text("=", style: TextTheme.of(context).titleLarge),
-              SizedBox(width: 8),
+              GestureDetector(
+                onTap: () {
+                  final initialAmount = amountController.text;
+                  amountController.text = conversionController.text;
+                  conversionController.text = initialAmount;
+
+                  updateData(
+                    data.copyWith(
+                      unit: data.conversionUnit,
+                      normalAmount: data.conversionAmount,
+                      conversionUnit: data.unit,
+                      conversionAmount: data.normalAmount,
+                    ),
+                  );
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Text("=", style: TextTheme.of(context).titleLarge),
+                ),
+              ),
               Flexible(
                 flex: 3,
                 child: TextFormField(

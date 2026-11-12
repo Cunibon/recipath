@@ -18,7 +18,8 @@ class ClusteredSearchableList<T, R> extends StatefulWidget {
     this.sortClusters,
     this.trailingSearch,
     this.trailingList,
-    this.emptyState,
+    this.clusterEmptyState,
+    this.searchEmptyState,
     this.listViewPadding = const EdgeInsets.all(0),
     super.key,
   }) : assert(initialSearch == null || searchController == null);
@@ -37,7 +38,8 @@ class ClusteredSearchableList<T, R> extends StatefulWidget {
   final int Function(R a, R b)? sortClusters;
 
   final Widget? trailingSearch;
-  final Widget? emptyState;
+  final Widget? clusterEmptyState;
+  final Widget Function(String search)? searchEmptyState;
   final Widget? trailingList;
   final EdgeInsets listViewPadding;
 
@@ -135,9 +137,13 @@ class _ClusteredSearchableListState<T, R>
 
     if (clusters.isEmpty) {
       if (widget.clusters.isEmpty) {
-        child = widget.emptyState ?? SizedBox.shrink();
+        child = widget.clusterEmptyState ?? SizedBox.shrink();
       } else {
-        child = EmptyState(hint: localization.changeSearchForResults);
+        if (widget.searchEmptyState == null) {
+          child = EmptyState(hint: localization.changeSearchForResults);
+        } else {
+          child = widget.searchEmptyState!(search);
+        }
       }
     } else {
       child = CustomScrollView(

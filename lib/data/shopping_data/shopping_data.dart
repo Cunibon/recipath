@@ -1,5 +1,6 @@
 import 'package:drift/drift.dart' as drift;
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:random_string/random_string.dart';
 import 'package:recipath/data/ingredient_data/ingredient_data.dart';
 import 'package:recipath/drift/database.dart';
 
@@ -30,6 +31,18 @@ abstract class ShoppingData with _$ShoppingData {
     ingredient: ingredientData,
     deleted: data.deleted,
     uploaded: data.uploaded,
+  );
+
+  factory ShoppingData.fromIngredient(
+    IngredientData ingredient, {
+    int count = 0,
+  }) => ShoppingData(
+    id: randomAlphaNumeric(16),
+    done: false,
+    count: 0,
+    ingredient: ingredient,
+    deleted: false,
+    uploaded: false,
   );
 }
 

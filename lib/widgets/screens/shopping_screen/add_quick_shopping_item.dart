@@ -1,10 +1,10 @@
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:random_string/random_string.dart';
 import 'package:recipath/application/quick_shopping_modifier/quick_shopping_modifier_notifier.dart';
 import 'package:recipath/data/quick_shopping_data/quick_shopping_data.dart';
 import 'package:recipath/l10n/app_localizations.dart';
+import 'package:recipath/widgets/generic/normed_dotted_border.dart';
 
 class AddQuickShoppingItem extends ConsumerStatefulWidget {
   const AddQuickShoppingItem({super.key});
@@ -38,20 +38,11 @@ class _AddQuickShoppingItemState extends ConsumerState<AddQuickShoppingItem> {
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context)!;
 
-    const radius = Radius.circular(12);
-
     return Form(
       key: formkey,
       child: Padding(
         padding: const EdgeInsets.all(6.0),
-        child: DottedBorder(
-          options: RoundedRectDottedBorderOptions(
-            color: ColorScheme.of(context).surfaceContainer,
-            strokeWidth: 4,
-            dashPattern: [8, 4],
-            radius: radius,
-            padding: EdgeInsets.all(8),
-          ),
+        child: NormedDottedBorder(
           child: Row(
             children: [
               Expanded(

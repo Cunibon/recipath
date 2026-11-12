@@ -103,7 +103,7 @@ class _StorageScreenState extends ConsumerState<StorageScreen> {
               QuickFilters.available,
             ],
           ),
-          emptyState: EmptyState(hint: localization.storageHint),
+          clusterEmptyState: EmptyState(hint: localization.storageHint),
         ),
       ),
     );

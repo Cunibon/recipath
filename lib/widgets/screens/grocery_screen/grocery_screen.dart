@@ -82,7 +82,7 @@ class GroceryScreen extends ConsumerWidget {
                 return data.tags[a]!.name.compareTo(data.tags[b]!.name);
               }
             },
-            emptyState: EmptyState(
+            clusterEmptyState: EmptyState(
               hint: localization.createGroceryHint,
               onTap: () => context.goRelative(GroceryRoutes.createGrocery.path),
             ),

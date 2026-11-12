@@ -25,6 +25,7 @@ import 'package:recipath/widgets/screens/shopping_screen/providers/quick_shoppin
 import 'package:recipath/widgets/screens/shopping_screen/providers/shopping_not_uploaded_notifier.dart';
 import 'package:recipath/widgets/screens/shopping_screen/providers/shopping_screen_state_notifier.dart';
 import 'package:recipath/widgets/screens/shopping_screen/quick_shopping_item.dart';
+import 'package:recipath/widgets/screens/shopping_screen/shopping_empty_state.dart';
 import 'package:recipath/widgets/screens/shopping_screen/shopping_item.dart';
 import 'package:recipath/widgets/tag/tag_cluster_header.dart';
 
@@ -45,10 +46,14 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
   }
 
   int getSortPriority(String type) {
-    if (type == ShoppingTypeEnum.normal.name) return 1;
-    if (type == ShoppingTypeEnum.quick.name) return 2;
-    if (type == ShoppingTypeEnum.done.name) return 3;
-    return 0;
+    final parsed = ShoppingTypeEnum.values.asNameMap()[type];
+
+    return switch (parsed) {
+      ShoppingTypeEnum.normal => 1,
+      ShoppingTypeEnum.quick => 2,
+      ShoppingTypeEnum.done => 3,
+      _ => 0,
+    };
   }
 
   @override
@@ -173,7 +178,7 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
           ),
           listViewPadding: edgeInsetsWithBottomPadding(context: context),
           trailingList: data.tagFiltersActive ? null : AddQuickShoppingItem(),
-          emptyState: Center(
+          clusterEmptyState: Center(
             child: Column(
               mainAxisSize: .min,
               children: [
@@ -185,6 +190,8 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
               ],
             ),
           ),
+          searchEmptyState: (search) =>
+              ShoppingEmptyState(search: search, state: data),
         ),
       ),
     );

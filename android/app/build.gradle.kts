@@ -15,7 +15,13 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace = "com.cunibongames.recipath"
-    compileSdk = 37
+    compileSdk {
+        // API 37 only ships as minor-versioned platforms (android-37.0, ...),
+        // so AGP needs the explicit minor level instead of the plain hash.
+        version = release(37) {
+            minorApiLevel = 0
+        }
+    }
     ndkVersion = "28.2.13676358"
 
     compileOptions {

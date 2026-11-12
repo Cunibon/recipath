@@ -2,7 +2,6 @@ import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-import 'package:random_string/random_string.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/ingredient_data/ingredient_data.dart';
 import 'package:recipath/data/unit_enum.dart';
@@ -181,13 +180,11 @@ class _AddIngredientDialogState extends ConsumerState<AddIngredientDialog> {
                       onPressed: () {
                         if (formKey.currentState?.validate() == true) {
                           context.pop(
-                            IngredientData(
-                              id: randomAlphaNumeric(16),
+                            IngredientData.fromGrocery(
+                              selected!,
                               amount: doubleNumberFormat
                                   .parse(amountController.text)
                                   .toDouble(),
-                              unit: selected!.unit,
-                              groceryId: selected!.id,
                             ),
                           );
                         }

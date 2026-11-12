@@ -10,4 +10,4 @@ part 'filtered_shopping_notifier.g.dart';
 @riverpod
 Stream<IMap<String, ShoppingData>> filteredShoppingNotifier(Ref ref) => ref
     .watch(shoppingRepoProvider)
-    .streamFiltered(ref.watch(tagFilterProvider(FilterTypeEnum.grocery)));
+    .streamFiltered(ref.watch(tagFilterProvider(FilterTypeEnum.shopping)));
