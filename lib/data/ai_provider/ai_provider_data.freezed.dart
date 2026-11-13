@@ -29,16 +29,21 @@ $AiProviderDataCopyWith<AiProviderData> get copyWith => _$AiProviderDataCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AiProviderData&&(identical(other.token, token) || other.token == token)&&(identical(other.provider, provider) || other.provider == provider));
+  final _this = this as AiProviderData;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AiProviderData&&(identical(other.token, _this.token) || other.token == _this.token)&&(identical(other.provider, _this.provider) || other.provider == _this.provider));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,token,provider);
+int get hashCode {
+  final _this = this as AiProviderData;
+  return Object.hash(runtimeType,_this.token,_this.provider);
+}
 
 @override
 String toString() {
-  return 'AiProviderData(token: $token, provider: $provider)';
+  final _this = this as AiProviderData;
+  return 'AiProviderData(token: ${_this.token}, provider: ${_this.provider})';
 }
 
 
@@ -230,16 +235,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AiProviderData&&(identical(other.token, token) || other.token == token)&&(identical(other.provider, provider) || other.provider == provider));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _AiProviderData&&(identical(other.token, token) || other.token == token)&&(identical(other.provider, provider) || other.provider == provider));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,token,provider);
+int get hashCode {
+    return Object.hash(runtimeType,token,provider);
+}
 
 @override
 String toString() {
-  return 'AiProviderData(token: $token, provider: $provider)';
+    return 'AiProviderData(token: $token, provider: $provider)';
 }
 
 

@@ -30,6 +30,10 @@ class BaseChart extends StatelessWidget {
     fontSize: 14,
   );
 
+  static const leftTitlesSize = 50.0;
+
+  double slotWidth(ChartEntry entry) => entry.groupData.width + axisSpace;
+
   double getNiceInterval(double value, {int desiredLines = 10}) {
     if (value == 0) return 1;
 
@@ -65,7 +69,11 @@ class BaseChart extends StatelessWidget {
         child: Padding(
           padding: EdgeInsetsGeometry.only(top: 8),
           child: SizedBox(
-            width: max(constrained.maxWidth, state.entries.length * axisSpace),
+            width: max(
+              constrained.maxWidth,
+              leftTitlesSize +
+                  state.entries.fold(0.0, (sum, e) => sum + slotWidth(e)),
+            ),
             height: 350,
             child: Stack(
               children: [
@@ -144,7 +152,7 @@ class BaseChart extends StatelessWidget {
     bottomTitles: AxisTitles(
       sideTitles: SideTitles(
         showTitles: true,
-        reservedSize: 50,
+        reservedSize: 44,
         getTitlesWidget: getTitles,
       ),
     ),
@@ -152,7 +160,7 @@ class BaseChart extends StatelessWidget {
       sideTitles: SideTitles(
         interval: horizontalTitleInterval,
         showTitles: true,
-        reservedSize: 50,
+        reservedSize: leftTitlesSize,
         getTitlesWidget: (value, meta) {
           if (value == meta.max) {
             return const SizedBox.shrink();
@@ -177,8 +185,17 @@ class BaseChart extends StatelessWidget {
 
     return SideTitleWidget(
       meta: meta,
-      angle: 0.45,
-      child: Text(state.entries[index].title, style: titlesStyle),
+      space: 6,
+      child: SizedBox(
+        width: slotWidth(state.entries[index]) - 8,
+        child: Text(
+          state.entries[index].title,
+          style: titlesStyle,
+          textAlign: TextAlign.center,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+        ),
+      ),
     );
   }
 }

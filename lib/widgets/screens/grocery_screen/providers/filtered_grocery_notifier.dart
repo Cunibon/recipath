@@ -1,6 +1,6 @@
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
-import 'package:recipath/data/tag_data/tag_type_enum.dart';
+import 'package:recipath/widgets/filtering/filter_type_enum.dart';
 import 'package:recipath/repos/grocery/grocery_repo_notifier.dart';
 import 'package:recipath/widgets/filtering/tag_filter_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -8,6 +8,9 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'filtered_grocery_notifier.g.dart';
 
 @riverpod
-Stream<IMap<String, GroceryData>> filteredGroceryNotifier(Ref ref) => ref
+Stream<IMap<String, GroceryData>> filteredGroceryNotifier(
+  Ref ref,
+  FilterTypeEnum filterType,
+) => ref
     .watch(groceryRepoProvider)
-    .streamFiltered(ref.watch(tagFilterProvider(TagTypeEnum.grocery)));
+    .streamFiltered(ref.watch(tagFilterProvider(filterType)));

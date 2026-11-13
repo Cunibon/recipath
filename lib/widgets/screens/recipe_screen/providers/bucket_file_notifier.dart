@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:recipath/widgets/providers/supabase/supabase_client_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/local_file_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 part 'bucket_file_notifier.g.dart';
 
@@ -23,7 +24,9 @@ Future<File> bucketFileNotifier(
           .download(fileName);
 
       await file.writeAsBytes(fileBytes);
-    } catch (_) {}
+    } catch (e) {
+      Sentry.captureException(e);
+    }
   }
 
   return file;

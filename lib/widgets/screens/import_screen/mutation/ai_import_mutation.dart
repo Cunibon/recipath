@@ -5,27 +5,47 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/experimental/mutation.dart';
 import 'package:genkit/genkit.dart';
 import 'package:random_string/random_string.dart';
-import 'package:recipath/helper/ref_extension.dart';
+import 'package:recipath/data/ai/ai_import_exception.dart';
+import 'package:recipath/data/ai/recipe_import_mapper.dart';
 import 'package:recipath/providers/application_path_provider.dart';
 import 'package:recipath/providers/go_router.dart';
 import 'package:recipath/root_routes.dart';
 import 'package:recipath/widgets/screens/import_screen/import_routes.dart';
-import 'package:recipath/widgets/screens/import_screen/mutation/ai_import_exception.dart';
 import 'package:recipath/widgets/screens/import_screen/mutation/recipe_content_extractor.dart';
 import 'package:recipath/widgets/screens/import_screen/mutation/recipe_prompt_builder.dart';
 
 abstract class AiImportMutation {
   static final mutation = Mutation();
 
-  static Future<void> import({
-    required MutationTarget ref,
-    required Map<String, dynamic> result,
-  }) => ref.run((tsx) async {
-    final appDirectory = tsx.get(applicationPathProvider);
+  static void runImageImport(MutationTarget ref, Uint8List image) =>
+      _runImport(ref, (tsx) => runImagePrompt(tsx, image));
 
-    final newFileName = randomAlphaNumeric(16);
-    final file = File("${appDirectory.path}/$newFileName");
+  static void runUrlImport(MutationTarget ref, String url) =>
+      _runImport(ref, (tsx) => runUrlPrompt(tsx, url));
 
+  static void _runImport(
+    MutationTarget ref,
+    Future<Map<String, dynamic>?> Function(MutationTransaction tsx) prompt,
+  ) => mutation.run(ref, (tsx) async {
+    final result = await prompt(tsx);
+    if (result != null) {
+      await _import(tsx, result);
+    }
+  }).ignore();
+
+  static Future<void> _import(
+    MutationTransaction tsx,
+    Map<String, dynamic> result,
+  ) async {
+    final directory = Directory(
+      "${tsx.get(applicationPathProvider).path}/ai_import",
+    );
+    if (await directory.exists()) {
+      await directory.delete(recursive: true);
+    }
+    await directory.create(recursive: true);
+
+    final file = File("${directory.path}/${randomAlphaNumeric(16)}");
     await file.writeAsString(jsonEncode(result));
 
     tsx
@@ -34,15 +54,7 @@ abstract class AiImportMutation {
           "${RootRoutes.importRoute.path}/${ImportRoutes.recipeImport.path}",
           extra: file.path,
         );
-  });
-
-  static Future<void> runImageImport(MutationTarget ref, Uint8List image) =>
-      mutation.run(ref, (transaction) async {
-        final result = await runImagePrompt(transaction, image);
-        if (result != null) {
-          await import(ref: ref, result: result);
-        }
-      });
+  }
 
   static Future<Map<String, dynamic>?> runImagePrompt(
     MutationTransaction tsx,
@@ -64,14 +76,6 @@ abstract class AiImportMutation {
       ),
     ]);
   }
-
-  static Future<void> runUrlImport(MutationTarget ref, String url) =>
-      mutation.run(ref, (transaction) async {
-        final result = await runUrlPrompt(transaction, url);
-        if (result != null) {
-          await import(ref: ref, result: result);
-        }
-      });
 
   static Future<Map<String, dynamic>?> runUrlPrompt(
     MutationTransaction tsx,
@@ -99,7 +103,7 @@ abstract class AiImportMutation {
     RecipePrompt prompt,
     List<Part> userContent,
   ) async {
-    final GenerateResponseHelper result;
+    final GenerateResult<Map<String, dynamic>> result;
     try {
       result = await prompt.backend.generate(
         systemPrompt: prompt.systemPrompt,
@@ -110,70 +114,20 @@ abstract class AiImportMutation {
       throw AiImportException.classify(e);
     }
 
+    final output = result.output;
+    if (output == null) {
+      throw AiImportException(
+        AiImportErrorType.parseError,
+        FormatException(
+          'No structured output (finish reason: ${result.finishReason})',
+        ),
+      );
+    }
+
     try {
-      return _parseResult(result);
+      return RecipeImportMapper.map(output);
     } catch (e) {
       throw AiImportException(AiImportErrorType.parseError, e);
     }
-  }
-
-  static Map<String, dynamic> _parseResult(GenerateResponseHelper result) {
-    final args = result.jsonOutput as Map<String, dynamic>?;
-    if (args == null) return {};
-
-    final recipes = (args['recipes'] as List? ?? [])
-        .cast<Map<String, dynamic>>();
-    final groceries = (args['groceries'] as List? ?? [])
-        .cast<Map<String, dynamic>>();
-    final recipeTags = (args['recipeTags'] as List? ?? [])
-        .cast<Map<String, dynamic>>();
-
-    final groceryData = <String, dynamic>{};
-    final groceryIdsByName = <String, List<String>>{};
-    for (final grocery in groceries) {
-      final id = grocery['id'] as String?;
-      if (id == null) continue;
-      grocery['normalAmount'] = 1;
-      groceryData[id] = grocery;
-
-      final name = (grocery['name'] as String?)?.trim().toLowerCase();
-      if (name == null || name.isEmpty) continue;
-      groceryIdsByName.putIfAbsent(name, () => []).add(id);
-    }
-
-    final recipeData = <String, dynamic>{};
-    for (final recipe in recipes) {
-      final id = recipe['id'] as String?;
-      if (id != null) recipeData[id] = recipe;
-
-      final steps = recipe['steps'] as List? ?? const [];
-      for (final step in steps.cast<Map<String, dynamic>>()) {
-        final ingredients = step['ingredients'] as List? ?? const [];
-        for (final ingredient in ingredients.cast<Map<String, dynamic>>()) {
-          final reference = ingredient['groceryId'] as String?;
-          if (reference == null || groceryData.containsKey(reference)) continue;
-
-          final matches = groceryIdsByName[reference.trim().toLowerCase()];
-          if (matches != null && matches.length == 1) {
-            ingredient['groceryId'] = matches.single;
-          }
-        }
-      }
-    }
-
-    final tagData = <String, dynamic>{};
-    for (final recipeTag in recipeTags) {
-      final recipeId = recipeTag['recipeId'] as String?;
-      final tags = recipeTag['tags'] as List?;
-      if (recipeId != null && tags != null) {
-        tagData[recipeId] = tags.map((e) => e..["tagType"] = "Recipe").toList();
-      }
-    }
-
-    return {
-      'recipeData': recipeData,
-      'groceryData': groceryData,
-      'tagData': tagData,
-    };
   }
 }

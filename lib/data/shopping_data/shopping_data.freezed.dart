@@ -29,16 +29,21 @@ $ShoppingDataCopyWith<ShoppingData> get copyWith => _$ShoppingDataCopyWithImpl<S
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ShoppingData&&(identical(other.id, id) || other.id == id)&&(identical(other.done, done) || other.done == done)&&(identical(other.count, count) || other.count == count)&&(identical(other.ingredient, ingredient) || other.ingredient == ingredient)&&(identical(other.deleted, deleted) || other.deleted == deleted)&&(identical(other.uploaded, uploaded) || other.uploaded == uploaded));
+  final _this = this as ShoppingData;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ShoppingData&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.done, _this.done) || other.done == _this.done)&&(identical(other.count, _this.count) || other.count == _this.count)&&(identical(other.ingredient, _this.ingredient) || other.ingredient == _this.ingredient)&&(identical(other.deleted, _this.deleted) || other.deleted == _this.deleted)&&(identical(other.uploaded, _this.uploaded) || other.uploaded == _this.uploaded));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,done,count,ingredient,deleted,uploaded);
+int get hashCode {
+  final _this = this as ShoppingData;
+  return Object.hash(runtimeType,_this.id,_this.done,_this.count,_this.ingredient,_this.deleted,_this.uploaded);
+}
 
 @override
 String toString() {
-  return 'ShoppingData(id: $id, done: $done, count: $count, ingredient: $ingredient, deleted: $deleted, uploaded: $uploaded)';
+  final _this = this as ShoppingData;
+  return 'ShoppingData(id: ${_this.id}, done: ${_this.done}, count: ${_this.count}, ingredient: ${_this.ingredient}, deleted: ${_this.deleted}, uploaded: ${_this.uploaded})';
 }
 
 
@@ -247,16 +252,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ShoppingData&&(identical(other.id, id) || other.id == id)&&(identical(other.done, done) || other.done == done)&&(identical(other.count, count) || other.count == count)&&(identical(other.ingredient, ingredient) || other.ingredient == ingredient)&&(identical(other.deleted, deleted) || other.deleted == deleted)&&(identical(other.uploaded, uploaded) || other.uploaded == uploaded));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ShoppingData&&(identical(other.id, id) || other.id == id)&&(identical(other.done, done) || other.done == done)&&(identical(other.count, count) || other.count == count)&&(identical(other.ingredient, ingredient) || other.ingredient == ingredient)&&(identical(other.deleted, deleted) || other.deleted == deleted)&&(identical(other.uploaded, uploaded) || other.uploaded == uploaded));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,done,count,ingredient,deleted,uploaded);
+int get hashCode {
+    return Object.hash(runtimeType,id,done,count,ingredient,deleted,uploaded);
+}
 
 @override
 String toString() {
-  return 'ShoppingData(id: $id, done: $done, count: $count, ingredient: $ingredient, deleted: $deleted, uploaded: $uploaded)';
+    return 'ShoppingData(id: $id, done: $done, count: $count, ingredient: $ingredient, deleted: $deleted, uploaded: $uploaded)';
 }
 
 

@@ -26,16 +26,21 @@ $GTINDataCopyWith<GTINData> get copyWith => _$GTINDataCopyWithImpl<GTINData>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GTINData&&(identical(other.barcode, barcode) || other.barcode == barcode)&&(identical(other.name, name) || other.name == name)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.unit, unit) || other.unit == unit)&&(identical(other.kcal, kcal) || other.kcal == kcal)&&(identical(other.fat, fat) || other.fat == fat)&&(identical(other.carbs, carbs) || other.carbs == carbs)&&(identical(other.protein, protein) || other.protein == protein)&&(identical(other.fiber, fiber) || other.fiber == fiber));
+  final _this = this as GTINData;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is GTINData&&(identical(other.barcode, _this.barcode) || other.barcode == _this.barcode)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.amount, _this.amount) || other.amount == _this.amount)&&(identical(other.unit, _this.unit) || other.unit == _this.unit)&&(identical(other.kcal, _this.kcal) || other.kcal == _this.kcal)&&(identical(other.fat, _this.fat) || other.fat == _this.fat)&&(identical(other.carbs, _this.carbs) || other.carbs == _this.carbs)&&(identical(other.protein, _this.protein) || other.protein == _this.protein)&&(identical(other.fiber, _this.fiber) || other.fiber == _this.fiber));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,barcode,name,amount,unit,kcal,fat,carbs,protein,fiber);
+int get hashCode {
+  final _this = this as GTINData;
+  return Object.hash(runtimeType,_this.barcode,_this.name,_this.amount,_this.unit,_this.kcal,_this.fat,_this.carbs,_this.protein,_this.fiber);
+}
 
 @override
 String toString() {
-  return 'GTINData(barcode: $barcode, name: $name, amount: $amount, unit: $unit, kcal: $kcal, fat: $fat, carbs: $carbs, protein: $protein, fiber: $fiber)';
+  final _this = this as GTINData;
+  return 'GTINData(barcode: ${_this.barcode}, name: ${_this.name}, amount: ${_this.amount}, unit: ${_this.unit}, kcal: ${_this.kcal}, fat: ${_this.fat}, carbs: ${_this.carbs}, protein: ${_this.protein}, fiber: ${_this.fiber})';
 }
 
 
@@ -238,16 +243,18 @@ _$GTINDataCopyWith<_GTINData> get copyWith => __$GTINDataCopyWithImpl<_GTINData>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _GTINData&&(identical(other.barcode, barcode) || other.barcode == barcode)&&(identical(other.name, name) || other.name == name)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.unit, unit) || other.unit == unit)&&(identical(other.kcal, kcal) || other.kcal == kcal)&&(identical(other.fat, fat) || other.fat == fat)&&(identical(other.carbs, carbs) || other.carbs == carbs)&&(identical(other.protein, protein) || other.protein == protein)&&(identical(other.fiber, fiber) || other.fiber == fiber));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _GTINData&&(identical(other.barcode, barcode) || other.barcode == barcode)&&(identical(other.name, name) || other.name == name)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.unit, unit) || other.unit == unit)&&(identical(other.kcal, kcal) || other.kcal == kcal)&&(identical(other.fat, fat) || other.fat == fat)&&(identical(other.carbs, carbs) || other.carbs == carbs)&&(identical(other.protein, protein) || other.protein == protein)&&(identical(other.fiber, fiber) || other.fiber == fiber));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,barcode,name,amount,unit,kcal,fat,carbs,protein,fiber);
+int get hashCode {
+    return Object.hash(runtimeType,barcode,name,amount,unit,kcal,fat,carbs,protein,fiber);
+}
 
 @override
 String toString() {
-  return 'GTINData(barcode: $barcode, name: $name, amount: $amount, unit: $unit, kcal: $kcal, fat: $fat, carbs: $carbs, protein: $protein, fiber: $fiber)';
+    return 'GTINData(barcode: $barcode, name: $name, amount: $amount, unit: $unit, kcal: $kcal, fat: $fat, carbs: $carbs, protein: $protein, fiber: $fiber)';
 }
 
 

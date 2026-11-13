@@ -29,16 +29,21 @@ $RecipeTagDataCopyWith<RecipeTagData> get copyWith => _$RecipeTagDataCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RecipeTagData&&(identical(other.recipeId, recipeId) || other.recipeId == recipeId)&&(identical(other.tagId, tagId) || other.tagId == tagId)&&(identical(other.deleted, deleted) || other.deleted == deleted)&&(identical(other.uploaded, uploaded) || other.uploaded == uploaded));
+  final _this = this as RecipeTagData;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RecipeTagData&&(identical(other.recipeId, _this.recipeId) || other.recipeId == _this.recipeId)&&(identical(other.tagId, _this.tagId) || other.tagId == _this.tagId)&&(identical(other.deleted, _this.deleted) || other.deleted == _this.deleted)&&(identical(other.uploaded, _this.uploaded) || other.uploaded == _this.uploaded));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,recipeId,tagId,deleted,uploaded);
+int get hashCode {
+  final _this = this as RecipeTagData;
+  return Object.hash(runtimeType,_this.recipeId,_this.tagId,_this.deleted,_this.uploaded);
+}
 
 @override
 String toString() {
-  return 'RecipeTagData(recipeId: $recipeId, tagId: $tagId, deleted: $deleted, uploaded: $uploaded)';
+  final _this = this as RecipeTagData;
+  return 'RecipeTagData(recipeId: ${_this.recipeId}, tagId: ${_this.tagId}, deleted: ${_this.deleted}, uploaded: ${_this.uploaded})';
 }
 
 
@@ -234,16 +239,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RecipeTagData&&(identical(other.recipeId, recipeId) || other.recipeId == recipeId)&&(identical(other.tagId, tagId) || other.tagId == tagId)&&(identical(other.deleted, deleted) || other.deleted == deleted)&&(identical(other.uploaded, uploaded) || other.uploaded == uploaded));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _RecipeTagData&&(identical(other.recipeId, recipeId) || other.recipeId == recipeId)&&(identical(other.tagId, tagId) || other.tagId == tagId)&&(identical(other.deleted, deleted) || other.deleted == deleted)&&(identical(other.uploaded, uploaded) || other.uploaded == uploaded));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,recipeId,tagId,deleted,uploaded);
+int get hashCode {
+    return Object.hash(runtimeType,recipeId,tagId,deleted,uploaded);
+}
 
 @override
 String toString() {
-  return 'RecipeTagData(recipeId: $recipeId, tagId: $tagId, deleted: $deleted, uploaded: $uploaded)';
+    return 'RecipeTagData(recipeId: $recipeId, tagId: $tagId, deleted: $deleted, uploaded: $uploaded)';
 }
 
 

@@ -29,16 +29,21 @@ $TagDataCopyWith<TagData> get copyWith => _$TagDataCopyWithImpl<TagData>(this as
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TagData&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.tagType, tagType) || other.tagType == tagType)&&(identical(other.color, color) || other.color == color)&&(identical(other.deleted, deleted) || other.deleted == deleted)&&(identical(other.uploaded, uploaded) || other.uploaded == uploaded));
+  final _this = this as TagData;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TagData&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.description, _this.description) || other.description == _this.description)&&(identical(other.tagType, _this.tagType) || other.tagType == _this.tagType)&&(identical(other.color, _this.color) || other.color == _this.color)&&(identical(other.deleted, _this.deleted) || other.deleted == _this.deleted)&&(identical(other.uploaded, _this.uploaded) || other.uploaded == _this.uploaded));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,description,tagType,color,deleted,uploaded);
+int get hashCode {
+  final _this = this as TagData;
+  return Object.hash(runtimeType,_this.id,_this.name,_this.description,_this.tagType,_this.color,_this.deleted,_this.uploaded);
+}
 
 @override
 String toString() {
-  return 'TagData(id: $id, name: $name, description: $description, tagType: $tagType, color: $color, deleted: $deleted, uploaded: $uploaded)';
+  final _this = this as TagData;
+  return 'TagData(id: ${_this.id}, name: ${_this.name}, description: ${_this.description}, tagType: ${_this.tagType}, color: ${_this.color}, deleted: ${_this.deleted}, uploaded: ${_this.uploaded})';
 }
 
 
@@ -240,16 +245,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TagData&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.tagType, tagType) || other.tagType == tagType)&&(identical(other.color, color) || other.color == color)&&(identical(other.deleted, deleted) || other.deleted == deleted)&&(identical(other.uploaded, uploaded) || other.uploaded == uploaded));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _TagData&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.tagType, tagType) || other.tagType == tagType)&&(identical(other.color, color) || other.color == color)&&(identical(other.deleted, deleted) || other.deleted == deleted)&&(identical(other.uploaded, uploaded) || other.uploaded == uploaded));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,description,tagType,color,deleted,uploaded);
+int get hashCode {
+    return Object.hash(runtimeType,id,name,description,tagType,color,deleted,uploaded);
+}
 
 @override
 String toString() {
-  return 'TagData(id: $id, name: $name, description: $description, tagType: $tagType, color: $color, deleted: $deleted, uploaded: $uploaded)';
+    return 'TagData(id: $id, name: $name, description: $description, tagType: $tagType, color: $color, deleted: $deleted, uploaded: $uploaded)';
 }
 
 

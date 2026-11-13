@@ -32,13 +32,17 @@ class FileRepoDrift extends LocalRepo<FileData> {
   @override
   Future<IMap<String, FileData>> get() async {
     final rows = await baseQuery.get();
-    return {for (final row in rows) row.fileName: FileData.fromTableData(row)}.lock;
+    return {
+      for (final row in rows) row.fileName: FileData.fromTableData(row),
+    }.lock;
   }
 
   @override
   Stream<IMap<String, FileData>> stream() {
     return baseQuery.watch().map(
-      (rows) => {for (final row in rows) row.fileName: FileData.fromTableData(row)}.lock,
+      (rows) => {
+        for (final row in rows) row.fileName: FileData.fromTableData(row),
+      }.lock,
     );
   }
 

@@ -2,7 +2,8 @@ import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/storage_data/storage_data.dart';
 import 'package:recipath/data/tag_data/tag_data.dart';
-import 'package:recipath/data/tag_data/tag_type_enum.dart';
+import 'package:recipath/widgets/filtering/filter_type_enum.dart';
+import 'package:recipath/widgets/filtering/quick_filter_enum.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/filtered_grocery_notifier.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/tags_per_grocery_provider.dart';
@@ -16,12 +17,15 @@ part 'storage_sceen_state_notifier.g.dart';
 
 @riverpod
 Future<StorageScreenState> storageScreenStateNotifier(Ref ref) async {
-  final quickFilters = ref.watch(quickFilterProvider(TagTypeEnum.grocery));
+  final quickFilters = ref.watch(quickFilterProvider(FilterTypeEnum.storage));
   final cluster = quickFilters[QuickFilters.cluster] ?? false;
   final shopping = quickFilters[QuickFilters.shopping] ?? false;
+  final available = quickFilters[QuickFilters.available] ?? false;
 
   final inStorage = await ref.watch(storageProvider.future);
-  final groceries = await ref.watch(filteredGroceryProvider.future);
+  final groceries = await ref.watch(
+    filteredGroceryProvider(FilterTypeEnum.storage).future,
+  );
   final shoppingData = await ref.watch(shoppingGroceriesProvider.future);
 
   final Map<String?, List<StorageData>> clusteredData = {};
@@ -34,19 +38,19 @@ Future<StorageScreenState> storageScreenStateNotifier(Ref ref) async {
         continue;
       }
 
+      final storage = inStorage[grocery.id];
+      if (available && storage == null) {
+        continue;
+      }
+      final entry = storage ?? StorageData.fromGrocery(grocery);
+
       final tags = tagLookup[grocery.id] ?? {};
 
       if (tags.isEmpty) {
-        final clusteredStorage = clusteredData.putIfAbsent(null, () => []);
-        clusteredStorage.add(
-          inStorage[grocery.id] ?? StorageData.fromGrocery(grocery),
-        );
+        clusteredData.putIfAbsent(null, () => []).add(entry);
       } else {
         for (final tag in tags) {
-          final clusteredStorage = clusteredData.putIfAbsent(tag.id, () => []);
-          clusteredStorage.add(
-            inStorage[grocery.id] ?? StorageData.fromGrocery(grocery),
-          );
+          clusteredData.putIfAbsent(tag.id, () => []).add(entry);
         }
       }
     }
@@ -57,9 +61,12 @@ Future<StorageScreenState> storageScreenStateNotifier(Ref ref) async {
       if (shopping && !shoppingData.contains(grocery.id)) {
         continue;
       }
-      clusteredStorage.add(
-        inStorage[grocery.id] ?? StorageData.fromGrocery(grocery),
-      );
+
+      final storage = inStorage[grocery.id];
+      if (available && storage == null) {
+        continue;
+      }
+      clusteredStorage.add(storage ?? StorageData.fromGrocery(grocery));
     }
   }
 

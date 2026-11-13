@@ -2,6 +2,7 @@ import 'package:drift/drift.dart' as drift;
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:intl/intl.dart';
+import 'package:random_string/random_string.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/drift/database.dart';
@@ -30,6 +31,16 @@ abstract class IngredientData with _$IngredientData {
         groceryId: data.groceryId,
         uploaded: data.uploaded,
       );
+
+  factory IngredientData.fromGrocery(
+    GroceryData grocery, {
+    double amount = 0,
+  }) => IngredientData(
+    id: randomAlphaNumeric(16),
+    amount: amount,
+    unit: grocery.unit,
+    groceryId: grocery.id,
+  );
 
   static IList<IngredientData> aggregateIngredients(
     IMap<String, GroceryData> groceries,

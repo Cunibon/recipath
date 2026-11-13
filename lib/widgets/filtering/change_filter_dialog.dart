@@ -1,6 +1,6 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:recipath/data/tag_data/tag_data.dart';
-import 'package:recipath/data/tag_data/tag_type_enum.dart';
+import 'package:recipath/widgets/filtering/filter_type_enum.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/filtering/quick_filter_button.dart';
 import 'package:recipath/widgets/filtering/quick_filter_data.dart';
@@ -14,7 +14,7 @@ class ChangeFilterDialog extends StatefulWidget {
     required this.onClear,
     super.key,
   });
-  final TagTypeEnum filterType;
+  final FilterTypeEnum filterType;
   final Set<TagData> selectedTags;
   final List<QuickFilterData> quickFilters;
 
@@ -79,7 +79,7 @@ class _ChangeFilterDialogState extends State<ChangeFilterDialog> {
             ],
             EditableTagList(
               currentTags: selectedTags,
-              tagType: widget.filterType,
+              tagType: widget.filterType.tagType,
               onTagTapped: (tagData) => setState(() {
                 selectedTags = Set.from(selectedTags..remove(tagData));
               }),

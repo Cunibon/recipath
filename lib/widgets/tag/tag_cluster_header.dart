@@ -1,15 +1,20 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:recipath/data/tag_data/tag_type_enum.dart';
+import 'package:recipath/widgets/filtering/filter_type_enum.dart';
 import 'package:recipath/widgets/filtering/tag_filter_notifier.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/screens/tag_screen/providers/tag_notifier.dart';
 import 'package:recipath/widgets/tag/tag.dart';
 
 class TagClusterHeader extends ConsumerWidget {
-  const TagClusterHeader({required this.tagId, super.key});
+  const TagClusterHeader({
+    required this.tagId,
+    required this.filterType,
+    super.key,
+  });
 
   final String? tagId;
+  final FilterTypeEnum filterType;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -26,7 +31,7 @@ class TagClusterHeader extends ConsumerWidget {
                 SizedBox(height: 8),
                 GestureDetector(
                   onTap: () => ref
-                      .read(tagFilterProvider(TagTypeEnum.grocery).notifier)
+                      .read(tagFilterProvider(filterType).notifier)
                       .toggleFilter(filter: tag),
                   child: Tag(text: tag.name, color: tag.color),
                 ),

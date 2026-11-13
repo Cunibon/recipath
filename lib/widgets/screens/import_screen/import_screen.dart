@@ -11,7 +11,7 @@ import 'package:recipath/widgets/navigation/navigation_drawer_scaffold.dart';
 import 'package:recipath/widgets/providers/ai/ai_provider_notifier.dart';
 import 'package:recipath/widgets/screens/import_screen/dialogs/ai_url_dialog.dart';
 import 'package:recipath/widgets/screens/import_screen/import_routes.dart';
-import 'package:recipath/widgets/screens/import_screen/mutation/ai_import_exception.dart';
+import 'package:recipath/data/ai/ai_import_exception.dart';
 import 'package:recipath/widgets/screens/import_screen/mutation/ai_import_mutation.dart';
 import 'package:recipath/widgets/screens/recipe_screen/create_recipe_screen/dialogs/image_picker_dialog.dart';
 

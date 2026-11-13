@@ -3,19 +3,20 @@ import 'dart:io';
 
 import 'package:drift/native.dart';
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
-import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:localstorage/localstorage.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
-import 'package:recipath/data/tag_data/tag_type_enum.dart';
 import 'package:recipath/domain_service/syncing_service/supabase_buckets.dart';
 import 'package:recipath/drift/database.dart';
 import 'package:recipath/drift/database_notifier.dart';
 import 'package:recipath/helper/local_storage_extension.dart';
 import 'package:recipath/providers/application_path_provider.dart';
+import 'package:recipath/widgets/filtering/filter_type_enum.dart';
+import 'package:recipath/widgets/filtering/quick_filter_enum.dart';
 import 'package:recipath/widgets/providers/locale_notifier.dart';
 import 'package:recipath/widgets/providers/supabase/supabase_user_notifier.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/filtered_grocery_notifier.dart';
@@ -107,10 +108,16 @@ Future<void> _initializeLocalStorage(Directory appDir) async {
   localStorage.clear();
   localStorage.setItem(LocaleNotifier.localKey, 'en');
   localStorage.set(DarkModeNotifier.darkModeKey, true);
-  localStorage.set(
-    '${QuickFilterNotifier.quickFilterDataKey}_${TagTypeEnum.grocery.name}',
-    {QuickFilters.cluster.name: true},
-  );
+  for (final filterType in [
+    FilterTypeEnum.grocery,
+    FilterTypeEnum.shopping,
+    FilterTypeEnum.storage,
+  ]) {
+    localStorage.set(
+      '${QuickFilterNotifier.quickFilterDataKey}_${filterType.name}',
+      {QuickFilters.cluster.name: true},
+    );
+  }
 }
 
 Future<void> _copyFixtureImages(Directory appDir) async {
@@ -129,10 +136,18 @@ Future<List<ProviderSubscription<Object?>>> _warmUpProviders(
 ) async {
   final subscriptions = <ProviderSubscription<Object?>>[
     container.listen(recipeProvider, (_, _) {}),
-    container.listen(filteredGroceryProvider, (_, _) {}),
+    container.listen(
+      filteredGroceryProvider(FilterTypeEnum.grocery),
+      (_, _) {},
+    ),
+    container.listen(
+      filteredGroceryProvider(FilterTypeEnum.storage),
+      (_, _) {},
+    ),
   ];
   await container.read(recipeProvider.future);
-  await container.read(filteredGroceryProvider.future);
+  await container.read(filteredGroceryProvider(FilterTypeEnum.grocery).future);
+  await container.read(filteredGroceryProvider(FilterTypeEnum.storage).future);
 
   for (final recipe in recipes) {
     final imageName = recipe.imageName;

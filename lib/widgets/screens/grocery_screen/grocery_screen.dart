@@ -1,12 +1,13 @@
-import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:recipath/common.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
-import 'package:recipath/data/tag_data/tag_type_enum.dart';
 import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/helper/go_router_extension.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/filtering/filter_button.dart';
+import 'package:recipath/widgets/filtering/filter_type_enum.dart';
+import 'package:recipath/widgets/filtering/quick_filter_enum.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/generic/clustered_searchable_list.dart';
 import 'package:recipath/widgets/generic/empty_state.dart';
@@ -17,7 +18,6 @@ import 'package:recipath/widgets/screens/grocery_screen/grocery_item.dart';
 import 'package:recipath/widgets/screens/grocery_screen/grocery_routes.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_not_uploaded_notifier.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_screen_notifier.dart';
-import 'package:recipath/widgets/screens/recipe_screen/providers/quick_filter_notifier.dart';
 import 'package:recipath/widgets/tag/tag_cluster_header.dart';
 
 class GroceryScreen extends ConsumerWidget {
@@ -48,13 +48,14 @@ class GroceryScreen extends ConsumerWidget {
           return ClusteredSearchableList(
             name: localization.grocery,
             trailingSearch: FilterButton(
-              filterType: TagTypeEnum.grocery,
-              quickFilters: [QuickFilters.cluster],
+              filterType: FilterTypeEnum.grocery,
+              quickFilters: [QuickFilters.cluster, QuickFilters.unused],
             ),
             clusters: [
               for (final entry in data.clusteredData.entries)
                 ItemCluster(id: entry.key, items: entry.value),
-              ItemCluster(id: null, items: data.groceries),
+              if (data.groceries.isNotEmpty)
+                ItemCluster(id: null, items: data.groceries),
             ],
             itemToSearchable: (item) => item.groceryData.toReadable(
               unitLocalized: unitLocalized,
@@ -63,7 +64,10 @@ class GroceryScreen extends ConsumerWidget {
             clusterToWidget: (clusterId) {
               if (data.clusteredData.isEmpty) return SizedBox.shrink();
 
-              return TagClusterHeader(tagId: clusterId);
+              return TagClusterHeader(
+                tagId: clusterId,
+                filterType: FilterTypeEnum.grocery,
+              );
             },
             itemToWidget: (item) => GroceryItem(data: item),
             sortItems: (a, b) =>
@@ -78,7 +82,7 @@ class GroceryScreen extends ConsumerWidget {
                 return data.tags[a]!.name.compareTo(data.tags[b]!.name);
               }
             },
-            emptyState: EmptyState(
+            clusterEmptyState: EmptyState(
               hint: localization.createGroceryHint,
               onTap: () => context.goRelative(GroceryRoutes.createGrocery.path),
             ),

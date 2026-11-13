@@ -6277,7 +6277,7 @@ class $$RecipeTableTableTableManager
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
-                  e.readTable(table),
+                  e.readTable<$RecipeTableTable, RecipeTableData>(table),
                   $$RecipeTableTableReferences(db, table, e),
                 ),
               )
@@ -6301,10 +6301,11 @@ class $$RecipeTableTableTableManager
                   getPrefetchedDataCallback: (items) async {
                     return [
                       if (recipeStepTableRefs)
-                        await $_getPrefetchedData<
+                        await $_getPrefetchedDataByColumns<
                           RecipeTableData,
                           $RecipeTableTable,
-                          RecipeStepTableData
+                          RecipeStepTableData,
+                          $RecipeStepTableTable
                         >(
                           currentTable: table,
                           referencedTable: $$RecipeTableTableReferences
@@ -6315,17 +6316,16 @@ class $$RecipeTableTableTableManager
                                 table,
                                 p0,
                               ).recipeStepTableRefs,
-                          referencedItemsForCurrentItem:
-                              (item, referencedItems) => referencedItems.where(
-                                (e) => e.recipeId == item.id,
-                              ),
+                          currentColumn: 'id',
+                          referencedColumn: 'recipe_id',
                           typedResults: items,
                         ),
                       if (recipeTagTableRefs)
-                        await $_getPrefetchedData<
+                        await $_getPrefetchedDataByColumns<
                           RecipeTableData,
                           $RecipeTableTable,
-                          RecipeTagTableData
+                          RecipeTagTableData,
+                          $RecipeTagTableTable
                         >(
                           currentTable: table,
                           referencedTable: $$RecipeTableTableReferences
@@ -6336,17 +6336,16 @@ class $$RecipeTableTableTableManager
                                 table,
                                 p0,
                               ).recipeTagTableRefs,
-                          referencedItemsForCurrentItem:
-                              (item, referencedItems) => referencedItems.where(
-                                (e) => e.recipeId == item.id,
-                              ),
+                          currentColumn: 'id',
+                          referencedColumn: 'recipe_id',
                           typedResults: items,
                         ),
                       if (recipeStatisticTableRefs)
-                        await $_getPrefetchedData<
+                        await $_getPrefetchedDataByColumns<
                           RecipeTableData,
                           $RecipeTableTable,
-                          RecipeStatisticTableData
+                          RecipeStatisticTableData,
+                          $RecipeStatisticTableTable
                         >(
                           currentTable: table,
                           referencedTable: $$RecipeTableTableReferences
@@ -6357,17 +6356,16 @@ class $$RecipeTableTableTableManager
                                 table,
                                 p0,
                               ).recipeStatisticTableRefs,
-                          referencedItemsForCurrentItem:
-                              (item, referencedItems) => referencedItems.where(
-                                (e) => e.recipeId == item.id,
-                              ),
+                          currentColumn: 'id',
+                          referencedColumn: 'recipe_id',
                           typedResults: items,
                         ),
                       if (recipeShoppingTableRefs)
-                        await $_getPrefetchedData<
+                        await $_getPrefetchedDataByColumns<
                           RecipeTableData,
                           $RecipeTableTable,
-                          RecipeShoppingTableData
+                          RecipeShoppingTableData,
+                          $RecipeShoppingTableTable
                         >(
                           currentTable: table,
                           referencedTable: $$RecipeTableTableReferences
@@ -6378,10 +6376,8 @@ class $$RecipeTableTableTableManager
                                 table,
                                 p0,
                               ).recipeShoppingTableRefs,
-                          referencedItemsForCurrentItem:
-                              (item, referencedItems) => referencedItems.where(
-                                (e) => e.recipeId == item.id,
-                              ),
+                          currentColumn: 'id',
+                          referencedColumn: 'recipe_id',
                           typedResults: items,
                         ),
                     ];
@@ -6779,7 +6775,9 @@ class $$RecipeStepTableTableTableManager
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
-                  e.readTable(table),
+                  e.readTable<$RecipeStepTableTable, RecipeStepTableData>(
+                    table,
+                  ),
                   $$RecipeStepTableTableReferences(db, table, e),
                 ),
               )
@@ -6829,10 +6827,11 @@ class $$RecipeStepTableTableTableManager
                   getPrefetchedDataCallback: (items) async {
                     return [
                       if (recipeStepIngredientTableRefs)
-                        await $_getPrefetchedData<
+                        await $_getPrefetchedDataByColumns<
                           RecipeStepTableData,
                           $RecipeStepTableTable,
-                          RecipeStepIngredientTableData
+                          RecipeStepIngredientTableData,
+                          $RecipeStepIngredientTableTable
                         >(
                           currentTable: table,
                           referencedTable: $$RecipeStepTableTableReferences
@@ -6843,10 +6842,8 @@ class $$RecipeStepTableTableTableManager
                                 table,
                                 p0,
                               ).recipeStepIngredientTableRefs,
-                          referencedItemsForCurrentItem:
-                              (item, referencedItems) => referencedItems.where(
-                                (e) => e.stepId == item.id,
-                              ),
+                          currentColumn: 'id',
+                          referencedColumn: 'step_id',
                           typedResults: items,
                         ),
                     ];
@@ -7375,7 +7372,7 @@ class $$GroceryTableTableTableManager
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
-                  e.readTable(table),
+                  e.readTable<$GroceryTableTable, GroceryTableData>(table),
                   $$GroceryTableTableReferences(db, table, e),
                 ),
               )
@@ -7392,10 +7389,11 @@ class $$GroceryTableTableTableManager
                   getPrefetchedDataCallback: (items) async {
                     return [
                       if (ingredientTableRefs)
-                        await $_getPrefetchedData<
+                        await $_getPrefetchedDataByColumns<
                           GroceryTableData,
                           $GroceryTableTable,
-                          IngredientTableData
+                          IngredientTableData,
+                          $IngredientTableTable
                         >(
                           currentTable: table,
                           referencedTable: $$GroceryTableTableReferences
@@ -7406,17 +7404,16 @@ class $$GroceryTableTableTableManager
                                 table,
                                 p0,
                               ).ingredientTableRefs,
-                          referencedItemsForCurrentItem:
-                              (item, referencedItems) => referencedItems.where(
-                                (e) => e.groceryId == item.id,
-                              ),
+                          currentColumn: 'id',
+                          referencedColumn: 'grocery_id',
                           typedResults: items,
                         ),
                       if (groceryTagTableRefs)
-                        await $_getPrefetchedData<
+                        await $_getPrefetchedDataByColumns<
                           GroceryTableData,
                           $GroceryTableTable,
-                          GroceryTagTableData
+                          GroceryTagTableData,
+                          $GroceryTagTableTable
                         >(
                           currentTable: table,
                           referencedTable: $$GroceryTableTableReferences
@@ -7427,10 +7424,8 @@ class $$GroceryTableTableTableManager
                                 table,
                                 p0,
                               ).groceryTagTableRefs,
-                          referencedItemsForCurrentItem:
-                              (item, referencedItems) => referencedItems.where(
-                                (e) => e.groceryId == item.id,
-                              ),
+                          currentColumn: 'id',
+                          referencedColumn: 'grocery_id',
                           typedResults: items,
                         ),
                     ];
@@ -7943,7 +7938,9 @@ class $$IngredientTableTableTableManager
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
-                  e.readTable(table),
+                  e.readTable<$IngredientTableTable, IngredientTableData>(
+                    table,
+                  ),
                   $$IngredientTableTableReferences(db, table, e),
                 ),
               )
@@ -8000,10 +7997,11 @@ class $$IngredientTableTableTableManager
                   getPrefetchedDataCallback: (items) async {
                     return [
                       if (recipeStepIngredientTableRefs)
-                        await $_getPrefetchedData<
+                        await $_getPrefetchedDataByColumns<
                           IngredientTableData,
                           $IngredientTableTable,
-                          RecipeStepIngredientTableData
+                          RecipeStepIngredientTableData,
+                          $RecipeStepIngredientTableTable
                         >(
                           currentTable: table,
                           referencedTable: $$IngredientTableTableReferences
@@ -8014,17 +8012,16 @@ class $$IngredientTableTableTableManager
                                 table,
                                 p0,
                               ).recipeStepIngredientTableRefs,
-                          referencedItemsForCurrentItem:
-                              (item, referencedItems) => referencedItems.where(
-                                (e) => e.ingredientId == item.id,
-                              ),
+                          currentColumn: 'id',
+                          referencedColumn: 'ingredient_id',
                           typedResults: items,
                         ),
                       if (shoppingTableRefs)
-                        await $_getPrefetchedData<
+                        await $_getPrefetchedDataByColumns<
                           IngredientTableData,
                           $IngredientTableTable,
-                          ShoppingTableData
+                          ShoppingTableData,
+                          $ShoppingTableTable
                         >(
                           currentTable: table,
                           referencedTable: $$IngredientTableTableReferences
@@ -8035,17 +8032,16 @@ class $$IngredientTableTableTableManager
                                 table,
                                 p0,
                               ).shoppingTableRefs,
-                          referencedItemsForCurrentItem:
-                              (item, referencedItems) => referencedItems.where(
-                                (e) => e.ingredientId == item.id,
-                              ),
+                          currentColumn: 'id',
+                          referencedColumn: 'ingredient_id',
                           typedResults: items,
                         ),
                       if (storageTableRefs)
-                        await $_getPrefetchedData<
+                        await $_getPrefetchedDataByColumns<
                           IngredientTableData,
                           $IngredientTableTable,
-                          StorageTableData
+                          StorageTableData,
+                          $StorageTableTable
                         >(
                           currentTable: table,
                           referencedTable: $$IngredientTableTableReferences
@@ -8056,10 +8052,8 @@ class $$IngredientTableTableTableManager
                                 table,
                                 p0,
                               ).storageTableRefs,
-                          referencedItemsForCurrentItem:
-                              (item, referencedItems) => referencedItems.where(
-                                (e) => e.ingredientId == item.id,
-                              ),
+                          currentColumn: 'id',
+                          referencedColumn: 'ingredient_id',
                           typedResults: items,
                         ),
                     ];
@@ -8423,7 +8417,10 @@ class $$RecipeStepIngredientTableTableTableManager
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
-                  e.readTable(table),
+                  e.readTable<
+                    $RecipeStepIngredientTableTable,
+                    RecipeStepIngredientTableData
+                  >(table),
                   $$RecipeStepIngredientTableTableReferences(db, table, e),
                 ),
               )
@@ -8868,7 +8865,7 @@ class $$TagTableTableTableManager
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
-                  e.readTable(table),
+                  e.readTable<$TagTableTable, TagTableData>(table),
                   $$TagTableTableReferences(db, table, e),
                 ),
               )
@@ -8885,10 +8882,11 @@ class $$TagTableTableTableManager
                   getPrefetchedDataCallback: (items) async {
                     return [
                       if (recipeTagTableRefs)
-                        await $_getPrefetchedData<
+                        await $_getPrefetchedDataByColumns<
                           TagTableData,
                           $TagTableTable,
-                          RecipeTagTableData
+                          RecipeTagTableData,
+                          $RecipeTagTableTable
                         >(
                           currentTable: table,
                           referencedTable: $$TagTableTableReferences
@@ -8899,17 +8897,16 @@ class $$TagTableTableTableManager
                                 table,
                                 p0,
                               ).recipeTagTableRefs,
-                          referencedItemsForCurrentItem:
-                              (item, referencedItems) => referencedItems.where(
-                                (e) => e.tagId == item.id,
-                              ),
+                          currentColumn: 'id',
+                          referencedColumn: 'tag_id',
                           typedResults: items,
                         ),
                       if (groceryTagTableRefs)
-                        await $_getPrefetchedData<
+                        await $_getPrefetchedDataByColumns<
                           TagTableData,
                           $TagTableTable,
-                          GroceryTagTableData
+                          GroceryTagTableData,
+                          $GroceryTagTableTable
                         >(
                           currentTable: table,
                           referencedTable: $$TagTableTableReferences
@@ -8920,10 +8917,8 @@ class $$TagTableTableTableManager
                                 table,
                                 p0,
                               ).groceryTagTableRefs,
-                          referencedItemsForCurrentItem:
-                              (item, referencedItems) => referencedItems.where(
-                                (e) => e.tagId == item.id,
-                              ),
+                          currentColumn: 'id',
+                          referencedColumn: 'tag_id',
                           typedResults: items,
                         ),
                     ];
@@ -9269,7 +9264,7 @@ class $$RecipeTagTableTableTableManager
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
-                  e.readTable(table),
+                  e.readTable<$RecipeTagTableTable, RecipeTagTableData>(table),
                   $$RecipeTagTableTableReferences(db, table, e),
                 ),
               )
@@ -9666,7 +9661,9 @@ class $$GroceryTagTableTableTableManager
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
-                  e.readTable(table),
+                  e.readTable<$GroceryTagTableTable, GroceryTagTableData>(
+                    table,
+                  ),
                   $$GroceryTagTableTableReferences(db, table, e),
                 ),
               )
@@ -10025,7 +10022,7 @@ class $$ShoppingTableTableTableManager
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
-                  e.readTable(table),
+                  e.readTable<$ShoppingTableTable, ShoppingTableData>(table),
                   $$ShoppingTableTableReferences(db, table, e),
                 ),
               )
@@ -10276,7 +10273,18 @@ class $$QuickShoppingTableTableTableManager
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable<$QuickShoppingTableTable, QuickShoppingTableData>(
+                    table,
+                  ),
+                  BaseReferences<
+                    _$AppDatabase,
+                    $QuickShoppingTableTable,
+                    QuickShoppingTableData
+                  >(db, table, e),
+                ),
+              )
               .toList(),
           prefetchHooksCallback: null,
         ),
@@ -10540,7 +10548,7 @@ class $$StorageTableTableTableManager
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
-                  e.readTable(table),
+                  e.readTable<$StorageTableTable, StorageTableData>(table),
                   $$StorageTableTableReferences(db, table, e),
                 ),
               )
@@ -10893,7 +10901,10 @@ class $$RecipeStatisticTableTableTableManager
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
-                  e.readTable(table),
+                  e.readTable<
+                    $RecipeStatisticTableTable,
+                    RecipeStatisticTableData
+                  >(table),
                   $$RecipeStatisticTableTableReferences(db, table, e),
                 ),
               )
@@ -11210,7 +11221,10 @@ class $$RecipeShoppingTableTableTableManager
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
-                  e.readTable(table),
+                  e.readTable<
+                    $RecipeShoppingTableTable,
+                    RecipeShoppingTableData
+                  >(table),
                   $$RecipeShoppingTableTableReferences(db, table, e),
                 ),
               )
@@ -11395,7 +11409,16 @@ class $$FileTableTableTableManager
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable<$FileTableTable, FileTableData>(table),
+                  BaseReferences<_$AppDatabase, $FileTableTable, FileTableData>(
+                    db,
+                    table,
+                    e,
+                  ),
+                ),
+              )
               .toList(),
           prefetchHooksCallback: null,
         ),

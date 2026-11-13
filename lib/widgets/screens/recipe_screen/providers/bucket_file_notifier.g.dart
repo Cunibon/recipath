@@ -63,7 +63,7 @@ final class BucketFileNotifierProvider
 }
 
 String _$bucketFileNotifierHash() =>
-    r'e5bdac8e1e38259fa9018bc4c31ca499a0a9103d';
+    r'91409b3284b049643441c6d5754c7532ef46be92';
 
 final class BucketFileNotifierFamily extends $Family
     with

@@ -1,11 +1,12 @@
-import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:recipath/application/storage_modifier/storage_modifier_notifier.dart';
 import 'package:recipath/data/ingredient_data/ingredient_data.dart';
-import 'package:recipath/data/tag_data/tag_type_enum.dart';
 import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/filtering/filter_button.dart';
+import 'package:recipath/widgets/filtering/filter_type_enum.dart';
+import 'package:recipath/widgets/filtering/quick_filter_enum.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/generic/clustered_searchable_list.dart';
 import 'package:recipath/widgets/generic/dialogs/clear_confirmation_dialog.dart';
@@ -13,7 +14,6 @@ import 'package:recipath/widgets/generic/empty_state.dart';
 import 'package:recipath/widgets/navigation/default_navigation_title.dart';
 import 'package:recipath/widgets/navigation/navigation_drawer_scaffold.dart';
 import 'package:recipath/widgets/providers/double_number_format_notifier.dart';
-import 'package:recipath/widgets/screens/recipe_screen/providers/quick_filter_notifier.dart';
 import 'package:recipath/widgets/screens/storage_screen/providers/storage_not_uploaded_notifier.dart';
 import 'package:recipath/widgets/screens/storage_screen/providers/storage_sceen_state_notifier.dart';
 import 'package:recipath/widgets/screens/storage_screen/storage_item.dart';
@@ -70,7 +70,10 @@ class _StorageScreenState extends ConsumerState<StorageScreen> {
           clusterToWidget: (clusterId) {
             if (data.clusteredData.isEmpty) return SizedBox.shrink();
 
-            return TagClusterHeader(tagId: clusterId);
+            return TagClusterHeader(
+              tagId: clusterId,
+              filterType: FilterTypeEnum.storage,
+            );
           },
           itemToSearchable: (item) => item.ingredient.toReadable(
             grocery: data.groceries[item.ingredient.groceryId]!,
@@ -93,10 +96,14 @@ class _StorageScreenState extends ConsumerState<StorageScreen> {
             }
           },
           trailingSearch: FilterButton(
-            filterType: TagTypeEnum.grocery,
-            quickFilters: [QuickFilters.cluster, QuickFilters.shopping],
+            filterType: FilterTypeEnum.storage,
+            quickFilters: [
+              QuickFilters.cluster,
+              QuickFilters.shopping,
+              QuickFilters.available,
+            ],
           ),
-          emptyState: EmptyState(hint: localization.storageHint),
+          clusterEmptyState: EmptyState(hint: localization.storageHint),
         ),
       ),
     );

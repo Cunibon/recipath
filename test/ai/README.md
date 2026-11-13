@@ -78,6 +78,9 @@ model reading text off an image. It does **not** reproduce a real photo: no pers
 no glare, no handwriting. To test that, drop a real photo at `test/ai/fixtures/sample_recipe.jpg` and
 it is used instead of the generated card, no code change needed.
 
+`recipe_import_mapper_test.dart` covers `RecipeImportMapper` (the model output → import file mapping)
+offline, without tokens or the `live` tag.
+
 ## What it runs
 
 Not a stub of the import — the import. Each case builds a `ProviderContainer` with an in-memory
@@ -85,16 +88,17 @@ drift database seeded from the screenshot fixture (30 groceries, real tags), ove
 `aiProviderProvider` with the test token, and then calls the app's own mutation:
 
 ```dart
-AiImportMutation.runUrlImport(world.container, server.url)
+world.container.run((tsx) => AiImportMutation.runUrlPrompt(tsx, server.url))
 ```
 
 So a run exercises `RecipePromptBuilder` (the real ~80-line system prompt, with the seeded grocery and
 tag lists interpolated into it), `RecipeContentExtractor` against a local HTTP server serving an HTML
-recipe page, genkit, the live provider, and `AiImportMutation.parseResult`.
+recipe page, genkit, the live provider, and `RecipeImportMapper`.
 
 ## What it asserts
 
-- the response was not truncated (`finishReason` is not `length`)
+- the response was not truncated — a response without structured output (e.g. `finishReason` `length`)
+  throws a parse error instead of returning a result
 - every ingredient `groceryId` resolves to a grocery
 - every `unit` and `conversionUnit` is in the schema's enum
 - no unit text embedded in a grocery name (`Butter (g)`)

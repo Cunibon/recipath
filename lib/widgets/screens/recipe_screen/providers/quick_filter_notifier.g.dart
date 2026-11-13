@@ -3,17 +3,6 @@
 part of 'quick_filter_notifier.dart';
 
 // **************************************************************************
-// JsonSerializableGenerator
-// **************************************************************************
-
-const _$QuickFiltersEnumMap = {
-  QuickFilters.running: 'running',
-  QuickFilters.cookable: 'cookable',
-  QuickFilters.cluster: 'cluster',
-  QuickFilters.shopping: 'shopping',
-};
-
-// **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
@@ -27,7 +16,7 @@ final class QuickFilterNotifierProvider
     extends $NotifierProvider<QuickFilterNotifier, Map<QuickFilters, bool>> {
   QuickFilterNotifierProvider._({
     required QuickFilterNotifierFamily super.from,
-    required TagTypeEnum super.argument,
+    required FilterTypeEnum super.argument,
   }) : super(
          retry: null,
          name: r'quickFilterProvider',
@@ -70,7 +59,7 @@ final class QuickFilterNotifierProvider
 }
 
 String _$quickFilterNotifierHash() =>
-    r'cb3258cb9f7d1ea91d7ef0d9e9d0d5f7f2ca8836';
+    r'7f6e022caa08dcffbbf78d3d252602ae9a745a0e';
 
 final class QuickFilterNotifierFamily extends $Family
     with
@@ -79,7 +68,7 @@ final class QuickFilterNotifierFamily extends $Family
           Map<QuickFilters, bool>,
           Map<QuickFilters, bool>,
           Map<QuickFilters, bool>,
-          TagTypeEnum
+          FilterTypeEnum
         > {
   QuickFilterNotifierFamily._()
     : super(
@@ -90,7 +79,7 @@ final class QuickFilterNotifierFamily extends $Family
         isAutoDispose: true,
       );
 
-  QuickFilterNotifierProvider call(TagTypeEnum filterType) =>
+  QuickFilterNotifierProvider call(FilterTypeEnum filterType) =>
       QuickFilterNotifierProvider._(argument: filterType, from: this);
 
   @override
@@ -99,10 +88,10 @@ final class QuickFilterNotifierFamily extends $Family
 
 abstract class _$QuickFilterNotifier
     extends $Notifier<Map<QuickFilters, bool>> {
-  late final _$args = ref.$arg as TagTypeEnum;
-  TagTypeEnum get filterType => _$args;
+  late final _$args = ref.$arg as FilterTypeEnum;
+  FilterTypeEnum get filterType => _$args;
 
-  Map<QuickFilters, bool> build(TagTypeEnum filterType);
+  Map<QuickFilters, bool> build(FilterTypeEnum filterType);
   @$mustCallSuper
   @override
   WhenComplete runBuild() {

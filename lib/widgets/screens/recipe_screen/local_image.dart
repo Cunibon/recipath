@@ -1,5 +1,5 @@
-import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:recipath/domain_service/syncing_service/supabase_buckets.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/bucket_file_notifier.dart';
 

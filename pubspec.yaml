@@ -1,26 +1,26 @@
 name: recipath
 description: "An open-source app that helps you manage your recipes."
 
-publish_to: 'none'
+publish_to: "none"
 
-version: 1.11.2+63
+version: 1.12.4+68
 
 environment:
   sdk: ^3.11.0
 
 dependencies:
   flutter:
-    sdk: flutter  
+    sdk: flutter
   flutter_localizations:
     sdk: flutter
   flutter_web_plugins:
     sdk: flutter
 
-  sentry_flutter: ^9.6.0
+  sentry_flutter: ^10.1.0
   flutter_riverpod: ^3.0.0
   riverpod_annotation: ^4.0.0
   freezed: ^4.0.0
-  go_router: ^17.0.1
+  go_router: ^18.1.4
   localstorage: ^6.0.0
   path_provider: ^2.1.5
   freezed_annotation: ^3.0.0
@@ -28,12 +28,12 @@ dependencies:
   random_string: ^2.3.1
   image_picker: ^1.1.2
   intl: ^0.20.2
-  file_picker: ^12.0.0
+  file_picker: ^13.3.3
   share_plus: ^13.3.0
   drift: ^2.28.0
   drift_flutter: ^0.3.1
   path: ^1.9.1
-  duration_picker: ^1.2.0
+  duration_picker: ^2.0.0
   fl_chart: ^1.0.0
   mobile_scanner: ^7.0.1
   http: ^1.4.0
@@ -43,13 +43,13 @@ dependencies:
   logger: ^2.6.1
   flutter_image_compress: ^2.5.0
   dynamic_color: ^2.1.0
-  purchases_flutter: ^10.4.1
+  purchases_flutter: ^11.0.1
   flutter_launcher_icons: ^0.14.4
   package_info_plus: ^10.2.1
-  purchases_ui_flutter: ^10.4.1
+  purchases_ui_flutter: ^11.0.1
   flutter_colorpicker: ^1.1.0
   wakelock_plus: ^1.4.0
-  flutter_local_notifications: ^22.3.0
+  flutter_local_notifications: ^23.0.1
   receive_sharing_intent: ^1.9.0
   app_links: ^7.0.0
   connectivity_plus: ^7.0.0
@@ -57,22 +57,22 @@ dependencies:
   flutter_timezone: ^5.0.1
   audioplayers: ^6.5.1
   flutter_secure_storage: ^11.0.0
-  genkit: ^0.15.1
-  genkit_openai: ^0.3.7
-  genkit_anthropic: ^0.2.11
-  genkit_google_genai: ^0.2.12
-  schemantic: ^0.2.2
+  genkit: ^1.0.0
+  genkit_openai: ^1.0.0
+  genkit_anthropic: ^1.0.0
+  genkit_google_genai: ^1.0.0
+  schemantic: ^1.0.0
   html: ^0.15.6
   pdf: ^3.12.0
   dotted_border: ^3.1.0
-  fast_immutable_collections: ^11.2.0
+  fast_immutable_collections: ^12.0.0
   smart_input_fields: ^1.0.0
-  gal: ^2.3.2
+  gal: ^3.0.0
   bound_mutation: ^2.2.0
 
   material_ui: ^1.0.1
   cupertino_ui: ^1.0.0
-  
+
 dev_dependencies:
   sentry_dart_plugin: ^3.1.1
   flutter_test:

@@ -3,7 +3,6 @@ import java.io.FileInputStream
 
 plugins {
     id("com.android.application")
-    id("kotlin-android")
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
 }
@@ -16,7 +15,13 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace = "com.cunibongames.recipath"
-    compileSdk = 37
+    compileSdk {
+        // API 37 only ships as minor-versioned platforms (android-37.0, ...),
+        // so AGP needs the explicit minor level instead of the plain hash.
+        version = release(37) {
+            minorApiLevel = 0
+        }
+    }
     ndkVersion = "28.2.13676358"
 
     compileOptions {
@@ -25,19 +30,11 @@ android {
         targetCompatibility = JavaVersion.VERSION_21
     }
 
-    kotlinOptions {
-        jvmTarget = "21"
-    }
-
-    kotlin {
-        jvmToolchain(21)
-    }
-
     defaultConfig {
         applicationId = "com.cunibongames.recipath"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = 24
+        minSdk = 26
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
@@ -63,6 +60,13 @@ android {
                 signingConfigs.getByName("debug")
             }
         }
+    }
+}
+
+kotlin {
+    jvmToolchain(21)
+    compilerOptions {
+        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21
     }
 }
 

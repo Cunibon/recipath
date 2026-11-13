@@ -34,26 +34,23 @@ class AiImportException implements Exception {
     }
 
     if (error is GenkitException) {
-      final inner = error.underlyingException;
+      final inner = error.cause;
       if (inner != null && _looksLikeNetwork(inner)) {
         return AiImportException(AiImportErrorType.networkError, error);
       }
 
       return switch (error.status) {
-        StatusCodes.RESOURCE_EXHAUSTED => AiImportException(
+        StatusCode.resourceExhausted => AiImportException(
           AiImportErrorType.rateLimited,
           error,
         ),
-        StatusCodes.UNAUTHENTICATED ||
-        StatusCodes.PERMISSION_DENIED ||
-        StatusCodes.INVALID_ARGUMENT => AiImportException(
-          AiImportErrorType.authError,
-          error,
-        ),
-        StatusCodes.INTERNAL ||
-        StatusCodes.UNAVAILABLE ||
-        StatusCodes.DEADLINE_EXCEEDED ||
-        StatusCodes.UNKNOWN => AiImportException(
+        StatusCode.unauthenticated || StatusCode.permissionDenied =>
+          AiImportException(AiImportErrorType.authError, error),
+        StatusCode.invalidArgument ||
+        StatusCode.internal ||
+        StatusCode.unavailable ||
+        StatusCode.deadlineExceeded ||
+        StatusCode.unknown => AiImportException(
           AiImportErrorType.serverError,
           error,
           statusCode: error.status.httpStatus,
@@ -67,6 +64,14 @@ class AiImportException implements Exception {
     }
 
     return AiImportException(AiImportErrorType.unknown, error);
+  }
+
+  static AiImportException classifyHandshake(Object error) {
+    if (error is GenkitException &&
+        error.status == StatusCode.invalidArgument) {
+      return AiImportException(AiImportErrorType.authError, error);
+    }
+    return classify(error);
   }
 
   static AiImportException classifyUrlError(Object error) {

@@ -1,4 +1,4 @@
-import 'package:recipath/widgets/screens/recipe_screen/providers/quick_filter_notifier.dart';
+import 'package:recipath/widgets/filtering/quick_filter_enum.dart';
 
 class QuickFilterData {
   QuickFilterData({required this.quickFilter, required this.active});

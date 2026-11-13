@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
 import 'app_localizations.dart';
@@ -364,6 +366,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get somethingWentWrong => 'Something went wrong :(';
 
   @override
+  String get samePassword =>
+      'New password should be different from the old password';
+
+  @override
+  String get weakPassword =>
+      'This password is too weak. Please choose a stronger one';
+
+  @override
+  String get reauthenticationNeeded =>
+      'For security reasons, please log in again before changing your password';
+
+  @override
+  String get tooManyRequests =>
+      'Too many attempts. Please wait a moment and try again';
+
+  @override
   String get howLongDidTheRecipeTake => 'How long did the recipe take?';
 
   @override
@@ -679,4 +697,23 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get registerOnOpenFoodFacts =>
       'Don\'t have an account? Register on OpenFoodFacts.org';
+
+  @override
+  String get quickFilterRunning => 'Only show recipes with a running timer';
+
+  @override
+  String get quickFilterCookable =>
+      'Only show recipes with all ingredients in storage';
+
+  @override
+  String get quickFilterCluster => 'Group by tag';
+
+  @override
+  String get quickFilterUnused => 'Only show unused groceries';
+
+  @override
+  String get quickFilterAvailable => 'Only show items in storage';
+
+  @override
+  String get quickFilterShopping => 'Only show items on the shopping list';
 }

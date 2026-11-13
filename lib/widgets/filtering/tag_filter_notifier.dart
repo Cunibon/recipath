@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:localstorage/localstorage.dart';
 import 'package:recipath/data/tag_data/tag_data.dart';
-import 'package:recipath/data/tag_data/tag_type_enum.dart';
+import 'package:recipath/widgets/filtering/filter_type_enum.dart';
 import 'package:recipath/helper/local_storage_extension.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -15,7 +15,7 @@ class TagFilterNotifier extends _$TagFilterNotifier {
   String get _dataKey => "${tagFilterDataKey}_${filterType.name}";
 
   @override
-  Set<String> build(TagTypeEnum filterType) {
+  Set<String> build(FilterTypeEnum filterType) {
     final data = localStorage.get<List<dynamic>>(_dataKey) ?? [];
 
     return data.cast<String>().toSet();

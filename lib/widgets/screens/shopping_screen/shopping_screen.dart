@@ -1,15 +1,16 @@
-import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:recipath/application/quick_shopping_modifier/quick_shopping_modifier_notifier.dart';
 import 'package:recipath/application/shopping_modifier/shopping_modifier_notifier.dart';
 import 'package:recipath/common.dart';
 import 'package:recipath/data/ingredient_data/ingredient_data.dart';
-import 'package:recipath/data/tag_data/tag_type_enum.dart';
 import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/root_routes.dart';
 import 'package:recipath/widgets/filtering/filter_button.dart';
+import 'package:recipath/widgets/filtering/filter_type_enum.dart';
+import 'package:recipath/widgets/filtering/quick_filter_enum.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/generic/clustered_searchable_list.dart';
 import 'package:recipath/widgets/generic/dialogs/clear_confirmation_dialog.dart';
@@ -17,7 +18,6 @@ import 'package:recipath/widgets/generic/empty_state.dart';
 import 'package:recipath/widgets/navigation/default_navigation_title.dart';
 import 'package:recipath/widgets/navigation/navigation_drawer_scaffold.dart';
 import 'package:recipath/widgets/providers/double_number_format_notifier.dart';
-import 'package:recipath/widgets/screens/recipe_screen/providers/quick_filter_notifier.dart';
 import 'package:recipath/widgets/screens/shopping_screen/add_ingredient_dialog.dart';
 import 'package:recipath/widgets/screens/shopping_screen/add_quick_shopping_item.dart';
 import 'package:recipath/widgets/screens/shopping_screen/data/shopping_item_data.dart';
@@ -25,6 +25,7 @@ import 'package:recipath/widgets/screens/shopping_screen/providers/quick_shoppin
 import 'package:recipath/widgets/screens/shopping_screen/providers/shopping_not_uploaded_notifier.dart';
 import 'package:recipath/widgets/screens/shopping_screen/providers/shopping_screen_state_notifier.dart';
 import 'package:recipath/widgets/screens/shopping_screen/quick_shopping_item.dart';
+import 'package:recipath/widgets/screens/shopping_screen/shopping_empty_state.dart';
 import 'package:recipath/widgets/screens/shopping_screen/shopping_item.dart';
 import 'package:recipath/widgets/tag/tag_cluster_header.dart';
 
@@ -45,10 +46,14 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
   }
 
   int getSortPriority(String type) {
-    if (type == ShoppingTypeEnum.normal.name) return 1;
-    if (type == ShoppingTypeEnum.quick.name) return 2;
-    if (type == ShoppingTypeEnum.done.name) return 3;
-    return 0;
+    final parsed = ShoppingTypeEnum.values.asNameMap()[type];
+
+    return switch (parsed) {
+      ShoppingTypeEnum.normal => 1,
+      ShoppingTypeEnum.quick => 2,
+      ShoppingTypeEnum.done => 3,
+      _ => 0,
+    };
   }
 
   @override
@@ -121,7 +126,10 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
               return SizedBox.shrink();
             }
 
-            return TagClusterHeader(tagId: clusterId);
+            return TagClusterHeader(
+              tagId: clusterId,
+              filterType: FilterTypeEnum.shopping,
+            );
           },
           sortClusters: (a, b) {
             int priorityA = getSortPriority(a);
@@ -165,12 +173,12 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
             return aString.compareTo(bString);
           },
           trailingSearch: FilterButton(
+            filterType: FilterTypeEnum.shopping,
             quickFilters: [QuickFilters.cluster],
-            filterType: TagTypeEnum.grocery,
           ),
           listViewPadding: edgeInsetsWithBottomPadding(context: context),
           trailingList: data.tagFiltersActive ? null : AddQuickShoppingItem(),
-          emptyState: Center(
+          clusterEmptyState: Center(
             child: Column(
               mainAxisSize: .min,
               children: [
@@ -182,6 +190,8 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
               ],
             ),
           ),
+          searchEmptyState: (search) =>
+              ShoppingEmptyState(search: search, state: data),
         ),
       ),
     );

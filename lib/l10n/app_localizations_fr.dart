@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
 import 'app_localizations.dart';
@@ -370,6 +372,22 @@ class AppLocalizationsFr extends AppLocalizations {
   String get somethingWentWrong => 'Quelque chose s\'est mal passé :(';
 
   @override
+  String get samePassword =>
+      'Le nouveau mot de passe doit être différent de l\'ancien';
+
+  @override
+  String get weakPassword =>
+      'Ce mot de passe est trop faible. Veuillez en choisir un plus sûr';
+
+  @override
+  String get reauthenticationNeeded =>
+      'Pour des raisons de sécurité, veuillez vous reconnecter avant de changer votre mot de passe';
+
+  @override
+  String get tooManyRequests =>
+      'Trop de tentatives. Veuillez patienter un instant et réessayer';
+
+  @override
   String get howLongDidTheRecipeTake => 'Combien de temps a pris la recette ?';
 
   @override
@@ -693,4 +711,26 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get registerOnOpenFoodFacts =>
       'Pas encore de compte ? Inscrivez-vous sur OpenFoodFacts.org';
+
+  @override
+  String get quickFilterRunning =>
+      'Afficher uniquement les recettes avec une minuterie en cours';
+
+  @override
+  String get quickFilterCookable =>
+      'Afficher uniquement les recettes avec tous les ingrédients en stock';
+
+  @override
+  String get quickFilterCluster => 'Grouper par étiquette';
+
+  @override
+  String get quickFilterUnused =>
+      'Afficher uniquement les aliments non utilisés';
+
+  @override
+  String get quickFilterAvailable => 'Afficher uniquement les articles stockés';
+
+  @override
+  String get quickFilterShopping =>
+      'Afficher uniquement les articles de la liste de courses';
 }

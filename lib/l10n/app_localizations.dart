@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
@@ -768,6 +770,30 @@ abstract class AppLocalizations {
   /// **'Something went wrong :('**
   String get somethingWentWrong;
 
+  /// No description provided for @samePassword.
+  ///
+  /// In en, this message translates to:
+  /// **'New password should be different from the old password'**
+  String get samePassword;
+
+  /// No description provided for @weakPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'This password is too weak. Please choose a stronger one'**
+  String get weakPassword;
+
+  /// No description provided for @reauthenticationNeeded.
+  ///
+  /// In en, this message translates to:
+  /// **'For security reasons, please log in again before changing your password'**
+  String get reauthenticationNeeded;
+
+  /// No description provided for @tooManyRequests.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many attempts. Please wait a moment and try again'**
+  String get tooManyRequests;
+
   /// No description provided for @howLongDidTheRecipeTake.
   ///
   /// In en, this message translates to:
@@ -1361,6 +1387,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Don\'t have an account? Register on OpenFoodFacts.org'**
   String get registerOnOpenFoodFacts;
+
+  /// No description provided for @quickFilterRunning.
+  ///
+  /// In en, this message translates to:
+  /// **'Only show recipes with a running timer'**
+  String get quickFilterRunning;
+
+  /// No description provided for @quickFilterCookable.
+  ///
+  /// In en, this message translates to:
+  /// **'Only show recipes with all ingredients in storage'**
+  String get quickFilterCookable;
+
+  /// No description provided for @quickFilterCluster.
+  ///
+  /// In en, this message translates to:
+  /// **'Group by tag'**
+  String get quickFilterCluster;
+
+  /// No description provided for @quickFilterUnused.
+  ///
+  /// In en, this message translates to:
+  /// **'Only show unused groceries'**
+  String get quickFilterUnused;
+
+  /// No description provided for @quickFilterAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Only show items in storage'**
+  String get quickFilterAvailable;
+
+  /// No description provided for @quickFilterShopping.
+  ///
+  /// In en, this message translates to:
+  /// **'Only show items on the shopping list'**
+  String get quickFilterShopping;
 }
 
 class _AppLocalizationsDelegate

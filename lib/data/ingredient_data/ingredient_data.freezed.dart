@@ -29,16 +29,21 @@ $IngredientDataCopyWith<IngredientData> get copyWith => _$IngredientDataCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is IngredientData&&(identical(other.id, id) || other.id == id)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.unit, unit) || other.unit == unit)&&(identical(other.groceryId, groceryId) || other.groceryId == groceryId)&&const DeepCollectionEquality().equals(other.uploaded, uploaded));
+  final _this = this as IngredientData;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is IngredientData&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.amount, _this.amount) || other.amount == _this.amount)&&(identical(other.unit, _this.unit) || other.unit == _this.unit)&&(identical(other.groceryId, _this.groceryId) || other.groceryId == _this.groceryId)&&const DeepCollectionEquality().equals(other.uploaded, _this.uploaded));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,amount,unit,groceryId,const DeepCollectionEquality().hash(uploaded));
+int get hashCode {
+  final _this = this as IngredientData;
+  return Object.hash(runtimeType,_this.id,_this.amount,_this.unit,_this.groceryId,const DeepCollectionEquality().hash(_this.uploaded));
+}
 
 @override
 String toString() {
-  return 'IngredientData(id: $id, amount: $amount, unit: $unit, groceryId: $groceryId, uploaded: $uploaded)';
+  final _this = this as IngredientData;
+  return 'IngredientData(id: ${_this.id}, amount: ${_this.amount}, unit: ${_this.unit}, groceryId: ${_this.groceryId}, uploaded: ${_this.uploaded})';
 }
 
 
@@ -236,16 +241,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _IngredientData&&(identical(other.id, id) || other.id == id)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.unit, unit) || other.unit == unit)&&(identical(other.groceryId, groceryId) || other.groceryId == groceryId)&&const DeepCollectionEquality().equals(other.uploaded, uploaded));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _IngredientData&&(identical(other.id, id) || other.id == id)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.unit, unit) || other.unit == unit)&&(identical(other.groceryId, groceryId) || other.groceryId == groceryId)&&const DeepCollectionEquality().equals(other.uploaded, uploaded));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,amount,unit,groceryId,const DeepCollectionEquality().hash(uploaded));
+int get hashCode {
+    return Object.hash(runtimeType,id,amount,unit,groceryId,const DeepCollectionEquality().hash(uploaded));
+}
 
 @override
 String toString() {
-  return 'IngredientData(id: $id, amount: $amount, unit: $unit, groceryId: $groceryId, uploaded: $uploaded)';
+    return 'IngredientData(id: $id, amount: $amount, unit: $unit, groceryId: $groceryId, uploaded: $uploaded)';
 }
 
 

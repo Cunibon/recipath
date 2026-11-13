@@ -49,4 +49,4 @@ final class GroceryScreenNotifierProvider
 }
 
 String _$groceryScreenNotifierHash() =>
-    r'e8d3533265bd14afc02eeb1c8f739c75913e4ca2';
+    r'ca031cd7f819c56c5425a3b76a76d542eddba3b9';

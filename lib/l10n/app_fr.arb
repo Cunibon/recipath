@@ -111,6 +111,10 @@
     "ingredients": "Ingrédients",
     "perServing": "Par portion",
     "somethingWentWrong": "Quelque chose s'est mal passé :(",
+    "samePassword": "Le nouveau mot de passe doit être différent de l'ancien",
+    "weakPassword": "Ce mot de passe est trop faible. Veuillez en choisir un plus sûr",
+    "reauthenticationNeeded": "Pour des raisons de sécurité, veuillez vous reconnecter avant de changer votre mot de passe",
+    "tooManyRequests": "Trop de tentatives. Veuillez patienter un instant et réessayer",
     "howLongDidTheRecipeTake": "Combien de temps a pris la recette ?",
     "howLongWillTheStepTake": "Combien de temps durera l'étape ?",
     "addTimer": "Ajouter une minuterie",
@@ -209,5 +213,11 @@
     "openFoodFactsUsernameRequired": "Veuillez saisir votre nom d'utilisateur",
     "openFoodFactsPassword": "Mot de passe",
     "openFoodFactsPasswordRequired": "Veuillez saisir votre mot de passe",
-    "registerOnOpenFoodFacts": "Pas encore de compte ? Inscrivez-vous sur OpenFoodFacts.org"
+    "registerOnOpenFoodFacts": "Pas encore de compte ? Inscrivez-vous sur OpenFoodFacts.org",
+    "quickFilterRunning": "Afficher uniquement les recettes avec une minuterie en cours",
+    "quickFilterCookable": "Afficher uniquement les recettes avec tous les ingrédients en stock",
+    "quickFilterCluster": "Grouper par étiquette",
+    "quickFilterUnused": "Afficher uniquement les aliments non utilisés",
+    "quickFilterAvailable": "Afficher uniquement les articles stockés",
+    "quickFilterShopping": "Afficher uniquement les articles de la liste de courses"
 }

@@ -29,16 +29,21 @@ $GroceryTagDataCopyWith<GroceryTagData> get copyWith => _$GroceryTagDataCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GroceryTagData&&(identical(other.groceryId, groceryId) || other.groceryId == groceryId)&&(identical(other.tagId, tagId) || other.tagId == tagId)&&(identical(other.deleted, deleted) || other.deleted == deleted)&&(identical(other.uploaded, uploaded) || other.uploaded == uploaded));
+  final _this = this as GroceryTagData;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is GroceryTagData&&(identical(other.groceryId, _this.groceryId) || other.groceryId == _this.groceryId)&&(identical(other.tagId, _this.tagId) || other.tagId == _this.tagId)&&(identical(other.deleted, _this.deleted) || other.deleted == _this.deleted)&&(identical(other.uploaded, _this.uploaded) || other.uploaded == _this.uploaded));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,groceryId,tagId,deleted,uploaded);
+int get hashCode {
+  final _this = this as GroceryTagData;
+  return Object.hash(runtimeType,_this.groceryId,_this.tagId,_this.deleted,_this.uploaded);
+}
 
 @override
 String toString() {
-  return 'GroceryTagData(groceryId: $groceryId, tagId: $tagId, deleted: $deleted, uploaded: $uploaded)';
+  final _this = this as GroceryTagData;
+  return 'GroceryTagData(groceryId: ${_this.groceryId}, tagId: ${_this.tagId}, deleted: ${_this.deleted}, uploaded: ${_this.uploaded})';
 }
 
 
@@ -234,16 +239,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _GroceryTagData&&(identical(other.groceryId, groceryId) || other.groceryId == groceryId)&&(identical(other.tagId, tagId) || other.tagId == tagId)&&(identical(other.deleted, deleted) || other.deleted == deleted)&&(identical(other.uploaded, uploaded) || other.uploaded == uploaded));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _GroceryTagData&&(identical(other.groceryId, groceryId) || other.groceryId == groceryId)&&(identical(other.tagId, tagId) || other.tagId == tagId)&&(identical(other.deleted, deleted) || other.deleted == deleted)&&(identical(other.uploaded, uploaded) || other.uploaded == uploaded));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,groceryId,tagId,deleted,uploaded);
+int get hashCode {
+    return Object.hash(runtimeType,groceryId,tagId,deleted,uploaded);
+}
 
 @override
 String toString() {
-  return 'GroceryTagData(groceryId: $groceryId, tagId: $tagId, deleted: $deleted, uploaded: $uploaded)';
+    return 'GroceryTagData(groceryId: $groceryId, tagId: $tagId, deleted: $deleted, uploaded: $uploaded)';
 }
 
 

@@ -29,16 +29,21 @@ $RecipeDataCopyWith<RecipeData> get copyWith => _$RecipeDataCopyWithImpl<RecipeD
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RecipeData&&(identical(other.id, id) || other.id == id)&&(identical(other.parent, parent) || other.parent == parent)&&(identical(other.title, title) || other.title == title)&&(identical(other.servings, servings) || other.servings == servings)&&(identical(other.imageName, imageName) || other.imageName == imageName)&&const DeepCollectionEquality().equals(other.steps, steps)&&(identical(other.archived, archived) || other.archived == archived)&&const DeepCollectionEquality().equals(other.uploaded, uploaded));
+  final _this = this as RecipeData;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RecipeData&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.parent, _this.parent) || other.parent == _this.parent)&&(identical(other.title, _this.title) || other.title == _this.title)&&(identical(other.servings, _this.servings) || other.servings == _this.servings)&&(identical(other.imageName, _this.imageName) || other.imageName == _this.imageName)&&const DeepCollectionEquality().equals(other.steps, _this.steps)&&(identical(other.archived, _this.archived) || other.archived == _this.archived)&&const DeepCollectionEquality().equals(other.uploaded, _this.uploaded));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,parent,title,servings,imageName,const DeepCollectionEquality().hash(steps),archived,const DeepCollectionEquality().hash(uploaded));
+int get hashCode {
+  final _this = this as RecipeData;
+  return Object.hash(runtimeType,_this.id,_this.parent,_this.title,_this.servings,_this.imageName,const DeepCollectionEquality().hash(_this.steps),_this.archived,const DeepCollectionEquality().hash(_this.uploaded));
+}
 
 @override
 String toString() {
-  return 'RecipeData(id: $id, parent: $parent, title: $title, servings: $servings, imageName: $imageName, steps: $steps, archived: $archived, uploaded: $uploaded)';
+  final _this = this as RecipeData;
+  return 'RecipeData(id: ${_this.id}, parent: ${_this.parent}, title: ${_this.title}, servings: ${_this.servings}, imageName: ${_this.imageName}, steps: ${_this.steps}, archived: ${_this.archived}, uploaded: ${_this.uploaded})';
 }
 
 
@@ -242,16 +247,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RecipeData&&(identical(other.id, id) || other.id == id)&&(identical(other.parent, parent) || other.parent == parent)&&(identical(other.title, title) || other.title == title)&&(identical(other.servings, servings) || other.servings == servings)&&(identical(other.imageName, imageName) || other.imageName == imageName)&&const DeepCollectionEquality().equals(other.steps, steps)&&(identical(other.archived, archived) || other.archived == archived)&&const DeepCollectionEquality().equals(other.uploaded, uploaded));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _RecipeData&&(identical(other.id, id) || other.id == id)&&(identical(other.parent, parent) || other.parent == parent)&&(identical(other.title, title) || other.title == title)&&(identical(other.servings, servings) || other.servings == servings)&&(identical(other.imageName, imageName) || other.imageName == imageName)&&const DeepCollectionEquality().equals(other.steps, steps)&&(identical(other.archived, archived) || other.archived == archived)&&const DeepCollectionEquality().equals(other.uploaded, uploaded));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,parent,title,servings,imageName,const DeepCollectionEquality().hash(steps),archived,const DeepCollectionEquality().hash(uploaded));
+int get hashCode {
+    return Object.hash(runtimeType,id,parent,title,servings,imageName,const DeepCollectionEquality().hash(steps),archived,const DeepCollectionEquality().hash(uploaded));
+}
 
 @override
 String toString() {
-  return 'RecipeData(id: $id, parent: $parent, title: $title, servings: $servings, imageName: $imageName, steps: $steps, archived: $archived, uploaded: $uploaded)';
+    return 'RecipeData(id: $id, parent: $parent, title: $title, servings: $servings, imageName: $imageName, steps: $steps, archived: $archived, uploaded: $uploaded)';
 }
 
 

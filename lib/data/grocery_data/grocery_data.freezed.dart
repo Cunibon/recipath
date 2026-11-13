@@ -29,16 +29,21 @@ $GroceryDataCopyWith<GroceryData> get copyWith => _$GroceryDataCopyWithImpl<Groc
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GroceryData&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.normalAmount, normalAmount) || other.normalAmount == normalAmount)&&(identical(other.unit, unit) || other.unit == unit)&&(identical(other.conversionAmount, conversionAmount) || other.conversionAmount == conversionAmount)&&(identical(other.conversionUnit, conversionUnit) || other.conversionUnit == conversionUnit)&&(identical(other.barcode, barcode) || other.barcode == barcode)&&(identical(other.kcal, kcal) || other.kcal == kcal)&&(identical(other.fat, fat) || other.fat == fat)&&(identical(other.carbs, carbs) || other.carbs == carbs)&&(identical(other.protein, protein) || other.protein == protein)&&(identical(other.fiber, fiber) || other.fiber == fiber)&&(identical(other.archived, archived) || other.archived == archived)&&(identical(other.uploaded, uploaded) || other.uploaded == uploaded));
+  final _this = this as GroceryData;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is GroceryData&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.normalAmount, _this.normalAmount) || other.normalAmount == _this.normalAmount)&&(identical(other.unit, _this.unit) || other.unit == _this.unit)&&(identical(other.conversionAmount, _this.conversionAmount) || other.conversionAmount == _this.conversionAmount)&&(identical(other.conversionUnit, _this.conversionUnit) || other.conversionUnit == _this.conversionUnit)&&(identical(other.barcode, _this.barcode) || other.barcode == _this.barcode)&&(identical(other.kcal, _this.kcal) || other.kcal == _this.kcal)&&(identical(other.fat, _this.fat) || other.fat == _this.fat)&&(identical(other.carbs, _this.carbs) || other.carbs == _this.carbs)&&(identical(other.protein, _this.protein) || other.protein == _this.protein)&&(identical(other.fiber, _this.fiber) || other.fiber == _this.fiber)&&(identical(other.archived, _this.archived) || other.archived == _this.archived)&&(identical(other.uploaded, _this.uploaded) || other.uploaded == _this.uploaded));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,normalAmount,unit,conversionAmount,conversionUnit,barcode,kcal,fat,carbs,protein,fiber,archived,uploaded);
+int get hashCode {
+  final _this = this as GroceryData;
+  return Object.hash(runtimeType,_this.id,_this.name,_this.normalAmount,_this.unit,_this.conversionAmount,_this.conversionUnit,_this.barcode,_this.kcal,_this.fat,_this.carbs,_this.protein,_this.fiber,_this.archived,_this.uploaded);
+}
 
 @override
 String toString() {
-  return 'GroceryData(id: $id, name: $name, normalAmount: $normalAmount, unit: $unit, conversionAmount: $conversionAmount, conversionUnit: $conversionUnit, barcode: $barcode, kcal: $kcal, fat: $fat, carbs: $carbs, protein: $protein, fiber: $fiber, archived: $archived, uploaded: $uploaded)';
+  final _this = this as GroceryData;
+  return 'GroceryData(id: ${_this.id}, name: ${_this.name}, normalAmount: ${_this.normalAmount}, unit: ${_this.unit}, conversionAmount: ${_this.conversionAmount}, conversionUnit: ${_this.conversionUnit}, barcode: ${_this.barcode}, kcal: ${_this.kcal}, fat: ${_this.fat}, carbs: ${_this.carbs}, protein: ${_this.protein}, fiber: ${_this.fiber}, archived: ${_this.archived}, uploaded: ${_this.uploaded})';
 }
 
 
@@ -254,16 +259,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _GroceryData&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.normalAmount, normalAmount) || other.normalAmount == normalAmount)&&(identical(other.unit, unit) || other.unit == unit)&&(identical(other.conversionAmount, conversionAmount) || other.conversionAmount == conversionAmount)&&(identical(other.conversionUnit, conversionUnit) || other.conversionUnit == conversionUnit)&&(identical(other.barcode, barcode) || other.barcode == barcode)&&(identical(other.kcal, kcal) || other.kcal == kcal)&&(identical(other.fat, fat) || other.fat == fat)&&(identical(other.carbs, carbs) || other.carbs == carbs)&&(identical(other.protein, protein) || other.protein == protein)&&(identical(other.fiber, fiber) || other.fiber == fiber)&&(identical(other.archived, archived) || other.archived == archived)&&(identical(other.uploaded, uploaded) || other.uploaded == uploaded));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _GroceryData&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.normalAmount, normalAmount) || other.normalAmount == normalAmount)&&(identical(other.unit, unit) || other.unit == unit)&&(identical(other.conversionAmount, conversionAmount) || other.conversionAmount == conversionAmount)&&(identical(other.conversionUnit, conversionUnit) || other.conversionUnit == conversionUnit)&&(identical(other.barcode, barcode) || other.barcode == barcode)&&(identical(other.kcal, kcal) || other.kcal == kcal)&&(identical(other.fat, fat) || other.fat == fat)&&(identical(other.carbs, carbs) || other.carbs == carbs)&&(identical(other.protein, protein) || other.protein == protein)&&(identical(other.fiber, fiber) || other.fiber == fiber)&&(identical(other.archived, archived) || other.archived == archived)&&(identical(other.uploaded, uploaded) || other.uploaded == uploaded));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,normalAmount,unit,conversionAmount,conversionUnit,barcode,kcal,fat,carbs,protein,fiber,archived,uploaded);
+int get hashCode {
+    return Object.hash(runtimeType,id,name,normalAmount,unit,conversionAmount,conversionUnit,barcode,kcal,fat,carbs,protein,fiber,archived,uploaded);
+}
 
 @override
 String toString() {
-  return 'GroceryData(id: $id, name: $name, normalAmount: $normalAmount, unit: $unit, conversionAmount: $conversionAmount, conversionUnit: $conversionUnit, barcode: $barcode, kcal: $kcal, fat: $fat, carbs: $carbs, protein: $protein, fiber: $fiber, archived: $archived, uploaded: $uploaded)';
+    return 'GroceryData(id: $id, name: $name, normalAmount: $normalAmount, unit: $unit, conversionAmount: $conversionAmount, conversionUnit: $conversionUnit, barcode: $barcode, kcal: $kcal, fat: $fat, carbs: $carbs, protein: $protein, fiber: $fiber, archived: $archived, uploaded: $uploaded)';
 }
 
 
