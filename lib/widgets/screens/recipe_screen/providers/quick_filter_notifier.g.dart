@@ -3,19 +3,6 @@
 part of 'quick_filter_notifier.dart';
 
 // **************************************************************************
-// JsonSerializableGenerator
-// **************************************************************************
-
-const _$QuickFiltersEnumMap = {
-  QuickFilters.running: 'running',
-  QuickFilters.cookable: 'cookable',
-  QuickFilters.cluster: 'cluster',
-  QuickFilters.unused: 'unused',
-  QuickFilters.available: 'available',
-  QuickFilters.shopping: 'shopping',
-};
-
-// **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
@@ -72,7 +59,7 @@ final class QuickFilterNotifierProvider
 }
 
 String _$quickFilterNotifierHash() =>
-    r'62afdb97250050d762391bde6f628cb28b7a023a';
+    r'7f6e022caa08dcffbbf78d3d252602ae9a745a0e';
 
 final class QuickFilterNotifierFamily extends $Family
     with
