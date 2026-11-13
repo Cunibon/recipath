@@ -274,5 +274,11 @@
     "aiErrorRateLimit": "Too many requests. Please wait and try again.",
     "aiErrorNetwork": "Could not connect to the AI service. Check your internet connection.",
     "aiErrorUrlLoad": "Could not load content from the URL.",
-    "aiErrorParse": "Could not process the AI response."
+    "aiErrorParse": "Could not process the AI response.",
+    "quickFilterRunning": "Only show recipes with a running timer",
+    "quickFilterCookable": "Only show recipes with all ingredients in storage",
+    "quickFilterCluster": "Group by tag",
+    "quickFilterUnused": "Only show unused groceries",
+    "quickFilterAvailable": "Only show items in storage",
+    "quickFilterShopping": "Only show items on the shopping list"
 }

@@ -199,5 +199,11 @@
     "aiErrorRateLimit": "Zu viele Anfragen. Bitte warten Sie und versuchen Sie es erneut.",
     "aiErrorNetwork": "Verbindung zum KI-Dienst nicht möglich. Überprüfen Sie Ihre Internetverbindung.",
     "aiErrorUrlLoad": "Inhalt der URL konnte nicht geladen werden.",
-    "aiErrorParse": "Die KI-Antwort konnte nicht verarbeitet werden."
+    "aiErrorParse": "Die KI-Antwort konnte nicht verarbeitet werden.",
+    "quickFilterRunning": "Nur Rezepte mit laufendem Timer anzeigen",
+    "quickFilterCookable": "Nur Rezepte mit allen Zutaten im Vorrat anzeigen",
+    "quickFilterCluster": "Nach Tags gruppieren",
+    "quickFilterUnused": "Nur ungenutzte Lebensmittel anzeigen",
+    "quickFilterAvailable": "Nur Artikel im Vorrat anzeigen",
+    "quickFilterShopping": "Nur Artikel auf der Einkaufsliste anzeigen"
 }

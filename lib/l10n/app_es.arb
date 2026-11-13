@@ -199,5 +199,11 @@
     "aiErrorRateLimit": "Demasiadas solicitudes. Por favor, espere e inténtelo de nuevo.",
     "aiErrorNetwork": "No se pudo conectar al servicio de IA. Verifique su conexión a internet.",
     "aiErrorUrlLoad": "No se pudo cargar el contenido de la URL.",
-    "aiErrorParse": "No se pudo procesar la respuesta de la IA."
+    "aiErrorParse": "No se pudo procesar la respuesta de la IA.",
+    "quickFilterRunning": "Mostrar solo recetas con un temporizador en marcha",
+    "quickFilterCookable": "Mostrar solo recetas con todos los ingredientes",
+    "quickFilterCluster": "Agrupar por etiqueta",
+    "quickFilterUnused": "Mostrar solo alimentos no utilizados",
+    "quickFilterAvailable": "Mostrar solo artículos en almacenamiento",
+    "quickFilterShopping": "Mostrar solo artículos de la lista de compras"
 }

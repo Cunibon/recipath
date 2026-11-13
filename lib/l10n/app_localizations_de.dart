@@ -657,4 +657,24 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get aiErrorParse => 'Die KI-Antwort konnte nicht verarbeitet werden.';
+
+  @override
+  String get quickFilterRunning => 'Nur Rezepte mit laufendem Timer anzeigen';
+
+  @override
+  String get quickFilterCookable =>
+      'Nur Rezepte mit allen Zutaten im Vorrat anzeigen';
+
+  @override
+  String get quickFilterCluster => 'Nach Tags gruppieren';
+
+  @override
+  String get quickFilterUnused => 'Nur ungenutzte Lebensmittel anzeigen';
+
+  @override
+  String get quickFilterAvailable => 'Nur Artikel im Vorrat anzeigen';
+
+  @override
+  String get quickFilterShopping =>
+      'Nur Artikel auf der Einkaufsliste anzeigen';
 }

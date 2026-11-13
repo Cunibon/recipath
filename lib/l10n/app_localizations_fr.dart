@@ -660,4 +660,26 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get aiErrorParse => 'Impossible de traiter la réponse de l\'IA.';
+
+  @override
+  String get quickFilterRunning =>
+      'Afficher uniquement les recettes avec une minuterie en cours';
+
+  @override
+  String get quickFilterCookable =>
+      'Afficher uniquement les recettes avec tous les ingrédients en stock';
+
+  @override
+  String get quickFilterCluster => 'Grouper par étiquette';
+
+  @override
+  String get quickFilterUnused =>
+      'Afficher uniquement les aliments non utilisés';
+
+  @override
+  String get quickFilterAvailable => 'Afficher uniquement les articles stockés';
+
+  @override
+  String get quickFilterShopping =>
+      'Afficher uniquement les articles de la liste de courses';
 }

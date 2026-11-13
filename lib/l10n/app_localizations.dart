@@ -1303,6 +1303,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Could not process the AI response.'**
   String get aiErrorParse;
+
+  /// No description provided for @quickFilterRunning.
+  ///
+  /// In en, this message translates to:
+  /// **'Only show recipes with a running timer'**
+  String get quickFilterRunning;
+
+  /// No description provided for @quickFilterCookable.
+  ///
+  /// In en, this message translates to:
+  /// **'Only show recipes with all ingredients in storage'**
+  String get quickFilterCookable;
+
+  /// No description provided for @quickFilterCluster.
+  ///
+  /// In en, this message translates to:
+  /// **'Group by tag'**
+  String get quickFilterCluster;
+
+  /// No description provided for @quickFilterUnused.
+  ///
+  /// In en, this message translates to:
+  /// **'Only show unused groceries'**
+  String get quickFilterUnused;
+
+  /// No description provided for @quickFilterAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Only show items in storage'**
+  String get quickFilterAvailable;
+
+  /// No description provided for @quickFilterShopping.
+  ///
+  /// In en, this message translates to:
+  /// **'Only show items on the shopping list'**
+  String get quickFilterShopping;
 }
 
 class _AppLocalizationsDelegate

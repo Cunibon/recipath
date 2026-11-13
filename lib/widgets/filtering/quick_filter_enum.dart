@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:material_ui/material_ui.dart';
+import 'package:recipath/l10n/app_localizations.dart';
 
 part 'quick_filter_enum.g.dart';
 
@@ -21,3 +22,12 @@ enum QuickFilters {
   static String toEncoded(QuickFilters filter) =>
       _$QuickFiltersEnumMap[filter]!;
 }
+
+Map<QuickFilters, String> tooltipFilters(AppLocalizations localization) => {
+  QuickFilters.running: localization.quickFilterRunning,
+  QuickFilters.cookable: localization.quickFilterCookable,
+  QuickFilters.cluster: localization.quickFilterCluster,
+  QuickFilters.unused: localization.quickFilterUnused,
+  QuickFilters.available: localization.quickFilterAvailable,
+  QuickFilters.shopping: localization.quickFilterShopping,
+};
