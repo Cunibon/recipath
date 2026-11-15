@@ -3,7 +3,7 @@ description: "An open-source app that helps you manage your recipes."
 
 publish_to: "none"
 
-version: 1.12.4+68
+version: 1.12.5+69
 
 environment:
   sdk: ^3.11.0

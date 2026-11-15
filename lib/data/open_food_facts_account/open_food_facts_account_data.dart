@@ -1,24 +1,16 @@
-class OpenFoodFactsAccountData {
-  final String username;
-  final String password;
-  final String appUuid;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  const OpenFoodFactsAccountData({
-    required this.username,
-    required this.password,
-    required this.appUuid,
-  });
+part 'open_food_facts_account_data.freezed.dart';
+part 'open_food_facts_account_data.g.dart';
 
-  Map<String, dynamic> toJson() => {
-    'username': username,
-    'password': password,
-    'appUuid': appUuid,
-  };
+@freezed
+abstract class OpenFoodFactsAccountData with _$OpenFoodFactsAccountData {
+  const factory OpenFoodFactsAccountData({
+    required String username,
+    required String password,
+    required String appUuid,
+  }) = _OpenFoodFactsAccountData;
 
-  factory OpenFoodFactsAccountData.fromJson(Map<String, dynamic> json) =>
-      OpenFoodFactsAccountData(
-        username: json['username'] as String,
-        password: json['password'] as String,
-        appUuid: json['appUuid'] as String,
-      );
+  factory OpenFoodFactsAccountData.fromJson(Map<String, Object?> json) =>
+      _$OpenFoodFactsAccountDataFromJson(json);
 }

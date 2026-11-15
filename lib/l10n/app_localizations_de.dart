@@ -52,6 +52,12 @@ class AppLocalizationsDe extends AppLocalizations {
   String get changePassword => 'Passwort ändern';
 
   @override
+  String get username => 'Nutzername';
+
+  @override
+  String get addUsername => 'Nutzername hinzufügen';
+
+  @override
   String get deleteAccount => 'Konto löschen';
 
   @override
@@ -300,7 +306,11 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get couldNotReachOpenFoodFacts =>
-      'Open Food Facts konnte nicht erreicht werden. Bitte überprüfe deine Verbindung und versuche es erneut.';
+      'OpenFoodFacts konnte nicht erreicht werden. Bitte überprüfe deine Verbindung und versuche es erneut.';
+
+  @override
+  String get couldNotParseOpenFoodFacts =>
+      'OpenFoodFacts Daten konnte nicht verarbeitet werden.';
 
   @override
   String get servings => 'Portionen';
@@ -666,10 +676,6 @@ class AppLocalizationsDe extends AppLocalizations {
   String get contributeToOpenFoodFacts => 'Zu Open Food Facts beitragen';
 
   @override
-  String get contributeToOpenFoodFactsDescription =>
-      'Lade diese Lebensmitteldaten in die öffentliche Open Food Facts Datenbank hoch';
-
-  @override
   String get uploadedToOpenFoodFactsSuccess =>
       'Produkt erfolgreich zu Open Food Facts hinzugefügt!';
 
@@ -692,16 +698,12 @@ class AppLocalizationsDe extends AppLocalizations {
       'Verbinde dein Open Food Facts-Konto, um Produkte zur öffentlichen Datenbank beizutragen';
 
   @override
-  String get openFoodFactsUsername => 'Benutzername';
+  String get openFoodFactsCredentialsInvalid =>
+      'Benutzername oder Passwort ist falsch';
 
   @override
-  String get openFoodFactsUsernameRequired => 'Bitte Benutzernamen eingeben';
-
-  @override
-  String get openFoodFactsPassword => 'Passwort';
-
-  @override
-  String get openFoodFactsPasswordRequired => 'Bitte Passwort eingeben';
+  String get openFoodFactsCredentialsCheckFailed =>
+      'Zugangsdaten konnten nicht überprüft werden. Bitte überprüfe deine Internetverbindung und versuche es erneut';
 
   @override
   String get registerOnOpenFoodFacts =>

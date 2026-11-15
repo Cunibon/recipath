@@ -52,6 +52,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get changePassword => 'Change password';
 
   @override
+  String get username => 'Username';
+
+  @override
+  String get addUsername => 'Add an username';
+
+  @override
   String get deleteAccount => 'Delete account';
 
   @override
@@ -296,6 +302,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get couldNotReachOpenFoodFacts =>
       'Could not reach Open Food Facts. Please check your connection and try again.';
+
+  @override
+  String get couldNotParseOpenFoodFacts =>
+      'Could not parse Open Food Facts data.';
 
   @override
   String get servings => 'Servings';
@@ -657,10 +667,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get contributeToOpenFoodFacts => 'Contribute to Open Food Facts';
 
   @override
-  String get contributeToOpenFoodFactsDescription =>
-      'Upload this grocery\'s data to the public Open Food Facts database';
-
-  @override
   String get uploadedToOpenFoodFactsSuccess =>
       'Product contributed to Open Food Facts successfully!';
 
@@ -683,16 +689,12 @@ class AppLocalizationsEn extends AppLocalizations {
       'Connect your Open Food Facts account to contribute products to the public database';
 
   @override
-  String get openFoodFactsUsername => 'Username';
+  String get openFoodFactsCredentialsInvalid =>
+      'The username or password is incorrect';
 
   @override
-  String get openFoodFactsUsernameRequired => 'Please enter your username';
-
-  @override
-  String get openFoodFactsPassword => 'Password';
-
-  @override
-  String get openFoodFactsPasswordRequired => 'Please enter your password';
+  String get openFoodFactsCredentialsCheckFailed =>
+      'Could not verify the credentials. Please check your internet connection and try again';
 
   @override
   String get registerOnOpenFoodFacts =>

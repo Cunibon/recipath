@@ -182,6 +182,18 @@ abstract class AppLocalizations {
   /// **'Change password'**
   String get changePassword;
 
+  /// No description provided for @username.
+  ///
+  /// In en, this message translates to:
+  /// **'Username'**
+  String get username;
+
+  /// No description provided for @addUsername.
+  ///
+  /// In en, this message translates to:
+  /// **'Add an username'**
+  String get addUsername;
+
   /// No description provided for @deleteAccount.
   ///
   /// In en, this message translates to:
@@ -637,6 +649,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Could not reach Open Food Facts. Please check your connection and try again.'**
   String get couldNotReachOpenFoodFacts;
+
+  /// No description provided for @couldNotParseOpenFoodFacts.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not parse Open Food Facts data.'**
+  String get couldNotParseOpenFoodFacts;
 
   /// No description provided for @servings.
   ///
@@ -1316,12 +1334,6 @@ abstract class AppLocalizations {
   /// **'Contribute to Open Food Facts'**
   String get contributeToOpenFoodFacts;
 
-  /// No description provided for @contributeToOpenFoodFactsDescription.
-  ///
-  /// In en, this message translates to:
-  /// **'Upload this grocery\'s data to the public Open Food Facts database'**
-  String get contributeToOpenFoodFactsDescription;
-
   /// No description provided for @uploadedToOpenFoodFactsSuccess.
   ///
   /// In en, this message translates to:
@@ -1358,29 +1370,17 @@ abstract class AppLocalizations {
   /// **'Connect your Open Food Facts account to contribute products to the public database'**
   String get openFoodFactsAccountDescription;
 
-  /// No description provided for @openFoodFactsUsername.
+  /// No description provided for @openFoodFactsCredentialsInvalid.
   ///
   /// In en, this message translates to:
-  /// **'Username'**
-  String get openFoodFactsUsername;
+  /// **'The username or password is incorrect'**
+  String get openFoodFactsCredentialsInvalid;
 
-  /// No description provided for @openFoodFactsUsernameRequired.
+  /// No description provided for @openFoodFactsCredentialsCheckFailed.
   ///
   /// In en, this message translates to:
-  /// **'Please enter your username'**
-  String get openFoodFactsUsernameRequired;
-
-  /// No description provided for @openFoodFactsPassword.
-  ///
-  /// In en, this message translates to:
-  /// **'Password'**
-  String get openFoodFactsPassword;
-
-  /// No description provided for @openFoodFactsPasswordRequired.
-  ///
-  /// In en, this message translates to:
-  /// **'Please enter your password'**
-  String get openFoodFactsPasswordRequired;
+  /// **'Could not verify the credentials. Please check your internet connection and try again'**
+  String get openFoodFactsCredentialsCheckFailed;
 
   /// No description provided for @registerOnOpenFoodFacts.
   ///

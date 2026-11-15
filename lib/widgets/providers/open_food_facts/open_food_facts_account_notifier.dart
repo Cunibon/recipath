@@ -1,17 +1,13 @@
 import 'dart:convert';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:recipath/data/open_food_facts_account/open_food_facts_account_data.dart';
 import 'package:recipath/widgets/providers/secure_storage_notifier.dart';
-import 'package:uuid/uuid.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-final openFoodFactsAccountProvider =
-    AsyncNotifierProvider<
-      OpenFoodFactsAccountNotifier,
-      OpenFoodFactsAccountData?
-    >(OpenFoodFactsAccountNotifier.new);
+part 'open_food_facts_account_notifier.g.dart';
 
-class OpenFoodFactsAccountNotifier
-    extends AsyncNotifier<OpenFoodFactsAccountData?> {
+@riverpod
+class OpenFoodFactsAccountNotifier extends _$OpenFoodFactsAccountNotifier {
   static const offAccountKey = "openFoodFactsAccountKey";
 
   @override
@@ -24,12 +20,6 @@ class OpenFoodFactsAccountNotifier
 
     try {
       final json = jsonDecode(stringData) as Map<String, dynamic>;
-      final storedAppUuid = json['appUuid'];
-
-      if (storedAppUuid is! String || storedAppUuid.trim().isEmpty) {
-        json['appUuid'] = Uuid().v4();
-        await storage.write(key: offAccountKey, value: jsonEncode(json));
-      }
 
       return OpenFoodFactsAccountData.fromJson(json);
     } catch (_) {

@@ -6,39 +6,32 @@ import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/providers/double_number_format_notifier.dart';
 import 'package:recipath/widgets/screens/grocery_screen/create_grocery_screen/double_input_field.dart';
 
-class GroceryFormFields extends ConsumerWidget {
-  const GroceryFormFields({
+class GroceryForm extends ConsumerWidget {
+  const GroceryForm({
     required this.updateData,
+    required this.data,
     required this.nameController,
     required this.amountController,
     required this.conversionController,
-    required this.barcodeController,
     required this.kcalController,
     required this.fatController,
     required this.carbsController,
     required this.proteinController,
     required this.fiberController,
-    required this.data,
-    this.contributeToOpenFoodFacts = false,
-    this.onContributeChanged,
     super.key,
   });
 
   final void Function(GroceryData data) updateData;
+  final GroceryData data;
 
   final TextEditingController nameController;
   final TextEditingController amountController;
   final TextEditingController conversionController;
-  final TextEditingController barcodeController;
   final TextEditingController kcalController;
   final TextEditingController fatController;
   final TextEditingController carbsController;
   final TextEditingController proteinController;
   final TextEditingController fiberController;
-
-  final GroceryData data;
-  final bool contributeToOpenFoodFacts;
-  final ValueChanged<bool>? onContributeChanged;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -257,27 +250,11 @@ class GroceryFormFields extends ConsumerWidget {
               ),
             ],
           ),
-          TextFormField(
-            controller: barcodeController,
-            decoration: InputDecoration(labelText: "Barcode"),
-            onChanged: (barcode) => updateData(data.copyWith(barcode: barcode)),
-          ),
-          if (barcodeController.text.trim().isNotEmpty) ...[
-            SizedBox(height: 4),
-            SwitchListTile(
-              contentPadding: EdgeInsets.zero,
-              title: Text(
-                localization.contributeToOpenFoodFacts,
-                style: TextTheme.of(context).bodyMedium,
-              ),
-              subtitle: Text(
-                localization.contributeToOpenFoodFactsDescription,
-                style: TextTheme.of(context).bodySmall,
-              ),
-              value: contributeToOpenFoodFacts,
-              onChanged: onContributeChanged,
+          if (data.barcode != null)
+            TextFormField(
+              decoration: InputDecoration(labelText: "Barcode"),
+              readOnly: true,
             ),
-          ],
           DoubleInputField(
             controller: kcalController,
             labelText: "${localization.kcal}/100g",
