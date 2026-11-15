@@ -52,6 +52,12 @@ class AppLocalizationsDe extends AppLocalizations {
   String get changePassword => 'Passwort ändern';
 
   @override
+  String get username => 'Nutzername';
+
+  @override
+  String get addUsername => 'Nutzername hinzufügen';
+
+  @override
   String get deleteAccount => 'Konto löschen';
 
   @override
@@ -297,6 +303,14 @@ class AppLocalizationsDe extends AppLocalizations {
   String couldNotFindBarcode(String barcode) {
     return 'Kein Produkt gefunden für Code: $barcode';
   }
+
+  @override
+  String get couldNotReachOpenFoodFacts =>
+      'OpenFoodFacts konnte nicht erreicht werden. Bitte überprüfe deine Verbindung und versuche es erneut.';
+
+  @override
+  String get couldNotParseOpenFoodFacts =>
+      'OpenFoodFacts Daten konnte nicht verarbeitet werden.';
 
   @override
   String get servings => 'Portionen';
@@ -657,6 +671,43 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get aiErrorParse => 'Die KI-Antwort konnte nicht verarbeitet werden.';
+
+  @override
+  String get contributeToOpenFoodFacts => 'Zu Open Food Facts beitragen';
+
+  @override
+  String get uploadedToOpenFoodFactsSuccess =>
+      'Produkt erfolgreich zu Open Food Facts hinzugefügt!';
+
+  @override
+  String get uploadedToOpenFoodFactsFailed =>
+      'Konnte nicht zu Open Food Facts hochgeladen werden. Bitte Zugangsdaten überprüfen.';
+
+  @override
+  String get addManuallyAndContribute =>
+      'Produkt wurde nicht gefunden. Möchtest du die Details manuell eingeben und zu Open Food Facts beitragen?';
+
+  @override
+  String get addManually => 'Manuell hinzufügen';
+
+  @override
+  String get openFoodFactsAccount => 'Open Food Facts-Konto';
+
+  @override
+  String get openFoodFactsAccountDescription =>
+      'Verbinde dein Open Food Facts-Konto, um Produkte zur öffentlichen Datenbank beizutragen';
+
+  @override
+  String get openFoodFactsCredentialsInvalid =>
+      'Benutzername oder Passwort ist falsch';
+
+  @override
+  String get openFoodFactsCredentialsCheckFailed =>
+      'Zugangsdaten konnten nicht überprüft werden. Bitte überprüfe deine Internetverbindung und versuche es erneut';
+
+  @override
+  String get registerOnOpenFoodFacts =>
+      'Noch kein Konto? Auf OpenFoodFacts.org registrieren';
 
   @override
   String get quickFilterRunning => 'Nur Rezepte mit laufendem Timer anzeigen';

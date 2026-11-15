@@ -8,9 +8,9 @@ import 'dart:io';
 
 import 'package:app_links/app_links.dart';
 import 'package:flutter/foundation.dart';
-import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localstorage/localstorage.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:receive_sharing_intent/receive_sharing_intent.dart';
@@ -157,7 +157,7 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
     final locale = ref.watch(localeProvider);
 
     return MaterialApp.router(
-      title: "ReciPath",
+      title: appName,
       locale: AppLocalizations.supportedLocales.contains(locale)
           ? locale
           : Locale('en'),

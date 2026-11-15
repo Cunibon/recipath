@@ -53,6 +53,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get changePassword => 'Changer le mot de passe';
 
   @override
+  String get username => 'Nom d\'utilisateur';
+
+  @override
+  String get addUsername => 'Ajouter un nom d\'utilisateur';
+
+  @override
   String get deleteAccount => 'Supprimer le compte';
 
   @override
@@ -298,6 +304,14 @@ class AppLocalizationsFr extends AppLocalizations {
   String couldNotFindBarcode(String barcode) {
     return 'Impossible de trouver le produit pour le code: $barcode';
   }
+
+  @override
+  String get couldNotReachOpenFoodFacts =>
+      'Impossible de contacter Open Food Facts. Vérifiez votre connexion et réessayez.';
+
+  @override
+  String get couldNotParseOpenFoodFacts =>
+      'Impossible d\'analyser les données d\'Open Food Facts.';
 
   @override
   String get servings => 'Portions';
@@ -660,6 +674,43 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get aiErrorParse => 'Impossible de traiter la réponse de l\'IA.';
+
+  @override
+  String get contributeToOpenFoodFacts => 'Contribuer à Open Food Facts';
+
+  @override
+  String get uploadedToOpenFoodFactsSuccess =>
+      'Produit contribué à Open Food Facts avec succès !';
+
+  @override
+  String get uploadedToOpenFoodFactsFailed =>
+      'Impossible de téléverser vers Open Food Facts. Veuillez vérifier vos identifiants.';
+
+  @override
+  String get addManuallyAndContribute =>
+      'Produit introuvable. Voulez-vous saisir les détails manuellement et contribuer à Open Food Facts ?';
+
+  @override
+  String get addManually => 'Ajouter manuellement';
+
+  @override
+  String get openFoodFactsAccount => 'Compte Open Food Facts';
+
+  @override
+  String get openFoodFactsAccountDescription =>
+      'Connectez votre compte Open Food Facts pour contribuer des produits à la base publique';
+
+  @override
+  String get openFoodFactsCredentialsInvalid =>
+      'Le nom d\'utilisateur ou le mot de passe est incorrect';
+
+  @override
+  String get openFoodFactsCredentialsCheckFailed =>
+      'Impossible de vérifier les identifiants. Veuillez vérifier votre connexion internet et réessayer';
+
+  @override
+  String get registerOnOpenFoodFacts =>
+      'Pas encore de compte ? Inscrivez-vous sur OpenFoodFacts.org';
 
   @override
   String get quickFilterRunning =>

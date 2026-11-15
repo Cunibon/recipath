@@ -1,10 +1,9 @@
-import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:random_string/random_string.dart';
 import 'package:recipath/application/grocery_modifier/grocery_modifier_notifier.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
-import 'package:recipath/data/gtin_data/gtin_data.dart';
 import 'package:recipath/data/recipe_data/recipe_data.dart';
 import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/helper/ref_extension.dart';
@@ -12,13 +11,13 @@ import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/repos/recipe/recipe_repo_notifier.dart';
 import 'package:recipath/repos/shopping/shopping_repo_notifier.dart';
 import 'package:recipath/repos/storage/storage_repo_notifier.dart';
+import 'package:recipath/widgets/filtering/filter_type_enum.dart';
 import 'package:recipath/widgets/generic/dialogs/delete_confirmation_dialog.dart';
 import 'package:recipath/widgets/generic/information_dialog.dart';
 import 'package:recipath/widgets/generic/unsaved_changes_scope.dart';
 import 'package:recipath/widgets/providers/double_number_format_notifier.dart';
-import 'package:recipath/widgets/screens/grocery_screen/create_grocery_screen/grocery_form_fields.dart';
+import 'package:recipath/widgets/screens/grocery_screen/create_grocery_screen/grocery_form.dart';
 import 'package:recipath/widgets/screens/grocery_screen/grocery_routes.dart';
-import 'package:recipath/widgets/filtering/filter_type_enum.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/filtered_grocery_notifier.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 
@@ -36,7 +35,6 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
   final nameController = TextEditingController();
   final amountController = TextEditingController();
   final conversionController = TextEditingController();
-  final barcodeController = TextEditingController();
   final kcalController = TextEditingController();
   final fatController = TextEditingController();
   final carbsController = TextEditingController();
@@ -60,7 +58,11 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
           conversionAmount: 0,
           conversionUnit: UnitEnum.ml,
         );
-    data = initialData;
+    updateForm(initialData);
+  }
+
+  void updateForm(GroceryData newData) {
+    data = newData;
 
     final doubleNumberFormat = ref.read(doubleNumberFormatProvider);
 
@@ -69,7 +71,6 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
     conversionController.text = doubleNumberFormat.format(
       data.conversionAmount,
     );
-    barcodeController.text = data.barcode == null ? "" : data.barcode!;
     kcalController.text = data.kcal == null
         ? ""
         : doubleNumberFormat.format(data.kcal);
@@ -88,23 +89,7 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
   }
 
   @override
-  void dispose() {
-    nameController.dispose();
-    amountController.dispose();
-    conversionController.dispose();
-    barcodeController.dispose();
-    kcalController.dispose();
-    fatController.dispose();
-    carbsController.dispose();
-    proteinController.dispose();
-    fiberController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final doubleNumberFormat = ref.watch(doubleNumberFormatProvider);
-
     final localization = AppLocalizations.of(context)!;
 
     return UnsavedChangesScope(
@@ -118,84 +103,14 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
           actions: [
             IconButton(
               onPressed: () async {
-                final gtin = await context.push<GTINData>(
+                final openFoodData = await context.push<GroceryData>(
                   "./${GroceryRoutes.scanGrocery.path}",
                 );
 
-                if (gtin != null) {
-                  final unitType = UnitConversion.unitType(gtin.unit);
-                  late UnitEnum conversion;
-
-                  switch (unitType) {
-                    case UnitType.volume:
-                      conversion = UnitEnum.g;
-                      break;
-                    case UnitType.weight:
-                      conversion = UnitEnum.ml;
-                      break;
-                    default:
-                      conversion = gtin.unit;
-                  }
-
-                  final updateAmount =
-                      data.conversionAmount == 0 ||
-                      conversionController.text.isEmpty;
-
-                  final newData = data.copyWith(
-                    name: data.name.isEmpty ? gtin.name : data.name,
-                    normalAmount: updateAmount
-                        ? gtin.amount
-                        : data.normalAmount,
-                    unit: updateAmount ? gtin.unit : data.unit,
-                    conversionAmount:
-                        data.conversionAmount == 0 ||
-                            conversionController.text.isEmpty
-                        ? gtin.amount
-                        : data.conversionAmount,
-                    conversionUnit: updateAmount
-                        ? conversion
-                        : data.conversionUnit,
-                    barcode: gtin.barcode,
-                    kcal: gtin.kcal,
-                    fat: gtin.fat,
-                    carbs: gtin.carbs,
-                    protein: gtin.protein,
-                    fiber: gtin.fiber,
-                  );
-
-                  nameController.text = newData.name;
-                  amountController.text = doubleNumberFormat.format(
-                    newData.normalAmount,
-                  );
-                  conversionController.text = doubleNumberFormat.format(
-                    newData.conversionAmount,
-                  );
-                  barcodeController.text = newData.barcode!;
-                  if (newData.kcal != null) {
-                    kcalController.text = doubleNumberFormat.format(
-                      newData.kcal,
-                    );
-                  }
-                  if (newData.fat != null) {
-                    fatController.text = doubleNumberFormat.format(newData.fat);
-                  }
-                  if (newData.carbs != null) {
-                    carbsController.text = doubleNumberFormat.format(
-                      newData.carbs,
-                    );
-                  }
-                  if (newData.protein != null) {
-                    proteinController.text = doubleNumberFormat.format(
-                      newData.protein,
-                    );
-                  }
-                  if (newData.fiber != null) {
-                    fiberController.text = doubleNumberFormat.format(
-                      newData.fiber,
-                    );
-                  }
+                if (openFoodData != null) {
+                  updateForm(openFoodData);
                   setState(() {
-                    data = newData;
+                    data = openFoodData;
                   });
                 }
               },
@@ -282,18 +197,17 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
           key: formKey,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: GroceryFormFields(
+            child: GroceryForm(
               updateData: (newData) => setState(() => data = newData),
+              data: data,
               nameController: nameController,
               amountController: amountController,
               conversionController: conversionController,
-              barcodeController: barcodeController,
               kcalController: kcalController,
               fatController: fatController,
               carbsController: carbsController,
               proteinController: proteinController,
               fiberController: fiberController,
-              data: data,
             ),
           ),
         ),

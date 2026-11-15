@@ -52,6 +52,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get changePassword => 'Change password';
 
   @override
+  String get username => 'Username';
+
+  @override
+  String get addUsername => 'Add an username';
+
+  @override
   String get deleteAccount => 'Delete account';
 
   @override
@@ -292,6 +298,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String couldNotFindBarcode(String barcode) {
     return 'Could not find product for code: $barcode';
   }
+
+  @override
+  String get couldNotReachOpenFoodFacts =>
+      'Could not reach Open Food Facts. Please check your connection and try again.';
+
+  @override
+  String get couldNotParseOpenFoodFacts =>
+      'Could not parse Open Food Facts data.';
 
   @override
   String get servings => 'Servings';
@@ -648,6 +662,43 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get aiErrorParse => 'Could not process the AI response.';
+
+  @override
+  String get contributeToOpenFoodFacts => 'Contribute to Open Food Facts';
+
+  @override
+  String get uploadedToOpenFoodFactsSuccess =>
+      'Product contributed to Open Food Facts successfully!';
+
+  @override
+  String get uploadedToOpenFoodFactsFailed =>
+      'Could not upload to Open Food Facts. Please check your credentials.';
+
+  @override
+  String get addManuallyAndContribute =>
+      'Product was not found. Would you like to enter details manually and contribute it to Open Food Facts?';
+
+  @override
+  String get addManually => 'Add manually';
+
+  @override
+  String get openFoodFactsAccount => 'Open Food Facts account';
+
+  @override
+  String get openFoodFactsAccountDescription =>
+      'Connect your Open Food Facts account to contribute products to the public database';
+
+  @override
+  String get openFoodFactsCredentialsInvalid =>
+      'The username or password is incorrect';
+
+  @override
+  String get openFoodFactsCredentialsCheckFailed =>
+      'Could not verify the credentials. Please check your internet connection and try again';
+
+  @override
+  String get registerOnOpenFoodFacts =>
+      'Don\'t have an account? Register on OpenFoodFacts.org';
 
   @override
   String get quickFilterRunning => 'Only show recipes with a running timer';

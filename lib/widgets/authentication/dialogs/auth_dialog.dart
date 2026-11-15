@@ -1,8 +1,8 @@
-import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/experimental/mutation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:recipath/common.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/root_routes.dart';
@@ -78,7 +78,10 @@ class _AuthDialogState extends ConsumerState<AuthDialog> {
                 autofillHints: widget.isLogin
                     ? const [AutofillHints.username]
                     : const [AutofillHints.newUsername],
-                decoration: InputDecoration(hintText: localization.eMail),
+                decoration: InputDecoration(
+                  hintText: localization.eMail,
+                  prefixIcon: const Icon(Icons.person),
+                ),
                 validator: (value) {
                   if (value != null) {
                     if (emailRegex.hasMatch(value)) {
@@ -95,7 +98,10 @@ class _AuthDialogState extends ConsumerState<AuthDialog> {
                 controller: passwordController,
                 autofillHints: const [AutofillHints.password],
                 obscureText: true,
-                decoration: InputDecoration(hintText: localization.password),
+                decoration: InputDecoration(
+                  hintText: localization.password,
+                  prefixIcon: const Icon(Icons.lock),
+                ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return localization.addPassword;

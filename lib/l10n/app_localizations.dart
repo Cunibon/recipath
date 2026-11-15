@@ -182,6 +182,18 @@ abstract class AppLocalizations {
   /// **'Change password'**
   String get changePassword;
 
+  /// No description provided for @username.
+  ///
+  /// In en, this message translates to:
+  /// **'Username'**
+  String get username;
+
+  /// No description provided for @addUsername.
+  ///
+  /// In en, this message translates to:
+  /// **'Add an username'**
+  String get addUsername;
+
   /// No description provided for @deleteAccount.
   ///
   /// In en, this message translates to:
@@ -631,6 +643,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Could not find product for code: {barcode}'**
   String couldNotFindBarcode(String barcode);
+
+  /// No description provided for @couldNotReachOpenFoodFacts.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not reach Open Food Facts. Please check your connection and try again.'**
+  String get couldNotReachOpenFoodFacts;
+
+  /// No description provided for @couldNotParseOpenFoodFacts.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not parse Open Food Facts data.'**
+  String get couldNotParseOpenFoodFacts;
 
   /// No description provided for @servings.
   ///
@@ -1303,6 +1327,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Could not process the AI response.'**
   String get aiErrorParse;
+
+  /// No description provided for @contributeToOpenFoodFacts.
+  ///
+  /// In en, this message translates to:
+  /// **'Contribute to Open Food Facts'**
+  String get contributeToOpenFoodFacts;
+
+  /// No description provided for @uploadedToOpenFoodFactsSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Product contributed to Open Food Facts successfully!'**
+  String get uploadedToOpenFoodFactsSuccess;
+
+  /// No description provided for @uploadedToOpenFoodFactsFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not upload to Open Food Facts. Please check your credentials.'**
+  String get uploadedToOpenFoodFactsFailed;
+
+  /// No description provided for @addManuallyAndContribute.
+  ///
+  /// In en, this message translates to:
+  /// **'Product was not found. Would you like to enter details manually and contribute it to Open Food Facts?'**
+  String get addManuallyAndContribute;
+
+  /// No description provided for @addManually.
+  ///
+  /// In en, this message translates to:
+  /// **'Add manually'**
+  String get addManually;
+
+  /// No description provided for @openFoodFactsAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Food Facts account'**
+  String get openFoodFactsAccount;
+
+  /// No description provided for @openFoodFactsAccountDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect your Open Food Facts account to contribute products to the public database'**
+  String get openFoodFactsAccountDescription;
+
+  /// No description provided for @openFoodFactsCredentialsInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'The username or password is incorrect'**
+  String get openFoodFactsCredentialsInvalid;
+
+  /// No description provided for @openFoodFactsCredentialsCheckFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not verify the credentials. Please check your internet connection and try again'**
+  String get openFoodFactsCredentialsCheckFailed;
+
+  /// No description provided for @registerOnOpenFoodFacts.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t have an account? Register on OpenFoodFacts.org'**
+  String get registerOnOpenFoodFacts;
 
   /// No description provided for @quickFilterRunning.
   ///

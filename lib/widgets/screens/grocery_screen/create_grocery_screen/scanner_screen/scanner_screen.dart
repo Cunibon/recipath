@@ -1,25 +1,27 @@
-import 'dart:convert';
-
-import 'package:material_ui/material_ui.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:http/http.dart' as http;
+import 'package:material_ui/material_ui.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
-import 'package:recipath/data/gtin_data/gtin_data.dart';
+import 'package:recipath/data/grocery_data/grocery_data.dart';
+import 'package:recipath/data/open_food_facts_account/open_food_facts_account_data.dart';
+import 'package:recipath/domain_service/open_food_facts_service/open_food_facts_service_notifier.dart';
 import 'package:recipath/l10n/app_localizations.dart';
+import 'package:recipath/widgets/generic/dialogs/two_option_dialog.dart';
 import 'package:recipath/widgets/generic/information_dialog.dart';
+import 'package:recipath/widgets/providers/open_food_facts/open_food_facts_account_notifier.dart';
+import 'package:recipath/widgets/screens/grocery_screen/create_grocery_screen/scanner_screen/dialogs/manual_food_facts_dialog.dart';
+import 'package:recipath/widgets/screens/grocery_screen/create_grocery_screen/scanner_screen/open_food_facts_mutation.dart';
+import 'package:recipath/widgets/screens/settings_screen/data/dialogs/open_food_facts_account_dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class ScannerScreen extends StatefulWidget {
+class ScannerScreen extends ConsumerStatefulWidget {
   const ScannerScreen({super.key});
 
   @override
-  State<ScannerScreen> createState() => _ScannerScreenState();
+  ConsumerState<ScannerScreen> createState() => _ScannerScreenState();
 }
 
-class _ScannerScreenState extends State<ScannerScreen> {
-  late bool isLoading = false;
-  late bool foundGTIN = false;
-
+class _ScannerScreenState extends ConsumerState<ScannerScreen> {
   bool isValidGTIN(String barcode) {
     final clean = barcode.trim();
     if (!RegExp(r'^\d+$').hasMatch(clean)) return false;
@@ -42,18 +44,63 @@ class _ScannerScreenState extends State<ScannerScreen> {
     return checkDigit == digits.last;
   }
 
-  Future<void> showCannotFindDialog({
-    required AppLocalizations localization,
-    required String barcode,
-  }) => showDialog(
-    context: context,
-    builder: (context) =>
-        InformationDialog(message: localization.couldNotFindBarcode(barcode)),
-  );
+  Future<void> checkAddManually(BuildContext context, String barcode) async {
+    final localization = AppLocalizations.of(context)!;
+
+    OpenFoodFactsAccountData? account = await ref.read(
+      openFoodFactsAccountProvider.future,
+    );
+
+    if (account == null && context.mounted) {
+      final addManually = await showDialog<bool>(
+        context: context,
+        builder: (context) => TwoOptionDialog(
+          title: localization.couldNotFindBarcode(barcode),
+          content: Text(localization.addManuallyAndContribute),
+          agree: localization.addManually,
+          disagree: localization.no,
+        ),
+      );
+
+      if (addManually != true) {
+        return;
+      }
+
+      if (context.mounted) {
+        account = await showDialog(
+          context: context,
+          builder: (context) =>
+              OpenFoodFactsAccountDialog(accountData: account),
+        );
+      }
+
+      if (account == null) {
+        return;
+      }
+    }
+
+    if (context.mounted) {
+      final data = await showDialog<GroceryData>(
+        context: context,
+        builder: (context) => ManualFoodFactsDialog(),
+      );
+
+      if (data != null) {
+        final foodFacts = await ref.read(openFoodFactsServiceProvider.future);
+        foodFacts.uploadProduct(account: account!, grocery: data);
+      }
+
+      if (context.mounted) {
+        context.pop(data?.copyWith(barcode: barcode));
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context)!;
+
+    final state = ref.watch(openFoodFactsMutation);
 
     return Scaffold(
       appBar: AppBar(
@@ -73,62 +120,43 @@ class _ScannerScreenState extends State<ScannerScreen> {
         children: [
           MobileScanner(
             onDetect: (barcodes) async {
-              if (isLoading || foundGTIN) return;
+              if (state.isIdle) return;
               final barcode = barcodes.barcodes.first.rawValue;
 
               if (barcode == null || !isValidGTIN(barcode)) {
                 return;
               }
 
-              final url = Uri.parse(
-                'https://world.openfoodfacts.org/api/v0/product/$barcode.json',
-              );
-
-              setState(() {
-                isLoading = true;
-              });
-
-              final goRouter = GoRouter.of(context);
-
               try {
-                final response = await http.get(url);
+                final gtin = await openFoodFactsMutation.run(ref, barcode);
 
+                if (gtin == null && context.mounted) {
+                  await showDialog<void>(
+                    context: context,
+                    builder: (context) => InformationDialog(
+                      message: localization.couldNotParseOpenFoodFacts,
+                    ),
+                  );
+                }
+              } on OpenFoodFactsProductNotFoundException catch (_) {
                 if (context.mounted) {
-                  if (response.statusCode == 200) {
-                    final data = jsonDecode(response.body);
-
-                    final gtin = GTINData.fromAPI(barcode, data);
-                    if (gtin != null) {
-                      goRouter.pop(gtin);
-                      foundGTIN = true;
-                    } else {
-                      await showCannotFindDialog(
-                        localization: localization,
-                        barcode: barcode,
-                      );
-                    }
-                  } else {
-                    await showCannotFindDialog(
-                      localization: localization,
-                      barcode: barcode,
-                    );
-                  }
+                  await checkAddManually(context, barcode);
                 }
               } catch (e) {
-                await showCannotFindDialog(
-                  localization: localization,
-                  barcode: barcode,
-                );
-              } finally {
                 if (context.mounted) {
-                  setState(() {
-                    isLoading = false;
-                  });
+                  await showDialog<void>(
+                    context: context,
+                    builder: (context) => InformationDialog(
+                      message: localization.couldNotReachOpenFoodFacts,
+                    ),
+                  );
                 }
+              } finally {
+                openFoodFactsMutation.reset(ref);
               }
             },
           ),
-          if (isLoading)
+          if (state.isPending)
             ColoredBox(
               color: Colors.black87.withAlpha(128),
               child: Center(child: CircularProgressIndicator()),

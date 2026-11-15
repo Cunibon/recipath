@@ -10,6 +10,8 @@ const _revenueCatAndroidKey = String.fromEnvironment('REVENUECAT_ANDROID_KEY');
 String get revenueCatPublicKey =>
     Platform.isIOS ? _revenueCatAppleKey : _revenueCatAndroidKey;
 
+const String appName = "ReciPath";
+
 const playStoreUrl =
     "https://play.google.com/store/apps/details?id=com.cunibongames.recipath";
 const appStoreUrl = "https://apps.apple.com/app/id6791212568";
