@@ -313,6 +313,10 @@ class AppLocalizationsDe extends AppLocalizations {
       'OpenFoodFacts Daten konnte nicht verarbeitet werden.';
 
   @override
+  String get productDataProvidedByOpenFoodFacts =>
+      'Produktdaten bereitgestellt\nvon OpenFoodFacts.org';
+
+  @override
   String get servings => 'Portionen';
 
   @override

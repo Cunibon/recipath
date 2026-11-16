@@ -103,11 +103,12 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
           actions: [
             IconButton(
               onPressed: () async {
-                final openFoodData = await context.push<GroceryData>(
+                final scannedData = await context.push<GroceryData>(
                   "./${GroceryRoutes.scanGrocery.path}",
                 );
 
-                if (openFoodData != null) {
+                if (scannedData != null) {
+                  final openFoodData = scannedData.copyWith(id: data.id);
                   updateForm(openFoodData);
                   setState(() {
                     data = openFoodData;

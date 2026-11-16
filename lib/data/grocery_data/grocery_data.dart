@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart' as drift;
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:intl/intl.dart';
+import 'package:recipath/data/gtin_data/gtin_data.dart';
 import 'package:recipath/data/unit_enum.dart';
 import 'package:recipath/drift/database.dart';
 import 'package:recipath/widgets/screens/dashboard_screen/charts/kcal_chart/providers/nutriment_enum.dart';
@@ -46,6 +47,26 @@ abstract class GroceryData with _$GroceryData {
     archived: data.archived,
     uploaded: data.uploaded,
   );
+
+  factory GroceryData.fromGTIN(GTINData gtin, {required String id}) =>
+      GroceryData(
+        id: id,
+        name: gtin.name,
+        normalAmount: gtin.amount,
+        unit: gtin.unit,
+        conversionAmount: gtin.amount,
+        conversionUnit: switch (UnitConversion.unitType(gtin.unit)) {
+          UnitType.volume => UnitEnum.g,
+          UnitType.weight => UnitEnum.ml,
+          _ => gtin.unit,
+        },
+        barcode: gtin.barcode,
+        kcal: gtin.kcal,
+        fat: gtin.fat,
+        carbs: gtin.carbs,
+        protein: gtin.protein,
+        fiber: gtin.fiber,
+      );
 
   static UnitEnum jsonStringToEnum(String enumString) =>
       $enumDecode(_$UnitEnumEnumMap, enumString);

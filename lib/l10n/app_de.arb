@@ -92,6 +92,7 @@
     "couldNotFindBarcode": "Kein Produkt gefunden für Code: {barcode}",
     "couldNotReachOpenFoodFacts": "OpenFoodFacts konnte nicht erreicht werden. Bitte überprüfe deine Verbindung und versuche es erneut.",
     "couldNotParseOpenFoodFacts": "OpenFoodFacts Daten konnte nicht verarbeitet werden.",
+    "productDataProvidedByOpenFoodFacts": "Produktdaten bereitgestellt\nvon OpenFoodFacts.org",
     "servings": "Portionen",
     "addedItemsToShopping": "Artikel zur Einkaufsliste hinzugefügt!",
     "recipe": "Rezept",

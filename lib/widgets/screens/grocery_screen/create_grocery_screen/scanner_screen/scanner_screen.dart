@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:random_string/random_string.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/open_food_facts_account/open_food_facts_account_data.dart';
 import 'package:recipath/domain_service/open_food_facts_service/open_food_facts_service_notifier.dart';
@@ -73,26 +74,25 @@ class _ScannerScreenState extends ConsumerState<ScannerScreen> {
               OpenFoodFactsAccountDialog(accountData: account),
         );
       }
+    }
 
-      if (account == null) {
-        return;
-      }
+    if (account == null || !context.mounted) {
+      return;
+    }
+
+    final data = await showDialog<GroceryData>(
+      context: context,
+      builder: (context) => ManualFoodFactsDialog(),
+    );
+    final grocery = data?.copyWith(barcode: barcode);
+
+    if (grocery != null) {
+      final foodFacts = await ref.read(openFoodFactsServiceProvider.future);
+      foodFacts.uploadProduct(account: account, grocery: grocery);
     }
 
     if (context.mounted) {
-      final data = await showDialog<GroceryData>(
-        context: context,
-        builder: (context) => ManualFoodFactsDialog(),
-      );
-
-      if (data != null) {
-        final foodFacts = await ref.read(openFoodFactsServiceProvider.future);
-        foodFacts.uploadProduct(account: account!, grocery: data);
-      }
-
-      if (context.mounted) {
-        context.pop(data?.copyWith(barcode: barcode));
-      }
+      context.pop(grocery);
     }
   }
 
@@ -112,7 +112,7 @@ class _ScannerScreenState extends ConsumerState<ScannerScreen> {
           TextButton(
             onPressed: () =>
                 launchUrl(Uri.parse("https://world.openfoodfacts.org/")),
-            child: Text("Product data provided\nby OpenFoodFacts.org"),
+            child: Text(localization.productDataProvidedByOpenFoodFacts),
           ),
         ],
       ),
@@ -120,7 +120,7 @@ class _ScannerScreenState extends ConsumerState<ScannerScreen> {
         children: [
           MobileScanner(
             onDetect: (barcodes) async {
-              if (state.isIdle) return;
+              if (!ref.read(openFoodFactsMutation).isIdle) return;
               final barcode = barcodes.barcodes.first.rawValue;
 
               if (barcode == null || !isValidGTIN(barcode)) {
@@ -130,7 +130,13 @@ class _ScannerScreenState extends ConsumerState<ScannerScreen> {
               try {
                 final gtin = await openFoodFactsMutation.run(ref, barcode);
 
-                if (gtin == null && context.mounted) {
+                if (!context.mounted) return;
+
+                if (gtin != null) {
+                  context.pop(
+                    GroceryData.fromGTIN(gtin, id: randomAlphaNumeric(16)),
+                  );
+                } else {
                   await showDialog<void>(
                     context: context,
                     builder: (context) => InformationDialog(

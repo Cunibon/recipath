@@ -308,6 +308,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'Could not parse Open Food Facts data.';
 
   @override
+  String get productDataProvidedByOpenFoodFacts =>
+      'Product data provided\nby OpenFoodFacts.org';
+
+  @override
   String get servings => 'Servings';
 
   @override
