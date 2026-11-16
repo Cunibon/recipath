@@ -312,6 +312,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'Product data provided\nby OpenFoodFacts.org';
 
   @override
+  String get openFoodFactsNotFoodProduct =>
+      'This barcode belongs to a non-food product, which Open Food Facts does not cover.';
+
+  @override
   String get servings => 'Servings';
 
   @override

@@ -14,7 +14,7 @@ final openFoodFactsMutation = BoundMutation<GTINData?, String>((
 
   final response = await http.get(url).timeout(const Duration(seconds: 15));
 
-  if (response.statusCode != 200) {
+  if (response.statusCode != 200 && response.statusCode != 404) {
     throw OpenFoodFactsRequestException(response.statusCode);
   }
 
@@ -27,6 +27,16 @@ final openFoodFactsMutation = BoundMutation<GTINData?, String>((
 
   if (data is! Map<String, dynamic>) {
     throw const OpenFoodFactsInvalidResponseException();
+  }
+
+  final statusVerbose = data['status_verbose'];
+  if (statusVerbose is String &&
+      statusVerbose.contains('different product type')) {
+    throw OpenFoodFactsDifferentProductTypeException(barcode);
+  }
+
+  if (response.statusCode != 200) {
+    throw OpenFoodFactsRequestException(response.statusCode);
   }
 
   if (data['status'] == 0 || data['product'] == null) {
@@ -66,4 +76,15 @@ final class OpenFoodFactsProductNotFoundException
   @override
   String toString() =>
       'OpenFoodFactsProductNotFoundException(barcode: $barcode)';
+}
+
+final class OpenFoodFactsDifferentProductTypeException
+    extends OpenFoodFactsException {
+  const OpenFoodFactsDifferentProductTypeException(this.barcode);
+
+  final String barcode;
+
+  @override
+  String toString() =>
+      'OpenFoodFactsDifferentProductTypeException(barcode: $barcode)';
 }

@@ -316,6 +316,10 @@ class AppLocalizationsEs extends AppLocalizations {
       'Datos de productos proporcionados\npor OpenFoodFacts.org';
 
   @override
+  String get openFoodFactsNotFoodProduct =>
+      'Este código de barras pertenece a un producto no alimentario, que Open Food Facts no cubre.';
+
+  @override
   String get servings => 'Porciones';
 
   @override

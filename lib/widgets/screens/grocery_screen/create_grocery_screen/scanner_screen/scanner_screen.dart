@@ -148,6 +148,15 @@ class _ScannerScreenState extends ConsumerState<ScannerScreen> {
                 if (context.mounted) {
                   await checkAddManually(context, barcode);
                 }
+              } on OpenFoodFactsDifferentProductTypeException catch (_) {
+                if (context.mounted) {
+                  await showDialog<void>(
+                    context: context,
+                    builder: (context) => InformationDialog(
+                      message: localization.openFoodFactsNotFoodProduct,
+                    ),
+                  );
+                }
               } catch (e) {
                 if (context.mounted) {
                   await showDialog<void>(

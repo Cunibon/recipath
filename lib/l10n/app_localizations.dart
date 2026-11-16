@@ -1,5 +1,4 @@
 // ignore_for_file: deprecated_member_use
-
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
@@ -661,6 +660,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Product data provided\nby OpenFoodFacts.org'**
   String get productDataProvidedByOpenFoodFacts;
+
+  /// No description provided for @openFoodFactsNotFoodProduct.
+  ///
+  /// In en, this message translates to:
+  /// **'This barcode belongs to a non-food product, which Open Food Facts does not cover.'**
+  String get openFoodFactsNotFoodProduct;
 
   /// No description provided for @servings.
   ///

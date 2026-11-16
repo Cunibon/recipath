@@ -137,6 +137,7 @@
     "couldNotReachOpenFoodFacts": "Could not reach Open Food Facts. Please check your connection and try again.",
     "couldNotParseOpenFoodFacts": "Could not parse Open Food Facts data.",
     "productDataProvidedByOpenFoodFacts": "Product data provided\nby OpenFoodFacts.org",
+    "openFoodFactsNotFoodProduct": "This barcode belongs to a non-food product, which Open Food Facts does not cover.",
     "servings": "Servings",
     "addedItemsToShopping": "Added items to shopping list!",
     "recipe": "Recipe",

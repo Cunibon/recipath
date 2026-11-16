@@ -93,6 +93,7 @@
     "couldNotReachOpenFoodFacts": "Impossible de contacter Open Food Facts. Vérifiez votre connexion et réessayez.",
     "couldNotParseOpenFoodFacts": "Impossible d'analyser les données d'Open Food Facts.",
     "productDataProvidedByOpenFoodFacts": "Données produits fournies\npar OpenFoodFacts.org",
+    "openFoodFactsNotFoodProduct": "Ce code-barres correspond à un produit non alimentaire, qui n'est pas couvert par Open Food Facts.",
     "servings": "Portions",
     "addedItemsToShopping": "Articles ajoutés à la liste de courses!",
     "recipe": "Recette",
