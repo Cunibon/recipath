@@ -45,7 +45,10 @@ class _ScannerScreenState extends ConsumerState<ScannerScreen> {
     return checkDigit == digits.last;
   }
 
-  Future<void> checkAddManually(BuildContext context, String barcode) async {
+  Future<GroceryData?> checkAddManually(
+    BuildContext context,
+    String barcode,
+  ) async {
     final localization = AppLocalizations.of(context)!;
 
     OpenFoodFactsAccountData? account = await ref.read(
@@ -64,7 +67,7 @@ class _ScannerScreenState extends ConsumerState<ScannerScreen> {
       );
 
       if (addManually != true) {
-        return;
+        return null;
       }
 
       if (context.mounted) {
@@ -77,7 +80,7 @@ class _ScannerScreenState extends ConsumerState<ScannerScreen> {
     }
 
     if (account == null || !context.mounted) {
-      return;
+      return null;
     }
 
     final data = await showDialog<GroceryData>(
@@ -91,9 +94,43 @@ class _ScannerScreenState extends ConsumerState<ScannerScreen> {
       foodFacts.uploadProduct(account: account, grocery: grocery);
     }
 
-    if (context.mounted) {
-      context.pop(grocery);
+    return grocery;
+  }
+
+  Future<GroceryData?> lookupBarcode(
+    BuildContext context,
+    String barcode,
+  ) async {
+    final localization = AppLocalizations.of(context)!;
+
+    Future<void> showMessage(String message) async {
+      if (context.mounted) {
+        await showDialog<void>(
+          context: context,
+          builder: (context) => InformationDialog(message: message),
+        );
+      }
     }
+
+    try {
+      final gtin = await openFoodFactsMutation.run(ref, barcode);
+
+      if (gtin != null) {
+        return GroceryData.fromGTIN(gtin, id: randomAlphaNumeric(16));
+      }
+
+      await showMessage(localization.couldNotParseOpenFoodFacts);
+    } on OpenFoodFactsProductNotFoundException catch (_) {
+      if (context.mounted) {
+        return checkAddManually(context, barcode);
+      }
+    } on OpenFoodFactsDifferentProductTypeException catch (_) {
+      await showMessage(localization.openFoodFactsNotFoodProduct);
+    } catch (e) {
+      await showMessage(localization.couldNotReachOpenFoodFacts);
+    }
+
+    return null;
   }
 
   @override
@@ -127,46 +164,13 @@ class _ScannerScreenState extends ConsumerState<ScannerScreen> {
                 return;
               }
 
-              try {
-                final gtin = await openFoodFactsMutation.run(ref, barcode);
+              final grocery = await lookupBarcode(context, barcode);
 
-                if (!context.mounted) return;
+              if (!context.mounted) return;
 
-                if (gtin != null) {
-                  context.pop(
-                    GroceryData.fromGTIN(gtin, id: randomAlphaNumeric(16)),
-                  );
-                } else {
-                  await showDialog<void>(
-                    context: context,
-                    builder: (context) => InformationDialog(
-                      message: localization.couldNotParseOpenFoodFacts,
-                    ),
-                  );
-                }
-              } on OpenFoodFactsProductNotFoundException catch (_) {
-                if (context.mounted) {
-                  await checkAddManually(context, barcode);
-                }
-              } on OpenFoodFactsDifferentProductTypeException catch (_) {
-                if (context.mounted) {
-                  await showDialog<void>(
-                    context: context,
-                    builder: (context) => InformationDialog(
-                      message: localization.openFoodFactsNotFoodProduct,
-                    ),
-                  );
-                }
-              } catch (e) {
-                if (context.mounted) {
-                  await showDialog<void>(
-                    context: context,
-                    builder: (context) => InformationDialog(
-                      message: localization.couldNotReachOpenFoodFacts,
-                    ),
-                  );
-                }
-              } finally {
+              if (grocery != null) {
+                context.pop(grocery);
+              } else {
                 openFoodFactsMutation.reset(ref);
               }
             },
