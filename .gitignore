@@ -97,3 +97,6 @@ android/app/build/
 
 # AI live-test tokens
 test/ai/tokens.local.json
+
+# Fetched by scripts/fdroid_prebuild.sh
+/third_party/sqlite/

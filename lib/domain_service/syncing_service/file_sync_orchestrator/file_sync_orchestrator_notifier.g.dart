@@ -49,4 +49,4 @@ final class FileSyncOrchestratorNotifierProvider
 }
 
 String _$fileSyncOrchestratorNotifierHash() =>
-    r'2e1acf437ac5bf96a7c7b6f2832af768cc906044';
+    r'923fd496c15853427b4d89d1d07a17dde5317ecd';

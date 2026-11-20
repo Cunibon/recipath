@@ -35,7 +35,7 @@ dependencies:
   path: ^1.9.1
   duration_picker: ^2.0.0
   fl_chart: ^1.0.0
-  mobile_scanner: ^7.0.1
+  flutter_zxing: ^3.1.1
   http: ^1.4.0
   url_launcher: ^6.3.2
   uuid: ^4.6.0

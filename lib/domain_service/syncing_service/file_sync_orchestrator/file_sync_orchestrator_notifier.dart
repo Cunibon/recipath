@@ -3,7 +3,7 @@ import 'package:recipath/domain_service/syncing_service/file_sync_orchestrator/f
 import 'package:recipath/domain_service/syncing_service/supabase_buckets.dart';
 import 'package:recipath/providers/application_path_provider.dart';
 import 'package:recipath/repos/file/file_repo_notifier.dart';
-import 'package:recipath/widgets/providers/revenue_cat/revenue_pro_notifier.dart';
+import 'package:recipath/widgets/providers/subscription/pro_notifier.dart';
 import 'package:recipath/widgets/providers/supabase/supabase_client_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -16,7 +16,7 @@ Future<FileSyncOrchestrator> fileSyncOrchestratorNotifier(Ref ref) async {
   final supabaseClient = ref.watch(supabaseClientProvider);
   final applicationPath = ref.watch(applicationPathProvider);
 
-  final pro = await ref.watch(revenueProProvider.future);
+  final pro = await ref.watch(proProvider.future);
 
   return FileSyncOrchestrator(
     supabaseClient: supabaseClient,

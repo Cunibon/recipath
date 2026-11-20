@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/experimental/mutation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/domain_service/syncing_service/syncing_service/syncing_service_notifier.dart';
 import 'package:recipath/l10n/app_localizations.dart';
-import 'package:recipath/widgets/providers/revenue_cat/revenue_customer_notifier.dart';
+import 'package:recipath/widgets/providers/subscription/pro_notifier.dart';
 import 'package:recipath/widgets/providers/supabase/supabase_client_notifier.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -59,7 +59,7 @@ class _VerifyResetState extends ConsumerState<VerifyReset> {
 
               if (response.session != null) {
                 await transaction
-                    .get(revenueCustomerProvider.notifier)
+                    .get(proProvider.notifier)
                     .login(response.user!.id);
                 unawaited(transaction.get(syncingServiceProvider).reset());
               }

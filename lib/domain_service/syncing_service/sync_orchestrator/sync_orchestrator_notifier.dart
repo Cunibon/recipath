@@ -25,7 +25,7 @@ import 'package:recipath/repos/recipe_tag/full_recipe_tag_repo_notifier.dart';
 import 'package:recipath/repos/shopping/full_shopping_repo_notifier.dart';
 import 'package:recipath/repos/storage/full_storage_repo_notifier.dart';
 import 'package:recipath/repos/tag/full_tag_repo_notifier.dart';
-import 'package:recipath/widgets/providers/revenue_cat/revenue_pro_notifier.dart';
+import 'package:recipath/widgets/providers/subscription/pro_notifier.dart';
 import 'package:recipath/widgets/providers/supabase/supabase_client_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -33,7 +33,7 @@ part 'sync_orchestrator_notifier.g.dart';
 
 @Riverpod(keepAlive: true)
 Future<SyncOrchestrator> syncOrchestratorNotifier(Ref ref) async {
-  final pro = await ref.watch(revenueProProvider.future);
+  final pro = await ref.watch(proProvider.future);
   final supabaseClient = ref.watch(supabaseClientProvider);
 
   final groceryRepo = ref.watch(fullGroceryRepoProvider);

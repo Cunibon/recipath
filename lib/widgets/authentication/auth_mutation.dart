@@ -1,6 +1,6 @@
 import 'package:bound_mutation/bound_mutation.dart';
 import 'package:recipath/domain_service/syncing_service/syncing_service/syncing_service_notifier.dart';
-import 'package:recipath/widgets/providers/revenue_cat/revenue_customer_notifier.dart';
+import 'package:recipath/widgets/providers/subscription/pro_notifier.dart';
 import 'package:recipath/widgets/providers/supabase/supabase_client_notifier.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -36,9 +36,7 @@ final authMutation = BoundMutation<AuthResponse, AuthInput>((
   }
 
   if (response.session != null) {
-    await transaction
-        .get(revenueCustomerProvider.notifier)
-        .login(response.user!.id);
+    await transaction.get(proProvider.notifier).login(response.user!.id);
     await transaction.get(syncingServiceProvider).reset();
   } else {
     final identities = response.user?.identities;

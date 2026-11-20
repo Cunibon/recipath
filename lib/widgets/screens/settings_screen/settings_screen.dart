@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/navigation/default_navigation_title.dart';
 import 'package:recipath/widgets/navigation/navigation_drawer_scaffold.dart';
+import 'package:recipath/widgets/providers/subscription/subscription_service_notifier.dart';
 import 'package:recipath/widgets/providers/supabase/supabase_user_notifier.dart';
 import 'package:recipath/widgets/screens/settings_screen/appearance/dark_mode_toggle.dart';
 import 'package:recipath/widgets/screens/settings_screen/appearance/locale_picker.dart';
@@ -58,10 +59,11 @@ class SettingsScreen extends ConsumerWidget {
                 ],
               ],
             ),
-            SettingSection(
-              title: localization.subscription,
-              children: [ManageSupscriptionButton()],
-            ),
+            if (ref.watch(subscriptionServiceProvider).purchasesAvailable)
+              SettingSection(
+                title: localization.subscription,
+                children: [ManageSupscriptionButton()],
+              ),
             VersionTag(),
           ],
         ),

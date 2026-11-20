@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_zxing/flutter_zxing.dart';
 import 'package:go_router/go_router.dart';
 import 'package:material_ui/material_ui.dart';
-import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:random_string/random_string.dart';
 import 'package:recipath/data/grocery_data/grocery_data.dart';
 import 'package:recipath/data/open_food_facts_account/open_food_facts_account_data.dart';
@@ -155,10 +155,22 @@ class _ScannerScreenState extends ConsumerState<ScannerScreen> {
       ),
       body: Stack(
         children: [
-          MobileScanner(
-            onDetect: (barcodes) async {
+          ReaderWidget(
+            codeFormat:
+                Format.ean8 |
+                Format.ean13 |
+                Format.upca |
+                Format.upce |
+                Format.itf,
+            cropPercent: 0,
+            showScannerOverlay: false,
+            showFlashlight: false,
+            showToggleCamera: false,
+            showGallery: false,
+            scanDelay: const Duration(milliseconds: 100),
+            onScan: (code) async {
               if (!ref.read(openFoodFactsMutation).isIdle) return;
-              final barcode = barcodes.barcodes.first.rawValue;
+              final barcode = code.text;
 
               if (barcode == null || !isValidGTIN(barcode)) {
                 return;
