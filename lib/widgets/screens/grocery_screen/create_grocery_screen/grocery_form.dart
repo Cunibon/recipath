@@ -252,8 +252,16 @@ class GroceryForm extends ConsumerWidget {
           ),
           if (data.barcode != null)
             TextFormField(
-              decoration: InputDecoration(labelText: "Barcode"),
+              key: ValueKey(data.barcode),
+              decoration: InputDecoration(
+                labelText: "Barcode",
+                suffixIcon: IconButton(
+                  onPressed: () => updateData(data.copyWith(barcode: null)),
+                  icon: Icon(Icons.delete),
+                ),
+              ),
               readOnly: true,
+              initialValue: data.barcode,
             ),
           DoubleInputField(
             controller: kcalController,

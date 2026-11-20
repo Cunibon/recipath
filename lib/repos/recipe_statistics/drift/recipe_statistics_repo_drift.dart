@@ -84,7 +84,7 @@ class RecipeStatisticsRepoDrift extends RecipeStatisticsRepo {
     return {
       for (final row in result)
         row.read<String>('id'): RecipeStatisticData.fromTableData(
-          RecipeStatisticTableData.fromJson(row.data..[uploadedKey] = true),
+          RecipeStatisticTableData.fromJson({...row.data, uploadedKey: true}),
         ),
     }.lock;
   }
@@ -150,16 +150,16 @@ class RecipeStatisticsRepoDrift extends RecipeStatisticsRepo {
     final rows = await db
         .customSelect(
           '''
-    SELECT 
-      rs.${db.recipeStatisticTable.recipeId.name} AS recipeId, 
-      i.${db.ingredientTable.groceryId.name} AS groceryId, 
+    SELECT
+      rs.${db.recipeStatisticTable.recipeId.name} AS recipeId,
+      i.${db.ingredientTable.groceryId.name} AS groceryId,
       i.${db.ingredientTable.unit.name} AS ingredientUnit,
       SUM(
         i.${db.ingredientTable.amount.name} *
         CASE
           WHEN rs.${db.recipeStatisticTable.servings.name} IS NOT NULL
           AND r.${db.recipeTable.servings.name} IS NOT NULL
-          THEN 
+          THEN
             CAST(rs.${db.recipeStatisticTable.servings.name} AS REAL) /
             CAST(r.${db.recipeTable.servings.name} AS REAL)
           ELSE 1
