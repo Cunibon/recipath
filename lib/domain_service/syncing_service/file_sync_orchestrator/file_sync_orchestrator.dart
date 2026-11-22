@@ -2,18 +2,21 @@ import 'dart:io';
 
 import 'package:http/http.dart';
 import 'package:logger/logger.dart';
+import 'package:recipath/domain_service/backend/auth_service/auth_service.dart';
+import 'package:recipath/domain_service/backend/remote_store/remote_store.dart';
 import 'package:recipath/domain_service/syncing_service/file_sync_orchestrator/bucket_repo.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 class FileSyncOrchestrator {
   FileSyncOrchestrator({
-    required this.supabaseClient,
+    required this.remoteStore,
+    required this.authService,
     required this.bucketRepos,
     required this.filePath,
   });
 
-  final SupabaseClient supabaseClient;
+  final RemoteStore remoteStore;
+  final AuthService authService;
 
   final List<BucketRepo> bucketRepos;
   final String filePath;
@@ -21,6 +24,8 @@ class FileSyncOrchestrator {
   final logger = Logger();
 
   Future<int> uploadAll() async {
+    if (authService.currentUser == null) return 0;
+
     int uploaded = 0;
     for (final bucket in bucketRepos) {
       final items = await bucket.repo.getNotUploaded() as List<dynamic>;
@@ -29,17 +34,12 @@ class FileSyncOrchestrator {
         try {
           final file = File("$filePath/${item.fileName}");
 
-          await supabaseClient.storage
-              .from(bucket.bucket)
-              .upload(
-                item.fileName,
-                file,
-                fileOptions: FileOptions(
-                  upsert: true,
-                  contentType: bucket.contentType,
-                  metadata: {'owner_id': supabaseClient.auth.currentUser!.id},
-                ),
-              );
+          await remoteStore.uploadFile(
+            bucket: bucket.bucket,
+            fileName: item.fileName,
+            file: file,
+            contentType: bucket.contentType,
+          );
           await bucket.repo.delete(item.fileName);
           uploaded++;
         } catch (e, s) {

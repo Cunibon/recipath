@@ -4,7 +4,7 @@ import 'package:recipath/domain_service/syncing_service/supabase_tables.dart';
 import 'package:recipath/drift/database.dart';
 
 class StorageSyncRepo extends DeletableDataDownloadRepo {
-  StorageSyncRepo({required super.repo, required super.supabaseClient});
+  StorageSyncRepo({required super.repo, required super.remoteStore});
 
   @override
   String get supabaseTableName => SupabaseTables.storage;

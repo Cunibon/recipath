@@ -4,10 +4,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:recipath/common.dart';
+import 'package:recipath/domain_service/backend/auth_service/auth_failure.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/root_routes.dart';
 import 'package:recipath/widgets/authentication/auth_mutation.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthDialog extends ConsumerStatefulWidget {
   const AuthDialog({required this.isLogin, super.key});
@@ -43,15 +43,13 @@ class _AuthDialogState extends ConsumerState<AuthDialog> {
 
       String errorMessage = localization.somethingWentWrong;
 
-      if (error is AuthApiException) {
-        if (error.code == "invalid_credentials") {
-          errorMessage = localization.couldNotAuthenticate;
-        } else if (error.code == "verification_needed") {
-          errorMessage = localization.verifactionEMailSent;
-        } else if (error.code == "user_already_exists" ||
-            error.code == "email_exists") {
-          errorMessage = localization.userAlreadyExists;
-        }
+      if (error is AuthFailure) {
+        errorMessage = switch (error.reason) {
+          .invalidCredentials => localization.couldNotAuthenticate,
+          .verificationNeeded => localization.verifactionEMailSent,
+          .userAlreadyExists => localization.userAlreadyExists,
+          _ => errorMessage,
+        };
       }
 
       errorWidget = Text(
@@ -147,7 +145,7 @@ class _AuthDialogState extends ConsumerState<AuthDialog> {
             if (formKey.currentState?.validate() == true) {
               TextInput.finishAutofillContext();
 
-              final response = await authMutation.run(
+              await authMutation.run(
                 ref,
                 AuthInput(
                   email: emailController.text,
@@ -156,10 +154,8 @@ class _AuthDialogState extends ConsumerState<AuthDialog> {
                 ),
               );
 
-              if (response.session != null) {
-                if (context.mounted) {
-                  context.pop();
-                }
+              if (context.mounted) {
+                context.pop();
               }
             }
           },

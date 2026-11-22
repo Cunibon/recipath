@@ -1,7 +1,7 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/widgets/navigation/sync_state_button.dart';
-import 'package:recipath/widgets/providers/supabase/supabase_user_notifier.dart';
+import 'package:recipath/widgets/providers/backend/auth_user_notifier.dart';
 
 enum SyncState { synced, unsynced }
 
@@ -19,7 +19,7 @@ class DefaultNavigationTitle extends ConsumerWidget {
     return Row(
       children: [
         Text(title, style: TextTheme.of(context).titleLarge),
-        if (ref.watch(supabaseUserProvider) != null)
+        if (ref.watch(authUserProvider).value != null)
           if (syncState == SyncState.unsynced) SyncStateButton(),
       ],
     );

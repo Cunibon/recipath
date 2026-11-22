@@ -18,7 +18,8 @@ import 'package:recipath/providers/application_path_provider.dart';
 import 'package:recipath/widgets/filtering/filter_type_enum.dart';
 import 'package:recipath/widgets/filtering/quick_filter_enum.dart';
 import 'package:recipath/widgets/providers/locale_notifier.dart';
-import 'package:recipath/widgets/providers/supabase/supabase_user_notifier.dart';
+import 'package:recipath/widgets/providers/backend/auth_user_notifier.dart';
+import 'package:recipath/widgets/providers/backend/backend_config_notifier.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/filtered_grocery_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/bucket_file_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/quick_filter_notifier.dart';
@@ -67,7 +68,8 @@ Future<ScreenshotWorld> setUpScreenshotWorld(
       overrides: [
         databaseProvider.overrideWith((ref) => db),
         applicationPathProvider.overrideWith((ref) => appDir),
-        supabaseUserProvider.overrideWithValue(null),
+        authUserProvider.overrideWithValue(const AsyncData(null)),
+        backendConfigProvider.overrideWithBuild((ref, notifier) => null),
       ],
     );
 

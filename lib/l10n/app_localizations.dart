@@ -356,6 +356,12 @@ abstract class AppLocalizations {
   /// **'Cancel'**
   String get actionCancel;
 
+  /// No description provided for @actionOkay.
+  ///
+  /// In en, this message translates to:
+  /// **'Okay'**
+  String get actionOkay;
+
   /// No description provided for @pick.
   ///
   /// In en, this message translates to:
@@ -1369,6 +1375,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Add manually'**
   String get addManually;
+
+  /// No description provided for @supabaseConfig.
+  ///
+  /// In en, this message translates to:
+  /// **'Supabase Config'**
+  String get supabaseConfig;
+
+  /// No description provided for @supabaseConfigDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect your own Supabase instance to sync your data with a server you host yourself.'**
+  String get supabaseConfigDescription;
+
+  /// No description provided for @supabaseConfigUrl.
+  ///
+  /// In en, this message translates to:
+  /// **'Project URL'**
+  String get supabaseConfigUrl;
+
+  /// No description provided for @supabaseConfigKey.
+  ///
+  /// In en, this message translates to:
+  /// **'Publishable key'**
+  String get supabaseConfigKey;
+
+  /// No description provided for @supabaseConfigUrlInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'The URL must start with https://'**
+  String get supabaseConfigUrlInvalid;
+
+  /// No description provided for @supabaseConfigKeyRejected.
+  ///
+  /// In en, this message translates to:
+  /// **'The server rejected this key'**
+  String get supabaseConfigKeyRejected;
+
+  /// No description provided for @supabaseConfigUnreachable.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not reach a Supabase server at this URL. Please check the URL and your internet connection.'**
+  String get supabaseConfigUnreachable;
+
+  /// No description provided for @supabaseConfigDataLossTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your data will be lost'**
+  String get supabaseConfigDataLossTitle;
+
+  /// No description provided for @supabaseConfigDataLossContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Switching the server signs you out and deletes all data on this device. Export your data first so you can import it again afterwards.'**
+  String get supabaseConfigDataLossContent;
+
+  /// No description provided for @supabaseConfigRemoveTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove server configuration?'**
+  String get supabaseConfigRemoveTitle;
+
+  /// No description provided for @supabaseConfigRemoveContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Your own server will no longer be used. You will be signed out and all data on this device will be deleted. Export your data first so you can import it again afterwards. The change takes effect after restarting the app.'**
+  String get supabaseConfigRemoveContent;
+
+  /// No description provided for @supabaseConfigRestartTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Restart required'**
+  String get supabaseConfigRestartTitle;
+
+  /// No description provided for @supabaseConfigRestartContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Close and reopen the app to apply the new server configuration.'**
+  String get supabaseConfigRestartContent;
+
+  /// No description provided for @supabaseConfigCloseApp.
+  ///
+  /// In en, this message translates to:
+  /// **'Close app'**
+  String get supabaseConfigCloseApp;
 
   /// No description provided for @openFoodFactsAccount.
   ///

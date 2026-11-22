@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:recipath/common.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/root_routes.dart';
-import 'package:recipath/widgets/providers/supabase/supabase_client_notifier.dart';
+import 'package:recipath/domain_service/backend/auth_service/auth_service_notifier.dart';
 
 class ConfirmReset extends ConsumerStatefulWidget {
   const ConfirmReset({required this.onConfirm, super.key});
@@ -60,13 +60,13 @@ class _ConfirmResetState extends ConsumerState<ConfirmReset> {
             ),
             ElevatedButton(
               onPressed: () async {
-                await sendEmailMutation.run(
-                  ref,
-                  (transaction) => transaction
-                      .get(supabaseClientProvider)
-                      .auth
-                      .resetPasswordForEmail(emailController.text),
-                );
+                await sendEmailMutation.run(ref, (transaction) async {
+                  final authService = await transaction.get(
+                    authServiceProvider.future,
+                  );
+
+                  await authService.sendPasswordReset(emailController.text);
+                });
                 widget.onConfirm(emailController.text);
               },
               child: mutationState is MutationPending

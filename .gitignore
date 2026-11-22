@@ -18,10 +18,9 @@ migrate_working_dir/
 *.iws
 .idea/
 
-# The .vscode folder contains launch configuration and tasks you configure in
-# VS Code which you may wish to be included in version control, so this line
-# is commented out by default.
+# The IDE folder contains launch configuration and tasks you configure in
 .vscode/
+.zed/
 
 # Flutter/Dart/Pub related
 **/doc/api/
@@ -97,3 +96,6 @@ android/app/build/
 
 # AI live-test tokens
 test/ai/tokens.local.json
+
+# Fetched by scripts/fdroid_prebuild.sh
+/third_party/sqlite/

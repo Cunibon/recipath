@@ -26,7 +26,7 @@ final class SecureStorageNotifierProvider
         argument: null,
         retry: null,
         name: r'secureStorageProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -55,4 +55,4 @@ final class SecureStorageNotifierProvider
 }
 
 String _$secureStorageNotifierHash() =>
-    r'7d564535186b76f88c7f6f2913663d39533299de';
+    r'8a82d460095d148906997156cc3c0914df3f3946';

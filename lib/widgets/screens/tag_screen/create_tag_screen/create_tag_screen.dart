@@ -1,6 +1,6 @@
-import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:random_string/random_string.dart';
 import 'package:recipath/application/tag_modifier/tag_modifier_notifier.dart';
 import 'package:recipath/common.dart';
@@ -93,12 +93,12 @@ class _CreateTagScreenState extends ConsumerState<CreateTagScreen> {
             if (widget.tagId != null)
               ElevatedButton.icon(
                 onPressed: () async {
-                  final result = await showDialog(
+                  final result = await showDialog<bool>(
                     context: context,
                     builder: (context) => DeleteConfirmationDialog(),
                   );
 
-                  if (context.mounted && result) {
+                  if (context.mounted && result == true) {
                     ref.read(tagModifierProvider).delete(data);
                     context.pop();
                   }

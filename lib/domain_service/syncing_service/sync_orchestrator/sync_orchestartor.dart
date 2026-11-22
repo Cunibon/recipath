@@ -2,21 +2,18 @@ import 'dart:async';
 
 import 'package:http/http.dart';
 import 'package:logger/logger.dart';
+import 'package:recipath/domain_service/backend/auth_service/auth_service.dart';
 import 'package:recipath/domain_service/syncing_service/repos/full_download_result.dart';
 import 'package:recipath/domain_service/syncing_service/repos/sync_repos/abstract/data_sync_repo.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SyncOrchestrator {
-  SyncOrchestrator({
-    required this.syncRepoBatches,
-    required this.supabaseClient,
-  });
+  SyncOrchestrator({required this.syncRepoBatches, required this.authService});
 
   final List<List<DataSyncRepo>> syncRepoBatches;
 
-  final SupabaseClient supabaseClient;
-  bool get loggedIn => supabaseClient.auth.currentUser != null;
+  final AuthService authService;
+  bool get loggedIn => authService.currentUser != null;
 
   final logger = Logger();
 

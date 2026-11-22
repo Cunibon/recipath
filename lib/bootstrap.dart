@@ -1,0 +1,156 @@
+// Copyright (c) 2025 Michael Neufeld
+// Licensed under the MIT License. See LICENSE file in the project root for details.
+
+// ignore_for_file: riverpod_lint/scoped_providers_should_specify_dependencies
+
+import 'dart:async';
+import 'dart:io';
+
+import 'package:app_links/app_links.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/misc.dart';
+import 'package:localstorage/localstorage.dart';
+import 'package:material_ui/material_ui.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:receive_sharing_intent/receive_sharing_intent.dart';
+import 'package:recipath/application/notification_service.dart';
+import 'package:recipath/application_constants.dart';
+import 'package:recipath/domain_service/syncing_service/syncing_service/syncing_service_notifier.dart';
+import 'package:recipath/drift/database.dart';
+import 'package:recipath/drift/database_notifier.dart';
+import 'package:recipath/helper/sentry_provider_observer.dart';
+import 'package:recipath/l10n/app_localizations.dart';
+import 'package:recipath/providers/application_path_provider.dart';
+import 'package:recipath/providers/go_router.dart';
+import 'package:recipath/root_routes.dart';
+import 'package:recipath/widgets/providers/locale_notifier.dart';
+import 'package:recipath/widgets/providers/theme_data_notifier.dart';
+import 'package:recipath/widgets/screens/import_screen/import_routes.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
+
+Future<void> bootstrap({List<Override> overrides = const []}) async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initLocalStorage();
+
+  final isolateDb = await AppDatabase.createIsolate();
+  final db = AppDatabase(await isolateDb.connect());
+
+  final applicationPath = await getApplicationSupportDirectory();
+
+  await initNotifications();
+
+  final app = ProviderScope(
+    overrides: [
+      databaseProvider.overrideWith((ref) => db),
+      applicationPathProvider.overrideWith((ref) => applicationPath),
+      ...overrides,
+    ],
+    observers: [SentryProviderObserver()],
+    child: SentryWidget(child: MyApp()),
+  );
+
+  if (kDebugMode || sentryUrl.isEmpty) {
+    runApp(app);
+  } else {
+    await SentryFlutter.init((options) {
+      options.dsn = sentryUrl;
+    }, appRunner: () => runApp(app));
+  }
+}
+
+class MyApp extends ConsumerStatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  ConsumerState<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
+  late StreamSubscription _intentSub;
+  StreamSubscription? _fileOpenSub;
+
+  void goToImportPath(String path) {
+    if (context.mounted) {
+      ref
+          .read(goRouterProvider)
+          .go(
+            "${RootRoutes.importRoute.path}/${ImportRoutes.recipeImport.path}",
+            extra: path,
+          );
+    }
+  }
+
+  void goToImport(List<SharedMediaFile> value) {
+    if (value.isNotEmpty) {
+      goToImportPath(value.first.path);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    ref.read(syncingServiceProvider);
+
+    _intentSub = ReceiveSharingIntent.instance.getMediaStream().listen(
+      (value) => goToImport(value),
+    );
+
+    ReceiveSharingIntent.instance.getInitialMedia().then((value) {
+      goToImport(value);
+      ReceiveSharingIntent.instance.reset();
+    });
+
+    if (Platform.isIOS) {
+      final appLinks = AppLinks();
+      Uri? lastHandled;
+
+      void handleFileUri(Uri uri) {
+        if (uri.isScheme('file') && uri != lastHandled) {
+          lastHandled = uri;
+          goToImportPath(uri.toFilePath());
+        }
+      }
+
+      _fileOpenSub = appLinks.uriLinkStream.listen(handleFileUri);
+
+      appLinks.getInitialLink().then((uri) {
+        if (uri != null) handleFileUri(uri);
+      });
+    }
+
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.paused ||
+        state == AppLifecycleState.resumed) {
+      ref.read(syncingServiceProvider).sync();
+    }
+  }
+
+  @override
+  void dispose() {
+    _intentSub.cancel();
+    _fileOpenSub?.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final themeData = ref.watch(themeDataProvider);
+    final locale = ref.watch(localeProvider);
+
+    return MaterialApp.router(
+      title: appName,
+      locale: AppLocalizations.supportedLocales.contains(locale)
+          ? locale
+          : Locale('en'),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      routerConfig: ref.watch(goRouterProvider),
+      theme: themeData,
+    );
+  }
+}

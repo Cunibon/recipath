@@ -1,5 +1,5 @@
-import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:recipath/application/quick_shopping_modifier/quick_shopping_modifier_notifier.dart';
 import 'package:recipath/data/quick_shopping_data/quick_shopping_data.dart';
 import 'package:recipath/l10n/app_localizations.dart';
@@ -60,7 +60,7 @@ class QuickShoppingItem extends ConsumerWidget {
                 onPressed: () async {
                   final result = data.done
                       ? true
-                      : await showDialog(
+                      : await showDialog<bool>(
                           context: context,
                           builder: (context) => DeleteConfirmationDialog(),
                         );

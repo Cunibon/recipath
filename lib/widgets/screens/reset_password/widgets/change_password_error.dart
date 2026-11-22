@@ -1,6 +1,6 @@
 import 'package:material_ui/material_ui.dart';
+import 'package:recipath/domain_service/backend/auth_service/auth_failure.dart';
 import 'package:recipath/l10n/app_localizations.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ChangePasswordError extends StatelessWidget {
   const ChangePasswordError({required this.error, super.key});
@@ -14,12 +14,11 @@ class ChangePasswordError extends StatelessWidget {
     final error = this.error;
 
     final errorMessage = switch (error) {
-      AuthException(code: 'same_password') => localization.samePassword,
-      AuthException(code: 'weak_password') => localization.weakPassword,
-      AuthException(code: 'reauthentication_needed') =>
+      AuthFailure(reason: .samePassword) => localization.samePassword,
+      AuthFailure(reason: .weakPassword) => localization.weakPassword,
+      AuthFailure(reason: .reauthenticationNeeded) =>
         localization.reauthenticationNeeded,
-      AuthException(code: 'over_request_rate_limit') ||
-      AuthException(statusCode: '429') => localization.tooManyRequests,
+      AuthFailure(reason: .tooManyRequests) => localization.tooManyRequests,
       _ => localization.somethingWentWrong,
     };
 

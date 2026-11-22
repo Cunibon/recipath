@@ -1,25 +1,26 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:material_ui/material_ui.dart';
-import 'package:purchases_ui_flutter/purchases_ui_flutter.dart';
 import 'package:recipath/l10n/app_localizations.dart';
 import 'package:recipath/widgets/authentication/auth_mutation.dart';
 import 'package:recipath/widgets/authentication/dialogs/auth_dialog.dart';
 import 'package:recipath/widgets/authentication/dialogs/logout_dialog.dart';
 import 'package:recipath/widgets/authentication/reset_state_action.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
-import 'package:recipath/widgets/providers/revenue_cat/revenue_pro_notifier.dart';
-import 'package:recipath/widgets/providers/supabase/supabase_user_notifier.dart';
+import 'package:recipath/widgets/providers/subscription/pro_notifier.dart';
+import 'package:recipath/domain_service/subscription_service/subscription_service_notifier.dart';
+import 'package:recipath/widgets/providers/backend/auth_user_notifier.dart';
 
 class AuthButtons extends ConsumerWidget {
   const AuthButtons({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(supabaseUserProvider);
+    final user = ref.watch(authUserProvider).value;
+    final subscriptionService = ref.watch(subscriptionServiceProvider).value;
     final localization = AppLocalizations.of(context)!;
 
     return CachedAsyncValueWrapper(
-      asyncState: ref.watch(revenueProProvider),
+      asyncState: ref.watch(proProvider),
       builder: (pro) => Column(
         children: [
           if (user == null) ...[
@@ -59,11 +60,13 @@ class AuthButtons extends ConsumerWidget {
                 icon: Icon(Icons.logout),
               ),
             Text(user.email ?? ""),
-            if (!pro)
+            if (!pro &&
+                subscriptionService != null &&
+                subscriptionService.purchasesAvailable)
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ElevatedButton.icon(
-                  onPressed: () => RevenueCatUI.presentPaywall(),
+                  onPressed: subscriptionService.presentPaywall,
                   label: Text(localization.goPro),
                   icon: Icon(Icons.star),
                 ),

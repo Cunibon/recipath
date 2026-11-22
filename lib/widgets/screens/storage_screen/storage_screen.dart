@@ -46,7 +46,7 @@ class _StorageScreenState extends ConsumerState<StorageScreen> {
       actions: [
         IconButton(
           onPressed: () async {
-            final result = await showDialog(
+            final result = await showDialog<bool>(
               context: context,
               builder: (context) => ClearConfirmationDialog(),
             );

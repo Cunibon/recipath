@@ -1,17 +1,17 @@
 import 'package:drift/drift.dart';
 import 'package:recipath/application_constants.dart';
+import 'package:recipath/domain_service/backend/remote_store/remote_store.dart';
 import 'package:recipath/domain_service/syncing_service/repos/download_result.dart';
 import 'package:recipath/domain_service/syncing_service/repos/sync_repos/abstract/sanitize_data_class.dart';
 import 'package:recipath/domain_service/syncing_service/syncing_keys.dart';
 import 'package:recipath/repos/abstract/repo.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class DataSyncRepo {
-  DataSyncRepo({required this.repo, required this.supabaseClient});
+  DataSyncRepo({required this.repo, required this.remoteStore});
   final Repo repo;
 
-  final SupabaseClient supabaseClient;
+  final RemoteStore remoteStore;
 
   String get supabaseTableName;
   TableInfo get driftTable;
@@ -26,7 +26,7 @@ abstract class DataSyncRepo {
 
     try {
       if (toUploadData.isNotEmpty) {
-        await supabaseClient.from(supabaseTableName).upsert(uploadJson);
+        await remoteStore.upsert(supabaseTableName, uploadJson);
       }
     } catch (e) {
       await Sentry.addBreadcrumb(
@@ -43,11 +43,10 @@ abstract class DataSyncRepo {
   }
 
   Future<DownloadResult> download(DateTime lastSync) async {
-    final supabaseData = await supabaseClient
-        .from(supabaseTableName)
-        .select()
-        .gt(SyncingKeys.updatedAtKey, lastSync.toIso8601String())
-        .order(SyncingKeys.updatedAtKey, ascending: true);
+    final supabaseData = await remoteStore.fetchUpdatedSince(
+      supabaseTableName,
+      lastSync,
+    );
 
     for (final data in supabaseData) {
       await repo.db
