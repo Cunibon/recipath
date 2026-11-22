@@ -38,6 +38,10 @@ manifest=android/app/src/main/AndroidManifest.xml
 grep -v 'com.android.vending.BILLING' "$manifest" > "$work_dir/AndroidManifest.xml"
 cp "$work_dir/AndroidManifest.xml" "$manifest"
 
+gradle=android/app/build.gradle.kts
+sed 's/signingConfigs.getByName("debug")/null/' "$gradle" > "$work_dir/build.gradle.kts"
+cp "$work_dir/build.gradle.kts" "$gradle"
+
 if ! grep -q '^hooks:' pubspec.yaml; then
   cat >> pubspec.yaml <<EOF
 

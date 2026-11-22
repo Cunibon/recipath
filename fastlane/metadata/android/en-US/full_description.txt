@@ -1,0 +1,18 @@
+ReciPath is a local-first recipe app. Recipes turn into shopping lists, ticked-off items land in your storage, and cooked recipes feed a dashboard. Everything is stored in a local database on your device; no account is needed.
+
+<b>Features</b>
+
+* <b>Recipes</b>: steps with their own ingredients, images, tags and per-step timers.
+* <b>Shopping</b>: plan a trip by picking recipes, or add single items with quick shopping. Tick things off as you go.
+* <b>Storage</b>: ticked-off items land in your storage. Recipes and the shopping list highlight what you already have.
+* <b>Tags and filters</b>: tag recipes and groceries, then filter and search recipes, groceries, shopping and storage.
+* <b>Barcode scan</b>: fill in grocery data and nutriments from Open Food Facts. Connect your Open Food Facts account to contribute missing products.
+* <b>Share and export</b>: share recipes as .recipath files or PDF, and export or import all your data as a file.
+* <b>Charts</b>: what you cooked, which ingredients it took and how many calories that was.
+
+<b>Optional online features</b>
+
+* <b>Sync</b>: connect your own Supabase instance under Settings to sync your data between devices. The schema is in the source repository. This build has no default server and no subscription.
+* <b>AI import</b>: import recipes from a URL or a photo with your own API key for Google Gemini, Anthropic Claude, Mistral, Moonshot Kimi or OpenAI. Nothing is sent unless you add a key and start an import.
+
+Available in English, German, Spanish and French.
