@@ -7,25 +7,17 @@ import 'package:recipath/repos/abstract/local_repo.dart';
 abstract class DeletableDataDownloadRepo extends DataSyncRepo {
   DeletableDataDownloadRepo({
     required LocalRepo repo,
-    required super.supabaseClient,
+    required super.remoteStore,
   }) : super(repo: repo);
 
   String getDeletedId(Map<String, dynamic> data);
 
   @override
   Future<DownloadResult> download(DateTime lastSync) async {
-    var supabaseQuery = supabaseClient
-        .from(supabaseTableName)
-        .select()
-        .gt(SyncingKeys.updatedAtKey, lastSync.toIso8601String());
-
-    if (lastSync == DateTime.fromMicrosecondsSinceEpoch(0)) {
-      supabaseQuery = supabaseQuery.eq(SyncingKeys.deleted, false);
-    }
-
-    final supabaseData = await supabaseQuery.order(
-      SyncingKeys.updatedAtKey,
-      ascending: true,
+    final supabaseData = await remoteStore.fetchUpdatedSince(
+      supabaseTableName,
+      lastSync,
+      excludeDeleted: lastSync == DateTime.fromMicrosecondsSinceEpoch(0),
     );
 
     for (final data in supabaseData) {

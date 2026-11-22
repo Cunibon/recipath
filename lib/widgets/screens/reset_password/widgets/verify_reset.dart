@@ -4,10 +4,10 @@ import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/experimental/mutation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipath/domain_service/syncing_service/syncing_service/syncing_service_notifier.dart';
+import 'package:recipath/domain_service/backend/auth_service/auth_user.dart';
 import 'package:recipath/l10n/app_localizations.dart';
+import 'package:recipath/domain_service/backend/auth_service/auth_service_notifier.dart';
 import 'package:recipath/widgets/providers/subscription/pro_notifier.dart';
-import 'package:recipath/widgets/providers/supabase/supabase_client_notifier.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 class VerifyReset extends ConsumerStatefulWidget {
   const VerifyReset({required this.email, required this.onConfirm, super.key});
@@ -20,7 +20,7 @@ class VerifyReset extends ConsumerStatefulWidget {
 }
 
 class _VerifyResetState extends ConsumerState<VerifyReset> {
-  final optAuthMutation = Mutation<AuthResponse>();
+  final optAuthMutation = Mutation<AuthUser?>();
 
   final otpController = TextEditingController();
 
@@ -45,29 +45,24 @@ class _VerifyResetState extends ConsumerState<VerifyReset> {
         ),
         ElevatedButton(
           onPressed: () async {
-            final response = await optAuthMutation.run(ref, (
-              transaction,
-            ) async {
-              final response = await transaction
-                  .get(supabaseClientProvider)
-                  .auth
-                  .verifyOTP(
-                    email: widget.email,
-                    token: otpController.text.trim(),
-                    type: OtpType.recovery,
-                  );
+            final user = await optAuthMutation.run(ref, (transaction) async {
+              final authService = await transaction.get(
+                authServiceProvider.future,
+              );
+              final user = await authService.verifyPasswordReset(
+                email: widget.email,
+                token: otpController.text.trim(),
+              );
 
-              if (response.session != null) {
-                await transaction
-                    .get(proProvider.notifier)
-                    .login(response.user!.id);
+              if (user != null) {
+                await transaction.get(proProvider.notifier).login(user.id);
                 unawaited(transaction.get(syncingServiceProvider).reset());
               }
 
-              return response;
+              return user;
             });
 
-            if (response.session != null) {
+            if (user != null) {
               widget.onConfirm();
             }
           },

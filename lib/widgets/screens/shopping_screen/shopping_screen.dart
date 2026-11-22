@@ -77,7 +77,7 @@ class _ShoppingScreenState extends ConsumerState<ShoppingScreen> {
       actions: [
         IconButton(
           onPressed: () async {
-            final result = await showDialog(
+            final result = await showDialog<bool>(
               context: context,
               builder: (context) => ClearConfirmationDialog(),
             );

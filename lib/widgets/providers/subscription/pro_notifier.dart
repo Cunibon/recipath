@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:recipath/widgets/providers/subscription/subscription_service_notifier.dart';
+import 'package:recipath/domain_service/subscription_service/subscription_service_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'pro_notifier.g.dart';
@@ -8,8 +8,8 @@ part 'pro_notifier.g.dart';
 @Riverpod(keepAlive: true)
 class ProNotifier extends _$ProNotifier {
   @override
-  Future<bool> build() {
-    final service = ref.watch(subscriptionServiceProvider);
+  Future<bool> build() async {
+    final service = await ref.watch(subscriptionServiceProvider.future);
 
     final subscription = service.proChanges.listen(
       (pro) => state = AsyncValue.data(pro),
@@ -20,7 +20,8 @@ class ProNotifier extends _$ProNotifier {
   }
 
   Future<void> login(String userId) async {
-    final pro = await ref.read(subscriptionServiceProvider).logIn(userId);
+    final service = await ref.read(subscriptionServiceProvider.future);
+    final pro = await service.logIn(userId);
     state = AsyncValue.data(pro);
   }
 }

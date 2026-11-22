@@ -20,18 +20,14 @@ class OpenFoodFactsAccountDialog extends ConsumerStatefulWidget {
 class _OpenFoodFactsAccountDialogState
     extends ConsumerState<OpenFoodFactsAccountDialog> {
   final formKey = GlobalKey<FormState>();
-  late final TextEditingController usernameController;
-  late final TextEditingController passwordController;
+  final usernameController = TextEditingController();
+  final passwordController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    usernameController = TextEditingController(
-      text: widget.accountData?.username ?? '',
-    );
-    passwordController = TextEditingController(
-      text: widget.accountData?.password ?? '',
-    );
+    usernameController.text = widget.accountData?.username ?? '';
+    passwordController.text = widget.accountData?.password ?? '';
   }
 
   @override
@@ -69,58 +65,63 @@ class _OpenFoodFactsAccountDialogState
       content: SingleChildScrollView(
         child: Form(
           key: formKey,
-          child: Column(
-            spacing: 12,
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                localization.openFoodFactsAccountDescription,
-                style: TextTheme.of(context).bodyMedium,
-              ),
-              TextFormField(
-                controller: usernameController,
-                decoration: InputDecoration(
-                  labelText: localization.username,
-                  prefixIcon: const Icon(Icons.person),
-                ),
-                validator: (value) {
-                  if (value == null || value.trim().isEmpty) {
-                    return localization.addUsername;
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
-                controller: passwordController,
-                obscureText: true,
-                decoration: InputDecoration(
-                  labelText: localization.password,
-                  prefixIcon: const Icon(Icons.lock),
-                ),
-                validator: (value) {
-                  if (value == null || value.trim().isEmpty) {
-                    return localization.addPassword;
-                  }
-                  return null;
-                },
-              ),
-              if (credentialsState case MutationError(:final error))
+          child: AutofillGroup(
+            onDisposeAction: AutofillContextAction.cancel,
+            child: Column(
+              spacing: 12,
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
                 Text(
-                  error is OpenFoodFactsInvalidCredentialsException
-                      ? localization.openFoodFactsCredentialsInvalid
-                      : localization.openFoodFactsCredentialsCheckFailed,
-                  style: TextTheme.of(
-                    context,
-                  ).bodyMedium?.copyWith(color: ColorScheme.of(context).error),
+                  localization.openFoodFactsAccountDescription,
+                  style: TextTheme.of(context).bodyMedium,
                 ),
-              TextButton(
-                onPressed: () => launchUrl(
-                  Uri.parse('https://world.openfoodfacts.org/cgi/user.pl'),
+                TextFormField(
+                  controller: usernameController,
+                  autofillHints: const [AutofillHints.username],
+                  decoration: InputDecoration(
+                    labelText: localization.username,
+                    prefixIcon: const Icon(Icons.person),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return localization.addUsername;
+                    }
+                    return null;
+                  },
                 ),
-                child: Text(localization.registerOnOpenFoodFacts),
-              ),
-            ],
+                TextFormField(
+                  controller: passwordController,
+                  obscureText: true,
+                  autofillHints: const [AutofillHints.password],
+                  decoration: InputDecoration(
+                    labelText: localization.password,
+                    prefixIcon: const Icon(Icons.lock),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return localization.addPassword;
+                    }
+                    return null;
+                  },
+                ),
+                if (credentialsState case MutationError(:final error))
+                  Text(
+                    error is OpenFoodFactsInvalidCredentialsException
+                        ? localization.openFoodFactsCredentialsInvalid
+                        : localization.openFoodFactsCredentialsCheckFailed,
+                    style: TextTheme.of(context).bodyMedium?.copyWith(
+                      color: ColorScheme.of(context).error,
+                    ),
+                  ),
+                TextButton(
+                  onPressed: () => launchUrl(
+                    Uri.parse('https://world.openfoodfacts.org/cgi/user.pl'),
+                  ),
+                  child: Text(localization.registerOnOpenFoodFacts),
+                ),
+              ],
+            ),
           ),
         ),
       ),

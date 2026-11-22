@@ -33,7 +33,7 @@ final class ProNotifierProvider
   ProNotifier create() => ProNotifier();
 }
 
-String _$proNotifierHash() => r'7454d26c8ac55e9cdb7a4233dc9006d9db43e187';
+String _$proNotifierHash() => r'646ba39ec0af746fd749a98d85b6f1689abd9056';
 
 abstract class _$ProNotifier extends $AsyncNotifier<bool> {
   FutureOr<bool> build();

@@ -154,6 +154,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get actionCancel => 'Abbrechen';
 
   @override
+  String get actionOkay => 'Okay';
+
+  @override
   String get pick => 'Auswählen';
 
   @override
@@ -306,7 +309,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get couldNotReachOpenFoodFacts =>
-      'OpenFoodFacts konnte nicht erreicht werden. Bitte überprüfe deine Verbindung und versuche es erneut.';
+      'OpenFoodFacts konnte nicht erreicht werden. Bitte überprüfen Sie Ihre Verbindung und versuchen Sie es erneut.';
 
   @override
   String get couldNotParseOpenFoodFacts =>
@@ -556,30 +559,31 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get cookRecipeForDataHint =>
-      'Koche ein Rezept, um mit der Datenerfassung zu beginnen';
+      'Kochen Sie ein Rezept, um mit der Datenerfassung zu beginnen';
 
   @override
   String get shopRecipeForDataHint =>
-      'Kaufe ein Rezept, um mit der Datenerfassung zu beginnen';
+      'Kaufen Sie ein Rezept, um mit der Datenerfassung zu beginnen';
 
   @override
   String get createRecipeHint =>
-      'Erstelle oder importiere ein Rezept, um loszulegen';
+      'Erstellen oder importieren Sie ein Rezept, um loszulegen';
 
   @override
   String get shoppingHint =>
-      'Nutze den Einkaufsmodus auf der Rezepte-Seite oder füge einzelne Zutaten hinzu';
+      'Nutzen Sie den Einkaufsmodus auf der Rezepte-Seite oder fügen Sie einzelne Zutaten hinzu';
 
   @override
   String get createGroceryHint =>
-      'Erstelle oder importiere Zutaten für deine Rezepte';
+      'Erstellen oder importieren Sie Zutaten für Ihre Rezepte';
 
   @override
-  String get storageHint => 'Kaufe Zutaten, um sie deinem Vorrat hinzuzufügen';
+  String get storageHint =>
+      'Kaufen Sie Zutaten, um sie Ihrem Vorrat hinzuzufügen';
 
   @override
   String get createTagHint =>
-      'Erstelle Tags, um deine Rezepte zu organisieren und zu filtern';
+      'Erstellen Sie Tags, um Ihre Rezepte zu organisieren und zu filtern';
 
   @override
   String get goPro => 'Go Pro';
@@ -693,17 +697,65 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get addManuallyAndContribute =>
-      'Produkt wurde nicht gefunden. Möchtest du die Details manuell eingeben und zu Open Food Facts beitragen?';
+      'Produkt wurde nicht gefunden. Möchten Sie die Details manuell eingeben und zu Open Food Facts beitragen?';
 
   @override
   String get addManually => 'Manuell hinzufügen';
+
+  @override
+  String get supabaseConfig => 'Supabase-Konfiguration';
+
+  @override
+  String get supabaseConfigDescription =>
+      'Verbinden Sie Ihre eigene Supabase-Instanz, um Ihre Daten mit einem selbst gehosteten Server zu synchronisieren.';
+
+  @override
+  String get supabaseConfigUrl => 'Projekt-URL';
+
+  @override
+  String get supabaseConfigKey => 'Publishable Key';
+
+  @override
+  String get supabaseConfigUrlInvalid => 'Die URL muss mit https:// beginnen';
+
+  @override
+  String get supabaseConfigKeyRejected =>
+      'Der Server hat diesen Schlüssel abgelehnt';
+
+  @override
+  String get supabaseConfigUnreachable =>
+      'Unter dieser URL konnte kein Supabase-Server erreicht werden. Bitte überprüfen Sie die URL und Ihre Internetverbindung.';
+
+  @override
+  String get supabaseConfigDataLossTitle => 'Ihre Daten gehen verloren';
+
+  @override
+  String get supabaseConfigDataLossContent =>
+      'Beim Wechsel des Servers werden Sie abgemeldet und alle Daten auf diesem Gerät werden gelöscht. Exportieren Sie Ihre Daten vorher, damit Sie sie danach wieder importieren können.';
+
+  @override
+  String get supabaseConfigRemoveTitle => 'Serverkonfiguration entfernen?';
+
+  @override
+  String get supabaseConfigRemoveContent =>
+      'Ihr eigener Server wird nicht mehr verwendet. Sie werden abgemeldet und alle Daten auf diesem Gerät werden gelöscht. Exportieren Sie Ihre Daten vorher, damit Sie sie danach wieder importieren können. Die Änderung wird nach einem Neustart der App wirksam.';
+
+  @override
+  String get supabaseConfigRestartTitle => 'Neustart erforderlich';
+
+  @override
+  String get supabaseConfigRestartContent =>
+      'Schließen Sie die App und öffnen Sie sie erneut, um die neue Serverkonfiguration zu übernehmen.';
+
+  @override
+  String get supabaseConfigCloseApp => 'App schließen';
 
   @override
   String get openFoodFactsAccount => 'Open Food Facts-Konto';
 
   @override
   String get openFoodFactsAccountDescription =>
-      'Verbinde dein Open Food Facts-Konto, um Produkte zur öffentlichen Datenbank beizutragen';
+      'Verbinden Sie Ihr Open Food Facts-Konto, um Produkte zur öffentlichen Datenbank beizutragen';
 
   @override
   String get openFoodFactsCredentialsInvalid =>
@@ -711,7 +763,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get openFoodFactsCredentialsCheckFailed =>
-      'Zugangsdaten konnten nicht überprüft werden. Bitte überprüfe deine Internetverbindung und versuche es erneut';
+      'Zugangsdaten konnten nicht überprüft werden. Bitte überprüfen Sie Ihre Internetverbindung und versuchen Sie es erneut';
 
   @override
   String get registerOnOpenFoodFacts =>

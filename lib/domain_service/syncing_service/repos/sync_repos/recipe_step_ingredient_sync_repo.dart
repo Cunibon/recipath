@@ -5,7 +5,7 @@ import 'package:recipath/drift/database.dart';
 class RecipeStepIngredientSyncRepo extends DataSyncRepo {
   RecipeStepIngredientSyncRepo({
     required super.repo,
-    required super.supabaseClient,
+    required super.remoteStore,
   });
 
   @override

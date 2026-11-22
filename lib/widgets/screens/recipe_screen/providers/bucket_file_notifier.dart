@@ -1,6 +1,7 @@
 import 'dart:io';
 
-import 'package:recipath/widgets/providers/supabase/supabase_client_notifier.dart';
+import 'package:recipath/widgets/providers/backend/backend_config_notifier.dart';
+import 'package:recipath/domain_service/backend/remote_store/remote_store_notifier.dart';
 import 'package:recipath/widgets/screens/recipe_screen/providers/local_file_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
@@ -15,13 +16,16 @@ Future<File> bucketFileNotifier(
 }) async {
   final file = ref.watch(localFileProvider(fileName));
 
-  if (!(await file.exists())) {
-    final supabaseClient = ref.watch(supabaseClientProvider);
+  final backendConfig = await ref.watch(backendConfigProvider.future);
+
+  if (backendConfig != null && !(await file.exists())) {
+    final remoteStore = await ref.watch(remoteStoreProvider.future);
 
     try {
-      final fileBytes = await supabaseClient.storage
-          .from(bucket)
-          .download(fileName);
+      final fileBytes = await remoteStore.downloadFile(
+        bucket: bucket,
+        fileName: fileName,
+      );
 
       await file.writeAsBytes(fileBytes);
     } catch (e) {

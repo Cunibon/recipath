@@ -11,7 +11,7 @@ class FinishExport extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return IconButton(
       onPressed: () async {
-        final result = await showDialog(
+        final result = await showDialog<bool>(
           context: context,
           builder: (context) => FinishExportDialog(),
         );

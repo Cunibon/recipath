@@ -3,7 +3,7 @@ import 'package:recipath/domain_service/syncing_service/supabase_tables.dart';
 import 'package:recipath/drift/database.dart';
 
 class RecipeShoppingSyncRepo extends DataSyncRepo {
-  RecipeShoppingSyncRepo({required super.repo, required super.supabaseClient});
+  RecipeShoppingSyncRepo({required super.repo, required super.remoteStore});
 
   @override
   String get supabaseTableName => SupabaseTables.recipeShopping;

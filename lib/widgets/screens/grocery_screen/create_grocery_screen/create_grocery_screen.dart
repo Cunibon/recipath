@@ -178,12 +178,12 @@ class _CreateGroceryScreen extends ConsumerState<CreateGroceryScreen> {
                   }
 
                   if (context.mounted) {
-                    final result = await showDialog(
+                    final result = await showDialog<bool>(
                       context: context,
                       builder: (context) => DeleteConfirmationDialog(),
                     );
 
-                    if (context.mounted && result) {
+                    if (context.mounted && result == true) {
                       tsx.get(groceryModifierProvider).archive(data);
                       context.pop();
                     }

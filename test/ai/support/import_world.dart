@@ -15,7 +15,8 @@ import 'package:recipath/drift/database_notifier.dart';
 import 'package:recipath/providers/application_path_provider.dart';
 import 'package:recipath/widgets/providers/ai/ai_provider_notifier.dart';
 import 'package:recipath/widgets/providers/locale_notifier.dart';
-import 'package:recipath/widgets/providers/supabase/supabase_user_notifier.dart';
+import 'package:recipath/widgets/providers/backend/auth_user_notifier.dart';
+import 'package:recipath/widgets/providers/backend/backend_config_notifier.dart';
 import 'package:recipath/widgets/screens/grocery_screen/providers/grocery_notifier.dart';
 import 'package:recipath/widgets/screens/tag_screen/providers/tag_by_type_notifier.dart';
 import 'package:recipath/widgets/screens/tag_screen/providers/tag_notifier.dart';
@@ -67,7 +68,8 @@ class ImportWorld {
       overrides: [
         databaseProvider.overrideWith((ref) => db),
         applicationPathProvider.overrideWith((ref) => appDir),
-        supabaseUserProvider.overrideWithValue(null),
+        authUserProvider.overrideWithValue(const AsyncData(null)),
+        backendConfigProvider.overrideWithBuild((ref, notifier) => null),
         aiProviderProvider.overrideWith(
           () =>
               StubAiProvider(AiProviderData(token: token, provider: provider)),

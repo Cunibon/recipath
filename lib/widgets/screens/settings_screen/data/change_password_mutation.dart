@@ -1,12 +1,11 @@
 import 'package:bound_mutation/bound_mutation.dart';
-import 'package:recipath/widgets/providers/supabase/supabase_client_notifier.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:recipath/domain_service/backend/auth_service/auth_service_notifier.dart';
 
-final changePasswordMutation = BoundMutation<UserResponse, String>((
+final changePasswordMutation = BoundMutation<void, String>((
   transaction,
   input,
 ) async {
-  final supabaseClient = transaction.get(supabaseClientProvider);
+  final authService = await transaction.get(authServiceProvider.future);
 
-  return await supabaseClient.auth.updateUser(UserAttributes(password: input));
+  await authService.changePassword(input);
 });

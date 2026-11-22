@@ -7,16 +7,16 @@ import 'package:recipath/widgets/authentication/dialogs/logout_dialog.dart';
 import 'package:recipath/widgets/authentication/reset_state_action.dart';
 import 'package:recipath/widgets/generic/cached_async_value_wrapper.dart';
 import 'package:recipath/widgets/providers/subscription/pro_notifier.dart';
-import 'package:recipath/widgets/providers/subscription/subscription_service_notifier.dart';
-import 'package:recipath/widgets/providers/supabase/supabase_user_notifier.dart';
+import 'package:recipath/domain_service/subscription_service/subscription_service_notifier.dart';
+import 'package:recipath/widgets/providers/backend/auth_user_notifier.dart';
 
 class AuthButtons extends ConsumerWidget {
   const AuthButtons({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(supabaseUserProvider);
-    final subscriptionService = ref.watch(subscriptionServiceProvider);
+    final user = ref.watch(authUserProvider).value;
+    final subscriptionService = ref.watch(subscriptionServiceProvider).value;
     final localization = AppLocalizations.of(context)!;
 
     return CachedAsyncValueWrapper(
@@ -60,7 +60,9 @@ class AuthButtons extends ConsumerWidget {
                 icon: Icon(Icons.logout),
               ),
             Text(user.email ?? ""),
-            if (!pro && subscriptionService.purchasesAvailable)
+            if (!pro &&
+                subscriptionService != null &&
+                subscriptionService.purchasesAvailable)
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ElevatedButton.icon(

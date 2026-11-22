@@ -155,6 +155,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get actionCancel => 'Annuler';
 
   @override
+  String get actionOkay => 'OK';
+
+  @override
   String get pick => 'Choisir';
 
   @override
@@ -700,6 +703,54 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get addManually => 'Ajouter manuellement';
+
+  @override
+  String get supabaseConfig => 'Configuration Supabase';
+
+  @override
+  String get supabaseConfigDescription =>
+      'Connectez votre propre instance Supabase pour synchroniser vos données avec un serveur que vous hébergez vous-même.';
+
+  @override
+  String get supabaseConfigUrl => 'URL du projet';
+
+  @override
+  String get supabaseConfigKey => 'Clé publiable';
+
+  @override
+  String get supabaseConfigUrlInvalid => 'L\'URL doit commencer par https://';
+
+  @override
+  String get supabaseConfigKeyRejected => 'Le serveur a refusé cette clé';
+
+  @override
+  String get supabaseConfigUnreachable =>
+      'Impossible de joindre un serveur Supabase à cette URL. Vérifiez l\'URL et votre connexion Internet.';
+
+  @override
+  String get supabaseConfigDataLossTitle => 'Vos données seront perdues';
+
+  @override
+  String get supabaseConfigDataLossContent =>
+      'Changer de serveur vous déconnecte et supprime toutes les données de cet appareil. Exportez d\'abord vos données afin de pouvoir les réimporter ensuite.';
+
+  @override
+  String get supabaseConfigRemoveTitle =>
+      'Supprimer la configuration du serveur ?';
+
+  @override
+  String get supabaseConfigRemoveContent =>
+      'Votre propre serveur ne sera plus utilisé. Vous serez déconnecté et toutes les données de cet appareil seront supprimées. Exportez d\'abord vos données afin de pouvoir les réimporter ensuite. Le changement prendra effet après le redémarrage de l\'application.';
+
+  @override
+  String get supabaseConfigRestartTitle => 'Redémarrage requis';
+
+  @override
+  String get supabaseConfigRestartContent =>
+      'Fermez puis rouvrez l\'application pour appliquer la nouvelle configuration du serveur.';
+
+  @override
+  String get supabaseConfigCloseApp => 'Fermer l\'application';
 
   @override
   String get openFoodFactsAccount => 'Compte Open Food Facts';

@@ -1,5 +1,5 @@
-import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:random_string/random_string.dart';
 import 'package:recipath/application/shopping_modifier/shopping_modifier_notifier.dart';
 import 'package:recipath/application/storage_modifier/storage_modifier_notifier.dart';
@@ -117,7 +117,7 @@ class ShoppingItem extends ConsumerWidget {
                 onPressed: () async {
                   final result = data.done
                       ? true
-                      : await showDialog(
+                      : await showDialog<bool>(
                           context: context,
                           builder: (context) => DeleteConfirmationDialog(),
                         );

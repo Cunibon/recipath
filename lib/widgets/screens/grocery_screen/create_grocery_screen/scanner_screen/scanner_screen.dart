@@ -71,7 +71,7 @@ class _ScannerScreenState extends ConsumerState<ScannerScreen> {
       }
 
       if (context.mounted) {
-        account = await showDialog(
+        account = await showDialog<OpenFoodFactsAccountData>(
           context: context,
           builder: (context) =>
               OpenFoodFactsAccountDialog(accountData: account),

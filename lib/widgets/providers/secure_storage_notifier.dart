@@ -3,5 +3,5 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'secure_storage_notifier.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 FlutterSecureStorage secureStorageNotifier(Ref ref) => FlutterSecureStorage();

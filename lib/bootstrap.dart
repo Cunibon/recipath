@@ -9,13 +9,13 @@ import 'dart:io';
 import 'package:app_links/app_links.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/misc.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:receive_sharing_intent/receive_sharing_intent.dart';
 import 'package:recipath/application/notification_service.dart';
 import 'package:recipath/application_constants.dart';
-import 'package:recipath/domain_service/subscription_service/subscription_service.dart';
 import 'package:recipath/domain_service/syncing_service/syncing_service/syncing_service_notifier.dart';
 import 'package:recipath/drift/database.dart';
 import 'package:recipath/drift/database_notifier.dart';
@@ -25,16 +25,11 @@ import 'package:recipath/providers/application_path_provider.dart';
 import 'package:recipath/providers/go_router.dart';
 import 'package:recipath/root_routes.dart';
 import 'package:recipath/widgets/providers/locale_notifier.dart';
-import 'package:recipath/widgets/providers/subscription/subscription_service_notifier.dart';
 import 'package:recipath/widgets/providers/theme_data_notifier.dart';
 import 'package:recipath/widgets/screens/import_screen/import_routes.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
-Future<void> bootstrap({
-  required Future<SubscriptionService> Function(String? userId)
-  createSubscriptionService,
-}) async {
+Future<void> bootstrap({List<Override> overrides = const []}) async {
   WidgetsFlutterBinding.ensureInitialized();
   await initLocalStorage();
 
@@ -43,25 +38,19 @@ Future<void> bootstrap({
 
   final applicationPath = await getApplicationSupportDirectory();
 
-  await Supabase.initialize(url: supabaseUrl, publishableKey: supabaseKey);
-
-  final subscriptionService = await createSubscriptionService(
-    Supabase.instance.client.auth.currentUser?.id,
-  );
-
   await initNotifications();
 
   final app = ProviderScope(
     overrides: [
       databaseProvider.overrideWith((ref) => db),
       applicationPathProvider.overrideWith((ref) => applicationPath),
-      subscriptionServiceProvider.overrideWith((ref) => subscriptionService),
+      ...overrides,
     ],
     observers: [SentryProviderObserver()],
     child: SentryWidget(child: MyApp()),
   );
 
-  if (kDebugMode) {
+  if (kDebugMode || sentryUrl.isEmpty) {
     runApp(app);
   } else {
     await SentryFlutter.init((options) {

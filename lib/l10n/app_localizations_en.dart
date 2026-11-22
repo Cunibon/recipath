@@ -151,6 +151,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get actionCancel => 'Cancel';
 
   @override
+  String get actionOkay => 'Okay';
+
+  @override
   String get pick => 'Pick';
 
   @override
@@ -688,6 +691,53 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get addManually => 'Add manually';
+
+  @override
+  String get supabaseConfig => 'Supabase Config';
+
+  @override
+  String get supabaseConfigDescription =>
+      'Connect your own Supabase instance to sync your data with a server you host yourself.';
+
+  @override
+  String get supabaseConfigUrl => 'Project URL';
+
+  @override
+  String get supabaseConfigKey => 'Publishable key';
+
+  @override
+  String get supabaseConfigUrlInvalid => 'The URL must start with https://';
+
+  @override
+  String get supabaseConfigKeyRejected => 'The server rejected this key';
+
+  @override
+  String get supabaseConfigUnreachable =>
+      'Could not reach a Supabase server at this URL. Please check the URL and your internet connection.';
+
+  @override
+  String get supabaseConfigDataLossTitle => 'Your data will be lost';
+
+  @override
+  String get supabaseConfigDataLossContent =>
+      'Switching the server signs you out and deletes all data on this device. Export your data first so you can import it again afterwards.';
+
+  @override
+  String get supabaseConfigRemoveTitle => 'Remove server configuration?';
+
+  @override
+  String get supabaseConfigRemoveContent =>
+      'Your own server will no longer be used. You will be signed out and all data on this device will be deleted. Export your data first so you can import it again afterwards. The change takes effect after restarting the app.';
+
+  @override
+  String get supabaseConfigRestartTitle => 'Restart required';
+
+  @override
+  String get supabaseConfigRestartContent =>
+      'Close and reopen the app to apply the new server configuration.';
+
+  @override
+  String get supabaseConfigCloseApp => 'Close app';
 
   @override
   String get openFoodFactsAccount => 'Open Food Facts account';
