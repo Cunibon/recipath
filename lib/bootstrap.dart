@@ -147,7 +147,10 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
       locale: AppLocalizations.supportedLocales.contains(locale)
           ? locale
           : Locale('en'),
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      localizationsDelegates: [
+        AppLocalizations.delegate,
+        ...GlobalMaterialLocalizations.delegates,
+      ],
       supportedLocales: AppLocalizations.supportedLocales,
       routerConfig: ref.watch(goRouterProvider),
       theme: themeData,

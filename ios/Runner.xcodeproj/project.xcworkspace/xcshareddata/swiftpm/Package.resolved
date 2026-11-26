@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/RevenueCat/purchases-hybrid-common.git",
       "state" : {
-        "revision" : "82c71383d54f8a4aa1d8ed2f1a40ee5d62da5859",
-        "version" : "20.9.0"
+        "revision" : "c74f91e3e0bb1bfcec2f327b62df8e1fcee5c0f5",
+        "version" : "20.10.0"
       }
     },
     {
@@ -23,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/RevenueCat/purchases-ios-spm",
       "state" : {
-        "revision" : "7276de1d6f8b2cd1fe184c1239a6389a53383600",
-        "version" : "5.103.0"
+        "revision" : "5f7c6a01399038a20fe568d4c68db66b55865f6c",
+        "version" : "5.103.1"
       }
     },
     {
@@ -50,8 +50,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/getsentry/sentry-apple-binaries",
       "state" : {
-        "revision" : "3f13fd5a82e98dda7a4498dcd84b49d0a38cbdb4",
-        "version" : "9.34.0"
+        "revision" : "8851964e4f4dbabb6b986c5f4c9b8f8996ed2842",
+        "version" : "9.35.0"
       }
     }
   ],

@@ -80,7 +80,10 @@ MaterialApp recipathMaterialApp({
     routerConfig: router,
     theme: theme,
     locale: const Locale('en'),
-    localizationsDelegates: AppLocalizations.localizationsDelegates,
+    localizationsDelegates: [
+      AppLocalizations.delegate,
+      ...GlobalMaterialLocalizations.delegates,
+    ],
     supportedLocales: AppLocalizations.supportedLocales,
     builder: device == null
         ? null
