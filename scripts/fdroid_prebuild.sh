@@ -34,6 +34,9 @@ cp "$work_dir/${SQLITE_NAME}/sqlite3.c" "$SQLITE_DIR/sqlite3.c"
 grep -v -E '^  purchases(_ui)?_flutter:' pubspec.yaml > "$work_dir/pubspec.yaml"
 cp "$work_dir/pubspec.yaml" pubspec.yaml
 
+awk '/^  purchases(_ui)?_flutter:$/{skip=1;next} skip&&/^  [^ ]|^[^ ]/{skip=0} !skip' pubspec.lock > "$work_dir/pubspec.lock"
+cp "$work_dir/pubspec.lock" pubspec.lock
+
 manifest=android/app/src/main/AndroidManifest.xml
 grep -v 'com.android.vending.BILLING' "$manifest" > "$work_dir/AndroidManifest.xml"
 cp "$work_dir/AndroidManifest.xml" "$manifest"
