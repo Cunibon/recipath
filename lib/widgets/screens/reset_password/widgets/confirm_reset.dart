@@ -17,6 +17,7 @@ class ConfirmReset extends ConsumerStatefulWidget {
 }
 
 class _ConfirmResetState extends ConsumerState<ConfirmReset> {
+  final formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final sendEmailMutation = Mutation<void>();
 
@@ -34,22 +35,23 @@ class _ConfirmResetState extends ConsumerState<ConfirmReset> {
           localization.reallyResetPassword,
           style: TextTheme.of(context).bodyMedium,
         ),
-        TextFormField(
-          controller: emailController,
-          keyboardType: TextInputType.emailAddress,
-          autofillHints: const [AutofillHints.username],
-          decoration: InputDecoration(hintText: localization.eMail),
-          validator: (value) {
-            if (value != null) {
-              if (emailRegex.hasMatch(value)) {
-                return null;
-              } else {
+        Form(
+          key: formKey,
+          child: TextFormField(
+            controller: emailController,
+            keyboardType: TextInputType.emailAddress,
+            autofillHints: const [AutofillHints.username],
+            decoration: InputDecoration(hintText: localization.eMail),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return localization.addEMail;
+              }
+              if (!emailRegex.hasMatch(value)) {
                 return localization.objectInvalid(localization.eMail);
               }
-            } else {
-              return localization.addEMail;
-            }
-          },
+              return null;
+            },
+          ),
         ),
         Row(
           mainAxisAlignment: .end,
@@ -60,6 +62,8 @@ class _ConfirmResetState extends ConsumerState<ConfirmReset> {
             ),
             ElevatedButton(
               onPressed: () async {
+                if (formKey.currentState?.validate() != true) return;
+
                 await sendEmailMutation.run(ref, (transaction) async {
                   final authService = await transaction.get(
                     authServiceProvider.future,
