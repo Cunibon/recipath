@@ -81,7 +81,7 @@ MaterialApp recipathMaterialApp({
     theme: theme,
     locale: const Locale('en'),
     localizationsDelegates: [
-      AppLocalizations.delegate,
+      ...AppLocalizations.localizationsDelegates,
       ...GlobalMaterialLocalizations.delegates,
     ],
     supportedLocales: AppLocalizations.supportedLocales,

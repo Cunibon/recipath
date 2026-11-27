@@ -148,7 +148,7 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
           ? locale
           : Locale('en'),
       localizationsDelegates: [
-        AppLocalizations.delegate,
+        ...AppLocalizations.localizationsDelegates,
         ...GlobalMaterialLocalizations.delegates,
       ],
       supportedLocales: AppLocalizations.supportedLocales,

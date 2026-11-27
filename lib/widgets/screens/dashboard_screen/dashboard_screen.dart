@@ -21,7 +21,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   void initState() {
     super.initState();
     dateRange = DateTimeRange(
-      start: DateTime.now().subtract(Duration(days: 7)),
+      start: DateTime.now().subtract(Duration(days: 30)),
       end: DateTime.now(),
     );
   }
